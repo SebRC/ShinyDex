@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ddH-CC-l7J">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ddH-CC-l7J">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ddH-CC-l7J" id="FRi-56-WEc">
@@ -29,11 +29,26 @@
                             <outlet property="delegate" destination="YHw-TS-ycr" id="f0G-Hx-mTx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="sHX-e2-jZ9"/>
+                    <navigationItem key="navigationItem" id="sHX-e2-jZ9">
+                        <rightBarButtonItems>
+                            <barButtonItem image="plus.rectangle.fill" catalog="system" id="9NT-gc-cbP">
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="addPressed:" destination="YHw-TS-ycr" id="a9R-IA-3NT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="minus.rectangle.fill" catalog="system" id="bdF-gf-lBE">
+                                <color key="tintColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="deletePressed:" destination="YHw-TS-ycr" id="TGr-O1-Xfq"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D31-fM-EVB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531.8840579710145" y="-20.089285714285712"/>
+            <point key="canvasLocation" x="1367" y="-20"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qD2-XT-Kn8">
@@ -54,4 +69,8 @@
             <point key="canvasLocation" x="621.73913043478262" y="-20.089285714285712"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="minus.rectangle.fill" catalog="system" width="64" height="46"/>
+        <image name="plus.rectangle.fill" catalog="system" width="64" height="46"/>
+    </resources>
 </document>

@@ -7,12 +7,34 @@
 //
 
 import UIKit
+import CoreData
 
 class TableViewController: UITableViewController {
+	
+	var pokemonList: [NSManagedObject] = []
+	var pokemonRepository: PokemonRepository?
+	
+	override func viewWillAppear(_ animated: Bool) {
+		
+	  super.viewWillAppear(animated)
+	}
+	
+	fileprivate func createPokemonService()
+	{
+		if pokemonRepository == nil
+		{
+			pokemonRepository = PokemonRepository.pokemonRepositorySingleton
+		}
+	}
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
+		createPokemonService()
+		
+		pokemonList = (pokemonRepository?.getAll())!
+		
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,23 +46,46 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+		return pokemonList.count
     }
+	
+	@IBAction func addPressed(_ sender: Any)
+	{
+		pokemonRepository?.populate()
 
-    /*
+		pokemonList = (pokemonRepository?.getAll())!
+		
+		tableView.reloadData()
+	}
+	
+	@IBAction func deletePressed(_ sender: Any)
+	{
+		pokemonRepository?.deleteAll()
+		
+		pokemonList = (pokemonRepository?.getAll())!
+		
+		tableView.reloadData()
+	}
+	
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         // Configure the cell...
+		
+		let pokemonToShow = pokemonList[indexPath.row]
+		
+		cell.textLabel?.text = pokemonToShow.value(forKey: "name") as? String
+		cell.detailTextLabel?.text = pokemonToShow.value(forKey: "number") as? String
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
