@@ -99,19 +99,4 @@ public class PokemonRepository
 			print("Could not save \(pokemon.name). \(error.localizedDescription)")
 		}
 	}
-	
-	func deleteAll()
-	{
-		let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PokemonEntity")
-
-		let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-		do
-		{
-			try managedContext.execute(batchDeleteRequest)
-		}
-		catch
-		{
-		}
-	}
 }
