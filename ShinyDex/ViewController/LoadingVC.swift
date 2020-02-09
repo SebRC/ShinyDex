@@ -91,20 +91,14 @@ class LoadingVC: UIViewController
 	{
 		pokemonRepository?.populateDatabase()
 		
-		self.pokemonRepository?.dispatchGroup.notify(queue: .main)
-		{
-			self.performSegue(withIdentifier: "loadSegue", sender: self)
-		}
+		performSegue(withIdentifier: "loadSegue", sender: self)
 	}
 	
 	fileprivate func proceedAsExistingUser()
 	{
 		pokemonRepository?.populatePokemonList()
 		
-		pokemonRepository?.dispatchGroup.notify(queue: .main)
-		{
-			self.performSegue(withIdentifier: "loadSegue", sender: self)
-		}
+		performSegue(withIdentifier: "loadSegue", sender: self)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)

@@ -15,7 +15,6 @@ public class PokemonRepository
 	fileprivate var pokemonEntityList: [NSManagedObject] = []
 	var pokemonList: [Pokemon] = []
 	var generation = 1
-	var dispatchGroup : DispatchGroup
 	let txtReader = TxtReader()
 	var appDelegate: AppDelegate
 	var managedContext: NSManagedObjectContext
@@ -30,8 +29,6 @@ public class PokemonRepository
 		managedContext = appDelegate.persistentContainer.viewContext
 		
 		entity = NSEntityDescription.entity(forEntityName: "PokemonEntity", in: managedContext)!
-		
-		dispatchGroup = DispatchGroup()
 	}
 	
 	func populatePokemonList()
@@ -63,7 +60,6 @@ public class PokemonRepository
 		
 		for pokemonName in list
 		{
-			dispatchGroup.enter()
 			let pokemonEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 			
 			pokemonEntity.setValue(pokemonName, forKey: "name")
@@ -78,7 +74,6 @@ public class PokemonRepository
 			
 			pokemonList.append(pokemon)
 			
-			dispatchGroup.leave()
 			count += 1
 		}
 	}
