@@ -14,11 +14,11 @@ class ConfirmationPopup: UIView
 {
 	let nibName = "ConfirmationPopup"
     var contentView:UIView?
-	var currentHuntRepo = CurrentHuntRepository.currentHuntRepoSingleton
+	var currentHuntRepository = CurrentHuntRepository.currentHuntRepositorySingleton
 	var tableview: UITableView?
 	var clearHuntButton: UIBarButtonItem?
 	
-	var settingsRepo: SettingsRepository?
+	var settingsRepository: SettingsRepository?
 	
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -63,27 +63,27 @@ class ConfirmationPopup: UIView
 	
 	fileprivate func assignSettingsRepository()
 	{
-		if settingsRepo == nil
+		if settingsRepository == nil
 		{
-			settingsRepo = SettingsRepository.settingsRepoSingleton
+			settingsRepository = SettingsRepository.settingsRepositorySingleton
 		}
 	}
 	
 	fileprivate func setConfirmationPopupFonts()
 	{
-		cancelButton.titleLabel?.font = settingsRepo!.getSmallFont()
-		confirmButton.titleLabel?.font = settingsRepo!.getSmallFont()
-		titleLabel.font = settingsRepo!.getSmallFont()
-		descriptionLabel.font = settingsRepo!.getExtraSmallFont()
+		cancelButton.titleLabel?.font = settingsRepository!.getSmallFont()
+		confirmButton.titleLabel?.font = settingsRepository!.getSmallFont()
+		titleLabel.font = settingsRepository!.getSmallFont()
+		descriptionLabel.font = settingsRepository!.getExtraSmallFont()
 	}
 	
 	fileprivate func setColors()
 	{
-		cancelButton.backgroundColor = settingsRepo?.getSecondaryColor()
-		titleLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		contentView?.backgroundColor = settingsRepo?.getMainColor()
-		buttonSeparator.backgroundColor = settingsRepo?.getMainColor()
-		confirmButton.backgroundColor = settingsRepo?.getSecondaryColor()
+		cancelButton.backgroundColor = settingsRepository?.getSecondaryColor()
+		titleLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		contentView?.backgroundColor = settingsRepository?.getMainColor()
+		buttonSeparator.backgroundColor = settingsRepository?.getMainColor()
+		confirmButton.backgroundColor = settingsRepository?.getSecondaryColor()
 	}
 	
 	fileprivate func roundSeparatorCorners()

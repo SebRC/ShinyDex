@@ -18,7 +18,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
 	var pokemonRepository: PokemonRepository!
-	var settingsRepo: SettingsRepository!
+	var settingsRepository: SettingsRepository!
 	var modalPosition: CGRect!
 	
 	override func viewDidLoad()
@@ -41,9 +41,9 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.layer.cornerRadius = 5
 		
-		pokeballIndicatorView.backgroundColor = settingsRepo.getMainColor()
+		pokeballIndicatorView.backgroundColor = settingsRepository.getMainColor()
 		
-		pokeballIndicatorView.titleLabel.font = settingsRepo.getXxSmallFont()
+		pokeballIndicatorView.titleLabel.font = settingsRepository.getXxSmallFont()
 		
 		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
 		
@@ -74,12 +74,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setCancelButtonFont()
 	{
-		cancelButton.titleLabel?.font = settingsRepo.getMediumFont()
+		cancelButton.titleLabel?.font = settingsRepository.getMediumFont()
 	}
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = settingsRepo.getMainColor()
+		pokeballTableView.backgroundColor = settingsRepository.getMainColor()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -105,7 +105,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepo.getMainColor()
+		cell.backgroundColor = settingsRepository.getMainColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -134,7 +134,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setNameLabelFont(nameLabel: UILabel)
 	{
-		nameLabel.font = settingsRepo.getLargeFont()
+		nameLabel.font = settingsRepository.getLargeFont()
 	}
 
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)

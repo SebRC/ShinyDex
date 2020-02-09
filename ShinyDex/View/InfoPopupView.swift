@@ -31,7 +31,7 @@ class InfoPopupView: UIView
 	@IBOutlet weak var buttonSeparator: UIView!
 	
 	var oddsResolver = OddsResolver()
-	var settingsRepo: SettingsRepository?
+	var settingsRepository: SettingsRepository?
 	var probability: Double?
 	var encounters: Int?
 	
@@ -77,55 +77,55 @@ class InfoPopupView: UIView
 	
 	fileprivate func assignSettingsRepository()
 	{
-		if settingsRepo == nil
+		if settingsRepository == nil
 		{
-			settingsRepo = SettingsRepository.settingsRepoSingleton
+			settingsRepository = SettingsRepository.settingsRepositorySingleton
 		}
 	}
 	
 	fileprivate func setColors()
 	{
-		contentView?.backgroundColor = settingsRepo?.getMainColor()
+		contentView?.backgroundColor = settingsRepository?.getMainColor()
 
-		spriteImageView.backgroundColor = settingsRepo?.getSecondaryColor()
-		pokeballImageView.backgroundColor = settingsRepo?.getSecondaryColor()
+		spriteImageView.backgroundColor = settingsRepository?.getSecondaryColor()
+		pokeballImageView.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		infoLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		nameLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		numberLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		encountersLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		shinyOddsLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		probabilityLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		shinyCharmLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		generationLabel.backgroundColor = settingsRepo?.getSecondaryColor()
+		infoLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		nameLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		numberLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		encountersLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		shinyOddsLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		probabilityLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		shinyCharmLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		generationLabel.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		generationSegmentedControl.backgroundColor = settingsRepo?.getSecondaryColor()
-		generationSegmentedControl.tintColor = settingsRepo?.getMainColor()
+		generationSegmentedControl.backgroundColor = settingsRepository?.getSecondaryColor()
+		generationSegmentedControl.tintColor = settingsRepository?.getMainColor()
 		
-		cancelButton.backgroundColor = settingsRepo?.getSecondaryColor()
-		saveButton.backgroundColor = settingsRepo?.getSecondaryColor()
+		cancelButton.backgroundColor = settingsRepository?.getSecondaryColor()
+		saveButton.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		buttonSeparator.backgroundColor = settingsRepo?.getMainColor()
+		buttonSeparator.backgroundColor = settingsRepository?.getMainColor()
 		
-		shinyCharmSwitch.thumbTintColor = settingsRepo?.getMainColor()
-		shinyCharmSwitch.onTintColor = settingsRepo?.getSecondaryColor()
+		shinyCharmSwitch.thumbTintColor = settingsRepository?.getMainColor()
+		shinyCharmSwitch.onTintColor = settingsRepository?.getSecondaryColor()
 	}
 	
 	fileprivate func setFonts()
 	{
-		infoLabel.font = settingsRepo?.getXxLargeFont()
-		nameLabel.font = settingsRepo?.getExtraSmallFont()
-		numberLabel.font = settingsRepo?.getExtraSmallFont()
-		encountersLabel.font = settingsRepo?.getExtraSmallFont()
-		shinyOddsLabel.font = settingsRepo?.getExtraSmallFont()
-		probabilityLabel.font = settingsRepo?.getExtraSmallFont()
-		shinyCharmLabel.font = settingsRepo?.getExtraSmallFont()
-		generationLabel.font = settingsRepo?.getExtraSmallFont()
+		infoLabel.font = settingsRepository?.getXxLargeFont()
+		nameLabel.font = settingsRepository?.getExtraSmallFont()
+		numberLabel.font = settingsRepository?.getExtraSmallFont()
+		encountersLabel.font = settingsRepository?.getExtraSmallFont()
+		shinyOddsLabel.font = settingsRepository?.getExtraSmallFont()
+		probabilityLabel.font = settingsRepository?.getExtraSmallFont()
+		shinyCharmLabel.font = settingsRepository?.getExtraSmallFont()
+		generationLabel.font = settingsRepository?.getExtraSmallFont()
 		
-		generationSegmentedControl.setTitleTextAttributes(settingsRepo!.getFontAsNSAttibutedStringKey(fontSize: settingsRepo!.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		generationSegmentedControl.setTitleTextAttributes(settingsRepository!.getFontAsNSAttibutedStringKey(fontSize: settingsRepository!.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		cancelButton.titleLabel!.font = settingsRepo?.getExtraSmallFont()
-		saveButton.titleLabel!.font = settingsRepo?.getExtraSmallFont()
+		cancelButton.titleLabel!.font = settingsRepository?.getExtraSmallFont()
+		saveButton.titleLabel!.font = settingsRepository?.getExtraSmallFont()
 	}
 	
 	fileprivate func roundCorners()
@@ -144,11 +144,11 @@ class InfoPopupView: UIView
 	
 	fileprivate func setGenerationSegmentedControlSelectedIndex()
 	{
-		generationSegmentedControl.selectedSegmentIndex = settingsRepo!.generation
+		generationSegmentedControl.selectedSegmentIndex = settingsRepository!.generation
 	}
 	
 	fileprivate func setShinyCharmActiveState()
 	{
-		shinyCharmSwitch.isOn = settingsRepo!.isShinyCharmActive
+		shinyCharmSwitch.isOn = settingsRepository!.isShinyCharmActive
 	}
 }

@@ -22,7 +22,7 @@ class SetEncountersView: UIView
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var buttonSeparator: UIView!
 	
-	var settingsRepo: SettingsRepository?
+	var settingsRepository: SettingsRepository?
 	
 	let nibName = "SetEncountersView"
     var contentView:UIView?
@@ -64,42 +64,42 @@ class SetEncountersView: UIView
 	
 	fileprivate func assignSettingsRepository()
 	{
-		if settingsRepo == nil
+		if settingsRepository == nil
 		{
-			settingsRepo = SettingsRepository.settingsRepoSingleton
+			settingsRepository = SettingsRepository.settingsRepositorySingleton
 		}
 	}
 	
 	fileprivate func setColors()
 	{
-		contentView?.backgroundColor = settingsRepo?.getMainColor()
+		contentView?.backgroundColor = settingsRepository?.getMainColor()
 
-		spriteImageView.backgroundColor = settingsRepo?.getSecondaryColor()
+		spriteImageView.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		encountersTextField.backgroundColor = settingsRepo?.getSecondaryColor()
+		encountersTextField.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		titleLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		nameLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		numberLabel.backgroundColor = settingsRepo?.getSecondaryColor()
-		encountersLabel.backgroundColor = settingsRepo?.getSecondaryColor()
+		titleLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		nameLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		numberLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		encountersLabel.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		cancelButton.backgroundColor = settingsRepo?.getSecondaryColor()
-		confirmButton.backgroundColor = settingsRepo?.getSecondaryColor()
+		cancelButton.backgroundColor = settingsRepository?.getSecondaryColor()
+		confirmButton.backgroundColor = settingsRepository?.getSecondaryColor()
 		
-		buttonSeparator.backgroundColor = settingsRepo?.getMainColor()
+		buttonSeparator.backgroundColor = settingsRepository?.getMainColor()
 	}
 	
 	fileprivate func setFonts()
 	{
-		titleLabel.font = settingsRepo?.getMediumFont()
-		nameLabel.font = settingsRepo?.getExtraSmallFont()
-		numberLabel.font = settingsRepo?.getExtraSmallFont()
-		encountersLabel.font = settingsRepo?.getExtraSmallFont()
+		titleLabel.font = settingsRepository?.getMediumFont()
+		nameLabel.font = settingsRepository?.getExtraSmallFont()
+		numberLabel.font = settingsRepository?.getExtraSmallFont()
+		encountersLabel.font = settingsRepository?.getExtraSmallFont()
 		
-		cancelButton.titleLabel!.font = settingsRepo?.getExtraSmallFont()
-		confirmButton.titleLabel!.font = settingsRepo?.getExtraSmallFont()
+		cancelButton.titleLabel!.font = settingsRepository?.getExtraSmallFont()
+		confirmButton.titleLabel!.font = settingsRepository?.getExtraSmallFont()
 		
-		encountersTextField.font = settingsRepo?.getSmallFont()
+		encountersTextField.font = settingsRepository?.getSmallFont()
 	}
 	
 	fileprivate func roundCorners()

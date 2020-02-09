@@ -11,7 +11,7 @@ import UIKit
 class SettingsVC: UIViewController
 {
 	@IBOutlet weak var settingsControl: UISegmentedControl!
-	var settingsRepo: SettingsRepository!
+	var settingsRepository: SettingsRepository!
 	var oddsResolver = OddsResolver()
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
@@ -49,43 +49,43 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setUIColors()
 	{
-		navigationController?.navigationBar.barTintColor = settingsRepo.getSecondaryColor()
-		view.backgroundColor = settingsRepo.getMainColor()
+		navigationController?.navigationBar.barTintColor = settingsRepository.getSecondaryColor()
+		view.backgroundColor = settingsRepository.getMainColor()
 		
-		shinyCharmSwitch.onTintColor = settingsRepo.getSecondaryColor()
-		shinyCharmSwitch.thumbTintColor = settingsRepo.getMainColor()
+		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
+		shinyCharmSwitch.thumbTintColor = settingsRepository.getMainColor()
 		
-		themeSegmentedControl.backgroundColor = settingsRepo.getSecondaryColor()
-		themeSegmentedControl.tintColor = settingsRepo.getMainColor()
+		themeSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
+		themeSegmentedControl.tintColor = settingsRepository.getMainColor()
 		
-		generationSegmentedControl.backgroundColor = settingsRepo.getSecondaryColor()
-		generationSegmentedControl.tintColor = settingsRepo.getMainColor()
+		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
+		generationSegmentedControl.tintColor = settingsRepository.getMainColor()
 		
-		fontSegmentedControl.backgroundColor = settingsRepo.getSecondaryColor()
-		fontSegmentedControl.tintColor = settingsRepo.getMainColor()
+		fontSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
+		fontSegmentedControl.tintColor = settingsRepository.getMainColor()
 	}
 	
 	fileprivate func setFonts()
 	{
-		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: settingsRepo?.getLargeFont() as Any]
+		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: settingsRepository?.getLargeFont() as Any]
 		
-		themeSegmentedControl.setTitleTextAttributes(settingsRepo.getFontAsNSAttibutedStringKey(fontSize: settingsRepo.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		themeSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		generationSegmentedControl.setTitleTextAttributes(settingsRepo.getFontAsNSAttibutedStringKey( fontSize: settingsRepo.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		fontSegmentedControl.setTitleTextAttributes(settingsRepo.getFontAsNSAttibutedStringKey(fontSize: settingsRepo.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		themeLabel.font = settingsRepo.getExtraLargeFont()
+		themeLabel.font = settingsRepository.getExtraLargeFont()
 		
-		generationLabel.font = settingsRepo.getExtraLargeFont()
+		generationLabel.font = settingsRepository.getExtraLargeFont()
 		
-		shinyCharmLabel.font = settingsRepo.getExtraLargeFont()
+		shinyCharmLabel.font = settingsRepository.getExtraLargeFont()
 		
-		fontLabel.font = settingsRepo.getExtraLargeFont()
+		fontLabel.font = settingsRepository.getExtraLargeFont()
 		
-		shinyOddsLabel.font = settingsRepo.getMediumFont()
+		shinyOddsLabel.font = settingsRepository.getMediumFont()
 		
-		shinyOddsTitleLabel.font = settingsRepo.getExtraLargeFont()
+		shinyOddsTitleLabel.font = settingsRepository.getExtraLargeFont()
 	}
 	
 	
@@ -106,23 +106,23 @@ class SettingsVC: UIViewController
 		
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
-		shinyCharmSwitch.isOn = settingsRepo.isShinyCharmActive
+		shinyCharmSwitch.isOn = settingsRepository.isShinyCharmActive
 	}
 	
 	fileprivate func setShinyOddsLabelText()
 	{
-		settingsRepo.setShinyOdds()
+		settingsRepository.setShinyOdds()
 		
-		shinyOddsLabel.text = "1/\(settingsRepo.shinyOdds!)"
+		shinyOddsLabel.text = "1/\(settingsRepository.shinyOdds!)"
 	}
 	
 	fileprivate func setThemeControlSelectedSegmentIndex()
 	{
-		if settingsRepo.settingsName == "Light"
+		if settingsRepository.settingsName == "Light"
 		{
 			settingsControl.selectedSegmentIndex = 0
 		}
-		else if settingsRepo?.settingsName == "Dark"
+		else if settingsRepository?.settingsName == "Dark"
 		{
 			settingsControl.selectedSegmentIndex = 1
 		}
@@ -134,7 +134,7 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()
 	{
-		if settingsRepo.fontTheme == "Modern"
+		if settingsRepository.fontTheme == "Modern"
 		{
 			fontSegmentedControl.selectedSegmentIndex = 0
 		}
@@ -146,14 +146,14 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setGenerationSettingsControlSelectedSegmentIndex()
 	{
-		generationSegmentedControl.selectedSegmentIndex = settingsRepo.generation
+		generationSegmentedControl.selectedSegmentIndex = settingsRepository.generation
 	}
     
 	@IBAction func changeTheme(_ sender: Any)
 	{
 		setUITheme()
 		setUIColors()
-		settingsRepo.saveSettings()
+		settingsRepository.saveSettings()
 	}
 	
 	fileprivate func setUITheme()
@@ -174,28 +174,28 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setLightTheme()
 	{
-		settingsRepo.mainColor = 0xABE8ED
-		settingsRepo.secondaryColor = 0x03C4FB
-		settingsRepo.settingsName = "Light"
+		settingsRepository.mainColor = 0xABE8ED
+		settingsRepository.secondaryColor = 0x03C4FB
+		settingsRepository.settingsName = "Light"
 	}
 	
 	fileprivate func setDarkTheme()
 	{
-		settingsRepo.mainColor = 0x646464
-		settingsRepo.secondaryColor = 0x323232
-		settingsRepo.settingsName = "Dark"
+		settingsRepository.mainColor = 0x646464
+		settingsRepository.secondaryColor = 0x323232
+		settingsRepository.settingsName = "Dark"
 	}
 	
 	fileprivate func setClassicTheme()
 	{
-		settingsRepo.mainColor = 0xABE8ED
-		settingsRepo.secondaryColor = 0xFE493D
-		settingsRepo.settingsName = "Classic"
+		settingsRepository.mainColor = 0xABE8ED
+		settingsRepository.secondaryColor = 0xFE493D
+		settingsRepository.settingsName = "Classic"
 	}
 	
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
 	{
-		settingsRepo.changeIsShinyCharmActive(isSwitchOn: shinyCharmSwitch.isOn)
+		settingsRepository.changeIsShinyCharmActive(isSwitchOn: shinyCharmSwitch.isOn)
 		
 		setShinyOddsLabelText()
 	}
@@ -204,16 +204,16 @@ class SettingsVC: UIViewController
 	{
 		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
 		
-		settingsRepo.generation = generationSegmentedControl.selectedSegmentIndex
+		settingsRepository.generation = generationSegmentedControl.selectedSegmentIndex
 		
 		setShinyOddsLabelText()
 		
-		settingsRepo.saveSettings()
+		settingsRepository.saveSettings()
 	}
 	
 	@IBAction func changeFontPressed(_ sender: Any)
 	{
-		settingsRepo.setGlobalFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
+		settingsRepository.setGlobalFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
 		setFonts()
 	}
 }

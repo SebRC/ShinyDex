@@ -15,7 +15,7 @@ class CurrentHuntRepository
 	let defaults = UserDefaults.standard
 	var pokemonList = PokemonRepository.pokemonRepositorySingleton.pokemonList
 	
-	static let currentHuntRepoSingleton = CurrentHuntRepository()
+	static let currentHuntRepositorySingleton = CurrentHuntRepository()
 
 	func saveCurrentHunt()
 	{

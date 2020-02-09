@@ -30,8 +30,8 @@ class ShinyTrackerVC: UIViewController
 	var setEncountersPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonRepository: PokemonRepository!
-	var settingsRepo: SettingsRepository!
-	var currentHuntRepo: CurrentHuntRepository!
+	var settingsRepository: SettingsRepository!
+	var currentHuntRepository: CurrentHuntRepository!
 	
 	override func viewDidLoad()
 	{
@@ -74,16 +74,16 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setUIColors()
 	{
-		view.backgroundColor = settingsRepo.getMainColor()
-		popupView.backgroundColor = settingsRepo.getSecondaryColor()
+		view.backgroundColor = settingsRepository.getMainColor()
+		popupView.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		numberLabel.backgroundColor = settingsRepo.getSecondaryColor()
-		encountersLabel.backgroundColor = settingsRepo.getSecondaryColor()
-		probabilityLabel.backgroundColor = settingsRepo.getSecondaryColor()
+		numberLabel.backgroundColor = settingsRepository.getSecondaryColor()
+		encountersLabel.backgroundColor = settingsRepository.getSecondaryColor()
+		probabilityLabel.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		gifSeparatorView.backgroundColor = settingsRepo.getSecondaryColor()
+		gifSeparatorView.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		pokeballButton.backgroundColor = settingsRepo.getMainColor()
+		pokeballButton.backgroundColor = settingsRepository.getMainColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -106,10 +106,10 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setFonts()
 	{
-		numberLabel.font = settingsRepo.getSmallFont()
-		probabilityLabel.font = settingsRepo.getSmallFont()
-		encountersLabel.font = settingsRepo.getSmallFont()
-		popupView.actionLabel.font = settingsRepo.getSmallFont()
+		numberLabel.font = settingsRepository.getSmallFont()
+		probabilityLabel.font = settingsRepository.getSmallFont()
+		encountersLabel.font = settingsRepository.getSmallFont()
+		popupView.actionLabel.font = settingsRepository.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -141,12 +141,12 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		probability = Double(pokemon.encounters) / Double(settingsRepo.shinyOdds!) * 100
+		probability = Double(pokemon.encounters) / Double(settingsRepository.shinyOdds!) * 100
 	}
 
 	fileprivate func setProbabilityLabelText()
 	{
-		let huntIsOverOdds = pokemon.encounters > settingsRepo.shinyOdds!
+		let huntIsOverOdds = pokemon.encounters > settingsRepository.shinyOdds!
 		
 		if huntIsOverOdds
 		{
@@ -177,7 +177,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return resolver.resolveButtonAccess(nameList: currentHuntRepo.currentHuntNames, name: pokemon.name)
+		return resolver.resolveButtonAccess(nameList: currentHuntRepository.currentHuntNames, name: pokemon.name)
 	}
 	
 	
@@ -197,7 +197,7 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		currentHuntRepo.addToCurrentHunt(pokemon: pokemon)
+		currentHuntRepository.addToCurrentHunt(pokemon: pokemon)
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		
@@ -228,7 +228,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! InfoModalVC
 			
 			destVC.pokemon = pokemon
-			destVC.settingsRepo = settingsRepo
+			destVC.settingsRepository = settingsRepository
 		}
 		else if setEncountersPressed
 		{
@@ -251,7 +251,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		pokeballModalVC.pokemonRepository = pokemonRepository
 		pokeballModalVC.pokemon = pokemon
-		pokeballModalVC.settingsRepo = settingsRepo
+		pokeballModalVC.settingsRepository = settingsRepository
 	}
 	
 	@objc fileprivate func infoButtonPressed(_ sender: Any)

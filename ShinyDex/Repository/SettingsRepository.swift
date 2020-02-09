@@ -28,7 +28,7 @@ class SettingsRepository
 	var extraLargeFontSize: CGFloat
 	var xxLargeFontSize: CGFloat
 
-	static let settingsRepoSingleton = SettingsRepository()
+	static let settingsRepositorySingleton = SettingsRepository()
 	
 	let defaults = UserDefaults.standard
 	

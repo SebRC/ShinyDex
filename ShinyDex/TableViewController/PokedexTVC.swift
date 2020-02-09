@@ -22,8 +22,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
 	var pokemonRepository: PokemonRepository!
-	var settingsRepo: SettingsRepository!
-	var currentHuntRepo: CurrentHuntRepository!
+	var settingsRepository: SettingsRepository!
+	var currentHuntRepository: CurrentHuntRepository!
 
 	@IBOutlet var popupView: PopupView!
 	
@@ -59,14 +59,14 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setUIColors()
 	{
-		popupView.backgroundColor = settingsRepo.getSecondaryColor()
+		popupView.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		navigationController?.navigationBar.backgroundColor = settingsRepo.getSecondaryColor()
+		navigationController?.navigationBar.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		tableView.backgroundColor = settingsRepo.getSecondaryColor()
+		tableView.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		searchController.searchBar.backgroundColor = settingsRepo.getSecondaryColor()
-		searchController.searchBar.barTintColor = settingsRepo.getSecondaryColor()
+		searchController.searchBar.backgroundColor = settingsRepository.getSecondaryColor()
+		searchController.searchBar.barTintColor = settingsRepository.getSecondaryColor()
 	}
 	
 	fileprivate func setUpScopeBar()
@@ -96,10 +96,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setFonts()
 	{
-		searchController.searchBar.change(textFont: settingsRepo.getSmallFont(), textColor: UIColor.white)
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: settingsRepo.getXxSmallFont()], for: .normal)
+		searchController.searchBar.change(textFont: settingsRepository.getSmallFont(), textColor: UIColor.white)
+		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: settingsRepository.getXxSmallFont()], for: .normal)
 		
-		popupView.actionLabel.font = settingsRepo.getSmallFont()
+		popupView.actionLabel.font = settingsRepository.getSmallFont()
 	}
 	
 	fileprivate func roundPopupViewCorners()
@@ -168,7 +168,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
 			
-			currentHuntRepo.addToCurrentHunt(pokemon: pokemon!)
+			currentHuntRepository.addToCurrentHunt(pokemon: pokemon!)
 		
 			tableView.reloadRows(at: [indexPath], with: .automatic)
 			
@@ -270,8 +270,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
-		pokemonCell.pokemonName.font = settingsRepo.getSmallFont()
-		pokemonCell.pokemonNumber.font = settingsRepo.getExtraSmallFont()
+		pokemonCell.pokemonName.font = settingsRepository.getSmallFont()
+		pokemonCell.pokemonNumber.font = settingsRepository.getExtraSmallFont()
 		
 		setAddToHuntButtonState(pokemonCell: pokemonCell)
 	}
@@ -280,7 +280,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		let containedName = pokemonCell.pokemonName.text
 		
-		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntRepo.currentHuntNames.contains(containedName!)
+		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntRepository.currentHuntNames.contains(containedName!)
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -312,14 +312,14 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		pokeballModalVC.pokemonRepository = pokemonRepository
 		pokeballModalVC.pokemon = pokemon
-		pokeballModalVC.settingsRepo = settingsRepo
+		pokeballModalVC.settingsRepository = settingsRepository
 	}
 	
 	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
 	{
 		shinyTrackerVC.pokemonRepository = pokemonRepository
-		shinyTrackerVC.settingsRepo = settingsRepo
-		shinyTrackerVC.currentHuntRepo = currentHuntRepo
+		shinyTrackerVC.settingsRepository = settingsRepository
+		shinyTrackerVC.currentHuntRepository = currentHuntRepository
 		shinyTrackerVC.pokemon = pokemonList[getIndexFromFullList(index: encounterIndex)]
 	}
 	
@@ -354,7 +354,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepo.getMainColor()
+		cell.backgroundColor = settingsRepository.getMainColor()
 	}
 
 }

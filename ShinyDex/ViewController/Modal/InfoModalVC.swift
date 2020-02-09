@@ -14,7 +14,7 @@ class InfoModalVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var probability: Double?
-	var settingsRepo: SettingsRepository!
+	var settingsRepository: SettingsRepository!
 	var oddsResolver = OddsResolver()
 	var shinyOdds: Int?
 	
@@ -51,12 +51,12 @@ class InfoModalVC: UIViewController
 	
 	fileprivate func setShinyOdds()
 	{
-		shinyOdds = settingsRepo.shinyOdds
+		shinyOdds = settingsRepository.shinyOdds
 	}
 	
 	fileprivate func resolveShinyCharmSwitchState()
 	{
-		oddsResolver.resolveShinyCharmSwitchState(generation: settingsRepo.generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
+		oddsResolver.resolveShinyCharmSwitchState(generation: settingsRepository.generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
 	}
 	
 	fileprivate func setButtonActions()
@@ -72,13 +72,13 @@ class InfoModalVC: UIViewController
 	
 	@objc fileprivate func savePressed()
 	{
-		settingsRepo?.isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
+		settingsRepository?.isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
 		
-		settingsRepo?.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
+		settingsRepository?.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		
-		settingsRepo.setShinyOdds()
+		settingsRepository.setShinyOdds()
 		
-		settingsRepo?.saveSettings()
+		settingsRepository?.saveSettings()
 		
 		performSegue(withIdentifier: "infoUnwind", sender: self)
 	}
@@ -93,7 +93,7 @@ class InfoModalVC: UIViewController
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		let isCharmActive = infoPopupView.shinyCharmSwitch.isOn
 		
-		shinyOdds = settingsRepo.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive)
+		shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive)
 		
 		setProbability()
 		
@@ -140,7 +140,7 @@ class InfoModalVC: UIViewController
 		
 		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
 		
-		shinyOdds = settingsRepo.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive)
+		shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive)
 		
 		setProbability()
 		

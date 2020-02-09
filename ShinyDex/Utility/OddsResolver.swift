@@ -11,7 +11,7 @@ import UIKit
 
 class OddsResolver
 {
-	var settingsRepo = SettingsRepository.settingsRepoSingleton
+	var settingsRepository = SettingsRepository.settingsRepositorySingleton
 	
 	func resolveShinyCharmSwitchState(generation: Int, shinyCharmSwitch: UISwitch)
 	{
