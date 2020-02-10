@@ -309,7 +309,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOE-yN-swf">
-                                            <rect key="frame" x="85.5" y="35.5" width="16" height="12"/>
+                                            <rect key="frame" x="85.5" y="37.5" width="30" height="10"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="mOE-yN-swf" secondAttribute="height" multiplier="21:11" id="6Az-Ta-S5K"/>
                                             </constraints>
