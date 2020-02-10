@@ -522,7 +522,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Menu" id="NOl-aa-BNa">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="line.horizontal.3.decrease.circle" catalog="system" id="YAX-wR-KFN">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis.circle.fill" catalog="system" id="YAX-wR-KFN">
                             <connections>
                                 <action selector="settingsPressed:" destination="Ffe-gu-68j" id="W4U-sv-B07"/>
                             </connections>
@@ -910,7 +910,7 @@ Don't close the application before the setup is complete.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="line.horizontal.3.decrease.circle" catalog="system" width="64" height="60"/>
+        <image name="ellipsis.circle.fill" catalog="system" width="64" height="60"/>
         <image name="minus.circle.fill" catalog="system" width="64" height="60"/>
         <image name="none" width="32" height="32"/>
         <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
