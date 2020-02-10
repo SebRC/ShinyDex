@@ -167,7 +167,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setNumberLabelText()
 	{
-		numberLabel.text = " No. \(pokemon.number)"
+		numberLabel.text = " No. \(pokemon.number + 1)"
 	}
 	
 	fileprivate func minusButtonIsEnabled() -> Bool

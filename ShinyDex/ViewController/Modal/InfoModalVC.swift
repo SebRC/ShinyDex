@@ -164,7 +164,7 @@ class InfoModalVC: UIViewController
 	{
 		infoPopupView.nameLabel.text = " \(pokemon.name)"
 		
-		infoPopupView.numberLabel.text = " No. \(pokemon.number)"
+		infoPopupView.numberLabel.text = " No. \(pokemon.number + 1)"
 		
 		infoPopupView.encountersLabel.text = " \(pokemon.encounters)"
 		
