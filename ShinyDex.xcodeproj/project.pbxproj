@@ -14,6 +14,18 @@
 		964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081123EF58A500459450 /* CurrentHuntCell.swift */; };
 		964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081223EF58A500459450 /* MenuCell.swift */; };
 		9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30823EF87BD00287A16 /* Pokemon.swift */; };
+		9695A31623F16F9F00287A16 /* InfoPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A30A23F16F9E00287A16 /* InfoPopupView.xib */; };
+		9695A31723F16F9F00287A16 /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A30B23F16F9E00287A16 /* ConfirmationPopup.xib */; };
+		9695A31823F16F9F00287A16 /* DoubleVerticalButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30C23F16F9E00287A16 /* DoubleVerticalButtonsView.swift */; };
+		9695A31923F16F9F00287A16 /* PokeballIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30D23F16F9E00287A16 /* PokeballIndicatorView.swift */; };
+		9695A31A23F16F9F00287A16 /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30E23F16F9E00287A16 /* SetEncountersView.swift */; };
+		9695A31B23F16F9F00287A16 /* ConfirmationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30F23F16F9E00287A16 /* ConfirmationPopup.swift */; };
+		9695A31C23F16F9F00287A16 /* PokeballIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A31023F16F9E00287A16 /* PokeballIndicatorView.xib */; };
+		9695A31D23F16F9F00287A16 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A31123F16F9F00287A16 /* PopupView.xib */; };
+		9695A31E23F16F9F00287A16 /* DoubleVerticalButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A31223F16F9F00287A16 /* DoubleVerticalButtonsView.xib */; };
+		9695A31F23F16F9F00287A16 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A31323F16F9F00287A16 /* PopupView.swift */; };
+		9695A32023F16F9F00287A16 /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A31423F16F9F00287A16 /* SetEncountersView.xib */; };
+		9695A32123F16F9F00287A16 /* InfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A31523F16F9F00287A16 /* InfoPopupView.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
 		96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */; };
 		96FC07A923EF192800459450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96FC07A823EF192800459450 /* Assets.xcassets */; };
@@ -44,22 +56,22 @@
 		96FC083B23EF59C000459450 /* InfoModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083723EF59C000459450 /* InfoModalVC.swift */; };
 		96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083823EF59C000459450 /* PokeballModalVC.swift */; };
 		96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083923EF59C000459450 /* ConfirmationModalVC.swift */; };
-		96FC084B23EF59E300459450 /* DoubleVerticalButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083F23EF59E200459450 /* DoubleVerticalButtonsView.swift */; };
-		96FC084C23EF59E300459450 /* ConfirmationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC084023EF59E200459450 /* ConfirmationPopup.swift */; };
-		96FC084D23EF59E300459450 /* InfoPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FC084123EF59E200459450 /* InfoPopupView.xib */; };
-		96FC084E23EF59E300459450 /* InfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC084223EF59E200459450 /* InfoPopupView.swift */; };
-		96FC084F23EF59E300459450 /* DoubleVerticalButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FC084323EF59E200459450 /* DoubleVerticalButtonsView.xib */; };
-		96FC085023EF59E400459450 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC084423EF59E300459450 /* PopupView.swift */; };
-		96FC085123EF59E400459450 /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FC084523EF59E300459450 /* ConfirmationPopup.xib */; };
-		96FC085223EF59E400459450 /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC084623EF59E300459450 /* SetEncountersView.swift */; };
-		96FC085323EF59E400459450 /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FC084723EF59E300459450 /* SetEncountersView.xib */; };
-		96FC085423EF59E400459450 /* PokeballIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FC084823EF59E300459450 /* PokeballIndicatorView.xib */; };
-		96FC085523EF59E400459450 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FC084923EF59E300459450 /* PopupView.xib */; };
-		96FC085623EF59E400459450 /* PokeballIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC084A23EF59E300459450 /* PokeballIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9695A30823EF87BD00287A16 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		9695A30A23F16F9E00287A16 /* InfoPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoPopupView.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/InfoPopupView.xib; sourceTree = "<group>"; };
+		9695A30B23F16F9E00287A16 /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfirmationPopup.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/ConfirmationPopup.xib; sourceTree = "<group>"; };
+		9695A30C23F16F9E00287A16 /* DoubleVerticalButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoubleVerticalButtonsView.swift; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/DoubleVerticalButtonsView.swift; sourceTree = "<group>"; };
+		9695A30D23F16F9E00287A16 /* PokeballIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PokeballIndicatorView.swift; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/PokeballIndicatorView.swift; sourceTree = "<group>"; };
+		9695A30E23F16F9E00287A16 /* SetEncountersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetEncountersView.swift; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/SetEncountersView.swift; sourceTree = "<group>"; };
+		9695A30F23F16F9E00287A16 /* ConfirmationPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfirmationPopup.swift; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/ConfirmationPopup.swift; sourceTree = "<group>"; };
+		9695A31023F16F9E00287A16 /* PokeballIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PokeballIndicatorView.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/PokeballIndicatorView.xib; sourceTree = "<group>"; };
+		9695A31123F16F9F00287A16 /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopupView.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/PopupView.xib; sourceTree = "<group>"; };
+		9695A31223F16F9F00287A16 /* DoubleVerticalButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DoubleVerticalButtonsView.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/DoubleVerticalButtonsView.xib; sourceTree = "<group>"; };
+		9695A31323F16F9F00287A16 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/PopupView.swift; sourceTree = "<group>"; };
+		9695A31423F16F9F00287A16 /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SetEncountersView.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/SetEncountersView.xib; sourceTree = "<group>"; };
+		9695A31523F16F9F00287A16 /* InfoPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPopupView.swift; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/InfoPopupView.swift; sourceTree = "<group>"; };
 		96FC079923EF192400459450 /* ShinyDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShinyDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FC079C23EF192400459450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96FC07A623EF192400459450 /* ShinyDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShinyDex.xcdatamodel; sourceTree = "<group>"; };
@@ -98,18 +110,6 @@
 		96FC083723EF59C000459450 /* InfoModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoModalVC.swift; sourceTree = "<group>"; };
 		96FC083823EF59C000459450 /* PokeballModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballModalVC.swift; sourceTree = "<group>"; };
 		96FC083923EF59C000459450 /* ConfirmationModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationModalVC.swift; sourceTree = "<group>"; };
-		96FC083F23EF59E200459450 /* DoubleVerticalButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleVerticalButtonsView.swift; sourceTree = "<group>"; };
-		96FC084023EF59E200459450 /* ConfirmationPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationPopup.swift; sourceTree = "<group>"; };
-		96FC084123EF59E200459450 /* InfoPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoPopupView.xib; sourceTree = "<group>"; };
-		96FC084223EF59E200459450 /* InfoPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPopupView.swift; sourceTree = "<group>"; };
-		96FC084323EF59E200459450 /* DoubleVerticalButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoubleVerticalButtonsView.xib; sourceTree = "<group>"; };
-		96FC084423EF59E300459450 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
-		96FC084523EF59E300459450 /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
-		96FC084623EF59E300459450 /* SetEncountersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEncountersView.swift; sourceTree = "<group>"; };
-		96FC084723EF59E300459450 /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetEncountersView.xib; sourceTree = "<group>"; };
-		96FC084823EF59E300459450 /* PokeballIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PokeballIndicatorView.xib; sourceTree = "<group>"; };
-		96FC084923EF59E300459450 /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
-		96FC084A23EF59E300459450 /* PokeballIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,18 +275,18 @@
 		96FC083E23EF59DA00459450 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				96FC084023EF59E200459450 /* ConfirmationPopup.swift */,
-				96FC084523EF59E300459450 /* ConfirmationPopup.xib */,
-				96FC083F23EF59E200459450 /* DoubleVerticalButtonsView.swift */,
-				96FC084323EF59E200459450 /* DoubleVerticalButtonsView.xib */,
-				96FC084223EF59E200459450 /* InfoPopupView.swift */,
-				96FC084123EF59E200459450 /* InfoPopupView.xib */,
-				96FC084A23EF59E300459450 /* PokeballIndicatorView.swift */,
-				96FC084823EF59E300459450 /* PokeballIndicatorView.xib */,
-				96FC084423EF59E300459450 /* PopupView.swift */,
-				96FC084923EF59E300459450 /* PopupView.xib */,
-				96FC084623EF59E300459450 /* SetEncountersView.swift */,
-				96FC084723EF59E300459450 /* SetEncountersView.xib */,
+				9695A30F23F16F9E00287A16 /* ConfirmationPopup.swift */,
+				9695A30B23F16F9E00287A16 /* ConfirmationPopup.xib */,
+				9695A30C23F16F9E00287A16 /* DoubleVerticalButtonsView.swift */,
+				9695A31223F16F9F00287A16 /* DoubleVerticalButtonsView.xib */,
+				9695A31523F16F9F00287A16 /* InfoPopupView.swift */,
+				9695A30A23F16F9E00287A16 /* InfoPopupView.xib */,
+				9695A30D23F16F9E00287A16 /* PokeballIndicatorView.swift */,
+				9695A31023F16F9E00287A16 /* PokeballIndicatorView.xib */,
+				9695A31323F16F9F00287A16 /* PopupView.swift */,
+				9695A31123F16F9F00287A16 /* PopupView.xib */,
+				9695A30E23F16F9E00287A16 /* SetEncountersView.swift */,
+				9695A31423F16F9F00287A16 /* SetEncountersView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -358,18 +358,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96FC085423EF59E400459450 /* PokeballIndicatorView.xib in Resources */,
-				96FC085523EF59E400459450 /* PopupView.xib in Resources */,
-				96FC085123EF59E400459450 /* ConfirmationPopup.xib in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
 				96FC080723EF57D500459450 /* Main.storyboard in Resources */,
-				96FC085323EF59E400459450 /* SetEncountersView.xib in Resources */,
+				9695A31C23F16F9F00287A16 /* PokeballIndicatorView.xib in Resources */,
+				9695A31723F16F9F00287A16 /* ConfirmationPopup.xib in Resources */,
 				96FC081523EF58E900459450 /* Pokemon-GB.ttf in Resources */,
-				96FC084D23EF59E300459450 /* InfoPopupView.xib in Resources */,
 				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
+				9695A32023F16F9F00287A16 /* SetEncountersView.xib in Resources */,
+				9695A31D23F16F9F00287A16 /* PopupView.xib in Resources */,
+				9695A31623F16F9F00287A16 /* InfoPopupView.xib in Resources */,
+				9695A31E23F16F9F00287A16 /* DoubleVerticalButtonsView.xib in Resources */,
 				96FC07A923EF192800459450 /* Assets.xcassets in Resources */,
-				96FC084F23EF59E300459450 /* DoubleVerticalButtonsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,40 +383,40 @@
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,
+				9695A32123F16F9F00287A16 /* InfoPopupView.swift in Sources */,
 				96FC07E623EF511500459450 /* GifSwift.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
 				9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */,
 				96FC082B23EF598E00459450 /* PokedexTVC.swift in Sources */,
 				964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */,
-				96FC084C23EF59E300459450 /* ConfirmationPopup.swift in Sources */,
 				96FC083A23EF59C000459450 /* SetEncountersModalVC.swift in Sources */,
+				9695A31F23F16F9F00287A16 /* PopupView.swift in Sources */,
+				9695A31A23F16F9F00287A16 /* SetEncountersView.swift in Sources */,
 				96FC082323EF595800459450 /* SettingsRepository.swift in Sources */,
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC07E823EF511500459450 /* Resolver.swift in Sources */,
 				96FC07EB23EF511500459450 /* OddsResolver.swift in Sources */,
-				96FC084E23EF59E300459450 /* InfoPopupView.swift in Sources */,
 				96FC082423EF595800459450 /* CurrentHuntRepository.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				96FC083B23EF59C000459450 /* InfoModalVC.swift in Sources */,
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
+				9695A31923F16F9F00287A16 /* PokeballIndicatorView.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
-				96FC085623EF59E400459450 /* PokeballIndicatorView.swift in Sources */,
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,
-				96FC084B23EF59E300459450 /* DoubleVerticalButtonsView.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
 				964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */,
+				9695A31B23F16F9F00287A16 /* ConfirmationPopup.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,
 				96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */,
+				9695A31823F16F9F00287A16 /* DoubleVerticalButtonsView.swift in Sources */,
 				96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */,
 				96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */,
-				96FC085023EF59E400459450 /* PopupView.swift in Sources */,
 				96FC083423EF59AA00459450 /* SettingsVC.swift in Sources */,
 				96FC082A23EF598E00459450 /* CurrentHuntTVC.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
-				96FC085223EF59E400459450 /* SetEncountersView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
