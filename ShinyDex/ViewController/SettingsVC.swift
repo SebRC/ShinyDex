@@ -10,12 +10,11 @@ import UIKit
 
 class SettingsVC: UIViewController
 {
-	@IBOutlet weak var settingsControl: UISegmentedControl!
 	var settingsRepository: SettingsRepository!
 	var oddsResolver = OddsResolver()
+	var primaryWasPressed: Bool?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
-	@IBOutlet weak var themeSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var shinyCharmBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyCharmSwitch: UISwitch!
 	@IBOutlet weak var themesBackgroundLabel: UILabel!
@@ -47,6 +46,7 @@ class SettingsVC: UIViewController
 		setShinyOddsLabelText()
     }
 	
+	
 	fileprivate func setUIColors()
 	{
 		navigationController?.navigationBar.barTintColor = settingsRepository.getSecondaryColor()
@@ -54,9 +54,6 @@ class SettingsVC: UIViewController
 		
 		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
 		shinyCharmSwitch.thumbTintColor = settingsRepository.getMainColor()
-		
-		themeSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		themeSegmentedControl.tintColor = settingsRepository.getMainColor()
 		
 		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
 		generationSegmentedControl.tintColor = settingsRepository.getMainColor()
@@ -68,8 +65,7 @@ class SettingsVC: UIViewController
 	fileprivate func setFonts()
 	{
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: settingsRepository?.getLargeFont() as Any]
-		
-		themeSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+
 		
 		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
@@ -100,8 +96,6 @@ class SettingsVC: UIViewController
 	
 	fileprivate func resolveUIObjectsState()
 	{
-		setThemeControlSelectedSegmentIndex()
-		
 		setFontSettingsControlSelectedSegmentIndex()
 		
 		setGenerationSettingsControlSelectedSegmentIndex()
@@ -114,22 +108,6 @@ class SettingsVC: UIViewController
 		settingsRepository.setShinyOdds()
 		
 		shinyOddsLabel.text = "1/\(settingsRepository.shinyOdds!)"
-	}
-	
-	fileprivate func setThemeControlSelectedSegmentIndex()
-	{
-		if settingsRepository.settingsName == "Light"
-		{
-			settingsControl.selectedSegmentIndex = 0
-		}
-		else if settingsRepository?.settingsName == "Dark"
-		{
-			settingsControl.selectedSegmentIndex = 1
-		}
-		else
-		{
-			settingsControl.selectedSegmentIndex = 2
-		}
 	}
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()
@@ -151,46 +129,8 @@ class SettingsVC: UIViewController
     
 	@IBAction func changeTheme(_ sender: Any)
 	{
-		setUITheme()
 		setUIColors()
 		settingsRepository.saveSettings()
-	}
-	
-	fileprivate func setUITheme()
-	{
-		if(settingsControl.selectedSegmentIndex == 0)
-		{
-			setLightTheme()
-		}
-		else if(settingsControl.selectedSegmentIndex == 1)
-		{
-			setDarkTheme()
-		}
-		else
-		{
-			setClassicTheme()
-		}
-	}
-	
-	fileprivate func setLightTheme()
-	{
-		settingsRepository.mainColor = 0xABE8ED
-		settingsRepository.secondaryColor = 0x03C4FB
-		settingsRepository.settingsName = "Light"
-	}
-	
-	fileprivate func setDarkTheme()
-	{
-		settingsRepository.mainColor = 0x646464
-		settingsRepository.secondaryColor = 0x323232
-		settingsRepository.settingsName = "Dark"
-	}
-	
-	fileprivate func setClassicTheme()
-	{
-		settingsRepository.mainColor = 0xABE8ED
-		settingsRepository.secondaryColor = 0xFE493D
-		settingsRepository.settingsName = "Classic"
 	}
 	
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
@@ -215,5 +155,32 @@ class SettingsVC: UIViewController
 	{
 		settingsRepository.setGlobalFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
 		setFonts()
+	}
+	@IBAction func editPrimaryColorPressed(_ sender: Any)
+	{
+		primaryWasPressed = true
+		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+	}
+	
+	@IBAction func editSecondaryColorPressed(_ sender: Any)
+	{
+		primaryWasPressed = false
+		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+	{
+		let destVC = segue.destination as! ColorPickerVC
+		
+		if primaryWasPressed!
+		{
+			destVC.currentColor = settingsRepository.mainColor
+		}
+		else
+		{
+			destVC.currentColor = settingsRepository.secondaryColor
+		}
+		
+		destVC.primaryWasPressed = primaryWasPressed
 	}
 }

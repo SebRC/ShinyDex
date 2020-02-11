@@ -13,7 +13,6 @@ class SettingsRepository
 {
 	var mainColor: Int
 	var secondaryColor: Int
-	var settingsName: String
 	var isShinyCharmActive: Bool
 	var generation: Int
 	var shinyOdds: Int?
@@ -36,7 +35,6 @@ class SettingsRepository
 	{
 		mainColor = 0xABE8ED
 		secondaryColor = 0x03C4FB
-		settingsName = "Light"
 		isShinyCharmActive = false
 		generation = 0
 		fontColorHex = 0xffffff
@@ -88,7 +86,6 @@ class SettingsRepository
 	{
 		defaults.set(mainColor, forKey: "mainColor")
 		defaults.set(secondaryColor, forKey: "secondaryColor")
-		defaults.set(settingsName, forKey: "settingsName")
 		defaults.set(isShinyCharmActive, forKey: "isShinyCharmActive")
 		defaults.set(generation, forKey: "generation")
 		defaults.set(fontColorHex, forKey: "fontColorHex")
@@ -100,8 +97,6 @@ class SettingsRepository
 		loadMainColor()
 		
 		loadSecondaryColor()
-		
-		loadSettingsName()
 		
 		loadIsShinyCharmActive()
 		
@@ -139,14 +134,6 @@ class SettingsRepository
 		if !secondaryColorIsLoaded
 		{
 			secondaryColor = 0x03C4FB
-		}
-	}
-	
-	fileprivate func loadSettingsName()
-	{
-		if let loadedSettingsName = defaults.string(forKey: "settingsName") as String?
-		{
-			settingsName = loadedSettingsName
 		}
 	}
 	
@@ -315,5 +302,17 @@ class SettingsRepository
 	func getSecondaryColor() -> UIColor
 	{
 		return UIColor(netHex: secondaryColor)
+	}
+	
+	func saveMainColor(mainColor: Int)
+	{
+		self.mainColor = mainColor
+		defaults.set(mainColor, forKey: "mainColor")
+	}
+	
+	func saveSecondaryColor(secondaryColor: Int)
+	{
+		self.secondaryColor = secondaryColor
+		defaults.set(secondaryColor, forKey: "secondaryColor")
 	}
 }
