@@ -75,7 +75,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XxR-8b-Qib">
-                                <rect key="frame" x="293" y="470" width="49" height="31"/>
+                                <rect key="frame" x="293" y="469.5" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="changeIsShinyCharmActive:" destination="Rot-p2-nVE" eventType="valueChanged" id="4rs-hP-m47"/>
@@ -89,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wK9-i7-0y4">
-                                <rect key="frame" x="16" y="545" width="343" height="102"/>
+                                <rect key="frame" x="16" y="545" width="343" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -97,7 +97,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Font" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hG2-wu-NjK">
-                                <rect key="frame" x="52" y="546" width="274" height="34"/>
+                                <rect key="frame" x="52" y="560" width="274" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -136,27 +136,27 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zf-lT-8m4">
-                                <rect key="frame" x="49" y="161" width="53" height="30"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hKK-dZ-FDp" customClass="ButtonIconRight" customModule="ShinyDex" customModuleProvider="target">
+                                <rect key="frame" x="22" y="148" width="100" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Primary"/>
-                                <connections>
-                                    <action selector="editPrimaryColorPressed:" destination="Rot-p2-nVE" eventType="touchUpInside" id="Fss-gF-Nef"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7eS-gm-s7s">
-                                <rect key="frame" x="262" y="161" width="74" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eub-Dx-Bpi" customClass="ButtonIconRight" customModule="ShinyDex" customModuleProvider="target">
+                                <rect key="frame" x="130" y="148" width="100" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Secondary"/>
-                                <connections>
-                                    <action selector="editSecondaryColorPressed:" destination="Rot-p2-nVE" eventType="touchUpInside" id="I4J-Zv-sJO"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ou0-uD-pwC" customClass="ButtonIconRight" customModule="ShinyDex" customModuleProvider="target">
+                                <rect key="frame" x="242" y="148" width="100" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ssf-zf-5zA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="Npl-AG-KYH"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="fontBackgroundLabel" destination="wK9-i7-0y4" id="ZB4-Nb-d8F"/>
                         <outlet property="fontLabel" destination="hG2-wu-NjK" id="ZFq-Ej-jRB"/>
@@ -164,15 +164,18 @@
                         <outlet property="generationLabel" destination="3Oo-uJ-AcH" id="MwV-5f-fK2"/>
                         <outlet property="generationSegmentedControl" destination="Eu5-VJ-Wm0" id="bdn-oP-dSt"/>
                         <outlet property="generationsBackgroundLabel" destination="0i0-hT-Jy7" id="Emf-Mm-411"/>
+                        <outlet property="primaryEditButton" destination="hKK-dZ-FDp" id="uA7-hn-eT0"/>
+                        <outlet property="secondaryEditButton" destination="eub-Dx-Bpi" id="CMq-Wb-PuO"/>
                         <outlet property="shinyCharmBackgroundLabel" destination="2BB-yE-nIK" id="qAb-RH-a0d"/>
                         <outlet property="shinyCharmLabel" destination="TEM-dp-tR2" id="N8N-Fx-ffg"/>
                         <outlet property="shinyCharmSwitch" destination="XxR-8b-Qib" id="8YC-L5-oVZ"/>
                         <outlet property="shinyOddsBackgroundLabel" destination="bgZ-EN-ygj" id="DDh-u7-Gy7"/>
                         <outlet property="shinyOddsLabel" destination="hKG-Nu-frK" id="12g-iu-n6H"/>
                         <outlet property="shinyOddsTitleLabel" destination="3t4-Yh-qR5" id="fyD-mE-nVs"/>
+                        <outlet property="tertiaryEditButton" destination="ou0-uD-pwC" id="Ca5-3V-0rU"/>
                         <outlet property="themeLabel" destination="obV-Pl-0xh" id="s3x-fY-5CT"/>
                         <outlet property="themesBackgroundLabel" destination="wKO-8R-XXx" id="3rm-dL-TLe"/>
-                        <segue destination="dyA-ui-Ncu" kind="show" identifier="colorPickerSegue" id="SZg-GS-Keg"/>
+                        <segue destination="dyA-ui-Ncu" kind="presentation" identifier="colorPickerSegue" id="SZg-GS-Keg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOr-6u-MBY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -184,50 +187,45 @@
             <objects>
                 <viewController id="dyA-ui-Ncu" customClass="ColorPickerVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xpj-eL-ZaT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kt6-0I-ORB" customClass="RedSliderControl" customModule="FlexColorPicker">
-                                <rect key="frame" x="0.0" y="428" width="374" height="50"/>
+                                <rect key="frame" x="67" y="484.5" width="241" height="25"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Kt6-0I-ORB" secondAttribute="height" multiplier="15:2" id="V4G-nT-jBd"/>
+                                    <constraint firstAttribute="width" secondItem="Kt6-0I-ORB" secondAttribute="height" multiplier="48:5" id="y7T-Va-6QS"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C72-xp-8bv" customClass="GreenSliderControl" customModule="FlexColorPicker">
-                                <rect key="frame" x="0.0" y="500.5" width="374" height="49.5"/>
+                                <rect key="frame" x="67" y="546" width="241" height="25"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="C72-xp-8bv" secondAttribute="height" multiplier="15:2" id="Dbs-dd-4vI"/>
+                                    <constraint firstAttribute="width" secondItem="C72-xp-8bv" secondAttribute="height" multiplier="48:5" id="zbQ-im-XCe"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MtO-p0-LpZ" customClass="BlueSliderControl" customModule="FlexColorPicker">
-                                <rect key="frame" x="0.0" y="602" width="374" height="50"/>
+                                <rect key="frame" x="67" y="601.5" width="246" height="25.5"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="MtO-p0-LpZ" secondAttribute="height" multiplier="15:2" id="AvS-V5-ZJI"/>
+                                    <constraint firstAttribute="width" secondItem="MtO-p0-LpZ" secondAttribute="height" multiplier="49:5" id="nd0-jD-1eH"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGr-qd-atg" customClass="ColorPreviewWithHex" customModule="FlexColorPicker">
-                                <rect key="frame" x="67" y="299" width="240" height="128"/>
+                                <rect key="frame" x="67" y="316" width="241" height="128.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="cGr-qd-atg" secondAttribute="height" multiplier="15:8" id="9CN-hN-2sD"/>
+                                    <constraint firstAttribute="width" secondItem="cGr-qd-atg" secondAttribute="height" multiplier="15:8" id="mKT-vs-M2t"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="tapToConfirm" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="displayHex" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz7-kV-MBm">
-                                <rect key="frame" x="6" y="318" width="53" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="savePressed:" destination="dyA-ui-Ncu" eventType="touchUpInside" id="cMQ-Pt-Me4"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohA-tD-DCU" customClass="RadialPaletteControl" customModule="FlexColorPicker">
-                                <rect key="frame" x="55" y="44" width="265" height="247"/>
+                                <rect key="frame" x="62" y="20" width="251" height="251"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ohA-tD-DCU" secondAttribute="height" multiplier="265:247" id="AdZ-aK-tka"/>
+                                    <constraint firstAttribute="width" secondItem="ohA-tD-DCU" secondAttribute="height" multiplier="1:1" id="e3i-yY-zDM"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
@@ -241,23 +239,37 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz7-kV-MBm">
+                                <rect key="frame" x="162" y="279" width="51" height="29"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Mz7-kV-MBm" secondAttribute="height" multiplier="53:30" id="vH3-Xu-8Jd"/>
+                                </constraints>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="savePressed:" destination="dyA-ui-Ncu" eventType="touchUpInside" id="cMQ-Pt-Me4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="ohA-tD-DCU" firstAttribute="leading" secondItem="XMk-3i-K81" secondAttribute="leading" constant="55" id="A3J-aR-OHu"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="centerX" secondItem="cGr-qd-atg" secondAttribute="centerX" id="Cy7-yg-7IY"/>
-                            <constraint firstItem="Kt6-0I-ORB" firstAttribute="top" secondItem="cGr-qd-atg" secondAttribute="bottom" constant="1" id="KHP-tM-kxi"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="trailing" secondItem="Kt6-0I-ORB" secondAttribute="trailing" id="OS3-4F-bFF"/>
-                            <constraint firstItem="cGr-qd-atg" firstAttribute="leading" secondItem="XMk-3i-K81" secondAttribute="leading" constant="67" id="Pvy-mp-dNd"/>
-                            <constraint firstItem="XMk-3i-K81" firstAttribute="trailing" secondItem="cGr-qd-atg" secondAttribute="trailing" constant="68" id="SyE-qg-0GO"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="leading" secondItem="C72-xp-8bv" secondAttribute="leading" id="T5R-BU-kDG"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="top" secondItem="C72-xp-8bv" secondAttribute="bottom" constant="52" id="bVT-F6-TXe"/>
-                            <constraint firstItem="cGr-qd-atg" firstAttribute="top" secondItem="ohA-tD-DCU" secondAttribute="bottom" constant="8" id="hSu-WQ-Qze"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="leading" secondItem="Kt6-0I-ORB" secondAttribute="leading" id="hXi-63-Qky"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="leading" secondItem="XMk-3i-K81" secondAttribute="leading" id="hwG-WI-VuB"/>
-                            <constraint firstItem="XMk-3i-K81" firstAttribute="trailing" secondItem="ohA-tD-DCU" secondAttribute="trailing" constant="55" id="j8B-M5-Xye"/>
-                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="trailing" secondItem="C72-xp-8bv" secondAttribute="trailing" id="jgV-Uu-3Yu"/>
-                            <constraint firstItem="ohA-tD-DCU" firstAttribute="top" secondItem="XMk-3i-K81" secondAttribute="top" id="ojs-VZ-s96"/>
-                            <constraint firstItem="XMk-3i-K81" firstAttribute="bottom" secondItem="MtO-p0-LpZ" secondAttribute="bottom" constant="15" id="qmr-0H-33Y"/>
+                            <constraint firstItem="ohA-tD-DCU" firstAttribute="trailing" secondItem="MtO-p0-LpZ" secondAttribute="trailing" id="3Y5-jg-QGi"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="top" secondItem="Xpj-eL-ZaT" secondAttribute="top" constant="316" id="5dJ-Kp-zJM"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="top" secondItem="Mz7-kV-MBm" secondAttribute="bottom" constant="8" id="8uO-68-d95"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="centerX" secondItem="Xpj-eL-ZaT" secondAttribute="centerX" id="8zu-Ao-xMW"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="trailing" secondItem="Kt6-0I-ORB" secondAttribute="trailing" id="EvF-jl-T55"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="leading" secondItem="Kt6-0I-ORB" secondAttribute="leading" id="GB5-LW-w4V"/>
+                            <constraint firstItem="Mz7-kV-MBm" firstAttribute="top" secondItem="ohA-tD-DCU" secondAttribute="bottom" constant="8" id="HO1-yJ-E0t"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="leading" secondItem="MtO-p0-LpZ" secondAttribute="leading" id="Wsx-p9-Z6a"/>
+                            <constraint firstItem="ohA-tD-DCU" firstAttribute="leading" secondItem="XMk-3i-K81" secondAttribute="leading" constant="62" id="clk-on-Jo8"/>
+                            <constraint firstItem="ohA-tD-DCU" firstAttribute="top" secondItem="XMk-3i-K81" secondAttribute="top" constant="20" id="e4I-ng-Lhg"/>
+                            <constraint firstItem="C72-xp-8bv" firstAttribute="top" secondItem="Kt6-0I-ORB" secondAttribute="bottom" constant="36.5" id="fUL-KK-kFz"/>
+                            <constraint firstItem="MtO-p0-LpZ" firstAttribute="top" secondItem="C72-xp-8bv" secondAttribute="bottom" constant="30.5" id="fhI-WZ-4nV"/>
+                            <constraint firstItem="Kt6-0I-ORB" firstAttribute="top" secondItem="cGr-qd-atg" secondAttribute="bottom" constant="40" id="i6j-NQ-AwJ"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="centerX" secondItem="Mz7-kV-MBm" secondAttribute="centerX" id="igZ-Zp-ymE"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="leading" secondItem="C72-xp-8bv" secondAttribute="leading" id="jNs-7T-Ygv"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="leading" secondItem="XMk-3i-K81" secondAttribute="leading" constant="67" id="keG-oa-ebQ"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="centerX" secondItem="ohA-tD-DCU" secondAttribute="centerX" id="kpy-vU-Fm5"/>
+                            <constraint firstItem="cGr-qd-atg" firstAttribute="trailing" secondItem="C72-xp-8bv" secondAttribute="trailing" id="zUT-l5-1l2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XMk-3i-K81"/>
                     </view>
@@ -537,7 +549,7 @@
             <objects>
                 <viewController id="Scb-Mg-GhT" customClass="ConfirmationModalVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8IR-RR-rzv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cq7-Sy-jyV" customClass="ConfirmationPopup" customModule="ShinyDex" customModuleProvider="target">
@@ -637,6 +649,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="settingsButton" destination="YAX-wR-KFN" id="fb2-0k-36f"/>
                         <segue destination="MpZ-nK-Pkl" kind="show" identifier="pokedexSegue" id="Yty-9N-5ir"/>
                         <segue destination="xys-97-SNs" kind="show" identifier="currentHuntSegue" id="iJZ-iR-FtH"/>
                         <segue destination="Rot-p2-nVE" kind="show" identifier="settingsSegue" id="Zr0-Q8-5YQ"/>

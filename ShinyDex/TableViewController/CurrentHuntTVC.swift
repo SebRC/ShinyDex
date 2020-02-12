@@ -54,7 +54,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		tableView.backgroundColor = settingsRepository.getMainColor()
+		tableView.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -196,7 +196,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getMainColor()
+		cell.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)

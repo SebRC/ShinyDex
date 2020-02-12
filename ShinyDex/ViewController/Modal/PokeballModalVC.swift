@@ -41,7 +41,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.layer.cornerRadius = 5
 		
-		pokeballIndicatorView.backgroundColor = settingsRepository.getMainColor()
+		pokeballIndicatorView.backgroundColor = settingsRepository.getPrimaryColor()
 		
 		pokeballIndicatorView.titleLabel.font = settingsRepository.getXxSmallFont()
 		
@@ -79,7 +79,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = settingsRepository.getMainColor()
+		pokeballTableView.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -105,7 +105,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getMainColor()
+		cell.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

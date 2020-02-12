@@ -13,15 +13,25 @@ import Foundation
 class ButtonIconRight: UIView
 {
 	
+	
+	@IBOutlet weak var iconImageView: UIImageView!
+	@IBOutlet weak var label: UILabel!
+	@IBOutlet weak var button: UIButton!
 	var settingsRepo: SettingsRepository?
 	
 	let nibName = "ButtonIconRight"
-    var contentView:UIView?
+    var contentView: UIView?
 	
 	required init?(coder aDecoder: NSCoder)
 	{
         super.init(coder: aDecoder)
         commonInit()
+		
+		assignSettingsRepository()
+		
+		setColors()
+		
+		setFonts()
     }
 	
     override init(frame: CGRect)
@@ -44,4 +54,23 @@ class ButtonIconRight: UIView
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
+	
+	fileprivate func assignSettingsRepository()
+	{
+		if settingsRepo == nil
+		{
+			settingsRepo = SettingsRepository.settingsRepositorySingleton
+		}
+	}
+	
+	fileprivate func setColors()
+	{
+		contentView?.backgroundColor = settingsRepo?.getSecondaryColor()
+		iconImageView.tintColor = settingsRepo?.getPrimaryColor()
+	}
+	
+	fileprivate func setFonts()
+	{
+		label.font = settingsRepo?.getXxSmallFont()
+	}
 }

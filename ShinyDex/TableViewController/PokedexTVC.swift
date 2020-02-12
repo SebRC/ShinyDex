@@ -354,7 +354,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getMainColor()
+		cell.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 
 }

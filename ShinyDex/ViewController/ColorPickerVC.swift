@@ -22,9 +22,7 @@ class ColorPickerVC: CustomColorPickerViewController
         super.viewDidLoad()
 		
 		selectedColor = UIColor(netHex: currentColor)
-		
-        // Do any additional setup after loading the view.
-    }
+	}
 	
 	@IBAction func savePressed(_ sender: Any)
 	{
@@ -32,11 +30,13 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		let color = Int(selectedColor.hexValue(), radix: 16)
 		
-		print(color)
-		
-		if primaryWasPressed
+		if primaryWasPressed == nil
 		{
-			settingsRepository.saveMainColor(mainColor: color!)
+			settingsRepository.saveTertiaryColor(tertiaryColor: color!)
+		}
+		else if primaryWasPressed
+		{
+			settingsRepository.savePrimaryColor(primaryColor: color!)
 		}
 		else
 		{
