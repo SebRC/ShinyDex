@@ -275,9 +275,11 @@
                         <outlet property="greenSlider" destination="C72-xp-8bv" id="Yze-LG-d71"/>
                         <outlet property="radialHsbPalette" destination="ohA-tD-DCU" id="Px7-DQ-Zga"/>
                         <outlet property="redSlider" destination="Kt6-0I-ORB" id="fs5-s0-q1b"/>
+                        <segue destination="RjM-2c-zD2" kind="unwind" identifier="colorPickerUnwind" unwindAction="confirm:" id="V7L-dr-ghY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdb-0z-AwA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="RjM-2c-zD2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4413.6000000000004" y="-1433.433283358321"/>
         </scene>

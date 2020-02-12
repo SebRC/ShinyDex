@@ -42,5 +42,7 @@ class ColorPickerVC: CustomColorPickerViewController
 		{
 			settingsRepository.saveSecondaryColor(secondaryColor: color!)
 		}
+		
+		performSegue(withIdentifier: "colorPickerUnwind", sender: self)
 	}
 }

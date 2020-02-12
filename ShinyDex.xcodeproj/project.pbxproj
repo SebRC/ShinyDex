@@ -175,7 +175,6 @@
 				96FC07AD23EF192800459450 /* Info.plist */,
 				96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */,
 				96FC07D823EF437C00459450 /* SceneDelegate.swift */,
-				9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */,
 			);
 			path = ShinyDex;
 			sourceTree = "<group>";
@@ -266,6 +265,7 @@
 				96FC082F23EF59AA00459450 /* LoadingVC.swift */,
 				96FC083023EF59AA00459450 /* SettingsVC.swift */,
 				96FC082E23EF59AA00459450 /* ShinyTrackerVC.swift */,
+				9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

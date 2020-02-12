@@ -183,4 +183,9 @@ class SettingsVC: UIViewController
 		
 		destVC.primaryWasPressed = primaryWasPressed
 	}
+	
+	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
+	{
+		setUIColors()
+	}
 }
