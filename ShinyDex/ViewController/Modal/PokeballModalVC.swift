@@ -47,6 +47,8 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
 		
+		pokeballIndicatorView.titleLabel.textColor = settingsRepository.getTertiaryColor()
+		
 		pokeballIndicatorView.pokemonImageView.image = pokemon.shinyImage
     }
 	
@@ -130,6 +132,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
 		pokeballCell.pokeballImageView.image = pokeball.image
 		pokeballCell.nameLabel.text = pokeball.name
+		pokeballCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
 	}
 	
 	fileprivate func setNameLabelFont(nameLabel: UILabel)

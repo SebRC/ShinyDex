@@ -67,21 +67,23 @@ class SettingsVC: UIViewController
 		view.backgroundColor = settingsRepository.getPrimaryColor()
 		
 		themeLabel.textColor = settingsRepository.getTertiaryColor()
-		primaryEditButton.iconImageView.tintColor = settingsRepository.getTertiaryColor()
-		primaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
-		primaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		secondaryEditButton.iconImageView.tintColor = settingsRepository.getTertiaryColor()
+		primaryEditButton.iconImageView.tintColor = settingsRepository.getPrimaryColor()
+		primaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
+		primaryEditButton.contentView?.backgroundColor = settingsRepository.getPrimaryColor()
+		
+		secondaryEditButton.iconImageView.tintColor = settingsRepository.getSecondaryColor()
 		secondaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
 		secondaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
 		
 		tertiaryEditButton.iconImageView.tintColor = settingsRepository.getTertiaryColor()
 		tertiaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
-		tertiaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
+		tertiaryEditButton.contentView?.backgroundColor = settingsRepository.getTertiaryColor()
 		
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor()]
 		
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		generationLabel.textColor = settingsRepository.getTertiaryColor()
 		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
 		generationSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
@@ -94,6 +96,8 @@ class SettingsVC: UIViewController
 		
 		fontLabel.textColor = settingsRepository.getTertiaryColor()
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
+		
 		fontSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
 		fontSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
 	}
@@ -155,9 +159,9 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setEditButtonTexts()
 	{
-		primaryEditButton.label.text = "Primary"
-		secondaryEditButton.label.text = "Secondary"
-		tertiaryEditButton.label.text = "Tertiary"
+		primaryEditButton.label.text = ""
+		secondaryEditButton.label.text = ""
+		tertiaryEditButton.label.text = ""
 	}
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()

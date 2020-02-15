@@ -61,6 +61,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		popupView.backgroundColor = settingsRepository.getSecondaryColor()
 		
+		popupView.actionLabel.textColor = settingsRepository.getTertiaryColor()
+		
+		popupView.iconImageView.tintColor = settingsRepository.getTertiaryColor()
+		
 		navigationController?.navigationBar.backgroundColor = settingsRepository.getSecondaryColor()
 		
 		tableView.backgroundColor = settingsRepository.getSecondaryColor()
@@ -91,7 +95,19 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	fileprivate func setUpBackButton()
 	{
 		let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
+		
 		navigationItem.backBarButtonItem = backButton
+		
+		navigationController?.navigationBar.tintColor = settingsRepository?.getTertiaryColor()
+	}
+	
+	fileprivate func setNavigationBarFont()
+	{
+		let navigationBarTitleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: settingsRepository!.getTertiaryColor(),
+			NSAttributedString.Key.font: settingsRepository!.getXxLargeFont()
+		]
+		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
 	fileprivate func setFonts()
@@ -272,6 +288,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		pokemonCell.pokemonName.font = settingsRepository.getSmallFont()
 		pokemonCell.pokemonNumber.font = settingsRepository.getExtraSmallFont()
+
+		pokemonCell.pokemonName.textColor = settingsRepository.getTertiaryColor()
+		pokemonCell.pokemonNumber.textColor = settingsRepository.getTertiaryColor()
+		pokemonCell.addToCurrentHuntButton.tintColor = settingsRepository.getTertiaryColor()
 		
 		setAddToHuntButtonState(pokemonCell: pokemonCell)
 	}

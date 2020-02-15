@@ -225,9 +225,11 @@ class SettingsRepository
 	{
 		if fontTheme == "Modern"
 		{
-			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize)]
+			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize),
+					NSAttributedString.Key.foregroundColor: getTertiaryColor()]
 		}
-		return [NSAttributedString.Key.font : UIFont(name: "PokemonGB", size: fontSize)!]
+		return [NSAttributedString.Key.font : UIFont(name: "PokemonGB", size: fontSize)!,
+		NSAttributedString.Key.foregroundColor: getTertiaryColor()]
 	}
 	
 	func setModernFont()
