@@ -15,7 +15,6 @@ class SettingsVC: UIViewController
 	var primaryWasPressed: Bool?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
-	@IBOutlet weak var shinyCharmBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyCharmSwitch: UISwitch!
 	@IBOutlet weak var themesBackgroundLabel: UILabel!
 	@IBOutlet weak var generationSegmentedControl: UISegmentedControl!
@@ -23,7 +22,6 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
 	@IBOutlet weak var generationLabel: UILabel!
-	@IBOutlet weak var shinyOddsBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyOddsLabel: UILabel!
 	@IBOutlet weak var shinyOddsTitleLabel: UILabel!
 	@IBOutlet weak var fontLabel: UILabel!
@@ -129,10 +127,8 @@ class SettingsVC: UIViewController
 	fileprivate func roundBackgroundCorners()
 	{
 		themesBackgroundLabel.layer.cornerRadius = 10
-		shinyCharmBackgroundLabel.layer.cornerRadius = 10
 		generationsBackgroundLabel.layer.cornerRadius = 10
 		fontBackgroundLabel.layer.cornerRadius = 10
-		shinyOddsBackgroundLabel.layer.cornerRadius = 10
 		primaryEditButton.layer.cornerRadius = 10
 		secondaryEditButton.layer.cornerRadius = 10
 		tertiaryEditButton.layer.cornerRadius = 10

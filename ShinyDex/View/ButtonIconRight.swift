@@ -70,12 +70,10 @@ class ButtonIconRight: UIView
 	fileprivate func setColors()
 	{
 		contentView?.backgroundColor = settingsRepo?.getSecondaryColor()
-		iconImageView.tintColor = UIColor.black
-		iconBackGroundView.backgroundColor = UIColor.white
-		verticalSeparator.backgroundColor = UIColor.black
-		horizontalSeparator.backgroundColor = UIColor.black
-		label.backgroundColor = UIColor.white
-		label.textColor = UIColor.black
+		iconImageView.tintColor = .black
+		iconBackGroundView.backgroundColor = .white
+		label.backgroundColor = .white
+		label.textColor = .black
 	}
 	
 	fileprivate func setFonts()
