@@ -68,16 +68,10 @@ class SettingsVC: UIViewController
 		
 		themeLabel.textColor = settingsRepository.getTertiaryColor()
 		
-		primaryEditButton.iconImageView.tintColor = settingsRepository.getPrimaryColor()
-		primaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
 		primaryEditButton.contentView?.backgroundColor = settingsRepository.getPrimaryColor()
 		
-		secondaryEditButton.iconImageView.tintColor = settingsRepository.getSecondaryColor()
-		secondaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
 		secondaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		tertiaryEditButton.iconImageView.tintColor = settingsRepository.getTertiaryColor()
-		tertiaryEditButton.label.textColor = settingsRepository.getTertiaryColor()
 		tertiaryEditButton.contentView?.backgroundColor = settingsRepository.getTertiaryColor()
 		
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor()]
@@ -104,6 +98,12 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setFonts()
 	{
+		let navigationBarTitleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
+			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+		]
+		
+		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
 		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
@@ -119,6 +119,10 @@ class SettingsVC: UIViewController
 		shinyOddsLabel.font = settingsRepository.getMediumFont()
 		
 		shinyOddsTitleLabel.font = settingsRepository.getExtraLargeFont()
+		
+		primaryEditButton.label.font = settingsRepository.getXxSmallFont()
+		secondaryEditButton.label.font = settingsRepository.getXxSmallFont()
+		tertiaryEditButton.label.font = settingsRepository.getXxSmallFont()
 	}
 	
 	
@@ -159,9 +163,9 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setEditButtonTexts()
 	{
-		primaryEditButton.label.text = ""
-		secondaryEditButton.label.text = ""
-		tertiaryEditButton.label.text = ""
+		primaryEditButton.label.text = "Primary"
+		secondaryEditButton.label.text = "Secondary"
+		tertiaryEditButton.label.text = "Tertiary"
 	}
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()

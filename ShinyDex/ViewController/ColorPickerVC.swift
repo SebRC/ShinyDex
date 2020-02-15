@@ -14,6 +14,8 @@ class ColorPickerVC: CustomColorPickerViewController
 	var primaryWasPressed: Bool!
 	var currentColor: Int!
 	var settingsRepository = SettingsRepository.settingsRepositorySingleton
+	@IBOutlet weak var saveButton: UIButton!
+	@IBOutlet weak var titleLabel: UILabel!
 	
 	@IBOutlet weak var colorPreviewHex: ColorPreviewWithHex!
 	
@@ -22,6 +24,29 @@ class ColorPickerVC: CustomColorPickerViewController
         super.viewDidLoad()
 		
 		selectedColor = UIColor(netHex: currentColor)
+		
+		view.backgroundColor = .white
+		
+		saveButton.layer.cornerRadius = 5
+		
+		titleLabel.textColor = .black
+		
+		titleLabel.font = settingsRepository.getMediumFont()
+		
+		saveButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
+		
+		if primaryWasPressed == nil
+		{
+			titleLabel.text = "Changing Tertiary Color"
+		}
+		else if primaryWasPressed
+		{
+			titleLabel.text = "Changing Primary Color"
+		}
+		else
+		{
+			titleLabel.text = "Changing Seocndary Color"
+		}
 	}
 	
 	@IBAction func savePressed(_ sender: Any)

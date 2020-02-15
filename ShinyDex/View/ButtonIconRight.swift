@@ -18,6 +18,10 @@ class ButtonIconRight: UIView
 	@IBOutlet weak var label: UILabel!
 	@IBOutlet weak var button: UIButton!
 	var settingsRepo: SettingsRepository?
+	@IBOutlet weak var verticalSeparator: UIView!
+	@IBOutlet weak var horizontalSeparator: UIView!
+	@IBOutlet weak var iconBackGroundView: UIView!
+	@IBOutlet weak var backgroundView: UIView!
 	
 	let nibName = "ButtonIconRight"
     var contentView: UIView?
@@ -66,7 +70,12 @@ class ButtonIconRight: UIView
 	fileprivate func setColors()
 	{
 		contentView?.backgroundColor = settingsRepo?.getSecondaryColor()
-		iconImageView.tintColor = settingsRepo?.getPrimaryColor()
+		iconImageView.tintColor = UIColor.black
+		iconBackGroundView.backgroundColor = UIColor.white
+		verticalSeparator.backgroundColor = UIColor.black
+		horizontalSeparator.backgroundColor = UIColor.black
+		label.backgroundColor = UIColor.white
+		label.textColor = UIColor.black
 	}
 	
 	fileprivate func setFonts()
