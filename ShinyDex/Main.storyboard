@@ -128,16 +128,32 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIg-nb-wgr">
+                                <rect key="frame" x="22" y="206" width="330" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjS-rL-NX9">
+                                <rect key="frame" x="22" y="420" width="330" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="glD-dR-eWW">
+                                <rect key="frame" x="22" y="465" width="330" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ssf-zf-5zA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="Npl-AG-KYH"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="charmOddsSeparator" destination="glD-dR-eWW" id="dZf-Xc-8K7"/>
                         <outlet property="fontBackgroundLabel" destination="wK9-i7-0y4" id="ZB4-Nb-d8F"/>
                         <outlet property="fontLabel" destination="hG2-wu-NjK" id="ZFq-Ej-jRB"/>
                         <outlet property="fontSegmentedControl" destination="Laq-xs-XpE" id="wwk-fa-yWt"/>
+                        <outlet property="generationCharmSeparator" destination="vjS-rL-NX9" id="dkF-Iw-xDu"/>
                         <outlet property="generationLabel" destination="3Oo-uJ-AcH" id="MwV-5f-fK2"/>
                         <outlet property="generationSegmentedControl" destination="Eu5-VJ-Wm0" id="bdn-oP-dSt"/>
                         <outlet property="generationsBackgroundLabel" destination="0i0-hT-Jy7" id="Emf-Mm-411"/>
@@ -147,6 +163,7 @@
                         <outlet property="shinyCharmSwitch" destination="XxR-8b-Qib" id="8YC-L5-oVZ"/>
                         <outlet property="shinyOddsLabel" destination="3t4-Yh-qR5" id="fyD-mE-nVs"/>
                         <outlet property="tertiaryEditButton" destination="ou0-uD-pwC" id="Ca5-3V-0rU"/>
+                        <outlet property="themFontSeparator" destination="uIg-nb-wgr" id="KeY-pI-HMt"/>
                         <outlet property="themeLabel" destination="obV-Pl-0xh" id="s3x-fY-5CT"/>
                         <outlet property="themesBackgroundLabel" destination="wKO-8R-XXx" id="3rm-dL-TLe"/>
                         <segue destination="dyA-ui-Ncu" kind="presentation" identifier="colorPickerSegue" id="SZg-GS-Keg"/>

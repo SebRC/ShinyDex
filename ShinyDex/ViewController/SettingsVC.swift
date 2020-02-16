@@ -28,6 +28,9 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var primaryEditButton: ButtonIconRight!
 	@IBOutlet weak var secondaryEditButton: ButtonIconRight!
 	@IBOutlet weak var tertiaryEditButton: ButtonIconRight!
+	@IBOutlet weak var themFontSeparator: UIView!
+	@IBOutlet weak var generationCharmSeparator: UIView!
+	@IBOutlet weak var charmOddsSeparator: UIView!
 	
 	override func viewDidLoad()
 	{
@@ -37,7 +40,7 @@ class SettingsVC: UIViewController
 		
 		setFonts()
 		
-		roundBackgroundCorners()
+		roundCorners()
 		
 		resolveUIObjectsState()
 		
@@ -90,6 +93,10 @@ class SettingsVC: UIViewController
 		
 		fontSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
 		fontSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		
+		themFontSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		generationCharmSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		charmOddsSeparator.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	fileprivate func setFonts()
@@ -125,7 +132,7 @@ class SettingsVC: UIViewController
 	}
 	
 	
-	fileprivate func roundBackgroundCorners()
+	fileprivate func roundCorners()
 	{
 		themesBackgroundLabel.layer.cornerRadius = 10
 		generationsBackgroundLabel.layer.cornerRadius = 10
@@ -133,6 +140,9 @@ class SettingsVC: UIViewController
 		primaryEditButton.layer.cornerRadius = 10
 		secondaryEditButton.layer.cornerRadius = 10
 		tertiaryEditButton.layer.cornerRadius = 10
+		themFontSeparator.layer.cornerRadius = 5
+		generationCharmSeparator.layer.cornerRadius = 5
+		charmOddsSeparator.layer.cornerRadius = 5
 	}
 	
 	fileprivate func resolveUIObjectsState()
