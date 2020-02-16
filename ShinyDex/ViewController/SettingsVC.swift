@@ -116,7 +116,7 @@ class SettingsVC: UIViewController
 		
 		shinyOddsLabel.font = settingsRepository.getMediumFont()
 		
-		shinyOddsTitleLabel.font = settingsRepository.getExtraLargeFont()
+		shinyOddsTitleLabel.font = settingsRepository.getMediumFont()
 		
 		primaryEditButton.label.font = settingsRepository.getXxSmallFont()
 		secondaryEditButton.label.font = settingsRepository.getXxSmallFont()
@@ -246,5 +246,6 @@ class SettingsVC: UIViewController
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		setUIColors()
+		setFonts()
 	}
 }
