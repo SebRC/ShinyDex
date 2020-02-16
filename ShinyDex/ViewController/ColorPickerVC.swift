@@ -15,6 +15,8 @@ class ColorPickerVC: CustomColorPickerViewController
 	var currentColor: Int!
 	var settingsRepository = SettingsRepository.settingsRepositorySingleton
 	@IBOutlet weak var saveButton: UIButton!
+	
+	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var titleLabel: UILabel!
 	
 	@IBOutlet weak var colorPreviewHex: ColorPreviewWithHex!
@@ -29,11 +31,15 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		saveButton.layer.cornerRadius = 5
 		
+		cancelButton.layer.cornerRadius = 5
+		
 		titleLabel.textColor = .black
 		
 		titleLabel.font = settingsRepository.getMediumFont()
 		
 		saveButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
+		
+		cancelButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
 		
 		if primaryWasPressed == nil
 		{
@@ -69,5 +75,10 @@ class ColorPickerVC: CustomColorPickerViewController
 		}
 		
 		performSegue(withIdentifier: "colorPickerUnwind", sender: self)
+	}
+	
+	@IBAction func cancelPressed(_ sender: Any)
+	{
+		dismiss(animated: true)
 	}
 }
