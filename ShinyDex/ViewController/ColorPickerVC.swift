@@ -45,7 +45,7 @@ class ColorPickerVC: CustomColorPickerViewController
 		}
 		else
 		{
-			titleLabel.text = "Changing Seocndary Color"
+			titleLabel.text = "Changing Secondary Color"
 		}
 	}
 	
