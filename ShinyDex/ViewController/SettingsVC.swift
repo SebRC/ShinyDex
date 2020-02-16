@@ -23,7 +23,6 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var themeLabel: UILabel!
 	@IBOutlet weak var generationLabel: UILabel!
 	@IBOutlet weak var shinyOddsLabel: UILabel!
-	@IBOutlet weak var shinyOddsTitleLabel: UILabel!
 	@IBOutlet weak var fontLabel: UILabel!
 	@IBOutlet weak var fontBackgroundLabel: UILabel!
 	@IBOutlet weak var primaryEditButton: ButtonIconRight!
@@ -80,7 +79,6 @@ class SettingsVC: UIViewController
 		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
 		generationSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
 		
-		shinyOddsTitleLabel.textColor = settingsRepository.getTertiaryColor()
 		shinyOddsLabel.textColor = settingsRepository.getTertiaryColor()
 		shinyCharmLabel.textColor = settingsRepository.getTertiaryColor()
 		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
@@ -96,15 +94,7 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setFonts()
 	{
-		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository.getLargeFont()
-		]
-		
-		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
-		
-		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		setSegementedControlFonts()
 		
 		themeLabel.font = settingsRepository.getExtraLargeFont()
 		
@@ -116,11 +106,22 @@ class SettingsVC: UIViewController
 		
 		shinyOddsLabel.font = settingsRepository.getMediumFont()
 		
-		shinyOddsTitleLabel.font = settingsRepository.getMediumFont()
-		
 		primaryEditButton.label.font = settingsRepository.getXxSmallFont()
 		secondaryEditButton.label.font = settingsRepository.getXxSmallFont()
 		tertiaryEditButton.label.font = settingsRepository.getXxSmallFont()
+	}
+	
+	fileprivate func setSegementedControlFonts()
+	{
+		let navigationBarTitleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
+			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+		]
+		
+		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
+		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		
+		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	
@@ -147,7 +148,7 @@ class SettingsVC: UIViewController
 	{
 		settingsRepository.setShinyOdds()
 		
-		shinyOddsLabel.text = "1/\(settingsRepository.shinyOdds!)"
+		shinyOddsLabel.text = "Shiny Odds: 1/\(settingsRepository.shinyOdds!)"
 	}
 	
 	fileprivate func setEditButtonActions()
@@ -193,6 +194,8 @@ class SettingsVC: UIViewController
 		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
 		
 		settingsRepository.generation = generationSegmentedControl.selectedSegmentIndex
+		
+		settingsRepository.isShinyCharmActive = shinyCharmSwitch.isOn
 		
 		setShinyOddsLabelText()
 		
@@ -246,6 +249,6 @@ class SettingsVC: UIViewController
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		setUIColors()
-		setFonts()
+		setSegementedControlFonts()
 	}
 }
