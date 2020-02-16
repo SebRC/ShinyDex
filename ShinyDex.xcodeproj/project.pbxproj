@@ -3,16 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9623306E23F30A5800ECB5D5 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623306D23F30A5800ECB5D5 /* ButtonIconRight.swift */; };
+		9623307023F30B0900ECB5D5 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9623306F23F30B0900ECB5D5 /* ButtonIconRight.xib */; };
+		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */; };
 		964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */; };
 		964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080F23EF58A500459450 /* PokeballCell.swift */; };
 		964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081023EF58A500459450 /* PokemonCell.swift */; };
 		964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081123EF58A500459450 /* CurrentHuntCell.swift */; };
 		964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081223EF58A500459450 /* MenuCell.swift */; };
+		9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9669E34923F1DF7D0048C5C5 /* FlexColorPicker */; };
 		9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30823EF87BD00287A16 /* Pokemon.swift */; };
 		9695A31623F16F9F00287A16 /* InfoPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A30A23F16F9E00287A16 /* InfoPopupView.xib */; };
 		9695A31723F16F9F00287A16 /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9695A30B23F16F9E00287A16 /* ConfirmationPopup.xib */; };
@@ -59,6 +63,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9623306D23F30A5800ECB5D5 /* ButtonIconRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
+		9623306F23F30B0900ECB5D5 /* ButtonIconRight.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
+		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		9695A30823EF87BD00287A16 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		9695A30A23F16F9E00287A16 /* InfoPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InfoPopupView.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/InfoPopupView.xib; sourceTree = "<group>"; };
 		9695A30B23F16F9E00287A16 /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfirmationPopup.xib; path = ../../../ShinyDexPrototypeDB/ShinyDexPrototype/Views/ConfirmationPopup.xib; sourceTree = "<group>"; };
@@ -117,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,9 +158,9 @@
 		96FC079B23EF192400459450 /* ShinyDex */ = {
 			isa = PBXGroup;
 			children = (
-				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				96FC07FE23EF57D400459450 /* Main.storyboard */,
 				96FC079C23EF192400459450 /* AppDelegate.swift */,
+				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				96FC083E23EF59DA00459450 /* View */,
 				96FC082C23EF599900459450 /* ViewController */,
 				96FC082523EF596200459450 /* TableViewController */,
@@ -257,6 +265,7 @@
 				96FC082F23EF59AA00459450 /* LoadingVC.swift */,
 				96FC083023EF59AA00459450 /* SettingsVC.swift */,
 				96FC082E23EF59AA00459450 /* ShinyTrackerVC.swift */,
+				9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -287,6 +296,8 @@
 				9695A31123F16F9F00287A16 /* PopupView.xib */,
 				9695A30E23F16F9E00287A16 /* SetEncountersView.swift */,
 				9695A31423F16F9F00287A16 /* SetEncountersView.xib */,
+				9623306D23F30A5800ECB5D5 /* ButtonIconRight.swift */,
+				9623306F23F30B0900ECB5D5 /* ButtonIconRight.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -316,6 +327,9 @@
 			dependencies = (
 			);
 			name = ShinyDex;
+			packageProductDependencies = (
+				9669E34923F1DF7D0048C5C5 /* FlexColorPicker */,
+			);
 			productName = ShinyDex;
 			productReference = 96FC079923EF192400459450 /* ShinyDex.app */;
 			productType = "com.apple.product-type.application";
@@ -344,6 +358,9 @@
 				Base,
 			);
 			mainGroup = 96FC079023EF192400459450;
+			packageReferences = (
+				9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */,
+			);
 			productRefGroup = 96FC079A23EF192400459450 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -364,6 +381,7 @@
 				9695A31C23F16F9F00287A16 /* PokeballIndicatorView.xib in Resources */,
 				9695A31723F16F9F00287A16 /* ConfirmationPopup.xib in Resources */,
 				96FC081523EF58E900459450 /* Pokemon-GB.ttf in Resources */,
+				9623307023F30B0900ECB5D5 /* ButtonIconRight.xib in Resources */,
 				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
 				9695A32023F16F9F00287A16 /* SetEncountersView.xib in Resources */,
 				9695A31D23F16F9F00287A16 /* PopupView.xib in Resources */,
@@ -381,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
+				9623306E23F30A5800ECB5D5 /* ButtonIconRight.swift in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,
 				9695A32123F16F9F00287A16 /* InfoPopupView.swift in Sources */,
@@ -402,6 +421,7 @@
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				9695A31923F16F9F00287A16 /* PokeballIndicatorView.swift in Sources */,
+				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
@@ -606,6 +626,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RastislavMirek/FlexColorPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9669E34923F1DF7D0048C5C5 /* FlexColorPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */;
+			productName = FlexColorPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */ = {

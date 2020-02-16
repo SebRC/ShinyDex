@@ -11,9 +11,9 @@ import UIKit
 
 class SettingsRepository
 {
-	var mainColor: Int
+	var primaryColor: Int
 	var secondaryColor: Int
-	var settingsName: String
+	var tertiaryColor: Int
 	var isShinyCharmActive: Bool
 	var generation: Int
 	var shinyOdds: Int?
@@ -34,9 +34,9 @@ class SettingsRepository
 	
 	fileprivate init()
 	{
-		mainColor = 0xABE8ED
+		primaryColor = 0xABE8ED
 		secondaryColor = 0x03C4FB
-		settingsName = "Light"
+		tertiaryColor = 0xFFFFFF
 		isShinyCharmActive = false
 		generation = 0
 		fontColorHex = 0xffffff
@@ -86,9 +86,9 @@ class SettingsRepository
 	
 	func saveSettings()
 	{
-		defaults.set(mainColor, forKey: "mainColor")
+		defaults.set(primaryColor, forKey: "primaryColor")
 		defaults.set(secondaryColor, forKey: "secondaryColor")
-		defaults.set(settingsName, forKey: "settingsName")
+		defaults.set(tertiaryColor, forKey: "tertiaryColor")
 		defaults.set(isShinyCharmActive, forKey: "isShinyCharmActive")
 		defaults.set(generation, forKey: "generation")
 		defaults.set(fontColorHex, forKey: "fontColorHex")
@@ -97,11 +97,11 @@ class SettingsRepository
 	
 	func loadSettings()
 	{
-		loadMainColor()
+		loadPrimaryColor()
 		
 		loadSecondaryColor()
 		
-		loadSettingsName()
+		loadTertiaryColor()
 		
 		loadIsShinyCharmActive()
 		
@@ -112,18 +112,18 @@ class SettingsRepository
 		loadFontTheme()
 	}
 	
-	fileprivate func loadMainColor()
+	fileprivate func loadPrimaryColor()
 	{
-		if let loadedMainColor = defaults.integer(forKey: "mainColor") as Int?
+		if let loadedPrimaryColor = defaults.integer(forKey: "primaryColor") as Int?
 		{
-			mainColor = loadedMainColor
+			primaryColor = loadedPrimaryColor
 		}
 		
-		let mainColorIsLoaded = mainColor != 0
+		let primaryColorIsLoaded = primaryColor != 0
 		
-		if !mainColorIsLoaded
+		if !primaryColorIsLoaded
 		{
-			mainColor = 0xABE8ED
+			primaryColor = 0xABE8ED
 		}
 	}
 	
@@ -142,11 +142,18 @@ class SettingsRepository
 		}
 	}
 	
-	fileprivate func loadSettingsName()
+	fileprivate func loadTertiaryColor()
 	{
-		if let loadedSettingsName = defaults.string(forKey: "settingsName") as String?
+		if let loadedTertiaryColor = defaults.integer(forKey: "tertiaryColor") as Int?
 		{
-			settingsName = loadedSettingsName
+			tertiaryColor = loadedTertiaryColor
+		}
+		
+		let tertiaryColorIsLoaded = tertiaryColor != 0
+		
+		if !tertiaryColorIsLoaded
+		{
+			tertiaryColor = 0xFFFFFF
 		}
 	}
 	
@@ -218,9 +225,11 @@ class SettingsRepository
 	{
 		if fontTheme == "Modern"
 		{
-			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize)]
+			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize),
+					NSAttributedString.Key.foregroundColor: getTertiaryColor()]
 		}
-		return [NSAttributedString.Key.font : UIFont(name: "PokemonGB", size: fontSize)!]
+		return [NSAttributedString.Key.font : UIFont(name: "PokemonGB", size: fontSize)!,
+		NSAttributedString.Key.foregroundColor: getTertiaryColor()]
 	}
 	
 	func setModernFont()
@@ -307,13 +316,36 @@ class SettingsRepository
 	}
 	
 	
-	func getMainColor() -> UIColor
+	func getPrimaryColor() -> UIColor
 	{
-		return UIColor(netHex: mainColor)
+		return UIColor(netHex: primaryColor)
 	}
 	
 	func getSecondaryColor() -> UIColor
 	{
 		return UIColor(netHex: secondaryColor)
+	}
+	
+	func getTertiaryColor() -> UIColor
+	{
+		return UIColor(netHex: tertiaryColor)
+	}
+	
+	func savePrimaryColor(primaryColor: Int)
+	{
+		self.primaryColor = primaryColor
+		defaults.set(primaryColor, forKey: "primaryColor")
+	}
+	
+	func saveSecondaryColor(secondaryColor: Int)
+	{
+		self.secondaryColor = secondaryColor
+		defaults.set(secondaryColor, forKey: "secondaryColor")
+	}
+	
+	func saveTertiaryColor(tertiaryColor: Int)
+	{
+		self.tertiaryColor = tertiaryColor
+		defaults.set(tertiaryColor, forKey: "tertiaryColor")
 	}
 }

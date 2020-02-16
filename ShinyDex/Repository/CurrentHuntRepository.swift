@@ -41,6 +41,7 @@ class CurrentHuntRepository
 				if name == pokemon.name
 				{
 					currentlyHunting.append(pokemon)
+					break
 				}
 			}
 		}

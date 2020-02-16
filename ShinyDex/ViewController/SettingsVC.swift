@@ -10,13 +10,11 @@ import UIKit
 
 class SettingsVC: UIViewController
 {
-	@IBOutlet weak var settingsControl: UISegmentedControl!
 	var settingsRepository: SettingsRepository!
 	var oddsResolver = OddsResolver()
+	var primaryWasPressed: Bool?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
-	@IBOutlet weak var themeSegmentedControl: UISegmentedControl!
-	@IBOutlet weak var shinyCharmBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyCharmSwitch: UISwitch!
 	@IBOutlet weak var themesBackgroundLabel: UILabel!
 	@IBOutlet weak var generationSegmentedControl: UISegmentedControl!
@@ -24,11 +22,15 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
 	@IBOutlet weak var generationLabel: UILabel!
-	@IBOutlet weak var shinyOddsBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyOddsLabel: UILabel!
-	@IBOutlet weak var shinyOddsTitleLabel: UILabel!
 	@IBOutlet weak var fontLabel: UILabel!
 	@IBOutlet weak var fontBackgroundLabel: UILabel!
+	@IBOutlet weak var primaryEditButton: ButtonIconRight!
+	@IBOutlet weak var secondaryEditButton: ButtonIconRight!
+	@IBOutlet weak var tertiaryEditButton: ButtonIconRight!
+	@IBOutlet weak var themFontSeparator: UIView!
+	@IBOutlet weak var generationCharmSeparator: UIView!
+	@IBOutlet weak var charmOddsSeparator: UIView!
 	
 	override func viewDidLoad()
 	{
@@ -38,42 +40,68 @@ class SettingsVC: UIViewController
 		
 		setFonts()
 		
-		roundBackgroundCorners()
+		roundCorners()
 		
 		resolveUIObjectsState()
 		
 		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
 		
 		setShinyOddsLabelText()
+		
+		setEditButtonActions()
+		
+		setEditButtonTexts()
     }
 	
 	fileprivate func setUIColors()
 	{
+		let navigationBarTitleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
+			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+		]
+		
 		navigationController?.navigationBar.barTintColor = settingsRepository.getSecondaryColor()
-		view.backgroundColor = settingsRepository.getMainColor()
+		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
+		navigationController?.navigationBar.tintColor = settingsRepository?.getTertiaryColor()
 		
-		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
-		shinyCharmSwitch.thumbTintColor = settingsRepository.getMainColor()
+		view.backgroundColor = settingsRepository.getPrimaryColor()
 		
-		themeSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		themeSegmentedControl.tintColor = settingsRepository.getMainColor()
+		themeLabel.textColor = settingsRepository.getTertiaryColor()
 		
+		primaryEditButton.contentView?.backgroundColor = settingsRepository.getPrimaryColor()
+		
+		secondaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
+		
+		tertiaryEditButton.contentView?.backgroundColor = settingsRepository.getTertiaryColor()
+		
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor()]
+		
+		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
+		generationLabel.textColor = settingsRepository.getTertiaryColor()
 		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		generationSegmentedControl.tintColor = settingsRepository.getMainColor()
+		generationSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		
+		shinyOddsLabel.textColor = settingsRepository.getTertiaryColor()
+		shinyCharmLabel.textColor = settingsRepository.getTertiaryColor()
+		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
+		shinyCharmSwitch.thumbTintColor = settingsRepository.getPrimaryColor()
+		
+		fontLabel.textColor = settingsRepository.getTertiaryColor()
+		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		
 		fontSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		fontSegmentedControl.tintColor = settingsRepository.getMainColor()
+		fontSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		
+		themFontSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		generationCharmSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		charmOddsSeparator.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	fileprivate func setFonts()
 	{
-		navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: settingsRepository?.getLargeFont() as Any]
-		
-		themeSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
-		
-		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
-		
-		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		setSegementedControlFonts()
 		
 		themeLabel.font = settingsRepository.getExtraLargeFont()
 		
@@ -85,23 +113,40 @@ class SettingsVC: UIViewController
 		
 		shinyOddsLabel.font = settingsRepository.getMediumFont()
 		
-		shinyOddsTitleLabel.font = settingsRepository.getExtraLargeFont()
+		primaryEditButton.label.font = settingsRepository.getXxSmallFont()
+		secondaryEditButton.label.font = settingsRepository.getXxSmallFont()
+		tertiaryEditButton.label.font = settingsRepository.getXxSmallFont()
+	}
+	
+	fileprivate func setSegementedControlFonts()
+	{
+		let navigationBarTitleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
+			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+		]
+		
+		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
+		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		
+		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	
-	fileprivate func roundBackgroundCorners()
+	fileprivate func roundCorners()
 	{
 		themesBackgroundLabel.layer.cornerRadius = 10
-		shinyCharmBackgroundLabel.layer.cornerRadius = 10
 		generationsBackgroundLabel.layer.cornerRadius = 10
 		fontBackgroundLabel.layer.cornerRadius = 10
-		shinyOddsBackgroundLabel.layer.cornerRadius = 10
+		primaryEditButton.layer.cornerRadius = 10
+		secondaryEditButton.layer.cornerRadius = 10
+		tertiaryEditButton.layer.cornerRadius = 10
+		themFontSeparator.layer.cornerRadius = 5
+		generationCharmSeparator.layer.cornerRadius = 5
+		charmOddsSeparator.layer.cornerRadius = 5
 	}
 	
 	fileprivate func resolveUIObjectsState()
 	{
-		setThemeControlSelectedSegmentIndex()
-		
 		setFontSettingsControlSelectedSegmentIndex()
 		
 		setGenerationSettingsControlSelectedSegmentIndex()
@@ -113,23 +158,21 @@ class SettingsVC: UIViewController
 	{
 		settingsRepository.setShinyOdds()
 		
-		shinyOddsLabel.text = "1/\(settingsRepository.shinyOdds!)"
+		shinyOddsLabel.text = "Shiny Odds: 1/\(settingsRepository.shinyOdds!)"
 	}
 	
-	fileprivate func setThemeControlSelectedSegmentIndex()
+	fileprivate func setEditButtonActions()
 	{
-		if settingsRepository.settingsName == "Light"
-		{
-			settingsControl.selectedSegmentIndex = 0
-		}
-		else if settingsRepository?.settingsName == "Dark"
-		{
-			settingsControl.selectedSegmentIndex = 1
-		}
-		else
-		{
-			settingsControl.selectedSegmentIndex = 2
-		}
+		primaryEditButton.button.addTarget(self, action: #selector(primaryEditButtonPressed), for: .touchUpInside)
+		secondaryEditButton.button.addTarget(self, action: #selector(secondaryEditButtonPressed), for: .touchUpInside)
+		tertiaryEditButton.button.addTarget(self, action: #selector(tertiaryEditButtonPressed), for: .touchUpInside)
+	}
+	
+	fileprivate func setEditButtonTexts()
+	{
+		primaryEditButton.label.text = "Primary"
+		secondaryEditButton.label.text = "Secondary"
+		tertiaryEditButton.label.text = "Tertiary"
 	}
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()
@@ -148,50 +191,6 @@ class SettingsVC: UIViewController
 	{
 		generationSegmentedControl.selectedSegmentIndex = settingsRepository.generation
 	}
-    
-	@IBAction func changeTheme(_ sender: Any)
-	{
-		setUITheme()
-		setUIColors()
-		settingsRepository.saveSettings()
-	}
-	
-	fileprivate func setUITheme()
-	{
-		if(settingsControl.selectedSegmentIndex == 0)
-		{
-			setLightTheme()
-		}
-		else if(settingsControl.selectedSegmentIndex == 1)
-		{
-			setDarkTheme()
-		}
-		else
-		{
-			setClassicTheme()
-		}
-	}
-	
-	fileprivate func setLightTheme()
-	{
-		settingsRepository.mainColor = 0xABE8ED
-		settingsRepository.secondaryColor = 0x03C4FB
-		settingsRepository.settingsName = "Light"
-	}
-	
-	fileprivate func setDarkTheme()
-	{
-		settingsRepository.mainColor = 0x646464
-		settingsRepository.secondaryColor = 0x323232
-		settingsRepository.settingsName = "Dark"
-	}
-	
-	fileprivate func setClassicTheme()
-	{
-		settingsRepository.mainColor = 0xABE8ED
-		settingsRepository.secondaryColor = 0xFE493D
-		settingsRepository.settingsName = "Classic"
-	}
 	
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
 	{
@@ -206,6 +205,8 @@ class SettingsVC: UIViewController
 		
 		settingsRepository.generation = generationSegmentedControl.selectedSegmentIndex
 		
+		settingsRepository.isShinyCharmActive = shinyCharmSwitch.isOn
+		
 		setShinyOddsLabelText()
 		
 		settingsRepository.saveSettings()
@@ -215,5 +216,49 @@ class SettingsVC: UIViewController
 	{
 		settingsRepository.setGlobalFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
 		setFonts()
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+	{
+		let destVC = segue.destination as! ColorPickerVC
+		
+		if primaryWasPressed == nil
+		{
+			destVC.currentColor = settingsRepository.tertiaryColor
+		}
+		else if primaryWasPressed!
+		{
+			destVC.currentColor = settingsRepository.primaryColor
+		}
+		else
+		{
+			destVC.currentColor = settingsRepository.secondaryColor
+		}
+		
+		destVC.primaryWasPressed = primaryWasPressed
+	}
+	
+	@objc fileprivate func primaryEditButtonPressed()
+	{
+		primaryWasPressed = true
+		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+	}
+	
+	@objc fileprivate func secondaryEditButtonPressed()
+	{
+		primaryWasPressed = false
+		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+	}
+	
+	@objc fileprivate func tertiaryEditButtonPressed()
+	{
+		primaryWasPressed = nil
+		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+	}
+	
+	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
+	{
+		setUIColors()
+		setSegementedControlFonts()
 	}
 }

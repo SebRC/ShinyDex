@@ -74,16 +74,26 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setUIColors()
 	{
-		view.backgroundColor = settingsRepository.getMainColor()
+		view.backgroundColor = settingsRepository.getPrimaryColor()
 		popupView.backgroundColor = settingsRepository.getSecondaryColor()
+		popupView.actionLabel.textColor = settingsRepository.getTertiaryColor()
+		popupView.iconImageView.tintColor = settingsRepository.getTertiaryColor()
 		
 		numberLabel.backgroundColor = settingsRepository.getSecondaryColor()
+		numberLabel.textColor = settingsRepository.getTertiaryColor()
+		
 		encountersLabel.backgroundColor = settingsRepository.getSecondaryColor()
+		encountersLabel.textColor = settingsRepository.getTertiaryColor()
+		
 		probabilityLabel.backgroundColor = settingsRepository.getSecondaryColor()
+		probabilityLabel.textColor = settingsRepository.getTertiaryColor()
 		
 		gifSeparatorView.backgroundColor = settingsRepository.getSecondaryColor()
 		
-		pokeballButton.backgroundColor = settingsRepository.getMainColor()
+		pokeballButton.backgroundColor = settingsRepository.getPrimaryColor()
+		
+		plusButton.tintColor = settingsRepository.getTertiaryColor()
+		minusButton.tintColor = settingsRepository.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()

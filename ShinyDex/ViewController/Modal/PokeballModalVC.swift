@@ -41,11 +41,13 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.layer.cornerRadius = 5
 		
-		pokeballIndicatorView.backgroundColor = settingsRepository.getMainColor()
+		pokeballIndicatorView.backgroundColor = settingsRepository.getPrimaryColor()
 		
 		pokeballIndicatorView.titleLabel.font = settingsRepository.getXxSmallFont()
 		
 		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
+		
+		pokeballIndicatorView.titleLabel.textColor = settingsRepository.getTertiaryColor()
 		
 		pokeballIndicatorView.pokemonImageView.image = pokemon.shinyImage
     }
@@ -79,7 +81,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = settingsRepository.getMainColor()
+		pokeballTableView.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -105,7 +107,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getMainColor()
+		cell.backgroundColor = settingsRepository.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -130,6 +132,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
 		pokeballCell.pokeballImageView.image = pokeball.image
 		pokeballCell.nameLabel.text = pokeball.name
+		pokeballCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
 	}
 	
 	fileprivate func setNameLabelFont(nameLabel: UILabel)
