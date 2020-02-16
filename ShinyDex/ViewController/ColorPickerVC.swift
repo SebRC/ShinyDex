@@ -43,15 +43,15 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		if primaryWasPressed == nil
 		{
-			titleLabel.text = "Changing Tertiary Color"
+			titleLabel.text = "Tertiary Color"
 		}
 		else if primaryWasPressed
 		{
-			titleLabel.text = "Changing Primary Color"
+			titleLabel.text = "Primary Color"
 		}
 		else
 		{
-			titleLabel.text = "Changing Secondary Color"
+			titleLabel.text = "Secondary Color"
 		}
 	}
 	

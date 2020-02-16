@@ -226,12 +226,12 @@
                                     <action selector="cancelPressed:" destination="dyA-ui-Ncu" eventType="touchUpInside" id="g5D-su-oYd"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkb-S2-9ET">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing Color" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkb-S2-9ET">
                                 <rect key="frame" x="54" y="-5.5" width="270" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Pkb-S2-9ET" secondAttribute="height" multiplier="90:19" id="zbV-2v-Hpl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
