@@ -15,26 +15,38 @@ class OddsResolver
 	
 	func resolveShinyCharmSwitchState(generation: Int, shinyCharmSwitch: UISwitch)
 	{
-		let isPreGeneration5 = generation >= 0 && generation <= 3
+		let isPreGeneration5 = generation == 0
 		
 		if isPreGeneration5
 		{
-			disableShinyCharmSwitch(shinyCharmSwitch: shinyCharmSwitch)
+			disableSwitch(uiSwitch: shinyCharmSwitch)
 		}
 		else
 		{
-			enableShinyCharmSwitch(shinyCharmSwitch: shinyCharmSwitch)
+			enableSwitch(uiSwitch: shinyCharmSwitch)
+		}
+	}
+
+	func resolveLureSwitchState(generation: Int, lureSwitch: UISwitch)
+	{
+		if generation == 3
+		{
+			enableSwitch(uiSwitch: lureSwitch)
+		}
+		else
+		{
+			disableSwitch(uiSwitch: lureSwitch)
 		}
 	}
 	
-	fileprivate func disableShinyCharmSwitch(shinyCharmSwitch: UISwitch)
+	fileprivate func disableSwitch(uiSwitch: UISwitch)
 	{
-		shinyCharmSwitch.isOn = false
-		shinyCharmSwitch.isEnabled = false
+		uiSwitch.isOn = false
+		uiSwitch.isEnabled = false
 	}
 	
-	fileprivate func enableShinyCharmSwitch(shinyCharmSwitch: UISwitch)
+	fileprivate func enableSwitch(uiSwitch: UISwitch)
 	{
-		shinyCharmSwitch.isEnabled = true
+		uiSwitch.isEnabled = true
 	}
 }

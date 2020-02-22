@@ -15,6 +15,7 @@ class SettingsRepository
 	var secondaryColor: Int
 	var tertiaryColor: Int
 	var isShinyCharmActive: Bool
+	var isLureInUse: Bool
 	var generation: Int
 	var shinyOdds: Int?
 	var fontColorHex: Int
@@ -38,6 +39,7 @@ class SettingsRepository
 		secondaryColor = 0x03C4FB
 		tertiaryColor = 0xFFFFFF
 		isShinyCharmActive = false
+		isLureInUse = false
 		generation = 0
 		fontColorHex = 0xffffff
 		fontName = "PokemonGB"
@@ -62,26 +64,50 @@ class SettingsRepository
 	
 	func getShinyOdds(currentGen: Int, isCharmActive: Bool) -> Int
 	{
-		if currentGen <= 3
+		if currentGen == 0
 		{
 			return 8192
 		}
-		else if currentGen == 4 && !isCharmActive
+		else if currentGen == 1 && !isCharmActive
 		{
 			return 8192
 		}
-		else if currentGen == 4
+		else if currentGen == 1
 		{
 			return 2731
 		}
-		else if currentGen > 4 && !isCharmActive
+		else if currentGen > 1 && currentGen < 3 && !isCharmActive
 		{
 			return 4096
+		}
+		else if currentGen == 3
+		{
+			let letsGoOdds = getLGPEBaseOdds()
+
+			return letsGoOdds
 		}
 		else
 		{
 			return 1365
 		}
+	}
+	
+	fileprivate func getLGPEBaseOdds() -> Int
+	{
+		if isShinyCharmActive && isLureInUse
+		{
+			return 1024
+		}
+		else if isShinyCharmActive
+		{
+			return 1365
+		}
+		else if isLureInUse
+		{
+			return 2048
+		}
+
+		return 4096
 	}
 	
 	func saveSettings()
@@ -90,6 +116,7 @@ class SettingsRepository
 		defaults.set(secondaryColor, forKey: "secondaryColor")
 		defaults.set(tertiaryColor, forKey: "tertiaryColor")
 		defaults.set(isShinyCharmActive, forKey: "isShinyCharmActive")
+		defaults.set(isLureInUse, forKey: "isLureInUse")
 		defaults.set(generation, forKey: "generation")
 		defaults.set(fontColorHex, forKey: "fontColorHex")
 		defaults.set(fontTheme, forKey: "fontTheme")
@@ -104,6 +131,8 @@ class SettingsRepository
 		loadTertiaryColor()
 		
 		loadIsShinyCharmActive()
+
+		loadIsLureInUse()
 		
 		loadGeneration()
 		
@@ -164,6 +193,14 @@ class SettingsRepository
 			isShinyCharmActive = loadedIsShinyCharmActive
 		}
 	}
+
+	fileprivate func loadIsLureInUse()
+	{
+		if let loadedisLureInUse = defaults.bool(forKey: "isLureInUse") as Bool?
+		{
+			isLureInUse = loadedisLureInUse
+		}
+	}
 	
 	fileprivate func loadGeneration()
 	{
@@ -202,6 +239,13 @@ class SettingsRepository
 	{
 		isShinyCharmActive = isSwitchOn
 		
+		saveSettings()
+	}
+
+	func changeIsLureInUseActive(isSwitchOn: Bool)
+	{
+		isLureInUse = isSwitchOn
+
 		saveSettings()
 	}
 	
