@@ -32,6 +32,7 @@ class OddsResolver
 		if generation == 3
 		{
 			enableSwitch(uiSwitch: lureSwitch)
+			lureSwitch.isOn = settingsRepository.isLureInUse
 		}
 		else
 		{
@@ -50,40 +51,40 @@ class OddsResolver
 		uiSwitch.isEnabled = true
 	}
 
-	func getLGPEProbability(catchCombo : Int) -> Double
+	func getLGPEProbability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
 	{
 		if catchCombo >= 0 && catchCombo <= 10
 		{
-			return getLGPETier4Probability(catchCombo: catchCombo)
+			return getLGPETier4Probability(catchCombo: catchCombo, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 		else if catchCombo >= 11 && catchCombo <= 20
 		{
-			return getLGPETier3Probability(catchCombo: catchCombo)
+			return getLGPETier3Probability(catchCombo: catchCombo, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 		else if catchCombo >= 21 && catchCombo <= 30
 		{
-			return getLGPETier2Probability(catchCombo: catchCombo)
+			return getLGPETier2Probability(catchCombo: catchCombo, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 
-		return getLGPETier1Probability(catchCombo: catchCombo)
+		return getLGPETier1Probability(catchCombo: catchCombo, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 	}
 
-	fileprivate func getLGPETier4Probability(catchCombo: Int) -> Double
+	fileprivate func getLGPETier4Probability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
 	{
 		return Double(catchCombo) / Double(settingsRepository.shinyOdds!) * 100
 	}
 
-	fileprivate func getLGPETier3Probability(catchCombo: Int) -> Double
+	fileprivate func getLGPETier3Probability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return Double(catchCombo) / Double(585) * 100
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return Double(catchCombo) / Double(683) * 100
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return Double(catchCombo) / Double(819) * 100
 		}
@@ -91,17 +92,17 @@ class OddsResolver
 		return Double(catchCombo) / Double(1024) * 100
 	}
 
-	fileprivate func getLGPETier2Probability(catchCombo: Int) -> Double
+	fileprivate func getLGPETier2Probability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return Double(catchCombo) / Double(372) * 100
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return Double(catchCombo) / Double(410) * 100
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return Double(catchCombo) / Double(455) * 100
 		}
@@ -109,17 +110,17 @@ class OddsResolver
 		return Double(catchCombo) / Double(512) * 100
 	}
 
-	fileprivate func getLGPETier1Probability(catchCombo: Int) -> Double
+	fileprivate func getLGPETier1Probability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return Double(catchCombo) / Double(273) * 100
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return Double(catchCombo) / Double(293) * 100
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return Double(catchCombo) / Double(315) * 100
 		}
@@ -158,31 +159,31 @@ class OddsResolver
 	{
 		if catchCombo >= 0 && catchCombo <= 10
 		{
-			return getLGPETier4Odds()
+			return getLGPETier4Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 		else if catchCombo >= 11 && catchCombo <= 20
 		{
-			return getLGPETier3Odds()
+			return getLGPETier3Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 		else if catchCombo >= 21 && catchCombo <= 30
 		{
-			return getLGPETier2Odds()
+			return getLGPETier2Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 
-		return getLGPETier1Odds()
+		return getLGPETier1Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 	}
 
-	fileprivate func getLGPETier4Odds() -> Int
+	fileprivate func getLGPETier4Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return 1024
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return 1365
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return 2048
 		}
@@ -190,17 +191,17 @@ class OddsResolver
 		return 4096
 	}
 
-	fileprivate func getLGPETier3Odds() -> Int
+	fileprivate func getLGPETier3Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return 585
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return 683
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return 819
 		}
@@ -208,17 +209,17 @@ class OddsResolver
 		return 1024
 	}
 
-	fileprivate func getLGPETier2Odds() -> Int
+	fileprivate func getLGPETier2Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return 372
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return 410
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return 455
 		}
@@ -226,17 +227,17 @@ class OddsResolver
 		return 512
 	}
 
-	fileprivate func getLGPETier1Odds() -> Int
+	fileprivate func getLGPETier1Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
 	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		if isShinyCharmActive && isLureInUse
 		{
 			return 273
 		}
-		else if settingsRepository.isShinyCharmActive
+		else if isShinyCharmActive
 		{
 			return 293
 		}
-		else if settingsRepository.isLureInUse
+		else if isLureInUse
 		{
 			return 315
 		}

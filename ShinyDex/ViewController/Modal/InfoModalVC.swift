@@ -56,7 +56,7 @@ class InfoModalVC: UIViewController
 	
 	fileprivate func resolveSwitchStates()
 	{
-		let generation = settingsRepository.generation
+		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 
 		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
 		oddsResolver.resolveLureSwitchState(generation: generation, lureSwitch: infoPopupView.lureSwitch)
@@ -96,11 +96,6 @@ class InfoModalVC: UIViewController
 	
 	@objc func switchPressed(sender: UISwitch!)
 	{
-		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
-		let isCharmActive = infoPopupView.shinyCharmSwitch.isOn
-		
-		shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive)
-		
 		setProbability()
 		
 		setProbabilityLabelText()
@@ -111,14 +106,18 @@ class InfoModalVC: UIViewController
 	fileprivate func setProbability()
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
-		
+		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
+
 		if generation == 3
 		{
-			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters)
+			let isLureInUse = infoPopupView.lureSwitch.isOn
+
+			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 		else
 		{
-			probability = Double(pokemon.encounters) / Double(settingsRepository.shinyOdds!) * 100
+			let shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive)
+			probability = Double(pokemon.encounters) / Double(shinyOdds) * 100
 		}
 	}
 	
@@ -131,6 +130,20 @@ class InfoModalVC: UIViewController
 	
 	fileprivate func setShinyOddsLabelText()
 	{
+		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
+		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
+
+		if infoPopupView.generationSegmentedControl.selectedSegmentIndex == 3
+		{
+			let lureIsInUse = infoPopupView.lureSwitch.isOn
+
+			shinyOdds = oddsResolver.getLGPEOdds(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: lureIsInUse)
+		}
+		else
+		{
+			shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive)
+		}
+
 		infoPopupView.shinyOddsLabel.text = " 1/\(shinyOdds!)"
 	}
 	
@@ -142,13 +155,10 @@ class InfoModalVC: UIViewController
 	@objc func generationChanged(sender: UISegmentedControl!)
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
-		let isCharmActive = infoPopupView.shinyCharmSwitch.isOn
 		
 		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
 
 		oddsResolver.resolveLureSwitchState(generation: generation, lureSwitch: infoPopupView.lureSwitch)
-		
-		shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive)
 		
 		setProbability()
 		
@@ -194,21 +204,7 @@ class InfoModalVC: UIViewController
 		
 		infoPopupView.encountersLabel.text = " \(pokemon.encounters)"
 
-		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
-		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
-
-		if infoPopupView.generationSegmentedControl.selectedSegmentIndex == 3
-		{
-			let lureIsInUse = infoPopupView.lureSwitch.isOn
-
-			shinyOdds = oddsResolver.getLGPEOdds(catchCombo: pokemon.encounters, isShinyCharmActive: infoPopupView.shinyCharmSwitch.isOn, isLureInUse: lureIsInUse)
-		}
-		else
-		{
-			shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive)
-		}
-		
-		infoPopupView.shinyOddsLabel.text = " 1/\(shinyOdds!)"
+		setShinyOddsLabelText()
 	}
 	
 	fileprivate func setImages()

@@ -154,7 +154,10 @@ class ShinyTrackerVC: UIViewController
 	{
 		if settingsRepository.generation == 3
 		{
-			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters)
+			let isShinyCharmActive = settingsRepository.isShinyCharmActive
+			let isLureInUse = settingsRepository.isLureInUse
+
+			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
 		}
 		else
 		{
@@ -297,6 +300,8 @@ class ShinyTrackerVC: UIViewController
 		setProbability()
 		
 		setProbabilityLabelText()
+
+		setEncountersLabelText()
 	}
 	
 	@IBAction func saveEncounters(_ unwindSegue: UIStoryboardSegue)
