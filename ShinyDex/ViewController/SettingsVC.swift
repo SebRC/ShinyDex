@@ -48,6 +48,8 @@ class SettingsVC: UIViewController
 		resolveUIObjectsState()
 		
 		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
+
+		oddsResolver.resolveLureSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, lureSwitch: lureSwitch)
 		
 		setShinyOddsLabelText()
 		

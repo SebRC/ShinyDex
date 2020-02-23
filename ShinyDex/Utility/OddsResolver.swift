@@ -49,4 +49,198 @@ class OddsResolver
 	{
 		uiSwitch.isEnabled = true
 	}
+
+	func getLGPEProbability(catchCombo : Int) -> Double
+	{
+		if catchCombo >= 0 && catchCombo <= 10
+		{
+			return getLGPETier4Probability(catchCombo: catchCombo)
+		}
+		else if catchCombo >= 11 && catchCombo <= 20
+		{
+			return getLGPETier3Probability(catchCombo: catchCombo)
+		}
+		else if catchCombo >= 21 && catchCombo <= 30
+		{
+			return getLGPETier2Probability(catchCombo: catchCombo)
+		}
+
+		return getLGPETier1Probability(catchCombo: catchCombo)
+	}
+
+	fileprivate func getLGPETier4Probability(catchCombo: Int) -> Double
+	{
+		return Double(catchCombo) / Double(settingsRepository.shinyOdds!) * 100
+	}
+
+	fileprivate func getLGPETier3Probability(catchCombo: Int) -> Double
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return Double(catchCombo) / Double(585) * 100
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return Double(catchCombo) / Double(683) * 100
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return Double(catchCombo) / Double(819) * 100
+		}
+
+		return Double(catchCombo) / Double(1024) * 100
+	}
+
+	fileprivate func getLGPETier2Probability(catchCombo: Int) -> Double
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return Double(catchCombo) / Double(372) * 100
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return Double(catchCombo) / Double(410) * 100
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return Double(catchCombo) / Double(455) * 100
+		}
+
+		return Double(catchCombo) / Double(512) * 100
+	}
+
+	fileprivate func getLGPETier1Probability(catchCombo: Int) -> Double
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return Double(catchCombo) / Double(273) * 100
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return Double(catchCombo) / Double(293) * 100
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return Double(catchCombo) / Double(315) * 100
+		}
+
+		return Double(catchCombo) / Double(341) * 100
+	}
+
+	func resolveProbability(generation: Int, probability: Double, probabilityLabel: UILabel, encounters: Int)
+	{
+		var huntIsOverOdds: Bool?
+
+		if generation == 3
+		{
+			huntIsOverOdds = probability > 100.0
+			probabilityLabel.font = settingsRepository.getExtraSmallFont()
+		}
+		else
+		{
+			huntIsOverOdds = encounters > settingsRepository.shinyOdds!
+			probabilityLabel.font = settingsRepository.getSmallFont()
+		}
+
+		if huntIsOverOdds!
+		{
+			probabilityLabel.text = " Your hunt has gone over odds."
+		}
+		else
+		{
+			let formattedProbability = String(format: "%.2f", probability)
+
+			probabilityLabel.text = " Probability is \(formattedProbability)%"
+		}
+	}
+
+	func getLGPEOdds(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
+	{
+		if catchCombo >= 0 && catchCombo <= 10
+		{
+			return getLGPETier4Odds()
+		}
+		else if catchCombo >= 11 && catchCombo <= 20
+		{
+			return getLGPETier3Odds()
+		}
+		else if catchCombo >= 21 && catchCombo <= 30
+		{
+			return getLGPETier2Odds()
+		}
+
+		return getLGPETier1Odds()
+	}
+
+	fileprivate func getLGPETier4Odds() -> Int
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return 1024
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return 1365
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return 2048
+		}
+
+		return 4096
+	}
+
+	fileprivate func getLGPETier3Odds() -> Int
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return 585
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return 683
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return 819
+		}
+
+		return 1024
+	}
+
+	fileprivate func getLGPETier2Odds() -> Int
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return 372
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return 410
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return 455
+		}
+
+		return 512
+	}
+
+	fileprivate func getLGPETier1Odds() -> Int
+	{
+		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
+		{
+			return 273
+		}
+		else if settingsRepository.isShinyCharmActive
+		{
+			return 293
+		}
+		else if settingsRepository.isLureInUse
+		{
+			return 315
+		}
+
+		return 341
+	}
 }

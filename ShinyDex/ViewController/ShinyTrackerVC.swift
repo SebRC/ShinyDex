@@ -24,6 +24,7 @@ class ShinyTrackerVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var resolver = Resolver()
+	var oddsResolver = OddsResolver()
 	var probability: Double?
 	var shinyProbability: Int!
 	var infoPressed = false
@@ -153,7 +154,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		if settingsRepository.generation == 3
 		{
-			probability = getLGPEProbability(catchCombo: pokemon.encounters)
+			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters)
 		}
 		else
 		{
@@ -161,108 +162,11 @@ class ShinyTrackerVC: UIViewController
 		}
 	}
 
-	fileprivate func getLGPEProbability(catchCombo : Int) -> Double
-	{
-		if catchCombo >= 0 && catchCombo <= 10
-		{
-			return getLGPETier4Probability()
-		}
-		else if catchCombo >= 11 && catchCombo <= 20
-		{
-			return getLGPETier3Probability()
-		}
-		else if catchCombo >= 21 && catchCombo <= 30
-		{
-			return getLGPETier2Probability()
-		}
-
-		return getLGPETier1Probability()
-	}
-
-	fileprivate func getLGPETier4Probability() -> Double
-	{
-		return Double(pokemon.encounters) / Double(settingsRepository.shinyOdds!) * 100
-	}
-
-	fileprivate func getLGPETier3Probability() -> Double
-	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
-		{
-			return Double(pokemon.encounters) / Double(585) * 100
-		}
-		else if settingsRepository.isShinyCharmActive
-		{
-			return Double(pokemon.encounters) / Double(683) * 100
-		}
-		else if settingsRepository.isLureInUse
-		{
-			return Double(pokemon.encounters) / Double(819) * 100
-		}
-
-		return Double(pokemon.encounters) / Double(1024) * 100
-	}
-
-	fileprivate func getLGPETier2Probability() -> Double
-	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
-		{
-			return Double(pokemon.encounters) / Double(372) * 100
-		}
-		else if settingsRepository.isShinyCharmActive
-		{
-			return Double(pokemon.encounters) / Double(410) * 100
-		}
-		else if settingsRepository.isLureInUse
-		{
-			return Double(pokemon.encounters) / Double(455) * 100
-		}
-
-		return Double(pokemon.encounters) / Double(512) * 100
-	}
-
-	fileprivate func getLGPETier1Probability() -> Double
-	{
-		if settingsRepository.isShinyCharmActive && settingsRepository.isLureInUse
-		{
-			return Double(pokemon.encounters) / Double(273) * 100
-		}
-		else if settingsRepository.isShinyCharmActive
-		{
-			return Double(pokemon.encounters) / Double(293) * 100
-		}
-		else if settingsRepository.isLureInUse
-		{
-			return Double(pokemon.encounters) / Double(315) * 100
-		}
-
-		return Double(pokemon.encounters) / Double(341) * 100
-	}
-
 	fileprivate func setProbabilityLabelText()
 	{
-		var huntIsOverOdds: Bool?
+		let generation = settingsRepository.generation
 
-		if settingsRepository.generation == 3
-		{
-			huntIsOverOdds = probability! > 100.0
-			probabilityLabel.font = settingsRepository.getExtraSmallFont()
-		}
-		else
-		{
-			huntIsOverOdds = pokemon.encounters > settingsRepository.shinyOdds!
-			probabilityLabel.font = settingsRepository.getSmallFont()
-		}
-		
-		if huntIsOverOdds!
-		{
-			probabilityLabel.text = " Your hunt has gone over odds."
-		}
-		else
-		{
-			let formattedProbability = String(format: "%.2f", probability!)
-			
-			probabilityLabel.text = " Probability is \(formattedProbability)%"
-		}
+		oddsResolver.resolveProbability(generation: generation, probability: probability!, probabilityLabel: probabilityLabel, encounters: pokemon.encounters)
 	}
 	
 	fileprivate func setEncountersLabelText()
