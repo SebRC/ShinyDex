@@ -71,7 +71,19 @@ class OddsResolver
 
 	fileprivate func getLGPETier4Probability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
 	{
-		return Double(catchCombo) / Double(settingsRepository.shinyOdds!) * 100
+		if isShinyCharmActive && isLureInUse
+		{
+			return Double(catchCombo) / Double(1024) * 100
+		}
+		else if isShinyCharmActive
+		{
+			return Double(catchCombo) / Double(1365) * 100
+		}
+		else if isLureInUse
+		{
+			return Double(catchCombo) / Double(2048) * 100
+		}
+		return Double(catchCombo) / Double(4096) * 100
 	}
 
 	fileprivate func getLGPETier3Probability(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Double
