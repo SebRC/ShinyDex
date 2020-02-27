@@ -80,7 +80,7 @@ class SettingsRepository
 		{
 			return 4096
 		}
-		else if currentGen == 3
+		else if currentGen == 4
 		{
 			let letsGoOdds = getLGPEBaseOdds()
 

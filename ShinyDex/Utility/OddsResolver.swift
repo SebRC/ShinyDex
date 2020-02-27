@@ -29,7 +29,7 @@ class OddsResolver
 
 	func resolveLureSwitchState(generation: Int, lureSwitch: UISwitch)
 	{
-		if generation == 3
+		if generation == 4
 		{
 			enableSwitch(uiSwitch: lureSwitch)
 			lureSwitch.isOn = settingsRepository.isLureInUse
@@ -144,7 +144,7 @@ class OddsResolver
 	{
 		var huntIsOverOdds: Bool?
 
-		if generation == 3
+		if generation == 4
 		{
 			huntIsOverOdds = probability > 100.0
 			probabilityLabel.font = settingsRepository.getExtraSmallFont()

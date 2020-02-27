@@ -152,7 +152,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		if settingsRepository.generation == 3
+		if settingsRepository.generation == 4
 		{
 			let isShinyCharmActive = settingsRepository.isShinyCharmActive
 			let isLureInUse = settingsRepository.isLureInUse
@@ -176,7 +176,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		let labelTitle: String?
 
-		if settingsRepository.generation == 3
+		if settingsRepository.generation == 4
 		{
 			labelTitle = " Catch Combo: "
 		}

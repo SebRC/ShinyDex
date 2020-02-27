@@ -108,7 +108,7 @@ class InfoModalVC: UIViewController
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
 
-		if generation == 3
+		if generation == 4
 		{
 			let isLureInUse = infoPopupView.lureSwitch.isOn
 
@@ -133,7 +133,7 @@ class InfoModalVC: UIViewController
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
 
-		if infoPopupView.generationSegmentedControl.selectedSegmentIndex == 3
+		if infoPopupView.generationSegmentedControl.selectedSegmentIndex == 4
 		{
 			let lureIsInUse = infoPopupView.lureSwitch.isOn
 
@@ -173,7 +173,7 @@ class InfoModalVC: UIViewController
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 
-		if generation == 3
+		if generation == 4
 		{
 			infoPopupView.encountersTitleLabel.text = " Catch Combo"
 		}
