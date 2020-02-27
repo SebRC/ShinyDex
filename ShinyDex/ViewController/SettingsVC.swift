@@ -30,8 +30,11 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var tertiaryEditButton: ButtonIconRight!
 	@IBOutlet weak var themFontSeparator: UIView!
 	@IBOutlet weak var generationCharmSeparator: UIView!
-	@IBOutlet weak var charmOddsSeparator: UIView!
-	
+	@IBOutlet weak var charmLureSeparator: UIView!
+	@IBOutlet weak var lureSwitch: UISwitch!
+	@IBOutlet weak var lureLabel: UILabel!
+	@IBOutlet weak var lureOddsSeparator: UIView!
+
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
@@ -45,6 +48,8 @@ class SettingsVC: UIViewController
 		resolveUIObjectsState()
 		
 		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
+
+		oddsResolver.resolveLureSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, lureSwitch: lureSwitch)
 		
 		setShinyOddsLabelText()
 		
@@ -96,7 +101,13 @@ class SettingsVC: UIViewController
 		
 		themFontSeparator.backgroundColor = settingsRepository.getPrimaryColor()
 		generationCharmSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		charmOddsSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		charmLureSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		lureOddsSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+
+		lureLabel.textColor = settingsRepository.getTertiaryColor()
+		lureSwitch.onTintColor = settingsRepository.getSecondaryColor()
+		lureSwitch.thumbTintColor = settingsRepository.getPrimaryColor()
+
 	}
 	
 	fileprivate func setFonts()
@@ -108,6 +119,8 @@ class SettingsVC: UIViewController
 		generationLabel.font = settingsRepository.getExtraLargeFont()
 		
 		shinyCharmLabel.font = settingsRepository.getExtraLargeFont()
+
+		lureLabel.font = settingsRepository.getExtraLargeFont()
 		
 		fontLabel.font = settingsRepository.getExtraLargeFont()
 		
@@ -142,7 +155,7 @@ class SettingsVC: UIViewController
 		tertiaryEditButton.layer.cornerRadius = 10
 		themFontSeparator.layer.cornerRadius = 5
 		generationCharmSeparator.layer.cornerRadius = 5
-		charmOddsSeparator.layer.cornerRadius = 5
+		charmLureSeparator.layer.cornerRadius = 5
 	}
 	
 	fileprivate func resolveUIObjectsState()
@@ -152,6 +165,8 @@ class SettingsVC: UIViewController
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
 		shinyCharmSwitch.isOn = settingsRepository.isShinyCharmActive
+
+		lureSwitch.isOn = settingsRepository.isLureInUse
 	}
 	
 	fileprivate func setShinyOddsLabelText()
@@ -201,11 +216,17 @@ class SettingsVC: UIViewController
 	
 	@IBAction func changeGenerationPressed(_ sender: Any)
 	{
-		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
+		let generation = generationSegmentedControl.selectedSegmentIndex
+
+		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmSwitch)
+
+		oddsResolver.resolveLureSwitchState(generation: generation, lureSwitch: lureSwitch)
 		
 		settingsRepository.generation = generationSegmentedControl.selectedSegmentIndex
 		
 		settingsRepository.isShinyCharmActive = shinyCharmSwitch.isOn
+
+		settingsRepository.isLureInUse = lureSwitch.isOn
 		
 		setShinyOddsLabelText()
 		
@@ -260,5 +281,12 @@ class SettingsVC: UIViewController
 	{
 		setUIColors()
 		setSegementedControlFonts()
+	}
+
+	@IBAction func changeIsLureInUse(_ sender: Any)
+	{
+		settingsRepository.changeIsLureInUseActive(isSwitchOn: lureSwitch.isOn)
+
+		setShinyOddsLabelText()
 	}
 }

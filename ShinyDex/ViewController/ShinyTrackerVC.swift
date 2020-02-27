@@ -24,6 +24,7 @@ class ShinyTrackerVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var resolver = Resolver()
+	var oddsResolver = OddsResolver()
 	var probability: Double?
 	var shinyProbability: Int!
 	var infoPressed = false
@@ -151,28 +152,39 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		probability = Double(pokemon.encounters) / Double(settingsRepository.shinyOdds!) * 100
+		if settingsRepository.generation == 3
+		{
+			let isShinyCharmActive = settingsRepository.isShinyCharmActive
+			let isLureInUse = settingsRepository.isLureInUse
+
+			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
+		}
+		else
+		{
+			probability = Double(pokemon.encounters) / Double(settingsRepository.shinyOdds!) * 100
+		}
 	}
 
 	fileprivate func setProbabilityLabelText()
 	{
-		let huntIsOverOdds = pokemon.encounters > settingsRepository.shinyOdds!
-		
-		if huntIsOverOdds
-		{
-			probabilityLabel.text = " Your hunt has gone over odds."
-		}
-		else
-		{
-			let formattedProbability = String(format: "%.2f", probability!)
-			
-			probabilityLabel.text = " Probability is \(formattedProbability)%"
-		}
+		let generation = settingsRepository.generation
+
+		oddsResolver.resolveProbability(generation: generation, probability: probability!, probabilityLabel: probabilityLabel, encounters: pokemon.encounters)
 	}
 	
 	fileprivate func setEncountersLabelText()
 	{
-		encountersLabel.text = " Encounters: \(pokemon.encounters)"
+		let labelTitle: String?
+
+		if settingsRepository.generation == 3
+		{
+			labelTitle = " Catch Combo: "
+		}
+		else
+		{
+			labelTitle = " Encounters: "
+		}
+		encountersLabel.text = "\(labelTitle!)\(pokemon.encounters)"
 	}
 	
 	fileprivate func setNumberLabelText()
@@ -288,6 +300,8 @@ class ShinyTrackerVC: UIViewController
 		setProbability()
 		
 		setProbabilityLabelText()
+
+		setEncountersLabelText()
 	}
 	
 	@IBAction func saveEncounters(_ unwindSegue: UIStoryboardSegue)
