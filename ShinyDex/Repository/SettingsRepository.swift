@@ -30,6 +30,7 @@ class SettingsRepository
 	var xxLargeFontSize: CGFloat
 
 	static let settingsRepositorySingleton = SettingsRepository()
+	fileprivate let oddsService = OddsService()
 	
 	let defaults = UserDefaults.standard
 	
@@ -59,55 +60,7 @@ class SettingsRepository
 	
 	func setShinyOdds()
 	{
-		shinyOdds = getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive)
-	}
-	
-	func getShinyOdds(currentGen: Int, isCharmActive: Bool) -> Int
-	{
-		if currentGen == 0
-		{
-			return 8192
-		}
-		else if currentGen == 1 && !isCharmActive
-		{
-			return 8192
-		}
-		else if currentGen == 1
-		{
-			return 2731
-		}
-		else if currentGen > 1 && currentGen < 3 && !isCharmActive
-		{
-			return 4096
-		}
-		else if currentGen == 4
-		{
-			let letsGoOdds = getLGPEBaseOdds()
-
-			return letsGoOdds
-		}
-		else
-		{
-			return 1365
-		}
-	}
-	
-	fileprivate func getLGPEBaseOdds() -> Int
-	{
-		if isShinyCharmActive && isLureInUse
-		{
-			return 1024
-		}
-		else if isShinyCharmActive
-		{
-			return 1365
-		}
-		else if isLureInUse
-		{
-			return 2048
-		}
-
-		return 4096
+		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive, isLureInUse: isLureInUse, encounters: 0)
 	}
 	
 	func saveSettings()
