@@ -190,8 +190,6 @@
 		96FC079B23EF192400459450 /* ShinyDex */ = {
 			isa = PBXGroup;
 			children = (
-				9689C7352409AD0A0007AD5D /* Odds */,
-				9689C7342409ACFD0007AD5D /* Probability */,
 				96FC07FE23EF57D400459450 /* Main.storyboard */,
 				96FC079C23EF192400459450 /* AppDelegate.swift */,
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
@@ -199,6 +197,8 @@
 				96FC082C23EF599900459450 /* ViewController */,
 				96FC082523EF596200459450 /* TableViewController */,
 				96FC081E23EF593900459450 /* Repository */,
+				9689C7352409AD0A0007AD5D /* Odds */,
+				9689C7342409ACFD0007AD5D /* Probability */,
 				96FC081623EF58F200459450 /* Pokeball */,
 				96FC081323EF58C400459450 /* fonts */,
 				96FC080A23EF589000459450 /* Custom Cell */,
