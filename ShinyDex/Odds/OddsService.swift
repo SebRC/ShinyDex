@@ -38,7 +38,7 @@ class OddsService
 		}
 		else if currentGen == 4
 		{
-			let letsGoOdds = lgpeOddsService.getOdds(catchCombo: encounters, isShinyCharmActive: isCharmActive, isLureInUse: isLureInUse)
+			let letsGoOdds = lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, isLureInUse: isLureInUse)
 
 			return letsGoOdds
 		}

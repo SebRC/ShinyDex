@@ -10,7 +10,7 @@ import Foundation
 
 class Gen8OddsService
 {
-	var isShinyCharmActive = false
+	fileprivate var isShinyCharmActive = false
 
 	func getOdds(battles: Int, isCharmActive: Bool) -> Int
 	{

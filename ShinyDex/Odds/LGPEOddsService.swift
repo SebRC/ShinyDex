@@ -10,26 +10,32 @@ import Foundation
 
 class LGPEOddsService
 {
-	func getOdds(catchCombo: Int, isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
+	fileprivate var isShinyCharmActive = false
+	fileprivate var isLureActive = false
+
+	func getOdds(catchCombo: Int, isCharmActive: Bool, isLureInUse: Bool) -> Int
 	{
+		isShinyCharmActive = isCharmActive
+		isLureActive = isLureInUse
+
 		if catchCombo >= 0 && catchCombo <= 10
 		{
-			return getTier4Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
+			return getTier4Odds()
 		}
 		else if catchCombo >= 11 && catchCombo <= 20
 		{
-			return getTier3Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
+			return getTier3Odds()
 		}
 		else if catchCombo >= 21 && catchCombo <= 30
 		{
-			return getTier2Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
+			return getTier2Odds()
 		}
-		return getTier1Odds(isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
+		return getTier1Odds()
 	}
 
-	fileprivate func getTier4Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
+	fileprivate func getTier4Odds() -> Int
 	{
-		if isShinyCharmActive && isLureInUse
+		if isShinyCharmActive && isLureActive
 		{
 			return 1024
 		}
@@ -37,16 +43,16 @@ class LGPEOddsService
 		{
 			return 1365
 		}
-		else if isLureInUse
+		else if isLureActive
 		{
 			return 2048
 		}
 		return 4096
 	}
 
-	fileprivate func getTier3Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
+	fileprivate func getTier3Odds() -> Int
 	{
-		if isShinyCharmActive && isLureInUse
+		if isShinyCharmActive && isLureActive
 		{
 			return 585
 		}
@@ -54,16 +60,16 @@ class LGPEOddsService
 		{
 			return 683
 		}
-		else if isLureInUse
+		else if isLureActive
 		{
 			return 819
 		}
 		return 1024
 	}
 
-	fileprivate func getTier2Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
+	fileprivate func getTier2Odds() -> Int
 	{
-		if isShinyCharmActive && isLureInUse
+		if isShinyCharmActive && isLureActive
 		{
 			return 372
 		}
@@ -71,16 +77,16 @@ class LGPEOddsService
 		{
 			return 410
 		}
-		else if isLureInUse
+		else if isLureActive
 		{
 			return 455
 		}
 		return 512
 	}
 
-	fileprivate func getTier1Odds(isShinyCharmActive: Bool, isLureInUse: Bool) -> Int
+	fileprivate func getTier1Odds() -> Int
 	{
-		if isShinyCharmActive && isLureInUse
+		if isShinyCharmActive && isLureActive
 		{
 			return 273
 		}
@@ -88,7 +94,7 @@ class LGPEOddsService
 		{
 			return 293
 		}
-		else if isLureInUse
+		else if isLureActive
 		{
 			return 315
 		}
