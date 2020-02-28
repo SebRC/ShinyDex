@@ -24,9 +24,11 @@ class ShinyTrackerVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var resolver = Resolver()
-	var oddsResolver = OddsResolver()
+	let switchStateService = SwitchStateService()
+	let probabilityService = ProbabilityService()
+	let oddsService = OddsService()
 	var probability: Double?
-	var shinyProbability: Int!
+	var shinyOdds: Int?
 	var infoPressed = false
 	var setEncountersPressed = false
 	let popupHandler = PopupHandler()
@@ -152,31 +154,29 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		if settingsRepository.generation == 3
-		{
-			let isShinyCharmActive = settingsRepository.isShinyCharmActive
-			let isLureInUse = settingsRepository.isLureInUse
+		let generation = settingsRepository.generation
+		let isCharmActive = settingsRepository.isShinyCharmActive
+		let isLureInUse = settingsRepository.isLureInUse
+		let encounters = pokemon.encounters
+		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive, isLureInUse: isLureInUse, encounters: encounters)
 
-			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
-		}
-		else
-		{
-			probability = Double(pokemon.encounters) / Double(settingsRepository.shinyOdds!) * 100
-		}
+		probability = probabilityService.getProbability(generation: generation, isCharmActive: isCharmActive, encounters: encounters, shinyOdds: shinyOdds!, isLureInUse: isLureInUse)
 	}
 
 	fileprivate func setProbabilityLabelText()
 	{
-		let generation = settingsRepository.generation
+		let encounters = pokemon.encounters
 
-		oddsResolver.resolveProbability(generation: generation, probability: probability!, probabilityLabel: probabilityLabel, encounters: pokemon.encounters)
+		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: shinyOdds!, probability: probability!)
+
+		probabilityLabel.text = probabilityLabelText
 	}
 	
 	fileprivate func setEncountersLabelText()
 	{
 		let labelTitle: String?
 
-		if settingsRepository.generation == 3
+		if settingsRepository.generation == 4
 		{
 			labelTitle = " Catch Combo: "
 		}
@@ -250,6 +250,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! InfoModalVC
 			
 			destVC.pokemon = pokemon
+			destVC.shinyOdds = shinyOdds
 			destVC.settingsRepository = settingsRepository
 		}
 		else if setEncountersPressed

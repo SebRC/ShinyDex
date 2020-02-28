@@ -15,7 +15,9 @@ class InfoModalVC: UIViewController
 	var pokemon: Pokemon!
 	var probability: Double?
 	var settingsRepository: SettingsRepository!
-	var oddsResolver = OddsResolver()
+	var switchStateService = SwitchStateService()
+	let oddsService = OddsService()
+	let probabilityService = ProbabilityService()
 	var shinyOdds: Int?
 	
 	override func viewDidLoad()
@@ -58,8 +60,8 @@ class InfoModalVC: UIViewController
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 
-		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
-		oddsResolver.resolveLureSwitchState(generation: generation, lureSwitch: infoPopupView.lureSwitch)
+		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
+		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: infoPopupView.lureSwitch)
 	}
 	
 	fileprivate func setButtonActions()
@@ -107,43 +109,22 @@ class InfoModalVC: UIViewController
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
+		let isLureInUse = infoPopupView.lureSwitch.isOn
+		let encounters = pokemon.encounters
 
-		if generation == 3
-		{
-			let isLureInUse = infoPopupView.lureSwitch.isOn
-
-			probability = oddsResolver.getLGPEProbability(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
-		}
-		else
-		{
-			let shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive)
-			probability = Double(pokemon.encounters) / Double(shinyOdds) * 100
-		}
+		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive, isLureInUse: isLureInUse, encounters: encounters)
+		probability = probabilityService.getProbability(generation: generation, isCharmActive: isShinyCharmActive, encounters: encounters, shinyOdds: shinyOdds!, isLureInUse: isLureInUse)
 	}
 	
 	fileprivate func setProbabilityLabelText()
 	{
-		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
+		let probabilityLabelText = probabilityService.getProbabilityText(encounters: pokemon.encounters, shinyOdds: shinyOdds!, probability: probability!)
 
-		oddsResolver.resolveProbability(generation: generation, probability: probability!, probabilityLabel: infoPopupView.probabilityLabel, encounters: pokemon.encounters)
+		infoPopupView.probabilityLabel.text = probabilityLabelText
 	}
 	
 	fileprivate func setShinyOddsLabelText()
 	{
-		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
-		let isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
-
-		if infoPopupView.generationSegmentedControl.selectedSegmentIndex == 3
-		{
-			let lureIsInUse = infoPopupView.lureSwitch.isOn
-
-			shinyOdds = oddsResolver.getLGPEOdds(catchCombo: pokemon.encounters, isShinyCharmActive: isShinyCharmActive, isLureInUse: lureIsInUse)
-		}
-		else
-		{
-			shinyOdds = settingsRepository.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive)
-		}
-
 		infoPopupView.shinyOddsLabel.text = " 1/\(shinyOdds!)"
 	}
 	
@@ -156,9 +137,9 @@ class InfoModalVC: UIViewController
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		
-		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
+		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: infoPopupView.shinyCharmSwitch)
 
-		oddsResolver.resolveLureSwitchState(generation: generation, lureSwitch: infoPopupView.lureSwitch)
+		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: infoPopupView.lureSwitch)
 		
 		setProbability()
 		
@@ -173,7 +154,7 @@ class InfoModalVC: UIViewController
 	{
 		let generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 
-		if generation == 3
+		if generation == 4
 		{
 			infoPopupView.encountersTitleLabel.text = " Catch Combo"
 		}

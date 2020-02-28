@@ -11,7 +11,7 @@ import UIKit
 class SettingsVC: UIViewController
 {
 	var settingsRepository: SettingsRepository!
-	var oddsResolver = OddsResolver()
+	var switchStateService = SwitchStateService()
 	var primaryWasPressed: Bool?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
@@ -47,9 +47,9 @@ class SettingsVC: UIViewController
 		
 		resolveUIObjectsState()
 		
-		oddsResolver.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
+		switchStateService.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
 
-		oddsResolver.resolveLureSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, lureSwitch: lureSwitch)
+		switchStateService.resolveLureSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, lureSwitch: lureSwitch)
 		
 		setShinyOddsLabelText()
 		
@@ -144,7 +144,6 @@ class SettingsVC: UIViewController
 		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
-	
 	fileprivate func roundCorners()
 	{
 		themesBackgroundLabel.layer.cornerRadius = 10
@@ -218,9 +217,9 @@ class SettingsVC: UIViewController
 	{
 		let generation = generationSegmentedControl.selectedSegmentIndex
 
-		oddsResolver.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmSwitch)
+		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmSwitch)
 
-		oddsResolver.resolveLureSwitchState(generation: generation, lureSwitch: lureSwitch)
+		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureSwitch)
 		
 		settingsRepository.generation = generationSegmentedControl.selectedSegmentIndex
 		
