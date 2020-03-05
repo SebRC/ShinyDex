@@ -18,16 +18,6 @@ class SettingsRepository
 	var isLureInUse: Bool
 	var generation: Int
 	var shinyOdds: Int?
-	var fontColorHex: Int
-	var fontName: String
-	var fontTheme: String
-	var xxSmallFontSize: CGFloat
-	var extraSmallFontSize: CGFloat
-	var smallFontSize: CGFloat
-	var mediumFontSize: CGFloat
-	var largeFontSize: CGFloat
-	var extraLargeFontSize: CGFloat
-	var xxLargeFontSize: CGFloat
 
 	static let settingsRepositorySingleton = SettingsRepository()
 	fileprivate let oddsService = OddsService()
@@ -42,16 +32,6 @@ class SettingsRepository
 		isShinyCharmActive = false
 		isLureInUse = false
 		generation = 0
-		fontColorHex = 0xffffff
-		fontName = "PokemonGB"
-		fontTheme = "Retro"
-		xxSmallFontSize = 12.0
-		extraSmallFontSize = 15.0
-		smallFontSize = 17.0
-		mediumFontSize = 20.0
-		largeFontSize = 22.0
-		extraLargeFontSize = 25.0
-		xxLargeFontSize = 27.0
 		
 		loadSettings()
 		
@@ -71,8 +51,6 @@ class SettingsRepository
 		defaults.set(isShinyCharmActive, forKey: "isShinyCharmActive")
 		defaults.set(isLureInUse, forKey: "isLureInUse")
 		defaults.set(generation, forKey: "generation")
-		defaults.set(fontColorHex, forKey: "fontColorHex")
-		defaults.set(fontTheme, forKey: "fontTheme")
 	}
 	
 	func loadSettings()
@@ -88,10 +66,6 @@ class SettingsRepository
 		loadIsLureInUse()
 		
 		loadGeneration()
-		
-		loadHexFontColor()
-		
-		loadFontTheme()
 	}
 	
 	fileprivate func loadPrimaryColor()
@@ -163,31 +137,6 @@ class SettingsRepository
 		}
 	}
 	
-	fileprivate func loadHexFontColor()
-	{
-		if let loadedHexFontColor = defaults.integer(forKey: "fontColorHex") as Int?
-		{
-			fontColorHex = loadedHexFontColor
-		}
-	}
-	
-	fileprivate func loadFontTheme()
-	{
-		if let loadedFontTheme = defaults.string(forKey: "fontTheme") as String?
-		{
-			fontTheme = loadedFontTheme
-			
-			if fontTheme == "Modern"
-			{
-				setModernFont()
-			}
-			else
-			{
-				setRetroFont()
-			}
-		}
-	}
-	
 	func changeIsShinyCharmActive(isSwitchOn: Bool)
 	{
 		isShinyCharmActive = isSwitchOn
@@ -201,117 +150,6 @@ class SettingsRepository
 
 		saveSettings()
 	}
-	
-	func setGlobalFont(selectedSegment: Int)
-	{
-		if selectedSegment == 0
-		{
-			fontTheme = "Modern"
-			setModernFont()
-		}
-		else
-		{
-			fontTheme = "Retro"
-			setRetroFont()
-		}
-		
-		saveSettings()
-	}
-	
-	func getFontAsNSAttibutedStringKey(fontSize: CGFloat) -> AnyHashable
-	{
-		if fontTheme == "Modern"
-		{
-			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize),
-					NSAttributedString.Key.foregroundColor: getTertiaryColor()]
-		}
-		return [NSAttributedString.Key.font : UIFont(name: "PokemonGB", size: fontSize)!,
-		NSAttributedString.Key.foregroundColor: getTertiaryColor()]
-	}
-	
-	func setModernFont()
-	{
-		xxSmallFontSize = 12.0
-		extraSmallFontSize = 15.0
-		smallFontSize = 17.0
-		mediumFontSize = 20.0
-		largeFontSize = 22.0
-		extraLargeFontSize = 25.0
-		xxLargeFontSize = 27.0
-	}
-	
-	func setRetroFont()
-	{
-		xxSmallFontSize = 7.0
-		extraSmallFontSize = 10.0
-		smallFontSize = 12.0
-		mediumFontSize = 15.0
-		largeFontSize = 17.0
-		extraLargeFontSize = 20.0
-		xxLargeFontSize = 22.0
-	}
-	
-	func getXxSmallFont() -> UIFont
-	{
-		let xxSmallFont = getFont(fontSize: xxSmallFontSize)
-		
-		return xxSmallFont
-	}
-	
-	func getExtraSmallFont() -> UIFont
-	{
-		let extraSmallFont = getFont(fontSize: extraSmallFontSize)
-		
-		return extraSmallFont
-	}
-	
-	func getSmallFont() -> UIFont
-	{
-		let smallFont = getFont(fontSize: smallFontSize)
-		
-		return smallFont
-	}
-	
-	func getMediumFont() -> UIFont
-	{
-		let mediumFont = getFont(fontSize: mediumFontSize)
-		
-		return mediumFont
-	}
-	
-	func getLargeFont() -> UIFont
-	{
-		let largeFont = getFont(fontSize: largeFontSize)
-		
-		return largeFont
-	}
-	
-	func getExtraLargeFont() -> UIFont
-	{
-		let extraLargeFont = getFont(fontSize: extraLargeFontSize)
-		
-		return extraLargeFont
-	}
-	
-	func getXxLargeFont() -> UIFont
-	{
-		let xxLargeFont = getFont(fontSize: xxLargeFontSize)
-		
-		return xxLargeFont
-	}
-	
-	fileprivate func getFont(fontSize: CGFloat) -> UIFont
-	{
-		let fontThemeIsModern = fontTheme == "Modern"
-		
-		if fontThemeIsModern
-		{
-			return UIFont.systemFont(ofSize: fontSize)
-		}
-		
-		return UIFont(name: fontName, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
-	}
-	
 	
 	func getPrimaryColor() -> UIColor
 	{

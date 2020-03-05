@@ -24,6 +24,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
 	var currentHuntRepository: CurrentHuntRepository!
+	var fontSettingsService: FontSettingsService!
 
 	@IBOutlet var popupView: PopupView!
 	
@@ -105,17 +106,17 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: settingsRepository!.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository!.getXxLargeFont()
+			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
 	fileprivate func setFonts()
 	{
-		searchController.searchBar.change(textFont: settingsRepository.getSmallFont(), textColor: UIColor.white)
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: settingsRepository.getXxSmallFont()], for: .normal)
+		searchController.searchBar.change(textFont: fontSettingsService.getSmallFont(), textColor: UIColor.white)
+		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont()], for: .normal)
 		
-		popupView.actionLabel.font = settingsRepository.getSmallFont()
+		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func roundPopupViewCorners()
@@ -286,8 +287,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
-		pokemonCell.pokemonName.font = settingsRepository.getSmallFont()
-		pokemonCell.pokemonNumber.font = settingsRepository.getExtraSmallFont()
+		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
+		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
 
 		pokemonCell.pokemonName.textColor = settingsRepository.getTertiaryColor()
 		pokemonCell.pokemonNumber.textColor = settingsRepository.getTertiaryColor()
@@ -317,12 +318,15 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			changeCaughtBallPressed = false
 			
 			let destVC = segue.destination as? PokeballModalVC
+			destVC?.fontSettingsService = fontSettingsService
 			
 			setPokeballModalProperties(pokeballModalVC: destVC!)
 		}
 		else
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
+
+			destVC?.fontSettingsService = fontSettingsService
 				
 			setShinyTrackerProperties(shinyTrackerVC: destVC!)
 		}

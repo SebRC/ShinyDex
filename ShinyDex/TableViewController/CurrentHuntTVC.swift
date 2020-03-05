@@ -13,6 +13,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
 	var currentHuntRepository: CurrentHuntRepository!
+	var fontSettingsService = FontSettingsService()
 	var resolver = Resolver()
 	var encounters = 0
 	var index = 0
@@ -108,15 +109,15 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		
 		currentHuntCell.nameLabel.text = pokemon.name
 		currentHuntCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.nameLabel.font = settingsRepository.getSmallFont()
+		currentHuntCell.nameLabel.font = fontSettingsService.getSmallFont()
 		
 		currentHuntCell.numberLabel.text = "No. \(String(pokemon.number + 1))"
 		currentHuntCell.numberLabel.textColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.numberLabel.font = settingsRepository.getExtraSmallFont()
+		currentHuntCell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
 		currentHuntCell.encountersLabel.textColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.encountersLabel.font = settingsRepository.getLargeFont()
+		currentHuntCell.encountersLabel.font = fontSettingsService.getLargeFont()
 		
 		currentHuntCell.plusButton.tintColor = settingsRepository.getTertiaryColor()
 		currentHuntCell.minusButton.tintColor = settingsRepository.getTertiaryColor()
@@ -194,6 +195,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			destVC?.settingsRepository = settingsRepository
 			destVC?.currentHuntRepository = currentHuntRepository
 			destVC?.pokemon = currentHuntRepository.currentlyHunting[index]
+			destVC?.fontSettingsService = fontSettingsService
 		}
 	}
 	

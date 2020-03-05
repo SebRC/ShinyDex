@@ -12,6 +12,7 @@ class SettingsVC: UIViewController
 {
 	var settingsRepository: SettingsRepository!
 	var switchStateService = SwitchStateService()
+	var fontSettingsService: FontSettingsService!
 	var primaryWasPressed: Bool?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
@@ -62,7 +63,7 @@ class SettingsVC: UIViewController
 	{
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
 		navigationController?.navigationBar.barTintColor = settingsRepository.getSecondaryColor()
@@ -114,34 +115,34 @@ class SettingsVC: UIViewController
 	{
 		setSegementedControlFonts()
 		
-		themeLabel.font = settingsRepository.getExtraLargeFont()
+		themeLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		generationLabel.font = settingsRepository.getExtraLargeFont()
+		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		shinyCharmLabel.font = settingsRepository.getExtraLargeFont()
+		shinyCharmLabel.font = fontSettingsService.getExtraLargeFont()
 
-		lureLabel.font = settingsRepository.getExtraLargeFont()
+		lureLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		fontLabel.font = settingsRepository.getExtraLargeFont()
+		fontLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		shinyOddsLabel.font = settingsRepository.getMediumFont()
+		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		
-		primaryEditButton.label.font = settingsRepository.getXxSmallFont()
-		secondaryEditButton.label.font = settingsRepository.getXxSmallFont()
-		tertiaryEditButton.label.font = settingsRepository.getXxSmallFont()
+		primaryEditButton.label.font = fontSettingsService.getXxSmallFont()
+		secondaryEditButton.label.font = fontSettingsService.getXxSmallFont()
+		tertiaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 	}
 	
 	fileprivate func setSegementedControlFonts()
 	{
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	fileprivate func roundCorners()
@@ -191,7 +192,7 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()
 	{
-		if settingsRepository.fontTheme == "Modern"
+		if fontSettingsService.fontTheme == "Modern"
 		{
 			fontSegmentedControl.selectedSegmentIndex = 0
 		}
@@ -234,7 +235,8 @@ class SettingsVC: UIViewController
 	
 	@IBAction func changeFontPressed(_ sender: Any)
 	{
-		settingsRepository.setGlobalFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
+		fontSettingsService.setFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
+		fontSettingsService.save()
 		setFonts()
 	}
 	
@@ -256,6 +258,7 @@ class SettingsVC: UIViewController
 		}
 		
 		destVC.primaryWasPressed = primaryWasPressed
+		destVC.fontSettingsService = fontSettingsService
 	}
 	
 	@objc fileprivate func primaryEditButtonPressed()

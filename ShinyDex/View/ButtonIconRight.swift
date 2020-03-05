@@ -17,12 +17,15 @@ class ButtonIconRight: UIView
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var label: UILabel!
 	@IBOutlet weak var button: UIButton!
-	var settingsRepo: SettingsRepository?
 	@IBOutlet weak var verticalSeparator: UIView!
 	@IBOutlet weak var horizontalSeparator: UIView!
 	@IBOutlet weak var iconBackGroundView: UIView!
 	@IBOutlet weak var backgroundView: UIView!
-	
+
+	var settingsRepo: SettingsRepository?
+	var fontSettingsService: FontSettingsService?
+	var xxSmalFont: UIFont?
+
 	let nibName = "ButtonIconRight"
     var contentView: UIView?
 	
@@ -30,6 +33,10 @@ class ButtonIconRight: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
+
+		fontSettingsService = FontSettingsService()
+
+		xxSmalFont = fontSettingsService?.getXxSmallFont()
 		
 		assignSettingsRepository()
 		
@@ -78,6 +85,6 @@ class ButtonIconRight: UIView
 	
 	fileprivate func setFonts()
 	{
-		label.font = settingsRepo?.getXxSmallFont()
+		label.font = xxSmalFont
 	}
 }

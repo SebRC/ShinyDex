@@ -14,6 +14,8 @@ class ColorPickerVC: CustomColorPickerViewController
 	var primaryWasPressed: Bool!
 	var currentColor: Int!
 	var settingsRepository = SettingsRepository.settingsRepositorySingleton
+	var fontSettingsService: FontSettingsService!
+
 	@IBOutlet weak var saveButton: UIButton!
 	
 	@IBOutlet weak var cancelButton: UIButton!
@@ -35,11 +37,11 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		titleLabel.textColor = .black
 		
-		titleLabel.font = settingsRepository.getMediumFont()
+		titleLabel.font = fontSettingsService.getMediumFont()
 		
-		saveButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
+		saveButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		
-		cancelButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
+		cancelButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		
 		if primaryWasPressed == nil
 		{

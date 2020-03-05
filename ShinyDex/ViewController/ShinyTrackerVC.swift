@@ -35,6 +35,7 @@ class ShinyTrackerVC: UIViewController
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
 	var currentHuntRepository: CurrentHuntRepository!
+	var fontSettingsService: FontSettingsService!
 	
 	override func viewDidLoad()
 	{
@@ -119,10 +120,10 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setFonts()
 	{
-		numberLabel.font = settingsRepository.getSmallFont()
-		probabilityLabel.font = settingsRepository.getSmallFont()
-		encountersLabel.font = settingsRepository.getSmallFont()
-		popupView.actionLabel.font = settingsRepository.getSmallFont()
+		numberLabel.font = fontSettingsService.getSmallFont()
+		probabilityLabel.font = fontSettingsService.getSmallFont()
+		encountersLabel.font = fontSettingsService.getSmallFont()
+		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()

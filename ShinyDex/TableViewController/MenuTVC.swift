@@ -16,6 +16,7 @@ class MenuTVC: UITableViewController
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository?
 	var currentHuntRepository: CurrentHuntRepository?
+	var fontSettingsService = FontSettingsService()
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
 	
 	override func viewDidLoad()
@@ -97,7 +98,7 @@ class MenuTVC: UITableViewController
 	{
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: settingsRepository!.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository!.getXxLargeFont()
+			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
@@ -163,7 +164,7 @@ class MenuTVC: UITableViewController
 		}
 		
 		cell.generationLabel.text = textResolver.resolveGenTitle(gen: indexPath.row)
-		cell.generationLabel.font = settingsRepository!.getXxLargeFont()
+		cell.generationLabel.font = fontSettingsService.getXxLargeFont()
 		
 		return cell
 	}
@@ -212,17 +213,19 @@ class MenuTVC: UITableViewController
 			let destVC = segue.destination as? CurrentHuntTVC
 
 			setCurrentHuntRepositories(currentHuntTVC: destVC!)
+			destVC?.fontSettingsService = fontSettingsService
 		}
 		else if genIndex == 8
 		{
 			let destVC = segue.destination as? SettingsVC
 			
 			destVC?.settingsRepository = settingsRepository
+			destVC?.fontSettingsService = fontSettingsService
 		}
 		else
 		{
 			let destVC = segue.destination as? PokedexTVC
-			
+			destVC?.fontSettingsService = fontSettingsService
 			setPokedexRepositories(pokedexTVC: destVC!)
 		}
 	}

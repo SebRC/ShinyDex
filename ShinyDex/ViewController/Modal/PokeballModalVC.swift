@@ -19,6 +19,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokemon: Pokemon!
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
+	var fontSettingsService = FontSettingsService()
 	var modalPosition: CGRect!
 	
 	override func viewDidLoad()
@@ -43,7 +44,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.backgroundColor = settingsRepository.getPrimaryColor()
 		
-		pokeballIndicatorView.titleLabel.font = settingsRepository.getXxSmallFont()
+		pokeballIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		
 		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
 		
@@ -76,7 +77,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setCancelButtonFont()
 	{
-		cancelButton.titleLabel?.font = settingsRepository.getMediumFont()
+		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 	}
 	
 	fileprivate func setTableViewBackgroundColor()
@@ -137,7 +138,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setNameLabelFont(nameLabel: UILabel)
 	{
-		nameLabel.font = settingsRepository.getLargeFont()
+		nameLabel.font = fontSettingsService.getLargeFont()
 	}
 
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
