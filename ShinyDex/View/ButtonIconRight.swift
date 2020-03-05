@@ -24,6 +24,7 @@ class ButtonIconRight: UIView
 
 	var settingsRepo: SettingsRepository?
 	var fontSettingsService: FontSettingsService?
+	var colorService: ColorService?
 	var xxSmalFont: UIFont?
 
 	let nibName = "ButtonIconRight"
@@ -35,6 +36,8 @@ class ButtonIconRight: UIView
         commonInit()
 
 		fontSettingsService = FontSettingsService()
+
+		colorService = ColorService()
 
 		xxSmalFont = fontSettingsService?.getXxSmallFont()
 		
@@ -76,7 +79,7 @@ class ButtonIconRight: UIView
 	
 	fileprivate func setColors()
 	{
-		contentView?.backgroundColor = settingsRepo?.getSecondaryColor()
+		contentView?.backgroundColor = colorService!.getSecondaryColor()
 		iconImageView.tintColor = .black
 		iconBackGroundView.backgroundColor = .white
 		label.backgroundColor = .white

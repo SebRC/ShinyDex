@@ -13,7 +13,8 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
 	var currentHuntRepository: CurrentHuntRepository!
-	var fontSettingsService = FontSettingsService()
+	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
 	var resolver = Resolver()
 	var encounters = 0
 	var index = 0
@@ -55,7 +56,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		tableView.backgroundColor = settingsRepository.getPrimaryColor()
+		tableView.backgroundColor = colorService!.getPrimaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -108,19 +109,19 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		currentHuntCell.sprite.image = pokemon.shinyImage
 		
 		currentHuntCell.nameLabel.text = pokemon.name
-		currentHuntCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
+		currentHuntCell.nameLabel.textColor = colorService!.getTertiaryColor()
 		currentHuntCell.nameLabel.font = fontSettingsService.getSmallFont()
 		
 		currentHuntCell.numberLabel.text = "No. \(String(pokemon.number + 1))"
-		currentHuntCell.numberLabel.textColor = settingsRepository.getTertiaryColor()
+		currentHuntCell.numberLabel.textColor = colorService!.getTertiaryColor()
 		currentHuntCell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
-		currentHuntCell.encountersLabel.textColor = settingsRepository.getTertiaryColor()
+		currentHuntCell.encountersLabel.textColor = colorService!.getTertiaryColor()
 		currentHuntCell.encountersLabel.font = fontSettingsService.getLargeFont()
 		
-		currentHuntCell.plusButton.tintColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.minusButton.tintColor = settingsRepository.getTertiaryColor()
+		currentHuntCell.plusButton.tintColor = colorService!.getTertiaryColor()
+		currentHuntCell.minusButton.tintColor = colorService!.getTertiaryColor()
 	}
 
 	func decrementEncounters(_ sender: UIButton)
@@ -196,6 +197,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			destVC?.currentHuntRepository = currentHuntRepository
 			destVC?.pokemon = currentHuntRepository.currentlyHunting[index]
 			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 		}
 	}
 	
@@ -207,7 +209,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getPrimaryColor()
+		cell.backgroundColor = colorService!.getPrimaryColor()
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)

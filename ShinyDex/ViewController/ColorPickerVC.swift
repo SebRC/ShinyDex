@@ -15,6 +15,7 @@ class ColorPickerVC: CustomColorPickerViewController
 	var currentColor: Int!
 	var settingsRepository = SettingsRepository.settingsRepositorySingleton
 	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
 
 	@IBOutlet weak var saveButton: UIButton!
 	
@@ -65,15 +66,18 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		if primaryWasPressed == nil
 		{
-			settingsRepository.saveTertiaryColor(tertiaryColor: color!)
+			colorService.save(hex: color!, name: "tertiaryColor")
+			colorService.setTertiaryColor(tertiaryColor: color!)
 		}
 		else if primaryWasPressed
 		{
-			settingsRepository.savePrimaryColor(primaryColor: color!)
+			colorService.save(hex: color!, name: "primaryColor")
+			colorService.setPrimaryColor(primaryColor: color!)
 		}
 		else
 		{
-			settingsRepository.saveSecondaryColor(secondaryColor: color!)
+			colorService.save(hex: color!, name: "secondary")
+			colorService.setSecondaryColor(secondaryColor: color!)
 		}
 		
 		performSegue(withIdentifier: "colorPickerUnwind", sender: self)

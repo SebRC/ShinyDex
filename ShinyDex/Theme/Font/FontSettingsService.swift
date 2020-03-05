@@ -19,6 +19,7 @@ class FontSettingsService
 	var extraLargeFontSize: CGFloat
 	var xxLargeFontSize: CGFloat
 	var fontSettingsRepository = FontSettingsRepository()
+	var colorService = ColorService()
 	var fontTheme: String?
 	var retroFontName = "PokemonGB"
 
@@ -54,10 +55,10 @@ class FontSettingsService
 		if fontTheme == "Modern"
 		{
 			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize),
-					NSAttributedString.Key.foregroundColor: UIColor.red]
+					NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 		}
 		return [NSAttributedString.Key.font : UIFont(name: "PokemonGB", size: fontSize)!,
-				NSAttributedString.Key.foregroundColor: UIColor.red]
+				NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 	}
 
 	func getXxSmallFont() -> UIFont

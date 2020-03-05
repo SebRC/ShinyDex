@@ -20,6 +20,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
 	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 	var modalPosition: CGRect!
 	
 	override func viewDidLoad()
@@ -42,13 +43,13 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.layer.cornerRadius = 5
 		
-		pokeballIndicatorView.backgroundColor = settingsRepository.getPrimaryColor()
+		pokeballIndicatorView.backgroundColor = colorService.getPrimaryColor()
 		
 		pokeballIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		
 		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
 		
-		pokeballIndicatorView.titleLabel.textColor = settingsRepository.getTertiaryColor()
+		pokeballIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()
 		
 		pokeballIndicatorView.pokemonImageView.image = pokemon.shinyImage
     }
@@ -82,7 +83,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = settingsRepository.getPrimaryColor()
+		pokeballTableView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -108,7 +109,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getPrimaryColor()
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -133,7 +134,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
 		pokeballCell.pokeballImageView.image = pokeball.image
 		pokeballCell.nameLabel.text = pokeball.name
-		pokeballCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
+		pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setNameLabelFont(nameLabel: UILabel)

@@ -25,14 +25,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var settingsRepository: SettingsRepository!
 	var currentHuntRepository: CurrentHuntRepository!
 	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
 
 	@IBOutlet var popupView: PopupView!
 	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
-		extendedLayoutIncludesOpaqueBars = true
 		
 		setUIColors()
 		
@@ -60,18 +59,18 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setUIColors()
 	{
-		popupView.backgroundColor = settingsRepository.getSecondaryColor()
+		popupView.backgroundColor = colorService!.getSecondaryColor()
 		
-		popupView.actionLabel.textColor = settingsRepository.getTertiaryColor()
+		popupView.actionLabel.textColor = colorService!.getTertiaryColor()
 		
-		popupView.iconImageView.tintColor = settingsRepository.getTertiaryColor()
+		popupView.iconImageView.tintColor = colorService!.getTertiaryColor()
 		
-		navigationController?.navigationBar.backgroundColor = settingsRepository.getSecondaryColor()
+		navigationController?.navigationBar.backgroundColor = colorService!.getSecondaryColor()
 		
-		tableView.backgroundColor = settingsRepository.getSecondaryColor()
+		tableView.backgroundColor = colorService!.getSecondaryColor()
 		
-		searchController.searchBar.backgroundColor = settingsRepository.getSecondaryColor()
-		searchController.searchBar.barTintColor = settingsRepository.getSecondaryColor()
+		searchController.searchBar.backgroundColor = colorService!.getSecondaryColor()
+		searchController.searchBar.barTintColor = colorService!.getSecondaryColor()
 	}
 	
 	fileprivate func setUpScopeBar()
@@ -99,13 +98,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		navigationItem.backBarButtonItem = backButton
 		
-		navigationController?.navigationBar.tintColor = settingsRepository?.getTertiaryColor()
+		navigationController?.navigationBar.tintColor = colorService!.getTertiaryColor()
 	}
 	
 	fileprivate func setNavigationBarFont()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository!.getTertiaryColor(),
+			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
@@ -290,9 +289,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
 		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
 
-		pokemonCell.pokemonName.textColor = settingsRepository.getTertiaryColor()
-		pokemonCell.pokemonNumber.textColor = settingsRepository.getTertiaryColor()
-		pokemonCell.addToCurrentHuntButton.tintColor = settingsRepository.getTertiaryColor()
+		pokemonCell.pokemonName.textColor = colorService!.getTertiaryColor()
+		pokemonCell.pokemonNumber.textColor = colorService!.getTertiaryColor()
+		pokemonCell.addToCurrentHuntButton.tintColor = colorService!.getTertiaryColor()
 		
 		setAddToHuntButtonState(pokemonCell: pokemonCell)
 	}
@@ -327,7 +326,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			let destVC = segue.destination as? ShinyTrackerVC
 
 			destVC?.fontSettingsService = fontSettingsService
-				
+			destVC?.colorService = colorService
+
 			setShinyTrackerProperties(shinyTrackerVC: destVC!)
 		}
 	}
@@ -378,7 +378,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getPrimaryColor()
+		cell.backgroundColor = colorService!.getPrimaryColor()
 	}
 
 }

@@ -13,6 +13,7 @@ class SettingsVC: UIViewController
 	var settingsRepository: SettingsRepository!
 	var switchStateService = SwitchStateService()
 	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
 	var primaryWasPressed: Bool?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
@@ -39,6 +40,8 @@ class SettingsVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		fontSettingsService.colorService = colorService
 		
 		setUIColors()
 		
@@ -62,52 +65,52 @@ class SettingsVC: UIViewController
 	fileprivate func setUIColors()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
+			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
-		navigationController?.navigationBar.barTintColor = settingsRepository.getSecondaryColor()
+		navigationController?.navigationBar.barTintColor = colorService!.getSecondaryColor()
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		navigationController?.navigationBar.tintColor = settingsRepository?.getTertiaryColor()
+		navigationController?.navigationBar.tintColor = colorService!.getTertiaryColor()
 		
-		view.backgroundColor = settingsRepository.getPrimaryColor()
+		view.backgroundColor = colorService!.getPrimaryColor()
 		
-		themeLabel.textColor = settingsRepository.getTertiaryColor()
+		themeLabel.textColor = colorService!.getTertiaryColor()
 		
-		primaryEditButton.contentView?.backgroundColor = settingsRepository.getPrimaryColor()
+		primaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
 		
-		secondaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
+		secondaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
-		tertiaryEditButton.contentView?.backgroundColor = settingsRepository.getTertiaryColor()
+		tertiaryEditButton.contentView?.backgroundColor = colorService!.getTertiaryColor()
 		
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor()]
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor()]
 		
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		generationLabel.textColor = settingsRepository.getTertiaryColor()
-		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		generationSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		generationLabel.textColor = colorService!.getTertiaryColor()
+		generationSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
+		generationSegmentedControl.tintColor = colorService!.getPrimaryColor()
 		
-		shinyOddsLabel.textColor = settingsRepository.getTertiaryColor()
-		shinyCharmLabel.textColor = settingsRepository.getTertiaryColor()
-		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
-		shinyCharmSwitch.thumbTintColor = settingsRepository.getPrimaryColor()
+		shinyOddsLabel.textColor = colorService!.getTertiaryColor()
+		shinyCharmLabel.textColor = colorService!.getTertiaryColor()
+		shinyCharmSwitch.onTintColor = colorService!.getSecondaryColor()
+		shinyCharmSwitch.thumbTintColor = colorService!.getPrimaryColor()
 		
-		fontLabel.textColor = settingsRepository.getTertiaryColor()
+		fontLabel.textColor = colorService!.getTertiaryColor()
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		
-		fontSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		fontSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		fontSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
+		fontSegmentedControl.tintColor = colorService!.getPrimaryColor()
 		
-		themFontSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		generationCharmSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		charmLureSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		lureOddsSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		themFontSeparator.backgroundColor = colorService!.getPrimaryColor()
+		generationCharmSeparator.backgroundColor = colorService!.getPrimaryColor()
+		charmLureSeparator.backgroundColor = colorService!.getPrimaryColor()
+		lureOddsSeparator.backgroundColor = colorService!.getPrimaryColor()
 
-		lureLabel.textColor = settingsRepository.getTertiaryColor()
-		lureSwitch.onTintColor = settingsRepository.getSecondaryColor()
-		lureSwitch.thumbTintColor = settingsRepository.getPrimaryColor()
+		lureLabel.textColor = colorService!.getTertiaryColor()
+		lureSwitch.onTintColor = colorService!.getSecondaryColor()
+		lureSwitch.thumbTintColor = colorService!.getPrimaryColor()
 
 	}
 	
@@ -135,7 +138,7 @@ class SettingsVC: UIViewController
 	fileprivate func setSegementedControlFonts()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
+			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
@@ -246,19 +249,20 @@ class SettingsVC: UIViewController
 		
 		if primaryWasPressed == nil
 		{
-			destVC.currentColor = settingsRepository.tertiaryColor
+			destVC.currentColor = colorService?.getTertiaryHex()
 		}
 		else if primaryWasPressed!
 		{
-			destVC.currentColor = settingsRepository.primaryColor
+			destVC.currentColor = colorService?.getPrimaryHex()
 		}
 		else
 		{
-			destVC.currentColor = settingsRepository.secondaryColor
+			destVC.currentColor = colorService?.getSecondaryHex()
 		}
 		
 		destVC.primaryWasPressed = primaryWasPressed
 		destVC.fontSettingsService = fontSettingsService
+		destVC.colorService = colorService
 	}
 	
 	@objc fileprivate func primaryEditButtonPressed()

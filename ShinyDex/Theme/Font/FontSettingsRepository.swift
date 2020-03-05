@@ -12,7 +12,7 @@ import UIKit
 class FontSettingsRepository
 {
 	var fontTheme: String?
-	let defaults = UserDefaults.standard
+	fileprivate let defaults = UserDefaults.standard
 
 	func load()
 	{

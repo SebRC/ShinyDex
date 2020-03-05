@@ -19,6 +19,8 @@
 		9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9669E34923F1DF7D0048C5C5 /* FlexColorPicker */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
+		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
+		966C211A241174690019F835 /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2119241174690019F835 /* ColorService.swift */; };
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
 		9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */; };
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
@@ -76,6 +78,8 @@
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
+		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
+		966C2119241174690019F835 /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
 		9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEProbabilityService.swift; sourceTree = "<group>"; };
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
@@ -164,6 +168,24 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		966C2115241173B90019F835 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				966C2116241173C80019F835 /* Color */,
+				966C210C241038220019F835 /* Font */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		966C2116241173C80019F835 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				966C2117241173D90019F835 /* ColorRepository.swift */,
+				966C2119241174690019F835 /* ColorService.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
 		9689C7342409ACFD0007AD5D /* Probability */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +225,7 @@
 		96FC079B23EF192400459450 /* ShinyDex */ = {
 			isa = PBXGroup;
 			children = (
-				966C210C241038220019F835 /* Font */,
+				966C2115241173B90019F835 /* Theme */,
 				96FC07FE23EF57D400459450 /* Main.storyboard */,
 				96FC079C23EF192400459450 /* AppDelegate.swift */,
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
@@ -461,6 +483,7 @@
 				964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */,
 				96FC083A23EF59C000459450 /* SetEncountersModalVC.swift in Sources */,
 				9695A31F23F16F9F00287A16 /* PopupView.swift in Sources */,
+				966C2118241173D90019F835 /* ColorRepository.swift in Sources */,
 				9689C72D240851DD0007AD5D /* OddsService.swift in Sources */,
 				9695A31A23F16F9F00287A16 /* SetEncountersView.swift in Sources */,
 				96FC082323EF595800459450 /* SettingsRepository.swift in Sources */,
@@ -493,6 +516,7 @@
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
+				966C211A241174690019F835 /* ColorService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

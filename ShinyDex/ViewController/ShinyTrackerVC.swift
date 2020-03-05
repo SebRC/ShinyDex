@@ -36,6 +36,7 @@ class ShinyTrackerVC: UIViewController
 	var settingsRepository: SettingsRepository!
 	var currentHuntRepository: CurrentHuntRepository!
 	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
 	
 	override func viewDidLoad()
 	{
@@ -78,26 +79,26 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setUIColors()
 	{
-		view.backgroundColor = settingsRepository.getPrimaryColor()
-		popupView.backgroundColor = settingsRepository.getSecondaryColor()
-		popupView.actionLabel.textColor = settingsRepository.getTertiaryColor()
-		popupView.iconImageView.tintColor = settingsRepository.getTertiaryColor()
+		view.backgroundColor = colorService.getPrimaryColor()
+		popupView.backgroundColor = colorService.getSecondaryColor()
+		popupView.actionLabel.textColor = colorService.getTertiaryColor()
+		popupView.iconImageView.tintColor = colorService.getTertiaryColor()
 		
-		numberLabel.backgroundColor = settingsRepository.getSecondaryColor()
-		numberLabel.textColor = settingsRepository.getTertiaryColor()
+		numberLabel.backgroundColor = colorService.getSecondaryColor()
+		numberLabel.textColor = colorService.getTertiaryColor()
 		
-		encountersLabel.backgroundColor = settingsRepository.getSecondaryColor()
-		encountersLabel.textColor = settingsRepository.getTertiaryColor()
+		encountersLabel.backgroundColor = colorService.getSecondaryColor()
+		encountersLabel.textColor = colorService.getTertiaryColor()
 		
-		probabilityLabel.backgroundColor = settingsRepository.getSecondaryColor()
-		probabilityLabel.textColor = settingsRepository.getTertiaryColor()
+		probabilityLabel.backgroundColor = colorService.getSecondaryColor()
+		probabilityLabel.textColor = colorService.getTertiaryColor()
 		
-		gifSeparatorView.backgroundColor = settingsRepository.getSecondaryColor()
+		gifSeparatorView.backgroundColor = colorService.getSecondaryColor()
 		
-		pokeballButton.backgroundColor = settingsRepository.getPrimaryColor()
+		pokeballButton.backgroundColor = colorService.getPrimaryColor()
 		
-		plusButton.tintColor = settingsRepository.getTertiaryColor()
-		minusButton.tintColor = settingsRepository.getTertiaryColor()
+		plusButton.tintColor = colorService.getTertiaryColor()
+		minusButton.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
