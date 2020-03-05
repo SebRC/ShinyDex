@@ -34,9 +34,9 @@ class ShinyTrackerVC: UIViewController
 	let popupHandler = PopupHandler()
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
-	var currentHuntRepository: CurrentHuntRepository!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
+	var currentHuntService: CurrentHuntService!
 	
 	override func viewDidLoad()
 	{
@@ -201,7 +201,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return resolver.resolveButtonAccess(nameList: currentHuntRepository.currentHuntNames, name: pokemon.name)
+		return resolver.resolveButtonAccess(nameList: currentHuntService.currentHuntNames, name: pokemon.name)
 	}
 	
 	
@@ -221,7 +221,7 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		currentHuntRepository.addToCurrentHunt(pokemon: pokemon)
+		currentHuntService.addToCurrentHunt(pokemon: pokemon)
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		
@@ -276,7 +276,6 @@ class ShinyTrackerVC: UIViewController
 	{
 		pokeballModalVC.pokemonRepository = pokemonRepository
 		pokeballModalVC.pokemon = pokemon
-		pokeballModalVC.settingsRepository = settingsRepository
 	}
 	
 	@objc fileprivate func infoButtonPressed(_ sender: Any)

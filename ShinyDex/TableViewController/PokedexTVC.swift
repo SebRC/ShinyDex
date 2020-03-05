@@ -23,9 +23,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var popupHandler = PopupHandler()
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
-	var currentHuntRepository: CurrentHuntRepository!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
+	var currentHuntService: CurrentHuntService!
 
 	@IBOutlet var popupView: PopupView!
 	
@@ -184,7 +184,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
 			
-			currentHuntRepository.addToCurrentHunt(pokemon: pokemon!)
+			currentHuntService.addToCurrentHunt(pokemon: pokemon!)
 		
 			tableView.reloadRows(at: [indexPath], with: .automatic)
 			
@@ -300,7 +300,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		let containedName = pokemonCell.pokemonName.text
 		
-		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntRepository.currentHuntNames.contains(containedName!)
+		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntService.currentHuntNames.contains(containedName!)
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -336,14 +336,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		pokeballModalVC.pokemonRepository = pokemonRepository
 		pokeballModalVC.pokemon = pokemon
-		pokeballModalVC.settingsRepository = settingsRepository
 	}
 	
 	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
 	{
 		shinyTrackerVC.pokemonRepository = pokemonRepository
 		shinyTrackerVC.settingsRepository = settingsRepository
-		shinyTrackerVC.currentHuntRepository = currentHuntRepository
+		shinyTrackerVC.currentHuntService = currentHuntService
 		shinyTrackerVC.pokemon = pokemonList[getIndexFromFullList(index: encounterIndex)]
 	}
 	

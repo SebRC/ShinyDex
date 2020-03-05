@@ -21,7 +21,7 @@ class SettingsRepository
 	
 	let defaults = UserDefaults.standard
 	
-	fileprivate init()
+	init()
 	{
 		isShinyCharmActive = false
 		isLureInUse = false

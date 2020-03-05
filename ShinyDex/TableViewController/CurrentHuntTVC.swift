@@ -12,9 +12,9 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 
 	var pokemonRepository: PokemonRepository!
 	var settingsRepository: SettingsRepository!
-	var currentHuntRepository: CurrentHuntRepository!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
+	var currentHuntService: CurrentHuntService!
 	var resolver = Resolver()
 	var encounters = 0
 	var index = 0
@@ -45,7 +45,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func setClearHuntButtonState()
 	{
-		clearCurrentHuntButton.isEnabled = !currentHuntRepository.currentHuntNames.isEmpty
+		clearCurrentHuntButton.isEnabled = !currentHuntService.currentHuntNames.isEmpty
 	}
 	
 	fileprivate func setUpBackButton()
@@ -67,7 +67,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func resolveCurrentEncounters() -> Int
 	{
-		let pokemonList = currentHuntRepository.currentlyHunting
+		let pokemonList = currentHuntService.currentHuntPokemon
 		
 		var encounters = 0
 		for pokemon in pokemonList
@@ -80,7 +80,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-        return currentHuntRepository.currentlyHunting.count
+        return currentHuntService.currentHuntPokemon.count
     }
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -93,7 +93,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		
 		cell.cellDelegate = self
 		
-		let pokemon = currentHuntRepository.currentlyHunting[indexPath.row]
+		let pokemon = currentHuntService.currentHuntPokemon[indexPath.row]
 		
 		let minusButtonIsEnabled = pokemon.encounters <= 0
 		
@@ -128,7 +128,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHuntRepository.currentlyHunting[indexPath.row]
+			let pokemon = currentHuntService.currentHuntPokemon[indexPath.row]
 			
 			pokemon.encounters -= 1
 			encounters -= 1
@@ -142,7 +142,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHuntRepository.currentlyHunting[indexPath.row]
+			let pokemon = currentHuntService.currentHuntPokemon[indexPath.row]
 			
 			pokemon.encounters += 1
 			encounters += 1
@@ -155,17 +155,17 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
 		{
-			encounters -= currentHuntRepository.currentlyHunting[indexPath.row].encounters
-			currentHuntRepository.currentlyHunting.remove(at: indexPath.row)
+			encounters -= currentHuntService.currentHuntPokemon[indexPath.row].encounters
+			currentHuntService.currentHuntPokemon.remove(at: indexPath.row)
 			
-			if !currentHuntRepository.currentHuntNames.isEmpty
+			if !currentHuntService.currentHuntNames.isEmpty
 			{
-				currentHuntRepository.currentHuntNames.remove(at: indexPath.row)
+				currentHuntService.currentHuntNames.remove(at: indexPath.row)
 			}
 			
             tableView.deleteRows(at: [indexPath], with: .fade)
 			navigationItem.title = String(encounters)
-			currentHuntRepository.saveCurrentHunt()
+			currentHuntService.save()
 			
 			setClearHuntButtonState()
         }
@@ -183,8 +183,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		{
 			let destVC = segue.destination as? ConfirmationModalVC
 			
-			destVC?.settingsRepository = settingsRepository
-			destVC?.currentHuntRepository = currentHuntRepository
+			destVC?.currentHuntService = currentHuntService
 
 			isClearingCurrentHunt = false
 		}
@@ -194,8 +193,8 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			
 			destVC?.pokemonRepository = pokemonRepository
 			destVC?.settingsRepository = settingsRepository
-			destVC?.currentHuntRepository = currentHuntRepository
-			destVC?.pokemon = currentHuntRepository.currentlyHunting[index]
+			destVC?.currentHuntService = currentHuntService
+			destVC?.pokemon = currentHuntService.currentHuntPokemon[index]
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}

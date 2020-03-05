@@ -11,60 +11,55 @@ import UIKit
 
 class ColorService
 {
-	fileprivate var colorRepository: ColorRepository?
-
-	init()
-	{
-		colorRepository = ColorRepository()
-	}
+	fileprivate var colorRepository = ColorRepository()
 
 	func getPrimaryColor() -> UIColor
 	{
-		return UIColor(netHex: colorRepository!.primaryColor)
+		return UIColor(netHex: colorRepository.primaryColor)
 	}
 
 	func getSecondaryColor() -> UIColor
 	{
-		return UIColor(netHex: colorRepository!.secondaryColor)
+		return UIColor(netHex: colorRepository.secondaryColor)
 	}
 
 	func getTertiaryColor() -> UIColor
 	{
-		return UIColor(netHex: colorRepository!.tertiaryColor)
+		return UIColor(netHex: colorRepository.tertiaryColor)
 	}
 
 	func save(hex: Int, name: String)
 	{
-		colorRepository?.save(hex: hex, name: name)
+		colorRepository.save(hex: hex, name: name)
 	}
 
 	func setPrimaryColor(primaryColor: Int)
 	{
-		colorRepository!.primaryColor = primaryColor
+		colorRepository.primaryColor = primaryColor
 	}
 
 	func setSecondaryColor(secondaryColor: Int)
 	{
-		colorRepository!.secondaryColor = secondaryColor
+		colorRepository.secondaryColor = secondaryColor
 	}
 
 	func setTertiaryColor(tertiaryColor: Int)
 	{
-		colorRepository!.tertiaryColor = tertiaryColor
+		colorRepository.tertiaryColor = tertiaryColor
 	}
 
 	func getPrimaryHex() -> Int
 	{
-		return colorRepository!.primaryColor
+		return colorRepository.primaryColor
 	}
 
 	func getSecondaryHex() -> Int
 	{
-		return colorRepository!.secondaryColor
+		return colorRepository.secondaryColor
 	}
 
 	func getTertiaryHex() -> Int
 	{
-		return colorRepository!.tertiaryColor
+		return colorRepository.tertiaryColor
 	}
 }

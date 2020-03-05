@@ -14,10 +14,10 @@ class MenuTVC: UITableViewController
 	let textResolver = TextResolver()
 	var genIndex = 0
 	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository?
-	var currentHuntRepository: CurrentHuntRepository?
+	var settingsRepository = SettingsRepository()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
+	var currentHuntService = CurrentHuntService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
 	
@@ -28,21 +28,12 @@ class MenuTVC: UITableViewController
 		hideBackButton()
 		
 		showNavigationBar()
-		
-		createSettingsRepository()
-		
+
 		setNavigationControllerColor()
 		
 		setNavigationBarFont()
 		
 		setSettingsIconColor()
-		
-		createCurrentHuntRepository()
-		
-		if currentHuntRepository!.currentlyHunting.isEmpty
-		{
-			loadCurrentHunt()
-		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool)
@@ -73,27 +64,6 @@ class MenuTVC: UITableViewController
 	fileprivate func setNavigationControllerColor()
 	{
 		navigationController?.navigationBar.barTintColor = colorService.getSecondaryColor()
-	}
-	
-	fileprivate func createSettingsRepository()
-	{
-		if settingsRepository == nil
-		{
-			settingsRepository = SettingsRepository.settingsRepositorySingleton
-		}
-	}
-	
-	fileprivate func createCurrentHuntRepository()
-	{
-		if currentHuntRepository == nil
-		{
-			currentHuntRepository = CurrentHuntRepository.currentHuntRepositorySingleton
-		}
-	}
-	
-	fileprivate func loadCurrentHunt()
-	{
-		currentHuntRepository!.loadCurrentHunt()
 	}
 	
 	fileprivate func setNavigationBarFont()
@@ -152,13 +122,13 @@ class MenuTVC: UITableViewController
 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
-		let showCurrentHuntImage = indexPath.row == 7 && !(currentHuntRepository?.currentlyHunting.isEmpty)!
+		let showCurrentHuntImage = indexPath.row == 7 && !currentHuntService.currentHuntPokemon.isEmpty
 		
 		cell.generationLabel.textColor = colorService.getTertiaryColor()
 		
 		if showCurrentHuntImage
 		{
-			cell.generationImage.image = currentHuntRepository?.currentlyHunting[0].shinyImage
+			cell.generationImage.image = currentHuntService.currentHuntPokemon[0].shinyImage
 		}
 		else
 		{
@@ -239,15 +209,15 @@ class MenuTVC: UITableViewController
 	{
 		currentHuntTVC.pokemonRepository = pokemonRepository
 		currentHuntTVC.settingsRepository = settingsRepository
-		currentHuntTVC.currentHuntRepository = currentHuntRepository
+		currentHuntTVC.currentHuntService = currentHuntService
 	}
 	
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
 	{
 		pokedexTVC.generation = genIndex
 		pokedexTVC.pokemonRepository = pokemonRepository
+		pokedexTVC.currentHuntService = currentHuntService
 		pokedexTVC.settingsRepository = settingsRepository
-		pokedexTVC.currentHuntRepository = currentHuntRepository
 	}
 	
 	@IBAction func settingsPressed(_ sender: Any)
