@@ -10,7 +10,7 @@ import UIKit
 
 class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 
-	var pokemonRepository: PokemonRepository!
+	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
@@ -134,7 +134,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			encounters -= 1
 			navigationItem.title = String(encounters)
 			tableView.reloadRows(at: [indexPath], with: .automatic)
-			pokemonRepository.savePokemon(pokemon: pokemon)
+			pokemonService.save(pokemon: pokemon)
 		}
 	}
 	
@@ -148,7 +148,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			encounters += 1
 			navigationItem.title = String(encounters)
 			tableView.reloadRows(at: [indexPath], with: .automatic)
-			pokemonRepository.savePokemon(pokemon: pokemon)
+			pokemonService.save(pokemon: pokemon)
 		}
 	}
 	
@@ -191,7 +191,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
 			
-			destVC?.pokemonRepository = pokemonRepository
+			destVC?.pokemonService = pokemonService
 			destVC?.huntStateService = huntStateService
 			destVC?.currentHuntService = currentHuntService
 			destVC?.pokemon = currentHuntService.currentHuntPokemon[index]

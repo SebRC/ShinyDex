@@ -32,7 +32,7 @@ class ShinyTrackerVC: UIViewController
 	var infoPressed = false
 	var setEncountersPressed = false
 	let popupHandler = PopupHandler()
-	var pokemonRepository: PokemonRepository!
+	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
@@ -209,14 +209,14 @@ class ShinyTrackerVC: UIViewController
 	{
 		pokemon.encounters += 1
 		resolveEncounterDetails()
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 	}
 	
 	@IBAction func minusPressed(_ sender: Any)
 	{
 		pokemon.encounters -= 1
 		resolveEncounterDetails()
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 	}
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
@@ -262,7 +262,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! SetEncountersModalVC
 			
 			destVC.pokemon = pokemon
-			destVC.pokemonRepository = pokemonRepository
+			destVC.pokemonService = pokemonService
 		}
 		else
 		{
@@ -274,7 +274,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setPokeballModalProperties(pokeballModalVC: PokeballModalVC)
 	{
-		pokeballModalVC.pokemonRepository = pokemonRepository
+		pokeballModalVC.pokemonService = pokemonService
 		pokeballModalVC.pokemon = pokemon
 	}
 	
@@ -312,7 +312,7 @@ class ShinyTrackerVC: UIViewController
 		
 		pokemon = sourceVC.pokemon
 		
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 		
 		setProbability()
 		

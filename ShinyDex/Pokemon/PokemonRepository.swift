@@ -1,5 +1,5 @@
 //
-//  PokemonRepository.swift
+//  PokemonService.swift
 //  ShinyDex
 //
 //  Created by Sebastian Christiansen on 08/02/2020.
@@ -12,17 +12,11 @@ import CoreData
 
 public class PokemonRepository
 {
-	fileprivate var pokemonEntityList: [NSManagedObject] = []
-	var pokemonList: [Pokemon] = []
-	var generation = 1
-	let txtReader = TxtReader()
 	var appDelegate: AppDelegate
 	var managedContext: NSManagedObjectContext
 	var entity: NSEntityDescription
 	
-	static let pokemonRepositorySingleton = PokemonRepository()
-	
-	fileprivate init()
+	init()
 	{
 		appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
 		
@@ -31,54 +25,26 @@ public class PokemonRepository
 		entity = NSEntityDescription.entity(forEntityName: "PokemonEntity", in: managedContext)!
 	}
 	
-	func populatePokemonList()
+	func getAll() -> [NSManagedObject]
 	{
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")
+
+		var pokemonEntityList = [NSManagedObject]()
 
 		do
 		{
 		  pokemonEntityList = try managedContext.fetch(fetchRequest)
-			
-		  for pokemonEntity in pokemonEntityList
-		  {
-			  pokemonList.append(Pokemon(pokemonEntity: pokemonEntity))
-		  }
-			
+
+			return pokemonEntityList
 		}
 		catch let error as NSError
 		{
 			print("Could not fetch PokemonEntity table. \(error.localizedDescription)")
 		}
+		return []
 	}
 	
-	func populateDatabase()
-	{
-		let genText = "allGens"
-		let list = txtReader.linesFromResourceForced(textFile: genText)
-
-		var count = 0
-		
-		for pokemonName in list
-		{
-			let pokemonEntity = NSManagedObject(entity: entity, insertInto: managedContext)
-			
-			pokemonEntity.setValue(pokemonName, forKey: "name")
-			pokemonEntity.setValue(count, forKey: "number")
-			pokemonEntity.setValue(0, forKey: "encounters")
-			pokemonEntity.setValue("Not Caught", forKey: "caughtDescription")
-			pokemonEntity.setValue("none", forKey: "caughtBall")
-			
-			let pokemon = Pokemon(pokemonEntity: pokemonEntity)
-			
-			savePokemon(pokemon: pokemon)
-			
-			pokemonList.append(pokemon)
-			
-			count += 1
-		}
-	}
-	
-	func savePokemon(pokemon: Pokemon)
+	func save(pokemon: Pokemon)
 	{
 		pokemon.pokemonEntity.setValue(pokemon.name, forKey: "name")
 		pokemon.pokemonEntity.setValue(pokemon.encounters, forKey: "encounters")
@@ -93,5 +59,20 @@ public class PokemonRepository
 		{
 			print("Could not save \(pokemon.name). \(error.localizedDescription)")
 		}
+	}
+
+	func save(name: String, number: Int)
+	{
+		let pokemonEntity = NSManagedObject(entity: entity, insertInto: managedContext)
+
+		pokemonEntity.setValue(name, forKey: "name")
+		pokemonEntity.setValue(number, forKey: "number")
+		pokemonEntity.setValue(0, forKey: "encounters")
+		pokemonEntity.setValue("Not Caught", forKey: "caughtDescription")
+		pokemonEntity.setValue("none", forKey: "caughtBall")
+
+		let pokemon = Pokemon(pokemonEntity: pokemonEntity)
+
+		save(pokemon: pokemon)
 	}
 }

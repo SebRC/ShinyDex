@@ -13,7 +13,6 @@ import CoreData
 class Pokemon
 {
 	var pokemonEntity: NSManagedObject
-	
 	var name: String
 	var number: Int
 	var encounters: Int
@@ -43,11 +42,11 @@ class Pokemon
 		}
 	}
 	
-	func changeCaughtBall(pokemonRepository: PokemonRepository, newCaughtBall: String)
+	func changeCaughtBall(pokemonService: PokemonService, newCaughtBall: String)
 	{
 		caughtBall = newCaughtBall
 		caughtDescription = resolveCaughtDescription()
-		pokemonRepository.savePokemon(pokemon: self)
+		pokemonService.save(pokemon: self)
 	}
 	
 	fileprivate func resolveCaughtDescription() -> String

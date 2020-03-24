@@ -10,10 +10,11 @@ import UIKit
 
 class MenuTVC: UITableViewController
 {
+	var genIndex = 0
+	var allPokemon = [Pokemon]()
 	let resolver = Resolver()
 	let textResolver = TextResolver()
-	var genIndex = 0
-	var pokemonRepository: PokemonRepository!
+	var pokemonService: PokemonService!
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var currentHuntService = CurrentHuntService()
@@ -26,6 +27,8 @@ class MenuTVC: UITableViewController
 		super.viewDidLoad()
 		
 		hideBackButton()
+
+		allPokemon = pokemonService.getAll()
 		
 		showNavigationBar()
 
@@ -207,7 +210,7 @@ class MenuTVC: UITableViewController
 	
 	fileprivate func setCurrentHuntRepositories(currentHuntTVC: CurrentHuntTVC)
 	{
-		currentHuntTVC.pokemonRepository = pokemonRepository
+		currentHuntTVC.pokemonService = pokemonService
 		currentHuntTVC.huntStateService = huntStateService
 		currentHuntTVC.currentHuntService = currentHuntService
 	}
@@ -215,7 +218,7 @@ class MenuTVC: UITableViewController
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
 	{
 		pokedexTVC.generation = genIndex
-		pokedexTVC.pokemonRepository = pokemonRepository
+		pokedexTVC.pokemonService = pokemonService
 		pokedexTVC.currentHuntService = currentHuntService
 		pokedexTVC.huntStateService = huntStateService
 	}

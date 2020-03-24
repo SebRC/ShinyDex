@@ -11,8 +11,8 @@ import Foundation
 class CurrentHuntService
 {
 	var currentHuntPokemon = [Pokemon]()
+	var pokemonService = PokemonService()
 	var currentHuntNames = [String]()
-	fileprivate var pokemonList = PokemonRepository.pokemonRepositorySingleton.pokemonList
 
 	fileprivate var currentHuntRepository: CurrentHuntRepository?
 
@@ -25,9 +25,10 @@ class CurrentHuntService
 	
 	fileprivate func constructCurrentHunt()
 	{
+		let allPokemon = pokemonService.getAll()
 		for name in currentHuntNames
 		{
-			for pokemon in pokemonList
+			for pokemon in allPokemon
 			{
 				if name == pokemon.name
 				{

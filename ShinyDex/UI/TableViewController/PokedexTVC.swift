@@ -13,7 +13,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	let searchController = UISearchController(searchResultsController: nil)
 	
 	var filteredPokemon = [Pokemon]()
-	var pokemonList = [Pokemon]()
+	var allPokemon = [Pokemon]()
 	let resolver = Resolver()
 	let textResolver = TextResolver()
 	var encounterIndex = 0
@@ -21,7 +21,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var changeCaughtBallPressed = false
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
-	var pokemonRepository: PokemonRepository!
+	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
@@ -32,6 +32,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		allPokemon = pokemonService.getAll()
 		
 		setUIColors()
 		
@@ -132,31 +134,31 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		if generation == 0
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[0..<151])
+			allPokemon = Array(allPokemon[0..<151])
 		}
 		else if generation == 1
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[151..<251])
+			allPokemon = Array(allPokemon[151..<251])
 		}
 		else if generation == 2
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[251..<386])
+			allPokemon = Array(allPokemon[251..<386])
 		}
 		else if generation == 3
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[386..<493])
+			allPokemon = Array(allPokemon[386..<493])
 		}
 		else if generation == 4
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[493..<649])
+			allPokemon = Array(allPokemon[493..<649])
 		}
 		else if generation == 5
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[649..<721])
+			allPokemon = Array(allPokemon[649..<721])
 		}
 		else if generation == 6
 		{
-			pokemonList = Array(pokemonRepository!.pokemonList[721..<807])
+			allPokemon = Array(allPokemon[721..<807])
 		}
 	}
 	
@@ -204,7 +206,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		}
 		else
 		{
-			return pokemonList[index]
+			return allPokemon[index]
 		}
 	}
 	
@@ -215,7 +217,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	func filterContentForSearchText(_ searchText: String, scope: String = "Regular")
 	{
-		filteredPokemon = pokemonList.filter( {(pokemon : Pokemon) -> Bool in
+		filteredPokemon = allPokemon.filter( {(pokemon : Pokemon) -> Bool in
 			
 			let doesCategoryMatch = (scope == "Shinydex") || (scope == pokemon.caughtDescription)
 			
@@ -242,7 +244,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			return filteredPokemon.count
 		}
 		
-        return pokemonList.count
+        return allPokemon.count
     }
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -273,7 +275,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			return filteredPokemon[index]
 		}
 		
-		return pokemonList[index]
+		return allPokemon[index]
 	}
 	
 	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: Pokemon)
@@ -334,16 +336,16 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setPokeballModalProperties(pokeballModalVC: PokeballModalVC)
 	{
-		pokeballModalVC.pokemonRepository = pokemonRepository
+		pokeballModalVC.pokemonService = pokemonService
 		pokeballModalVC.pokemon = pokemon
 	}
 	
 	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
 	{
-		shinyTrackerVC.pokemonRepository = pokemonRepository
+		shinyTrackerVC.pokemonService = pokemonService
 		shinyTrackerVC.huntStateService = huntStateService
 		shinyTrackerVC.currentHuntService = currentHuntService
-		shinyTrackerVC.pokemon = pokemonList[getIndexFromFullList(index: encounterIndex)]
+		shinyTrackerVC.pokemon = allPokemon[getIndexFromFullList(index: encounterIndex)]
 	}
 	
 	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)
@@ -353,7 +355,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		if let sourceTVC = unwindSegue.source as? PokeballModalVC
 		{
-			pokemon?.changeCaughtBall(pokemonRepository: pokemonRepository, newCaughtBall: sourceTVC.pokemon.caughtBall)
+			pokemon?.changeCaughtBall(pokemonService: pokemonService, newCaughtBall: sourceTVC.pokemon.caughtBall)
 			
 			tableView.reloadData()
 		}
@@ -370,7 +372,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			return indexOfPokemon
 		}
 		
-		indexOfPokemon = pokemonList[index].number - resolver.resolveCounter(generation: generation)
+		indexOfPokemon = allPokemon[index].number - resolver.resolveCounter(generation: generation)
 		
 		return indexOfPokemon
 	}

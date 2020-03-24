@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082023EF595700459450 /* HuntStateRepository.swift */; };
 		9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F773242A8C2900263CF6 /* HuntStateService.swift */; };
+		9607F778242A971000263CF6 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F777242A971000263CF6 /* PokemonService.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		962E58C22411A69C001D5E41 /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B62411A69C001D5E41 /* ConfirmationPopup.xib */; };
 		962E58C32411A69C001D5E41 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B72411A69C001D5E41 /* PopupView.xib */; };
@@ -76,6 +77,7 @@
 
 /* Begin PBXFileReference section */
 		9607F773242A8C2900263CF6 /* HuntStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntStateService.swift; sourceTree = "<group>"; };
+		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		962E58B62411A69C001D5E41 /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfirmationPopup.xib; path = ../../../../../ConfirmationPopup.xib; sourceTree = "<group>"; };
 		962E58B72411A69C001D5E41 /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopupView.xib; path = ../../../../../PopupView.xib; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC07DA23EF455A00459450 /* PokemonRepository.swift */,
+				9607F777242A971000263CF6 /* PokemonService.swift */,
 				9695A30823EF87BD00287A16 /* Pokemon.swift */,
 			);
 			path = Pokemon;
@@ -531,6 +534,7 @@
 				9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */,
 				962E58C42411A69C001D5E41 /* PopupView.swift in Sources */,
 				96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */,
+				9607F778242A971000263CF6 /* PokemonService.swift in Sources */,
 				96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */,
 				96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */,
 				96FC083423EF59AA00459450 /* SettingsVC.swift in Sources */,

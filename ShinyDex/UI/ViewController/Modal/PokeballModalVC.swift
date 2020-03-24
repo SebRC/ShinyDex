@@ -17,7 +17,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokeballs = [Pokeball]()
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
-	var pokemonRepository: PokemonRepository!
+	var pokemonService: PokemonService!
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var modalPosition: CGRect!
@@ -96,7 +96,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokemon.caughtBall = pokeball.name.lowercased()
 		
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 		
 		performSegue(withIdentifier: "unwindToShinyTrackerVC", sender: self)
 	}
