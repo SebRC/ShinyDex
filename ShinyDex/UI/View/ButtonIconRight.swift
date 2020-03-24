@@ -22,7 +22,6 @@ class ButtonIconRight: UIView
 	@IBOutlet weak var iconBackGroundView: UIView!
 	@IBOutlet weak var backgroundView: UIView!
 
-	var settingsRepo: SettingsRepository?
 	var fontSettingsService: FontSettingsService?
 	var colorService: ColorService?
 	var xxSmalFont: UIFont?
@@ -40,8 +39,6 @@ class ButtonIconRight: UIView
 		colorService = ColorService()
 
 		xxSmalFont = fontSettingsService?.getXxSmallFont()
-		
-		assignSettingsRepository()
 		
 		setColors()
 		
@@ -68,14 +65,6 @@ class ButtonIconRight: UIView
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
-	
-	fileprivate func assignSettingsRepository()
-	{
-		if settingsRepo == nil
-		{
-			settingsRepo = SettingsRepository.settingsRepositorySingleton
-		}
-	}
 	
 	fileprivate func setColors()
 	{

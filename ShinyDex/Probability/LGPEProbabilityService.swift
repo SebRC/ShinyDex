@@ -10,8 +10,6 @@ import Foundation
 
 class LGPEProbabilityService
 {
-	fileprivate let settingsRepository = SettingsRepository.settingsRepositorySingleton
-
 	fileprivate var isShinyCharmActive = false
 	fileprivate var isLureActive = false
 	fileprivate var catchCombo = 0

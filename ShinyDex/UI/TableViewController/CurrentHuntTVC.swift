@@ -11,10 +11,10 @@ import UIKit
 class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 
 	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
+	var huntStateService: HuntStateService!
 	var resolver = Resolver()
 	var encounters = 0
 	var index = 0
@@ -192,7 +192,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			let destVC = segue.destination as? ShinyTrackerVC
 			
 			destVC?.pokemonRepository = pokemonRepository
-			destVC?.settingsRepository = settingsRepository
+			destVC?.huntStateService = huntStateService
 			destVC?.currentHuntService = currentHuntService
 			destVC?.pokemon = currentHuntService.currentHuntPokemon[index]
 			destVC?.fontSettingsService = fontSettingsService

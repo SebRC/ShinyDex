@@ -22,10 +22,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
 	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
+	var huntStateService: HuntStateService!
 
 	@IBOutlet var popupView: PopupView!
 	
@@ -341,7 +341,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
 	{
 		shinyTrackerVC.pokemonRepository = pokemonRepository
-		shinyTrackerVC.settingsRepository = settingsRepository
+		shinyTrackerVC.huntStateService = huntStateService
 		shinyTrackerVC.currentHuntService = currentHuntService
 		shinyTrackerVC.pokemon = pokemonList[getIndexFromFullList(index: encounterIndex)]
 	}

@@ -12,7 +12,6 @@ class ProbabilityService
 {
 	fileprivate let lgpeProbabilityService = LGPEProbabilityService()
 	fileprivate let gen8ProbabilityService = Gen8ProbabilityService()
-	fileprivate let settingsRepository = SettingsRepository.settingsRepositorySingleton
 
 	func getProbability(generation: Int, isCharmActive: Bool, encounters: Int, shinyOdds: Int, isLureInUse: Bool) -> Double
 	{

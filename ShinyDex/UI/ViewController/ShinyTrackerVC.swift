@@ -33,10 +33,10 @@ class ShinyTrackerVC: UIViewController
 	var setEncountersPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
+	var huntStateService: HuntStateService!
 	
 	override func viewDidLoad()
 	{
@@ -156,9 +156,9 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		let generation = settingsRepository.generation
-		let isCharmActive = settingsRepository.isShinyCharmActive
-		let isLureInUse = settingsRepository.isLureInUse
+		let generation = huntStateService.generation
+		let isCharmActive = huntStateService.isShinyCharmActive
+		let isLureInUse = huntStateService.isLureInUse
 		let encounters = pokemon.encounters
 		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive, isLureInUse: isLureInUse, encounters: encounters)
 
@@ -178,7 +178,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		let labelTitle: String?
 
-		if settingsRepository.generation == 4
+		if huntStateService.generation == 4
 		{
 			labelTitle = " Catch Combo: "
 		}
@@ -253,7 +253,7 @@ class ShinyTrackerVC: UIViewController
 			
 			destVC.pokemon = pokemon
 			destVC.shinyOdds = shinyOdds
-			destVC.settingsRepository = settingsRepository
+			destVC.huntStateService = huntStateService
 		}
 		else if setEncountersPressed
 		{

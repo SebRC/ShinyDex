@@ -14,10 +14,10 @@ class InfoModalVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var probability: Double?
-	var settingsRepository: SettingsRepository!
 	var switchStateService = SwitchStateService()
 	let oddsService = OddsService()
 	let probabilityService = ProbabilityService()
+	var huntStateService = HuntStateService()
 	var shinyOdds: Int?
 	
 	override func viewDidLoad()
@@ -53,7 +53,7 @@ class InfoModalVC: UIViewController
 	
 	fileprivate func setShinyOdds()
 	{
-		shinyOdds = settingsRepository.shinyOdds
+		shinyOdds = huntStateService.shinyOdds
 	}
 	
 	fileprivate func resolveSwitchStates()
@@ -77,15 +77,15 @@ class InfoModalVC: UIViewController
 	
 	@objc fileprivate func savePressed()
 	{
-		settingsRepository?.isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
+		huntStateService.isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
 
-		settingsRepository?.isLureInUse = infoPopupView.lureSwitch.isOn
+		huntStateService.isLureInUse = infoPopupView.lureSwitch.isOn
 		
-		settingsRepository?.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
+		huntStateService.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		
-		settingsRepository.setShinyOdds()
+		huntStateService.setShinyOdds()
 		
-		settingsRepository?.saveSettings()
+		huntStateService.save()
 		
 		performSegue(withIdentifier: "infoUnwind", sender: self)
 	}

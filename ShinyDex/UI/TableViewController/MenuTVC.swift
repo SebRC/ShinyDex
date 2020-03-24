@@ -14,10 +14,10 @@ class MenuTVC: UITableViewController
 	let textResolver = TextResolver()
 	var genIndex = 0
 	var pokemonRepository: PokemonRepository!
-	var settingsRepository = SettingsRepository()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var currentHuntService = CurrentHuntService()
+	var huntStateService = HuntStateService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
 	
@@ -192,7 +192,7 @@ class MenuTVC: UITableViewController
 		{
 			let destVC = segue.destination as? SettingsVC
 			
-			destVC?.settingsRepository = settingsRepository
+			destVC?.huntStateService = huntStateService
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
@@ -208,7 +208,7 @@ class MenuTVC: UITableViewController
 	fileprivate func setCurrentHuntRepositories(currentHuntTVC: CurrentHuntTVC)
 	{
 		currentHuntTVC.pokemonRepository = pokemonRepository
-		currentHuntTVC.settingsRepository = settingsRepository
+		currentHuntTVC.huntStateService = huntStateService
 		currentHuntTVC.currentHuntService = currentHuntService
 	}
 	
@@ -217,7 +217,7 @@ class MenuTVC: UITableViewController
 		pokedexTVC.generation = genIndex
 		pokedexTVC.pokemonRepository = pokemonRepository
 		pokedexTVC.currentHuntService = currentHuntService
-		pokedexTVC.settingsRepository = settingsRepository
+		pokedexTVC.huntStateService = huntStateService
 	}
 	
 	@IBAction func settingsPressed(_ sender: Any)

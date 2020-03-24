@@ -13,7 +13,6 @@ class ColorPickerVC: CustomColorPickerViewController
 {
 	var primaryWasPressed: Bool!
 	var currentColor: Int!
-	var settingsRepository = SettingsRepository.settingsRepositorySingleton
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 

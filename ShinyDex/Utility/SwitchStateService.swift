@@ -11,7 +11,7 @@ import UIKit
 
 class SwitchStateService
 {
-	let settingsRepository = SettingsRepository.settingsRepositorySingleton
+	var huntStateService = HuntStateService()
 	
 	func resolveShinyCharmSwitchState(generation: Int, shinyCharmSwitch: UISwitch)
 	{
@@ -32,7 +32,7 @@ class SwitchStateService
 		if generation == 4
 		{
 			enableSwitch(uiSwitch: lureSwitch)
-			lureSwitch.isOn = settingsRepository.isLureInUse
+			lureSwitch.isOn = huntStateService.isLureInUse
 		}
 		else
 		{
