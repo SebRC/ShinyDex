@@ -10,6 +10,7 @@
 		9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082023EF595700459450 /* HuntStateRepository.swift */; };
 		9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F773242A8C2900263CF6 /* HuntStateService.swift */; };
 		9607F778242A971000263CF6 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F777242A971000263CF6 /* PokemonService.swift */; };
+		9607F77A242AA20500263CF6 /* HuntState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F779242AA20500263CF6 /* HuntState.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		962E58C22411A69C001D5E41 /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B62411A69C001D5E41 /* ConfirmationPopup.xib */; };
 		962E58C32411A69C001D5E41 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B72411A69C001D5E41 /* PopupView.xib */; };
@@ -78,6 +79,7 @@
 /* Begin PBXFileReference section */
 		9607F773242A8C2900263CF6 /* HuntStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntStateService.swift; sourceTree = "<group>"; };
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
+		9607F779242AA20500263CF6 /* HuntState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntState.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		962E58B62411A69C001D5E41 /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfirmationPopup.xib; path = ../../../../../ConfirmationPopup.xib; sourceTree = "<group>"; };
 		962E58B72411A69C001D5E41 /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopupView.xib; path = ../../../../../PopupView.xib; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				96FC082023EF595700459450 /* HuntStateRepository.swift */,
 				9607F773242A8C2900263CF6 /* HuntStateService.swift */,
+				9607F779242AA20500263CF6 /* HuntState.swift */,
 			);
 			path = HuntState;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
 				962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */,
 				964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */,
+				9607F77A242AA20500263CF6 /* HuntState.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,
 				9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */,

@@ -10,41 +10,18 @@ import Foundation
 
 class HuntStateService
 {
-	var generation: Int
-	var isShinyCharmActive: Bool
-	var isLureInUse: Bool
-	var shinyOdds: Int?
-
 	var oddsService = OddsService()
 	fileprivate var huntStateRepository = HuntStateRepository()
 
-	init()
+	func get() -> HuntState
 	{
-		generation = huntStateRepository.generation
-		isShinyCharmActive = huntStateRepository.isShinyCharmActive
-		isLureInUse = huntStateRepository.isLureInUse
-		setShinyOdds()
+		let huntState = huntStateRepository.get()
+		huntState.shinyOdds = oddsService.getShinyOdds(huntState.generation, huntState.isShinyCharmActive, huntState.isLureInUse, 0)
+		return huntState
 	}
 
-	func setShinyOdds()
+	func save(_ huntState: HuntState)
 	{
-		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive, isLureInUse: isLureInUse, encounters: 0)
-	}
-
-	func changeIsShinyCharmActive(isSwitchOn: Bool)
-	{
-		isShinyCharmActive = isSwitchOn
-		save()
-	}
-
-	func changeIsLureInUseActive(isSwitchOn: Bool)
-	{
-		isLureInUse = isSwitchOn
-		save()
-	}
-
-	func save()
-	{
-		huntStateRepository.save(generation: generation, isShinyCharmActive: isShinyCharmActive, isLureInUse: isLureInUse)
+		huntStateRepository.save(huntState)
 	}
 }

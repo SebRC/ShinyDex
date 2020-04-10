@@ -10,56 +10,32 @@ import Foundation
 
 class HuntStateRepository
 {
-	var generation: Int
-	var isShinyCharmActive: Bool
-	var isLureInUse: Bool
-	
 	let defaults = UserDefaults.standard
-	
-	init()
-	{
-		isShinyCharmActive = false
-		isLureInUse = false
-		generation = 0
-		
-		load()
-	}
 
-	func load()
+	func get() -> HuntState
 	{
-		loadIsShinyCharmActive()
-		loadIsLureInUse()
-		loadGeneration()
-	}
-
-	func save(generation: Int, isShinyCharmActive: Bool, isLureInUse: Bool)
-	{
-		defaults.set(generation, forKey: "generation")
-		defaults.set(isShinyCharmActive, forKey: "isShinyCharmActive")
-		defaults.set(isLureInUse, forKey: "isLureInUse")
-	}
-
-	fileprivate func loadGeneration()
-	{
+		var generation = 0
+		var isShinyCharmActive = false
+		var isLureInUse = false
 		if let loadedGeneration = defaults.integer(forKey: "generation") as Int?
 		{
 			generation = loadedGeneration
 		}
-	}
-
-	fileprivate func loadIsShinyCharmActive()
-	{
 		if let loadedIsShinyCharmActive = defaults.bool(forKey: "isShinyCharmActive") as Bool?
 		{
 			isShinyCharmActive = loadedIsShinyCharmActive
 		}
-	}
-
-	fileprivate func loadIsLureInUse()
-	{
 		if let loadedisLureInUse = defaults.bool(forKey: "isLureInUse") as Bool?
 		{
 			isLureInUse = loadedisLureInUse
 		}
+		return HuntState(generation, isShinyCharmActive, isLureInUse)
+	}
+
+	func save(_ huntState: HuntState)
+	{
+		defaults.set(huntState.generation, forKey: "generation")
+		defaults.set(huntState.isShinyCharmActive, forKey: "isShinyCharmActive")
+		defaults.set(huntState.isLureInUse, forKey: "isLureInUse")
 	}
 }

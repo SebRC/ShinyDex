@@ -29,10 +29,11 @@ class SwitchStateService
 
 	func resolveLureSwitchState(generation: Int, lureSwitch: UISwitch)
 	{
+		let huntState = huntStateService.get()
 		if generation == 4
 		{
 			enableSwitch(uiSwitch: lureSwitch)
-			lureSwitch.isOn = huntStateService.isLureInUse
+			lureSwitch.isOn = huntState.isLureInUse
 		}
 		else
 		{

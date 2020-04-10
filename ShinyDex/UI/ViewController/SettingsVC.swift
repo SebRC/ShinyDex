@@ -14,7 +14,9 @@ class SettingsVC: UIViewController
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntStateService: HuntStateService!
+	var oddsService = OddsService()
 	var primaryWasPressed: Bool?
+	var huntState: HuntState?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyCharmSwitch: UISwitch!
@@ -48,6 +50,8 @@ class SettingsVC: UIViewController
 		setFonts()
 		
 		roundCorners()
+
+		huntState = huntStateService.get()
 		
 		resolveUIObjectsState()
 		
@@ -167,16 +171,14 @@ class SettingsVC: UIViewController
 		
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
-		shinyCharmSwitch.isOn = huntStateService.isShinyCharmActive
+		shinyCharmSwitch.isOn = huntState!.isShinyCharmActive
 
-		lureSwitch.isOn = huntStateService.isLureInUse
+		lureSwitch.isOn = huntState!.isLureInUse
 	}
 	
 	fileprivate func setShinyOddsLabelText()
 	{
-		huntStateService.setShinyOdds()
-		
-		shinyOddsLabel.text = "Shiny Odds: 1/\(huntStateService.shinyOdds!)"
+		shinyOddsLabel.text = "Shiny Odds: 1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func setEditButtonActions()
@@ -207,13 +209,13 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setGenerationSettingsControlSelectedSegmentIndex()
 	{
-		generationSegmentedControl.selectedSegmentIndex = huntStateService.generation
+		generationSegmentedControl.selectedSegmentIndex = huntState!.generation
 	}
 	
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
 	{
-		huntStateService.changeIsShinyCharmActive(isSwitchOn: shinyCharmSwitch.isOn)
-		
+		huntState?.isShinyCharmActive = shinyCharmSwitch.isOn
+		huntStateService.save(huntState!)
 		setShinyOddsLabelText()
 	}
 	
@@ -225,15 +227,17 @@ class SettingsVC: UIViewController
 
 		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureSwitch)
 		
-		huntStateService.generation = generationSegmentedControl.selectedSegmentIndex
+		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
 		
-		huntStateService.isShinyCharmActive = shinyCharmSwitch.isOn
+		huntState!.isShinyCharmActive = shinyCharmSwitch.isOn
 
-		huntStateService.isLureInUse = lureSwitch.isOn
+		huntState!.isLureInUse = lureSwitch.isOn
+
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse)
 		
 		setShinyOddsLabelText()
 		
-		huntStateService.save()
+		huntStateService.save(huntState!)
 	}
 	
 	@IBAction func changeFontPressed(_ sender: Any)
@@ -291,8 +295,8 @@ class SettingsVC: UIViewController
 
 	@IBAction func changeIsLureInUse(_ sender: Any)
 	{
-		huntStateService.changeIsLureInUseActive(isSwitchOn: lureSwitch.isOn)
-
+		huntState!.isLureInUse = lureSwitch.isOn
+		huntStateService.save(huntState!)
 		setShinyOddsLabelText()
 	}
 }

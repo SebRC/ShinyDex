@@ -28,7 +28,7 @@ class ShinyTrackerVC: UIViewController
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
 	var probability: Double?
-	var shinyOdds: Int?
+	var huntState: HuntState?
 	var infoPressed = false
 	var setEncountersPressed = false
 	let popupHandler = PopupHandler()
@@ -55,6 +55,8 @@ class ShinyTrackerVC: UIViewController
 		setTitle()
 		
 		setGif()
+
+		huntState = huntStateService.get()
 	
 		resolveEncounterDetails()
 		
@@ -156,29 +158,23 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		let generation = huntStateService.generation
-		let isCharmActive = huntStateService.isShinyCharmActive
-		let isLureInUse = huntStateService.isLureInUse
 		let encounters = pokemon.encounters
-		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive, isLureInUse: isLureInUse, encounters: encounters)
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, encounters)
 
-		probability = probabilityService.getProbability(generation: generation, isCharmActive: isCharmActive, encounters: encounters, shinyOdds: shinyOdds!, isLureInUse: isLureInUse)
+		probability = probabilityService.getProbability(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, encounters, huntState!.shinyOdds)
 	}
 
 	fileprivate func setProbabilityLabelText()
 	{
 		let encounters = pokemon.encounters
-
-		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: shinyOdds!, probability: probability!)
-
+		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: huntState!.shinyOdds, probability: probability!)
 		probabilityLabel.text = probabilityLabelText
 	}
 	
 	fileprivate func setEncountersLabelText()
 	{
 		let labelTitle: String?
-
-		if huntStateService.generation == 4
+		if huntState!.generation == 4
 		{
 			labelTitle = " Catch Combo: "
 		}
@@ -252,7 +248,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! InfoModalVC
 			
 			destVC.pokemon = pokemon
-			destVC.shinyOdds = shinyOdds
+			destVC.huntState = huntState
 			destVC.huntStateService = huntStateService
 		}
 		else if setEncountersPressed
