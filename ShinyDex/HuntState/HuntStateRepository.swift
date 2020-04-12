@@ -10,7 +10,7 @@ import Foundation
 
 class HuntStateRepository
 {
-	let defaults = UserDefaults.standard
+	fileprivate let defaults = UserDefaults.standard
 
 	func get() -> HuntState
 	{

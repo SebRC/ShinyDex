@@ -10,7 +10,7 @@ import Foundation
 
 class HuntStateService
 {
-	var oddsService = OddsService()
+	fileprivate var oddsService = OddsService()
 	fileprivate var huntStateRepository = HuntStateRepository()
 
 	func get() -> HuntState

@@ -12,9 +12,9 @@ import CoreData
 
 public class PokemonRepository
 {
-	var appDelegate: AppDelegate
-	var managedContext: NSManagedObjectContext
-	var entity: NSEntityDescription
+	fileprivate var appDelegate: AppDelegate
+	fileprivate var managedContext: NSManagedObjectContext
+	fileprivate var entity: NSEntityDescription
 	
 	init()
 	{
