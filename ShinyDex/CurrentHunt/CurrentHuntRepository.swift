@@ -10,29 +10,19 @@ import Foundation
 
 class CurrentHuntRepository
 {
-	fileprivate var currentHuntNames = [String]()
 	fileprivate let defaults = UserDefaults.standard
-
-	init()
-	{
-		load()
-	}
 
 	func save(names: [String])
 	{
 		defaults.set(names, forKey: "currentHunt")
 	}
-	
-	fileprivate func load()
-	{
-		if let loadedHuntNames = defaults.array(forKey: "currentHunt") as? [String]
-		{
-			currentHuntNames = loadedHuntNames
-		}
-	}
 
 	func getCurrenHuntNames() -> [String]
 	{
-		return currentHuntNames
+		if let loadedHuntNames = defaults.array(forKey: "currentHunt") as? [String]
+		{
+			return loadedHuntNames
+		}
+		return [String]()
 	}
 }

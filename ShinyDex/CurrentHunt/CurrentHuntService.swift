@@ -10,22 +10,14 @@ import Foundation
 
 class CurrentHuntService
 {
-	var currentHuntPokemon = [Pokemon]()
-	var pokemonService = PokemonService()
-	var currentHuntNames = [String]()
-
-	fileprivate var currentHuntRepository: CurrentHuntRepository?
-
-	init()
-	{
-		currentHuntRepository = CurrentHuntRepository()
-		currentHuntNames = currentHuntRepository!.getCurrenHuntNames()
-		constructCurrentHunt()
-	}
+	fileprivate var pokemonService = PokemonService()
+	fileprivate var currentHuntRepository = CurrentHuntRepository()
 	
-	fileprivate func constructCurrentHunt()
+	func get() -> [Pokemon]
 	{
 		let allPokemon = pokemonService.getAll()
+		let currentHuntNames = currentHuntRepository.getCurrenHuntNames()
+		var currentHuntPokemon = [Pokemon]()
 		for name in currentHuntNames
 		{
 			for pokemon in allPokemon
@@ -37,35 +29,22 @@ class CurrentHuntService
 				}
 			}
 		}
-		sortCurrentHunt()
-	}
-
-	fileprivate func sortCurrentHunt()
-	{
 		currentHuntPokemon = currentHuntPokemon.sorted(by: { $0.number < $1.number})
+		return currentHuntPokemon
 	}
 
-	func addToCurrentHunt(pokemon: Pokemon)
+	func getCurrentHuntNames() -> [String]
 	{
-		currentHuntPokemon.append(pokemon)
-		currentHuntNames.append(pokemon.name)
-
-		save()
-
-		sortCurrentHunt()
+		return currentHuntRepository.getCurrenHuntNames()
 	}
 
-	func save()
+	func save(currentHuntNames: [String])
 	{
-		currentHuntRepository!.save(names: currentHuntNames)
+		currentHuntRepository.save(names: currentHuntNames)
 	}
 
 	func clearCurrentHunt()
 	{
-		currentHuntPokemon.removeAll()
-
-		currentHuntNames.removeAll()
-
-		currentHuntRepository!.save(names: currentHuntNames)
+		currentHuntRepository.save(names: [String]())
 	}
 }

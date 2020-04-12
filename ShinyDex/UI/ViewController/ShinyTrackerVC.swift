@@ -23,6 +23,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
+	var currentHuntNames: [String]!
 	var resolver = Resolver()
 	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
@@ -197,9 +198,8 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return resolver.resolveButtonAccess(nameList: currentHuntService.currentHuntNames, name: pokemon.name)
+		return resolver.resolveButtonAccess(nameList: currentHuntNames, name: pokemon.name)
 	}
-	
 	
 	@IBAction func plusPressed(_ sender: Any)
 	{
@@ -217,14 +217,11 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		currentHuntService.addToCurrentHunt(pokemon: pokemon)
-		
+		currentHuntNames.append(pokemon.name)
+		currentHuntService.save(currentHuntNames: currentHuntNames)
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-		
 		popupView.actionLabel.text = "\(pokemon.name) was added to current hunt."
-		
 		popupHandler.centerPopupView(popupView: popupView)
-		
 		popupHandler.showPopup(popupView: popupView)
 	}
 	

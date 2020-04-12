@@ -14,6 +14,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
+	var currentHuntNames = [String]()
 	let resolver = Resolver()
 	let textResolver = TextResolver()
 	var encounterIndex = 0
@@ -34,6 +35,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
         super.viewDidLoad()
 
 		allPokemon = pokemonService.getAll()
+
+		currentHuntNames = currentHuntService.getCurrentHuntNames()
+
+		slicePokemonList()
 		
 		setUIColors()
 		
@@ -51,10 +56,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
+
+		currentHuntNames = currentHuntService.getCurrentHuntNames()
 		
 		setTitle()
-
-		slicePokemonList()
 
 		tableView.reloadData()
 	}
@@ -185,15 +190,11 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
-			
-			currentHuntService.addToCurrentHunt(pokemon: pokemon!)
-		
+			currentHuntNames.append(pokemon!.name)
+			currentHuntService.save(currentHuntNames: currentHuntNames)
 			tableView.reloadRows(at: [indexPath], with: .automatic)
-			
 			popupView.actionLabel.text = "\(pokemon!.name) was added to current hunt."
-			
 			popupHandler.centerPopupView(popupView: popupView)
-			
 			popupHandler.showPopup(popupView: popupView)
 		}
 	}
@@ -302,7 +303,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		let containedName = pokemonCell.pokemonName.text
 		
-		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntService.currentHuntNames.contains(containedName!)
+		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntNames.contains(containedName!)
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -346,6 +347,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		shinyTrackerVC.huntStateService = huntStateService
 		shinyTrackerVC.currentHuntService = currentHuntService
 		shinyTrackerVC.pokemon = allPokemon[getIndexFromFullList(index: encounterIndex)]
+		shinyTrackerVC.currentHuntNames = currentHuntNames
 	}
 	
 	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)

@@ -10,7 +10,7 @@ import Foundation
 
 class PokemonService
 {
-	let txtReader = TxtReader()
+	fileprivate let txtReader = TxtReader()
 	fileprivate var pokemonRepository = PokemonRepository()
 
 	func save(pokemon: Pokemon)
