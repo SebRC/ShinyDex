@@ -23,18 +23,20 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
-	var resolver = Resolver()
+	var currentHuntNames: [String]!
 	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
 	var probability: Double?
-	var shinyOdds: Int?
+	var huntState: HuntState?
 	var infoPressed = false
 	var setEncountersPressed = false
 	let popupHandler = PopupHandler()
-	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository!
-	var currentHuntRepository: CurrentHuntRepository!
+	var pokemonService: PokemonService!
+	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
+	var currentHuntService: CurrentHuntService!
+	var huntStateService: HuntStateService!
 	
 	override func viewDidLoad()
 	{
@@ -53,6 +55,8 @@ class ShinyTrackerVC: UIViewController
 		setTitle()
 		
 		setGif()
+
+		huntState = huntStateService.get()
 	
 		resolveEncounterDetails()
 		
@@ -77,26 +81,26 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setUIColors()
 	{
-		view.backgroundColor = settingsRepository.getPrimaryColor()
-		popupView.backgroundColor = settingsRepository.getSecondaryColor()
-		popupView.actionLabel.textColor = settingsRepository.getTertiaryColor()
-		popupView.iconImageView.tintColor = settingsRepository.getTertiaryColor()
+		view.backgroundColor = colorService.getPrimaryColor()
+		popupView.backgroundColor = colorService.getSecondaryColor()
+		popupView.actionLabel.textColor = colorService.getTertiaryColor()
+		popupView.iconImageView.tintColor = colorService.getTertiaryColor()
 		
-		numberLabel.backgroundColor = settingsRepository.getSecondaryColor()
-		numberLabel.textColor = settingsRepository.getTertiaryColor()
+		numberLabel.backgroundColor = colorService.getSecondaryColor()
+		numberLabel.textColor = colorService.getTertiaryColor()
 		
-		encountersLabel.backgroundColor = settingsRepository.getSecondaryColor()
-		encountersLabel.textColor = settingsRepository.getTertiaryColor()
+		encountersLabel.backgroundColor = colorService.getSecondaryColor()
+		encountersLabel.textColor = colorService.getTertiaryColor()
 		
-		probabilityLabel.backgroundColor = settingsRepository.getSecondaryColor()
-		probabilityLabel.textColor = settingsRepository.getTertiaryColor()
+		probabilityLabel.backgroundColor = colorService.getSecondaryColor()
+		probabilityLabel.textColor = colorService.getTertiaryColor()
 		
-		gifSeparatorView.backgroundColor = settingsRepository.getSecondaryColor()
+		gifSeparatorView.backgroundColor = colorService.getSecondaryColor()
 		
-		pokeballButton.backgroundColor = settingsRepository.getPrimaryColor()
+		pokeballButton.backgroundColor = colorService.getPrimaryColor()
 		
-		plusButton.tintColor = settingsRepository.getTertiaryColor()
-		minusButton.tintColor = settingsRepository.getTertiaryColor()
+		plusButton.tintColor = colorService.getTertiaryColor()
+		minusButton.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -119,10 +123,10 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setFonts()
 	{
-		numberLabel.font = settingsRepository.getSmallFont()
-		probabilityLabel.font = settingsRepository.getSmallFont()
-		encountersLabel.font = settingsRepository.getSmallFont()
-		popupView.actionLabel.font = settingsRepository.getSmallFont()
+		numberLabel.font = fontSettingsService.getSmallFont()
+		probabilityLabel.font = fontSettingsService.getSmallFont()
+		encountersLabel.font = fontSettingsService.getSmallFont()
+		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -154,29 +158,23 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setProbability()
 	{
-		let generation = settingsRepository.generation
-		let isCharmActive = settingsRepository.isShinyCharmActive
-		let isLureInUse = settingsRepository.isLureInUse
 		let encounters = pokemon.encounters
-		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isCharmActive, isLureInUse: isLureInUse, encounters: encounters)
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, encounters)
 
-		probability = probabilityService.getProbability(generation: generation, isCharmActive: isCharmActive, encounters: encounters, shinyOdds: shinyOdds!, isLureInUse: isLureInUse)
+		probability = probabilityService.getProbability(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, encounters, huntState!.shinyOdds)
 	}
 
 	fileprivate func setProbabilityLabelText()
 	{
 		let encounters = pokemon.encounters
-
-		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: shinyOdds!, probability: probability!)
-
+		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: huntState!.shinyOdds, probability: probability!)
 		probabilityLabel.text = probabilityLabelText
 	}
 	
 	fileprivate func setEncountersLabelText()
 	{
 		let labelTitle: String?
-
-		if settingsRepository.generation == 4
+		if huntState!.generation == 4
 		{
 			labelTitle = " Catch Combo: "
 		}
@@ -199,34 +197,34 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return resolver.resolveButtonAccess(nameList: currentHuntRepository.currentHuntNames, name: pokemon.name)
+		return !currentHuntNames.contains(pokemon.name)
 	}
-	
+
+	fileprivate func resolveButtonAccess(nameList: [String], name: String) -> Bool
+	{
+		return !nameList.contains(name)
+	}
 	
 	@IBAction func plusPressed(_ sender: Any)
 	{
 		pokemon.encounters += 1
 		resolveEncounterDetails()
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 	}
 	
 	@IBAction func minusPressed(_ sender: Any)
 	{
 		pokemon.encounters -= 1
 		resolveEncounterDetails()
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 	}
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		currentHuntRepository.addToCurrentHunt(pokemon: pokemon)
-		
+		currentHuntNames.append(pokemon.name)
+		currentHuntService.save(currentHuntNames: currentHuntNames)
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-		
 		popupView.actionLabel.text = "\(pokemon.name) was added to current hunt."
-		
-		popupHandler.centerPopupView(popupView: popupView)
-		
 		popupHandler.showPopup(popupView: popupView)
 	}
 	
@@ -250,8 +248,8 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! InfoModalVC
 			
 			destVC.pokemon = pokemon
-			destVC.shinyOdds = shinyOdds
-			destVC.settingsRepository = settingsRepository
+			destVC.huntState = huntState
+			destVC.huntStateService = huntStateService
 		}
 		else if setEncountersPressed
 		{
@@ -260,7 +258,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! SetEncountersModalVC
 			
 			destVC.pokemon = pokemon
-			destVC.pokemonRepository = pokemonRepository
+			destVC.pokemonService = pokemonService
 		}
 		else
 		{
@@ -272,9 +270,8 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setPokeballModalProperties(pokeballModalVC: PokeballModalVC)
 	{
-		pokeballModalVC.pokemonRepository = pokemonRepository
+		pokeballModalVC.pokemonService = pokemonService
 		pokeballModalVC.pokemon = pokemon
-		pokeballModalVC.settingsRepository = settingsRepository
 	}
 	
 	@objc fileprivate func infoButtonPressed(_ sender: Any)
@@ -311,7 +308,7 @@ class ShinyTrackerVC: UIViewController
 		
 		pokemon = sourceVC.pokemon
 		
-		pokemonRepository.savePokemon(pokemon: pokemon)
+		pokemonService.save(pokemon: pokemon)
 		
 		setProbability()
 		

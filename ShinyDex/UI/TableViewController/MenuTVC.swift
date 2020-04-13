@@ -10,12 +10,16 @@ import UIKit
 
 class MenuTVC: UITableViewController
 {
-	let resolver = Resolver()
-	let textResolver = TextResolver()
 	var genIndex = 0
-	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository?
-	var currentHuntRepository: CurrentHuntRepository?
+	var allPokemon = [Pokemon]()
+	var currentHuntPokemon = [Pokemon]()
+	let textResolver = TextResolver()
+	var pokemonService: PokemonService!
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
+	var currentHuntService = CurrentHuntService()
+	var huntStateService = HuntStateService()
+
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
 	
 	override func viewDidLoad()
@@ -23,28 +27,25 @@ class MenuTVC: UITableViewController
 		super.viewDidLoad()
 		
 		hideBackButton()
+
+		allPokemon = pokemonService.getAll()
+
+		currentHuntPokemon = currentHuntService.get()
 		
 		showNavigationBar()
-		
-		createSettingsRepository()
-		
+
 		setNavigationControllerColor()
 		
 		setNavigationBarFont()
 		
 		setSettingsIconColor()
-		
-		createCurrentHuntRepository()
-		
-		if currentHuntRepository!.currentlyHunting.isEmpty
-		{
-			loadCurrentHunt()
-		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
+
+		currentHuntPokemon = currentHuntService.get()
 		
 		setTableViewBackgroundColor()
 		
@@ -69,47 +70,26 @@ class MenuTVC: UITableViewController
 	
 	fileprivate func setNavigationControllerColor()
 	{
-		navigationController?.navigationBar.barTintColor = settingsRepository?.getSecondaryColor()
-	}
-	
-	fileprivate func createSettingsRepository()
-	{
-		if settingsRepository == nil
-		{
-			settingsRepository = SettingsRepository.settingsRepositorySingleton
-		}
-	}
-	
-	fileprivate func createCurrentHuntRepository()
-	{
-		if currentHuntRepository == nil
-		{
-			currentHuntRepository = CurrentHuntRepository.currentHuntRepositorySingleton
-		}
-	}
-	
-	fileprivate func loadCurrentHunt()
-	{
-		currentHuntRepository!.loadCurrentHunt()
+		navigationController?.navigationBar.barTintColor = colorService.getSecondaryColor()
 	}
 	
 	fileprivate func setNavigationBarFont()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository!.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository!.getXxLargeFont()
+			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
+			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
 	fileprivate func setSettingsIconColor()
 	{
-		settingsButton.tintColor = settingsRepository?.getTertiaryColor()
+		settingsButton.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		tableView.backgroundColor = settingsRepository!.getPrimaryColor()
+		tableView.backgroundColor = colorService.getPrimaryColor()
 	}
 
 	fileprivate func setUpBackButton()
@@ -118,7 +98,7 @@ class MenuTVC: UITableViewController
 		
 		navigationItem.backBarButtonItem = backButton
 		
-		navigationController?.navigationBar.tintColor = settingsRepository?.getTertiaryColor()
+		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -149,13 +129,13 @@ class MenuTVC: UITableViewController
 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
-		let showCurrentHuntImage = indexPath.row == 7 && !(currentHuntRepository?.currentlyHunting.isEmpty)!
+		let showCurrentHuntImage = indexPath.row == 7 && !currentHuntPokemon.isEmpty
 		
-		cell.generationLabel.textColor = settingsRepository?.getTertiaryColor()
+		cell.generationLabel.textColor = colorService.getTertiaryColor()
 		
 		if showCurrentHuntImage
 		{
-			cell.generationImage.image = currentHuntRepository?.currentlyHunting[0].shinyImage
+			cell.generationImage.image = currentHuntPokemon[0].shinyImage
 		}
 		else
 		{
@@ -163,7 +143,7 @@ class MenuTVC: UITableViewController
 		}
 		
 		cell.generationLabel.text = textResolver.resolveGenTitle(gen: indexPath.row)
-		cell.generationLabel.font = settingsRepository!.getXxLargeFont()
+		cell.generationLabel.font = fontSettingsService.getXxLargeFont()
 		
 		return cell
 	}
@@ -212,34 +192,40 @@ class MenuTVC: UITableViewController
 			let destVC = segue.destination as? CurrentHuntTVC
 
 			setCurrentHuntRepositories(currentHuntTVC: destVC!)
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 		}
 		else if genIndex == 8
 		{
 			let destVC = segue.destination as? SettingsVC
 			
-			destVC?.settingsRepository = settingsRepository
+			destVC?.huntStateService = huntStateService
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 		}
 		else
 		{
 			let destVC = segue.destination as? PokedexTVC
-			
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 			setPokedexRepositories(pokedexTVC: destVC!)
 		}
 	}
 	
 	fileprivate func setCurrentHuntRepositories(currentHuntTVC: CurrentHuntTVC)
 	{
-		currentHuntTVC.pokemonRepository = pokemonRepository
-		currentHuntTVC.settingsRepository = settingsRepository
-		currentHuntTVC.currentHuntRepository = currentHuntRepository
+		currentHuntTVC.pokemonService = pokemonService
+		currentHuntTVC.huntStateService = huntStateService
+		currentHuntTVC.currentHuntService = currentHuntService
+		currentHuntTVC.currentHuntPokemon = currentHuntPokemon
 	}
 	
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
 	{
 		pokedexTVC.generation = genIndex
-		pokedexTVC.pokemonRepository = pokemonRepository
-		pokedexTVC.settingsRepository = settingsRepository
-		pokedexTVC.currentHuntRepository = currentHuntRepository
+		pokedexTVC.pokemonService = pokemonService
+		pokedexTVC.currentHuntService = currentHuntService
+		pokedexTVC.huntStateService = huntStateService
 	}
 	
 	@IBAction func settingsPressed(_ sender: Any)
@@ -250,6 +236,6 @@ class MenuTVC: UITableViewController
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository!.getPrimaryColor()
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 }

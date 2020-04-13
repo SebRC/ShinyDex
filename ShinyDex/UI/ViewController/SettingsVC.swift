@@ -10,9 +10,13 @@ import UIKit
 
 class SettingsVC: UIViewController
 {
-	var settingsRepository: SettingsRepository!
 	var switchStateService = SwitchStateService()
+	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
+	var huntStateService: HuntStateService!
+	var oddsService = OddsService()
 	var primaryWasPressed: Bool?
+	var huntState: HuntState?
 	
 	@IBOutlet weak var generationsBackgroundLabel: UILabel!
 	@IBOutlet weak var shinyCharmSwitch: UISwitch!
@@ -44,6 +48,8 @@ class SettingsVC: UIViewController
 		setFonts()
 		
 		roundCorners()
+
+		huntState = huntStateService.get()
 		
 		resolveUIObjectsState()
 		
@@ -61,52 +67,52 @@ class SettingsVC: UIViewController
 	fileprivate func setUIColors()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
+			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
-		navigationController?.navigationBar.barTintColor = settingsRepository.getSecondaryColor()
+		navigationController?.navigationBar.barTintColor = colorService!.getSecondaryColor()
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		navigationController?.navigationBar.tintColor = settingsRepository?.getTertiaryColor()
+		navigationController?.navigationBar.tintColor = colorService!.getTertiaryColor()
 		
-		view.backgroundColor = settingsRepository.getPrimaryColor()
+		view.backgroundColor = colorService!.getPrimaryColor()
 		
-		themeLabel.textColor = settingsRepository.getTertiaryColor()
+		themeLabel.textColor = colorService!.getTertiaryColor()
 		
-		primaryEditButton.contentView?.backgroundColor = settingsRepository.getPrimaryColor()
+		primaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
 		
-		secondaryEditButton.contentView?.backgroundColor = settingsRepository.getSecondaryColor()
+		secondaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
-		tertiaryEditButton.contentView?.backgroundColor = settingsRepository.getTertiaryColor()
+		tertiaryEditButton.contentView?.backgroundColor = colorService!.getTertiaryColor()
 		
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor()]
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor()]
 		
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		generationLabel.textColor = settingsRepository.getTertiaryColor()
-		generationSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		generationSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		generationLabel.textColor = colorService!.getTertiaryColor()
+		generationSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
+		generationSegmentedControl.tintColor = colorService!.getPrimaryColor()
 		
-		shinyOddsLabel.textColor = settingsRepository.getTertiaryColor()
-		shinyCharmLabel.textColor = settingsRepository.getTertiaryColor()
-		shinyCharmSwitch.onTintColor = settingsRepository.getSecondaryColor()
-		shinyCharmSwitch.thumbTintColor = settingsRepository.getPrimaryColor()
+		shinyOddsLabel.textColor = colorService!.getTertiaryColor()
+		shinyCharmLabel.textColor = colorService!.getTertiaryColor()
+		shinyCharmSwitch.onTintColor = colorService!.getSecondaryColor()
+		shinyCharmSwitch.thumbTintColor = colorService!.getPrimaryColor()
 		
-		fontLabel.textColor = settingsRepository.getTertiaryColor()
+		fontLabel.textColor = colorService!.getTertiaryColor()
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		
-		fontSegmentedControl.backgroundColor = settingsRepository.getSecondaryColor()
-		fontSegmentedControl.tintColor = settingsRepository.getPrimaryColor()
+		fontSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
+		fontSegmentedControl.tintColor = colorService!.getPrimaryColor()
 		
-		themFontSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		generationCharmSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		charmLureSeparator.backgroundColor = settingsRepository.getPrimaryColor()
-		lureOddsSeparator.backgroundColor = settingsRepository.getPrimaryColor()
+		themFontSeparator.backgroundColor = colorService!.getPrimaryColor()
+		generationCharmSeparator.backgroundColor = colorService!.getPrimaryColor()
+		charmLureSeparator.backgroundColor = colorService!.getPrimaryColor()
+		lureOddsSeparator.backgroundColor = colorService!.getPrimaryColor()
 
-		lureLabel.textColor = settingsRepository.getTertiaryColor()
-		lureSwitch.onTintColor = settingsRepository.getSecondaryColor()
-		lureSwitch.thumbTintColor = settingsRepository.getPrimaryColor()
+		lureLabel.textColor = colorService!.getTertiaryColor()
+		lureSwitch.onTintColor = colorService!.getSecondaryColor()
+		lureSwitch.thumbTintColor = colorService!.getPrimaryColor()
 
 	}
 	
@@ -114,34 +120,34 @@ class SettingsVC: UIViewController
 	{
 		setSegementedControlFonts()
 		
-		themeLabel.font = settingsRepository.getExtraLargeFont()
+		themeLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		generationLabel.font = settingsRepository.getExtraLargeFont()
+		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		shinyCharmLabel.font = settingsRepository.getExtraLargeFont()
+		shinyCharmLabel.font = fontSettingsService.getExtraLargeFont()
 
-		lureLabel.font = settingsRepository.getExtraLargeFont()
+		lureLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		fontLabel.font = settingsRepository.getExtraLargeFont()
+		fontLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		shinyOddsLabel.font = settingsRepository.getMediumFont()
+		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		
-		primaryEditButton.label.font = settingsRepository.getXxSmallFont()
-		secondaryEditButton.label.font = settingsRepository.getXxSmallFont()
-		tertiaryEditButton.label.font = settingsRepository.getXxSmallFont()
+		primaryEditButton.label.font = fontSettingsService.getXxSmallFont()
+		secondaryEditButton.label.font = fontSettingsService.getXxSmallFont()
+		tertiaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 	}
 	
 	fileprivate func setSegementedControlFonts()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: settingsRepository.getTertiaryColor(),
-			NSAttributedString.Key.font: settingsRepository.getLargeFont()
+			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
+			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		generationSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey( fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		fontSegmentedControl.setTitleTextAttributes(settingsRepository.getFontAsNSAttibutedStringKey(fontSize: settingsRepository.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	fileprivate func roundCorners()
@@ -163,16 +169,14 @@ class SettingsVC: UIViewController
 		
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
-		shinyCharmSwitch.isOn = settingsRepository.isShinyCharmActive
+		shinyCharmSwitch.isOn = huntState!.isShinyCharmActive
 
-		lureSwitch.isOn = settingsRepository.isLureInUse
+		lureSwitch.isOn = huntState!.isLureInUse
 	}
 	
 	fileprivate func setShinyOddsLabelText()
 	{
-		settingsRepository.setShinyOdds()
-		
-		shinyOddsLabel.text = "Shiny Odds: 1/\(settingsRepository.shinyOdds!)"
+		shinyOddsLabel.text = "Shiny Odds: 1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func setEditButtonActions()
@@ -191,7 +195,7 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()
 	{
-		if settingsRepository.fontTheme == "Modern"
+		if fontSettingsService.getFontThemeName() == FontThemeName.Modern.description
 		{
 			fontSegmentedControl.selectedSegmentIndex = 0
 		}
@@ -203,13 +207,13 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setGenerationSettingsControlSelectedSegmentIndex()
 	{
-		generationSegmentedControl.selectedSegmentIndex = settingsRepository.generation
+		generationSegmentedControl.selectedSegmentIndex = huntState!.generation
 	}
 	
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
 	{
-		settingsRepository.changeIsShinyCharmActive(isSwitchOn: shinyCharmSwitch.isOn)
-		
+		huntState?.isShinyCharmActive = shinyCharmSwitch.isOn
+		huntStateService.save(huntState!)
 		setShinyOddsLabelText()
 	}
 	
@@ -221,20 +225,23 @@ class SettingsVC: UIViewController
 
 		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureSwitch)
 		
-		settingsRepository.generation = generationSegmentedControl.selectedSegmentIndex
+		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
 		
-		settingsRepository.isShinyCharmActive = shinyCharmSwitch.isOn
+		huntState!.isShinyCharmActive = shinyCharmSwitch.isOn
 
-		settingsRepository.isLureInUse = lureSwitch.isOn
+		huntState!.isLureInUse = lureSwitch.isOn
+
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse)
 		
 		setShinyOddsLabelText()
 		
-		settingsRepository.saveSettings()
+		huntStateService.save(huntState!)
 	}
 	
 	@IBAction func changeFontPressed(_ sender: Any)
 	{
-		settingsRepository.setGlobalFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
+		let fontThemeName = fontSegmentedControl.selectedSegmentIndex == 0 ? FontThemeName.Modern.description : FontThemeName.Retro.description
+		fontSettingsService.save(fontThemeName: fontThemeName)
 		setFonts()
 	}
 	
@@ -244,18 +251,20 @@ class SettingsVC: UIViewController
 		
 		if primaryWasPressed == nil
 		{
-			destVC.currentColor = settingsRepository.tertiaryColor
+			destVC.currentColor = colorService?.getTertiaryHex()
 		}
 		else if primaryWasPressed!
 		{
-			destVC.currentColor = settingsRepository.primaryColor
+			destVC.currentColor = colorService?.getPrimaryHex()
 		}
 		else
 		{
-			destVC.currentColor = settingsRepository.secondaryColor
+			destVC.currentColor = colorService?.getSecondaryHex()
 		}
 		
 		destVC.primaryWasPressed = primaryWasPressed
+		destVC.fontSettingsService = fontSettingsService
+		destVC.colorService = colorService
 	}
 	
 	@objc fileprivate func primaryEditButtonPressed()
@@ -284,8 +293,8 @@ class SettingsVC: UIViewController
 
 	@IBAction func changeIsLureInUse(_ sender: Any)
 	{
-		settingsRepository.changeIsLureInUseActive(isSwitchOn: lureSwitch.isOn)
-
+		huntState!.isLureInUse = lureSwitch.isOn
+		huntStateService.save(huntState!)
 		setShinyOddsLabelText()
 	}
 }

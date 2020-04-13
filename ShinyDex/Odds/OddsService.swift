@@ -13,7 +13,7 @@ class OddsService
 	fileprivate let lgpeOddsService = LGPEOddsService()
 	fileprivate let gen8OddsService = Gen8OddsService()
 
-	func getShinyOdds(currentGen: Int, isCharmActive: Bool, isLureInUse: Bool, encounters: Int) -> Int
+	func getShinyOdds(_ currentGen: Int, _ isCharmActive: Bool, _ isLureInUse: Bool, _ encounters: Int = 0) -> Int
 	{
 		if currentGen == 0
 		{

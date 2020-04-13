@@ -10,20 +10,25 @@ import UIKit
 
 class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 
-	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository!
-	var currentHuntRepository: CurrentHuntRepository!
-	var resolver = Resolver()
+	var pokemonService: PokemonService!
+	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
+	var currentHuntService: CurrentHuntService!
+	var huntStateService: HuntStateService!
 	var encounters = 0
 	var index = 0
 	var popupHandler = PopupHandler()
 	var isClearingCurrentHunt = false
+	var currentHuntNames = [String]()
+	var currentHuntPokemon: [Pokemon]!
 	
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
 	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		currentHuntNames = currentHuntService.getCurrentHuntNames()
 		
 		setClearHuntButtonState()
 		
@@ -43,7 +48,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func setClearHuntButtonState()
 	{
-		clearCurrentHuntButton.isEnabled = !currentHuntRepository.currentHuntNames.isEmpty
+		clearCurrentHuntButton.isEnabled = !currentHuntNames.isEmpty
 	}
 	
 	fileprivate func setUpBackButton()
@@ -54,7 +59,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		tableView.backgroundColor = settingsRepository.getPrimaryColor()
+		tableView.backgroundColor = colorService!.getPrimaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -65,20 +70,17 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	fileprivate func resolveCurrentEncounters() -> Int
 	{
-		let pokemonList = currentHuntRepository.currentlyHunting
-		
 		var encounters = 0
-		for pokemon in pokemonList
+		for pokemon in currentHuntPokemon
 		{
 			encounters += pokemon.encounters
 		}
-		
 		return encounters
 	}
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-        return currentHuntRepository.currentlyHunting.count
+        return currentHuntPokemon.count
     }
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -91,7 +93,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		
 		cell.cellDelegate = self
 		
-		let pokemon = currentHuntRepository.currentlyHunting[indexPath.row]
+		let pokemon = currentHuntPokemon[indexPath.row]
 		
 		let minusButtonIsEnabled = pokemon.encounters <= 0
 		
@@ -107,32 +109,32 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		currentHuntCell.sprite.image = pokemon.shinyImage
 		
 		currentHuntCell.nameLabel.text = pokemon.name
-		currentHuntCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.nameLabel.font = settingsRepository.getSmallFont()
+		currentHuntCell.nameLabel.textColor = colorService!.getTertiaryColor()
+		currentHuntCell.nameLabel.font = fontSettingsService.getSmallFont()
 		
 		currentHuntCell.numberLabel.text = "No. \(String(pokemon.number + 1))"
-		currentHuntCell.numberLabel.textColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.numberLabel.font = settingsRepository.getExtraSmallFont()
+		currentHuntCell.numberLabel.textColor = colorService!.getTertiaryColor()
+		currentHuntCell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
-		currentHuntCell.encountersLabel.textColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.encountersLabel.font = settingsRepository.getLargeFont()
+		currentHuntCell.encountersLabel.textColor = colorService!.getTertiaryColor()
+		currentHuntCell.encountersLabel.font = fontSettingsService.getLargeFont()
 		
-		currentHuntCell.plusButton.tintColor = settingsRepository.getTertiaryColor()
-		currentHuntCell.minusButton.tintColor = settingsRepository.getTertiaryColor()
+		currentHuntCell.plusButton.tintColor = colorService!.getTertiaryColor()
+		currentHuntCell.minusButton.tintColor = colorService!.getTertiaryColor()
 	}
 
 	func decrementEncounters(_ sender: UIButton)
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHuntRepository.currentlyHunting[indexPath.row]
+			let pokemon = currentHuntPokemon[indexPath.row]
 			
 			pokemon.encounters -= 1
 			encounters -= 1
 			navigationItem.title = String(encounters)
 			tableView.reloadRows(at: [indexPath], with: .automatic)
-			pokemonRepository.savePokemon(pokemon: pokemon)
+			pokemonService.save(pokemon: pokemon)
 		}
 	}
 	
@@ -140,31 +142,25 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHuntRepository.currentlyHunting[indexPath.row]
-			
+			let pokemon = currentHuntPokemon[indexPath.row]
 			pokemon.encounters += 1
 			encounters += 1
 			navigationItem.title = String(encounters)
 			tableView.reloadRows(at: [indexPath], with: .automatic)
-			pokemonRepository.savePokemon(pokemon: pokemon)
+			pokemonService.save(pokemon: pokemon)
 		}
 	}
 	
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
 		{
-			encounters -= currentHuntRepository.currentlyHunting[indexPath.row].encounters
-			currentHuntRepository.currentlyHunting.remove(at: indexPath.row)
-			
-			if !currentHuntRepository.currentHuntNames.isEmpty
-			{
-				currentHuntRepository.currentHuntNames.remove(at: indexPath.row)
-			}
-			
+			let pokemonName = currentHuntPokemon[indexPath.row].name
+			encounters -= currentHuntPokemon[indexPath.row].encounters
+			currentHuntPokemon.remove(at: indexPath.row)
+			currentHuntNames.removeAll{$0 == pokemonName}
             tableView.deleteRows(at: [indexPath], with: .fade)
 			navigationItem.title = String(encounters)
-			currentHuntRepository.saveCurrentHunt()
-			
+			currentHuntService.save(currentHuntNames: currentHuntNames)
 			setClearHuntButtonState()
         }
     }
@@ -180,20 +176,19 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		if isClearingCurrentHunt
 		{
 			let destVC = segue.destination as? ConfirmationModalVC
-			
-			destVC?.settingsRepository = settingsRepository
-			destVC?.currentHuntRepository = currentHuntRepository
-
+			destVC?.currentHuntService = currentHuntService
 			isClearingCurrentHunt = false
 		}
 		else
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
-			
-			destVC?.pokemonRepository = pokemonRepository
-			destVC?.settingsRepository = settingsRepository
-			destVC?.currentHuntRepository = currentHuntRepository
-			destVC?.pokemon = currentHuntRepository.currentlyHunting[index]
+			destVC?.pokemonService = pokemonService
+			destVC?.huntStateService = huntStateService
+			destVC?.currentHuntService = currentHuntService
+			destVC?.pokemon = currentHuntPokemon[index]
+			destVC?.currentHuntNames = currentHuntNames
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 		}
 	}
 	
@@ -205,12 +200,13 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getPrimaryColor()
+		cell.backgroundColor = colorService!.getPrimaryColor()
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
-		setClearHuntButtonState()
+		clearCurrentHuntButton.isEnabled = false
+		currentHuntPokemon.removeAll()
 		tableView.reloadData()
 		setEncounters()
 	}

@@ -14,7 +14,7 @@ class LoadingVC: UIViewController
 	@IBOutlet weak var settingUpProfileLabel: UILabel!
 	@IBOutlet weak var loadingImageView: UIImageView!
 	@IBOutlet weak var pokeballImageView: UIImageView!
-	var pokemonRepository: PokemonRepository?
+	var pokemonService = PokemonService()
 	var isFirstTimeUser: Bool!
 	var loadingGifData: Data?
 	var pokeballGifData: Data?
@@ -22,10 +22,6 @@ class LoadingVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-
-		createPokemonRepository()
-		
-		populatePokemonList()
 		
 		resolveUserStatus()
 		
@@ -34,33 +30,23 @@ class LoadingVC: UIViewController
 		displayGifs()
 		
 		setVisibilityOfSettingUpProfileLabel()
+
+		proceedAsExistingUser()
 		
-		if isFirstTimeUser
-		{
-			proceedAsNewUser()
-		}
-		else
-		{
-			proceedAsExistingUser()
-		}
+//		if isFirstTimeUser
+//		{
+//			proceedAsNewUser()
+//		}
+//		else
+//		{
+//			proceedAsExistingUser()
+//		}
     }
-	
-	fileprivate func createPokemonRepository()
-	{
-		if pokemonRepository == nil
-		{
-			pokemonRepository = PokemonRepository.pokemonRepositorySingleton
-		}
-	}
-	
-	fileprivate func populatePokemonList()
-	{
-		pokemonRepository?.populatePokemonList()
-	}
 	
 	fileprivate func resolveUserStatus()
 	{
-		isFirstTimeUser = pokemonRepository?.pokemonList.count == 0
+		let allPokemon = pokemonService.getAll()
+		isFirstTimeUser = allPokemon.count == 0
 	}
 	
 	fileprivate func hideNavigationBar()
@@ -89,15 +75,13 @@ class LoadingVC: UIViewController
 	
 	fileprivate func proceedAsNewUser()
 	{
-		pokemonRepository?.populateDatabase()
+		pokemonService.populateDatabase()
 		
 		performSegue(withIdentifier: "loadSegue", sender: self)
 	}
 	
 	fileprivate func proceedAsExistingUser()
 	{
-		pokemonRepository?.populatePokemonList()
-		
 		performSegue(withIdentifier: "loadSegue", sender: self)
 	}
 	
@@ -105,6 +89,6 @@ class LoadingVC: UIViewController
 	{
 		let destVC = segue.destination as? MenuTVC
 		
-		destVC?.pokemonRepository = pokemonRepository
+		destVC?.pokemonService = pokemonService
 	}
 }

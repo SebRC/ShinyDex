@@ -13,7 +13,9 @@ class ColorPickerVC: CustomColorPickerViewController
 {
 	var primaryWasPressed: Bool!
 	var currentColor: Int!
-	var settingsRepository = SettingsRepository.settingsRepositorySingleton
+	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
+
 	@IBOutlet weak var saveButton: UIButton!
 	
 	@IBOutlet weak var cancelButton: UIButton!
@@ -35,11 +37,11 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		titleLabel.textColor = .black
 		
-		titleLabel.font = settingsRepository.getMediumFont()
+		titleLabel.font = fontSettingsService.getMediumFont()
 		
-		saveButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
+		saveButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		
-		cancelButton.titleLabel?.font = settingsRepository.getExtraSmallFont()
+		cancelButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		
 		if primaryWasPressed == nil
 		{
@@ -63,15 +65,15 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		if primaryWasPressed == nil
 		{
-			settingsRepository.saveTertiaryColor(tertiaryColor: color!)
+			colorService.save(hex: color!, name: "tertiaryColor")
 		}
 		else if primaryWasPressed
 		{
-			settingsRepository.savePrimaryColor(primaryColor: color!)
+			colorService.save(hex: color!, name: "primaryColor")
 		}
 		else
 		{
-			settingsRepository.saveSecondaryColor(secondaryColor: color!)
+			colorService.save(hex: color!, name: "secondaryColor")
 		}
 		
 		performSegue(withIdentifier: "colorPickerUnwind", sender: self)

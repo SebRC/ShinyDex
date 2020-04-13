@@ -14,11 +14,11 @@ class InfoModalVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var probability: Double?
-	var settingsRepository: SettingsRepository!
 	var switchStateService = SwitchStateService()
 	let oddsService = OddsService()
 	let probabilityService = ProbabilityService()
-	var shinyOdds: Int?
+	var huntStateService = HuntStateService()
+	var huntState: HuntState?
 	
 	override func viewDidLoad()
 	{
@@ -27,8 +27,8 @@ class InfoModalVC: UIViewController
 		setClearBackground()
 		
 		roundViewCorner()
-		
-		setShinyOdds()
+
+		huntState = huntStateService.get()
 		
 		resolveSwitchStates()
 		
@@ -49,11 +49,6 @@ class InfoModalVC: UIViewController
 	fileprivate func roundViewCorner()
 	{
 		infoPopupView.layer.cornerRadius = 10
-	}
-	
-	fileprivate func setShinyOdds()
-	{
-		shinyOdds = settingsRepository.shinyOdds
 	}
 	
 	fileprivate func resolveSwitchStates()
@@ -77,15 +72,15 @@ class InfoModalVC: UIViewController
 	
 	@objc fileprivate func savePressed()
 	{
-		settingsRepository?.isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
+		huntState!.isShinyCharmActive = infoPopupView.shinyCharmSwitch.isOn
 
-		settingsRepository?.isLureInUse = infoPopupView.lureSwitch.isOn
+		huntState!.isLureInUse = infoPopupView.lureSwitch.isOn
 		
-		settingsRepository?.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
+		huntState!.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		
-		settingsRepository.setShinyOdds()
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, pokemon.encounters)
 		
-		settingsRepository?.saveSettings()
+		huntStateService.save(huntState!)
 		
 		performSegue(withIdentifier: "infoUnwind", sender: self)
 	}
@@ -112,20 +107,19 @@ class InfoModalVC: UIViewController
 		let isLureInUse = infoPopupView.lureSwitch.isOn
 		let encounters = pokemon.encounters
 
-		shinyOdds = oddsService.getShinyOdds(currentGen: generation, isCharmActive: isShinyCharmActive, isLureInUse: isLureInUse, encounters: encounters)
-		probability = probabilityService.getProbability(generation: generation, isCharmActive: isShinyCharmActive, encounters: encounters, shinyOdds: shinyOdds!, isLureInUse: isLureInUse)
+		huntState!.shinyOdds = oddsService.getShinyOdds(generation, isShinyCharmActive, isLureInUse, encounters)
+		probability = probabilityService.getProbability(generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, pokemon.encounters, huntState!.shinyOdds)
 	}
 	
 	fileprivate func setProbabilityLabelText()
 	{
-		let probabilityLabelText = probabilityService.getProbabilityText(encounters: pokemon.encounters, shinyOdds: shinyOdds!, probability: probability!)
-
+		let probabilityLabelText = probabilityService.getProbabilityText(encounters: pokemon.encounters, shinyOdds: huntState!.shinyOdds, probability: probability!)
 		infoPopupView.probabilityLabel.text = probabilityLabelText
 	}
 	
 	fileprivate func setShinyOddsLabelText()
 	{
-		infoPopupView.shinyOddsLabel.text = " 1/\(shinyOdds!)"
+		infoPopupView.shinyOddsLabel.text = " 1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func setGenerationSegmentedControlAction()

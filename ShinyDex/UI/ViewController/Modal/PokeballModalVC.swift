@@ -17,8 +17,9 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokeballs = [Pokeball]()
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
-	var pokemonRepository: PokemonRepository!
-	var settingsRepository: SettingsRepository!
+	var pokemonService: PokemonService!
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 	var modalPosition: CGRect!
 	
 	override func viewDidLoad()
@@ -41,13 +42,13 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.layer.cornerRadius = 5
 		
-		pokeballIndicatorView.backgroundColor = settingsRepository.getPrimaryColor()
+		pokeballIndicatorView.backgroundColor = colorService.getPrimaryColor()
 		
-		pokeballIndicatorView.titleLabel.font = settingsRepository.getXxSmallFont()
+		pokeballIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		
 		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
 		
-		pokeballIndicatorView.titleLabel.textColor = settingsRepository.getTertiaryColor()
+		pokeballIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()
 		
 		pokeballIndicatorView.pokemonImageView.image = pokemon.shinyImage
     }
@@ -76,12 +77,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setCancelButtonFont()
 	{
-		cancelButton.titleLabel?.font = settingsRepository.getMediumFont()
+		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 	}
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = settingsRepository.getPrimaryColor()
+		pokeballTableView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -92,11 +93,8 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		let pokeball = pokeballs[indexPath.row]
-		
 		pokemon.caughtBall = pokeball.name.lowercased()
-		
-		pokemonRepository.savePokemon(pokemon: pokemon)
-		
+		pokemonService.save(pokemon: pokemon)
 		performSegue(withIdentifier: "unwindToShinyTrackerVC", sender: self)
 	}
 	
@@ -107,7 +105,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = settingsRepository.getPrimaryColor()
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -132,12 +130,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
 		pokeballCell.pokeballImageView.image = pokeball.image
 		pokeballCell.nameLabel.text = pokeball.name
-		pokeballCell.nameLabel.textColor = settingsRepository.getTertiaryColor()
+		pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setNameLabelFont(nameLabel: UILabel)
 	{
-		nameLabel.font = settingsRepository.getLargeFont()
+		nameLabel.font = fontSettingsService.getLargeFont()
 	}
 
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)

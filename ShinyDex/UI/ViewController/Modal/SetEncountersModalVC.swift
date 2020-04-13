@@ -13,7 +13,7 @@ class SetEncountersModalVC: UIViewController
 	@IBOutlet weak var setEncountersView: SetEncountersView!
 	
 	var pokemon: Pokemon!
-	var pokemonRepository: PokemonRepository!
+	var pokemonService: PokemonService!
 	
 	override func viewDidLoad()
 	{
