@@ -194,7 +194,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			currentHuntService.save(currentHuntNames: currentHuntNames)
 			tableView.reloadRows(at: [indexPath], with: .automatic)
 			popupView.actionLabel.text = "\(pokemon!.name) was added to current hunt."
-			popupHandler.centerPopupView(popupView: popupView)
 			popupHandler.showPopup(popupView: popupView)
 		}
 	}

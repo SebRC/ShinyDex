@@ -13,6 +13,7 @@ class PopupHandler
 {
 	func showPopup(popupView: UIView)
 	{
+		centerPopupView(popupView: popupView)
 		popupView.isHidden = false
 		popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
 		popupView.alpha = 0.0
@@ -28,7 +29,7 @@ class PopupHandler
 		}
 	}
 
-	func removeAnimate(popupView: UIView)
+	fileprivate func removeAnimate(popupView: UIView)
 	{
 		UIView.animate(withDuration: 0.25, animations: {
 			popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -36,7 +37,7 @@ class PopupHandler
 		})
 	}
 	
-	func centerPopupView(popupView: PopupView)
+	fileprivate func centerPopupView(popupView: UIView)
 	{
 		let window = UIApplication.shared.windows.filter{$0.isKeyWindow}.first
 		

@@ -221,7 +221,6 @@ class ShinyTrackerVC: UIViewController
 		currentHuntService.save(currentHuntNames: currentHuntNames)
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		popupView.actionLabel.text = "\(pokemon.name) was added to current hunt."
-		popupHandler.centerPopupView(popupView: popupView)
 		popupHandler.showPopup(popupView: popupView)
 	}
 	
