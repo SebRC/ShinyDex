@@ -46,6 +46,8 @@
 		9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C7302409633E0007AD5D /* ProbabilityService.swift */; };
 		9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C732240965420007AD5D /* Gen8ProbabilityService.swift */; };
 		9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30823EF87BD00287A16 /* Pokemon.swift */; };
+		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
+		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
 		96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */; };
 		96FC07A923EF192800459450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96FC07A823EF192800459450 /* Assets.xcassets */; };
@@ -108,6 +110,8 @@
 		9689C7302409633E0007AD5D /* ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbabilityService.swift; sourceTree = "<group>"; };
 		9689C732240965420007AD5D /* Gen8ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen8ProbabilityService.swift; sourceTree = "<group>"; };
 		9695A30823EF87BD00287A16 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
+		96C96D472444696000D30186 /* FontThemeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontThemeName.swift; sourceTree = "<group>"; };
 		96FC079923EF192400459450 /* ShinyDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShinyDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FC079C23EF192400459450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96FC07A623EF192400459450 /* ShinyDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShinyDex.xcdatamodel; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 			children = (
 				966C210D241038490019F835 /* FontSettingsRepository.swift */,
 				966C211324103FE30019F835 /* FontSettingsService.swift */,
+				96C96D45244462EF00D30186 /* FontName.swift */,
+				96C96D472444696000D30186 /* FontThemeName.swift */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96C96D46244462EF00D30186 /* FontName.swift in Sources */,
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
 				9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
@@ -504,6 +511,7 @@
 				96FC07E623EF511500459450 /* GifSwift.swift in Sources */,
 				962E58CD2411A69C001D5E41 /* InfoPopupView.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
+				96C96D482444696000D30186 /* FontThemeName.swift in Sources */,
 				9689C72F2408FAB00007AD5D /* Gen8OddsService.swift in Sources */,
 				9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */,
 				96FC082B23EF598E00459450 /* PokedexTVC.swift in Sources */,

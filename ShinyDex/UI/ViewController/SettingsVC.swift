@@ -42,8 +42,6 @@ class SettingsVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-
-		fontSettingsService.colorService = colorService
 		
 		setUIColors()
 		
@@ -147,9 +145,9 @@ class SettingsVC: UIViewController
 		]
 		
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
+		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	fileprivate func roundCorners()
@@ -197,7 +195,7 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setFontSettingsControlSelectedSegmentIndex()
 	{
-		if fontSettingsService.fontTheme == "Modern"
+		if fontSettingsService.getFontThemeName() == FontThemeName.Modern.description
 		{
 			fontSegmentedControl.selectedSegmentIndex = 0
 		}
@@ -242,8 +240,8 @@ class SettingsVC: UIViewController
 	
 	@IBAction func changeFontPressed(_ sender: Any)
 	{
-		fontSettingsService.setFont(selectedSegment: fontSegmentedControl.selectedSegmentIndex)
-		fontSettingsService.save()
+		let fontThemeName = fontSegmentedControl.selectedSegmentIndex == 0 ? FontThemeName.Modern.description : FontThemeName.Retro.description
+		fontSettingsService.save(fontThemeName: fontThemeName)
 		setFonts()
 	}
 	
