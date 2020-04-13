@@ -40,7 +40,6 @@ class TextResolver
 		{
 			return "Current Hunt"
 		}
-		
 		return "Gen 1"
 	}
 }

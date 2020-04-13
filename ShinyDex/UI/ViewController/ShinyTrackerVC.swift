@@ -24,7 +24,6 @@ class ShinyTrackerVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var currentHuntNames: [String]!
-	var resolver = Resolver()
 	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
@@ -198,7 +197,12 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return resolver.resolveButtonAccess(nameList: currentHuntNames, name: pokemon.name)
+		return !currentHuntNames.contains(pokemon.name)
+	}
+
+	fileprivate func resolveButtonAccess(nameList: [String], name: String) -> Bool
+	{
+		return !nameList.contains(name)
 	}
 	
 	@IBAction func plusPressed(_ sender: Any)

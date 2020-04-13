@@ -11,7 +11,7 @@ import UIKit
 
 class SwitchStateService
 {
-	var huntStateService = HuntStateService()
+	fileprivate var huntStateService = HuntStateService()
 	
 	func resolveShinyCharmSwitchState(generation: Int, shinyCharmSwitch: UISwitch)
 	{

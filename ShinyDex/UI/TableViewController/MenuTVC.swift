@@ -13,7 +13,6 @@ class MenuTVC: UITableViewController
 	var genIndex = 0
 	var allPokemon = [Pokemon]()
 	var currentHuntPokemon = [Pokemon]()
-	let resolver = Resolver()
 	let textResolver = TextResolver()
 	var pokemonService: PokemonService!
 	var fontSettingsService = FontSettingsService()

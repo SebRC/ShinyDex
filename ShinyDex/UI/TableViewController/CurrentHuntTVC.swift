@@ -15,7 +15,6 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
 	var huntStateService: HuntStateService!
-	var resolver = Resolver()
 	var encounters = 0
 	var index = 0
 	var popupHandler = PopupHandler()

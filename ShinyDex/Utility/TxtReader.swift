@@ -2,9 +2,6 @@ import Foundation
 
 public class TxtReader
 {
-	init()
-	{}
-	
 	func linesFromResourceForced(textFile: String) -> [String] {
 		
 		let path = Bundle.main.path(forResource: textFile, ofType: "txt")!
