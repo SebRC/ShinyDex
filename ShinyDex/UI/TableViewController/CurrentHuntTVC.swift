@@ -206,7 +206,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
-		setClearHuntButtonState()
+		clearCurrentHuntButton.isEnabled = false
 		currentHuntPokemon.removeAll()
 		tableView.reloadData()
 		setEncounters()
