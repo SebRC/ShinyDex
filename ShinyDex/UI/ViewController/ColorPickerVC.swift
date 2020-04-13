@@ -66,17 +66,14 @@ class ColorPickerVC: CustomColorPickerViewController
 		if primaryWasPressed == nil
 		{
 			colorService.save(hex: color!, name: "tertiaryColor")
-			colorService.setTertiaryColor(tertiaryColor: color!)
 		}
 		else if primaryWasPressed
 		{
 			colorService.save(hex: color!, name: "primaryColor")
-			colorService.setPrimaryColor(primaryColor: color!)
 		}
 		else
 		{
-			colorService.save(hex: color!, name: "secondary")
-			colorService.setSecondaryColor(secondaryColor: color!)
+			colorService.save(hex: color!, name: "secondaryColor")
 		}
 		
 		performSegue(withIdentifier: "colorPickerUnwind", sender: self)

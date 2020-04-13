@@ -11,84 +11,64 @@ import UIKit
 
 class ColorRepository
 {
-	var primaryColor: Int
-	var secondaryColor: Int
-	var tertiaryColor: Int
-
 	fileprivate let defaults = UserDefaults.standard
-
-	init()
-	{
-		primaryColor = 0xABE8ED
-		secondaryColor = 0x03C4FB
-		tertiaryColor = 0xFFFFFF
-
-		load()
-	}
-
-	func saveAll()
-	{
-		defaults.set(primaryColor, forKey: "primaryColor")
-		defaults.set(secondaryColor, forKey: "secondaryColor")
-		defaults.set(tertiaryColor, forKey: "tertiaryColor")
-	}
 
 	func save(hex: Int, name: String)
 	{
 		defaults.set(hex, forKey: name)
 	}
 
-	fileprivate func load()
-	{
-		loadPrimaryColor()
-
-		loadSecondaryColor()
-
-		loadTertiaryColor()
-	}
-
-	fileprivate func loadPrimaryColor()
+	func getPrimaryColor() -> UIColor
 	{
 		if let loadedPrimaryColor = defaults.integer(forKey: "primaryColor") as Int?
 		{
-			primaryColor = loadedPrimaryColor
+			return UIColor(netHex: loadedPrimaryColor)
 		}
-
-		let primaryColorIsLoaded = primaryColor != 0
-
-		if !primaryColorIsLoaded
-		{
-			primaryColor = 0xABE8ED
-		}
+		return UIColor(netHex: 0xABE8ED)
 	}
 
-	fileprivate func loadSecondaryColor()
+	func getSecondaryColor() -> UIColor
 	{
 		if let loadedSecondaryColor = defaults.integer(forKey: "secondaryColor") as Int?
 		{
-			secondaryColor = loadedSecondaryColor
+			return UIColor(netHex: loadedSecondaryColor)
 		}
-
-		let secondaryColorIsLoaded = secondaryColor != 0
-
-		if !secondaryColorIsLoaded
-		{
-			secondaryColor = 0x03C4FB
-		}
+		return UIColor(netHex: 0x03C4FB)
 	}
 
-	fileprivate func loadTertiaryColor()
+	func getTertiaryColor() -> UIColor
 	{
 		if let loadedTertiaryColor = defaults.integer(forKey: "tertiaryColor") as Int?
 		{
-			tertiaryColor = loadedTertiaryColor
+			return UIColor(netHex: loadedTertiaryColor)
 		}
+		return UIColor(netHex: 0xFFFFFF)
+	}
 
-		let tertiaryColorIsLoaded = tertiaryColor != 0
-
-		if !tertiaryColorIsLoaded
+	func getPrimaryHex() -> Int
+	{
+		if let loadedPrimaryHex = defaults.integer(forKey: "primaryColor") as Int?
 		{
-			tertiaryColor = 0xFFFFFF
+			return loadedPrimaryHex
 		}
+		return 0xABE8ED
+	}
+
+	func getSecondaryHex() -> Int
+	{
+		if let loadedSecondaryHex = defaults.integer(forKey: "secondaryColor") as Int?
+		{
+			return loadedSecondaryHex
+		}
+		return 0x03C4FB
+	}
+
+	func getTertiaryHex() -> Int
+	{
+		if let loadedTertiaryHex = defaults.integer(forKey: "tertiaryColor") as Int?
+		{
+			return loadedTertiaryHex
+		}
+		return 0xFFFFFF
 	}
 }

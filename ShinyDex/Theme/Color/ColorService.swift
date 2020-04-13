@@ -15,17 +15,17 @@ class ColorService
 
 	func getPrimaryColor() -> UIColor
 	{
-		return UIColor(netHex: colorRepository.primaryColor)
+		return colorRepository.getPrimaryColor()
 	}
 
 	func getSecondaryColor() -> UIColor
 	{
-		return UIColor(netHex: colorRepository.secondaryColor)
+		return colorRepository.getSecondaryColor()
 	}
 
 	func getTertiaryColor() -> UIColor
 	{
-		return UIColor(netHex: colorRepository.tertiaryColor)
+		return colorRepository.getTertiaryColor()
 	}
 
 	func save(hex: Int, name: String)
@@ -33,33 +33,18 @@ class ColorService
 		colorRepository.save(hex: hex, name: name)
 	}
 
-	func setPrimaryColor(primaryColor: Int)
-	{
-		colorRepository.primaryColor = primaryColor
-	}
-
-	func setSecondaryColor(secondaryColor: Int)
-	{
-		colorRepository.secondaryColor = secondaryColor
-	}
-
-	func setTertiaryColor(tertiaryColor: Int)
-	{
-		colorRepository.tertiaryColor = tertiaryColor
-	}
-
 	func getPrimaryHex() -> Int
 	{
-		return colorRepository.primaryColor
+		return colorRepository.getPrimaryHex()
 	}
 
 	func getSecondaryHex() -> Int
 	{
-		return colorRepository.secondaryColor
+		return colorRepository.getSecondaryHex()
 	}
 
 	func getTertiaryHex() -> Int
 	{
-		return colorRepository.tertiaryColor
+		return colorRepository.getTertiaryHex()
 	}
 }
