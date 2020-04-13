@@ -42,13 +42,6 @@ class Pokemon
 		}
 	}
 	
-	func changeCaughtBall(pokemonService: PokemonService, newCaughtBall: String)
-	{
-		caughtBall = newCaughtBall
-		caughtDescription = resolveCaughtDescription()
-		pokemonService.save(pokemon: self)
-	}
-	
 	fileprivate func resolveCaughtDescription() -> String
 	{
 		if caughtBall == "none"

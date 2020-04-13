@@ -93,11 +93,8 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		let pokeball = pokeballs[indexPath.row]
-		
 		pokemon.caughtBall = pokeball.name.lowercased()
-		
 		pokemonService.save(pokemon: pokemon)
-		
 		performSegue(withIdentifier: "unwindToShinyTrackerVC", sender: self)
 	}
 	

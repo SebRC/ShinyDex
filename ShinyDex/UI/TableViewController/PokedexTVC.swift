@@ -356,7 +356,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		if let sourceTVC = unwindSegue.source as? PokeballModalVC
 		{
-			pokemon?.changeCaughtBall(pokemonService: pokemonService, newCaughtBall: sourceTVC.pokemon.caughtBall)
+			pokemon?.caughtBall = sourceTVC.pokemon.caughtBall
+			pokemonService.save(pokemon: pokemon!)
 			
 			tableView.reloadData()
 		}
