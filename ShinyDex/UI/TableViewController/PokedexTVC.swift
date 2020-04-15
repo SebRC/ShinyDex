@@ -33,6 +33,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
         super.viewDidLoad()
 
+		tableView.separatorColor = colorService.getSecondaryColor()
+
 		allPokemon = pokemonService.getAll()
 
 		currentHuntNames = currentHuntService.getCurrentHuntNames()
@@ -248,9 +250,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
 	{
-		return 50.0;
+		return 65.0;
 	}
-
 	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 	{
@@ -410,10 +411,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService!.getPrimaryColor()
+		cell.layer.cornerRadius = 30
 	}
 
 }
-
-
-
-
