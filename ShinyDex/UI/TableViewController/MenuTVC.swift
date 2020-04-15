@@ -28,6 +28,8 @@ class MenuTVC: UITableViewController
 		
 		hideBackButton()
 
+		tableView.separatorColor = colorService.getSecondaryColor()
+
 		allPokemon = pokemonService.getAll()
 
 		currentHuntPokemon = currentHuntService.get()
@@ -89,7 +91,7 @@ class MenuTVC: UITableViewController
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		tableView.backgroundColor = colorService.getPrimaryColor()
+		tableView.backgroundColor = colorService.getSecondaryColor()
 	}
 
 	fileprivate func setUpBackButton()
@@ -237,5 +239,6 @@ class MenuTVC: UITableViewController
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService.getPrimaryColor()
+		cell.layer.cornerRadius = 30
 	}
 }
