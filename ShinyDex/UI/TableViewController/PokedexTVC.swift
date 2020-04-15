@@ -120,8 +120,17 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setFonts()
 	{
-		searchController.searchBar.change(textFont: fontSettingsService.getSmallFont(), textColor: UIColor.white)
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont()], for: .normal)
+		let attributes = [
+			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
+			NSAttributedString.Key.font: fontSettingsService.getSmallFont()
+		]
+		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+		let searchBarTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+		searchBarTextField?.textColor = colorService.getTertiaryColor()
+		searchBarTextField?.font = fontSettingsService.getSmallFont()
+		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
+		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
+		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont(), NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()], for: .normal)
 		
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 	}
@@ -259,7 +268,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		cell.cellDelegate = self
 		
-		let pokemon = setCellPokemon(index: indexPath.row)
+		let pokemon = getSelectedPokemon(index: indexPath.row)
 		
 		setCellImage(pokemonCell: cell, pokemon: pokemon)
 		
@@ -267,16 +276,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
         return cell
     }
-	
-	fileprivate func setCellPokemon(index: Int) -> Pokemon
-	{
-		if isFiltering()
-		{
-			return filteredPokemon[index]
-		}
-		
-		return allPokemon[index]
-	}
 	
 	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: Pokemon)
 	{
