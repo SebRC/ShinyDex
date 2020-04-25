@@ -12,7 +12,7 @@ class MenuTVC: UITableViewController
 {
 	var genIndex = 0
 	var allPokemon = [Pokemon]()
-	var currentHuntPokemon = [Pokemon]()
+	var currentHunts = [Hunt]()
 	let textResolver = TextResolver()
 	var pokemonService: PokemonService!
 	var fontSettingsService = FontSettingsService()
@@ -32,7 +32,7 @@ class MenuTVC: UITableViewController
 
 		allPokemon = pokemonService.getAll()
 
-		currentHuntPokemon = currentHuntService.get()
+		currentHunts = currentHuntService.getAll()
 		
 		showNavigationBar()
 
@@ -47,7 +47,7 @@ class MenuTVC: UITableViewController
 	{
 		super.viewWillAppear(animated)
 
-		currentHuntPokemon = currentHuntService.get()
+		currentHunts = currentHuntService.getAll()
 		
 		setTableViewBackgroundColor()
 		
@@ -131,13 +131,13 @@ class MenuTVC: UITableViewController
 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
-		let showCurrentHuntImage = indexPath.row == 7 && !currentHuntPokemon.isEmpty
+		let showCurrentHuntImage = indexPath.row == 7 && !currentHunts.isEmpty
 		
 		cell.generationLabel.textColor = colorService.getTertiaryColor()
 		
 		if showCurrentHuntImage
 		{
-			cell.generationImage.image = currentHuntPokemon[0].shinyImage
+			cell.generationImage.image = currentHunts[0].pokemon[0].shinyImage
 		}
 		else
 		{
@@ -219,7 +219,7 @@ class MenuTVC: UITableViewController
 		currentHuntTVC.pokemonService = pokemonService
 		currentHuntTVC.huntStateService = huntStateService
 		currentHuntTVC.currentHuntService = currentHuntService
-		currentHuntTVC.currentHuntPokemon = currentHuntPokemon
+		currentHuntTVC.currentHunts = currentHunts
 	}
 	
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)

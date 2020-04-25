@@ -26,6 +26,7 @@
 		962E58CD2411A69C001D5E41 /* InfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58C12411A69C001D5E41 /* InfoPopupView.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
+		96435D432454807B00C45A00 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D422454807B00C45A00 /* Pokemon.swift */; };
 		964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */; };
 		964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */; };
 		964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080F23EF58A500459450 /* PokeballCell.swift */; };
@@ -45,7 +46,7 @@
 		9689C72F2408FAB00007AD5D /* Gen8OddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72E2408FAB00007AD5D /* Gen8OddsService.swift */; };
 		9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C7302409633E0007AD5D /* ProbabilityService.swift */; };
 		9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C732240965420007AD5D /* Gen8ProbabilityService.swift */; };
-		9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9695A30823EF87BD00287A16 /* Pokemon.swift */; };
+		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
@@ -96,6 +97,7 @@
 		962E58C12411A69C001D5E41 /* InfoPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPopupView.swift; path = ../../../../../InfoPopupView.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
+		96435D422454807B00C45A00 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -108,7 +110,7 @@
 		9689C72E2408FAB00007AD5D /* Gen8OddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen8OddsService.swift; sourceTree = "<group>"; };
 		9689C7302409633E0007AD5D /* ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbabilityService.swift; sourceTree = "<group>"; };
 		9689C732240965420007AD5D /* Gen8ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen8ProbabilityService.swift; sourceTree = "<group>"; };
-		9695A30823EF87BD00287A16 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
+		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
 		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
 		96C96D472444696000D30186 /* FontThemeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontThemeName.swift; sourceTree = "<group>"; };
 		96FC079923EF192400459450 /* ShinyDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShinyDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,7 +188,7 @@
 			children = (
 				96FC07DA23EF455A00459450 /* PokemonRepository.swift */,
 				9607F777242A971000263CF6 /* PokemonService.swift */,
-				9695A30823EF87BD00287A16 /* Pokemon.swift */,
+				96435D422454807B00C45A00 /* Pokemon.swift */,
 			);
 			path = Pokemon;
 			sourceTree = "<group>";
@@ -225,6 +227,7 @@
 			children = (
 				96FC082123EF595700459450 /* CurrentHuntRepository.swift */,
 				966C211C24118BC50019F835 /* CurrentHuntService.swift */,
+				96ACB88B2450BFCC00BC1523 /* Hunt.swift */,
 			);
 			path = CurrentHunt;
 			sourceTree = "<group>";
@@ -507,10 +510,10 @@
 				966C211424103FE30019F835 /* FontSettingsService.swift in Sources */,
 				96FC07E623EF511500459450 /* GifSwift.swift in Sources */,
 				962E58CD2411A69C001D5E41 /* InfoPopupView.swift in Sources */,
+				96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
 				96C96D482444696000D30186 /* FontThemeName.swift in Sources */,
 				9689C72F2408FAB00007AD5D /* Gen8OddsService.swift in Sources */,
-				9695A30923EF87BD00287A16 /* Pokemon.swift in Sources */,
 				96FC082B23EF598E00459450 /* PokedexTVC.swift in Sources */,
 				964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */,
 				96FC083A23EF59C000459450 /* SetEncountersModalVC.swift in Sources */,
@@ -549,6 +552,7 @@
 				96FC082A23EF598E00459450 /* CurrentHuntTVC.swift in Sources */,
 				9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */,
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
+				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
 				962E58C92411A69C001D5E41 /* ConfirmationPopup.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,

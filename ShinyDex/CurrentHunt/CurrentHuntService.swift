@@ -7,44 +7,35 @@
 //
 
 import Foundation
+import CoreData
 
 class CurrentHuntService
 {
 	fileprivate var pokemonService = PokemonService()
 	fileprivate var currentHuntRepository = CurrentHuntRepository()
 	
-	func get() -> [Pokemon]
+	func getAll() -> [Hunt]
 	{
-		let allPokemon = pokemonService.getAll()
-		let currentHuntNames = currentHuntRepository.getCurrenHuntNames()
-		var currentHuntPokemon = [Pokemon]()
-		for name in currentHuntNames
+		let currentHuntEntities = currentHuntRepository.getAll()
+		var currentHunts = [Hunt]()
+		for huntEntity in currentHuntEntities
 		{
-			for pokemon in allPokemon
-			{
-				if name == pokemon.name
-				{
-					currentHuntPokemon.append(pokemon)
-					break
-				}
-			}
+			currentHunts.append(Hunt(huntEntity: huntEntity))
 		}
-		currentHuntPokemon = currentHuntPokemon.sorted(by: { $0.number < $1.number})
-		return currentHuntPokemon
+		for hunt in currentHunts
+		{
+			hunt.pokemon = hunt.pokemon.sorted(by: { $0.number < $1.number})
+		}
+		return currentHunts
 	}
 
-	func getCurrentHuntNames() -> [String]
+	func save(hunt: Hunt)
 	{
-		return currentHuntRepository.getCurrenHuntNames()
+		currentHuntRepository.save(hunt: hunt)
 	}
 
-	func save(currentHuntNames: [String])
+	func clear()
 	{
-		currentHuntRepository.save(names: currentHuntNames)
-	}
-
-	func clearCurrentHunt()
-	{
-		currentHuntRepository.save(names: [String]())
+		currentHuntRepository.clear()
 	}
 }

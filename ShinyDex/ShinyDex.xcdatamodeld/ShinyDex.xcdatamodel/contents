@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="PokemonEntity" representedClassName="PokemonEntity" syncable="YES" codeGenerationType="class">
+    <entity name="HuntEntity" representedClassName="HuntEntity" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="pokemon" optional="YES" attributeType="Transformable" customClassName="[Pokemon]"/>
+    </entity>
+    <entity name="PokemonEntity" representedClassName="PokemonEntity" syncable="YES">
         <attribute name="caughtBall" optional="YES" attributeType="String"/>
         <attribute name="caughtDescription" optional="YES" attributeType="String"/>
         <attribute name="encounters" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -8,6 +12,7 @@
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
+        <element name="HuntEntity" positionX="103.625" positionY="-14.2890625" width="128" height="73"/>
         <element name="PokemonEntity" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

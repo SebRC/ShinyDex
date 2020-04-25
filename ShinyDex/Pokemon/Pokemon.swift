@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class Pokemon
+class Pokemon: NSObject
 {
 	var pokemonEntity: NSManagedObject
 	var name: String
@@ -20,7 +20,7 @@ class Pokemon
 	var caughtBall: String
 	var shinyImage: UIImage?
 	var shinyGifData: Data
-	
+
 	init(pokemonEntity: NSManagedObject)
 	{
 		self.pokemonEntity = pokemonEntity
@@ -30,7 +30,7 @@ class Pokemon
 		self.encounters = pokemonEntity.value(forKey: "encounters") as! Int
 		self.caughtBall = pokemonEntity.value(forKey: "caughtBall") as! String
 		self.shinyImage = UIImage(named: name.lowercased())
-				
+
 		if let shinyGifAsset = NSDataAsset(name: name)
 		{
 			let data = shinyGifAsset.data
@@ -41,7 +41,7 @@ class Pokemon
 			self.shinyGifData = Data()
 		}
 	}
-	
+
 	fileprivate func resolveCaughtDescription() -> String
 	{
 		if caughtBall == "none"

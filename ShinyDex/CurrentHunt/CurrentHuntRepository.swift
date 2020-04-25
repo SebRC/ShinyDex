@@ -7,22 +7,65 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 class CurrentHuntRepository
 {
-	fileprivate let defaults = UserDefaults.standard
+	fileprivate var appDelegate: AppDelegate
+	fileprivate var managedContext: NSManagedObjectContext
+	fileprivate var entity: NSEntityDescription
 
-	func save(names: [String])
+	init()
 	{
-		defaults.set(names, forKey: "currentHunt")
+		appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
+		managedContext = appDelegate.persistentContainer.viewContext
+		entity = NSEntityDescription.entity(forEntityName: "HuntEntity", in: managedContext)!
 	}
 
-	func getCurrenHuntNames() -> [String]
+	func getAll() -> [NSManagedObject]
 	{
-		if let loadedHuntNames = defaults.array(forKey: "currentHunt") as? [String]
+		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
+		var huntEntities = [NSManagedObject]()
+		do
 		{
-			return loadedHuntNames
+			huntEntities = try managedContext.fetch(fetchRequest)
+			return huntEntities
 		}
-		return [String]()
+		catch let error as NSError
+		{
+			print("Could not fetch HuntEntity table. \(error.localizedDescription)")
+		}
+		return []
+	}
+
+	func save(hunt: Hunt)
+	{
+		hunt.huntEntity = NSManagedObject(entity: entity, insertInto: managedContext)
+		hunt.huntEntity?.setValue(hunt.name, forKey: "name")
+		hunt.huntEntity?.setValue(hunt.pokemon, forKey: "pokemon")
+
+		do
+		{
+			try managedContext.save()
+		}
+		catch let error as NSError
+		{
+			print("Could not save \(hunt.name). \(error.localizedDescription)")
+		}
+	}
+
+	func clear()
+	{
+		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "HuntEntity")
+		let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+		do
+		{
+			try managedContext.execute(deleteRequest)
+		}
+		catch let error as NSError
+		{
+			print("Could not clear table. \(error.localizedDescription)")
+		}
 	}
 }
