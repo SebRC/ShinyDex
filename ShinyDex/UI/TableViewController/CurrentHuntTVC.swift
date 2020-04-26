@@ -19,8 +19,12 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	var index = 0
 	var popupHandler = PopupHandler()
 	var isClearingCurrentHunt = false
+	var isCreatingHunt = false
 	var currentHunts: [Hunt]!
+	var allPokemon: [Pokemon]!
 	
+	@IBOutlet weak var addHuntImageView: UIImageView!
+	@IBOutlet weak var addHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
 
@@ -34,6 +38,9 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
 		tableView.separatorColor = colorService.getSecondaryColor()
 
+		addHuntButton.layer.cornerRadius = 5
+		addHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
+
 		setClearHuntButtonState()
 		
 		setUpBackButton()
@@ -43,7 +50,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		super.viewWillAppear(animated)
 		
-		setTableViewBackgroundColor()
+		setColors()
 		
 		setEncounters()
 		
@@ -61,9 +68,11 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		navigationItem.backBarButtonItem = backButton
 	}
 	
-	fileprivate func setTableViewBackgroundColor()
+	fileprivate func setColors()
 	{
-		tableView.backgroundColor = colorService!.getSecondaryColor()
+		tableView.backgroundColor = colorService.getSecondaryColor()
+		addHuntButton.backgroundColor = colorService.getPrimaryColor()
+		addHuntImageView.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -198,7 +207,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return currentHunts[section].name
+		return String(currentHunts[section].pokemon.count)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -214,6 +223,15 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			let destVC = segue.destination as? ConfirmationModalVC
 			destVC?.currentHuntService = currentHuntService
 			isClearingCurrentHunt = false
+		}
+		else if isCreatingHunt
+		{
+			let destVC = segue.destination as? CreateHuntModalVC
+			destVC?.colorService = colorService
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.currentHuntService = currentHuntService
+			destVC?.currentHunts = currentHunts
+			destVC?.allPokemon = allPokemon
 		}
 		else
 		{
@@ -244,5 +262,23 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		currentHunts.removeAll()
 		tableView.reloadData()
 		setEncounters()
+	}
+
+	@IBAction func createHuntConfirm(_ unwindSegue: UIStoryboardSegue)
+	{
+		tableView.reloadData()
+		setEncounters()
+	}
+
+	@IBAction func createHuntConfirmmmmmmmmmm(_ unwindSegue: UIStoryboardSegue)
+	{
+		tableView.reloadData()
+		setEncounters()
+	}
+
+	@IBAction func addHuntButtonPressed(_ sender: Any)
+	{
+		isCreatingHunt = true
+		performSegue(withIdentifier: "createHuntSegue", sender: self)
 	}
 }

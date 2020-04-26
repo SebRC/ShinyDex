@@ -303,12 +303,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.pokemonNumber.textColor = colorService!.getTertiaryColor()
 		pokemonCell.addToCurrentHuntButton.tintColor = colorService!.getTertiaryColor()
 		
-		setAddToHuntButtonState(pokemonCell: pokemonCell)
+		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
-	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell)
+	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell, isBeingHunted: Bool)
 	{
-		pokemonCell.addToCurrentHuntButton.isEnabled = true
+		pokemonCell.addToCurrentHuntButton.isEnabled = !isBeingHunted
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

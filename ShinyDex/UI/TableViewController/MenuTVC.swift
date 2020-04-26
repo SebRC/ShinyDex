@@ -220,6 +220,7 @@ class MenuTVC: UITableViewController
 		currentHuntTVC.huntStateService = huntStateService
 		currentHuntTVC.currentHuntService = currentHuntService
 		currentHuntTVC.currentHunts = currentHunts
+		currentHuntTVC.allPokemon = allPokemon
 	}
 	
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
