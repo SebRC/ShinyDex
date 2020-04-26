@@ -16,7 +16,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	var currentHuntService: CurrentHuntService!
 	var huntStateService: HuntStateService!
 	var encounters = 0
-	var index = 0
+	var selectedIndex = 0
+	var selectedSection = 0
 	var popupHandler = PopupHandler()
 	var isClearingCurrentHunt = false
 	var isCreatingHunt = false
@@ -35,7 +36,6 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorColor = colorService.getSecondaryColor()
-
 		addHuntButton.layer.cornerRadius = 5
 		addHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 
@@ -147,7 +147,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHunts[0].pokemon[indexPath.row]
+			let pokemon = currentHunts[indexPath.section].pokemon[indexPath.row]
 			
 			pokemon.encounters -= 1
 			encounters -= 1
@@ -161,7 +161,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHunts[0].pokemon[indexPath.row]
+			let pokemon = currentHunts[indexPath.section].pokemon[indexPath.row]
 			pokemon.encounters += 1
 			encounters += 1
 			navigationItem.title = String(encounters)
@@ -211,7 +211,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
-		index = currentHunts[indexPath.section].pokemon[indexPath.row].number
+		selectedIndex = indexPath.row
+		selectedSection = indexPath.section
 		performSegue(withIdentifier: "encountersSegue", sender: self)
 	}
 	
@@ -239,7 +240,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			destVC?.pokemonService = pokemonService
 			destVC?.huntStateService = huntStateService
 			destVC?.currentHuntService = currentHuntService
-			destVC?.pokemon = allPokemon[index]
+			destVC?.pokemon = currentHunts[selectedSection].pokemon[selectedIndex]
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
