@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
+class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CurrentHuntCellDelegate {
 
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -21,11 +21,16 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 	var isClearingCurrentHunt = false
 	var currentHunts: [Hunt]!
 	
+	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
-	
+
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		self.tableView.delegate = self
+
+		self.tableView.dataSource = self
 
 		tableView.separatorColor = colorService.getSecondaryColor()
 
@@ -80,22 +85,22 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		return encounters
 	}
 
-	override func numberOfSections(in tableView: UITableView) -> Int
+	func numberOfSections(in tableView: UITableView) -> Int
 	{
 		return currentHunts.count
 	}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
 		return currentHunts[section].pokemon.count
     }
 
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
 	{
 		return 100.0
 	}
 	
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "currentHuntCell", for: indexPath) as! CurrentHuntCell
 		
 		cell.cellDelegate = self
@@ -157,20 +162,34 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 			pokemonService.save(pokemon: pokemon)
 		}
 	}
+
+	fileprivate func getCurrentCellIndexPath(_ sender : UIButton) -> IndexPath?
+	{
+		let buttonPosition = sender.convert(CGPoint.zero, to : tableView)
+		if let indexPath = tableView.indexPathForRow(at: buttonPosition)
+		{
+			return indexPath
+		}
+
+		return nil
+	}
 	
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
 		{
-			encounters -= currentHunts[0].pokemon[indexPath.row].encounters
-			currentHunts[0].pokemon.remove(at: indexPath.row)
+			let currentHunt = currentHunts[indexPath.section]
+			let pokemonName = currentHunt.pokemon[indexPath.row].name
+			encounters -= currentHunt.pokemon[indexPath.row].encounters
+			currentHunt.pokemon.remove(at: indexPath.row)
+			currentHunt.names.removeAll{$0 == pokemonName}
             tableView.deleteRows(at: [indexPath], with: .fade)
 			navigationItem.title = String(encounters)
-			currentHuntService.save(hunt: currentHunts[0])
+			currentHuntService.save(hunt: currentHunts[indexPath.section])
 			setClearHuntButtonState()
         }
     }
 	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		index = indexPath.row
 		performSegue(withIdentifier: "encountersSegue", sender: self)
@@ -202,10 +221,9 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		performSegue(withIdentifier: "shinyTrackerToConfirmationModal", sender: self)
 	}
 	
-	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService!.getPrimaryColor()
-		cell.layer.cornerRadius = 30
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
