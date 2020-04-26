@@ -196,6 +196,10 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			setClearHuntButtonState()
         }
     }
+
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return currentHunts[section].name
+	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
