@@ -266,14 +266,12 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
 	@IBAction func createHuntConfirm(_ unwindSegue: UIStoryboardSegue)
 	{
-		tableView.reloadData()
-		setEncounters()
-	}
-
-	@IBAction func createHuntConfirmmmmmmmmmm(_ unwindSegue: UIStoryboardSegue)
-	{
-		tableView.reloadData()
-		setEncounters()
+		if let source = unwindSegue.source as? CreateHuntModalVC
+		{
+			currentHunts = source.currentHunts
+			tableView.reloadData()
+			setEncounters()
+		}
 	}
 
 	@IBAction func addHuntButtonPressed(_ sender: Any)
