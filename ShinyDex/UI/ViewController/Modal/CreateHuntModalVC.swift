@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PokemonCellDelegate
+class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PokemonCellDelegate,  UITextFieldDelegate
 {
 	let searchController = UISearchController(searchResultsController: nil)
 
@@ -28,8 +28,9 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		self.tableView.delegate = self
-		self.tableView.dataSource = self
+		tableView.delegate = self
+		tableView.dataSource = self
+		textField.delegate = self
 		setUpSearchController()
     }
 
@@ -124,7 +125,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func addToCurrenHuntPressed(_ sender: UIButton)
 	{
-		print("Add pressed")
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			let pokemon = getSelectedPokemon(index: indexPath.row)
@@ -140,7 +140,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		{
 			return indexPath
 		}
-
 		return nil
 	}
 
@@ -152,6 +151,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		currentHunts.append(newHunt)
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
 	}
+
 	@IBAction func cancelPressed(_ sender: Any)
 	{
 		dismiss(animated: true)
@@ -168,4 +168,10 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 			return allPokemon[index]
 		}
 	}
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool
+	{
+        self.view.endEditing(true)
+        return false
+    }
 }
