@@ -71,4 +71,9 @@ class CurrentHuntRepository
 			print("Could not clear table. \(error.localizedDescription)")
 		}
 	}
+
+	func delete(hunt: Hunt)
+	{
+		managedContext.delete(hunt.huntEntity!)
+	}
 }

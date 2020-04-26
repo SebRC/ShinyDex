@@ -184,7 +184,15 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			currentHunt.names.removeAll{$0 == pokemonName}
             tableView.deleteRows(at: [indexPath], with: .fade)
 			navigationItem.title = String(encounters)
-			currentHuntService.save(hunt: currentHunts[indexPath.section])
+			if currentHunt.pokemon.isEmpty
+			{
+				currentHunts.remove(at: indexPath.section)
+				currentHuntService.delete(hunt: currentHunt)
+			}
+			else
+			{
+				currentHuntService.save(hunt: currentHunts[indexPath.section])
+			}
 			setClearHuntButtonState()
         }
     }

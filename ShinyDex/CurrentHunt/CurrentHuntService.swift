@@ -57,4 +57,9 @@ class CurrentHuntService
 		}
 		return hunt
 	}
+
+	func delete(hunt: Hunt)
+	{
+		currentHuntRepository.delete(hunt: hunt)
+	}
 }
