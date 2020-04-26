@@ -41,13 +41,4 @@ class Pokemon: NSObject
 			self.shinyGifData = Data()
 		}
 	}
-
-	fileprivate func resolveCaughtDescription() -> String
-	{
-		if caughtBall == "none"
-		{
-			return "Not Caught"
-		}
-		return "Caught"
-	}
 }

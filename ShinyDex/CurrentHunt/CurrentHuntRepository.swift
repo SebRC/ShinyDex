@@ -41,9 +41,12 @@ class CurrentHuntRepository
 
 	func save(hunt: Hunt)
 	{
-		hunt.huntEntity = NSManagedObject(entity: entity, insertInto: managedContext)
+		if hunt.huntEntity == nil
+		{
+			hunt.huntEntity = NSManagedObject(entity: entity, insertInto: managedContext)
+		}
 		hunt.huntEntity?.setValue(hunt.name, forKey: "name")
-		hunt.huntEntity?.setValue(hunt.pokemon, forKey: "pokemon")
+		hunt.huntEntity?.setValue(hunt.names, forKey: "names")
 
 		do
 		{

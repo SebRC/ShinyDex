@@ -228,6 +228,7 @@ class MenuTVC: UITableViewController
 		pokedexTVC.pokemonService = pokemonService
 		pokedexTVC.currentHuntService = currentHuntService
 		pokedexTVC.huntStateService = huntStateService
+		pokedexTVC.currentHunts = currentHunts
 	}
 	
 	@IBAction func settingsPressed(_ sender: Any)

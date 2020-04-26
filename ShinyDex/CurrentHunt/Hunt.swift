@@ -13,18 +13,21 @@ class Hunt
 {
 	var huntEntity: NSManagedObject?
 	var name: String
+	var names: [String]
 	var pokemon: [Pokemon]
 
 	init(huntEntity: NSManagedObject)
 	{
 		self.huntEntity = huntEntity
 		self.name = huntEntity.value(forKey: "name") as! String
-		pokemon = huntEntity.value(forKey: "pokemon") as! [Pokemon]
+		self.names = huntEntity.value(forKey: "names") as! [String]
+		self.pokemon = [Pokemon]()
 	}
 
 	init(name: String, pokemon: [Pokemon])
 	{
 		self.name = name
+		self.names = [String]()
 		self.pokemon = pokemon
 	}
 }

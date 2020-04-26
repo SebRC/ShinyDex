@@ -80,9 +80,14 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		return encounters
 	}
 
+	override func numberOfSections(in tableView: UITableView) -> Int
+	{
+		return currentHunts.count
+	}
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-        return currentHunts.count
+		return currentHunts[section].pokemon.count
     }
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -95,7 +100,7 @@ class CurrentHuntTVC: UITableViewController, CurrentHuntCellDelegate {
 		
 		cell.cellDelegate = self
 		
-		let pokemon = currentHunts[0].pokemon[indexPath.row]
+		let pokemon = currentHunts[indexPath.section].pokemon[indexPath.row]
 		
 		let minusButtonIsEnabled = pokemon.encounters <= 0
 		

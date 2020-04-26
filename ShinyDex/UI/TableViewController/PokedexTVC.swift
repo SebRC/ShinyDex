@@ -196,15 +196,18 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
-			if currentHunts == nil
+			if currentHunts.isEmpty
 			{
 				let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
 				hunt.pokemon.append(pokemon!)
+				hunt.names.append(pokemon!.name)
+				currentHunts.append(hunt)
 				currentHuntService.save(hunt: hunt)
 			}
 			else
 			{
 				currentHunts[0].pokemon.append(pokemon!)
+				currentHunts[0].names.append(pokemon!.name)
 				currentHuntService.save(hunt: currentHunts[0])
 			}
 

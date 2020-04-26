@@ -59,8 +59,6 @@ class ColorPickerVC: CustomColorPickerViewController
 	
 	@IBAction func savePressed(_ sender: Any)
 	{
-		print(selectedColor.hexValue())
-		
 		let color = Int(selectedColor.hexValue(), radix: 16)
 		
 		if primaryWasPressed == nil

@@ -16,11 +16,12 @@ class CurrentHuntService
 	
 	func getAll() -> [Hunt]
 	{
+		let pokemon = pokemonService.getAll()
 		let currentHuntEntities = currentHuntRepository.getAll()
 		var currentHunts = [Hunt]()
 		for huntEntity in currentHuntEntities
 		{
-			currentHunts.append(Hunt(huntEntity: huntEntity))
+			currentHunts.append(constructHunt(huntEntity: huntEntity, allPokemon: pokemon))
 		}
 		for hunt in currentHunts
 		{
@@ -37,5 +38,23 @@ class CurrentHuntService
 	func clear()
 	{
 		currentHuntRepository.clear()
+	}
+
+	func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt
+	{
+		let names = huntEntity.value(forKey: "names") as! [String]
+		let hunt = Hunt(huntEntity: huntEntity)
+		for pokemon in allPokemon
+		{
+			for name in names
+			{
+				if name == pokemon.name
+				{
+					hunt.pokemon.append(pokemon)
+					break
+				}
+			}
+		}
+		return hunt
 	}
 }

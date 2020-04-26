@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HuntEntity" representedClassName="HuntEntity" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="pokemon" optional="YES" attributeType="Transformable" customClassName="[Pokemon]"/>
+        <attribute name="names" optional="YES" attributeType="Transformable" customClassName="[String]"/>
     </entity>
     <entity name="PokemonEntity" representedClassName="PokemonEntity" syncable="YES">
         <attribute name="caughtBall" optional="YES" attributeType="String"/>
