@@ -28,6 +28,7 @@
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
 		96435D432454807B00C45A00 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D422454807B00C45A00 /* Pokemon.swift */; };
 		96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */; };
+		96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4624561E1C00C45A00 /* CreateHuntCell.swift */; };
 		964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */; };
 		964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */; };
 		964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080F23EF58A500459450 /* PokeballCell.swift */; };
@@ -100,6 +101,7 @@
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
 		96435D422454807B00C45A00 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntModalVC.swift; sourceTree = "<group>"; };
+		96435D4624561E1C00C45A00 /* CreateHuntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntCell.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				96FC081023EF58A500459450 /* PokemonCell.swift */,
 				96FC081123EF58A500459450 /* CurrentHuntCell.swift */,
 				96FC081223EF58A500459450 /* MenuCell.swift */,
+				96435D4624561E1C00C45A00 /* CreateHuntCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 			files = (
 				96C96D46244462EF00D30186 /* FontName.swift in Sources */,
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
+				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
 				9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,

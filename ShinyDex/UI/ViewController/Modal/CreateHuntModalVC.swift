@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PokemonCellDelegate,  UITextFieldDelegate
+class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate
 {
 	let searchController = UISearchController(searchResultsController: nil)
 
@@ -56,41 +56,28 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath) as! PokemonCell
-
-		cell.cellDelegate = self
+		let cell = tableView.dequeueReusableCell(withIdentifier: "createHuntCell", for: indexPath) as! CreateHuntCell
 
 		let pokemon = getSelectedPokemon(index: indexPath.row)
 
-		setCellImage(pokemonCell: cell, pokemon: pokemon)
-
-		setPokemonCellProperties(pokemonCell: cell, pokemon: pokemon)
+		cell.spriteImageView.image = pokemon.shinyImage
+		cell.nameLabel.text = pokemon.name
+		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
+		cell.nameLabel.font = fontSettingsService.getSmallFont()
+		cell.numberLabel.font = fontSettingsService.getExtraSmallFont()
+		cell.nameLabel.textColor = colorService!.getTertiaryColor()
+		cell.numberLabel.textColor = colorService!.getTertiaryColor()
+		cell.isUserInteractionEnabled = !pokemon.isBeingHunted
 
         return cell
 	}
 
-	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: Pokemon)
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
-		pokemonCell.sprite.image = pokemon.shinyImage
-	}
-
-	fileprivate func setPokemonCellProperties(pokemonCell: PokemonCell, pokemon: Pokemon)
-	{
-		pokemonCell.pokemonName?.text = pokemon.name
-		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
-		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
-		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
-
-		pokemonCell.pokemonName.textColor = colorService!.getTertiaryColor()
-		pokemonCell.pokemonNumber.textColor = colorService!.getTertiaryColor()
-		pokemonCell.addToCurrentHuntButton.tintColor = colorService!.getTertiaryColor()
-
-		setAddToHuntButtonState(pokemonCell: pokemonCell, pokemon: pokemon)
-	}
-
-	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell, pokemon: Pokemon)
-	{
-		pokemonCell.addToCurrentHuntButton.isEnabled = !newHunt.pokemon.contains(pokemon)
+		let pokemon = getSelectedPokemon(index: indexPath.row)
+		pokemon.isBeingHunted = true
+		newHunt.pokemon.append(pokemon)
+		newHunt.names.append(pokemon.name)
 	}
 
 	func filterContentForSearchText(_ searchText: String, scope: String = "Regular")
@@ -119,9 +106,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		return searchController.searchBar.text?.isEmpty ?? true
 	}
-
-	func changeCaughtButtonPressed(_ sender: UIButton)
-	{}
 
 	func addToCurrenHuntPressed(_ sender: UIButton)
 	{
@@ -154,6 +138,10 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	@IBAction func cancelPressed(_ sender: Any)
 	{
+		for pokemon in newHunt.pokemon
+		{
+			pokemon.isBeingHunted = false
+		}
 		dismiss(animated: true)
 	}
 

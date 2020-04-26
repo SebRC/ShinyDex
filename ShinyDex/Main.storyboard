@@ -659,23 +659,13 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="pokemonCell" rowHeight="65" id="HPo-yl-S3I" customClass="PokemonCell" customModule="ShinyDex" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="createHuntCell" rowHeight="65" id="HPo-yl-S3I" customClass="CreateHuntCell" customModule="ShinyDex" customModuleProvider="target">
                                         <rect key="frame" x="15" y="55.5" width="313" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HPo-yl-S3I" id="q99-Qk-kyI">
                                             <rect key="frame" x="0.0" y="0.0" width="313" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJH-4k-Tjb">
-                                                    <rect key="frame" x="85" y="27" width="50" height="10"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="UJH-4k-Tjb" secondAttribute="height" multiplier="5:1" id="bw5-j5-1C3"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="10"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pOA-eV-PWm">
                                                     <rect key="frame" x="16" y="2.5" width="60" height="60"/>
                                                     <constraints>
@@ -683,47 +673,43 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg0-jT-JHI">
-                                                    <rect key="frame" x="85" y="3" width="130" height="30"/>
+                                                    <rect key="frame" x="83" y="3" width="215" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="xg0-jT-JHI" secondAttribute="height" multiplier="13:3" id="1zD-Ej-Vjr"/>
+                                                        <constraint firstAttribute="width" secondItem="xg0-jT-JHI" secondAttribute="height" multiplier="215:22" id="eTA-WK-39m"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqW-yz-dMX">
-                                                    <rect key="frame" x="248" y="3" width="59" height="59"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJH-4k-Tjb">
+                                                    <rect key="frame" x="84" y="33" width="72" height="10"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="HqW-yz-dMX" secondAttribute="height" multiplier="1:1" id="eri-rP-4r0"/>
+                                                        <constraint firstAttribute="width" secondItem="UJH-4k-Tjb" secondAttribute="height" multiplier="137:19" id="1Ma-RK-1TG"/>
                                                     </constraints>
-                                                    <state key="normal" image="text.badge.plus" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="addToCurrentHuntPressed:" destination="HPo-yl-S3I" eventType="touchUpInside" id="hpy-3l-uuk"/>
-                                                    </connections>
-                                                </button>
+                                                    <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="10"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="UJH-4k-Tjb" firstAttribute="top" secondItem="q99-Qk-kyI" secondAttribute="topMargin" constant="16" id="5Lq-7L-JUB"/>
-                                                <constraint firstItem="xg0-jT-JHI" firstAttribute="leading" secondItem="pOA-eV-PWm" secondAttribute="trailing" constant="9" id="BdL-OE-N8a"/>
-                                                <constraint firstItem="HqW-yz-dMX" firstAttribute="top" secondItem="xg0-jT-JHI" secondAttribute="top" id="FaZ-Um-I1L"/>
-                                                <constraint firstItem="HqW-yz-dMX" firstAttribute="centerY" secondItem="pOA-eV-PWm" secondAttribute="centerY" id="RM0-o8-wfo"/>
+                                                <constraint firstItem="UJH-4k-Tjb" firstAttribute="top" secondItem="xg0-jT-JHI" secondAttribute="bottom" constant="8" id="HRd-tM-iG9"/>
                                                 <constraint firstItem="pOA-eV-PWm" firstAttribute="centerY" secondItem="q99-Qk-kyI" secondAttribute="centerY" id="T5k-qG-k21"/>
-                                                <constraint firstItem="HqW-yz-dMX" firstAttribute="top" secondItem="q99-Qk-kyI" secondAttribute="topMargin" constant="-8" id="Urn-V5-40R"/>
                                                 <constraint firstItem="pOA-eV-PWm" firstAttribute="leading" secondItem="q99-Qk-kyI" secondAttribute="leading" constant="16" id="Us5-ef-Nnm"/>
-                                                <constraint firstAttribute="bottom" secondItem="xg0-jT-JHI" secondAttribute="bottom" constant="32" id="Zem-79-2O9"/>
-                                                <constraint firstItem="UJH-4k-Tjb" firstAttribute="leading" secondItem="xg0-jT-JHI" secondAttribute="leading" id="fE1-52-Kgb"/>
+                                                <constraint firstItem="xg0-jT-JHI" firstAttribute="trailing" secondItem="q99-Qk-kyI" secondAttribute="trailingMargin" id="XMa-xI-e9g"/>
                                                 <constraint firstAttribute="bottom" secondItem="pOA-eV-PWm" secondAttribute="bottom" constant="2.5" id="jV9-Ta-KKk"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="HqW-yz-dMX" secondAttribute="trailing" constant="-9" id="qXR-PN-LzS"/>
+                                                <constraint firstItem="xg0-jT-JHI" firstAttribute="top" secondItem="q99-Qk-kyI" secondAttribute="topMargin" constant="-8" id="pzW-CK-eJK"/>
+                                                <constraint firstItem="UJH-4k-Tjb" firstAttribute="leading" secondItem="pOA-eV-PWm" secondAttribute="trailing" constant="8" id="sAm-pT-rhd"/>
+                                                <constraint firstItem="xg0-jT-JHI" firstAttribute="leading" secondItem="pOA-eV-PWm" secondAttribute="trailing" constant="7" id="zh2-4J-qaJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                         <connections>
-                                            <outlet property="addToCurrentHuntButton" destination="HqW-yz-dMX" id="X61-4f-lPG"/>
-                                            <outlet property="pokemonName" destination="xg0-jT-JHI" id="jtq-o5-1a0"/>
-                                            <outlet property="pokemonNumber" destination="UJH-4k-Tjb" id="r0C-xH-stx"/>
-                                            <outlet property="sprite" destination="pOA-eV-PWm" id="aQ3-DI-EPw"/>
+                                            <outlet property="nameLabel" destination="xg0-jT-JHI" id="LAt-QR-j0O"/>
+                                            <outlet property="numberLabel" destination="UJH-4k-Tjb" id="fba-9A-MCg"/>
+                                            <outlet property="spriteImageView" destination="pOA-eV-PWm" id="NV4-cA-ALP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
