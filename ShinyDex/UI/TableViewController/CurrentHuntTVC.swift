@@ -202,6 +202,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			}
 			setClearHuntButtonState()
         }
+		tableView.reloadData()
     }
 
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
