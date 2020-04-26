@@ -32,10 +32,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
         super.viewDidLoad()
 
-		self.tableView.delegate = self
-
-		self.tableView.dataSource = self
-
+		tableView.delegate = self
+		tableView.dataSource = self
 		tableView.separatorColor = colorService.getSecondaryColor()
 
 		addHuntButton.layer.cornerRadius = 5
@@ -207,7 +205,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return String(currentHunts[section].pokemon.count)
+		return currentHunts[section].name
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -226,6 +224,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		}
 		else if isCreatingHunt
 		{
+			isCreatingHunt = false
 			let destVC = segue.destination as? CreateHuntModalVC
 			destVC?.colorService = colorService
 			destVC?.fontSettingsService = fontSettingsService
