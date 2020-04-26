@@ -210,7 +210,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
-		index = indexPath.row
+		index = currentHunts[indexPath.section].pokemon[indexPath.row].number
 		performSegue(withIdentifier: "encountersSegue", sender: self)
 	}
 	
@@ -238,7 +238,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			destVC?.pokemonService = pokemonService
 			destVC?.huntStateService = huntStateService
 			destVC?.currentHuntService = currentHuntService
-			destVC?.pokemon = currentHunts[0].pokemon[index]
+			destVC?.pokemon = allPokemon[index]
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
