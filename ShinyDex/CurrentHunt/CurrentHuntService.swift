@@ -62,4 +62,28 @@ class CurrentHuntService
 	{
 		currentHuntRepository.delete(hunt: hunt)
 	}
+
+	func createNewHuntWithPokemon(hunts: inout [Hunt], pokemon: Pokemon, popupView: PopupView, popupHandler: PopupHandler)
+	{
+		let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
+		hunt.pokemon.append(pokemon)
+		hunt.names.append(pokemon.name)
+		pokemon.isBeingHunted = true
+		pokemonService.save(pokemon: pokemon)
+		hunts.append(hunt)
+		currentHuntRepository.save(hunt: hunt)
+		popupView.actionLabel.text = "\(pokemon.name) was added to \(hunt.name)."
+		popupHandler.showPopup(popupView: popupView)
+	}
+
+	func addToOnlyExistingHunt(hunts: inout [Hunt], pokemon: Pokemon, popupView: PopupView, popupHandler: PopupHandler)
+	{
+		hunts[0].pokemon.append(pokemon)
+		hunts[0].names.append(pokemon.name)
+		pokemon.isBeingHunted = true
+		pokemonService.save(pokemon: pokemon)
+		currentHuntRepository.save(hunt: hunts[0])
+		popupView.actionLabel.text = "\(pokemon.name) was added to \(hunts[0].name)."
+		popupHandler.showPopup(popupView: popupView)
+	}
 }

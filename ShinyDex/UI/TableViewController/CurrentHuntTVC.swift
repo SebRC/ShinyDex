@@ -24,8 +24,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	var currentHunts: [Hunt]!
 	var allPokemon: [Pokemon]!
 	
-	@IBOutlet weak var addHuntImageView: UIImageView!
-	@IBOutlet weak var addHuntButton: UIButton!
+	@IBOutlet weak var createHuntImageView: UIImageView!
+	@IBOutlet weak var createHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
 
@@ -36,8 +36,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorColor = colorService.getSecondaryColor()
-		addHuntButton.layer.cornerRadius = 5
-		addHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
+		createHuntButton.layer.cornerRadius = 5
+		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 
 		setClearHuntButtonState()
 		
@@ -69,8 +69,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	fileprivate func setColors()
 	{
 		tableView.backgroundColor = colorService.getSecondaryColor()
-		addHuntButton.backgroundColor = colorService.getPrimaryColor()
-		addHuntImageView.tintColor = colorService.getTertiaryColor()
+		createHuntButton.backgroundColor = colorService.getPrimaryColor()
+		createHuntImageView.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -285,7 +285,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		clearCurrentHuntButton.isEnabled = true
 	}
 
-	@IBAction func addHuntButtonPressed(_ sender: Any)
+	@IBAction func createHuntButtonPressed(_ sender: Any)
 	{
 		isCreatingHunt = true
 		performSegue(withIdentifier: "createHuntSegue", sender: self)

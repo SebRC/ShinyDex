@@ -29,6 +29,8 @@
 		96435D432454807B00C45A00 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D422454807B00C45A00 /* Pokemon.swift */; };
 		96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */; };
 		96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4624561E1C00C45A00 /* CreateHuntCell.swift */; };
+		96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */; };
+		96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4A24571E8500C45A00 /* HuntPickerCell.swift */; };
 		964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */; };
 		964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */; };
 		964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080F23EF58A500459450 /* PokeballCell.swift */; };
@@ -102,6 +104,8 @@
 		96435D422454807B00C45A00 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntModalVC.swift; sourceTree = "<group>"; };
 		96435D4624561E1C00C45A00 /* CreateHuntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntCell.swift; sourceTree = "<group>"; };
+		96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPickerModalVC.swift; sourceTree = "<group>"; };
+		96435D4A24571E8500C45A00 /* HuntPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPickerCell.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -337,6 +341,7 @@
 				96FC081123EF58A500459450 /* CurrentHuntCell.swift */,
 				96FC081223EF58A500459450 /* MenuCell.swift */,
 				96435D4624561E1C00C45A00 /* CreateHuntCell.swift */,
+				96435D4A24571E8500C45A00 /* HuntPickerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -387,6 +392,7 @@
 				96FC083823EF59C000459450 /* PokeballModalVC.swift */,
 				96FC083623EF59BF00459450 /* SetEncountersModalVC.swift */,
 				96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */,
+				96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -545,11 +551,13 @@
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
 				96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */,
+				96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */,
 				962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */,
 				964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */,
 				9607F77A242AA20500263CF6 /* HuntState.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,
+				96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */,
 				9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */,
 				962E58C42411A69C001D5E41 /* PopupView.swift in Sources */,
 				96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */,

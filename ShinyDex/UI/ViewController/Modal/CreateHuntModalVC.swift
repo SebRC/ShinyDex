@@ -39,17 +39,10 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	fileprivate func setUpSearchController()
 	{
 		searchController.searchResultsUpdater = self
-
 		searchController.obscuresBackgroundDuringPresentation = false
-
 		searchController.searchBar.placeholder = "Search Pokédex"
-
 		searchController.definesPresentationContext = true
-
-		searchController.view.backgroundColor = .red
-
 		navigationItem.searchController = searchController
-
 		definesPresentationContext = true
 	}
 
@@ -59,9 +52,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "createHuntCell", for: indexPath) as! CreateHuntCell
-
 		let pokemon = getSelectedPokemon(index: indexPath.row)
-
 		cell.spriteImageView.image = pokemon.shinyImage
 		cell.nameLabel.text = pokemon.name
 		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
@@ -70,6 +61,11 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.nameLabel.textColor = colorService!.getTertiaryColor()
 		cell.numberLabel.textColor = colorService!.getTertiaryColor()
         return cell
+	}
+
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+	{
+		return 65.0;
 	}
 
 	func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?
@@ -124,14 +120,12 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		filteredPokemon = allPokemon.filter( {(pokemon : Pokemon) -> Bool in
 
-			let doesCategoryMatch = (scope == "Shinydex") || (scope == pokemon.caughtDescription)
-
 			if searchBarIsEmpty()
 			{
-				return doesCategoryMatch
+				return true
 			}
 
-			return doesCategoryMatch && pokemon.name.lowercased().contains(searchText.lowercased())
+			return pokemon.name.lowercased().contains(searchText.lowercased())
 	})
 		tableView.reloadData()
 	}

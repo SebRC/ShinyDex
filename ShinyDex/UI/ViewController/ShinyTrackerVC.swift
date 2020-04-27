@@ -31,6 +31,7 @@ class ShinyTrackerVC: UIViewController
 	var huntState: HuntState?
 	var infoPressed = false
 	var setEncountersPressed = false
+	var isAddingToHunt = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -221,20 +222,19 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		if currentHunts == nil
+		if currentHunts.isEmpty
 		{
-			let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
-			hunt.pokemon.append(pokemon!)
-			currentHuntService.save(hunt: hunt)
+			currentHuntService.createNewHuntWithPokemon(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+		}
+		else if currentHunts.count == 1
+		{
+			currentHuntService.addToOnlyExistingHunt(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 		}
 		else
 		{
-			currentHunts[0].pokemon.append(pokemon!)
-			currentHuntService.save(hunt: currentHunts[0])
+			isAddingToHunt = true
+			performSegue(withIdentifier: "shinyTrackerToHuntPickerSegue", sender: self)
 		}
-		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-		popupView.actionLabel.text = "\(pokemon.name) was added to current hunt."
-		popupHandler.showPopup(popupView: popupView)
 	}
 	
 	@objc fileprivate func updateEncountersPressed(_ sender: Any)
@@ -268,6 +268,15 @@ class ShinyTrackerVC: UIViewController
 			
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
+		}
+		else if isAddingToHunt
+		{
+			isAddingToHunt = false
+			let destVC = segue.destination as! HuntPickerModalVC
+			destVC.currentHuntService = currentHuntService
+			destVC.pokemonService = pokemonService
+			destVC.hunts = currentHunts
+			destVC.pokemon = pokemon
 		}
 		else
 		{

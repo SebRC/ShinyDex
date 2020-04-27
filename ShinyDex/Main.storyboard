@@ -337,6 +337,80 @@
             </objects>
             <point key="canvasLocation" x="4413.6000000000004" y="-1433.433283358321"/>
         </scene>
+        <!--Hunt Picker ModalVC-->
+        <scene sceneID="st6-Xo-fkY">
+            <objects>
+                <viewController id="ti9-ne-P4I" customClass="HuntPickerModalVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c0S-Q9-oOV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nMq-Ry-9gE">
+                                <rect key="frame" x="67" y="117" width="241" height="446"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nMq-Ry-9gE" secondAttribute="height" multiplier="20:37" id="MeF-gd-qo2"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="huntPickerCell" rowHeight="80" id="Bnv-Qu-02n" customClass="HuntPickerCell" customModule="ShinyDex" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="55.5" width="211" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bnv-Qu-02n" id="dKx-F3-6Bk">
+                                            <rect key="frame" x="0.0" y="0.0" width="211" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
+                                                    <rect key="frame" x="15" y="11" width="208" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="208:31" id="dgf-U8-aFM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UUc-UJ-huP" secondAttribute="bottom" constant="27" id="QCy-cL-GN1"/>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="top" secondItem="dKx-F3-6Bk" secondAttribute="topMargin" id="TvW-pi-fHG"/>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="leading" secondItem="dKx-F3-6Bk" secondAttribute="leadingMargin" id="x91-A8-omN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="UUc-UJ-huP" id="w78-iW-8xV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-hk-8tF">
+                                <rect key="frame" x="67" y="52" width="229" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3Uq-hk-8tF" secondAttribute="height" multiplier="229:46" id="ED6-tm-XCm"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="ti9-ne-P4I" eventType="touchUpInside" id="Xgo-pt-mgh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="top" secondItem="XKC-WY-055" secondAttribute="top" constant="52" id="8cd-h1-9QI"/>
+                            <constraint firstItem="XKC-WY-055" firstAttribute="trailing" secondItem="3Uq-hk-8tF" secondAttribute="trailing" constant="79" id="9YN-QG-P8t"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="XKC-WY-055" secondAttribute="leading" constant="67" id="HBf-3g-XLq"/>
+                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="centerX" secondItem="c0S-Q9-oOV" secondAttribute="centerX" id="nhc-ug-Sd7"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="nMq-Ry-9gE" secondAttribute="leading" id="qLl-WY-TXO"/>
+                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="top" secondItem="3Uq-hk-8tF" secondAttribute="bottom" constant="19" id="rFc-p3-2s6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XKC-WY-055"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="3Uq-hk-8tF" id="LDx-GV-92g"/>
+                        <outlet property="tableView" destination="nMq-Ry-9gE" id="SNq-3F-Bth"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4hI-mH-5KF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1949.5999999999999" y="1061.9190404797603"/>
+        </scene>
         <!--Pokédex-->
         <scene sceneID="bDn-A5-ERe">
             <objects>
@@ -441,6 +515,7 @@
                         <outlet property="popupView" destination="nmO-SS-fr7" id="vzw-J1-3E6"/>
                         <segue destination="9Np-ox-Xbt" kind="show" identifier="encountersSegue" id="LJI-fC-w8z"/>
                         <segue destination="DaS-ul-zkm" kind="presentation" identifier="pokedexToModalSegue" id="mSu-1U-tG2"/>
+                        <segue destination="ti9-ne-P4I" kind="presentation" identifier="pokedexToHuntPickerSegue" id="DHy-Un-iod"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M5b-gN-iKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -476,7 +551,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5HH-bT-d5x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="vlw-sC-3J3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5401" y="296"/>
+            <point key="canvasLocation" x="5164" y="297"/>
         </scene>
         <!--Current HuntTVC-->
         <scene sceneID="G46-Ks-jis">
@@ -598,7 +673,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="addHuntButtonPressed:" destination="UEl-xz-2cG" eventType="touchUpInside" id="0eO-Y7-CHw"/>
+                                    <action selector="createHuntButtonPressed:" destination="UEl-xz-2cG" eventType="touchUpInside" id="0eO-Y7-CHw"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.app.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zo8-mP-C3T">
@@ -627,9 +702,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addHuntButton" destination="pZm-OQ-P6f" id="GAi-Vu-3bK"/>
-                        <outlet property="addHuntImageView" destination="Zo8-mP-C3T" id="5vm-Za-vFl"/>
                         <outlet property="clearCurrentHuntButton" destination="8a4-58-oVc" id="Klr-BM-8Nd"/>
+                        <outlet property="createHuntButton" destination="pZm-OQ-P6f" id="GAi-Vu-3bK"/>
+                        <outlet property="createHuntImageView" destination="Zo8-mP-C3T" id="5vm-Za-vFl"/>
                         <outlet property="tableView" destination="Gp5-an-fuG" id="DhO-tN-76X"/>
                         <segue destination="9Np-ox-Xbt" kind="show" identifier="encountersSegue" id="7k3-aT-9gU"/>
                         <segue destination="Scb-Mg-GhT" kind="presentation" identifier="shinyTrackerToConfirmationModal" id="3Of-yo-EPt"/>
@@ -648,7 +723,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Hunt name" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXa-GF-GTi">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Hunt" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXa-GF-GTi">
                                 <rect key="frame" x="25" y="47" width="325" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -980,6 +1055,7 @@
                         <segue destination="DaS-ul-zkm" kind="presentation" identifier="shinyTrackerToModalSegue" id="GWK-Tp-YuW"/>
                         <segue destination="hfA-YG-QwI" kind="presentation" identifier="infoPopupSegue" id="3DU-z9-Fvh"/>
                         <segue destination="bTN-i7-7fD" kind="presentation" identifier="setEncountersSegue" id="EMp-OP-8UQ"/>
+                        <segue destination="ti9-ne-P4I" kind="presentation" identifier="shinyTrackerToHuntPickerSegue" id="LE8-BB-dtk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATd-Jv-H7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1015,7 +1091,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIa-Z0-vHF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="TwF-WD-934" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4365.6000000000004" y="295.50224887556226"/>
+            <point key="canvasLocation" x="4414" y="296"/>
         </scene>
         <!--LoadingVC-->
         <scene sceneID="vqb-Wf-7Xj">
@@ -1160,7 +1236,7 @@ Don't close the application before the setup is complete.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="unU-c7-hES" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="AW8-Mf-ihP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3628" y="1062"/>
+            <point key="canvasLocation" x="3561" y="1062"/>
         </scene>
         <!--Set Encounters ModalVC-->
         <scene sceneID="ehm-5G-RQf">
@@ -1186,7 +1262,7 @@ Don't close the application before the setup is complete.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YY1-OA-e9e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="v8v-79-FDU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4366" y="1062"/>
+            <point key="canvasLocation" x="4414" y="1062"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rsl-2b-JbZ">
@@ -1218,8 +1294,9 @@ Don't close the application before the setup is complete.</string>
         <image name="xmark.rectangle.fill" catalog="system" width="64" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mSu-1U-tG2"/>
-        <segue reference="7k3-aT-9gU"/>
+        <segue reference="GWK-Tp-YuW"/>
+        <segue reference="LJI-fC-w8z"/>
+        <segue reference="LE8-BB-dtk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
