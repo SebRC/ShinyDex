@@ -272,6 +272,8 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! HuntPickerModalVC
 			destVC.currentHuntService = currentHuntService
 			destVC.pokemonService = pokemonService
+			destVC.fontSettingsService = fontSettingsService
+			destVC.colorService = colorService
 			destVC.hunts = currentHunts
 			destVC.pokemon = pokemon
 		}

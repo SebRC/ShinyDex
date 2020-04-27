@@ -17,10 +17,8 @@ class ColorPickerVC: CustomColorPickerViewController
 	var colorService: ColorService!
 
 	@IBOutlet weak var saveButton: UIButton!
-	
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var titleLabel: UILabel!
-	
 	@IBOutlet weak var colorPreviewHex: ColorPreviewWithHex!
 	
 	override func viewDidLoad()

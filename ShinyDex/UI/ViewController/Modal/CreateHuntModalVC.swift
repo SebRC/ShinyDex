@@ -33,6 +33,17 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.dataSource = self
 		textField.delegate = self
 		confirmButton.isEnabled = false
+		confirmButton.layer.cornerRadius = 5
+		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
+		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
+		confirmButton.backgroundColor = colorService.getPrimaryColor()
+		cancelButton.layer.cornerRadius = 5
+		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
+		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
+		cancelButton.backgroundColor = colorService.getPrimaryColor()
+		textField.font = fontSettingsService.getMediumFont()
+		textField.textColor = colorService.getTertiaryColor()
+		textField.backgroundColor = colorService.getPrimaryColor()
 		setUpSearchController()
     }
 
@@ -46,7 +57,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		definesPresentationContext = true
 	}
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+	{
 		return isFiltering() ? filteredPokemon.count : allPokemon.count
 	}
 

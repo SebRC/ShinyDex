@@ -327,6 +327,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			destVC?.hunts = currentHunts
 			destVC?.pokemon = pokemon
 			destVC?.currentHuntService = currentHuntService
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 		}
 		else
 		{

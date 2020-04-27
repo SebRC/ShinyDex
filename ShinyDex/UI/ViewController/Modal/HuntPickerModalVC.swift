@@ -14,6 +14,8 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var pokemon: Pokemon!
 	var pokemonService: PokemonService!
 	var currentHuntService: CurrentHuntService!
+	var fontSettingsService: FontSettingsService!
+	var colorService: ColorService!
 
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
@@ -22,6 +24,10 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
+		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
+		cancelButton.backgroundColor = .red
+		cancelButton.layer.cornerRadius = 5
+		
     }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -33,6 +39,8 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "huntPickerCell") as! HuntPickerCell
 		cell.nameLabel.text = hunts[indexPath.row].name
+		cell.nameLabel.textColor = colorService.getTertiaryColor()
+		cell.nameLabel.font = fontSettingsService.getMediumFont()
 		return cell
 	}
 
@@ -45,6 +53,11 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		pokemonService.save(pokemon: pokemon)
 		currentHuntService.save(hunt: hunt)
 		performSegue(withIdentifier: "unwindFromHuntPicker", sender: self)
+	}
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+	{
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 
 	@IBAction func cancelPressed(_ sender: Any)
