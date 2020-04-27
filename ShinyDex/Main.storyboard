@@ -349,8 +349,9 @@
                                 <rect key="frame" x="67" y="117" width="241" height="446"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="nMq-Ry-9gE" secondAttribute="height" multiplier="20:37" id="MeF-gd-qo2"/>
+                                    <constraint firstAttribute="width" secondItem="nMq-Ry-9gE" secondAttribute="height" multiplier="241:446" id="0yD-Ew-Z8c"/>
                                 </constraints>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="huntPickerCell" rowHeight="80" id="Bnv-Qu-02n" customClass="HuntPickerCell" customModule="ShinyDex" customModuleProvider="target">
                                         <rect key="frame" x="15" y="55.5" width="211" height="80"/>
@@ -359,21 +360,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="211" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
                                                     <rect key="frame" x="15" y="11" width="208" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="208:31" id="dgf-U8-aFM"/>
-                                                    </constraints>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="UUc-UJ-huP" secondAttribute="bottom" constant="27" id="QCy-cL-GN1"/>
-                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="top" secondItem="dKx-F3-6Bk" secondAttribute="topMargin" id="TvW-pi-fHG"/>
-                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="leading" secondItem="dKx-F3-6Bk" secondAttribute="leadingMargin" id="x91-A8-omN"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="UUc-UJ-huP" id="w78-iW-8xV"/>
@@ -382,9 +376,9 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-hk-8tF">
-                                <rect key="frame" x="67" y="52" width="229" height="46"/>
+                                <rect key="frame" x="67" y="52" width="241" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="3Uq-hk-8tF" secondAttribute="height" multiplier="229:46" id="ED6-tm-XCm"/>
+                                    <constraint firstAttribute="width" secondItem="3Uq-hk-8tF" secondAttribute="height" multiplier="241:46" id="VA3-TF-sXe"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -393,12 +387,12 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="top" secondItem="XKC-WY-055" secondAttribute="top" constant="52" id="8cd-h1-9QI"/>
-                            <constraint firstItem="XKC-WY-055" firstAttribute="trailing" secondItem="3Uq-hk-8tF" secondAttribute="trailing" constant="79" id="9YN-QG-P8t"/>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="XKC-WY-055" secondAttribute="leading" constant="67" id="HBf-3g-XLq"/>
-                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="centerX" secondItem="c0S-Q9-oOV" secondAttribute="centerX" id="nhc-ug-Sd7"/>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="nMq-Ry-9gE" secondAttribute="leading" id="qLl-WY-TXO"/>
-                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="top" secondItem="3Uq-hk-8tF" secondAttribute="bottom" constant="19" id="rFc-p3-2s6"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="XKC-WY-055" secondAttribute="leading" constant="67" id="8i2-0T-Gi5"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="trailing" secondItem="nMq-Ry-9gE" secondAttribute="trailing" id="Gtd-Qe-FBm"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="centerX" secondItem="c0S-Q9-oOV" secondAttribute="centerX" id="Lyf-vy-A3W"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="top" secondItem="XKC-WY-055" secondAttribute="top" constant="52" id="PO8-24-nQN"/>
+                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="nMq-Ry-9gE" secondAttribute="leading" id="bba-ZT-0vP"/>
+                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="top" secondItem="3Uq-hk-8tF" secondAttribute="bottom" constant="19" id="ieF-0f-HIE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XKC-WY-055"/>
                     </view>
@@ -1187,6 +1181,7 @@ Don't close the application before the setup is complete.</string>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="P6b-A3-TPx" id="L8d-wn-Z3y"/>
                                             <outlet property="pokeballImageView" destination="AJ2-vK-l8a" id="pA7-9c-0Bi"/>

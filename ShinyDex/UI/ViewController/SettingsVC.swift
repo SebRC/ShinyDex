@@ -158,9 +158,9 @@ class SettingsVC: UIViewController
 		primaryEditButton.layer.cornerRadius = 10
 		secondaryEditButton.layer.cornerRadius = 10
 		tertiaryEditButton.layer.cornerRadius = 10
-		themFontSeparator.layer.cornerRadius = 5
-		generationCharmSeparator.layer.cornerRadius = 5
-		charmLureSeparator.layer.cornerRadius = 5
+		themFontSeparator.layer.cornerRadius = 10
+		generationCharmSeparator.layer.cornerRadius = 10
+		charmLureSeparator.layer.cornerRadius = 10
 	}
 	
 	fileprivate func resolveUIObjectsState()

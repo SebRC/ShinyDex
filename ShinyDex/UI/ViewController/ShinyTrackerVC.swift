@@ -106,20 +106,20 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func roundCorners()
 	{
-		popupView.layer.cornerRadius = 5
+		popupView.layer.cornerRadius = 10
 		
-		numberLabel.layer.cornerRadius = 5
-		encountersLabel.layer.cornerRadius = 5
-		probabilityLabel.layer.cornerRadius = 5
+		numberLabel.layer.cornerRadius = 10
+		encountersLabel.layer.cornerRadius = 10
+		probabilityLabel.layer.cornerRadius = 10
 		
-		gifSeparatorView.layer.cornerRadius = 5
+		gifSeparatorView.layer.cornerRadius = 10
 		
 		pokeballButton.layer.cornerRadius = pokeballButton.bounds.width / 2
 	}
 	
 	fileprivate func roundDoubleVerticalButtonsViewCorners()
 	{
-		doubleButtonsVerticalView.layer.cornerRadius = 5
+		doubleButtonsVerticalView.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setFonts()

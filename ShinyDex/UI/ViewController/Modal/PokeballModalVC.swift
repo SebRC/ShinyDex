@@ -39,8 +39,10 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		setCancelButtonFont()
 		
 		setTableViewBackgroundColor()
+
+		pokeballTableView.separatorColor = colorService.getSecondaryColor()
 		
-		pokeballIndicatorView.layer.cornerRadius = 5
+		pokeballIndicatorView.layer.cornerRadius = 10
 		
 		pokeballIndicatorView.backgroundColor = colorService.getPrimaryColor()
 		
@@ -72,7 +74,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func roundCancelButtonCorners()
 	{
-		cancelButton.layer.cornerRadius = 5
+		cancelButton.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setCancelButtonFont()

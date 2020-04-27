@@ -25,9 +25,10 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.delegate = self
 		tableView.dataSource = self
 		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
-		cancelButton.backgroundColor = .red
-		cancelButton.layer.cornerRadius = 5
-		
+		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
+		cancelButton.backgroundColor = colorService.getPrimaryColor()
+		cancelButton.layer.cornerRadius = 10
+		tableView.separatorColor = colorService.getSecondaryColor()
     }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

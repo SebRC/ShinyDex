@@ -36,7 +36,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorColor = colorService.getSecondaryColor()
-		createHuntButton.layer.cornerRadius = 5
+		createHuntButton.layer.cornerRadius = 10
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 
 		setClearHuntButtonState()

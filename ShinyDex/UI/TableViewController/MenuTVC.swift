@@ -241,6 +241,5 @@ class MenuTVC: UITableViewController
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.layer.cornerRadius = 30
 	}
 }

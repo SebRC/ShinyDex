@@ -136,7 +136,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func roundPopupViewCorners()
 	{
-		popupView.layer.cornerRadius = 5
+		popupView.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setTitle()
