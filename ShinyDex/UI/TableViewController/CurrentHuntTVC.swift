@@ -261,6 +261,14 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		clearCurrentHuntButton.isEnabled = false
 		currentHunts.removeAll()
+		for hunt in currentHunts
+		{
+			for pokemon in hunt.pokemon
+			{
+				pokemon.isBeingHunted = false
+				pokemonService.save(pokemon: pokemon)
+			}
+		}
 		tableView.reloadData()
 		setEncounters()
 	}
