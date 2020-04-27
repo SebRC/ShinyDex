@@ -15,6 +15,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var currentHuntService: CurrentHuntService!
+	var pokemonService: PokemonService!
 	var filteredPokemon = [Pokemon]()
 	var allPokemon: [Pokemon]!
 	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
@@ -67,9 +68,26 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		cell.nameLabel.textColor = colorService!.getTertiaryColor()
 		cell.numberLabel.textColor = colorService!.getTertiaryColor()
-		cell.isUserInteractionEnabled = !pokemon.isBeingHunted
-
         return cell
+	}
+
+	func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?
+	{
+		if isFiltering()
+		{
+			if filteredPokemon[indexPath.row].isBeingHunted
+			{
+				return nil
+			}
+		}
+		else
+		{
+			if allPokemon[indexPath.row].isBeingHunted
+			{
+				return nil
+			}
+		}
+		return indexPath
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -78,6 +96,26 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		pokemon.isBeingHunted = true
 		newHunt.pokemon.append(pokemon)
 		newHunt.names.append(pokemon.name)
+		tableView.reloadData()
+	}
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+	{
+		cell.backgroundColor = colorService!.getPrimaryColor()
+		if isFiltering()
+		{
+			if filteredPokemon[indexPath.row].isBeingHunted
+			{
+				cell.alpha = 0.1
+			}
+		}
+		else
+		{
+			if allPokemon[indexPath.row].isBeingHunted
+			{
+				cell.alpha = 0.1
+			}
+		}
 	}
 
 	func filterContentForSearchText(_ searchText: String, scope: String = "Regular")
@@ -131,6 +169,10 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		newHunt.name = textField.text ?? "New Hunt"
 		newHunt.pokemon = newHunt.pokemon.sorted(by: { $0.number < $1.number})
+		for pokemon in newHunt.pokemon
+		{
+			pokemonService.save(pokemon: pokemon)
+		}
 		currentHuntService.save(hunt: newHunt)
 		currentHunts.append(newHunt)
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)

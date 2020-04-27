@@ -231,6 +231,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			destVC?.colorService = colorService
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.currentHuntService = currentHuntService
+			destVC?.pokemonService = pokemonService
 			destVC?.currentHunts = currentHunts
 			destVC?.allPokemon = allPokemon
 		}
@@ -260,7 +261,6 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		clearCurrentHuntButton.isEnabled = false
-		currentHunts.removeAll()
 		for hunt in currentHunts
 		{
 			for pokemon in hunt.pokemon
@@ -269,6 +269,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 				pokemonService.save(pokemon: pokemon)
 			}
 		}
+		currentHunts.removeAll()
 		tableView.reloadData()
 		setEncounters()
 	}
@@ -281,6 +282,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			tableView.reloadData()
 			setEncounters()
 		}
+		clearCurrentHuntButton.isEnabled = true
 	}
 
 	@IBAction func addHuntButtonPressed(_ sender: Any)
