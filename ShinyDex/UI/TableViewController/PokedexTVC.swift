@@ -202,10 +202,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			if currentHunts.isEmpty
 			{
 				currentHuntService.createNewHuntWithPokemon(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				tableView.reloadData()
 			}
 			else if currentHunts.count == 1
 			{
 				currentHuntService.addToOnlyExistingHunt(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				tableView.reloadData()
 			}
 			else
 			{
@@ -407,5 +409,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService!.getPrimaryColor()
+	}
+
+	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
+	{
+		tableView.reloadData()
 	}
 }

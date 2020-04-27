@@ -405,9 +405,11 @@
                     <connections>
                         <outlet property="cancelButton" destination="3Uq-hk-8tF" id="LDx-GV-92g"/>
                         <outlet property="tableView" destination="nMq-Ry-9gE" id="SNq-3F-Bth"/>
+                        <segue destination="XxU-MB-axV" kind="unwind" identifier="unwindFromHuntPicker" unwindAction="finish:" id="A8u-MX-dUn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4hI-mH-5KF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="XxU-MB-axV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1949.5999999999999" y="1061.9190404797603"/>
         </scene>
@@ -1188,7 +1190,7 @@ Don't close the application before the setup is complete.</string>
                                         <connections>
                                             <outlet property="nameLabel" destination="P6b-A3-TPx" id="L8d-wn-Z3y"/>
                                             <outlet property="pokeballImageView" destination="AJ2-vK-l8a" id="pA7-9c-0Bi"/>
-                                            <segue destination="AW8-Mf-ihP" kind="unwind" identifier="unwindToShinyTrackerVC" unwindAction="save:" id="kil-PO-lrd"/>
+                                            <segue destination="AW8-Mf-ihP" kind="unwind" identifier="unwindFromPokeball" unwindAction="save:" id="kil-PO-lrd"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

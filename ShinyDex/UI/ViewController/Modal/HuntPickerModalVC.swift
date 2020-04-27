@@ -44,7 +44,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		currentHuntService.save(hunt: hunt)
-		dismiss(animated: true)
+		performSegue(withIdentifier: "unwindFromHuntPicker", sender: self)
 	}
 
 	@IBAction func cancelPressed(_ sender: Any)

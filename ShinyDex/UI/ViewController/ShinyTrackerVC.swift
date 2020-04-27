@@ -198,12 +198,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return true
-	}
-
-	fileprivate func resolveButtonAccess(nameList: [String], name: String) -> Bool
-	{
-		return !nameList.contains(name)
+		return !pokemon.isBeingHunted
 	}
 	
 	@IBAction func plusPressed(_ sender: Any)
@@ -225,10 +220,12 @@ class ShinyTrackerVC: UIViewController
 		if currentHunts.isEmpty
 		{
 			currentHuntService.createNewHuntWithPokemon(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else if currentHunts.count == 1
 		{
 			currentHuntService.addToOnlyExistingHunt(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else
 		{
@@ -333,5 +330,10 @@ class ShinyTrackerVC: UIViewController
 		setProbabilityLabelText()
 		
 		setEncountersLabelText()
+	}
+
+	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
+	{
+		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 	}
 }

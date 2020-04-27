@@ -95,12 +95,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		let pokeball = pokeballs[indexPath.row]
 		pokemon.caughtBall = pokeball.name.lowercased()
 		pokemonService.save(pokemon: pokemon)
-		performSegue(withIdentifier: "unwindToShinyTrackerVC", sender: self)
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
-		
+		performSegue(withIdentifier: "unwindFromPokeball", sender: self)
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
