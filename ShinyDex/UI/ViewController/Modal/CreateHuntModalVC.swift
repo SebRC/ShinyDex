@@ -32,6 +32,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.delegate = self
 		tableView.dataSource = self
 		textField.delegate = self
+		confirmButton.isEnabled = false
 		setUpSearchController()
     }
 
@@ -96,6 +97,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		pokemon.isBeingHunted = true
 		newHunt.pokemon.append(pokemon)
 		newHunt.names.append(pokemon.name)
+		confirmButton.isEnabled = true
 		tableView.reloadData()
 	}
 
