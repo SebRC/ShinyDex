@@ -23,6 +23,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	var isCreatingHunt = false
 	var currentHunts: [Hunt]!
 	var allPokemon: [Pokemon]!
+	var collapsedSections = Set<Int>()
 	
 	@IBOutlet weak var createHuntImageView: UIImageView!
 	@IBOutlet weak var createHuntButton: UIButton!
@@ -99,6 +100,10 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
+		if collapsedSections.contains(section)
+		{
+			return 0
+		}
 		return currentHunts[section].pokemon.count
     }
 
@@ -122,6 +127,44 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
         return cell
     }
+
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+	{
+		let sectionButton = UIButton()
+		sectionButton.setTitle(currentHunts[section].name, for: .normal)
+		sectionButton.backgroundColor = .systemBlue
+		sectionButton.tag = section
+		sectionButton.addTarget(self, action: #selector(self.collapseSection(sender:)), for: .touchUpInside)
+		return sectionButton
+	}
+
+	@objc
+	private func collapseSection(sender: UIButton)
+	{
+		let section = sender.tag
+
+		func indexPathsForSection() -> [IndexPath] {
+			var indexPaths = [IndexPath]()
+
+			for row in 0..<currentHunts[section].pokemon.count
+			{
+				indexPaths.append(IndexPath(row: row, section: section))
+			}
+
+			return indexPaths
+		}
+		if collapsedSections.contains(section)
+		{
+			collapsedSections.remove(section)
+			tableView.insertRows(at: indexPathsForSection(), with: .fade)
+		}
+		else
+		{
+			collapsedSections.insert(section)
+			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
+		}
+
+	}
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon)
 	{
@@ -187,6 +230,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			let currentHunt = currentHunts[indexPath.section]
 			let pokemonName = currentHunt.pokemon[indexPath.row].name
 			encounters -= currentHunt.pokemon[indexPath.row].encounters
+			currentHunt.pokemon[indexPath.row].isBeingHunted = false
+			pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
 			currentHunt.pokemon.remove(at: indexPath.row)
 			currentHunt.names.removeAll{$0 == pokemonName}
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -204,10 +249,6 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
         }
 		tableView.reloadData()
     }
-
-	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return currentHunts[section].name
-	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
