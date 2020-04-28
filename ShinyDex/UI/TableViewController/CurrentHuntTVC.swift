@@ -72,6 +72,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		tableView.separatorColor = colorService.getSecondaryColor()
 		createHuntButton.backgroundColor = colorService.getPrimaryColor()
 		createHuntImageView.tintColor = colorService.getTertiaryColor()
+		createHuntButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 	}
 	
 	fileprivate func setEncounters()

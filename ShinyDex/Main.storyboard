@@ -665,7 +665,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="17"/>
                                 <inset key="titleEdgeInsets" minX="-170" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Add Hunt">
+                                <state key="normal" title="Create Hunt">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
