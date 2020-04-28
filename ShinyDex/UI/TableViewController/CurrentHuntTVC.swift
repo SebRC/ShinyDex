@@ -21,7 +21,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	var popupHandler = PopupHandler()
 	var isClearingCurrentHunt = false
 	var isCreatingHunt = false
-	var currentHunts: [Hunt]!
+	var hunts: [Hunt]!
 	var allPokemon: [Pokemon]!
 	var collapsedSections = Set<Int>()
 	
@@ -57,7 +57,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	
 	fileprivate func setClearHuntButtonState()
 	{
-		clearCurrentHuntButton.isEnabled = !currentHunts.isEmpty
+		clearCurrentHuntButton.isEnabled = !hunts.isEmpty
 	}
 	
 	fileprivate func setUpBackButton()
@@ -84,7 +84,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	fileprivate func resolveCurrentEncounters() -> Int
 	{
 		var encounters = 0
-		for hunt in currentHunts
+		for hunt in hunts
 		{
 			for pokemon in hunt.pokemon
 			{
@@ -96,7 +96,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
 	func numberOfSections(in tableView: UITableView) -> Int
 	{
-		return currentHunts.count
+		return hunts.count
 	}
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -105,7 +105,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		{
 			return 0
 		}
-		return currentHunts[section].pokemon.count
+		return hunts[section].pokemon.count
     }
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -118,7 +118,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		
 		cell.cellDelegate = self
 		
-		let pokemon = currentHunts[indexPath.section].pokemon[indexPath.row]
+		let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
 		
 		let minusButtonIsEnabled = pokemon.encounters <= 0
 		
@@ -132,7 +132,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
 	{
 		let sectionButton = UIButton()
-		sectionButton.setTitle(currentHunts[section].name, for: .normal)
+		sectionButton.setTitle(hunts[section].name, for: .normal)
 		sectionButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		sectionButton.backgroundColor = .clear
 		sectionButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
@@ -180,7 +180,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		func indexPathsForSection() -> [IndexPath] {
 			var indexPaths = [IndexPath]()
 
-			for row in 0..<currentHunts[section].pokemon.count
+			for row in 0..<hunts[section].pokemon.count
 			{
 				indexPaths.append(IndexPath(row: row, section: section))
 			}
@@ -227,7 +227,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHunts[indexPath.section].pokemon[indexPath.row]
+			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
 			
 			pokemon.encounters -= 1
 			encounters -= 1
@@ -241,7 +241,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
-			let pokemon = currentHunts[indexPath.section].pokemon[indexPath.row]
+			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
 			pokemon.encounters += 1
 			encounters += 1
 			navigationItem.title = String(encounters)
@@ -264,7 +264,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
 		{
-			let currentHunt = currentHunts[indexPath.section]
+			let currentHunt = hunts[indexPath.section]
 			let pokemonName = currentHunt.pokemon[indexPath.row].name
 			encounters -= currentHunt.pokemon[indexPath.row].encounters
 			currentHunt.pokemon[indexPath.row].isBeingHunted = false
@@ -275,12 +275,12 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			navigationItem.title = String(encounters)
 			if currentHunt.pokemon.isEmpty
 			{
-				currentHunts.remove(at: indexPath.section)
+				hunts.remove(at: indexPath.section)
 				currentHuntService.delete(hunt: currentHunt)
 			}
 			else
 			{
-				currentHuntService.save(hunt: currentHunts[indexPath.section])
+				currentHuntService.save(hunt: hunts[indexPath.section])
 			}
 			setClearHuntButtonState()
         }
@@ -310,7 +310,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.currentHuntService = currentHuntService
 			destVC?.pokemonService = pokemonService
-			destVC?.currentHunts = currentHunts
+			destVC?.hunts = hunts
 			destVC?.allPokemon = allPokemon
 		}
 		else
@@ -319,7 +319,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			destVC?.pokemonService = pokemonService
 			destVC?.huntStateService = huntStateService
 			destVC?.currentHuntService = currentHuntService
-			destVC?.pokemon = currentHunts[selectedSection].pokemon[selectedIndex]
+			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
@@ -339,7 +339,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		clearCurrentHuntButton.isEnabled = false
-		for hunt in currentHunts
+		for hunt in hunts
 		{
 			for pokemon in hunt.pokemon
 			{
@@ -347,7 +347,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 				pokemonService.save(pokemon: allPokemon[pokemon.number])
 			}
 		}
-		currentHunts.removeAll()
+		hunts.removeAll()
 		tableView.reloadData()
 		setEncounters()
 	}
@@ -356,7 +356,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		if let source = unwindSegue.source as? CreateHuntModalVC
 		{
-			currentHunts = source.currentHunts
+			hunts = source.hunts
 			tableView.reloadData()
 			setEncounters()
 		}

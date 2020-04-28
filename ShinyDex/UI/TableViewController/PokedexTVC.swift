@@ -14,7 +14,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
-	var currentHunts: [Hunt]!
+	var hunts: [Hunt]!
 	let textResolver = TextResolver()
 	var encounterIndex = 0
 	var generation = 0
@@ -59,7 +59,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		setTitle()
 
-		currentHunts = currentHuntService.getAll()
+		hunts = currentHuntService.getAll()
 
 		tableView.reloadData()
 	}
@@ -199,14 +199,14 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
-			if currentHunts.isEmpty
+			if hunts.isEmpty
 			{
-				currentHuntService.createNewHuntWithPokemon(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				currentHuntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 				tableView.reloadData()
 			}
-			else if currentHunts.count == 1
+			else if hunts.count == 1
 			{
-				currentHuntService.addToOnlyExistingHunt(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				currentHuntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 				tableView.reloadData()
 			}
 			else
@@ -324,7 +324,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			isAddingToHunt = false
 			let destVC = segue.destination as? HuntPickerModalVC
 			destVC?.pokemonService = pokemonService
-			destVC?.hunts = currentHunts
+			destVC?.hunts = hunts
 			destVC?.pokemon = pokemon
 			destVC?.currentHuntService = currentHuntService
 			destVC?.fontSettingsService = fontSettingsService
@@ -351,7 +351,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		shinyTrackerVC.huntStateService = huntStateService
 		shinyTrackerVC.currentHuntService = currentHuntService
 		shinyTrackerVC.pokemon = allPokemon[getIndexFromFullList(index: encounterIndex)]
-		shinyTrackerVC.currentHunts = currentHunts
+		shinyTrackerVC.hunts = hunts
 	}
 	
 	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)

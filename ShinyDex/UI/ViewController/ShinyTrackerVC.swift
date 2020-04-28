@@ -23,7 +23,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
-	var currentHunts: [Hunt]!
+	var hunts: [Hunt]!
 	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
@@ -217,14 +217,14 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		if currentHunts.isEmpty
+		if hunts.isEmpty
 		{
-			currentHuntService.createNewHuntWithPokemon(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			currentHuntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
-		else if currentHunts.count == 1
+		else if hunts.count == 1
 		{
-			currentHuntService.addToOnlyExistingHunt(hunts: &currentHunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			currentHuntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else
@@ -274,7 +274,7 @@ class ShinyTrackerVC: UIViewController
 			destVC.pokemonService = pokemonService
 			destVC.fontSettingsService = fontSettingsService
 			destVC.colorService = colorService
-			destVC.hunts = currentHunts
+			destVC.hunts = hunts
 			destVC.pokemon = pokemon
 		}
 		else

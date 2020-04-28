@@ -19,7 +19,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var filteredPokemon = [Pokemon]()
 	var allPokemon: [Pokemon]!
 	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
-	var currentHunts: [Hunt]!
+	var hunts: [Hunt]!
 
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
@@ -183,7 +183,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 			pokemonService.save(pokemon: pokemon)
 		}
 		currentHuntService.save(hunt: newHunt)
-		currentHunts.append(newHunt)
+		hunts.append(newHunt)
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
 	}
 

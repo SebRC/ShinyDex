@@ -18,16 +18,16 @@ class CurrentHuntService
 	{
 		let pokemon = pokemonService.getAll()
 		let currentHuntEntities = currentHuntRepository.getAll()
-		var currentHunts = [Hunt]()
+		var hunts = [Hunt]()
 		for huntEntity in currentHuntEntities
 		{
-			currentHunts.append(constructHunt(huntEntity: huntEntity, allPokemon: pokemon))
+			hunts.append(constructHunt(huntEntity: huntEntity, allPokemon: pokemon))
 		}
-		for hunt in currentHunts
+		for hunt in hunts
 		{
 			hunt.pokemon = hunt.pokemon.sorted(by: { $0.number < $1.number})
 		}
-		return currentHunts
+		return hunts
 	}
 
 	func save(hunt: Hunt)
