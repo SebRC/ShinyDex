@@ -306,8 +306,8 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		{
 			for pokemon in hunt.pokemon
 			{
-				pokemon.isBeingHunted = false
-				pokemonService.save(pokemon: pokemon)
+				allPokemon[pokemon.number].isBeingHunted = false
+				pokemonService.save(pokemon: allPokemon[pokemon.number])
 			}
 		}
 		currentHunts.removeAll()
