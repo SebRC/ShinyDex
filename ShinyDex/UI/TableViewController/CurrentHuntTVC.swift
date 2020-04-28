@@ -36,7 +36,6 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.separatorColor = colorService.getSecondaryColor()
 		createHuntButton.layer.cornerRadius = 10
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 
@@ -70,6 +69,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	fileprivate func setColors()
 	{
 		tableView.backgroundColor = colorService.getSecondaryColor()
+		tableView.separatorColor = colorService.getSecondaryColor()
 		createHuntButton.backgroundColor = colorService.getPrimaryColor()
 		createHuntImageView.tintColor = colorService.getTertiaryColor()
 	}
@@ -134,12 +134,36 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		sectionButton.setTitle(currentHunts[section].name, for: .normal)
 		sectionButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		sectionButton.backgroundColor = .clear
+		sectionButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
+		sectionButton.imageView?.tintColor = colorService.getTertiaryColor()
+		sectionButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
 		sectionButton.contentHorizontalAlignment = .left
 		sectionButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
 		sectionButton.titleLabel?.font = fontSettingsService.getMediumFont()
+		sectionButton.titleLabel?.alpha = 0.4
 		sectionButton.tag = section
 		sectionButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
 		return sectionButton
+	}
+
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+	{
+		let footerView = UIView()
+		footerView.layer.cornerRadius = 5
+		if collapsedSections.contains(section)
+		{
+			footerView.backgroundColor = colorService.getPrimaryColor()
+		}
+		else
+		{
+			footerView.backgroundColor = .clear
+		}
+		return footerView
+	}
+
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+	{
+		return 5
 	}
 
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -172,7 +196,10 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			collapsedSections.insert(section)
 			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
 		}
-
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
+		{
+			self.tableView.reloadData()
+		}
 	}
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon)
