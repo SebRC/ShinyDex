@@ -142,8 +142,8 @@
             filePath = "ShinyDex/UI/TableViewController/CurrentHuntTVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "confirm(_:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -132,10 +132,19 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 	{
 		let sectionButton = UIButton()
 		sectionButton.setTitle(currentHunts[section].name, for: .normal)
-		sectionButton.backgroundColor = .systemBlue
+		sectionButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		sectionButton.backgroundColor = .clear
+		sectionButton.contentHorizontalAlignment = .left
+		sectionButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
+		sectionButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		sectionButton.tag = section
-		sectionButton.addTarget(self, action: #selector(self.collapseSection(sender:)), for: .touchUpInside)
+		sectionButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
 		return sectionButton
+	}
+
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+	{
+		return 60.0
 	}
 
 	@objc
