@@ -17,7 +17,7 @@ class MenuTVC: UITableViewController
 	var pokemonService: PokemonService!
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
-	var currentHuntService = CurrentHuntService()
+	var huntService = HuntService()
 	var huntStateService = HuntStateService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
@@ -32,7 +32,7 @@ class MenuTVC: UITableViewController
 
 		allPokemon = pokemonService.getAll()
 
-		hunts = currentHuntService.getAll()
+		hunts = huntService.getAll()
 		
 		showNavigationBar()
 
@@ -47,7 +47,7 @@ class MenuTVC: UITableViewController
 	{
 		super.viewWillAppear(animated)
 
-		hunts = currentHuntService.getAll()
+		hunts = huntService.getAll()
 		
 		setTableViewBackgroundColor()
 		
@@ -191,9 +191,9 @@ class MenuTVC: UITableViewController
 	{
 		if genIndex == 7
 		{
-			let destVC = segue.destination as? CurrentHuntTVC
+			let destVC = segue.destination as? HuntsTVC
 
-			setCurrentHuntRepositories(currentHuntTVC: destVC!)
+			setCurrentHuntRepositories(huntsTVC: destVC!)
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
@@ -214,20 +214,20 @@ class MenuTVC: UITableViewController
 		}
 	}
 	
-	fileprivate func setCurrentHuntRepositories(currentHuntTVC: CurrentHuntTVC)
+	fileprivate func setCurrentHuntRepositories(huntsTVC: HuntsTVC)
 	{
-		currentHuntTVC.pokemonService = pokemonService
-		currentHuntTVC.huntStateService = huntStateService
-		currentHuntTVC.currentHuntService = currentHuntService
-		currentHuntTVC.hunts = hunts
-		currentHuntTVC.allPokemon = allPokemon
+		huntsTVC.pokemonService = pokemonService
+		huntsTVC.huntStateService = huntStateService
+		huntsTVC.huntService = huntService
+		huntsTVC.hunts = hunts
+		huntsTVC.allPokemon = allPokemon
 	}
 	
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
 	{
 		pokedexTVC.generation = genIndex
 		pokedexTVC.pokemonService = pokemonService
-		pokedexTVC.currentHuntService = currentHuntService
+		pokedexTVC.huntService = huntService
 		pokedexTVC.huntStateService = huntStateService
 		pokedexTVC.hunts = hunts
 	}

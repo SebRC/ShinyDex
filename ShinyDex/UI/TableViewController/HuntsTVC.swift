@@ -1,5 +1,5 @@
 //
-//  CurrentHuntTVC.swift
+//  HuntsTVC.swift
 //  ShinyDexPrototype
 //
 //  Created by Sebastian Christiansen on 02/07/2019.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CurrentHuntCellDelegate {
+class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CurrentHuntCellDelegate {
 
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var huntStateService: HuntStateService!
 	var encounters = 0
 	var selectedIndex = 0
@@ -38,9 +38,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		tableView.dataSource = self
 		createHuntButton.layer.cornerRadius = 10
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
-
 		setClearHuntButtonState()
-		
 		setUpBackButton()
     }
 	
@@ -276,11 +274,11 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			if currentHunt.pokemon.isEmpty
 			{
 				hunts.remove(at: indexPath.section)
-				currentHuntService.delete(hunt: currentHunt)
+				huntService.delete(hunt: currentHunt)
 			}
 			else
 			{
-				currentHuntService.save(hunt: hunts[indexPath.section])
+				huntService.save(hunt: hunts[indexPath.section])
 			}
 			setClearHuntButtonState()
         }
@@ -299,7 +297,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 		if isClearingCurrentHunt
 		{
 			let destVC = segue.destination as? ConfirmationModalVC
-			destVC?.currentHuntService = currentHuntService
+			destVC?.huntService = huntService
 			isClearingCurrentHunt = false
 		}
 		else if isCreatingHunt
@@ -308,7 +306,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			let destVC = segue.destination as? CreateHuntModalVC
 			destVC?.colorService = colorService
 			destVC?.fontSettingsService = fontSettingsService
-			destVC?.currentHuntService = currentHuntService
+			destVC?.huntService = huntService
 			destVC?.pokemonService = pokemonService
 			destVC?.hunts = hunts
 			destVC?.allPokemon = allPokemon
@@ -318,7 +316,7 @@ class CurrentHuntTVC: UIViewController, UITableViewDataSource, UITableViewDelega
 			let destVC = segue.destination as? ShinyTrackerVC
 			destVC?.pokemonService = pokemonService
 			destVC?.huntStateService = huntStateService
-			destVC?.currentHuntService = currentHuntService
+			destVC?.huntService = huntService
 			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService

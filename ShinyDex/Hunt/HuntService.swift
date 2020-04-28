@@ -1,5 +1,5 @@
 //
-//  CurrentHuntService.swift
+//  HuntService.swift
 //  ShinyDex
 //
 //  Created by Sebastian Christiansen on 05/03/2020.
@@ -9,15 +9,15 @@
 import Foundation
 import CoreData
 
-class CurrentHuntService
+class HuntService
 {
 	fileprivate var pokemonService = PokemonService()
-	fileprivate var currentHuntRepository = CurrentHuntRepository()
+	fileprivate var huntRepository = HuntRepository()
 	
 	func getAll() -> [Hunt]
 	{
 		let pokemon = pokemonService.getAll()
-		let currentHuntEntities = currentHuntRepository.getAll()
+		let currentHuntEntities = huntRepository.getAll()
 		var hunts = [Hunt]()
 		for huntEntity in currentHuntEntities
 		{
@@ -32,12 +32,12 @@ class CurrentHuntService
 
 	func save(hunt: Hunt)
 	{
-		currentHuntRepository.save(hunt: hunt)
+		huntRepository.save(hunt: hunt)
 	}
 
 	func clear()
 	{
-		currentHuntRepository.clear()
+		huntRepository.clear()
 	}
 
 	func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt
@@ -60,7 +60,7 @@ class CurrentHuntService
 
 	func delete(hunt: Hunt)
 	{
-		currentHuntRepository.delete(hunt: hunt)
+		huntRepository.delete(hunt: hunt)
 	}
 
 	func createNewHuntWithPokemon(hunts: inout [Hunt], pokemon: Pokemon, popupView: PopupView, popupHandler: PopupHandler)
@@ -71,7 +71,7 @@ class CurrentHuntService
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		hunts.append(hunt)
-		currentHuntRepository.save(hunt: hunt)
+		huntRepository.save(hunt: hunt)
 		popupView.actionLabel.text = "\(pokemon.name) was added to \(hunt.name)."
 		popupHandler.showPopup(popupView: popupView)
 	}
@@ -82,7 +82,7 @@ class CurrentHuntService
 		hunts[0].names.append(pokemon.name)
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
-		currentHuntRepository.save(hunt: hunts[0])
+		huntRepository.save(hunt: hunts[0])
 		popupView.actionLabel.text = "\(pokemon.name) was added to \(hunts[0].name)."
 		popupHandler.showPopup(popupView: popupView)
 	}

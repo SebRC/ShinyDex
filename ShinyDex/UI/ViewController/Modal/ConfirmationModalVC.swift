@@ -10,7 +10,7 @@ import UIKit
 
 class ConfirmationModalVC: UIViewController
 {
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 
 	@IBOutlet weak var confirmationPopup: ConfirmationPopup!
 	
@@ -43,7 +43,7 @@ class ConfirmationModalVC: UIViewController
 	
 	@objc func confirmAction(sender: UIButton!)
 	{
-		currentHuntService.clear()
+		huntService.clear()
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
 	}
 	

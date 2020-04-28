@@ -1,5 +1,5 @@
 //
-//  CurrentHuntRepository.swift
+//  HuntRepository.swift
 //  ShinyDexPrototype
 //
 //  Created by Sebastian Christiansen on 09/10/2019.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class CurrentHuntRepository
+class HuntRepository
 {
 	fileprivate var appDelegate: AppDelegate
 	fileprivate var managedContext: NSManagedObjectContext

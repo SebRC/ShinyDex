@@ -42,7 +42,7 @@
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
 		966C211A241174690019F835 /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2119241174690019F835 /* ColorService.swift */; };
-		966C211D24118BC50019F835 /* CurrentHuntService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211C24118BC50019F835 /* CurrentHuntService.swift */; };
+		966C211D24118BC50019F835 /* HuntService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211C24118BC50019F835 /* HuntService.swift */; };
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
 		9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */; };
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
@@ -69,9 +69,9 @@
 		96FC080723EF57D500459450 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96FC07FE23EF57D400459450 /* Main.storyboard */; };
 		96FC081523EF58E900459450 /* Pokemon-GB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96FC081423EF58E900459450 /* Pokemon-GB.ttf */; };
 		96FC081923EF590500459450 /* Pokeball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081723EF590500459450 /* Pokeball.swift */; };
-		96FC082423EF595800459450 /* CurrentHuntRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082123EF595700459450 /* CurrentHuntRepository.swift */; };
+		96FC082423EF595800459450 /* HuntRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082123EF595700459450 /* HuntRepository.swift */; };
 		96FC082923EF598E00459450 /* MenuTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082623EF598E00459450 /* MenuTVC.swift */; };
-		96FC082A23EF598E00459450 /* CurrentHuntTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082723EF598E00459450 /* CurrentHuntTVC.swift */; };
+		96FC082A23EF598E00459450 /* HuntsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082723EF598E00459450 /* HuntsTVC.swift */; };
 		96FC082B23EF598E00459450 /* PokedexTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082823EF598E00459450 /* PokedexTVC.swift */; };
 		96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082E23EF59AA00459450 /* ShinyTrackerVC.swift */; };
 		96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082F23EF59AA00459450 /* LoadingVC.swift */; };
@@ -110,7 +110,7 @@
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
 		966C2119241174690019F835 /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
-		966C211C24118BC50019F835 /* CurrentHuntService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentHuntService.swift; sourceTree = "<group>"; };
+		966C211C24118BC50019F835 /* HuntService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntService.swift; sourceTree = "<group>"; };
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
 		9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEProbabilityService.swift; sourceTree = "<group>"; };
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
@@ -146,9 +146,9 @@
 		96FC081423EF58E900459450 /* Pokemon-GB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pokemon-GB.ttf"; sourceTree = "<group>"; };
 		96FC081723EF590500459450 /* Pokeball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokeball.swift; sourceTree = "<group>"; };
 		96FC082023EF595700459450 /* HuntStateRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntStateRepository.swift; sourceTree = "<group>"; };
-		96FC082123EF595700459450 /* CurrentHuntRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentHuntRepository.swift; sourceTree = "<group>"; };
+		96FC082123EF595700459450 /* HuntRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntRepository.swift; sourceTree = "<group>"; };
 		96FC082623EF598E00459450 /* MenuTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTVC.swift; sourceTree = "<group>"; };
-		96FC082723EF598E00459450 /* CurrentHuntTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentHuntTVC.swift; sourceTree = "<group>"; };
+		96FC082723EF598E00459450 /* HuntsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntsTVC.swift; sourceTree = "<group>"; };
 		96FC082823EF598E00459450 /* PokedexTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokedexTVC.swift; sourceTree = "<group>"; };
 		96FC082E23EF59AA00459450 /* ShinyTrackerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShinyTrackerVC.swift; sourceTree = "<group>"; };
 		96FC082F23EF59AA00459450 /* LoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingVC.swift; sourceTree = "<group>"; };
@@ -230,14 +230,14 @@
 			path = Color;
 			sourceTree = "<group>";
 		};
-		966C211B24118BA40019F835 /* CurrentHunt */ = {
+		966C211B24118BA40019F835 /* Hunt */ = {
 			isa = PBXGroup;
 			children = (
-				96FC082123EF595700459450 /* CurrentHuntRepository.swift */,
-				966C211C24118BC50019F835 /* CurrentHuntService.swift */,
+				96FC082123EF595700459450 /* HuntRepository.swift */,
+				966C211C24118BC50019F835 /* HuntService.swift */,
 				96ACB88B2450BFCC00BC1523 /* Hunt.swift */,
 			);
-			path = CurrentHunt;
+			path = Hunt;
 			sourceTree = "<group>";
 		};
 		9689C7342409ACFD0007AD5D /* Probability */ = {
@@ -284,7 +284,7 @@
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				96FC081623EF58F200459450 /* Pokeball */,
 				9607F772242A8B9300263CF6 /* HuntState */,
-				966C211B24118BA40019F835 /* CurrentHunt */,
+				966C211B24118BA40019F835 /* Hunt */,
 				9689C7352409AD0A0007AD5D /* Odds */,
 				9689C7342409ACFD0007AD5D /* Probability */,
 				966C2115241173B90019F835 /* Theme */,
@@ -365,7 +365,7 @@
 		96FC082523EF596200459450 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				96FC082723EF598E00459450 /* CurrentHuntTVC.swift */,
+				96FC082723EF598E00459450 /* HuntsTVC.swift */,
 				96FC082623EF598E00459450 /* MenuTVC.swift */,
 				96FC082823EF598E00459450 /* PokedexTVC.swift */,
 			);
@@ -534,7 +534,7 @@
 				9689C72D240851DD0007AD5D /* OddsService.swift in Sources */,
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				962E58CA2411A69C001D5E41 /* SetEncountersView.swift in Sources */,
-				96FC082423EF595800459450 /* CurrentHuntRepository.swift in Sources */,
+				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
 				9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */,
 				962E58C72411A69C001D5E41 /* DoubleVerticalButtonsView.swift in Sources */,
 				9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */,
@@ -546,7 +546,7 @@
 				9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */,
 				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
-				966C211D24118BC50019F835 /* CurrentHuntService.swift in Sources */,
+				966C211D24118BC50019F835 /* HuntService.swift in Sources */,
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
@@ -565,7 +565,7 @@
 				96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */,
 				96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */,
 				96FC083423EF59AA00459450 /* SettingsVC.swift in Sources */,
-				96FC082A23EF598E00459450 /* CurrentHuntTVC.swift in Sources */,
+				96FC082A23EF598E00459450 /* HuntsTVC.swift in Sources */,
 				9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */,
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,

@@ -14,8 +14,9 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var pokemonService: PokemonService!
+	var popupHandler = PopupHandler()
 	var filteredPokemon = [Pokemon]()
 	var allPokemon: [Pokemon]!
 	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
@@ -25,7 +26,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var tableView: UITableView!
-
+	@IBOutlet var popupView: PopupView!
+	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
@@ -45,6 +47,11 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
+		popupView.backgroundColor = colorService!.getSecondaryColor()
+		popupView.actionLabel.textColor = colorService!.getTertiaryColor()
+		popupView.iconImageView.tintColor = colorService!.getTertiaryColor()
+		popupView.actionLabel.font = fontSettingsService.getSmallFont()
+		popupView.layer.cornerRadius = 10
 		setUpSearchController()
     }
 
@@ -107,6 +114,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		newHunt.pokemon.append(pokemon)
 		newHunt.names.append(pokemon.name)
 		confirmButton.isEnabled = true
+		popupView.actionLabel.text = "\(pokemon.name) was added to \(newHunt.name)."
+		popupHandler.showPopup(popupView: popupView)
 		tableView.reloadData()
 	}
 
@@ -182,7 +191,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		{
 			pokemonService.save(pokemon: pokemon)
 		}
-		currentHuntService.save(hunt: newHunt)
+		huntService.save(hunt: newHunt)
 		hunts.append(newHunt)
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
 	}
@@ -211,6 +220,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool
 	{
         self.view.endEditing(true)
+		newHunt.name = textField.text ?? "New Hunt"
         return false
     }
 }

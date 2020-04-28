@@ -25,7 +25,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var huntStateService: HuntStateService!
 
 	@IBOutlet var popupView: PopupView!
@@ -59,7 +59,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		setTitle()
 
-		hunts = currentHuntService.getAll()
+		hunts = huntService.getAll()
 
 		tableView.reloadData()
 	}
@@ -201,12 +201,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			pokemon = getSelectedPokemon(index: indexPath.row)
 			if hunts.isEmpty
 			{
-				currentHuntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 				tableView.reloadData()
 			}
 			else if hunts.count == 1
 			{
-				currentHuntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 				tableView.reloadData()
 			}
 			else
@@ -326,7 +326,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			destVC?.pokemonService = pokemonService
 			destVC?.hunts = hunts
 			destVC?.pokemon = pokemon
-			destVC?.currentHuntService = currentHuntService
+			destVC?.huntService = huntService
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
@@ -349,7 +349,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		shinyTrackerVC.pokemonService = pokemonService
 		shinyTrackerVC.huntStateService = huntStateService
-		shinyTrackerVC.currentHuntService = currentHuntService
+		shinyTrackerVC.huntService = huntService
 		shinyTrackerVC.pokemon = allPokemon[getIndexFromFullList(index: encounterIndex)]
 		shinyTrackerVC.hunts = hunts
 	}

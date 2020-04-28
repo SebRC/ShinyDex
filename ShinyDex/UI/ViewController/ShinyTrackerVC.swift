@@ -36,7 +36,7 @@ class ShinyTrackerVC: UIViewController
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var huntStateService: HuntStateService!
 	
 	override func viewDidLoad()
@@ -107,13 +107,10 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func roundCorners()
 	{
 		popupView.layer.cornerRadius = 10
-		
 		numberLabel.layer.cornerRadius = 10
 		encountersLabel.layer.cornerRadius = 10
 		probabilityLabel.layer.cornerRadius = 10
-		
 		gifSeparatorView.layer.cornerRadius = 10
-		
 		pokeballButton.layer.cornerRadius = pokeballButton.bounds.width / 2
 	}
 	
@@ -219,12 +216,12 @@ class ShinyTrackerVC: UIViewController
 	{
 		if hunts.isEmpty
 		{
-			currentHuntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else if hunts.count == 1
 		{
-			currentHuntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else
@@ -270,7 +267,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			isAddingToHunt = false
 			let destVC = segue.destination as! HuntPickerModalVC
-			destVC.currentHuntService = currentHuntService
+			destVC.huntService = huntService
 			destVC.pokemonService = pokemonService
 			destVC.fontSettingsService = fontSettingsService
 			destVC.colorService = colorService

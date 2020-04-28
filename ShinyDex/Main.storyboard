@@ -549,10 +549,10 @@
             </objects>
             <point key="canvasLocation" x="5164" y="297"/>
         </scene>
-        <!--Current HuntTVC-->
+        <!--HuntsTVC-->
         <scene sceneID="G46-Ks-jis">
             <objects>
-                <viewController id="UEl-xz-2cG" customClass="CurrentHuntTVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UEl-xz-2cG" customClass="HuntsTVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gI3-iF-ULM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -827,12 +827,18 @@
                     <connections>
                         <outlet property="cancelButton" destination="2XJ-v5-OvE" id="6Ei-V6-CKx"/>
                         <outlet property="confirmButton" destination="cjQ-Ze-7Ja" id="y27-qe-wDo"/>
+                        <outlet property="popupView" destination="jos-hr-aGC" id="7ca-uC-rEm"/>
                         <outlet property="tableView" destination="wVL-uN-frE" id="E2i-ns-74t"/>
                         <outlet property="textField" destination="TXa-GF-GTi" id="o1L-5E-y0i"/>
                         <segue destination="LV8-DJ-DxX" kind="unwind" identifier="confirmUnwindSegue" unwindAction="createHuntConfirm:" id="gXn-RJ-hXw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xsr-rZ-bNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="jos-hr-aGC" customClass="PopupView" customModule="ShinyDex" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="349" height="55"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <viewLayoutGuide key="safeArea" id="Tzi-hY-Avf"/>
+                </view>
                 <exit id="LV8-DJ-DxX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4392.8000000000002" y="-475.41229385307349"/>

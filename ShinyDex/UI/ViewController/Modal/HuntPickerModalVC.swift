@@ -13,7 +13,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var hunts: [Hunt]!
 	var pokemon: Pokemon!
 	var pokemonService: PokemonService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 
@@ -52,7 +52,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		hunt.names.append(pokemon.name)
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
-		currentHuntService.save(hunt: hunt)
+		huntService.save(hunt: hunt)
 		performSegue(withIdentifier: "unwindFromHuntPicker", sender: self)
 	}
 
