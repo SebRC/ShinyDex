@@ -59,10 +59,22 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		searchController.searchResultsUpdater = self
 		searchController.obscuresBackgroundDuringPresentation = false
-		searchController.searchBar.placeholder = "Search Pokédex"
+		searchController.searchBar.placeholder = "Search"
 		searchController.definesPresentationContext = true
-		navigationItem.searchController = searchController
-		definesPresentationContext = true
+		let attributes =
+		[
+			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
+			NSAttributedString.Key.font: fontSettingsService.getMediumFont()
+		]
+		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+		let searchBarTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+		searchBarTextField?.textColor = colorService.getTertiaryColor()
+		searchBarTextField?.font = fontSettingsService.getSmallFont()
+		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
+		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
+		searchController.searchBar.backgroundColor = colorService.getPrimaryColor()
+		searchController.searchBar.barTintColor = colorService.getPrimaryColor()
+		tableView.tableHeaderView = searchController.searchBar
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -138,7 +150,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		}
 	}
 
-	func filterContentForSearchText(_ searchText: String, scope: String = "Regular")
+	func filterContentForSearchText(_ searchText: String)
 	{
 		filteredPokemon = allPokemon.filter( {(pokemon : Pokemon) -> Bool in
 

@@ -92,7 +92,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		searchController.obscuresBackgroundDuringPresentation = false
 		
-		searchController.searchBar.placeholder = "Search Pokédex"
+		searchController.searchBar.placeholder = "Search"
 		
 		navigationItem.searchController = searchController
 		

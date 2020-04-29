@@ -50,6 +50,8 @@ class MenuTVC: UITableViewController
 		hunts = huntService.getAll()
 		
 		setTableViewBackgroundColor()
+
+		tableView.separatorColor = colorService.getSecondaryColor()
 		
 		tableView.reloadData()
 		

@@ -12,8 +12,6 @@ import Foundation
 @IBDesignable
 class ButtonIconRight: UIView
 {
-	
-	
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var label: UILabel!
 	@IBOutlet weak var button: UIButton!

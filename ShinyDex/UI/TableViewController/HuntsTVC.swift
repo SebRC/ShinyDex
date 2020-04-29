@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, CurrentHuntCellDelegate {
+class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CurrentHuntCellDelegate {
 
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -129,20 +129,32 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Cu
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
 	{
-		let sectionButton = UIButton()
-		sectionButton.setTitle(hunts[section].name, for: .normal)
-		sectionButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		sectionButton.backgroundColor = .clear
-		sectionButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
-		sectionButton.imageView?.tintColor = colorService.getTertiaryColor()
-		sectionButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
-		sectionButton.contentHorizontalAlignment = .left
-		sectionButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
-		sectionButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		sectionButton.titleLabel?.alpha = 0.4
-		sectionButton.tag = section
-		sectionButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
-		return sectionButton
+		let sectionView = UIView()
+		sectionView.backgroundColor = .clear
+		let collapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width / 2, height: 60))
+		collapseButton.tag = section
+		collapseButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
+		collapseButton.setTitle(hunts[section].name, for: .normal)
+		collapseButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		collapseButton.backgroundColor = .clear
+		collapseButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
+		collapseButton.imageView?.tintColor = colorService.getTertiaryColor()
+		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
+		collapseButton.contentHorizontalAlignment = .left
+		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
+		collapseButton.titleLabel?.font = fontSettingsService.getMediumFont()
+		collapseButton.titleLabel?.alpha = 0.4
+		let editButton = UIButton(frame: CGRect(x: collapseButton.frame.width, y: 0, width: tableView.frame.width / 2, height: 60))
+		editButton.addTarget(self, action: #selector(editSectionHeader(sender:)), for: .touchUpInside)
+		editButton.tag = section
+		editButton.backgroundColor = .clear
+		editButton.setImage(UIImage(systemName: "pencil.and.ellipsis.rectangle"), for: .normal)
+		editButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 50)
+		editButton.imageView?.tintColor = colorService.getTertiaryColor()
+		editButton.contentHorizontalAlignment = .right
+		sectionView.addSubview(collapseButton)
+		sectionView.addSubview(editButton)
+		return sectionView
 	}
 
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
@@ -199,6 +211,27 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, Cu
 		{
 			self.tableView.reloadData()
 		}
+	}
+
+	@objc
+	private func editSectionHeader(sender: UIButton)
+	{
+		let section = sender.tag
+		let alert = UIAlertController(title: "Changing name of \(hunts[section].name)", message: "Enter a new name", preferredStyle: .alert)
+		alert.addTextField { (textField) in
+			textField.text = self.hunts[section].name
+		}
+		alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
+			let textField = alert?.textFields![0]
+			self.hunts[section].name = textField!.text!
+			self.huntService.save(hunt: self.hunts[section])
+			self.tableView.reloadData()
+
+		}))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+			alert.dismiss(animated: true)
+		}))
+		self.present(alert, animated: true, completion: nil)
 	}
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon)

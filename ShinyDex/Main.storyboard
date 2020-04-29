@@ -405,7 +405,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4hI-mH-5KF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="XxU-MB-axV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1949.5999999999999" y="1061.9190404797603"/>
+            <point key="canvasLocation" x="2777" y="1062"/>
         </scene>
         <!--Pokédex-->
         <scene sceneID="bDn-A5-ERe">
@@ -425,7 +425,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOE-yN-swf">
-                                            <rect key="frame" x="85" y="27" width="60" height="12"/>
+                                            <rect key="frame" x="85" y="27" width="50" height="10"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="mOE-yN-swf" secondAttribute="height" multiplier="5:1" id="w1Q-CZ-RR0"/>
                                             </constraints>
