@@ -157,6 +157,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		return sectionView
 	}
 
+	func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?
+	{
+		return ""
+	}
+
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
 	{
 		let footerView = UIView()
@@ -292,33 +297,37 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 		return nil
 	}
-	
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete
-		{
-			let currentHunt = hunts[indexPath.section]
-			let pokemonNumber = currentHunt.pokemon[indexPath.row].number
-			encounters -= currentHunt.pokemon[indexPath.row].encounters
-			currentHunt.pokemon[indexPath.row].isBeingHunted = false
-			allPokemon[pokemonNumber].isBeingHunted = false
-			pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
-			currentHunt.pokemon.remove(at: indexPath.row)
-			currentHunt.indexes.removeAll{$0 == pokemonNumber}
-            tableView.deleteRows(at: [indexPath], with: .fade)
-			navigationItem.title = String(encounters)
-			if currentHunt.pokemon.isEmpty
-			{
-				hunts.remove(at: indexPath.section)
-				huntService.delete(hunt: currentHunt)
+
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+			-> UISwipeActionsConfiguration? {
+			let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
+				let currentHunt = self.hunts[indexPath.section]
+				let pokemonNumber = currentHunt.pokemon[indexPath.row].number
+				self.encounters -= currentHunt.pokemon[indexPath.row].encounters
+				currentHunt.pokemon[indexPath.row].isBeingHunted = false
+				self.allPokemon[pokemonNumber].isBeingHunted = false
+				self.pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
+				currentHunt.pokemon.remove(at: indexPath.row)
+				currentHunt.indexes.removeAll{$0 == pokemonNumber}
+				tableView.deleteRows(at: [indexPath], with: .fade)
+				self.navigationItem.title = String(self.encounters)
+				if currentHunt.pokemon.isEmpty
+				{
+					self.hunts.remove(at: indexPath.section)
+					self.huntService.delete(hunt: currentHunt)
+				}
+				else
+				{
+					self.huntService.save(hunt: self.hunts[indexPath.section])
+				}
+				self.setClearHuntButtonState()
+				completionHandler(true)
 			}
-			else
-			{
-				huntService.save(hunt: hunts[indexPath.section])
-			}
-			setClearHuntButtonState()
-        }
-		tableView.reloadData()
-    }
+			deleteAction.image = UIImage(systemName: "trash.circle.fill")
+			deleteAction.backgroundColor = .systemRed
+			let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+			return configuration
+	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{

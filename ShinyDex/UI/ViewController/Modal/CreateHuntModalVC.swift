@@ -72,9 +72,11 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		searchBarTextField?.font = fontSettingsService.getSmallFont()
 		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
 		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
-		searchController.searchBar.backgroundColor = colorService.getPrimaryColor()
+		searchController.searchBar.clipsToBounds = true
+		searchController.searchBar.layer.cornerRadius = 10
 		searchController.searchBar.barTintColor = colorService.getPrimaryColor()
 		tableView.tableHeaderView = searchController.searchBar
+		tableView.backgroundColor = .clear
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

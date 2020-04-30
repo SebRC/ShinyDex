@@ -691,7 +691,7 @@
                         <viewLayoutGuide key="safeArea" id="dOl-BP-Ow0"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hdn-YF-tBQ">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="xmark.rectangle.fill" catalog="system" id="8a4-58-oVc">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="trash.circle.fill" catalog="system" id="8a4-58-oVc">
                             <connections>
                                 <action selector="clearCurrentHuntPressed:" destination="UEl-xz-2cG" id="211-td-KzD"/>
                             </connections>
@@ -727,7 +727,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="wVL-uN-frE">
                                 <rect key="frame" x="16" y="124" width="343" height="458"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="createHuntCell" rowHeight="65" id="HPo-yl-S3I" customClass="CreateHuntCell" customModule="ShinyDex" customModuleProvider="target">
@@ -1294,7 +1293,7 @@ Don't close the application before the setup is complete.</string>
         <image name="plus.app.fill" catalog="system" width="64" height="56"/>
         <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
         <image name="text.badge.plus" catalog="system" width="64" height="54"/>
-        <image name="xmark.rectangle.fill" catalog="system" width="64" height="46"/>
+        <image name="trash.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GWK-Tp-YuW"/>
