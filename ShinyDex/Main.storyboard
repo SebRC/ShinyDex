@@ -749,7 +749,8 @@
                                 <rect key="frame" x="229" y="597" width="121" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="2XJ-v5-OvE" secondAttribute="height" multiplier="121:30" id="EOY-bF-Cef"/>
+                                    <constraint firstAttribute="width" constant="121" id="Nwx-fQ-6Uh"/>
+                                    <constraint firstAttribute="width" secondItem="2XJ-v5-OvE" secondAttribute="height" multiplier="121:30" id="ptj-LU-wA5"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -760,7 +761,7 @@
                                 <rect key="frame" x="16" y="597" width="123" height="30"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="cjQ-Ze-7Ja" secondAttribute="height" multiplier="41:10" id="acn-Nt-JA1"/>
+                                    <constraint firstAttribute="width" secondItem="cjQ-Ze-7Ja" secondAttribute="height" multiplier="41:10" id="1cH-hn-XNZ"/>
                                 </constraints>
                                 <state key="normal" title="Confirm"/>
                                 <connections>
@@ -769,12 +770,15 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="v2C-Pn-4Ly" firstAttribute="trailing" secondItem="2XJ-v5-OvE" secondAttribute="trailing" constant="25" id="65e-p0-T84"/>
+                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="trailing" secondItem="TXa-GF-GTi" secondAttribute="trailing" id="C6E-jE-jiw"/>
                             <constraint firstItem="TXa-GF-GTi" firstAttribute="centerX" secondItem="wVL-uN-frE" secondAttribute="centerX" id="CtK-dU-dBP"/>
-                            <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="15" id="Ret-lV-Wap"/>
-                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="trailing" secondItem="TXa-GF-GTi" secondAttribute="trailing" id="ZLv-Xw-Znv"/>
-                            <constraint firstItem="v2C-Pn-4Ly" firstAttribute="trailing" secondItem="2XJ-v5-OvE" secondAttribute="trailing" constant="25" id="gj0-MH-k9m"/>
-                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="leading" secondItem="cjQ-Ze-7Ja" secondAttribute="trailing" constant="90" id="kxH-pS-856"/>
-                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="15" id="pkb-Ca-o8j"/>
+                            <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="15" id="ICP-9F-jmx"/>
+                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="15" id="UTN-G8-NTw"/>
+                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="leading" secondItem="cjQ-Ze-7Ja" secondAttribute="trailing" constant="90" id="Vd8-ZV-fLG"/>
+                            <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="leading" secondItem="wVL-uN-frE" secondAttribute="leading" id="guy-1Z-RIt"/>
+                            <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="baseline" secondItem="2XJ-v5-OvE" secondAttribute="baseline" id="hZX-Vt-HBU"/>
+                            <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="leading" secondItem="v2C-Pn-4Ly" secondAttribute="leading" constant="16" id="mVl-oA-3QH"/>
                             <constraint firstItem="TXa-GF-GTi" firstAttribute="top" secondItem="v2C-Pn-4Ly" secondAttribute="top" constant="47" id="rPy-UR-6bm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v2C-Pn-4Ly"/>
