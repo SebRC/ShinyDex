@@ -231,6 +231,7 @@ class MenuTVC: UITableViewController
 		pokedexTVC.pokemonService = pokemonService
 		pokedexTVC.huntService = huntService
 		pokedexTVC.huntStateService = huntStateService
+		pokedexTVC.allPokemon = allPokemon
 		pokedexTVC.hunts = hunts
 	}
 	

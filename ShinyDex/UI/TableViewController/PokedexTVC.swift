@@ -36,8 +36,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 
 		tableView.separatorColor = colorService.getSecondaryColor()
 
-		allPokemon = pokemonService.getAll()
-
 		slicePokemonList()
 		
 		setUIColors()
@@ -194,19 +192,23 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		performSegue(withIdentifier: "pokedexToModalSegue", sender: self)
 	}
 	
-	func addToCurrenHuntPressed(_ sender: UIButton)
+	func addToHuntPressed(_ sender: UIButton)
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
 			if hunts.isEmpty
 			{
-				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
+				popupView.actionLabel.text = "\(pokemon!.name) was added to New Hunt."
+				popupHandler.showPopup(popupView: popupView)
 				tableView.reloadData()
 			}
 			else if hunts.count == 1
 			{
-				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
+				popupView.actionLabel.text = "\(pokemon!.name) was added to \(hunts[0].name)."
+				popupHandler.showPopup(popupView: popupView)
 				tableView.reloadData()
 			}
 			else
@@ -415,6 +417,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
 	{
+		//let source = unwindSegue.source as! HuntPickerModalVC
+		//allPokemon[source.index].isBeingHunted = true
 		tableView.reloadData()
 	}
 }

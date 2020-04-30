@@ -216,12 +216,16 @@ class ShinyTrackerVC: UIViewController
 	{
 		if hunts.isEmpty
 		{
-			huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
+			popupView.actionLabel.text = "\(pokemon!.name) was added to New Hunt."
+			popupHandler.showPopup(popupView: popupView)
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else if hunts.count == 1
 		{
-			huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!, popupView: popupView, popupHandler: popupHandler)
+			huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
+			popupView.actionLabel.text = "\(pokemon!.name) was added to \(hunts[0].name)."
+			popupHandler.showPopup(popupView: popupView)
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else

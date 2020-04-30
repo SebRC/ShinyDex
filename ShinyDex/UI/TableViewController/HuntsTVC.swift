@@ -221,6 +221,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		alert.addTextField { (textField) in
 			textField.text = self.hunts[section].name
 		}
+		alert.view.backgroundColor = .clear
 		alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
 			let textField = alert?.textFields![0]
 			self.hunts[section].name = textField!.text!
