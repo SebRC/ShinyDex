@@ -124,7 +124,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		let pokemon = getSelectedPokemon(index: indexPath.row)
 		pokemon.isBeingHunted = true
 		newHunt.pokemon.append(pokemon)
-		newHunt.names.append(pokemon.name)
+		newHunt.indexes.append(pokemon.number)
 		confirmButton.isEnabled = true
 		popupView.actionLabel.text = "\(pokemon.name) was added to \(newHunt.name)."
 		popupHandler.showPopup(popupView: popupView)
@@ -181,7 +181,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		{
 			let pokemon = getSelectedPokemon(index: indexPath.row)
 			newHunt.pokemon.append(pokemon)
-			newHunt.names.append(pokemon.name)
+			newHunt.indexes.append(pokemon.number)
 		}
 	}
 

@@ -42,18 +42,11 @@ class HuntService
 
 	func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt
 	{
-		let names = huntEntity.value(forKey: "names") as! [String]
+		let indexes = huntEntity.value(forKey: "indexes") as! [Int]
 		let hunt = Hunt(huntEntity: huntEntity)
-		for pokemon in allPokemon
+		for index in indexes
 		{
-			for name in names
-			{
-				if name == pokemon.name
-				{
-					hunt.pokemon.append(pokemon)
-					break
-				}
-			}
+			hunt.pokemon.append(allPokemon[index])
 		}
 		return hunt
 	}
@@ -67,7 +60,7 @@ class HuntService
 	{
 		let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
 		hunt.pokemon.append(pokemon)
-		hunt.names.append(pokemon.name)
+		hunt.indexes.append(pokemon.number)
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		hunts.append(hunt)
@@ -77,7 +70,7 @@ class HuntService
 	func addToOnlyExistingHunt(hunts: inout [Hunt], pokemon: Pokemon)
 	{
 		hunts[0].pokemon.append(pokemon)
-		hunts[0].names.append(pokemon.name)
+		hunts[0].indexes.append(pokemon.number)
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		huntRepository.save(hunt: hunts[0])

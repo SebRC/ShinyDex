@@ -297,12 +297,13 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         if editingStyle == .delete
 		{
 			let currentHunt = hunts[indexPath.section]
-			let pokemonName = currentHunt.pokemon[indexPath.row].name
+			let pokemonNumber = currentHunt.pokemon[indexPath.row].number
 			encounters -= currentHunt.pokemon[indexPath.row].encounters
 			currentHunt.pokemon[indexPath.row].isBeingHunted = false
+			allPokemon[pokemonNumber].isBeingHunted = false
 			pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
 			currentHunt.pokemon.remove(at: indexPath.row)
-			currentHunt.names.removeAll{$0 == pokemonName}
+			currentHunt.indexes.removeAll{$0 == pokemonNumber}
             tableView.deleteRows(at: [indexPath], with: .fade)
 			navigationItem.title = String(encounters)
 			if currentHunt.pokemon.isEmpty

@@ -49,7 +49,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		let hunt = hunts[indexPath.row]
 		hunt.pokemon.append(pokemon)
-		hunt.names.append(pokemon.name)
+		hunt.indexes.append(pokemon.number)
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		huntService.save(hunt: hunt)

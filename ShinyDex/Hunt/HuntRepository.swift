@@ -46,7 +46,7 @@ class HuntRepository
 			hunt.huntEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 		}
 		hunt.huntEntity?.setValue(hunt.name, forKey: "name")
-		hunt.huntEntity?.setValue(hunt.names, forKey: "names")
+		hunt.huntEntity?.setValue(hunt.indexes, forKey: "indexes")
 
 		do
 		{
