@@ -24,8 +24,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var hunts: [Hunt]!
 	var allPokemon: [Pokemon]!
 	var collapsedSections = Set<Int>()
-	
-	@IBOutlet weak var createHuntImageView: UIImageView!
+
 	@IBOutlet weak var createHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
@@ -36,6 +35,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 		tableView.delegate = self
 		tableView.dataSource = self
+		view.backgroundColor = colorService.getSecondaryColor()
 		createHuntButton.layer.cornerRadius = 10
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		setClearHuntButtonState()
@@ -69,7 +69,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		tableView.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		createHuntButton.backgroundColor = colorService.getPrimaryColor()
-		createHuntImageView.tintColor = colorService.getTertiaryColor()
 		createHuntButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 	}
 	
@@ -232,7 +231,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			self.hunts[section].name = textField!.text!
 			self.huntService.save(hunt: self.hunts[section])
 			self.tableView.reloadData()
-
 		}))
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
 			alert.dismiss(animated: true)
@@ -321,6 +319,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 					self.huntService.save(hunt: self.hunts[indexPath.section])
 				}
 				self.setClearHuntButtonState()
+				tableView.reloadData()
 				completionHandler(true)
 			}
 			deleteAction.image = UIImage(systemName: "trash.circle.fill")

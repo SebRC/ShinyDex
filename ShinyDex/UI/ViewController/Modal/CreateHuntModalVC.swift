@@ -135,19 +135,24 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
+		let cell = cell as! CreateHuntCell
 		cell.backgroundColor = colorService!.getPrimaryColor()
 		if isFiltering()
 		{
 			if filteredPokemon[indexPath.row].isBeingHunted
 			{
-				cell.alpha = 0.1
+				cell.nameLabel.isEnabled = false
+				cell.numberLabel.isEnabled = false
+				cell.spriteImageView.alpha = 0.5
 			}
 		}
 		else
 		{
 			if allPokemon[indexPath.row].isBeingHunted
 			{
-				cell.alpha = 0.1
+				cell.nameLabel.isEnabled = false
+				cell.numberLabel.isEnabled = false
+				cell.spriteImageView.alpha = 0.5
 			}
 		}
 	}

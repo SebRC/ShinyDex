@@ -24,9 +24,9 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
+		tableView.backgroundColor = .clear
 		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.layer.cornerRadius = 10
 		tableView.separatorColor = colorService.getSecondaryColor()
     }
