@@ -87,6 +87,20 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "createHuntCell", for: indexPath) as! CreateHuntCell
 		let pokemon = getSelectedPokemon(index: indexPath.row)
+		if pokemon.isBeingHunted
+		{
+			cell.isUserInteractionEnabled = false
+			cell.nameLabel.isEnabled = false
+			cell.numberLabel.isEnabled = false
+			cell.spriteImageView.alpha = 0.5
+		}
+		else
+		{
+			cell.isUserInteractionEnabled = true
+			cell.nameLabel.isEnabled = true
+			cell.numberLabel.isEnabled = true
+			cell.spriteImageView.alpha = 1.0
+		}
 		cell.spriteImageView.image = pokemon.shinyImage
 		cell.nameLabel.text = pokemon.name
 		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
@@ -100,25 +114,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
 	{
 		return 65.0;
-	}
-
-	func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath?
-	{
-		if isFiltering()
-		{
-			if filteredPokemon[indexPath.row].isBeingHunted
-			{
-				return nil
-			}
-		}
-		else
-		{
-			if allPokemon[indexPath.row].isBeingHunted
-			{
-				return nil
-			}
-		}
-		return indexPath
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -135,26 +130,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		let cell = cell as! CreateHuntCell
 		cell.backgroundColor = colorService!.getPrimaryColor()
-		if isFiltering()
-		{
-			if filteredPokemon[indexPath.row].isBeingHunted
-			{
-				cell.nameLabel.isEnabled = false
-				cell.numberLabel.isEnabled = false
-				cell.spriteImageView.alpha = 0.5
-			}
-		}
-		else
-		{
-			if allPokemon[indexPath.row].isBeingHunted
-			{
-				cell.nameLabel.isEnabled = false
-				cell.numberLabel.isEnabled = false
-				cell.spriteImageView.alpha = 0.5
-			}
-		}
 	}
 
 	func filterContentForSearchText(_ searchText: String)
@@ -173,23 +149,12 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func isFiltering() -> Bool
 	{
-		let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-		return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+		return searchController.isActive && !searchBarIsEmpty()
 	}
 
 	func searchBarIsEmpty() -> Bool
 	{
 		return searchController.searchBar.text?.isEmpty ?? true
-	}
-
-	func addToCurrenHuntPressed(_ sender: UIButton)
-	{
-		if let indexPath = getCurrentCellIndexPath(sender)
-		{
-			let pokemon = getSelectedPokemon(index: indexPath.row)
-			newHunt.pokemon.append(pokemon)
-			newHunt.indexes.append(pokemon.number)
-		}
 	}
 
 	func getCurrentCellIndexPath(_ sender : UIButton) -> IndexPath?

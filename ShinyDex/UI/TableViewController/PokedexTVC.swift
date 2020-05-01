@@ -260,12 +260,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		if isFiltering()
-		{
-			return filteredPokemon.count
-		}
-		
-        return allPokemon.count
+		return isFiltering() ? filteredPokemon.count : allPokemon.count
     }
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -417,8 +412,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
 	{
-		//let source = unwindSegue.source as! HuntPickerModalVC
-		//allPokemon[source.index].isBeingHunted = true
 		tableView.reloadData()
+		let source = unwindSegue.source as! HuntPickerModalVC
+		let name = source.pickedHuntName!
+		popupView.actionLabel.text = "\(pokemon!.name) was added to \(name)."
+		popupHandler.showPopup(popupView: popupView)
 	}
 }

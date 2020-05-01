@@ -11,6 +11,7 @@ import UIKit
 class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 	var hunts: [Hunt]!
+	var pickedHuntName: String?
 	var pokemon: Pokemon!
 	var pokemonService: PokemonService!
 	var huntService: HuntService!
@@ -53,6 +54,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		huntService.save(hunt: hunt)
+		pickedHuntName = hunt.name
 		performSegue(withIdentifier: "unwindFromHuntPicker", sender: self)
 	}
 
