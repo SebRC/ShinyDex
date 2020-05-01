@@ -349,7 +349,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			destVC.huntService = huntService
 			destVC.colorService = colorService
 			destVC.fontSettingsService = fontSettingsService
-			destVC.hunt = hunts[selectedIndex]
+			destVC.hunt = hunts[selectedSection]
 		}
 		else
 		{
@@ -405,7 +405,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		if let source = unwindSegue.source as? HuntNameEditorModalVC
 		{
-			hunts[selectedIndex] = source.hunt
+			hunts[selectedSection] = source.hunt
 			tableView.reloadData()
 		}
 	}
