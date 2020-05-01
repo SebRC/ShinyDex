@@ -677,7 +677,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Hunt" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXa-GF-GTi">
-                                <rect key="frame" x="25" y="47" width="325" height="34"/>
+                                <rect key="frame" x="25" y="0.0" width="325" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TXa-GF-GTi" secondAttribute="height" multiplier="325:34" id="w4l-0W-HZ8"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
@@ -768,18 +771,27 @@
                                     <action selector="confirmPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="4Mi-Ez-vCo"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="50k-1o-2Cg">
+                                <rect key="frame" x="25" y="52" width="325" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="50k-1o-2Cg" secondAttribute="height" multiplier="325:44" id="G0n-aL-vc9"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="50k-1o-2Cg" firstAttribute="centerX" secondItem="wVL-uN-frE" secondAttribute="centerX" id="1R4-lA-ACs"/>
+                            <constraint firstItem="50k-1o-2Cg" firstAttribute="trailing" secondItem="2XJ-v5-OvE" secondAttribute="trailing" id="4WD-nZ-G8D"/>
                             <constraint firstItem="v2C-Pn-4Ly" firstAttribute="trailing" secondItem="2XJ-v5-OvE" secondAttribute="trailing" constant="25" id="65e-p0-T84"/>
-                            <constraint firstItem="2XJ-v5-OvE" firstAttribute="trailing" secondItem="TXa-GF-GTi" secondAttribute="trailing" id="C6E-jE-jiw"/>
-                            <constraint firstItem="TXa-GF-GTi" firstAttribute="centerX" secondItem="wVL-uN-frE" secondAttribute="centerX" id="CtK-dU-dBP"/>
                             <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="15" id="ICP-9F-jmx"/>
+                            <constraint firstItem="50k-1o-2Cg" firstAttribute="leading" secondItem="TXa-GF-GTi" secondAttribute="leading" id="LGd-6C-95Q"/>
                             <constraint firstItem="2XJ-v5-OvE" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="15" id="UTN-G8-NTw"/>
                             <constraint firstItem="2XJ-v5-OvE" firstAttribute="leading" secondItem="cjQ-Ze-7Ja" secondAttribute="trailing" constant="90" id="Vd8-ZV-fLG"/>
+                            <constraint firstItem="50k-1o-2Cg" firstAttribute="top" secondItem="TXa-GF-GTi" secondAttribute="bottom" constant="18" id="b14-h2-2zA"/>
                             <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="leading" secondItem="wVL-uN-frE" secondAttribute="leading" id="guy-1Z-RIt"/>
                             <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="baseline" secondItem="2XJ-v5-OvE" secondAttribute="baseline" id="hZX-Vt-HBU"/>
                             <constraint firstItem="cjQ-Ze-7Ja" firstAttribute="leading" secondItem="v2C-Pn-4Ly" secondAttribute="leading" constant="16" id="mVl-oA-3QH"/>
-                            <constraint firstItem="TXa-GF-GTi" firstAttribute="top" secondItem="v2C-Pn-4Ly" secondAttribute="top" constant="47" id="rPy-UR-6bm"/>
+                            <constraint firstItem="wVL-uN-frE" firstAttribute="top" secondItem="50k-1o-2Cg" secondAttribute="bottom" constant="28" id="nh2-5q-9uC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v2C-Pn-4Ly"/>
                     </view>
@@ -788,6 +800,7 @@
                         <outlet property="cancelButton" destination="2XJ-v5-OvE" id="6Ei-V6-CKx"/>
                         <outlet property="confirmButton" destination="cjQ-Ze-7Ja" id="y27-qe-wDo"/>
                         <outlet property="popupView" destination="jos-hr-aGC" id="7ca-uC-rEm"/>
+                        <outlet property="searchBar" destination="50k-1o-2Cg" id="5o6-1z-Ytm"/>
                         <outlet property="tableView" destination="wVL-uN-frE" id="E2i-ns-74t"/>
                         <outlet property="textField" destination="TXa-GF-GTi" id="o1L-5E-y0i"/>
                         <segue destination="LV8-DJ-DxX" kind="unwind" identifier="confirmUnwindSegue" unwindAction="createHuntConfirm:" id="gXn-RJ-hXw"/>

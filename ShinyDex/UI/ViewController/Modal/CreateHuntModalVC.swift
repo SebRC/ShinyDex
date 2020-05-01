@@ -8,10 +8,8 @@
 
 import UIKit
 
-class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate
+class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate
 {
-	let searchController = UISearchController(searchResultsController: nil)
-
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntService: HuntService!
@@ -27,10 +25,12 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet var popupView: PopupView!
-	
+	@IBOutlet weak var searchBar: UISearchBar!
+
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+		searchBar.delegate = self
 		tableView.delegate = self
 		tableView.dataSource = self
 		textField.delegate = self
@@ -57,26 +57,41 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	fileprivate func setUpSearchController()
 	{
-		searchController.searchResultsUpdater = self
-		searchController.obscuresBackgroundDuringPresentation = false
-		searchController.searchBar.placeholder = "Search"
-		searchController.definesPresentationContext = true
+		//searchController.searchResultsUpdater = self
+		//searchController.obscuresBackgroundDuringPresentation = false
+		searchBar.placeholder = "Search"
+		//searchController.definesPresentationContext = true
 		let attributes =
 		[
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getMediumFont()
 		]
 		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-		let searchBarTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField
+		let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
 		searchBarTextField?.textColor = colorService.getTertiaryColor()
 		searchBarTextField?.font = fontSettingsService.getSmallFont()
 		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
 		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
-		searchController.searchBar.clipsToBounds = true
-		searchController.searchBar.layer.cornerRadius = 10
-		searchController.searchBar.barTintColor = colorService.getPrimaryColor()
-		tableView.tableHeaderView = searchController.searchBar
+		searchBar.clipsToBounds = true
+		searchBar.layer.cornerRadius = 10
+		searchBar.barTintColor = colorService.getPrimaryColor()
 		tableView.backgroundColor = .clear
+	}
+
+	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
+	{
+	   filterContentForSearchText(self.searchBar.text!)
+	}
+
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
+	{
+	   filterContentForSearchText(self.searchBar.text!)
+	   self.searchBar.resignFirstResponder()
+	}
+
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+	{
+	   filterContentForSearchText(self.searchBar.text!)
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -149,12 +164,12 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func isFiltering() -> Bool
 	{
-		return searchController.isActive && !searchBarIsEmpty()
+		return searchBar.searchTextField.isEditing && !searchBarIsEmpty()
 	}
 
 	func searchBarIsEmpty() -> Bool
 	{
-		return searchController.searchBar.text?.isEmpty ?? true
+		return searchBar.text?.isEmpty ?? true
 	}
 
 	func getCurrentCellIndexPath(_ sender : UIButton) -> IndexPath?

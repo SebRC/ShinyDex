@@ -36,7 +36,7 @@ extension CreateHuntModalVC: UISearchResultsUpdating
 	}
 }
 
-extension CreateHuntModalVC: UISearchBarDelegate
+extension CreateHuntModalVC
 {
 	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
 	{
