@@ -18,6 +18,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 
+	@IBOutlet weak var pokemonIndicatorView: PokeballIndicatorView!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	override func viewDidLoad()
@@ -29,7 +30,14 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.layer.cornerRadius = 10
-		tableView.separatorColor = colorService.getSecondaryColor()
+		pokemonIndicatorView.contentView?.backgroundColor = colorService.getSecondaryColor()
+		pokemonIndicatorView.layer.cornerRadius = 10
+		pokemonIndicatorView.pokemonImageView.image = pokemon.shinyImage
+		pokemonIndicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to"
+		pokemonIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
+		pokemonIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()
+		tableView.separatorColor = colorService.getPrimaryColor()
+		tableView.layer.cornerRadius = 10
     }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -60,7 +68,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = colorService.getPrimaryColor()
+		cell.backgroundColor = colorService.getSecondaryColor()
 	}
 
 	@IBAction func cancelPressed(_ sender: Any)

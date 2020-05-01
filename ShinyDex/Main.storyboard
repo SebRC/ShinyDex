@@ -345,29 +345,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nMq-Ry-9gE">
-                                <rect key="frame" x="67" y="117" width="241" height="446"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-hk-8tF">
+                                <rect key="frame" x="68" y="45" width="239" height="46"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3Uq-hk-8tF" secondAttribute="height" multiplier="120:23" id="p5S-Mq-J1x"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="ti9-ne-P4I" eventType="touchUpInside" id="Xgo-pt-mgh"/>
+                                </connections>
+                            </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJd-ng-lQy" customClass="PokeballIndicatorView" customModule="ShinyDex" customModuleProvider="target">
+                                <rect key="frame" x="68" y="108" width="239" height="74.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="nMq-Ry-9gE" secondAttribute="height" multiplier="241:446" id="0yD-Ew-Z8c"/>
+                                    <constraint firstAttribute="width" secondItem="WJd-ng-lQy" secondAttribute="height" multiplier="16:5" id="ZaV-aB-VeV"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nMq-Ry-9gE">
+                                <rect key="frame" x="68" y="205.5" width="239" height="370.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nMq-Ry-9gE" secondAttribute="height" multiplier="20:31" id="hns-I9-0Q9"/>
                                 </constraints>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="huntPickerCell" rowHeight="80" id="Bnv-Qu-02n" customClass="HuntPickerCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="211" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="239" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bnv-Qu-02n" id="dKx-F3-6Bk">
-                                            <rect key="frame" x="0.0" y="0.0" width="211" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="239" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
-                                                    <rect key="frame" x="15" y="11" width="208" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
+                                                    <rect key="frame" x="15" y="24" width="217" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="217:32" id="6of-Ir-MMw"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="leading" secondItem="dKx-F3-6Bk" secondAttribute="leadingMargin" id="JzF-Fi-Wuc"/>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="centerY" secondItem="dKx-F3-6Bk" secondAttribute="centerY" id="OTg-EK-CSY"/>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="top" secondItem="dKx-F3-6Bk" secondAttribute="topMargin" constant="13" id="jXM-5U-atp"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="UUc-UJ-huP" id="w78-iW-8xV"/>
@@ -375,30 +399,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-hk-8tF">
-                                <rect key="frame" x="67" y="52" width="241" height="46"/>
-                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="3Uq-hk-8tF" secondAttribute="height" multiplier="241:46" id="VA3-TF-sXe"/>
-                                </constraints>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelPressed:" destination="ti9-ne-P4I" eventType="touchUpInside" id="Xgo-pt-mgh"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="XKC-WY-055" secondAttribute="leading" constant="67" id="8i2-0T-Gi5"/>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="trailing" secondItem="nMq-Ry-9gE" secondAttribute="trailing" id="Gtd-Qe-FBm"/>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="centerX" secondItem="c0S-Q9-oOV" secondAttribute="centerX" id="Lyf-vy-A3W"/>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="top" secondItem="XKC-WY-055" secondAttribute="top" constant="52" id="PO8-24-nQN"/>
-                            <constraint firstItem="3Uq-hk-8tF" firstAttribute="leading" secondItem="nMq-Ry-9gE" secondAttribute="leading" id="bba-ZT-0vP"/>
-                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="top" secondItem="3Uq-hk-8tF" secondAttribute="bottom" constant="19" id="ieF-0f-HIE"/>
+                            <constraint firstItem="WJd-ng-lQy" firstAttribute="top" secondItem="3Uq-hk-8tF" secondAttribute="bottom" constant="17" id="FmW-2M-9Lc"/>
+                            <constraint firstItem="WJd-ng-lQy" firstAttribute="leading" secondItem="3Uq-hk-8tF" secondAttribute="leading" id="bHG-Bk-GBX"/>
+                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="top" secondItem="WJd-ng-lQy" secondAttribute="bottom" constant="23" id="eCV-Rs-dXG"/>
+                            <constraint firstItem="WJd-ng-lQy" firstAttribute="centerX" secondItem="nMq-Ry-9gE" secondAttribute="centerX" id="eLh-fv-U6b"/>
+                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="leading" secondItem="XKC-WY-055" secondAttribute="leading" constant="68" id="kBm-p5-CVy"/>
+                            <constraint firstItem="nMq-Ry-9gE" firstAttribute="centerX" secondItem="c0S-Q9-oOV" secondAttribute="centerX" id="lP4-xQ-ziz"/>
+                            <constraint firstItem="XKC-WY-055" firstAttribute="bottom" secondItem="nMq-Ry-9gE" secondAttribute="bottom" constant="71" id="mBz-30-wHb"/>
+                            <constraint firstItem="WJd-ng-lQy" firstAttribute="trailing" secondItem="nMq-Ry-9gE" secondAttribute="trailing" id="vE2-Hu-R9v"/>
+                            <constraint firstItem="WJd-ng-lQy" firstAttribute="trailing" secondItem="3Uq-hk-8tF" secondAttribute="trailing" id="wiD-xe-d77"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XKC-WY-055"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="3Uq-hk-8tF" id="LDx-GV-92g"/>
+                        <outlet property="pokemonIndicatorView" destination="WJd-ng-lQy" id="7Gc-Z6-HnK"/>
                         <outlet property="tableView" destination="nMq-Ry-9gE" id="SNq-3F-Bth"/>
                         <segue destination="XxU-MB-axV" kind="unwind" identifier="unwindFromHuntPicker" unwindAction="finish:" id="A8u-MX-dUn"/>
                     </connections>
@@ -406,7 +423,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4hI-mH-5KF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="XxU-MB-axV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2777" y="1062"/>
+            <point key="canvasLocation" x="2776.8000000000002" y="1061.9190404797603"/>
         </scene>
         <!--Pokédex-->
         <scene sceneID="bDn-A5-ERe">
