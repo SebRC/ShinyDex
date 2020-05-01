@@ -20,8 +20,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
 	var hunts: [Hunt]!
 
-	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
+	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet var popupView: PopupView!
@@ -35,15 +35,15 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.dataSource = self
 		textField.delegate = self
 		view.backgroundColor = colorService.getSecondaryColor()
+		cancelButton.layer.cornerRadius = 10
+		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
+		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
+		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.isEnabled = false
 		confirmButton.layer.cornerRadius = 10
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.layer.cornerRadius = 10
-		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		textField.font = fontSettingsService.getMediumFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
@@ -185,6 +185,15 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		return nil
 	}
 
+	@IBAction func cancelPressed(_ sender: Any)
+	{
+		for pokemon in newHunt.pokemon
+		{
+			pokemon.isBeingHunted = false
+		}
+		dismiss(animated: true)
+	}
+
 	@IBAction func confirmPressed(_ sender: Any)
 	{
 		newHunt.name = textField.text ?? "New Hunt"
@@ -196,15 +205,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		huntService.save(hunt: newHunt)
 		hunts.append(newHunt)
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
-	}
-
-	@IBAction func cancelPressed(_ sender: Any)
-	{
-		for pokemon in newHunt.pokemon
-		{
-			pokemon.isBeingHunted = false
-		}
-		dismiss(animated: true)
 	}
 
 	fileprivate func getSelectedPokemon(index: Int) -> Pokemon

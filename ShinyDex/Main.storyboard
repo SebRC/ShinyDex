@@ -743,25 +743,25 @@
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XJ-v5-OvE">
                                 <rect key="frame" x="229" y="597" width="121" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="121" id="Nwx-fQ-6Uh"/>
                                     <constraint firstAttribute="width" secondItem="2XJ-v5-OvE" secondAttribute="height" multiplier="121:30" id="ptj-LU-wA5"/>
                                 </constraints>
-                                <state key="normal" title="Cancel"/>
+                                <state key="normal" title="Confirm"/>
                                 <connections>
-                                    <action selector="cancelPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="8vk-GB-5Cv"/>
+                                    <action selector="confirmPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="8vk-GB-5Cv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjQ-Ze-7Ja">
                                 <rect key="frame" x="16" y="597" width="123" height="30"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cjQ-Ze-7Ja" secondAttribute="height" multiplier="41:10" id="1cH-hn-XNZ"/>
                                 </constraints>
-                                <state key="normal" title="Confirm"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <action selector="confirmPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="4Mi-Ez-vCo"/>
+                                    <action selector="cancelPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="4Mi-Ez-vCo"/>
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="50k-1o-2Cg">
@@ -799,8 +799,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="uPc-48-bIW"/>
                     <connections>
-                        <outlet property="cancelButton" destination="2XJ-v5-OvE" id="6Ei-V6-CKx"/>
-                        <outlet property="confirmButton" destination="cjQ-Ze-7Ja" id="y27-qe-wDo"/>
+                        <outlet property="cancelButton" destination="cjQ-Ze-7Ja" id="y27-qe-wDo"/>
+                        <outlet property="confirmButton" destination="2XJ-v5-OvE" id="6Ei-V6-CKx"/>
                         <outlet property="popupView" destination="jos-hr-aGC" id="7ca-uC-rEm"/>
                         <outlet property="searchBar" destination="50k-1o-2Cg" id="5o6-1z-Ytm"/>
                         <outlet property="tableView" destination="wVL-uN-frE" id="E2i-ns-74t"/>
@@ -1246,26 +1246,26 @@ Don't close the application before the setup is complete.</string>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-6c-gFb">
                                         <rect key="frame" x="0.0" y="127" width="141" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="J1d-6c-gFb" secondAttribute="height" multiplier="141:52" id="v7i-fh-1U9"/>
                                         </constraints>
-                                        <state key="normal" title="Confirm"/>
+                                        <state key="normal" title="Cancel"/>
                                         <connections>
-                                            <action selector="confirmPressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="9Ue-fc-9Ix"/>
+                                            <action selector="cancelPressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="9Ue-fc-9Ix"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-hY-4FP">
-                                        <rect key="frame" x="143" y="127" width="1" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTn-qn-X0F">
-                                        <rect key="frame" x="0.0" y="126" width="287" height="3"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-an-eVC">
+                                        <rect key="frame" x="144" y="127" width="143" height="52"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="3" id="zB5-Mi-q7Q"/>
+                                            <constraint firstAttribute="width" secondItem="9UL-an-eVC" secondAttribute="height" multiplier="11:4" id="6WL-uk-J3t"/>
                                         </constraints>
-                                    </view>
+                                        <state key="normal" title="Confirm"/>
+                                        <connections>
+                                            <action selector="confirmpressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="hTr-7y-TVE"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a new name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVy-Pf-cGv">
                                         <rect key="frame" x="9" y="36" width="267" height="16"/>
                                         <constraints>
@@ -1275,17 +1275,20 @@ Don't close the application before the setup is complete.</string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-an-eVC">
-                                        <rect key="frame" x="144" y="127" width="143" height="52"/>
-                                        <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTn-qn-X0F">
+                                        <rect key="frame" x="0.0" y="126" width="287" height="3"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="9UL-an-eVC" secondAttribute="height" multiplier="11:4" id="6WL-uk-J3t"/>
+                                            <constraint firstAttribute="height" constant="3" id="zB5-Mi-q7Q"/>
                                         </constraints>
-                                        <state key="normal" title="Cancel"/>
-                                        <connections>
-                                            <action selector="cancelpressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="hTr-7y-TVE"/>
-                                        </connections>
-                                    </button>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-hY-4FP">
+                                        <rect key="frame" x="141" y="127" width="3" height="52"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="3" id="xyw-rk-5LZ"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1323,8 +1326,8 @@ Don't close the application before the setup is complete.</string>
                         <viewLayoutGuide key="safeArea" id="XAx-p8-2Pt"/>
                     </view>
                     <connections>
-                        <outlet property="cancelButton" destination="9UL-an-eVC" id="v9S-lW-uPQ"/>
-                        <outlet property="confirmButton" destination="J1d-6c-gFb" id="Wcu-TS-TJC"/>
+                        <outlet property="cancelButton" destination="J1d-6c-gFb" id="Wcu-TS-TJC"/>
+                        <outlet property="confirmButton" destination="9UL-an-eVC" id="v9S-lW-uPQ"/>
                         <outlet property="descriptionLabel" destination="sVy-Pf-cGv" id="CJi-wh-fun"/>
                         <outlet property="editorView" destination="xWe-ih-hEC" id="LhE-rL-BJM"/>
                         <outlet property="horizontalSeparator" destination="oTn-qn-X0F" id="ALj-Zq-LZH"/>
