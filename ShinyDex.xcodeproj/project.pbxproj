@@ -43,6 +43,7 @@
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
 		966C211A241174690019F835 /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2119241174690019F835 /* ColorService.swift */; };
 		966C211D24118BC50019F835 /* HuntService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211C24118BC50019F835 /* HuntService.swift */; };
+		9682924A245C9DF600F60BE2 /* HuntNameEditorModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */; };
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
 		9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */; };
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
@@ -111,6 +112,7 @@
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
 		966C2119241174690019F835 /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
 		966C211C24118BC50019F835 /* HuntService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntService.swift; sourceTree = "<group>"; };
+		96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntNameEditorModalVC.swift; sourceTree = "<group>"; };
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
 		9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEProbabilityService.swift; sourceTree = "<group>"; };
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 				96FC083623EF59BF00459450 /* SetEncountersModalVC.swift */,
 				96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */,
 				96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */,
+				96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */,
 				96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */,
 				962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */,
+				9682924A245C9DF600F60BE2 /* HuntNameEditorModalVC.swift in Sources */,
 				964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */,
 				9607F77A242AA20500263CF6 /* HuntState.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,

@@ -21,6 +21,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var popupHandler = PopupHandler()
 	var isClearingCurrentHunt = false
 	var isCreatingHunt = false
+	var isEditingName = false
 	var hunts: [Hunt]!
 	var allPokemon: [Pokemon]!
 	var collapsedSections = Set<Int>()
@@ -220,22 +221,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	@objc
 	private func editSectionHeader(sender: UIButton)
 	{
-		let section = sender.tag
-		let alert = UIAlertController(title: "Changing name of \(hunts[section].name)", message: "Enter a new name", preferredStyle: .alert)
-		alert.addTextField { (textField) in
-			textField.text = self.hunts[section].name
-		}
-		alert.view.backgroundColor = .clear
-		alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { [weak alert] (_) in
-			let textField = alert?.textFields![0]
-			self.hunts[section].name = textField!.text!
-			self.huntService.save(hunt: self.hunts[section])
-			self.tableView.reloadData()
-		}))
-		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-			alert.dismiss(animated: true)
-		}))
-		self.present(alert, animated: true, completion: nil)
+		selectedSection = sender.tag
+		isEditingName = true
+		performSegue(withIdentifier: "huntNameEditorSegue", sender: self)
 	}
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon)
@@ -354,6 +342,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			destVC?.hunts = hunts
 			destVC?.allPokemon = allPokemon
 		}
+		else if isEditingName
+		{
+			isEditingName = false
+			let destVC = segue.destination as! HuntNameEditorModalVC
+			destVC.huntService = huntService
+			destVC.colorService = colorService
+			destVC.fontSettingsService = fontSettingsService
+			destVC.hunt = hunts[selectedIndex]
+		}
 		else
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
@@ -402,6 +399,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			setEncounters()
 		}
 		clearCurrentHuntButton.isEnabled = true
+	}
+
+	@IBAction func confirmHuntName(_ unwindSegue: UIStoryboardSegue)
+	{
+		if let source = unwindSegue.source as? HuntNameEditorModalVC
+		{
+			hunts[selectedIndex] = source.hunt
+			tableView.reloadData()
+		}
 	}
 
 	@IBAction func createHuntButtonPressed(_ sender: Any)
