@@ -94,6 +94,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
 	{
+		textField.resignFirstResponder()
 		searchBar.resignFirstResponder()
 	}
 
