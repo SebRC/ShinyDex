@@ -40,11 +40,11 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		setTableViewBackgroundColor()
 
-		pokeballTableView.separatorColor = colorService.getSecondaryColor()
+		pokeballTableView.separatorColor = colorService.getPrimaryColor()
 		
 		pokeballIndicatorView.layer.cornerRadius = 10
 		
-		pokeballIndicatorView.backgroundColor = colorService.getPrimaryColor()
+		pokeballIndicatorView.backgroundColor = colorService.getSecondaryColor()
 		
 		pokeballIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		
@@ -84,7 +84,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = colorService.getPrimaryColor()
+		pokeballTableView.backgroundColor = .clear
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -102,7 +102,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = colorService.getPrimaryColor()
+		cell.backgroundColor = colorService.getSecondaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
