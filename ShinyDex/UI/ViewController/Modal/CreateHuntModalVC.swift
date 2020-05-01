@@ -92,6 +92,11 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	   filterContentForSearchText(self.searchBar.text!)
 	}
 
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
+	{
+		searchBar.resignFirstResponder()
+	}
+
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
 		return isFiltering() ? filteredPokemon.count : allPokemon.count

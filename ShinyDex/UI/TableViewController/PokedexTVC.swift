@@ -173,8 +173,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			allPokemon = Array(allPokemon[721..<807])
 		}
 	}
-	
-	override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+
+	override func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
 	{
 		searchController.searchBar.resignFirstResponder()
 	}
