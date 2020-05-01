@@ -34,6 +34,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.delegate = self
 		tableView.dataSource = self
 		textField.delegate = self
+		view.backgroundColor = colorService.getSecondaryColor()
 		confirmButton.isEnabled = false
 		confirmButton.layer.cornerRadius = 10
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
@@ -52,15 +53,13 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		popupView.iconImageView.tintColor = colorService!.getTertiaryColor()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 		popupView.layer.cornerRadius = 10
+		tableView.backgroundColor = .clear
 		setUpSearchController()
     }
 
 	fileprivate func setUpSearchController()
 	{
-		//searchController.searchResultsUpdater = self
-		//searchController.obscuresBackgroundDuringPresentation = false
 		searchBar.placeholder = "Search"
-		//searchController.definesPresentationContext = true
 		let attributes =
 		[
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
@@ -75,7 +74,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		searchBar.clipsToBounds = true
 		searchBar.layer.cornerRadius = 10
 		searchBar.barTintColor = colorService.getPrimaryColor()
-		tableView.backgroundColor = .clear
 	}
 
 	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
