@@ -281,7 +281,6 @@ class ShinyTrackerVC: UIViewController
 		else
 		{
 			let destVC = segue.destination as! PokeballModalVC
-			
 			setPokeballModalProperties(pokeballModalVC: destVC)
 		}
 	}
@@ -338,5 +337,9 @@ class ShinyTrackerVC: UIViewController
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
 	{
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+		let source = unwindSegue.source as! HuntPickerModalVC
+		let huntName = source.pickedHuntName
+		popupView.actionLabel.text = "\(pokemon!.name) was added to \(huntName!)."
+		popupHandler.showPopup(popupView: popupView)
 	}
 }
