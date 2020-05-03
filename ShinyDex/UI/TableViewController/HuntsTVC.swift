@@ -134,7 +134,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		let collapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width / 2, height: 60))
 		collapseButton.tag = section
 		collapseButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
-		collapseButton.setTitle(hunts[section].name, for: .normal)
+		collapseButton.setTitle("\(hunts[section].name): \(hunts[section].totalEncounters)", for: .normal)
 		collapseButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		collapseButton.backgroundColor = .clear
 		collapseButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
@@ -142,7 +142,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
-		collapseButton.titleLabel?.font = fontSettingsService.getMediumFont()
+		collapseButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		collapseButton.titleLabel?.alpha = 0.4
 		let editButton = UIButton(frame: CGRect(x: collapseButton.frame.width, y: 0, width: tableView.frame.width / 2, height: 60))
 		editButton.addTarget(self, action: #selector(editSectionHeader(sender:)), for: .touchUpInside)
@@ -155,11 +155,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		sectionView.addSubview(collapseButton)
 		sectionView.addSubview(editButton)
 		return sectionView
-	}
-
-	func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?
-	{
-		return ""
 	}
 
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
@@ -290,6 +285,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				let currentHunt = self.hunts[indexPath.section]
 				let pokemonNumber = currentHunt.pokemon[indexPath.row].number
 				self.encounters -= currentHunt.pokemon[indexPath.row].encounters
+				currentHunt.totalEncounters -= currentHunt.pokemon[indexPath.row].encounters
 				currentHunt.pokemon[indexPath.row].isBeingHunted = false
 				self.allPokemon[pokemonNumber].isBeingHunted = false
 				self.pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])

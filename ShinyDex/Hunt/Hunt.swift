@@ -15,6 +15,7 @@ class Hunt
 	var name: String
 	var indexes: [Int]
 	var pokemon: [Pokemon]
+	var totalEncounters: Int
 
 	init(huntEntity: NSManagedObject)
 	{
@@ -22,6 +23,7 @@ class Hunt
 		self.name = huntEntity.value(forKey: "name") as! String
 		self.indexes = huntEntity.value(forKey: "indexes") as! [Int]
 		self.pokemon = [Pokemon]()
+		self.totalEncounters = 0
 	}
 
 	init(name: String, pokemon: [Pokemon])
@@ -29,5 +31,6 @@ class Hunt
 		self.name = name
 		self.indexes = [Int]()
 		self.pokemon = pokemon
+		self.totalEncounters = 0
 	}
 }

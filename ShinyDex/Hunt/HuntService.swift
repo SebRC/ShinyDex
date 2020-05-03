@@ -46,7 +46,9 @@ class HuntService
 		let hunt = Hunt(huntEntity: huntEntity)
 		for index in indexes
 		{
-			hunt.pokemon.append(allPokemon[index])
+			let pokemon = allPokemon[index]
+			hunt.pokemon.append(pokemon)
+			hunt.totalEncounters += pokemon.encounters
 		}
 		return hunt
 	}
@@ -63,6 +65,7 @@ class HuntService
 		hunt.indexes.append(pokemon.number)
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
+		hunt.totalEncounters = pokemon.encounters
 		hunts.append(hunt)
 		huntRepository.save(hunt: hunt)
 	}
@@ -71,6 +74,7 @@ class HuntService
 	{
 		hunts[0].pokemon.append(pokemon)
 		hunts[0].indexes.append(pokemon.number)
+		hunts[0].totalEncounters += pokemon.encounters
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		huntRepository.save(hunt: hunts[0])

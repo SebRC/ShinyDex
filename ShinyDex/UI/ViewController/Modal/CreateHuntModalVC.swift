@@ -202,6 +202,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		for pokemon in newHunt.pokemon
 		{
 			pokemonService.save(pokemon: pokemon)
+			newHunt.totalEncounters += pokemon.encounters
 		}
 		huntService.save(hunt: newHunt)
 		hunts.append(newHunt)
