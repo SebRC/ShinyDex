@@ -13,7 +13,7 @@ import UIKit
 class ConfirmationPopup: UIView
 {
 	let nibName = "ConfirmationPopup"
-    var contentView:UIView?
+    var contentView: UIView?
 	
 	var colorService: ColorService?
 	var fontSettingsService: FontSettingsService?
@@ -28,14 +28,10 @@ class ConfirmationPopup: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
-		
 		colorService = ColorService()
 		fontSettingsService = FontSettingsService()
-		
 		setConfirmationPopupFonts()
-		
 		setColors()
-		
 		roundSeparatorCorners()
     }
 	
