@@ -131,7 +131,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		let sectionView = UIView()
 		sectionView.backgroundColor = .clear
-		let collapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width / 2, height: 60))
+		let collapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width / 1.5, height: 60))
 		collapseButton.tag = section
 		collapseButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
 		collapseButton.setTitle("\(hunts[section].name): \(hunts[section].totalEncounters)", for: .normal)
@@ -142,14 +142,14 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
-		collapseButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
+		collapseButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		collapseButton.titleLabel?.alpha = 0.4
-		let editButton = UIButton(frame: CGRect(x: collapseButton.frame.width, y: 0, width: tableView.frame.width / 2, height: 60))
+		let editButton = UIButton(frame: CGRect(x: collapseButton.frame.width, y: 0, width: tableView.frame.width - collapseButton.frame.width, height: 60))
 		editButton.addTarget(self, action: #selector(editSectionHeader(sender:)), for: .touchUpInside)
 		editButton.tag = section
 		editButton.backgroundColor = .clear
 		editButton.setImage(UIImage(systemName: "pencil.and.ellipsis.rectangle"), for: .normal)
-		editButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 50)
+		editButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 30)
 		editButton.imageView?.tintColor = colorService.getTertiaryColor()
 		editButton.contentHorizontalAlignment = .right
 		sectionView.addSubview(collapseButton)

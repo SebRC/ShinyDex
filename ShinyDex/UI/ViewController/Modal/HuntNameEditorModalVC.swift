@@ -28,7 +28,7 @@ class HuntNameEditorModalVC: UIViewController
 	{
         super.viewDidLoad()
 		titleLabel.text = "Changing name of \(hunt.name)"
-		titleLabel.font = fontSettingsService.getMediumFont()
+		titleLabel.font = fontSettingsService.getExtraSmallFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		descriptionLabel.text = "Enter a new name"
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
