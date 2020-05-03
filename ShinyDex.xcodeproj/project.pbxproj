@@ -15,8 +15,6 @@
 		962E58C32411A69C001D5E41 /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B72411A69C001D5E41 /* PopupView.xib */; };
 		962E58C42411A69C001D5E41 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58B82411A69C001D5E41 /* PopupView.swift */; };
 		962E58C52411A69C001D5E41 /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B92411A69C001D5E41 /* SetEncountersView.xib */; };
-		962E58C72411A69C001D5E41 /* DoubleVerticalButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58BB2411A69C001D5E41 /* DoubleVerticalButtonsView.swift */; };
-		962E58C82411A69C001D5E41 /* DoubleVerticalButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58BC2411A69C001D5E41 /* DoubleVerticalButtonsView.xib */; };
 		962E58CA2411A69C001D5E41 /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58BE2411A69C001D5E41 /* SetEncountersView.swift */; };
 		962E58CB2411A69C001D5E41 /* PokeballIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58BF2411A69C001D5E41 /* PokeballIndicatorView.xib */; };
 		962E58CC2411A69C001D5E41 /* PokeballIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58C02411A69C001D5E41 /* PokeballIndicatorView.swift */; };
@@ -51,6 +49,8 @@
 		96A72989245F0BC200AF3F5F /* InfoPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72988245F0BC200AF3F5F /* InfoPopupView.xib */; };
 		96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */; };
 		96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */; };
+		96A72992245F12C600AF3F5F /* DoubleVerticalButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* DoubleVerticalButtonsView.swift */; };
+		96A72993245F12C600AF3F5F /* DoubleVerticalButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72991245F12C500AF3F5F /* DoubleVerticalButtonsView.xib */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
@@ -91,8 +91,6 @@
 		962E58B72411A69C001D5E41 /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopupView.xib; path = ../../../../../PopupView.xib; sourceTree = "<group>"; };
 		962E58B82411A69C001D5E41 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = ../../../../../PopupView.swift; sourceTree = "<group>"; };
 		962E58B92411A69C001D5E41 /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SetEncountersView.xib; path = ../../../../../SetEncountersView.xib; sourceTree = "<group>"; };
-		962E58BB2411A69C001D5E41 /* DoubleVerticalButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoubleVerticalButtonsView.swift; path = ../../../../../DoubleVerticalButtonsView.swift; sourceTree = "<group>"; };
-		962E58BC2411A69C001D5E41 /* DoubleVerticalButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DoubleVerticalButtonsView.xib; path = ../../../../../DoubleVerticalButtonsView.xib; sourceTree = "<group>"; };
 		962E58BE2411A69C001D5E41 /* SetEncountersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetEncountersView.swift; path = ../../../../../SetEncountersView.swift; sourceTree = "<group>"; };
 		962E58BF2411A69C001D5E41 /* PokeballIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PokeballIndicatorView.xib; path = ../../../../../PokeballIndicatorView.xib; sourceTree = "<group>"; };
 		962E58C02411A69C001D5E41 /* PokeballIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PokeballIndicatorView.swift; path = ../../../../../PokeballIndicatorView.swift; sourceTree = "<group>"; };
@@ -120,6 +118,8 @@
 		96A72988245F0BC200AF3F5F /* InfoPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoPopupView.xib; sourceTree = "<group>"; };
 		96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationPopup.swift; sourceTree = "<group>"; };
 		96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
+		96A72990245F12C500AF3F5F /* DoubleVerticalButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleVerticalButtonsView.swift; sourceTree = "<group>"; };
+		96A72991245F12C500AF3F5F /* DoubleVerticalButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoubleVerticalButtonsView.xib; sourceTree = "<group>"; };
 		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
 		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
 		96C96D472444696000D30186 /* FontThemeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontThemeName.swift; sourceTree = "<group>"; };
@@ -405,8 +405,8 @@
 			children = (
 				96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */,
 				96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */,
-				962E58BB2411A69C001D5E41 /* DoubleVerticalButtonsView.swift */,
-				962E58BC2411A69C001D5E41 /* DoubleVerticalButtonsView.xib */,
+				96A72990245F12C500AF3F5F /* DoubleVerticalButtonsView.swift */,
+				96A72991245F12C500AF3F5F /* DoubleVerticalButtonsView.xib */,
 				962E58C12411A69C001D5E41 /* InfoPopupView.swift */,
 				96A72988245F0BC200AF3F5F /* InfoPopupView.xib */,
 				962E58C02411A69C001D5E41 /* PokeballIndicatorView.swift */,
@@ -496,6 +496,7 @@
 			files = (
 				962E58CB2411A69C001D5E41 /* PokeballIndicatorView.xib in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
+				96A72993245F12C600AF3F5F /* DoubleVerticalButtonsView.xib in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
 				96FC080723EF57D500459450 /* Main.storyboard in Resources */,
 				96A72989245F0BC200AF3F5F /* InfoPopupView.xib in Resources */,
@@ -505,7 +506,6 @@
 				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
 				962E58C52411A69C001D5E41 /* SetEncountersView.xib in Resources */,
 				96FC07A923EF192800459450 /* Assets.xcassets in Resources */,
-				962E58C82411A69C001D5E41 /* DoubleVerticalButtonsView.xib in Resources */,
 				96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,7 +539,6 @@
 				962E58CA2411A69C001D5E41 /* SetEncountersView.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
 				9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */,
-				962E58C72411A69C001D5E41 /* DoubleVerticalButtonsView.swift in Sources */,
 				9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				96FC083B23EF59C000459450 /* InfoModalVC.swift in Sources */,
@@ -554,6 +553,7 @@
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
+				96A72992245F12C600AF3F5F /* DoubleVerticalButtonsView.swift in Sources */,
 				96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */,
 				96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */,
 				962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */,

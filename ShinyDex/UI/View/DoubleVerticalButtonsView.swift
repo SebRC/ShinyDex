@@ -14,7 +14,7 @@ class DoubleVerticalButtonsView: UIView
 	@IBOutlet weak var updateEncountersButton: UIButton!
 	@IBOutlet weak var infoButton: UIButton!
 	@IBOutlet weak var buttonSeparator: UIView!
-	var settingsRepository: SettingsRepository?
+	fileprivate var colorService: ColorService?
 	
 	let nibName = "DoubleVerticalButtonsView"
     var contentView:UIView?
@@ -23,8 +23,8 @@ class DoubleVerticalButtonsView: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
-		
-		assignSettingsRepository()
+
+		colorService = ColorService()
 		
 		setColors()
 		
@@ -52,23 +52,18 @@ class DoubleVerticalButtonsView: UIView
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 	
-	fileprivate func assignSettingsRepository()
-	{
-		if settingsRepository == nil
-		{
-			settingsRepository = SettingsRepository.settingsRepositorySingleton
-		}
-	}
-	
 	fileprivate func setColors()
 	{
-		contentView?.backgroundColor = settingsRepository?.getSecondaryColor()
+		contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
-		buttonSeparator.backgroundColor = settingsRepository?.getMainColor()
+		buttonSeparator.backgroundColor = colorService!.getPrimaryColor()
+		
+		infoButton.tintColor = colorService!.getTertiaryColor()
+		updateEncountersButton.tintColor = colorService!.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
 	{
-		buttonSeparator.layer.cornerRadius = 5
+		buttonSeparator.layer.cornerRadius = 10
 	}
 }
