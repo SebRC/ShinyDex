@@ -246,11 +246,12 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-			
+
+			hunts[indexPath.section].totalEncounters -= 1
 			pokemon.encounters -= 1
 			encounters -= 1
 			navigationItem.title = String(encounters)
-			tableView.reloadRows(at: [indexPath], with: .automatic)
+			tableView.reloadData()
 			pokemonService.save(pokemon: pokemon)
 		}
 	}
@@ -260,10 +261,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
+			hunts[indexPath.section].totalEncounters += 1
 			pokemon.encounters += 1
 			encounters += 1
 			navigationItem.title = String(encounters)
-			tableView.reloadRows(at: [indexPath], with: .automatic)
+			tableView.reloadData()
 			pokemonService.save(pokemon: pokemon)
 		}
 	}
