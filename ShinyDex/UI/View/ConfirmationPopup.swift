@@ -14,11 +14,9 @@ class ConfirmationPopup: UIView
 {
 	let nibName = "ConfirmationPopup"
     var contentView:UIView?
-	var currentHuntRepository = CurrentHuntRepository.currentHuntRepositorySingleton
-	var tableview: UITableView?
-	var clearHuntButton: UIBarButtonItem?
 	
-	var settingsRepository: SettingsRepository?
+	var colorService: ColorService?
+	var fontSettingsService: FontSettingsService?
 	
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -31,7 +29,8 @@ class ConfirmationPopup: UIView
         super.init(coder: aDecoder)
         commonInit()
 		
-		assignSettingsRepository()
+		colorService = ColorService()
+		fontSettingsService = FontSettingsService()
 		
 		setConfirmationPopupFonts()
 		
@@ -61,29 +60,25 @@ class ConfirmationPopup: UIView
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 	
-	fileprivate func assignSettingsRepository()
-	{
-		if settingsRepository == nil
-		{
-			settingsRepository = SettingsRepository.settingsRepositorySingleton
-		}
-	}
-	
 	fileprivate func setConfirmationPopupFonts()
 	{
-		cancelButton.titleLabel?.font = settingsRepository!.getSmallFont()
-		confirmButton.titleLabel?.font = settingsRepository!.getSmallFont()
-		titleLabel.font = settingsRepository!.getSmallFont()
-		descriptionLabel.font = settingsRepository!.getExtraSmallFont()
+		cancelButton.titleLabel?.font = fontSettingsService!.getSmallFont()
+		confirmButton.titleLabel?.font = fontSettingsService!.getSmallFont()
+		titleLabel.font = fontSettingsService!.getSmallFont()
+		descriptionLabel.font = fontSettingsService!.getExtraSmallFont()
 	}
 	
 	fileprivate func setColors()
 	{
-		cancelButton.backgroundColor = settingsRepository?.getSecondaryColor()
-		titleLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		contentView?.backgroundColor = settingsRepository?.getMainColor()
-		buttonSeparator.backgroundColor = settingsRepository?.getMainColor()
-		confirmButton.backgroundColor = settingsRepository?.getSecondaryColor()
+		cancelButton.backgroundColor = colorService?.getSecondaryColor()
+		titleLabel.backgroundColor = colorService?.getSecondaryColor()
+		titleLabel.textColor = colorService?.getTertiaryColor()
+		descriptionLabel.textColor = colorService?.getTertiaryColor()
+		contentView?.backgroundColor = colorService?.getPrimaryColor()
+		buttonSeparator.backgroundColor = colorService?.getPrimaryColor()
+		confirmButton.backgroundColor = colorService?.getSecondaryColor()
+		confirmButton.titleLabel?.textColor = colorService?.getTertiaryColor()
+		cancelButton.titleLabel?.textColor = colorService?.getTertiaryColor()
 	}
 	
 	fileprivate func roundSeparatorCorners()
