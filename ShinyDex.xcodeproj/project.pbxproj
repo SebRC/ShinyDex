@@ -16,8 +16,6 @@
 		962E58C42411A69C001D5E41 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58B82411A69C001D5E41 /* PopupView.swift */; };
 		962E58C52411A69C001D5E41 /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58B92411A69C001D5E41 /* SetEncountersView.xib */; };
 		962E58CA2411A69C001D5E41 /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58BE2411A69C001D5E41 /* SetEncountersView.swift */; };
-		962E58CB2411A69C001D5E41 /* PokeballIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58BF2411A69C001D5E41 /* PokeballIndicatorView.xib */; };
-		962E58CC2411A69C001D5E41 /* PokeballIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58C02411A69C001D5E41 /* PokeballIndicatorView.swift */; };
 		962E58CD2411A69C001D5E41 /* InfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58C12411A69C001D5E41 /* InfoPopupView.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
@@ -51,6 +49,8 @@
 		96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */; };
 		96A72992245F12C600AF3F5F /* DoubleVerticalButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* DoubleVerticalButtonsView.swift */; };
 		96A72993245F12C600AF3F5F /* DoubleVerticalButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72991245F12C500AF3F5F /* DoubleVerticalButtonsView.xib */; };
+		96A72996245F13A200AF3F5F /* PokeballIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72994245F13A200AF3F5F /* PokeballIndicatorView.swift */; };
+		96A72997245F13A200AF3F5F /* PokeballIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72995245F13A200AF3F5F /* PokeballIndicatorView.xib */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
@@ -92,8 +92,6 @@
 		962E58B82411A69C001D5E41 /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = ../../../../../PopupView.swift; sourceTree = "<group>"; };
 		962E58B92411A69C001D5E41 /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SetEncountersView.xib; path = ../../../../../SetEncountersView.xib; sourceTree = "<group>"; };
 		962E58BE2411A69C001D5E41 /* SetEncountersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetEncountersView.swift; path = ../../../../../SetEncountersView.swift; sourceTree = "<group>"; };
-		962E58BF2411A69C001D5E41 /* PokeballIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PokeballIndicatorView.xib; path = ../../../../../PokeballIndicatorView.xib; sourceTree = "<group>"; };
-		962E58C02411A69C001D5E41 /* PokeballIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PokeballIndicatorView.swift; path = ../../../../../PokeballIndicatorView.swift; sourceTree = "<group>"; };
 		962E58C12411A69C001D5E41 /* InfoPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoPopupView.swift; path = ../../../../../InfoPopupView.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
@@ -120,6 +118,8 @@
 		96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
 		96A72990245F12C500AF3F5F /* DoubleVerticalButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleVerticalButtonsView.swift; sourceTree = "<group>"; };
 		96A72991245F12C500AF3F5F /* DoubleVerticalButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoubleVerticalButtonsView.xib; sourceTree = "<group>"; };
+		96A72994245F13A200AF3F5F /* PokeballIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballIndicatorView.swift; sourceTree = "<group>"; };
+		96A72995245F13A200AF3F5F /* PokeballIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PokeballIndicatorView.xib; sourceTree = "<group>"; };
 		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
 		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
 		96C96D472444696000D30186 /* FontThemeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontThemeName.swift; sourceTree = "<group>"; };
@@ -409,8 +409,8 @@
 				96A72991245F12C500AF3F5F /* DoubleVerticalButtonsView.xib */,
 				962E58C12411A69C001D5E41 /* InfoPopupView.swift */,
 				96A72988245F0BC200AF3F5F /* InfoPopupView.xib */,
-				962E58C02411A69C001D5E41 /* PokeballIndicatorView.swift */,
-				962E58BF2411A69C001D5E41 /* PokeballIndicatorView.xib */,
+				96A72994245F13A200AF3F5F /* PokeballIndicatorView.swift */,
+				96A72995245F13A200AF3F5F /* PokeballIndicatorView.xib */,
 				962E58B82411A69C001D5E41 /* PopupView.swift */,
 				962E58B72411A69C001D5E41 /* PopupView.xib */,
 				962E58BE2411A69C001D5E41 /* SetEncountersView.swift */,
@@ -494,7 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				962E58CB2411A69C001D5E41 /* PokeballIndicatorView.xib in Resources */,
+				96A72997245F13A200AF3F5F /* PokeballIndicatorView.xib in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96A72993245F12C600AF3F5F /* DoubleVerticalButtonsView.xib in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
@@ -519,6 +519,7 @@
 			files = (
 				96C96D46244462EF00D30186 /* FontName.swift in Sources */,
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
+				96A72996245F13A200AF3F5F /* PokeballIndicatorView.swift in Sources */,
 				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
 				9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
@@ -544,7 +545,6 @@
 				96FC083B23EF59C000459450 /* InfoModalVC.swift in Sources */,
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
-				962E58CC2411A69C001D5E41 /* PokeballIndicatorView.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */,
 				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
