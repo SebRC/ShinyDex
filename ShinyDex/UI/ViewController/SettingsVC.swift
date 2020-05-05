@@ -38,6 +38,8 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var lureSwitch: UISwitch!
 	@IBOutlet weak var lureLabel: UILabel!
 	@IBOutlet weak var lureOddsSeparator: UIView!
+	@IBOutlet weak var lureImageView: UIImageView!
+	@IBOutlet weak var shinyCharmImageView: UIImageView!
 
 	override func viewDidLoad()
 	{
@@ -170,8 +172,10 @@ class SettingsVC: UIViewController
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
 		shinyCharmSwitch.isOn = huntState!.isShinyCharmActive
+		shinyCharmImageView.alpha = shinyCharmSwitch.isOn ? 1.0 : 0.5
 
 		lureSwitch.isOn = huntState!.isLureInUse
+		lureImageView.alpha = lureSwitch.isOn ? 1.0 : 0.5
 	}
 	
 	fileprivate func setShinyOddsLabelText()
@@ -213,8 +217,14 @@ class SettingsVC: UIViewController
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
 	{
 		huntState?.isShinyCharmActive = shinyCharmSwitch.isOn
+		setShinyCharmImageViewAlpha()
 		huntStateService.save(huntState!)
 		setShinyOddsLabelText()
+	}
+
+	fileprivate func setShinyCharmImageViewAlpha()
+	{
+		shinyCharmImageView.alpha = shinyCharmSwitch.isOn ? 1.0 : 0.5
 	}
 	
 	@IBAction func changeGenerationPressed(_ sender: Any)
@@ -228,8 +238,10 @@ class SettingsVC: UIViewController
 		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
 		
 		huntState!.isShinyCharmActive = shinyCharmSwitch.isOn
+		setShinyCharmImageViewAlpha()
 
 		huntState!.isLureInUse = lureSwitch.isOn
+		setLureImageViewAlpha()
 
 		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse)
 		
@@ -294,7 +306,13 @@ class SettingsVC: UIViewController
 	@IBAction func changeIsLureInUse(_ sender: Any)
 	{
 		huntState!.isLureInUse = lureSwitch.isOn
+		setLureImageViewAlpha()
 		huntStateService.save(huntState!)
 		setShinyOddsLabelText()
+	}
+
+	fileprivate func setLureImageViewAlpha()
+	{
+		lureImageView.alpha = lureSwitch.isOn ? 1.0 : 0.5
 	}
 }

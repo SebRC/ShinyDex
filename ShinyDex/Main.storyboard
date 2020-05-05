@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oQL-iv-Vn4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oQL-iv-Vn4">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -113,7 +113,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shiny Charm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEM-dp-tR2">
-                                <rect key="frame" x="30" y="419" width="233" height="44"/>
+                                <rect key="frame" x="65" y="419" width="198" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -135,7 +135,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ura-Yz-SyW">
-                                <rect key="frame" x="30" y="471" width="233" height="44"/>
+                                <rect key="frame" x="65" y="469" width="198" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -160,6 +160,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shiny-charm" translatesAutoresizingMaskIntoConstraints="NO" id="Msp-oF-NnF">
+                                <rect key="frame" x="22" y="421" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="max-lure" translatesAutoresizingMaskIntoConstraints="NO" id="fei-uv-5bo">
+                                <rect key="frame" x="22" y="465" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ssf-zf-5zA"/>
@@ -174,11 +182,13 @@
                         <outlet property="generationLabel" destination="3Oo-uJ-AcH" id="MwV-5f-fK2"/>
                         <outlet property="generationSegmentedControl" destination="Eu5-VJ-Wm0" id="bdn-oP-dSt"/>
                         <outlet property="generationsBackgroundLabel" destination="0i0-hT-Jy7" id="Emf-Mm-411"/>
+                        <outlet property="lureImageView" destination="fei-uv-5bo" id="RxU-Z2-PlA"/>
                         <outlet property="lureLabel" destination="Ura-Yz-SyW" id="Os4-qA-KSd"/>
                         <outlet property="lureOddsSeparator" destination="9Km-Gu-1cf" id="e3J-wE-P9V"/>
                         <outlet property="lureSwitch" destination="GJR-J7-Egc" id="syK-Xh-sYt"/>
                         <outlet property="primaryEditButton" destination="hKK-dZ-FDp" id="uA7-hn-eT0"/>
                         <outlet property="secondaryEditButton" destination="eub-Dx-Bpi" id="CMq-Wb-PuO"/>
+                        <outlet property="shinyCharmImageView" destination="Msp-oF-NnF" id="ssY-CI-H0m"/>
                         <outlet property="shinyCharmLabel" destination="TEM-dp-tR2" id="N8N-Fx-ffg"/>
                         <outlet property="shinyCharmSwitch" destination="XxR-8b-Qib" id="8YC-L5-oVZ"/>
                         <outlet property="shinyOddsLabel" destination="3t4-Yh-qR5" id="fyD-mE-nVs"/>
@@ -1418,18 +1428,20 @@ Don't close the application before the setup is complete.</string>
             <point key="canvasLocation" x="1908" y="-1433"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="ellipsis.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="minus.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="none" width="32" height="32"/>
-        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="text.badge.plus" catalog="system" width="64" height="54"/>
-        <image name="xmark.rectangle.fill" catalog="system" width="64" height="46"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GWK-Tp-YuW"/>
         <segue reference="7k3-aT-9gU"/>
         <segue reference="LE8-BB-dtk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+    <resources>
+        <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="max-lure" width="32" height="32"/>
+        <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="none" width="32" height="32"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="shiny-charm" width="32" height="32"/>
+        <image name="text.badge.plus" catalog="system" width="128" height="109"/>
+        <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>
+    </resources>
 </document>
