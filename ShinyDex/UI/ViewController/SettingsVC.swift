@@ -126,9 +126,9 @@ class SettingsVC: UIViewController
 		
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		
-		shinyCharmLabel.font = fontSettingsService.getExtraLargeFont()
+		shinyCharmLabel.font = fontSettingsService.getMediumFont()
 
-		lureLabel.font = fontSettingsService.getExtraLargeFont()
+		lureLabel.font = fontSettingsService.getMediumFont()
 		
 		fontLabel.font = fontSettingsService.getExtraLargeFont()
 		
