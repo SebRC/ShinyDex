@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+@IBDesignable
 class InfoPopupView: UIView
 {
 	let nibName = "InfoPopupView"
@@ -18,7 +19,7 @@ class InfoPopupView: UIView
 	@IBOutlet weak var spriteImageView: UIImageView!
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var numberLabel: UILabel!
-	@IBOutlet weak var encountersLabel: UILabel!
+	@IBOutlet weak var encountersTitleLabel: UILabel!
 	@IBOutlet weak var shinyOddsLabel: UILabel!
 	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var generationLabel: UILabel!
@@ -29,19 +30,31 @@ class InfoPopupView: UIView
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var saveButton: UIButton!
 	@IBOutlet weak var buttonSeparator: UIView!
-	
-	var oddsResolver = OddsResolver()
-	var settingsRepository: SettingsRepository?
+	@IBOutlet weak var generationBackgroundView: UIView!
+	@IBOutlet weak var lureSwitch: UISwitch!
+	@IBOutlet weak var lureLabel: UILabel!
+	@IBOutlet weak var imagesBackgroundView: UIView!
+	@IBOutlet weak var imageSeparator: UIView!
+	@IBOutlet weak var encountersBackgroundView: UIView!
+	@IBOutlet weak var encountersLabel: UILabel!
+
+	var switchStateService = SwitchStateService()
+	var fontSettingsService: FontSettingsService?
+	var colorService: ColorService?
+	var huntStateService: HuntStateService?
 	var probability: Double?
 	var encounters: Int?
-	
-	
+
 	required init?(coder aDecoder: NSCoder)
 	{
         super.init(coder: aDecoder)
         commonInit()
-		
-		assignSettingsRepository()
+
+		fontSettingsService = FontSettingsService()
+
+		colorService = ColorService()
+
+		huntStateService = HuntStateService()
 		
 		setColors()
 		
@@ -75,80 +88,102 @@ class InfoPopupView: UIView
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 	
-	fileprivate func assignSettingsRepository()
-	{
-		if settingsRepository == nil
-		{
-			settingsRepository = SettingsRepository.settingsRepositorySingleton
-		}
-	}
-	
 	fileprivate func setColors()
 	{
-		contentView?.backgroundColor = settingsRepository?.getMainColor()
+		contentView?.backgroundColor = colorService!.getPrimaryColor()
 
-		spriteImageView.backgroundColor = settingsRepository?.getSecondaryColor()
-		pokeballImageView.backgroundColor = settingsRepository?.getSecondaryColor()
+		infoLabel.backgroundColor = colorService!.getSecondaryColor()
+		infoLabel.textColor = colorService!.getTertiaryColor()
 		
-		infoLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		nameLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		numberLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		encountersLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		shinyOddsLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		probabilityLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		shinyCharmLabel.backgroundColor = settingsRepository?.getSecondaryColor()
-		generationLabel.backgroundColor = settingsRepository?.getSecondaryColor()
+		nameLabel.backgroundColor = colorService!.getSecondaryColor()
+		nameLabel.textColor = colorService!.getTertiaryColor()
 		
-		generationSegmentedControl.backgroundColor = settingsRepository?.getSecondaryColor()
-		generationSegmentedControl.tintColor = settingsRepository?.getMainColor()
+		numberLabel.backgroundColor = colorService!.getSecondaryColor()
+		numberLabel.textColor = colorService!.getTertiaryColor()
+
+		encountersTitleLabel.textColor = colorService!.getTertiaryColor()
+		encountersLabel.textColor = colorService!.getTertiaryColor()
+		encountersBackgroundView.backgroundColor = colorService!.getSecondaryColor()
 		
-		cancelButton.backgroundColor = settingsRepository?.getSecondaryColor()
-		saveButton.backgroundColor = settingsRepository?.getSecondaryColor()
+		shinyOddsLabel.backgroundColor = colorService!.getSecondaryColor()
+		shinyOddsLabel.textColor = colorService!.getTertiaryColor()
 		
-		buttonSeparator.backgroundColor = settingsRepository?.getMainColor()
+		probabilityLabel.backgroundColor = colorService!.getSecondaryColor()
+		probabilityLabel.textColor = colorService!.getTertiaryColor()
 		
-		shinyCharmSwitch.thumbTintColor = settingsRepository?.getMainColor()
-		shinyCharmSwitch.onTintColor = settingsRepository?.getSecondaryColor()
+		shinyCharmLabel.backgroundColor = colorService!.getSecondaryColor()
+		shinyCharmLabel.textColor = colorService!.getTertiaryColor()
+
+		lureLabel.backgroundColor = colorService!.getSecondaryColor()
+		lureLabel.textColor = colorService!.getTertiaryColor()
+		
+		generationBackgroundView.backgroundColor = colorService!.getSecondaryColor()
+		generationLabel.textColor = colorService!.getTertiaryColor()
+		
+		generationSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
+		generationSegmentedControl.tintColor = colorService!.getPrimaryColor()
+		generationSegmentedControl.setTitleTextAttributes(fontSettingsService!.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService!.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
+		
+		cancelButton.backgroundColor = colorService!.getSecondaryColor()
+		cancelButton.setTitleColor(colorService!.getTertiaryColor(), for: .normal)
+		
+		saveButton.backgroundColor = colorService!.getSecondaryColor()
+		saveButton.setTitleColor(colorService!.getTertiaryColor(), for: .normal)
+		
+		buttonSeparator.backgroundColor = colorService!.getPrimaryColor()
+		
+		shinyCharmSwitch.thumbTintColor = colorService!.getPrimaryColor()
+		shinyCharmSwitch.onTintColor = colorService!.getSecondaryColor()
+
+		lureSwitch.thumbTintColor = colorService!.getPrimaryColor()
+		lureSwitch.onTintColor = colorService!.getSecondaryColor()
+
+		imagesBackgroundView.backgroundColor = colorService!.getSecondaryColor()
+		imageSeparator.backgroundColor = colorService!.getPrimaryColor()
 	}
 	
 	fileprivate func setFonts()
 	{
-		infoLabel.font = settingsRepository?.getXxLargeFont()
-		nameLabel.font = settingsRepository?.getExtraSmallFont()
-		numberLabel.font = settingsRepository?.getExtraSmallFont()
-		encountersLabel.font = settingsRepository?.getExtraSmallFont()
-		shinyOddsLabel.font = settingsRepository?.getExtraSmallFont()
-		probabilityLabel.font = settingsRepository?.getExtraSmallFont()
-		shinyCharmLabel.font = settingsRepository?.getExtraSmallFont()
-		generationLabel.font = settingsRepository?.getExtraSmallFont()
+		infoLabel.font = fontSettingsService!.getXxLargeFont()
+		nameLabel.font = fontSettingsService!.getExtraSmallFont()
+		numberLabel.font = fontSettingsService!.getExtraSmallFont()
+		encountersTitleLabel.font = fontSettingsService!.getExtraSmallFont()
+		shinyOddsLabel.font = fontSettingsService!.getExtraSmallFont()
+		probabilityLabel.font = fontSettingsService!.getExtraSmallFont()
+		shinyCharmLabel.font = fontSettingsService!.getExtraSmallFont()
+		lureLabel.font = fontSettingsService!.getExtraSmallFont()
+		generationLabel.font = fontSettingsService!.getExtraSmallFont()
+		encountersLabel.font = fontSettingsService!.getMediumFont()
+		generationSegmentedControl.setTitleTextAttributes(fontSettingsService!.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService!.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 		
-		generationSegmentedControl.setTitleTextAttributes(settingsRepository!.getFontAsNSAttibutedStringKey(fontSize: settingsRepository!.extraSmallFontSize) as? [NSAttributedString.Key : Any], for: .normal)
-		
-		cancelButton.titleLabel!.font = settingsRepository?.getExtraSmallFont()
-		saveButton.titleLabel!.font = settingsRepository?.getExtraSmallFont()
+		cancelButton.titleLabel!.font = fontSettingsService!.getExtraSmallFont()
+		saveButton.titleLabel!.font = fontSettingsService!.getExtraSmallFont()
 	}
 	
 	fileprivate func roundCorners()
 	{
-		spriteImageView.layer.cornerRadius = 10
 		nameLabel.layer.cornerRadius = 10
 		numberLabel.layer.cornerRadius = 10
-		encountersLabel.layer.cornerRadius = 10
-		generationLabel.layer.cornerRadius = 10
+		generationBackgroundView.layer.cornerRadius = 10
 		shinyOddsLabel.layer.cornerRadius = 10
 		probabilityLabel.layer.cornerRadius = 10
 		shinyCharmLabel.layer.cornerRadius = 10
-		pokeballImageView.layer.cornerRadius = 10
-		buttonSeparator.layer.cornerRadius = 5
+		lureLabel.layer.cornerRadius = 10
+		buttonSeparator.layer.cornerRadius = 10
+		imageSeparator.layer.cornerRadius = 10
+		imagesBackgroundView.layer.cornerRadius = 10
+		encountersBackgroundView.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setGenerationSegmentedControlSelectedIndex()
 	{
-		generationSegmentedControl.selectedSegmentIndex = settingsRepository!.generation
+		let huntState = huntStateService?.get()
+		generationSegmentedControl.selectedSegmentIndex = huntState!.generation
 	}
 	
 	fileprivate func setShinyCharmActiveState()
 	{
-		shinyCharmSwitch.isOn = settingsRepository!.isShinyCharmActive
+		let huntState = huntStateService?.get()
+		shinyCharmSwitch.isOn = huntState!.isShinyCharmActive
 	}
 }

@@ -39,10 +39,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		setCancelButtonFont()
 		
 		setTableViewBackgroundColor()
+
+		pokeballTableView.separatorColor = colorService.getPrimaryColor()
 		
-		pokeballIndicatorView.layer.cornerRadius = 5
+		pokeballIndicatorView.layer.cornerRadius = 10
 		
-		pokeballIndicatorView.backgroundColor = colorService.getPrimaryColor()
+		pokeballIndicatorView.backgroundColor = colorService.getSecondaryColor()
 		
 		pokeballIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		
@@ -72,7 +74,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func roundCancelButtonCorners()
 	{
-		cancelButton.layer.cornerRadius = 5
+		cancelButton.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setCancelButtonFont()
@@ -82,7 +84,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setTableViewBackgroundColor()
 	{
-		pokeballTableView.backgroundColor = colorService.getPrimaryColor()
+		pokeballTableView.backgroundColor = .clear
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -95,17 +97,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		let pokeball = pokeballs[indexPath.row]
 		pokemon.caughtBall = pokeball.name.lowercased()
 		pokemonService.save(pokemon: pokemon)
-		performSegue(withIdentifier: "unwindToShinyTrackerVC", sender: self)
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
-		
+		performSegue(withIdentifier: "unwindFromPokeball", sender: self)
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = colorService.getPrimaryColor()
+		cell.backgroundColor = colorService.getSecondaryColor()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int

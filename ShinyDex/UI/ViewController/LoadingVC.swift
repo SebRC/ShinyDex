@@ -30,17 +30,15 @@ class LoadingVC: UIViewController
 		displayGifs()
 		
 		setVisibilityOfSettingUpProfileLabel()
-
-		proceedAsExistingUser()
 		
-//		if isFirstTimeUser
-//		{
-//			proceedAsNewUser()
-//		}
-//		else
-//		{
-//			proceedAsExistingUser()
-//		}
+		if isFirstTimeUser
+		{
+			proceedAsNewUser()
+		}
+		else
+		{
+			proceedAsExistingUser()
+		}
     }
 	
 	fileprivate func resolveUserStatus()

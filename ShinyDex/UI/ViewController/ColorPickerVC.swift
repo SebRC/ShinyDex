@@ -17,10 +17,8 @@ class ColorPickerVC: CustomColorPickerViewController
 	var colorService: ColorService!
 
 	@IBOutlet weak var saveButton: UIButton!
-	
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var titleLabel: UILabel!
-	
 	@IBOutlet weak var colorPreviewHex: ColorPreviewWithHex!
 	
 	override func viewDidLoad()
@@ -31,9 +29,9 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		view.backgroundColor = .white
 		
-		saveButton.layer.cornerRadius = 5
+		saveButton.layer.cornerRadius = 10
 		
-		cancelButton.layer.cornerRadius = 5
+		cancelButton.layer.cornerRadius = 10
 		
 		titleLabel.textColor = .black
 		
@@ -59,8 +57,6 @@ class ColorPickerVC: CustomColorPickerViewController
 	
 	@IBAction func savePressed(_ sender: Any)
 	{
-		print(selectedColor.hexValue())
-		
 		let color = Int(selectedColor.hexValue(), radix: 16)
 		
 		if primaryWasPressed == nil

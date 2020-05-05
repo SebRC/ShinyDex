@@ -12,12 +12,12 @@ class MenuTVC: UITableViewController
 {
 	var genIndex = 0
 	var allPokemon = [Pokemon]()
-	var currentHuntPokemon = [Pokemon]()
+	var hunts = [Hunt]()
 	let textResolver = TextResolver()
 	var pokemonService: PokemonService!
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
-	var currentHuntService = CurrentHuntService()
+	var huntService = HuntService()
 	var huntStateService = HuntStateService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
@@ -32,7 +32,7 @@ class MenuTVC: UITableViewController
 
 		allPokemon = pokemonService.getAll()
 
-		currentHuntPokemon = currentHuntService.get()
+		hunts = huntService.getAll()
 		
 		showNavigationBar()
 
@@ -47,9 +47,11 @@ class MenuTVC: UITableViewController
 	{
 		super.viewWillAppear(animated)
 
-		currentHuntPokemon = currentHuntService.get()
+		hunts = huntService.getAll()
 		
 		setTableViewBackgroundColor()
+
+		tableView.separatorColor = colorService.getSecondaryColor()
 		
 		tableView.reloadData()
 		
@@ -131,13 +133,13 @@ class MenuTVC: UITableViewController
 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
-		let showCurrentHuntImage = indexPath.row == 7 && !currentHuntPokemon.isEmpty
+		let showCurrentHuntImage = indexPath.row == 7 && !hunts.isEmpty
 		
 		cell.generationLabel.textColor = colorService.getTertiaryColor()
 		
 		if showCurrentHuntImage
 		{
-			cell.generationImage.image = currentHuntPokemon[0].shinyImage
+			cell.generationImage.image = hunts[0].pokemon[0].shinyImage
 		}
 		else
 		{
@@ -191,9 +193,9 @@ class MenuTVC: UITableViewController
 	{
 		if genIndex == 7
 		{
-			let destVC = segue.destination as? CurrentHuntTVC
+			let destVC = segue.destination as? HuntsTVC
 
-			setCurrentHuntRepositories(currentHuntTVC: destVC!)
+			setCurrentHuntRepositories(huntsTVC: destVC!)
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
@@ -214,20 +216,23 @@ class MenuTVC: UITableViewController
 		}
 	}
 	
-	fileprivate func setCurrentHuntRepositories(currentHuntTVC: CurrentHuntTVC)
+	fileprivate func setCurrentHuntRepositories(huntsTVC: HuntsTVC)
 	{
-		currentHuntTVC.pokemonService = pokemonService
-		currentHuntTVC.huntStateService = huntStateService
-		currentHuntTVC.currentHuntService = currentHuntService
-		currentHuntTVC.currentHuntPokemon = currentHuntPokemon
+		huntsTVC.pokemonService = pokemonService
+		huntsTVC.huntStateService = huntStateService
+		huntsTVC.huntService = huntService
+		huntsTVC.hunts = hunts
+		huntsTVC.allPokemon = allPokemon
 	}
 	
 	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
 	{
 		pokedexTVC.generation = genIndex
 		pokedexTVC.pokemonService = pokemonService
-		pokedexTVC.currentHuntService = currentHuntService
+		pokedexTVC.huntService = huntService
 		pokedexTVC.huntStateService = huntStateService
+		pokedexTVC.allPokemon = allPokemon
+		pokedexTVC.hunts = hunts
 	}
 	
 	@IBAction func settingsPressed(_ sender: Any)
@@ -239,6 +244,5 @@ class MenuTVC: UITableViewController
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.layer.cornerRadius = 30
 	}
 }

@@ -14,17 +14,18 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
-	var currentHuntNames = [String]()
+	var hunts: [Hunt]!
 	let textResolver = TextResolver()
 	var encounterIndex = 0
 	var generation = 0
 	var changeCaughtBallPressed = false
+	var isAddingToHunt = false
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var huntStateService: HuntStateService!
 
 	@IBOutlet var popupView: PopupView!
@@ -34,10 +35,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
         super.viewDidLoad()
 
 		tableView.separatorColor = colorService.getSecondaryColor()
-
-		allPokemon = pokemonService.getAll()
-
-		currentHuntNames = currentHuntService.getCurrentHuntNames()
 
 		slicePokemonList()
 		
@@ -57,10 +54,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
-
-		currentHuntNames = currentHuntService.getCurrentHuntNames()
 		
 		setTitle()
+
+		hunts = huntService.getAll()
 
 		tableView.reloadData()
 	}
@@ -93,7 +90,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		searchController.obscuresBackgroundDuringPresentation = false
 		
-		searchController.searchBar.placeholder = "Search Pokédex"
+		searchController.searchBar.placeholder = "Search"
 		
 		navigationItem.searchController = searchController
 		
@@ -137,7 +134,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func roundPopupViewCorners()
 	{
-		popupView.layer.cornerRadius = 5
+		popupView.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setTitle()
@@ -176,8 +173,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			allPokemon = Array(allPokemon[721..<807])
 		}
 	}
-	
-	override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+
+	override func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
 	{
 		searchController.searchBar.resignFirstResponder()
 	}
@@ -195,16 +192,30 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		performSegue(withIdentifier: "pokedexToModalSegue", sender: self)
 	}
 	
-	func addToCurrenHuntPressed(_ sender: UIButton)
+	func addToHuntPressed(_ sender: UIButton)
 	{
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
-			currentHuntNames.append(pokemon!.name)
-			currentHuntService.save(currentHuntNames: currentHuntNames)
-			tableView.reloadRows(at: [indexPath], with: .automatic)
-			popupView.actionLabel.text = "\(pokemon!.name) was added to current hunt."
-			popupHandler.showPopup(popupView: popupView)
+			if hunts.isEmpty
+			{
+				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
+				popupView.actionLabel.text = "\(pokemon!.name) was added to New Hunt."
+				popupHandler.showPopup(popupView: popupView)
+				tableView.reloadData()
+			}
+			else if hunts.count == 1
+			{
+				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
+				popupView.actionLabel.text = "\(pokemon!.name) was added to \(hunts[0].name)."
+				popupHandler.showPopup(popupView: popupView)
+				tableView.reloadData()
+			}
+			else
+			{
+				isAddingToHunt = true
+				performSegue(withIdentifier: "pokedexToHuntPickerSegue", sender: self)
+			}
 		}
 	}
 	
@@ -249,12 +260,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		if isFiltering()
-		{
-			return filteredPokemon.count
-		}
-		
-        return allPokemon.count
+		return isFiltering() ? filteredPokemon.count : allPokemon.count
     }
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -265,15 +271,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 	{
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath) as! PokemonCell
-		
 		cell.cellDelegate = self
-		
 		let pokemon = getSelectedPokemon(index: indexPath.row)
-		
 		setCellImage(pokemonCell: cell, pokemon: pokemon)
-		
 		setPokemonCellProperties(pokemonCell: cell, pokemon: pokemon)
-		
         return cell
     }
 	
@@ -289,25 +290,20 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
 		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
-
 		pokemonCell.pokemonName.textColor = colorService!.getTertiaryColor()
 		pokemonCell.pokemonNumber.textColor = colorService!.getTertiaryColor()
 		pokemonCell.addToCurrentHuntButton.tintColor = colorService!.getTertiaryColor()
-		
-		setAddToHuntButtonState(pokemonCell: pokemonCell)
+		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
-	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell)
+	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell, isBeingHunted: Bool)
 	{
-		let containedName = pokemonCell.pokemonName.text
-		
-		pokemonCell.addToCurrentHuntButton.isEnabled = !currentHuntNames.contains(containedName!)
+		pokemonCell.addToCurrentHuntButton.isEnabled = !isBeingHunted
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		encounterIndex = indexPath.row
-		
 		performSegue(withIdentifier: "encountersSegue", sender: nil)
 	}
 	
@@ -316,19 +312,26 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		if changeCaughtBallPressed
 		{
 			changeCaughtBallPressed = false
-			
 			let destVC = segue.destination as? PokeballModalVC
 			destVC?.fontSettingsService = fontSettingsService
-			
 			setPokeballModalProperties(pokeballModalVC: destVC!)
+		}
+		else if isAddingToHunt
+		{
+			isAddingToHunt = false
+			let destVC = segue.destination as? HuntPickerModalVC
+			destVC?.pokemonService = pokemonService
+			destVC?.hunts = hunts
+			destVC?.pokemon = pokemon
+			destVC?.huntService = huntService
+			destVC?.fontSettingsService = fontSettingsService
+			destVC?.colorService = colorService
 		}
 		else
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
-
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
-
 			setShinyTrackerProperties(shinyTrackerVC: destVC!)
 		}
 	}
@@ -343,9 +346,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		shinyTrackerVC.pokemonService = pokemonService
 		shinyTrackerVC.huntStateService = huntStateService
-		shinyTrackerVC.currentHuntService = currentHuntService
+		shinyTrackerVC.huntService = huntService
 		shinyTrackerVC.pokemon = allPokemon[getIndexFromFullList(index: encounterIndex)]
-		shinyTrackerVC.currentHuntNames = currentHuntNames
+		shinyTrackerVC.hunts = hunts
 	}
 	
 	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)
@@ -357,7 +360,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		{
 			pokemon?.caughtBall = sourceTVC.pokemon.caughtBall
 			pokemonService.save(pokemon: pokemon!)
-			
 			tableView.reloadData()
 		}
 	}
@@ -365,16 +367,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	fileprivate func getIndexFromFullList(index: Int) -> Int
 	{
 		var indexOfPokemon: Int
-		
 		if isFiltering()
 		{
 			indexOfPokemon = filteredPokemon[index].number - resolveCounter(generation: generation)
-			
 			return indexOfPokemon
 		}
-		
 		indexOfPokemon = allPokemon[index].number - resolveCounter(generation: generation)
-		
 		return indexOfPokemon
 	}
 
@@ -410,7 +408,14 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
 		cell.backgroundColor = colorService!.getPrimaryColor()
-		cell.layer.cornerRadius = 30
 	}
 
+	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
+	{
+		tableView.reloadData()
+		let source = unwindSegue.source as! HuntPickerModalVC
+		let name = source.pickedHuntName!
+		popupView.actionLabel.text = "\(pokemon!.name) was added to \(name)."
+		popupHandler.showPopup(popupView: popupView)
+	}
 }

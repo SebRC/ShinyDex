@@ -23,7 +23,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
-	var currentHuntNames: [String]!
+	var hunts: [Hunt]!
 	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
@@ -31,11 +31,12 @@ class ShinyTrackerVC: UIViewController
 	var huntState: HuntState?
 	var infoPressed = false
 	var setEncountersPressed = false
+	var isAddingToHunt = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var currentHuntService: CurrentHuntService!
+	var huntService: HuntService!
 	var huntStateService: HuntStateService!
 	
 	override func viewDidLoad()
@@ -105,20 +106,17 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func roundCorners()
 	{
-		popupView.layer.cornerRadius = 5
-		
-		numberLabel.layer.cornerRadius = 5
-		encountersLabel.layer.cornerRadius = 5
-		probabilityLabel.layer.cornerRadius = 5
-		
-		gifSeparatorView.layer.cornerRadius = 5
-		
+		popupView.layer.cornerRadius = 10
+		numberLabel.layer.cornerRadius = 10
+		encountersLabel.layer.cornerRadius = 10
+		probabilityLabel.layer.cornerRadius = 10
+		gifSeparatorView.layer.cornerRadius = 10
 		pokeballButton.layer.cornerRadius = pokeballButton.bounds.width / 2
 	}
 	
 	fileprivate func roundDoubleVerticalButtonsViewCorners()
 	{
-		doubleButtonsVerticalView.layer.cornerRadius = 5
+		doubleButtonsVerticalView.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setFonts()
@@ -197,12 +195,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func addToHuntButtonIsEnabled() -> Bool
 	{
-		return !currentHuntNames.contains(pokemon.name)
-	}
-
-	fileprivate func resolveButtonAccess(nameList: [String], name: String) -> Bool
-	{
-		return !nameList.contains(name)
+		return !pokemon.isBeingHunted
 	}
 	
 	@IBAction func plusPressed(_ sender: Any)
@@ -221,11 +214,25 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func addToHuntPressed(_ sender: Any)
 	{
-		currentHuntNames.append(pokemon.name)
-		currentHuntService.save(currentHuntNames: currentHuntNames)
-		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-		popupView.actionLabel.text = "\(pokemon.name) was added to current hunt."
-		popupHandler.showPopup(popupView: popupView)
+		if hunts.isEmpty
+		{
+			huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
+			popupView.actionLabel.text = "\(pokemon!.name) was added to New Hunt."
+			popupHandler.showPopup(popupView: popupView)
+			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+		}
+		else if hunts.count == 1
+		{
+			huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
+			popupView.actionLabel.text = "\(pokemon!.name) was added to \(hunts[0].name)."
+			popupHandler.showPopup(popupView: popupView)
+			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+		}
+		else
+		{
+			isAddingToHunt = true
+			performSegue(withIdentifier: "shinyTrackerToHuntPickerSegue", sender: self)
+		}
 	}
 	
 	@objc fileprivate func updateEncountersPressed(_ sender: Any)
@@ -260,10 +267,20 @@ class ShinyTrackerVC: UIViewController
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
 		}
+		else if isAddingToHunt
+		{
+			isAddingToHunt = false
+			let destVC = segue.destination as! HuntPickerModalVC
+			destVC.huntService = huntService
+			destVC.pokemonService = pokemonService
+			destVC.fontSettingsService = fontSettingsService
+			destVC.colorService = colorService
+			destVC.hunts = hunts
+			destVC.pokemon = pokemon
+		}
 		else
 		{
 			let destVC = segue.destination as! PokeballModalVC
-			
 			setPokeballModalProperties(pokeballModalVC: destVC)
 		}
 	}
@@ -315,5 +332,14 @@ class ShinyTrackerVC: UIViewController
 		setProbabilityLabelText()
 		
 		setEncountersLabelText()
+	}
+
+	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
+	{
+		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+		let source = unwindSegue.source as! HuntPickerModalVC
+		let huntName = source.pickedHuntName
+		popupView.actionLabel.text = "\(pokemon!.name) was added to \(huntName!)."
+		popupHandler.showPopup(popupView: popupView)
 	}
 }

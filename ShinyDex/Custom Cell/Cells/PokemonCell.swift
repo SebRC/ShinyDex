@@ -25,6 +25,6 @@ class PokemonCell : UITableViewCell
 	
 	@IBAction func addToCurrentHuntPressed(_ sender: UIButton)
 	{
-		cellDelegate?.addToCurrenHuntPressed(sender)
+		cellDelegate?.addToHuntPressed(sender)
 	}
 }

@@ -28,6 +28,22 @@ extension PokedexTVC: UISearchBarDelegate
 	}
 }
 
+extension CreateHuntModalVC: UISearchResultsUpdating
+{
+	func updateSearchResults(for searchController: UISearchController)
+	{
+		filterContentForSearchText(searchController.searchBar.text!)
+	}
+}
+
+extension CreateHuntModalVC
+{
+	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
+	{
+		filterContentForSearchText(searchBar.text!)
+	}
+}
+
 extension String
 {
 	func capitalizingFirstLetter() -> String

@@ -13,5 +13,5 @@ protocol PokemonCellDelegate : class
 {
 	func changeCaughtButtonPressed(_ sender: UIButton)
 	
-	func addToCurrenHuntPressed(_ sender: UIButton)
+	func addToHuntPressed(_ sender: UIButton)
 }

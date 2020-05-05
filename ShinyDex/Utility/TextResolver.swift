@@ -38,7 +38,7 @@ class TextResolver
 		}
 		if gen == 7
 		{
-			return "Current Hunt"
+			return "Hunts"
 		}
 		return "Gen 1"
 	}

@@ -50,6 +50,7 @@ public class PokemonRepository
 		pokemon.pokemonEntity.setValue(pokemon.encounters, forKey: "encounters")
 		pokemon.pokemonEntity.setValue(pokemon.caughtDescription, forKey: "caughtDescription")
 		pokemon.pokemonEntity.setValue(pokemon.caughtBall, forKey: "caughtBall")
+		pokemon.pokemonEntity.setValue(pokemon.isBeingHunted, forKey: "isBeingHunted")
 		
 		do
 		{
@@ -70,6 +71,7 @@ public class PokemonRepository
 		pokemonEntity.setValue(0, forKey: "encounters")
 		pokemonEntity.setValue("Not Caught", forKey: "caughtDescription")
 		pokemonEntity.setValue("none", forKey: "caughtBall")
+		pokemonEntity.setValue(false, forKey: "isBeingHunted")
 
 		let pokemon = Pokemon(pokemonEntity: pokemonEntity)
 

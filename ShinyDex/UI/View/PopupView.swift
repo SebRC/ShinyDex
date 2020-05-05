@@ -16,6 +16,7 @@ class PopupView: UIView
     var contentView:UIView?
 
 	@IBOutlet weak var actionLabel: UILabel!
+	@IBOutlet weak var iconImageView: UIImageView!
 	
 	required init?(coder aDecoder: NSCoder)
 	{
