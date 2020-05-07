@@ -40,7 +40,9 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var lureOddsSeparator: UIView!
 	@IBOutlet weak var lureImageView: UIImageView!
 	@IBOutlet weak var shinyCharmImageView: UIImageView!
-
+	@IBOutlet weak var lureHelpTextLabel: UILabel!
+	@IBOutlet weak var shinyCharmHelpTextLabel: UILabel!
+	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
@@ -97,6 +99,8 @@ class SettingsVC: UIViewController
 		
 		shinyOddsLabel.textColor = colorService!.getTertiaryColor()
 		shinyCharmLabel.textColor = colorService!.getTertiaryColor()
+		shinyCharmHelpTextLabel.textColor = colorService!.getTertiaryColor()
+		shinyCharmHelpTextLabel.alpha = 0.7
 		shinyCharmSwitch.onTintColor = colorService!.getSecondaryColor()
 		shinyCharmSwitch.thumbTintColor = colorService!.getPrimaryColor()
 		
@@ -113,6 +117,8 @@ class SettingsVC: UIViewController
 		lureOddsSeparator.backgroundColor = colorService!.getPrimaryColor()
 
 		lureLabel.textColor = colorService!.getTertiaryColor()
+		lureHelpTextLabel.textColor = colorService.getTertiaryColor()
+		lureHelpTextLabel.alpha = 0.7
 		lureSwitch.onTintColor = colorService!.getSecondaryColor()
 		lureSwitch.thumbTintColor = colorService!.getPrimaryColor()
 
@@ -127,8 +133,10 @@ class SettingsVC: UIViewController
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		
 		shinyCharmLabel.font = fontSettingsService.getMediumFont()
+		shinyCharmHelpTextLabel.font = fontSettingsService.getXxSmallFont()
 
 		lureLabel.font = fontSettingsService.getMediumFont()
+		lureHelpTextLabel.font = fontSettingsService.getXxSmallFont()
 		
 		fontLabel.font = fontSettingsService.getExtraLargeFont()
 		
@@ -172,10 +180,10 @@ class SettingsVC: UIViewController
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
 		shinyCharmSwitch.isOn = huntState!.isShinyCharmActive
-		shinyCharmImageView.alpha = shinyCharmSwitch.isOn ? 1.0 : 0.5
+		setImageViewAlpha(imageView: shinyCharmImageView, isSwitchOn: shinyCharmSwitch.isOn)
 
 		lureSwitch.isOn = huntState!.isLureInUse
-		lureImageView.alpha = lureSwitch.isOn ? 1.0 : 0.5
+		setImageViewAlpha(imageView: lureImageView, isSwitchOn: lureSwitch.isOn)
 	}
 	
 	fileprivate func setShinyOddsLabelText()
@@ -217,14 +225,15 @@ class SettingsVC: UIViewController
 	@IBAction func changeIsShinyCharmActive(_ sender: Any)
 	{
 		huntState?.isShinyCharmActive = shinyCharmSwitch.isOn
-		setShinyCharmImageViewAlpha()
+		setImageViewAlpha(imageView: shinyCharmImageView, isSwitchOn: shinyCharmSwitch.isOn)
 		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch.isOn, lureSwitch.isOn)
 		setShinyOddsLabelText()
 	}
 
-	fileprivate func setShinyCharmImageViewAlpha()
+	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool)
 	{
-		shinyCharmImageView.alpha = shinyCharmSwitch.isOn ? 1.0 : 0.5
+		imageView.alpha = isSwitchOn ? 1.0 : 0.5
 	}
 	
 	@IBAction func changeGenerationPressed(_ sender: Any)
@@ -238,10 +247,10 @@ class SettingsVC: UIViewController
 		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
 		
 		huntState!.isShinyCharmActive = shinyCharmSwitch.isOn
-		setShinyCharmImageViewAlpha()
+		setImageViewAlpha(imageView: shinyCharmImageView, isSwitchOn: shinyCharmSwitch.isOn)
 
 		huntState!.isLureInUse = lureSwitch.isOn
-		setLureImageViewAlpha()
+		setImageViewAlpha(imageView: lureImageView, isSwitchOn: lureSwitch.isOn)
 
 		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse)
 		
@@ -306,13 +315,9 @@ class SettingsVC: UIViewController
 	@IBAction func changeIsLureInUse(_ sender: Any)
 	{
 		huntState!.isLureInUse = lureSwitch.isOn
-		setLureImageViewAlpha()
+		setImageViewAlpha(imageView: lureImageView, isSwitchOn: lureSwitch.isOn)
 		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch.isOn, lureSwitch.isOn)
 		setShinyOddsLabelText()
-	}
-
-	fileprivate func setLureImageViewAlpha()
-	{
-		lureImageView.alpha = lureSwitch.isOn ? 1.0 : 0.5
 	}
 }
