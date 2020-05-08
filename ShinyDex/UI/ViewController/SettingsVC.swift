@@ -18,9 +18,8 @@ class SettingsVC: UIViewController
 	var primaryWasPressed: Bool?
 	var huntState: HuntState?
 	
-	@IBOutlet weak var generationsBackgroundLabel: UILabel!
+
 	@IBOutlet weak var shinyCharmSwitch: UISwitch!
-	@IBOutlet weak var themesBackgroundLabel: UILabel!
 	@IBOutlet weak var generationSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var shinyCharmLabel: UILabel!
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
@@ -28,25 +27,32 @@ class SettingsVC: UIViewController
 	@IBOutlet weak var generationLabel: UILabel!
 	@IBOutlet weak var shinyOddsLabel: UILabel!
 	@IBOutlet weak var fontLabel: UILabel!
-	@IBOutlet weak var fontBackgroundLabel: UILabel!
 	@IBOutlet weak var primaryEditButton: ButtonIconRight!
 	@IBOutlet weak var secondaryEditButton: ButtonIconRight!
 	@IBOutlet weak var tertiaryEditButton: ButtonIconRight!
-	@IBOutlet weak var themFontSeparator: UIView!
+	@IBOutlet weak var themeFontSeparator: UIView!
 	@IBOutlet weak var generationCharmSeparator: UIView!
 	@IBOutlet weak var charmLureSeparator: UIView!
 	@IBOutlet weak var lureSwitch: UISwitch!
 	@IBOutlet weak var lureLabel: UILabel!
-	@IBOutlet weak var lureOddsSeparator: UIView!
+	@IBOutlet weak var lureMasudaSeparator: UIView!
 	@IBOutlet weak var lureImageView: UIImageView!
 	@IBOutlet weak var shinyCharmImageView: UIImageView!
 	@IBOutlet weak var lureHelpTextLabel: UILabel!
 	@IBOutlet weak var shinyCharmHelpTextLabel: UILabel!
-	
+	@IBOutlet weak var gameSettingsBackgroundView: UIView!
+	@IBOutlet weak var themeSettingsBackgroundView: UIView!
+	@IBOutlet weak var scrollView: UIScrollView!
+
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
+		// constrain the scroll view to 8-pts on each side
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: themeSettingsBackgroundView.topAnchor, constant: 8.0).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: gameSettingsBackgroundView.bottomAnchor, constant: -8.0).isActive = true
+
 		setUIColors()
 		
 		setFonts()
@@ -111,16 +117,19 @@ class SettingsVC: UIViewController
 		fontSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
 		fontSegmentedControl.tintColor = colorService!.getPrimaryColor()
 		
-		themFontSeparator.backgroundColor = colorService!.getPrimaryColor()
+		themeFontSeparator.backgroundColor = colorService!.getPrimaryColor()
 		generationCharmSeparator.backgroundColor = colorService!.getPrimaryColor()
 		charmLureSeparator.backgroundColor = colorService!.getPrimaryColor()
-		lureOddsSeparator.backgroundColor = colorService!.getPrimaryColor()
+		lureMasudaSeparator.backgroundColor = colorService!.getPrimaryColor()
 
 		lureLabel.textColor = colorService!.getTertiaryColor()
 		lureHelpTextLabel.textColor = colorService.getTertiaryColor()
 		lureHelpTextLabel.alpha = 0.7
 		lureSwitch.onTintColor = colorService!.getSecondaryColor()
 		lureSwitch.thumbTintColor = colorService!.getPrimaryColor()
+
+		themeSettingsBackgroundView.backgroundColor = colorService.getSecondaryColor()
+		gameSettingsBackgroundView.backgroundColor = colorService.getSecondaryColor()
 
 	}
 	
@@ -162,15 +171,15 @@ class SettingsVC: UIViewController
 	
 	fileprivate func roundCorners()
 	{
-		themesBackgroundLabel.layer.cornerRadius = 10
-		generationsBackgroundLabel.layer.cornerRadius = 10
-		fontBackgroundLabel.layer.cornerRadius = 10
+		themeSettingsBackgroundView.layer.cornerRadius = 10
+		gameSettingsBackgroundView.layer.cornerRadius = 10
 		primaryEditButton.layer.cornerRadius = 10
 		secondaryEditButton.layer.cornerRadius = 10
 		tertiaryEditButton.layer.cornerRadius = 10
-		themFontSeparator.layer.cornerRadius = 10
+		themeFontSeparator.layer.cornerRadius = 10
 		generationCharmSeparator.layer.cornerRadius = 10
 		charmLureSeparator.layer.cornerRadius = 10
+		lureMasudaSeparator.layer.cornerRadius = 10
 	}
 	
 	fileprivate func resolveUIObjectsState()
