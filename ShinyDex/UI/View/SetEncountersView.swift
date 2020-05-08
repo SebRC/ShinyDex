@@ -115,9 +115,7 @@ class SetEncountersView: UIView
 		nameLabel.layer.cornerRadius = 10
 		numberLabel.layer.cornerRadius = 10
 		encountersLabel.layer.cornerRadius = 10
-		
 		spriteImageView.layer.cornerRadius = 10
-		
 		buttonSeparator.layer.cornerRadius = 10
 	}
 }

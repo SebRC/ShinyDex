@@ -31,6 +31,10 @@
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
 		966C211A241174690019F835 /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2119241174690019F835 /* ColorService.swift */; };
 		966C211D24118BC50019F835 /* HuntService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211C24118BC50019F835 /* HuntService.swift */; };
+		967F63002465C608008F2C4B /* GameSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F62FF2465C608008F2C4B /* GameSettingsCell.swift */; };
+		967F63022465C66C008F2C4B /* GameSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967F63012465C66C008F2C4B /* GameSettingsCell.xib */; };
+		967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */; };
+		967F63062465C927008F2C4B /* GameSettingsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967F63052465C927008F2C4B /* GameSettingsContainer.xib */; };
 		9682924A245C9DF600F60BE2 /* HuntNameEditorModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */; };
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
 		9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */; };
@@ -100,6 +104,10 @@
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
 		966C2119241174690019F835 /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
 		966C211C24118BC50019F835 /* HuntService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntService.swift; sourceTree = "<group>"; };
+		967F62FF2465C608008F2C4B /* GameSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsCell.swift; sourceTree = "<group>"; };
+		967F63012465C66C008F2C4B /* GameSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSettingsCell.xib; sourceTree = "<group>"; };
+		967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsContainer.swift; sourceTree = "<group>"; };
+		967F63052465C927008F2C4B /* GameSettingsContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSettingsContainer.xib; sourceTree = "<group>"; };
 		96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntNameEditorModalVC.swift; sourceTree = "<group>"; };
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
 		9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEProbabilityService.swift; sourceTree = "<group>"; };
@@ -417,6 +425,10 @@
 				96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */,
 				962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */,
 				962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */,
+				967F62FF2465C608008F2C4B /* GameSettingsCell.swift */,
+				967F63012465C66C008F2C4B /* GameSettingsCell.xib */,
+				967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */,
+				967F63052465C927008F2C4B /* GameSettingsContainer.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,6 +506,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967F63022465C66C008F2C4B /* GameSettingsCell.xib in Resources */,
+				967F63062465C927008F2C4B /* GameSettingsContainer.xib in Resources */,
 				96A72997245F13A200AF3F5F /* PokeballIndicatorView.xib in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96A72993245F12C600AF3F5F /* DoubleVerticalButtonsView.xib in Resources */,
@@ -563,6 +577,7 @@
 				9607F77A242AA20500263CF6 /* HuntState.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,
+				967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */,
 				96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */,
 				9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */,
 				96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */,
@@ -577,6 +592,7 @@
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
 				966C211A241174690019F835 /* ColorService.swift in Sources */,
+				967F63002465C608008F2C4B /* GameSettingsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
