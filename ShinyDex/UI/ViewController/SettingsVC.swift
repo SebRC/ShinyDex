@@ -37,8 +37,8 @@ class SettingsVC: UIViewController
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
 
-		gameSettingsContainer.lureCell.actionSwitch.addTarget(self, action: #selector(changeIsLureInUse), for: .touchUpInside)
-		gameSettingsContainer.shinyCharmCell.actionSwitch.addTarget(self, action: #selector(changeIsShinyCharmActive), for: .touchUpInside)
+		gameSettingsContainer.lureCell.actionSwitch.addTarget(self, action: #selector(changeIsLureInUse), for: .valueChanged)
+		gameSettingsContainer.shinyCharmCell.actionSwitch.addTarget(self, action: #selector(changeIsShinyCharmActive), for: .valueChanged)
 		gameSettingsContainer.generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 
 		setUIColors()
@@ -174,8 +174,8 @@ class SettingsVC: UIViewController
 	
 	@objc fileprivate func changeIsShinyCharmActive(_ sender: Any)
 	{
-		huntState?.isShinyCharmActive = gameSettingsContainer.lureCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
+		huntState?.isShinyCharmActive = gameSettingsContainer.shinyCharmCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: gameSettingsContainer.shinyCharmCell.actionSwitch.isOn)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, gameSettingsContainer.shinyCharmCell.actionSwitch.isOn, gameSettingsContainer.lureCell.actionSwitch.isOn)
 		setShinyOddsLabelText()

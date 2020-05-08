@@ -48,7 +48,7 @@ class GameSettingsContainer: UIView
 		pokeradarCell.titleLabel.text = "Pokéradar"
 		pokeradarCell.descriptionLabel.text = "The Pokéradar is only available in Diamon, Pearl, Platinum, X and Y (Generation 4 & 6)"
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
-		genTwoBreedingCell.titleLabel.text = "Generation 2 breeding"
+		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
 		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"
 		sosChainCell.iconImageView.image = UIImage(named: "sos")
 		sosChainCell.titleLabel.text = "SOS chaining"
