@@ -36,7 +36,10 @@ class SettingsVC: UIViewController
         scrollView.topAnchor.constraint(equalTo: themeSettingsBackgroundView.topAnchor, constant: 8.0).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
-		gameSettingsContainer.layer.cornerRadius = 10
+
+		gameSettingsContainer.lureCell.actionSwitch.addTarget(self, action: #selector(changeIsLureInUse), for: .touchUpInside)
+		gameSettingsContainer.shinyCharmCell.actionSwitch.addTarget(self, action: #selector(changeIsShinyCharmActive), for: .touchUpInside)
+		gameSettingsContainer.generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 
 		setUIColors()
 		
@@ -48,9 +51,8 @@ class SettingsVC: UIViewController
 		
 		resolveUIObjectsState()
 		
-//		switchStateService.resolveShinyCharmSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: shinyCharmSwitch)
-//
-//		switchStateService.resolveLureSwitchState(generation: generationSegmentedControl.selectedSegmentIndex, lureSwitch: lureSwitch)
+		switchStateService.resolveShinyCharmSwitchState(generation: gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch: gameSettingsContainer.shinyCharmCell.actionSwitch)
+		switchStateService.resolveLureSwitchState(generation: gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, lureSwitch: gameSettingsContainer.lureCell.actionSwitch)
 		
 		setShinyOddsLabelText()
 		
@@ -82,89 +84,43 @@ class SettingsVC: UIViewController
 		
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor()]
 		
-//		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-//		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-//		generationLabel.textColor = colorService!.getTertiaryColor()
-//		generationSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
-//		generationSegmentedControl.tintColor = colorService!.getPrimaryColor()
-//
-//		shinyOddsLabel.textColor = colorService!.getTertiaryColor()
-//		shinyCharmLabel.textColor = colorService!.getTertiaryColor()
-//		shinyCharmHelpTextLabel.textColor = colorService!.getTertiaryColor()
-//		shinyCharmHelpTextLabel.alpha = 0.7
-//		shinyCharmSwitch.onTintColor = colorService!.getSecondaryColor()
-//		shinyCharmSwitch.thumbTintColor = colorService!.getPrimaryColor()
-		
 		fontLabel.textColor = colorService!.getTertiaryColor()
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		
 		fontSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
 		fontSegmentedControl.tintColor = colorService!.getPrimaryColor()
-		
 		themeFontSeparator.backgroundColor = colorService!.getPrimaryColor()
-//		generationCharmSeparator.backgroundColor = colorService!.getPrimaryColor()
-//		charmLureSeparator.backgroundColor = colorService!.getPrimaryColor()
-//		lureMasudaSeparator.backgroundColor = colorService!.getPrimaryColor()
-//
-//		lureLabel.textColor = colorService!.getTertiaryColor()
-//		lureHelpTextLabel.textColor = colorService.getTertiaryColor()
-//		lureHelpTextLabel.alpha = 0.7
-//		lureSwitch.onTintColor = colorService!.getSecondaryColor()
-//		lureSwitch.thumbTintColor = colorService!.getPrimaryColor()
-
 		themeSettingsBackgroundView.backgroundColor = colorService.getSecondaryColor()
-		//gameSettingsBackgroundView.backgroundColor = colorService.getSecondaryColor()
-
 	}
 	
 	fileprivate func setFonts()
 	{
-		setSegementedControlFonts()
-		
+		setAttributedFonts()
 		themeLabel.font = fontSettingsService.getExtraLargeFont()
-		
-//		generationLabel.font = fontSettingsService.getExtraLargeFont()
-//
-//		shinyCharmLabel.font = fontSettingsService.getMediumFont()
-//		shinyCharmHelpTextLabel.font = fontSettingsService.getXxSmallFont()
-//
-//		lureLabel.font = fontSettingsService.getMediumFont()
-//		lureHelpTextLabel.font = fontSettingsService.getXxSmallFont()
-		
 		fontLabel.font = fontSettingsService.getExtraLargeFont()
-		
-		//shinyOddsLabel.font = fontSettingsService.getMediumFont()
-		
 		primaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 		secondaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 		tertiaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 	}
 	
-	fileprivate func setSegementedControlFonts()
+	fileprivate func setAttributedFonts()
 	{
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
-		
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-//		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
-		
 		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	fileprivate func roundCorners()
 	{
+		gameSettingsContainer.layer.cornerRadius = 10
 		themeSettingsBackgroundView.layer.cornerRadius = 10
-		//gameSettingsBackgroundView.layer.cornerRadius = 10
 		primaryEditButton.layer.cornerRadius = 10
 		secondaryEditButton.layer.cornerRadius = 10
 		tertiaryEditButton.layer.cornerRadius = 10
 		themeFontSeparator.layer.cornerRadius = 10
-//		generationCharmSeparator.layer.cornerRadius = 10
-//		charmLureSeparator.layer.cornerRadius = 10
-//		lureMasudaSeparator.layer.cornerRadius = 10
 	}
 	
 	fileprivate func resolveUIObjectsState()
@@ -173,16 +129,16 @@ class SettingsVC: UIViewController
 		
 		setGenerationSettingsControlSelectedSegmentIndex()
 		
-//		shinyCharmSwitch.isOn = huntState!.isShinyCharmActive
-//		setImageViewAlpha(imageView: shinyCharmImageView, isSwitchOn: shinyCharmSwitch.isOn)
-//
-//		lureSwitch.isOn = huntState!.isLureInUse
-//		setImageViewAlpha(imageView: lureImageView, isSwitchOn: lureSwitch.isOn)
+		gameSettingsContainer.shinyCharmCell.actionSwitch.isOn = huntState!.isShinyCharmActive
+		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: gameSettingsContainer.shinyCharmCell.actionSwitch.isOn)
+
+		gameSettingsContainer.lureCell.actionSwitch.isOn = huntState!.isLureInUse
+		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
 	}
 	
 	fileprivate func setShinyOddsLabelText()
 	{
-		//shinyOddsLabel.text = "Shiny Odds: 1/\(huntState!.shinyOdds)"
+		gameSettingsContainer.shinyOddsLabel.text = "Shiny Odds: 1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func setEditButtonActions()
@@ -213,16 +169,16 @@ class SettingsVC: UIViewController
 	
 	fileprivate func setGenerationSettingsControlSelectedSegmentIndex()
 	{
-		//generationSegmentedControl.selectedSegmentIndex = huntState!.generation
+		gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex = huntState!.generation
 	}
 	
-	@IBAction func changeIsShinyCharmActive(_ sender: Any)
+	@objc fileprivate func changeIsShinyCharmActive(_ sender: Any)
 	{
-//		huntState?.isShinyCharmActive = shinyCharmSwitch.isOn
-//		setImageViewAlpha(imageView: shinyCharmImageView, isSwitchOn: shinyCharmSwitch.isOn)
-//		huntStateService.save(huntState!)
-//		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch.isOn, lureSwitch.isOn)
-//		setShinyOddsLabelText()
+		huntState?.isShinyCharmActive = gameSettingsContainer.lureCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
+		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, gameSettingsContainer.shinyCharmCell.actionSwitch.isOn, gameSettingsContainer.lureCell.actionSwitch.isOn)
+		setShinyOddsLabelText()
 	}
 
 	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool)
@@ -230,21 +186,21 @@ class SettingsVC: UIViewController
 		imageView.alpha = isSwitchOn ? 1.0 : 0.5
 	}
 	
-	@IBAction func changeGenerationPressed(_ sender: Any)
+	@objc func changeGenerationPressed(_ sender: Any)
 	{
-//		let generation = generationSegmentedControl.selectedSegmentIndex
-//
-//		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmSwitch)
-//
-//		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureSwitch)
-//
-//		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
-//
-//		huntState!.isShinyCharmActive = shinyCharmSwitch.isOn
-//		setImageViewAlpha(imageView: shinyCharmImageView, isSwitchOn: shinyCharmSwitch.isOn)
-//
-//		huntState!.isLureInUse = lureSwitch.isOn
-//		setImageViewAlpha(imageView: lureImageView, isSwitchOn: lureSwitch.isOn)
+		let generation = gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex
+
+		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: gameSettingsContainer.shinyCharmCell.actionSwitch)
+
+		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: gameSettingsContainer.lureCell.actionSwitch)
+
+		huntState!.generation = gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex
+
+		huntState!.isShinyCharmActive = gameSettingsContainer.shinyCharmCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: gameSettingsContainer.shinyCharmCell.actionSwitch.isOn)
+
+		huntState!.isLureInUse = gameSettingsContainer.lureCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
 
 		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse)
 		
@@ -303,15 +259,15 @@ class SettingsVC: UIViewController
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		setUIColors()
-		setSegementedControlFonts()
+		setAttributedFonts()
 	}
 
-	@IBAction func changeIsLureInUse(_ sender: Any)
+	@objc func changeIsLureInUse(_ sender: Any)
 	{
-//		huntState!.isLureInUse = lureSwitch.isOn
-//		setImageViewAlpha(imageView: lureImageView, isSwitchOn: lureSwitch.isOn)
-//		huntStateService.save(huntState!)
-//		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmSwitch.isOn, lureSwitch.isOn)
-//		setShinyOddsLabelText()
+		huntState!.isLureInUse = gameSettingsContainer.lureCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
+		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, gameSettingsContainer.shinyCharmCell.actionSwitch.isOn, gameSettingsContainer.lureCell.actionSwitch.isOn)
+		setShinyOddsLabelText()
 	}
 }
