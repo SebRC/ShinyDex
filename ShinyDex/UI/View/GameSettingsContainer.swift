@@ -25,6 +25,9 @@ class GameSettingsContainer: UIView
 	@IBOutlet weak var sosChainCell: GameSettingsCell!
 	@IBOutlet weak var shinyOddsLabel: UILabel!
 	@IBOutlet weak var generationSeparator: UIView!
+	@IBOutlet weak var chainFishingCell: GameSettingsCell!
+	@IBOutlet weak var dexNavCell: GameSettingsCell!
+
 
 	required init?(coder aDecoder: NSCoder)
 	{
@@ -32,24 +35,30 @@ class GameSettingsContainer: UIView
         commonInit()
 
 		generationSeparator.layer.cornerRadius = 5
-		shinyCharmCell.iconImageView.image = UIImage(named: "shiny-charm")
-		shinyCharmCell.titleLabel.text = "Shiny Charm"
-		shinyCharmCell.descriptionLabel.text = "The shiny charm is only available from generation 5 and onwards"
-		lureCell.iconImageView.image = UIImage(named: "max-lure")
-		lureCell.titleLabel.text = "Lure"
-		lureCell.descriptionLabel.text = "Lures are only available in Let's Go Pikachu & Eevee"
+		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
+		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
+		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"
 		masudaCell.iconImageView.image = UIImage(named: "egg")
 		masudaCell.titleLabel.text = "Masuda"
 		masudaCell.descriptionLabel.text = "The Masuda method is only available from generation 4 and onwards"
 		pokeradarCell.iconImageView.image = UIImage(named: "poke-radar")
 		pokeradarCell.titleLabel.text = "Pokéradar"
 		pokeradarCell.descriptionLabel.text = "The Pokéradar is only available in Diamond, Pearl, Platinum, X and Y (Generation 4 & 6)"
-		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
-		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
-		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"
+		shinyCharmCell.iconImageView.image = UIImage(named: "shiny-charm")
+		shinyCharmCell.titleLabel.text = "Shiny Charm"
+		shinyCharmCell.descriptionLabel.text = "The shiny charm is only available from generation 5 and onwards"
+		chainFishingCell.iconImageView.image = UIImage(named: "super-rod")
+		chainFishingCell.titleLabel.text = "Chain fishing"
+		chainFishingCell.descriptionLabel.text = "Chain fishing is only available in generation 6 (X, Y, Omega Ruby and Alpha Sapphire)"
+		dexNavCell.iconImageView.image = UIImage(named: "wide-lens")
+		dexNavCell.titleLabel.text = "DexNav"
+		dexNavCell.descriptionLabel.text = "The DexNav is only available in Omega Ruby & Alpha Sapphire (Generation 6)"
 		sosChainCell.iconImageView.image = UIImage(named: "sos")
 		sosChainCell.titleLabel.text = "SOS chaining"
 		sosChainCell.descriptionLabel.text = "SOS chaining is only available in generation 7"
+		lureCell.iconImageView.image = UIImage(named: "max-lure")
+		lureCell.titleLabel.text = "Lure"
+		lureCell.descriptionLabel.text = "Lures are only available in Let's Go Pikachu & Eevee"
 		setUIColors()
 		setFonts()
     }
@@ -91,12 +100,14 @@ class GameSettingsContainer: UIView
 
 	func setCellColors()
 	{
-		shinyCharmCell.setUIColors()
-		lureCell.setUIColors()
+		genTwoBreedingCell.setUIColors()
 		masudaCell.setUIColors()
 		pokeradarCell.setUIColors()
-		genTwoBreedingCell.setUIColors()
+		shinyCharmCell.setUIColors()
+		chainFishingCell.setUIColors()
+		dexNavCell.setUIColors()
 		sosChainCell.setUIColors()
+		lureCell.setUIColors()
 	}
 
 	func setFonts()
@@ -108,11 +119,13 @@ class GameSettingsContainer: UIView
 
 	func setCellFonts()
 	{
-		shinyCharmCell.setFonts()
-		lureCell.setFonts()
+		genTwoBreedingCell.setFonts()
 		masudaCell.setFonts()
 		pokeradarCell.setFonts()
-		genTwoBreedingCell.setFonts()
+		shinyCharmCell.setFonts()
+		chainFishingCell.setFonts()
+		dexNavCell.setFonts()
 		sosChainCell.setFonts()
+		lureCell.setFonts()
 	}
 }
