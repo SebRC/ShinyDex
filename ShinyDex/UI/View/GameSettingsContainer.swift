@@ -31,10 +31,7 @@ class GameSettingsContainer: UIView
         super.init(coder: aDecoder)
         commonInit()
 
-		contentView?.backgroundColor = colorService.getSecondaryColor()
 		generationSeparator.layer.cornerRadius = 5
-		generationSeparator.backgroundColor = colorService.getPrimaryColor()
-
 		shinyCharmCell.iconImageView.image = UIImage(named: "shiny-charm")
 		shinyCharmCell.titleLabel.text = "Shiny Charm"
 		shinyCharmCell.descriptionLabel.text = "The shiny charm is only available from generation 5 and onwards"
@@ -53,17 +50,8 @@ class GameSettingsContainer: UIView
 		sosChainCell.iconImageView.image = UIImage(named: "sos")
 		sosChainCell.titleLabel.text = "SOS chaining"
 		sosChainCell.descriptionLabel.text = "SOS chaining is only available in generation 7"
-		generationLabel.textColor = colorService.getTertiaryColor()
-		generationLabel.font = fontSettingsService.getExtraLargeFont()
-		shinyOddsLabel.textColor = colorService.getTertiaryColor()
-		shinyOddsLabel.font = fontSettingsService.getMediumFont()
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
-		generationLabel.textColor = colorService.getTertiaryColor()
-		generationSegmentedControl.backgroundColor = colorService.getSecondaryColor()
-		generationSegmentedControl.tintColor = colorService.getPrimaryColor()
+		setUIColors()
+		setFonts()
     }
 
     override init(frame: CGRect)
@@ -86,4 +74,45 @@ class GameSettingsContainer: UIView
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
+
+	func setUIColors()
+	{
+		contentView?.backgroundColor = colorService.getSecondaryColor()
+		generationSeparator.backgroundColor = colorService.getPrimaryColor()
+		generationLabel.textColor = colorService.getTertiaryColor()
+		shinyOddsLabel.textColor = colorService.getTertiaryColor()
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
+		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
+		generationLabel.textColor = colorService.getTertiaryColor()
+		generationSegmentedControl.backgroundColor = colorService.getSecondaryColor()
+		generationSegmentedControl.tintColor = colorService.getPrimaryColor()
+	}
+
+	func setCellColors()
+	{
+		shinyCharmCell.setUIColors()
+		lureCell.setUIColors()
+		masudaCell.setUIColors()
+		pokeradarCell.setUIColors()
+		genTwoBreedingCell.setUIColors()
+		sosChainCell.setUIColors()
+	}
+
+	func setFonts()
+	{
+		generationLabel.font = fontSettingsService.getExtraLargeFont()
+		shinyOddsLabel.font = fontSettingsService.getMediumFont()
+		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
+	}
+
+	func setCellFonts()
+	{
+		shinyCharmCell.setFonts()
+		lureCell.setFonts()
+		masudaCell.setFonts()
+		pokeradarCell.setFonts()
+		genTwoBreedingCell.setFonts()
+		sosChainCell.setFonts()
+	}
 }

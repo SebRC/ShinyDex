@@ -103,6 +103,8 @@ class SettingsVC: UIViewController
 		primaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 		secondaryEditButton.label.font = fontSettingsService.getXxSmallFont()
 		tertiaryEditButton.label.font = fontSettingsService.getXxSmallFont()
+		gameSettingsContainer.setFonts()
+		gameSettingsContainer.setCellFonts()
 	}
 	
 	fileprivate func setAttributedFonts()
@@ -232,13 +234,15 @@ class SettingsVC: UIViewController
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		setUIColors()
+		gameSettingsContainer.setUIColors()
+		gameSettingsContainer.setCellColors()
 		setAttributedFonts()
 	}
 
 	@objc fileprivate func changeIsLureInUse(_ sender: Any)
 	{
 		huntState!.isLureInUse = gameSettingsContainer.lureCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
+		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, gameSettingsContainer.shinyCharmCell.actionSwitch.isOn, huntState!.isLureInUse, gameSettingsContainer.masudaCell.actionSwitch.isOn)
 		setShinyOddsLabelText()
@@ -247,7 +251,7 @@ class SettingsVC: UIViewController
 	@objc fileprivate func changeIsShinyCharmActive(_ sender: Any)
 	{
 		huntState?.isShinyCharmActive = gameSettingsContainer.shinyCharmCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: gameSettingsContainer.shinyCharmCell.actionSwitch.isOn)
+		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, huntState!.isShinyCharmActive, gameSettingsContainer.lureCell.actionSwitch.isOn, gameSettingsContainer.masudaCell.actionSwitch.isOn)
 		setShinyOddsLabelText()
@@ -256,7 +260,7 @@ class SettingsVC: UIViewController
 	@objc fileprivate func changeIsMasudaHunting(_ sender: Any)
 	{
 		huntState?.isMasudaHunting = gameSettingsContainer.masudaCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.masudaCell.iconImageView, isSwitchOn: gameSettingsContainer.masudaCell.actionSwitch.isOn)
+		setImageViewAlpha(imageView: gameSettingsContainer.masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex, gameSettingsContainer.shinyCharmCell.actionSwitch.isOn, gameSettingsContainer.lureCell.actionSwitch.isOn, huntState!.isMasudaHunting)
 		setShinyOddsLabelText()
@@ -270,16 +274,16 @@ class SettingsVC: UIViewController
 		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: gameSettingsContainer.lureCell.actionSwitch)
 		switchStateService.resolveMasudaSwitchState(generation: generation, masudaSwitch: gameSettingsContainer.masudaCell.actionSwitch)
 
-		huntState!.generation = gameSettingsContainer.generationSegmentedControl.selectedSegmentIndex
+		huntState!.generation = generation
 
 		huntState!.isShinyCharmActive = gameSettingsContainer.shinyCharmCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: gameSettingsContainer.shinyCharmCell.actionSwitch.isOn)
+		setImageViewAlpha(imageView: gameSettingsContainer.shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
 
 		huntState!.isLureInUse = gameSettingsContainer.lureCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: gameSettingsContainer.lureCell.actionSwitch.isOn)
+		setImageViewAlpha(imageView: gameSettingsContainer.lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
 
 		huntState!.isMasudaHunting = gameSettingsContainer.masudaCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: gameSettingsContainer.masudaCell.iconImageView, isSwitchOn: gameSettingsContainer.masudaCell.actionSwitch.isOn)
+		setImageViewAlpha(imageView: gameSettingsContainer.masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
 
 		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting)
 

@@ -26,16 +26,9 @@ class GameSettingsCell: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
-
-		contentView?.backgroundColor = colorService.getSecondaryColor()
 		separator.layer.cornerRadius = 5
-		separator.backgroundColor = colorService.getPrimaryColor()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		titleLabel.font = fontSettingsService.getMediumFont()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
-		descriptionLabel.font = fontSettingsService.getXxSmallFont()
-		actionSwitch.onTintColor = colorService.getPrimaryColor()
-		actionSwitch.thumbTintColor = colorService.getSecondaryColor()
+		setUIColors()
+		setFonts()
     }
 
     override init(frame: CGRect)
@@ -59,4 +52,19 @@ class GameSettingsCell: UIView
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 
+	func setUIColors()
+	{
+		contentView?.backgroundColor = colorService.getSecondaryColor()
+		separator.backgroundColor = colorService.getPrimaryColor()
+		titleLabel.textColor = colorService.getTertiaryColor()
+		descriptionLabel.textColor = colorService.getTertiaryColor()
+		actionSwitch.onTintColor = colorService.getPrimaryColor()
+		actionSwitch.thumbTintColor = colorService.getSecondaryColor()
+	}
+
+	func setFonts()
+	{
+		titleLabel.font = fontSettingsService.getMediumFont()
+		descriptionLabel.font = fontSettingsService.getXxSmallFont()
+	}
 }
