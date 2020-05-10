@@ -69,7 +69,7 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIg-nb-wgr">
-                                                <rect key="frame" x="9" y="98" width="340" height="1"/>
+                                                <rect key="frame" x="9" y="98" width="340" height="2"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             </view>

@@ -124,7 +124,7 @@ class SettingsVC: UIViewController
 		primaryEditButton.layer.cornerRadius = 10
 		secondaryEditButton.layer.cornerRadius = 10
 		tertiaryEditButton.layer.cornerRadius = 10
-		themeFontSeparator.layer.cornerRadius = 10
+		themeFontSeparator.layer.cornerRadius = 5
 	}
 	
 	fileprivate func resolveUIObjectsState()
