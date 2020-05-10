@@ -172,9 +172,13 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setEncountersLabelText()
 	{
 		let labelTitle: String?
-		if huntState!.generation == 4
+		if huntState!.generation == 6
 		{
 			labelTitle = " Catch Combo: "
+		}
+		else if huntState!.isMasudaHunting
+		{
+			labelTitle = " Eggs hatched: "
 		}
 		else
 		{
