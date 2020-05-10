@@ -29,7 +29,6 @@ class ShinyTrackerVC: UIViewController
 	let oddsService = OddsService()
 	var probability: Double?
 	var huntState: HuntState?
-	var infoPressed = false
 	var setEncountersPressed = false
 	var isAddingToHunt = false
 	let popupHandler = PopupHandler()
@@ -69,7 +68,16 @@ class ShinyTrackerVC: UIViewController
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 	}
-	
+
+	override func viewDidAppear(_ animated: Bool)
+	{
+		setProbability()
+
+		setProbabilityLabelText()
+
+		setEncountersLabelText()
+	}
+
 	fileprivate func hidePopupView()
 	{
 		popupView.isHidden = true
@@ -252,17 +260,7 @@ class ShinyTrackerVC: UIViewController
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if infoPressed
-		{
-			infoPressed = false
-			
-			let destVC = segue.destination as! InfoModalVC
-			
-			destVC.pokemon = pokemon
-			destVC.huntState = huntState
-			destVC.huntStateService = huntStateService
-		}
-		else if setEncountersPressed
+		if setEncountersPressed
 		{
 			setEncountersPressed = false
 			
@@ -297,7 +295,6 @@ class ShinyTrackerVC: UIViewController
 	
 	@objc fileprivate func infoButtonPressed(_ sender: Any)
 	{
-		infoPressed = true
 		performSegue(withIdentifier: "infoPopupSegue", sender: self)
 	}
 	
@@ -312,15 +309,6 @@ class ShinyTrackerVC: UIViewController
 			
 			pokeballButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		}
-	}
-	
-	@IBAction func dismissInfo(_ unwindSegue: UIStoryboardSegue)
-	{
-		setProbability()
-		
-		setProbabilityLabelText()
-
-		setEncountersLabelText()
 	}
 	
 	@IBAction func saveEncounters(_ unwindSegue: UIStoryboardSegue)

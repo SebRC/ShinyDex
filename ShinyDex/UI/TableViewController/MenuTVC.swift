@@ -202,8 +202,6 @@ class MenuTVC: UITableViewController
 		else if genIndex == 8
 		{
 			let destVC = segue.destination as? SettingsVC
-			
-			destVC?.huntStateService = huntStateService
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}

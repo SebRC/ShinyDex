@@ -12,6 +12,10 @@ class GameSettingsContainer: UIView
 {
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
+	var huntStateService = HuntStateService()
+	var oddsService = OddsService()
+	var switchStateService = SwitchStateService()
+	var huntState: HuntState?
 
 	let nibName = "GameSettingsContainer"
     var contentView: UIView?
@@ -33,6 +37,8 @@ class GameSettingsContainer: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
+
+		huntState = huntStateService.get()
 
 		generationSeparator.layer.cornerRadius = 5
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
@@ -59,8 +65,14 @@ class GameSettingsContainer: UIView
 		lureCell.iconImageView.image = UIImage(named: "max-lure")
 		lureCell.titleLabel.text = "Lure"
 		lureCell.descriptionLabel.text = "Lures are only available in Let's Go Pikachu & Eevee"
+		lureCell.actionSwitch.addTarget(self, action: #selector(changeIsLureInUse), for: .valueChanged)
+		shinyCharmCell.actionSwitch.addTarget(self, action: #selector(changeIsShinyCharmActive), for: .valueChanged)
+		masudaCell.actionSwitch.addTarget(self, action: #selector(changeIsMasudaHunting), for: .valueChanged)
+		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 		setUIColors()
 		setFonts()
+		setShinyOddsLabelText()
+		resolveUIObjectsState()
     }
 
     override init(frame: CGRect)
@@ -83,6 +95,29 @@ class GameSettingsContainer: UIView
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
+
+	fileprivate func resolveUIObjectsState()
+	{
+		generationSegmentedControl.selectedSegmentIndex = huntState!.generation
+		shinyCharmCell.actionSwitch.isOn = huntState!.isShinyCharmActive
+		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
+
+		lureCell.actionSwitch.isOn = huntState!.isLureInUse
+		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
+
+		masudaCell.actionSwitch.isOn = huntState!.isMasudaHunting
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+	}
+
+	fileprivate func setShinyOddsLabelText()
+	{
+		shinyOddsLabel.text = "Shiny Odds: 1/\(huntState!.shinyOdds)"
+	}
+
+	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool)
+	{
+		imageView.alpha = isSwitchOn ? 1.0 : 0.5
+	}
 
 	func setUIColors()
 	{
@@ -127,5 +162,58 @@ class GameSettingsContainer: UIView
 		dexNavCell.setFonts()
 		sosChainCell.setFonts()
 		lureCell.setFonts()
+	}
+
+	@objc fileprivate func changeIsLureInUse(_ sender: Any)
+	{
+		huntState!.isLureInUse = lureCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
+		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmCell.actionSwitch.isOn, huntState!.isLureInUse, masudaCell.actionSwitch.isOn)
+		setShinyOddsLabelText()
+	}
+
+	@objc fileprivate func changeIsShinyCharmActive(_ sender: Any)
+	{
+		huntState?.isShinyCharmActive = shinyCharmCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
+		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, huntState!.isShinyCharmActive, lureCell.actionSwitch.isOn, masudaCell.actionSwitch.isOn)
+		setShinyOddsLabelText()
+	}
+
+	@objc fileprivate func changeIsMasudaHunting(_ sender: Any)
+	{
+		huntState?.isMasudaHunting = masudaCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmCell.actionSwitch.isOn, lureCell.actionSwitch.isOn, huntState!.isMasudaHunting)
+		setShinyOddsLabelText()
+	}
+
+	@objc fileprivate func changeGenerationPressed(_ sender: Any)
+	{
+		let generation = generationSegmentedControl.selectedSegmentIndex
+
+		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmCell.actionSwitch)
+		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureCell.actionSwitch)
+		switchStateService.resolveMasudaSwitchState(generation: generation, masudaSwitch: masudaCell.actionSwitch)
+
+		huntState!.generation = generation
+
+		huntState!.isShinyCharmActive = shinyCharmCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
+
+		huntState!.isLureInUse = lureCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
+
+		huntState!.isMasudaHunting = masudaCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting)
+
+		setShinyOddsLabelText()
+
+		huntStateService.save(huntState!)
 	}
 }
