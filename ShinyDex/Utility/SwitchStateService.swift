@@ -15,9 +15,7 @@ class SwitchStateService
 	
 	func resolveShinyCharmSwitchState(generation: Int, shinyCharmSwitch: UISwitch)
 	{
-		let isPreGeneration5 = generation == 0
-
-		if isPreGeneration5
+		if generation < 2
 		{
 			disableSwitch(uiSwitch: shinyCharmSwitch)
 		}
@@ -30,7 +28,7 @@ class SwitchStateService
 	func resolveLureSwitchState(generation: Int, lureSwitch: UISwitch)
 	{
 		let huntState = huntStateService.get()
-		if generation == 4
+		if generation == 6
 		{
 			enableSwitch(uiSwitch: lureSwitch)
 			lureSwitch.isOn = huntState.isLureInUse
@@ -38,6 +36,18 @@ class SwitchStateService
 		else
 		{
 			disableSwitch(uiSwitch: lureSwitch)
+		}
+	}
+
+	func resolveMasudaSwitchState(generation : Int, masudaSwitch: UISwitch)
+	{
+		if generation < 1 || generation == 6
+		{
+			disableSwitch(uiSwitch: masudaSwitch)
+		}
+		else
+		{
+			enableSwitch(uiSwitch: masudaSwitch)
 		}
 	}
 

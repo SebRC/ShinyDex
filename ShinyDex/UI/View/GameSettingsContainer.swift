@@ -46,7 +46,7 @@ class GameSettingsContainer: UIView
 		masudaCell.descriptionLabel.text = "The Masuda method is only available from generation 4 and onwards"
 		pokeradarCell.iconImageView.image = UIImage(named: "poke-radar")
 		pokeradarCell.titleLabel.text = "Pokéradar"
-		pokeradarCell.descriptionLabel.text = "The Pokéradar is only available in Diamon, Pearl, Platinum, X and Y (Generation 4 & 6)"
+		pokeradarCell.descriptionLabel.text = "The Pokéradar is only available in Diamond, Pearl, Platinum, X and Y (Generation 4 & 6)"
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
 		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"

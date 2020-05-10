@@ -16,7 +16,7 @@ class HuntStateService
 	func get() -> HuntState
 	{
 		let huntState = huntStateRepository.get()
-		huntState.shinyOdds = oddsService.getShinyOdds(huntState.generation, huntState.isShinyCharmActive, huntState.isLureInUse, 0)
+		huntState.shinyOdds = oddsService.getShinyOdds(huntState.generation, huntState.isShinyCharmActive, huntState.isLureInUse, huntState.isMasudaHunting, 0)
 		return huntState
 	}
 

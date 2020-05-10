@@ -17,6 +17,7 @@ class HuntStateRepository
 		var generation = 0
 		var isShinyCharmActive = false
 		var isLureInUse = false
+		var isMasudaHunting = false
 		if let loadedGeneration = defaults.integer(forKey: "generation") as Int?
 		{
 			generation = loadedGeneration
@@ -29,7 +30,11 @@ class HuntStateRepository
 		{
 			isLureInUse = loadedisLureInUse
 		}
-		return HuntState(generation, isShinyCharmActive, isLureInUse)
+		if let loadedIsMasudaHunting = defaults.bool(forKey: "isMasudaHunting") as Bool?
+		{
+			isMasudaHunting = loadedIsMasudaHunting
+		}
+		return HuntState(generation, isShinyCharmActive, isLureInUse, isMasudaHunting)
 	}
 
 	func save(_ huntState: HuntState)
@@ -37,5 +42,6 @@ class HuntStateRepository
 		defaults.set(huntState.generation, forKey: "generation")
 		defaults.set(huntState.isShinyCharmActive, forKey: "isShinyCharmActive")
 		defaults.set(huntState.isLureInUse, forKey: "isLureInUse")
+		defaults.set(huntState.isMasudaHunting, forKey: "isMasudaHunting")
 	}
 }

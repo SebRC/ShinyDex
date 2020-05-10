@@ -78,7 +78,7 @@ class InfoModalVC: UIViewController
 		
 		huntState!.generation = infoPopupView.generationSegmentedControl.selectedSegmentIndex
 		
-		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, pokemon.encounters)
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting, pokemon.encounters)
 		
 		huntStateService.save(huntState!)
 		
@@ -107,8 +107,8 @@ class InfoModalVC: UIViewController
 		let isLureInUse = infoPopupView.lureSwitch.isOn
 		let encounters = pokemon.encounters
 
-		huntState!.shinyOdds = oddsService.getShinyOdds(generation, isShinyCharmActive, isLureInUse, encounters)
-		probability = probabilityService.getProbability(generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, pokemon.encounters, huntState!.shinyOdds)
+		huntState!.shinyOdds = oddsService.getShinyOdds(generation, isShinyCharmActive, isLureInUse, huntState!.isMasudaHunting, encounters)
+		probability = probabilityService.getProbability(generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting, pokemon.encounters, huntState!.shinyOdds)
 	}
 	
 	fileprivate func setProbabilityLabelText()
