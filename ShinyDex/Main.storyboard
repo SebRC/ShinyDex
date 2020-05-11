@@ -977,10 +977,10 @@
             </objects>
             <point key="canvasLocation" x="2777" y="296"/>
         </scene>
-        <!--Info ModalVC-->
+        <!--Game Settings ModalVC-->
         <scene sceneID="Pnb-vv-01g">
             <objects>
-                <viewController id="hfA-YG-QwI" customClass="InfoModalVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hfA-YG-QwI" customClass="GameSettingsModalVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pIr-5X-uV0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

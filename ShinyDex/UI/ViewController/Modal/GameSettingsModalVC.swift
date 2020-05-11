@@ -1,5 +1,5 @@
 //
-//  InfoModalVC.swift
+//  GameSettingsModalVC.swift
 //  ShinyDexPrototype
 //
 //  Created by Sebastian Christiansen on 05/12/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InfoModalVC: UIViewController, UIAdaptivePresentationControllerDelegate
+class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate
 {
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 	@IBOutlet weak var scrollView: UIScrollView!

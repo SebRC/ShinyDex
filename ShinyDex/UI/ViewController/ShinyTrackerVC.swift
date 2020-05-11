@@ -254,7 +254,7 @@ class ShinyTrackerVC: UIViewController
 		if infoPressed
 		{
 			infoPressed = false
-			let destVC = segue.destination as! InfoModalVC
+			let destVC = segue.destination as! GameSettingsModalVC
 			navigationController?.presentationController?.delegate = destVC
 		}
 		else if setEncountersPressed
