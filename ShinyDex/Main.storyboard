@@ -1004,7 +1004,7 @@
                     <connections>
                         <outlet property="gameSettingsContainer" destination="gcR-cp-b8e" id="MPE-wo-0lY"/>
                         <outlet property="scrollView" destination="4w6-lJ-1OO" id="03W-OU-Dby"/>
-                        <segue destination="TwF-WD-934" kind="unwind" identifier="infoUnwind" unwindAction="dismissInfo:" id="fL3-zu-1LC"/>
+                        <segue destination="TwF-WD-934" kind="unwind" identifier="infoUnwind" unwindAction="dismissModal:" id="fL3-zu-1LC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIa-Z0-vHF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

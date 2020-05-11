@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InfoModalVC: UIViewController
+class InfoModalVC: UIViewController, UIAdaptivePresentationControllerDelegate
 {
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 	@IBOutlet weak var scrollView: UIScrollView!
@@ -16,6 +16,8 @@ class InfoModalVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		presentationController?.delegate = self
 
 		scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
         scrollView.topAnchor.constraint(equalTo: gameSettingsContainer.topAnchor, constant: 8.0).isActive = true
@@ -36,9 +38,9 @@ class InfoModalVC: UIViewController
 	{
 		gameSettingsContainer.layer.cornerRadius = 10
 	}
-	
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+
+	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
 	{
-		dismissModalOnTouchOutside(touches: touches)
+		performSegue(withIdentifier: "infoUnwind", sender: self)
 	}
 }

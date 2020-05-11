@@ -24,13 +24,13 @@ class ShinyTrackerVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var hunts: [Hunt]!
-	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
 	var probability: Double?
 	var huntState: HuntState?
 	var setEncountersPressed = false
 	var isAddingToHunt = false
+	var infoPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -67,15 +67,6 @@ class ShinyTrackerVC: UIViewController
 		setButtonActions()
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-	}
-
-	override func viewDidAppear(_ animated: Bool)
-	{
-		setProbability()
-
-		setProbabilityLabelText()
-
-		setEncountersLabelText()
 	}
 
 	fileprivate func hidePopupView()
@@ -260,7 +251,13 @@ class ShinyTrackerVC: UIViewController
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if setEncountersPressed
+		if infoPressed
+		{
+			infoPressed = false
+			let destVC = segue.destination as! InfoModalVC
+			navigationController?.presentationController?.delegate = destVC
+		}
+		else if setEncountersPressed
 		{
 			setEncountersPressed = false
 			
@@ -295,6 +292,7 @@ class ShinyTrackerVC: UIViewController
 	
 	@objc fileprivate func infoButtonPressed(_ sender: Any)
 	{
+		infoPressed = true
 		performSegue(withIdentifier: "infoPopupSegue", sender: self)
 	}
 	
@@ -314,15 +312,10 @@ class ShinyTrackerVC: UIViewController
 	@IBAction func saveEncounters(_ unwindSegue: UIStoryboardSegue)
 	{
 		let sourceVC = unwindSegue.source as! SetEncountersModalVC
-		
 		pokemon = sourceVC.pokemon
-		
 		pokemonService.save(pokemon: pokemon)
-		
 		setProbability()
-		
 		setProbabilityLabelText()
-		
 		setEncountersLabelText()
 	}
 
@@ -333,5 +326,13 @@ class ShinyTrackerVC: UIViewController
 		let huntName = source.pickedHuntName
 		popupView.actionLabel.text = "\(pokemon!.name) was added to \(huntName!)."
 		popupHandler.showPopup(popupView: popupView)
+	}
+
+	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
+	{
+		huntState = huntStateService.get()
+		setProbability()
+		setProbabilityLabelText()
+		setEncountersLabelText()
 	}
 }
