@@ -24,14 +24,13 @@ class ShinyTrackerVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var hunts: [Hunt]!
-	let switchStateService = SwitchStateService()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
 	var probability: Double?
 	var huntState: HuntState?
-	var infoPressed = false
 	var setEncountersPressed = false
 	var isAddingToHunt = false
+	var infoPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -69,7 +68,7 @@ class ShinyTrackerVC: UIViewController
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 	}
-	
+
 	fileprivate func hidePopupView()
 	{
 		popupView.isHidden = true
@@ -157,9 +156,9 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setProbability()
 	{
 		let encounters = pokemon.encounters
-		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, encounters)
+		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting, encounters)
 
-		probability = probabilityService.getProbability(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, encounters, huntState!.shinyOdds)
+		probability = probabilityService.getProbability(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting, encounters, huntState!.shinyOdds)
 	}
 
 	fileprivate func setProbabilityLabelText()
@@ -172,9 +171,13 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setEncountersLabelText()
 	{
 		let labelTitle: String?
-		if huntState!.generation == 4
+		if huntState!.generation == 6
 		{
 			labelTitle = " Catch Combo: "
+		}
+		else if huntState!.isMasudaHunting
+		{
+			labelTitle = " Eggs hatched: "
 		}
 		else
 		{
@@ -251,12 +254,8 @@ class ShinyTrackerVC: UIViewController
 		if infoPressed
 		{
 			infoPressed = false
-			
-			let destVC = segue.destination as! InfoModalVC
-			
-			destVC.pokemon = pokemon
-			destVC.huntState = huntState
-			destVC.huntStateService = huntStateService
+			let destVC = segue.destination as! GameSettingsModalVC
+			navigationController?.presentationController?.delegate = destVC
 		}
 		else if setEncountersPressed
 		{
@@ -310,27 +309,13 @@ class ShinyTrackerVC: UIViewController
 		}
 	}
 	
-	@IBAction func dismissInfo(_ unwindSegue: UIStoryboardSegue)
-	{
-		setProbability()
-		
-		setProbabilityLabelText()
-
-		setEncountersLabelText()
-	}
-	
 	@IBAction func saveEncounters(_ unwindSegue: UIStoryboardSegue)
 	{
 		let sourceVC = unwindSegue.source as! SetEncountersModalVC
-		
 		pokemon = sourceVC.pokemon
-		
 		pokemonService.save(pokemon: pokemon)
-		
 		setProbability()
-		
 		setProbabilityLabelText()
-		
 		setEncountersLabelText()
 	}
 
@@ -341,5 +326,13 @@ class ShinyTrackerVC: UIViewController
 		let huntName = source.pickedHuntName
 		popupView.actionLabel.text = "\(pokemon!.name) was added to \(huntName!)."
 		popupHandler.showPopup(popupView: popupView)
+	}
+
+	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
+	{
+		huntState = huntStateService.get()
+		setProbability()
+		setProbabilityLabelText()
+		setEncountersLabelText()
 	}
 }

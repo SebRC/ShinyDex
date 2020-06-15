@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="HuntEntity" representedClassName="HuntEntity" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HuntEntity" representedClassName="." syncable="YES">
         <attribute name="indexes" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="PokemonEntity" representedClassName="PokemonEntity" syncable="YES">
+    <entity name="PokemonEntity" representedClassName="." syncable="YES">
         <attribute name="caughtBall" optional="YES" attributeType="String"/>
         <attribute name="caughtDescription" optional="YES" attributeType="String"/>
         <attribute name="encounters" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
