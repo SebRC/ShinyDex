@@ -144,7 +144,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func slicePokemonList()
 	{
-		print(allPokemon.count)
 		if generation == 0
 		{
 			allPokemon = Array(allPokemon[0..<151])
