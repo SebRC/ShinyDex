@@ -184,7 +184,7 @@ class MenuTVC: UITableViewController
 		}
 		else if gen == 7
 		{
-			return UIImage(named: "shiny-charm")!
+			return UIImage(named: "gen8")!
 		}
 		else if gen == 8
 		{
