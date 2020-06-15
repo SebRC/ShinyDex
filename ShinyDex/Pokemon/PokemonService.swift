@@ -41,5 +41,4 @@ class PokemonService
 			count += 1
 		}
 	}
-
 }
