@@ -57,10 +57,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func populatePokeballList()
 	{
-		var pokeballList = txtReader.linesFromResourceForced(textFile: "pokeballs")
-		
-		pokeballList.removeLast()
-		
+		let pokeballList = txtReader.linesFromResourceForced(textFile: "pokeballs")
 		for pokeball in pokeballList
 		{
 			pokeballs.append(Pokeball(ballName: pokeball))
