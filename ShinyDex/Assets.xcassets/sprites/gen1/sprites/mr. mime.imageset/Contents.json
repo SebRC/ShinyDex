@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "mr. mime.png",
       "idiom" : "universal",
-      "filename" : "mr.-mime.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
