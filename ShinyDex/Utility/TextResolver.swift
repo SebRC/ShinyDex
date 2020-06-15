@@ -14,32 +14,32 @@ class TextResolver
 	{
 		if gen == 1
 		{
-			return "Gen 2"
+			return "Johto"
 		}
 		if gen == 2
 		{
-			return "Gen 3"
+			return "Hoenn"
 		}
 		if gen == 3
 		{
-			return "Gen 4"
+			return "Sinnoh"
 		}
 		if gen == 4
 		{
-			return "Gen 5"
+			return "Unova"
 		}
 		if gen == 5
 		{
-			return "Gen 6"
+			return "Kalos"
 		}
 		if gen == 6
 		{
-			return "Gen 7"
+			return "Alola"
 		}
 		if gen == 7
 		{
 			return "Hunts"
 		}
-		return "Gen 1"
+		return "Kanto"
 	}
 }
