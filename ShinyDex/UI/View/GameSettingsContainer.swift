@@ -31,6 +31,9 @@ class GameSettingsContainer: UIView
 	@IBOutlet weak var generationSeparator: UIView!
 	@IBOutlet weak var chainFishingCell: GameSettingsCell!
 	@IBOutlet weak var dexNavCell: GameSettingsCell!
+	@IBOutlet weak var friendSafariCell: GameSettingsCell!
+	@IBOutlet weak var explanationLabel: UILabel!
+	@IBOutlet weak var explanationSeparator: UIView!
 
 
 	required init?(coder aDecoder: NSCoder)
@@ -40,6 +43,7 @@ class GameSettingsContainer: UIView
 
 		huntState = huntStateService.get()
 
+		explanationSeparator.layer.cornerRadius = 5
 		generationSeparator.layer.cornerRadius = 5
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
@@ -59,6 +63,9 @@ class GameSettingsContainer: UIView
 		dexNavCell.iconImageView.image = UIImage(named: "wide-lens")
 		dexNavCell.titleLabel.text = "DexNav"
 		dexNavCell.descriptionLabel.text = "The DexNav is only available in Omega Ruby & Alpha Sapphire (Generation 6)"
+		friendSafariCell.iconImageView.image = UIImage(named: "heart-mail")
+		friendSafariCell.titleLabel.text = "Friend Safari"
+		friendSafariCell.descriptionLabel.text = "The Friend Safari is only available in X & Y (Generation 6)"
 		sosChainCell.iconImageView.image = UIImage(named: "sos")
 		sosChainCell.titleLabel.text = "SOS chaining"
 		sosChainCell.descriptionLabel.text = "SOS chaining is only available in generation 7"
@@ -122,6 +129,8 @@ class GameSettingsContainer: UIView
 	func setUIColors()
 	{
 		contentView?.backgroundColor = colorService.getSecondaryColor()
+		explanationLabel.textColor = colorService.getTertiaryColor()
+		explanationSeparator.backgroundColor = colorService.getPrimaryColor()
 		generationSeparator.backgroundColor = colorService.getPrimaryColor()
 		generationLabel.textColor = colorService.getTertiaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
@@ -141,12 +150,14 @@ class GameSettingsContainer: UIView
 		shinyCharmCell.setUIColors()
 		chainFishingCell.setUIColors()
 		dexNavCell.setUIColors()
+		friendSafariCell.setUIColors()
 		sosChainCell.setUIColors()
 		lureCell.setUIColors()
 	}
 
 	func setFonts()
 	{
+		explanationLabel.font = fontSettingsService.getSmallFont()
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
@@ -160,6 +171,7 @@ class GameSettingsContainer: UIView
 		shinyCharmCell.setFonts()
 		chainFishingCell.setFonts()
 		dexNavCell.setFonts()
+		friendSafariCell.setFonts()
 		sosChainCell.setFonts()
 		lureCell.setFonts()
 	}
