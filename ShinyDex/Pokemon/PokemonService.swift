@@ -41,4 +41,9 @@ class PokemonService
 			count += 1
 		}
 	}
+
+	func deleteAll()
+	{
+		pokemonRepository.deleteAll()
+	}
 }

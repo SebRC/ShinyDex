@@ -1,12 +1,13 @@
 {
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  },
   "data" : [
     {
+      "filename" : "Abra.gif",
       "idiom" : "universal",
-      "filename" : "Abra.gif"
+      "universal-type-identifier" : ""
     }
-  ]
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
 }
