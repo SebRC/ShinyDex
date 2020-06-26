@@ -21,6 +21,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var doubleButtonsVerticalView: DoubleVerticalButtonsView!
 	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
+	@IBOutlet weak var oddsLabel: UILabel!
 	
 	var pokemon: Pokemon!
 	var hunts: [Hunt]!
@@ -65,6 +66,8 @@ class ShinyTrackerVC: UIViewController
 		setPokeballButtonImage()
 		
 		setButtonActions()
+
+		setOddsLabelText()
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 	}
@@ -99,6 +102,8 @@ class ShinyTrackerVC: UIViewController
 		
 		plusButton.tintColor = colorService.getTertiaryColor()
 		minusButton.tintColor = colorService.getTertiaryColor()
+
+		oddsLabel.textColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -121,6 +126,7 @@ class ShinyTrackerVC: UIViewController
 		probabilityLabel.font = fontSettingsService.getSmallFont()
 		encountersLabel.font = fontSettingsService.getSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
+		oddsLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -143,11 +149,9 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func resolveEncounterDetails()
 	{
 		setProbability()
-		
 		setProbabilityLabelText()
-		
 		setEncountersLabelText()
-		
+		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
 	
@@ -187,6 +191,11 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setNumberLabelText()
 	{
 		numberLabel.text = " No. \(pokemon.number + 1)"
+	}
+
+	fileprivate func setOddsLabelText()
+	{
+		oddsLabel.text = "1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func minusButtonIsEnabled() -> Bool
@@ -312,9 +321,7 @@ class ShinyTrackerVC: UIViewController
 		let sourceVC = unwindSegue.source as! SetEncountersModalVC
 		pokemon = sourceVC.pokemon
 		pokemonService.save(pokemon: pokemon)
-		setProbability()
-		setProbabilityLabelText()
-		setEncountersLabelText()
+		resolveEncounterDetails()
 	}
 
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
@@ -332,5 +339,6 @@ class ShinyTrackerVC: UIViewController
 		setProbability()
 		setProbabilityLabelText()
 		setEncountersLabelText()
+		setOddsLabelText()
 	}
 }
