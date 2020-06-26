@@ -671,7 +671,7 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJH-4k-Tjb">
-                                                    <rect key="frame" x="84" y="33" width="72" height="10"/>
+                                                    <rect key="frame" x="84" y="33" width="86.5" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UJH-4k-Tjb" secondAttribute="height" multiplier="137:19" id="1Ma-RK-1TG"/>
                                                     </constraints>
@@ -873,13 +873,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="DoubleVerticalButtonsView" customModule="ShinyDex" customModuleProvider="target">
-                                <rect key="frame" x="320" y="58" width="40" height="80"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="MUf-xf-A7g" secondAttribute="height" multiplier="1:2" id="gk5-4j-SQy"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbx-d5-p1R">
                                 <rect key="frame" x="16" y="58" width="287" height="36"/>
                                 <color key="backgroundColor" red="0.01176470588" green="0.76862745099999996" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -891,10 +884,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Probability" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ChG-Aa-Alk">
-                                <rect key="frame" x="16" y="146" width="344" height="36"/>
+                                <rect key="frame" x="16" y="146" width="287" height="36"/>
                                 <color key="backgroundColor" red="0.01176470588" green="0.76862745099999996" blue="0.98431372549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ChG-Aa-Alk" secondAttribute="height" multiplier="86:9" id="ynr-as-3K8"/>
+                                    <constraint firstAttribute="width" secondItem="ChG-Aa-Alk" secondAttribute="height" multiplier="86:9" constant="-57" id="ynr-as-3K8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -913,9 +906,6 @@
                                     <constraint firstAttribute="width" secondItem="Rji-Cm-Ca7" secondAttribute="height" multiplier="1:1" id="Sbh-s4-scK"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="none"/>
-                                <connections>
-                                    <action selector="changeCaughtBallPressed:" destination="9Np-ox-Xbt" eventType="touchUpInside" id="04y-bq-nze"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRC-EJ-od9">
                                 <rect key="frame" x="16" y="521.5" width="125" height="125"/>
@@ -940,6 +930,13 @@
                                     <action selector="plusPressed:" destination="9Np-ox-Xbt" eventType="touchUpInside" id="Ypq-jW-7iI"/>
                                 </connections>
                             </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="DoubleVerticalButtonsView" customModule="ShinyDex" customModuleProvider="target">
+                                <rect key="frame" x="319" y="58" width="40" height="124"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MUf-xf-A7g" secondAttribute="height" multiplier="1:2" constant="-22" id="gk5-4j-SQy"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.6705882352941176" green="0.90980392156862744" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -955,9 +952,9 @@
                             <constraint firstItem="L4E-f9-VW1" firstAttribute="top" secondItem="hoS-2k-DOC" secondAttribute="bottom" constant="8" id="8IM-7V-qfn"/>
                             <constraint firstItem="Rji-Cm-Ca7" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="138" id="CJ9-2i-gNr"/>
                             <constraint firstItem="Rl1-0y-S1X" firstAttribute="top" secondItem="Fbx-d5-p1R" secondAttribute="bottom" constant="8" id="MRk-Cp-QFB"/>
-                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="ChG-Aa-Alk" secondAttribute="trailing" constant="15" id="Pt2-Ed-4bf"/>
+                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="ChG-Aa-Alk" secondAttribute="trailing" constant="72" id="Pt2-Ed-4bf"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="bottom" secondItem="Rji-Cm-Ca7" secondAttribute="bottom" constant="165" id="SBY-4l-9I4"/>
-                            <constraint firstItem="ChG-Aa-Alk" firstAttribute="top" secondItem="MUf-xf-A7g" secondAttribute="bottom" constant="8" id="Tgn-Jw-iCt"/>
+                            <constraint firstItem="ChG-Aa-Alk" firstAttribute="top" secondItem="MUf-xf-A7g" secondAttribute="bottom" constant="-36" id="Tgn-Jw-iCt"/>
                             <constraint firstItem="kUC-0o-iXh" firstAttribute="top" secondItem="Rji-Cm-Ca7" secondAttribute="bottom" constant="19" id="WBx-C6-6mM"/>
                             <constraint firstItem="XRC-EJ-od9" firstAttribute="top" secondItem="Rji-Cm-Ca7" secondAttribute="bottom" constant="19" id="Wtn-sN-1lp"/>
                             <constraint firstItem="XRC-EJ-od9" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="16" id="Ywz-Hh-go5"/>
@@ -965,8 +962,8 @@
                             <constraint firstItem="Fbx-d5-p1R" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="16" id="lQT-hq-yG7"/>
                             <constraint firstItem="ChG-Aa-Alk" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="16" id="qf7-XG-2rl"/>
                             <constraint firstItem="L4E-f9-VW1" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="63" id="rBm-Sq-d52"/>
-                            <constraint firstItem="MUf-xf-A7g" firstAttribute="leading" secondItem="Rl1-0y-S1X" secondAttribute="trailing" constant="17" id="tWq-wN-8sg"/>
-                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="MUf-xf-A7g" secondAttribute="trailing" constant="15" id="uLm-84-gZ2"/>
+                            <constraint firstItem="MUf-xf-A7g" firstAttribute="leading" secondItem="Rl1-0y-S1X" secondAttribute="trailing" constant="16" id="tWq-wN-8sg"/>
+                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="MUf-xf-A7g" secondAttribute="trailing" constant="16" id="uLm-84-gZ2"/>
                             <constraint firstItem="hoS-2k-DOC" firstAttribute="top" secondItem="ChG-Aa-Alk" secondAttribute="bottom" constant="19" id="vKZ-b3-LEO"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="bottom" secondItem="XRC-EJ-od9" secondAttribute="bottom" constant="20" id="vNa-V8-3Ml"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="kUC-0o-iXh" secondAttribute="trailing" constant="15" id="w14-9h-veX"/>
@@ -991,7 +988,6 @@
                         <outlet property="minusButton" destination="XRC-EJ-od9" id="gJm-Mx-fBR"/>
                         <outlet property="numberLabel" destination="Fbx-d5-p1R" id="0fg-B2-3jr"/>
                         <outlet property="plusButton" destination="kUC-0o-iXh" id="ZQE-L1-U8k"/>
-                        <outlet property="pokeballButton" destination="Rji-Cm-Ca7" id="cKt-vz-SGy"/>
                         <outlet property="popupView" destination="pZU-xU-pxP" id="ekS-u2-cWj"/>
                         <outlet property="probabilityLabel" destination="ChG-Aa-Alk" id="jmo-Xi-GEq"/>
                         <segue destination="DaS-ul-zkm" kind="presentation" identifier="shinyTrackerToModalSegue" id="GWK-Tp-YuW"/>
@@ -1007,7 +1003,7 @@
                     <viewLayoutGuide key="safeArea" id="DaG-oU-gAB"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2777" y="296"/>
+            <point key="canvasLocation" x="2776.8000000000002" y="295.50224887556226"/>
         </scene>
         <!--Game Settings ModalVC-->
         <scene sceneID="Pnb-vv-01g">
@@ -1375,9 +1371,9 @@ Don't close the application before the setup is complete.</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mSu-1U-tG2"/>
+        <segue reference="GWK-Tp-YuW"/>
         <segue reference="7k3-aT-9gU"/>
-        <segue reference="DHy-Un-iod"/>
+        <segue reference="LE8-BB-dtk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

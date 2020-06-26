@@ -16,7 +16,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var minusButton: UIButton!
 	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
-	@IBOutlet weak var pokeballButton: UIButton!
+	//@IBOutlet weak var pokeballButton: UIButton!
 	@IBOutlet weak var popupView: PopupView!
 	@IBOutlet weak var doubleButtonsVerticalView: DoubleVerticalButtonsView!
 	@IBOutlet weak var numberLabel: UILabel!
@@ -76,7 +76,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setPokeballButtonImage()
 	{
-		pokeballButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
+		doubleButtonsVerticalView.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 	}
 	
 	fileprivate func setUIColors()
@@ -97,8 +97,6 @@ class ShinyTrackerVC: UIViewController
 		
 		gifSeparatorView.backgroundColor = colorService.getSecondaryColor()
 		
-		pokeballButton.backgroundColor = colorService.getPrimaryColor()
-		
 		plusButton.tintColor = colorService.getTertiaryColor()
 		minusButton.tintColor = colorService.getTertiaryColor()
 	}
@@ -110,7 +108,6 @@ class ShinyTrackerVC: UIViewController
 		encountersLabel.layer.cornerRadius = 10
 		probabilityLabel.layer.cornerRadius = 10
 		gifSeparatorView.layer.cornerRadius = 10
-		pokeballButton.layer.cornerRadius = pokeballButton.bounds.width / 2
 	}
 	
 	fileprivate func roundDoubleVerticalButtonsViewCorners()
@@ -140,6 +137,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		doubleButtonsVerticalView.infoButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		doubleButtonsVerticalView.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
+		doubleButtonsVerticalView.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 	}
 	
 	fileprivate func resolveEncounterDetails()
@@ -243,8 +241,8 @@ class ShinyTrackerVC: UIViewController
 		setEncountersPressed = true
 		performSegue(withIdentifier: "setEncountersSegue", sender: self)
 	}
-	
-	@IBAction func changeCaughtBallPressed(_ sender: Any)
+
+	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any)
 	{
 		performSegue(withIdentifier: "shinyTrackerToModalSegue", sender: self)
 	}
@@ -305,7 +303,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			pokemon.caughtBall = sourceTVC.pokemon.caughtBall
 			
-			pokeballButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
+			doubleButtonsVerticalView.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		}
 	}
 	

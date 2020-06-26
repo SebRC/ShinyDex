@@ -13,7 +13,9 @@ class DoubleVerticalButtonsView: UIView
 {
 	@IBOutlet weak var updateEncountersButton: UIButton!
 	@IBOutlet weak var infoButton: UIButton!
-	@IBOutlet weak var buttonSeparator: UIView!
+	@IBOutlet weak var settingsEditSeparator: UIView!
+	@IBOutlet weak var pokeballButton: UIButton!
+	@IBOutlet weak var editBallSeparator: UIView!
 	fileprivate var colorService: ColorService?
 	
 	let nibName = "DoubleVerticalButtonsView"
@@ -56,7 +58,8 @@ class DoubleVerticalButtonsView: UIView
 	{
 		contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
-		buttonSeparator.backgroundColor = colorService!.getPrimaryColor()
+		settingsEditSeparator.backgroundColor = colorService!.getPrimaryColor()
+		editBallSeparator.backgroundColor = colorService?.getPrimaryColor()
 		
 		infoButton.tintColor = colorService!.getTertiaryColor()
 		updateEncountersButton.tintColor = colorService!.getTertiaryColor()
@@ -64,6 +67,7 @@ class DoubleVerticalButtonsView: UIView
 	
 	fileprivate func roundCorners()
 	{
-		buttonSeparator.layer.cornerRadius = 10
+		settingsEditSeparator.layer.cornerRadius = 10
+		editBallSeparator.layer.cornerRadius = 10
 	}
 }
