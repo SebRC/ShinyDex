@@ -42,4 +42,8 @@ class PokemonService
 		}
 	}
 
+	func deleteAll()
+	{
+		pokemonRepository.deleteAll()
+	}
 }

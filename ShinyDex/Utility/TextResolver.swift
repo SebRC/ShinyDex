@@ -16,27 +16,31 @@ class TextResolver
 		{
 			return "Johto"
 		}
-		if gen == 2
+		else if gen == 2
 		{
 			return "Hoenn"
 		}
-		if gen == 3
+		else if gen == 3
 		{
 			return "Sinnoh"
 		}
-		if gen == 4
+		else if gen == 4
 		{
 			return "Unova"
 		}
-		if gen == 5
+		else if gen == 5
 		{
 			return "Kalos"
 		}
-		if gen == 6
+		else if gen == 6
 		{
 			return "Alola"
 		}
-		if gen == 7
+		else if gen == 7
+		{
+			return "Galar"
+		}
+		else if gen == 8
 		{
 			return "Hunts"
 		}

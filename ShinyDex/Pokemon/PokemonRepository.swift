@@ -28,13 +28,10 @@ public class PokemonRepository
 	func getAll() -> [NSManagedObject]
 	{
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")
-
 		var pokemonEntityList = [NSManagedObject]()
-
 		do
 		{
-		  pokemonEntityList = try managedContext.fetch(fetchRequest)
-
+			pokemonEntityList = try managedContext.fetch(fetchRequest)
 			return pokemonEntityList
 		}
 		catch let error as NSError
@@ -76,5 +73,20 @@ public class PokemonRepository
 		let pokemon = Pokemon(pokemonEntity: pokemonEntity)
 
 		save(pokemon: pokemon)
+	}
+
+	func deleteAll()
+	{
+		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "PokemonEntity")
+		let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+		do
+		{
+			try managedContext.execute(deleteRequest)
+		}
+		catch let error as NSError
+		{
+			// TODO: handle the error
+		}
 	}
 }

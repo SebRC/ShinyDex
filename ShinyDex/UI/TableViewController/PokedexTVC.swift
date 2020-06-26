@@ -172,6 +172,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		{
 			allPokemon = Array(allPokemon[721..<807])
 		}
+		else if generation == 7
+		{
+			allPokemon = Array(allPokemon[807..<892])
+		}
 	}
 
 	override func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
@@ -382,25 +386,29 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		{
 			return 151
 		}
-		if generation == 2
+		else if generation == 2
 		{
 			return 251
 		}
-		if generation == 3
+		else if generation == 3
 		{
 			return 386
 		}
-		if generation == 4
+		else if generation == 4
 		{
 			return 493
 		}
-		if generation == 5
+		else if generation == 5
 		{
 			return 649
 		}
-		if generation == 6
+		else if generation == 6
 		{
 			return 721
+		}
+		else if generation == 7
+		{
+			return 807
 		}
 		return 0
 	}

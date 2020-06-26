@@ -107,7 +107,7 @@ class MenuTVC: UITableViewController
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		return 8
+		return 9
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -118,7 +118,7 @@ class MenuTVC: UITableViewController
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		genIndex = indexPath.row
-		if genIndex == 7
+		if genIndex == 8
 		{
 			performSegue(withIdentifier: "currentHuntSegue", sender: self)
 		}
@@ -133,7 +133,7 @@ class MenuTVC: UITableViewController
 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
-		let showCurrentHuntImage = indexPath.row == 7 && !hunts.isEmpty
+		let showCurrentHuntImage = indexPath.row == 8 && !hunts.isEmpty
 		
 		cell.generationLabel.textColor = colorService.getTertiaryColor()
 		
@@ -158,31 +158,35 @@ class MenuTVC: UITableViewController
 		{
 			return UIImage(named: "gen1")!
 		}
-		if gen == 1
+		else if gen == 1
 		{
 			return UIImage(named: "gen2")!
 		}
-		if gen == 2
+		else if gen == 2
 		{
 			return UIImage(named: "gen3")!
 		}
-		if gen == 3
+		else if gen == 3
 		{
 			return UIImage(named: "gen4")!
 		}
-		if gen == 4
+		else if gen == 4
 		{
 			return UIImage(named: "gen5")!
 		}
-		if gen == 5
+		else if gen == 5
 		{
 			return UIImage(named: "gen6")!
 		}
-		if gen == 6
+		else if gen == 6
 		{
 			return UIImage(named: "gen7")!
 		}
-		if gen == 7
+		else if gen == 7
+		{
+			return UIImage(named: "gen8")!
+		}
+		else if gen == 8
 		{
 			return UIImage(named: "shiny-charm")!
 		}
@@ -191,7 +195,7 @@ class MenuTVC: UITableViewController
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if genIndex == 7
+		if genIndex == 8
 		{
 			let destVC = segue.destination as? HuntsTVC
 
@@ -199,7 +203,7 @@ class MenuTVC: UITableViewController
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
-		else if genIndex == 8
+		else if genIndex == 9
 		{
 			let destVC = segue.destination as? SettingsVC
 			destVC?.fontSettingsService = fontSettingsService
@@ -235,7 +239,7 @@ class MenuTVC: UITableViewController
 	
 	@IBAction func settingsPressed(_ sender: Any)
 	{
-		genIndex = 8
+		genIndex = 9
 		performSegue(withIdentifier: "settingsSegue", sender: self)
 	}
 	

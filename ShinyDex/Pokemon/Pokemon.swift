@@ -33,7 +33,7 @@ class Pokemon: NSObject
 		self.caughtBall = pokemonEntity.value(forKey: "caughtBall") as! String
 		self.shinyImage = UIImage(named: name.lowercased())
 
-		if let shinyGifAsset = NSDataAsset(name: name)
+		if let shinyGifAsset = NSDataAsset(name: "\(name)")
 		{
 			let data = shinyGifAsset.data
 			self.shinyGifData = data

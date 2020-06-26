@@ -21,7 +21,8 @@ class SetEncountersView: UIView
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var buttonSeparator: UIView!
-	
+	@IBOutlet weak var spriteBackgroundView: UIView!
+
 	var fontSettingsService: FontSettingsService?
 	var colorService: ColorService?
 	
@@ -69,7 +70,7 @@ class SetEncountersView: UIView
 	{
 		contentView?.backgroundColor = colorService!.getPrimaryColor()
 
-		spriteImageView.backgroundColor = colorService!.getSecondaryColor()
+		spriteBackgroundView.backgroundColor = colorService!.getSecondaryColor()
 		
 		encountersTextField.backgroundColor = colorService!.getSecondaryColor()
 		encountersTextField.textColor = colorService!.getTertiaryColor()
@@ -115,7 +116,7 @@ class SetEncountersView: UIView
 		nameLabel.layer.cornerRadius = 10
 		numberLabel.layer.cornerRadius = 10
 		encountersLabel.layer.cornerRadius = 10
-		spriteImageView.layer.cornerRadius = 10
+		spriteBackgroundView.layer.cornerRadius = 10
 		buttonSeparator.layer.cornerRadius = 10
 	}
 }
