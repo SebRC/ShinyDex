@@ -123,7 +123,7 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setFonts()
 	{
 		numberLabel.font = fontSettingsService.getSmallFont()
-		probabilityLabel.font = fontSettingsService.getSmallFont()
+		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
 		encountersLabel.font = fontSettingsService.getSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 		oddsLabel.font = fontSettingsService.getSmallFont()
