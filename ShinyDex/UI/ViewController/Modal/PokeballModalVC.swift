@@ -93,6 +93,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	{
 		let pokeball = pokeballs[indexPath.row]
 		pokemon.caughtBall = pokeball.name.lowercased()
+		pokemon.caughtDescription = pokeball.name == "None" ? "Not Caught" : "Caught"
 		pokemonService.save(pokemon: pokemon)
 		performSegue(withIdentifier: "unwindFromPokeball", sender: self)
 	}
