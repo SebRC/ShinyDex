@@ -222,8 +222,8 @@
             filePath = "ShinyDex/UI/ViewController/ShinyTrackerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "ShinyTrackerVC"
             landmarkType = "3">
          </BreakpointContent>

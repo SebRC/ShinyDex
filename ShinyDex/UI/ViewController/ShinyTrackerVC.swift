@@ -16,7 +16,6 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var minusButton: UIButton!
 	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
-	//@IBOutlet weak var pokeballButton: UIButton!
 	@IBOutlet weak var popupView: PopupView!
 	@IBOutlet weak var doubleButtonsVerticalView: DoubleVerticalButtonsView!
 	@IBOutlet weak var numberLabel: UILabel!
@@ -64,6 +63,8 @@ class ShinyTrackerVC: UIViewController
 		setNumberLabelText()
 		
 		setPokeballButtonImage()
+
+		setMethodImage()
 		
 		setButtonActions()
 
@@ -80,6 +81,25 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setPokeballButtonImage()
 	{
 		doubleButtonsVerticalView.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
+	}
+
+	fileprivate func setMethodImage()
+	{
+		doubleButtonsVerticalView.infoButton.setImage(getMethodImage(), for: .normal)
+	}
+
+	fileprivate func getMethodImage() -> UIImage
+	{
+		if huntState!.isLureInUse
+		{
+			return UIImage(named: "max-lure")!
+		}
+		else if huntState!.isMasudaHunting
+		{
+			return UIImage(named: "egg")!
+		}
+
+		return UIImage(systemName: "info.circle.fill")!
 	}
 	
 	fileprivate func setUIColors()
@@ -336,6 +356,7 @@ class ShinyTrackerVC: UIViewController
 	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
 	{
 		huntState = huntStateService.get()
+		setMethodImage()
 		setProbability()
 		setProbabilityLabelText()
 		setEncountersLabelText()

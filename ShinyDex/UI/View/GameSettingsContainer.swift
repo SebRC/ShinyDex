@@ -106,6 +106,7 @@ class GameSettingsContainer: UIView
 	fileprivate func resolveUIObjectsState()
 	{
 		generationSegmentedControl.selectedSegmentIndex = huntState!.generation
+
 		shinyCharmCell.actionSwitch.isOn = huntState!.isShinyCharmActive
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
 
@@ -114,6 +115,8 @@ class GameSettingsContainer: UIView
 
 		masudaCell.actionSwitch.isOn = huntState!.isMasudaHunting
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+
+		resolveSwitchStates()
 	}
 
 	fileprivate func setShinyOddsLabelText()
@@ -205,13 +208,9 @@ class GameSettingsContainer: UIView
 
 	@objc fileprivate func changeGenerationPressed(_ sender: Any)
 	{
-		let generation = generationSegmentedControl.selectedSegmentIndex
+		resolveSwitchStates()
 
-		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmCell.actionSwitch)
-		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureCell.actionSwitch)
-		switchStateService.resolveMasudaSwitchState(generation: generation, masudaSwitch: masudaCell.actionSwitch)
-
-		huntState!.generation = generation
+		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
 
 		huntState!.isShinyCharmActive = shinyCharmCell.actionSwitch.isOn
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
@@ -227,5 +226,14 @@ class GameSettingsContainer: UIView
 		setShinyOddsLabelText()
 
 		huntStateService.save(huntState!)
+	}
+
+	fileprivate func resolveSwitchStates()
+	{
+		let generation = generationSegmentedControl.selectedSegmentIndex
+
+		switchStateService.resolveShinyCharmSwitchState(generation: generation, shinyCharmSwitch: shinyCharmCell.actionSwitch)
+		switchStateService.resolveLureSwitchState(generation: generation, lureSwitch: lureCell.actionSwitch)
+		switchStateService.resolveMasudaSwitchState(generation: generation, masudaSwitch: masudaCell.actionSwitch)
 	}
 }
