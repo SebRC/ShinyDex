@@ -47,6 +47,8 @@ class MenuTVC: UITableViewController
 	{
 		super.viewWillAppear(animated)
 
+		allPokemon = pokemonService.getAll()
+
 		hunts = huntService.getAll()
 		
 		setTableViewBackgroundColor()
