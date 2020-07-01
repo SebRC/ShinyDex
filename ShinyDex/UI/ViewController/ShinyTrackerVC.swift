@@ -85,7 +85,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setMethodImage()
 	{
-		doubleButtonsVerticalView.infoButton.setImage(getMethodImage(), for: .normal)
+		doubleButtonsVerticalView.methodButton.setImage(getMethodImage(), for: .normal)
 	}
 
 	fileprivate func getMethodImage() -> UIImage
@@ -161,7 +161,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setButtonActions()
 	{
-		doubleButtonsVerticalView.infoButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
+		doubleButtonsVerticalView.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		doubleButtonsVerticalView.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
 		doubleButtonsVerticalView.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 	}
