@@ -66,15 +66,15 @@ class ConfirmationPopup: UIView
 	
 	fileprivate func setColors()
 	{
-		cancelButton.backgroundColor = colorService?.getSecondaryColor()
-		titleLabel.backgroundColor = colorService?.getSecondaryColor()
+		cancelButton.backgroundColor = colorService?.getPrimaryColor()
+		titleLabel.backgroundColor = colorService?.getPrimaryColor()
 		titleLabel.textColor = colorService?.getTertiaryColor()
 		descriptionLabel.textColor = colorService?.getTertiaryColor()
-		contentView?.backgroundColor = colorService?.getPrimaryColor()
-		buttonSeparator.backgroundColor = colorService?.getPrimaryColor()
-		confirmButton.backgroundColor = colorService?.getSecondaryColor()
-		confirmButton.titleLabel?.textColor = colorService?.getTertiaryColor()
-		cancelButton.titleLabel?.textColor = colorService?.getTertiaryColor()
+		contentView?.backgroundColor = colorService?.getSecondaryColor()
+		buttonSeparator.backgroundColor = colorService?.getSecondaryColor()
+		confirmButton.backgroundColor = colorService?.getPrimaryColor()
+		confirmButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
+		cancelButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
 	}
 	
 	fileprivate func roundSeparatorCorners()

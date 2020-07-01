@@ -10,7 +10,7 @@ import Foundation
 
 class TextResolver
 {
-	func resolveGenTitle(gen: Int) -> String
+	func getGenTitle(gen: Int) -> String
 	{
 		if gen == 1
 		{
@@ -45,5 +45,23 @@ class TextResolver
 			return "Hunts"
 		}
 		return "Kanto"
+	}
+
+	func getEncountersLabelText(huntState: HuntState, encounters: Int) -> String
+	{
+		let labelTitle: String?
+		if huntState.generation == 6
+		{
+			labelTitle = " Catch Combo:"
+		}
+		else if huntState.isMasudaHunting
+		{
+			labelTitle = " Eggs:"
+		}
+		else
+		{
+			labelTitle = " Encounters:"
+		}
+		return "\(labelTitle!) \(encounters)"
 	}
 }

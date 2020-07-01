@@ -671,7 +671,7 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJH-4k-Tjb">
-                                                    <rect key="frame" x="84" y="33" width="86.5" height="12"/>
+                                                    <rect key="frame" x="84" y="33" width="72" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UJH-4k-Tjb" secondAttribute="height" multiplier="137:19" id="1Ma-RK-1TG"/>
                                                     </constraints>
@@ -1242,10 +1242,10 @@ Don't close the application before the setup is complete.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-an-eVC">
-                                        <rect key="frame" x="144" y="127" width="143" height="52"/>
+                                        <rect key="frame" x="141" y="127" width="146" height="52"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="9UL-an-eVC" secondAttribute="height" multiplier="11:4" id="6WL-uk-J3t"/>
+                                            <constraint firstAttribute="width" secondItem="9UL-an-eVC" secondAttribute="height" multiplier="11:4" constant="3" id="6WL-uk-J3t"/>
                                         </constraints>
                                         <state key="normal" title="Confirm"/>
                                         <connections>
@@ -1269,10 +1269,10 @@ Don't close the application before the setup is complete.</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-hY-4FP">
-                                        <rect key="frame" x="141" y="127" width="3" height="52"/>
+                                        <rect key="frame" x="141" y="127" width="2" height="52"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="3" id="xyw-rk-5LZ"/>
+                                            <constraint firstAttribute="width" constant="2" id="xyw-rk-5LZ"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1281,13 +1281,13 @@ Don't close the application before the setup is complete.</string>
                                     <constraint firstItem="9UL-an-eVC" firstAttribute="trailing" secondItem="oTn-qn-X0F" secondAttribute="trailing" id="13X-Mf-ICM"/>
                                     <constraint firstItem="sVy-Pf-cGv" firstAttribute="leading" secondItem="xWe-ih-hEC" secondAttribute="leading" constant="9" id="14G-mI-8gF"/>
                                     <constraint firstAttribute="trailing" secondItem="lMb-2x-0tS" secondAttribute="trailing" constant="11" id="2pZ-QG-NEy"/>
-                                    <constraint firstItem="kTm-hY-4FP" firstAttribute="centerX" secondItem="xWe-ih-hEC" secondAttribute="centerX" id="5Cp-mW-IqJ"/>
+                                    <constraint firstItem="kTm-hY-4FP" firstAttribute="centerX" secondItem="xWe-ih-hEC" secondAttribute="centerX" constant="-1.5" id="5Cp-mW-IqJ"/>
                                     <constraint firstItem="oTn-qn-X0F" firstAttribute="width" secondItem="xWe-ih-hEC" secondAttribute="width" id="BKy-X7-1qj"/>
                                     <constraint firstItem="J1d-6c-gFb" firstAttribute="leading" secondItem="oTn-qn-X0F" secondAttribute="leading" id="DVm-Ud-CfN"/>
                                     <constraint firstItem="9e2-G6-Ddu" firstAttribute="leading" secondItem="xWe-ih-hEC" secondAttribute="leading" constant="9" id="FWz-O4-Zv2"/>
                                     <constraint firstAttribute="trailing" secondItem="9e2-G6-Ddu" secondAttribute="trailing" constant="11" id="HvK-aR-13g"/>
                                     <constraint firstAttribute="bottom" secondItem="9UL-an-eVC" secondAttribute="bottom" id="JGO-f5-Amt"/>
-                                    <constraint firstItem="9UL-an-eVC" firstAttribute="leading" secondItem="kTm-hY-4FP" secondAttribute="trailing" id="Lqe-rD-h5N"/>
+                                    <constraint firstItem="9UL-an-eVC" firstAttribute="leading" secondItem="kTm-hY-4FP" secondAttribute="trailing" constant="-2" id="Lqe-rD-h5N"/>
                                     <constraint firstItem="oTn-qn-X0F" firstAttribute="top" secondItem="9e2-G6-Ddu" secondAttribute="bottom" constant="13" id="OJU-9D-JIr"/>
                                     <constraint firstItem="9UL-an-eVC" firstAttribute="top" secondItem="kTm-hY-4FP" secondAttribute="top" id="RXR-bb-Pnk"/>
                                     <constraint firstItem="lMb-2x-0tS" firstAttribute="leading" secondItem="xWe-ih-hEC" secondAttribute="leading" constant="9" id="TMA-WU-dKu"/>
@@ -1295,7 +1295,7 @@ Don't close the application before the setup is complete.</string>
                                     <constraint firstItem="sVy-Pf-cGv" firstAttribute="top" secondItem="lMb-2x-0tS" secondAttribute="bottom" constant="-2" id="eTD-YD-yDb"/>
                                     <constraint firstItem="9UL-an-eVC" firstAttribute="top" secondItem="9e2-G6-Ddu" secondAttribute="bottom" constant="14" id="gzH-9e-ZhZ"/>
                                     <constraint firstItem="9UL-an-eVC" firstAttribute="baseline" secondItem="J1d-6c-gFb" secondAttribute="firstBaseline" id="kdd-Kb-vhk"/>
-                                    <constraint firstItem="oTn-qn-X0F" firstAttribute="leading" secondItem="kTm-hY-4FP" secondAttribute="trailing" constant="-144" id="nzS-Fn-gwR"/>
+                                    <constraint firstItem="oTn-qn-X0F" firstAttribute="leading" secondItem="kTm-hY-4FP" secondAttribute="trailing" constant="-143" id="nzS-Fn-gwR"/>
                                     <constraint firstAttribute="trailing" secondItem="9UL-an-eVC" secondAttribute="trailing" id="roe-Yt-rpK"/>
                                     <constraint firstItem="kTm-hY-4FP" firstAttribute="height" secondItem="J1d-6c-gFb" secondAttribute="height" id="t6J-Oa-oyz"/>
                                     <constraint firstItem="lMb-2x-0tS" firstAttribute="top" secondItem="xWe-ih-hEC" secondAttribute="top" constant="8" id="vj0-af-UvH"/>

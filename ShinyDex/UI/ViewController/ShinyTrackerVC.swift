@@ -37,6 +37,7 @@ class ShinyTrackerVC: UIViewController
 	var colorService: ColorService!
 	var huntService: HuntService!
 	var huntStateService: HuntStateService!
+	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
 	{
@@ -170,7 +171,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		setProbability()
 		setProbabilityLabelText()
-		setEncountersLabelText()
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
@@ -188,24 +189,6 @@ class ShinyTrackerVC: UIViewController
 		let encounters = pokemon.encounters
 		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: huntState!.shinyOdds, probability: probability!)
 		probabilityLabel.text = probabilityLabelText
-	}
-	
-	fileprivate func setEncountersLabelText()
-	{
-		let labelTitle: String?
-		if huntState!.generation == 6
-		{
-			labelTitle = " Catch Combo: "
-		}
-		else if huntState!.isMasudaHunting
-		{
-			labelTitle = " Eggs hatched: "
-		}
-		else
-		{
-			labelTitle = " Encounters: "
-		}
-		encountersLabel.text = "\(labelTitle!)\(pokemon.encounters)"
 	}
 	
 	fileprivate func setNumberLabelText()
@@ -292,6 +275,7 @@ class ShinyTrackerVC: UIViewController
 			
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
+			destVC.huntState = huntState
 		}
 		else if isAddingToHunt
 		{
@@ -359,7 +343,7 @@ class ShinyTrackerVC: UIViewController
 		setMethodImage()
 		setProbability()
 		setProbabilityLabelText()
-		setEncountersLabelText()
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
 		setOddsLabelText()
 	}
 }

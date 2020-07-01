@@ -86,7 +86,7 @@ public class PokemonRepository
 		}
 		catch let error as NSError
 		{
-			// TODO: handle the error
+			print("An error ocurred when deleting all entities: \(error.localizedDescription)")
 		}
 	}
 }

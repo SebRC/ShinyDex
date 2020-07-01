@@ -41,8 +41,10 @@ class HuntNameEditorModalVC: UIViewController
 		editorView.backgroundColor = colorService.getSecondaryColor()
 		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
+		confirmButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
 		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
+		cancelButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
     }

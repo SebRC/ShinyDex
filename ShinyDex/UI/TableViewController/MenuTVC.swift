@@ -146,7 +146,7 @@ class MenuTVC: UITableViewController
 			cell.generationImage.image = resolveGenImage(gen: indexPath.row)
 		}
 		
-		cell.generationLabel.text = textResolver.resolveGenTitle(gen: indexPath.row)
+		cell.generationLabel.text = textResolver.getGenTitle(gen: indexPath.row)
 		cell.generationLabel.font = fontSettingsService.getXxLargeFont()
 		
 		return cell

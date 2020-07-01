@@ -139,7 +139,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setTitle()
 	{
-		navigationItem.title = textResolver.resolveGenTitle(gen: generation)
+		navigationItem.title = textResolver.getGenTitle(gen: generation)
 	}
 	
 	fileprivate func slicePokemonList()
