@@ -16,11 +16,11 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var minusButton: UIButton!
 	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
-	@IBOutlet weak var pokeballButton: UIButton!
 	@IBOutlet weak var popupView: PopupView!
-	@IBOutlet weak var doubleButtonsVerticalView: DoubleVerticalButtonsView!
+	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
+	@IBOutlet weak var oddsLabel: UILabel!
 	
 	var pokemon: Pokemon!
 	var hunts: [Hunt]!
@@ -37,6 +37,7 @@ class ShinyTrackerVC: UIViewController
 	var colorService: ColorService!
 	var huntService: HuntService!
 	var huntStateService: HuntStateService!
+	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
 	{
@@ -63,8 +64,12 @@ class ShinyTrackerVC: UIViewController
 		setNumberLabelText()
 		
 		setPokeballButtonImage()
+
+		setMethodImage()
 		
 		setButtonActions()
+
+		setOddsLabelText()
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 	}
@@ -76,7 +81,26 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setPokeballButtonImage()
 	{
-		pokeballButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
+		buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
+	}
+
+	fileprivate func setMethodImage()
+	{
+		buttonStrip.methodButton.setImage(getMethodImage(), for: .normal)
+	}
+
+	fileprivate func getMethodImage() -> UIImage
+	{
+		if huntState!.isLureInUse
+		{
+			return UIImage(named: "max-lure")!
+		}
+		else if huntState!.isMasudaHunting
+		{
+			return UIImage(named: "egg")!
+		}
+
+		return UIImage(systemName: "info.circle.fill")!
 	}
 	
 	fileprivate func setUIColors()
@@ -97,10 +121,10 @@ class ShinyTrackerVC: UIViewController
 		
 		gifSeparatorView.backgroundColor = colorService.getSecondaryColor()
 		
-		pokeballButton.backgroundColor = colorService.getPrimaryColor()
-		
 		plusButton.tintColor = colorService.getTertiaryColor()
 		minusButton.tintColor = colorService.getTertiaryColor()
+
+		oddsLabel.textColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -110,20 +134,20 @@ class ShinyTrackerVC: UIViewController
 		encountersLabel.layer.cornerRadius = 10
 		probabilityLabel.layer.cornerRadius = 10
 		gifSeparatorView.layer.cornerRadius = 10
-		pokeballButton.layer.cornerRadius = pokeballButton.bounds.width / 2
 	}
 	
 	fileprivate func roundDoubleVerticalButtonsViewCorners()
 	{
-		doubleButtonsVerticalView.layer.cornerRadius = 10
+		buttonStrip.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setFonts()
 	{
 		numberLabel.font = fontSettingsService.getSmallFont()
-		probabilityLabel.font = fontSettingsService.getSmallFont()
+		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
 		encountersLabel.font = fontSettingsService.getSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
+		oddsLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -138,18 +162,17 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setButtonActions()
 	{
-		doubleButtonsVerticalView.infoButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
-		doubleButtonsVerticalView.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
+		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
+		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
+		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 	}
 	
 	fileprivate func resolveEncounterDetails()
 	{
 		setProbability()
-		
 		setProbabilityLabelText()
-		
-		setEncountersLabelText()
-		
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
+		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
 	
@@ -168,27 +191,14 @@ class ShinyTrackerVC: UIViewController
 		probabilityLabel.text = probabilityLabelText
 	}
 	
-	fileprivate func setEncountersLabelText()
-	{
-		let labelTitle: String?
-		if huntState!.generation == 6
-		{
-			labelTitle = " Catch Combo: "
-		}
-		else if huntState!.isMasudaHunting
-		{
-			labelTitle = " Eggs hatched: "
-		}
-		else
-		{
-			labelTitle = " Encounters: "
-		}
-		encountersLabel.text = "\(labelTitle!)\(pokemon.encounters)"
-	}
-	
 	fileprivate func setNumberLabelText()
 	{
 		numberLabel.text = " No. \(pokemon.number + 1)"
+	}
+
+	fileprivate func setOddsLabelText()
+	{
+		oddsLabel.text = "1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func minusButtonIsEnabled() -> Bool
@@ -243,8 +253,8 @@ class ShinyTrackerVC: UIViewController
 		setEncountersPressed = true
 		performSegue(withIdentifier: "setEncountersSegue", sender: self)
 	}
-	
-	@IBAction func changeCaughtBallPressed(_ sender: Any)
+
+	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any)
 	{
 		performSegue(withIdentifier: "shinyTrackerToModalSegue", sender: self)
 	}
@@ -265,6 +275,7 @@ class ShinyTrackerVC: UIViewController
 			
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
+			destVC.huntState = huntState
 		}
 		else if isAddingToHunt
 		{
@@ -305,7 +316,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			pokemon.caughtBall = sourceTVC.pokemon.caughtBall
 			
-			pokeballButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
+			buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		}
 	}
 	
@@ -314,9 +325,7 @@ class ShinyTrackerVC: UIViewController
 		let sourceVC = unwindSegue.source as! SetEncountersModalVC
 		pokemon = sourceVC.pokemon
 		pokemonService.save(pokemon: pokemon)
-		setProbability()
-		setProbabilityLabelText()
-		setEncountersLabelText()
+		resolveEncounterDetails()
 	}
 
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
@@ -331,8 +340,10 @@ class ShinyTrackerVC: UIViewController
 	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
 	{
 		huntState = huntStateService.get()
+		setMethodImage()
 		setProbability()
 		setProbabilityLabelText()
-		setEncountersLabelText()
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
+		setOddsLabelText()
 	}
 }

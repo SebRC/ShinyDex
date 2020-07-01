@@ -68,34 +68,34 @@ class SetEncountersView: UIView
 	
 	fileprivate func setColors()
 	{
-		contentView?.backgroundColor = colorService!.getPrimaryColor()
+		contentView?.backgroundColor = colorService!.getSecondaryColor()
 
-		spriteBackgroundView.backgroundColor = colorService!.getSecondaryColor()
+		spriteBackgroundView.backgroundColor = colorService!.getPrimaryColor()
 		
-		encountersTextField.backgroundColor = colorService!.getSecondaryColor()
+		encountersTextField.backgroundColor = colorService!.getPrimaryColor()
 		encountersTextField.textColor = colorService!.getTertiaryColor()
 		encountersTextField.attributedPlaceholder = NSAttributedString(string: "Set Encounters",
 																	   attributes: [NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor() as Any])
 		
-		titleLabel.backgroundColor = colorService!.getSecondaryColor()
+		titleLabel.backgroundColor = colorService!.getPrimaryColor()
 		titleLabel.textColor = colorService!.getTertiaryColor()
 		
-		nameLabel.backgroundColor = colorService!.getSecondaryColor()
+		nameLabel.backgroundColor = colorService!.getPrimaryColor()
 		nameLabel.textColor = colorService!.getTertiaryColor()
 		
-		numberLabel.backgroundColor = colorService!.getSecondaryColor()
+		numberLabel.backgroundColor = colorService!.getPrimaryColor()
 		numberLabel.textColor = colorService!.getTertiaryColor()
 		
-		encountersLabel.backgroundColor = colorService!.getSecondaryColor()
+		encountersLabel.backgroundColor = colorService!.getPrimaryColor()
 		encountersLabel.textColor = colorService!.getTertiaryColor()
 		
-		cancelButton.backgroundColor = colorService!.getSecondaryColor()
+		cancelButton.backgroundColor = colorService!.getPrimaryColor()
 		cancelButton.setTitleColor(colorService!.getTertiaryColor(), for: .normal)
 		
-		confirmButton.backgroundColor = colorService!.getSecondaryColor()
+		confirmButton.backgroundColor = colorService!.getPrimaryColor()
 		confirmButton.setTitleColor(colorService!.getTertiaryColor(), for: .normal)
 		
-		buttonSeparator.backgroundColor = colorService!.getPrimaryColor()
+		buttonSeparator.backgroundColor = colorService!.getSecondaryColor()
 	}
 	
 	fileprivate func setFonts()
