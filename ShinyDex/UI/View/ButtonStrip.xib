@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DoubleVerticalButtonsView" customModule="ShinyDex" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ButtonStrip" customModule="ShinyDex" customModuleProvider="target">
             <connections>
                 <outlet property="encountersMethodSeparator" destination="RLl-ng-qB0" id="5dJ-UT-Weh"/>
                 <outlet property="methodBallSeparator" destination="Zu5-c5-gbk" id="JeI-U6-lOZ"/>

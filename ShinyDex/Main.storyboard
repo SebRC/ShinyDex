@@ -920,7 +920,7 @@
                                     <action selector="plusPressed:" destination="9Np-ox-Xbt" eventType="touchUpInside" id="Ypq-jW-7iI"/>
                                 </connections>
                             </button>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="DoubleVerticalButtonsView" customModule="ShinyDex" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="ButtonStrip" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="319" y="58" width="40" height="124"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -984,7 +984,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addToHuntButton" destination="lm3-DE-Myb" id="8OT-9Z-Ymb"/>
-                        <outlet property="doubleButtonsVerticalView" destination="MUf-xf-A7g" id="H0r-vs-YIc"/>
+                        <outlet property="buttonStrip" destination="MUf-xf-A7g" id="H0r-vs-YIc"/>
                         <outlet property="encountersLabel" destination="Rl1-0y-S1X" id="VAG-Yy-h7S"/>
                         <outlet property="gifImageView" destination="hoS-2k-DOC" id="mPx-8G-s2j"/>
                         <outlet property="gifSeparatorView" destination="L4E-f9-VW1" id="uw1-HD-LH3"/>

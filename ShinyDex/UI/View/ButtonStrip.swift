@@ -18,7 +18,7 @@ class ButtonStrip: UIView
 	@IBOutlet weak var methodBallSeparator: UIView!
 	fileprivate var colorService: ColorService?
 	
-	let nibName = "DoubleVerticalButtonsView"
+	let nibName = "ButtonStrip"
     var contentView:UIView?
 	
 	required init?(coder aDecoder: NSCoder)

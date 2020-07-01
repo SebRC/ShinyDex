@@ -17,7 +17,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
 	@IBOutlet weak var popupView: PopupView!
-	@IBOutlet weak var doubleButtonsVerticalView: DoubleVerticalButtonsView!
+	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
 	@IBOutlet weak var oddsLabel: UILabel!
@@ -80,12 +80,12 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setPokeballButtonImage()
 	{
-		doubleButtonsVerticalView.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
+		buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 	}
 
 	fileprivate func setMethodImage()
 	{
-		doubleButtonsVerticalView.methodButton.setImage(getMethodImage(), for: .normal)
+		buttonStrip.methodButton.setImage(getMethodImage(), for: .normal)
 	}
 
 	fileprivate func getMethodImage() -> UIImage
@@ -137,7 +137,7 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func roundDoubleVerticalButtonsViewCorners()
 	{
-		doubleButtonsVerticalView.layer.cornerRadius = 10
+		buttonStrip.layer.cornerRadius = 10
 	}
 	
 	fileprivate func setFonts()
@@ -161,9 +161,9 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setButtonActions()
 	{
-		doubleButtonsVerticalView.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
-		doubleButtonsVerticalView.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
-		doubleButtonsVerticalView.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
+		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
+		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
+		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 	}
 	
 	fileprivate func resolveEncounterDetails()
@@ -332,7 +332,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			pokemon.caughtBall = sourceTVC.pokemon.caughtBall
 			
-			doubleButtonsVerticalView.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
+			buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		}
 	}
 	
