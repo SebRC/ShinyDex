@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate
+class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate
 {
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
@@ -30,6 +30,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		presentationController?.delegate = self
 		searchBar.delegate = self
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -188,6 +190,11 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	@IBAction func cancelPressed(_ sender: Any)
 	{
+		markSelectedPokemonAsNotHunted()
+	}
+
+	fileprivate func markSelectedPokemonAsNotHunted()
+	{
 		for pokemon in newHunt.pokemon
 		{
 			pokemon.isBeingHunted = false
@@ -227,4 +234,9 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		newHunt.name = textField.text ?? "New Hunt"
         return false
     }
+
+	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
+	{
+		markSelectedPokemonAsNotHunted()
+	}
 }
