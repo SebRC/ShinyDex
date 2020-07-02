@@ -110,11 +110,11 @@ class GameSettingsContainer: UIView
 		shinyCharmCell.actionSwitch.isOn = huntState!.isShinyCharmActive
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
 
-		lureCell.actionSwitch.isOn = huntState!.isLureInUse
-		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
+		lureCell.actionSwitch.isOn = huntState!.huntMethod == HuntMethod.Lure
+		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.huntMethod == HuntMethod.Lure)
 
-		masudaCell.actionSwitch.isOn = huntState!.isMasudaHunting
-		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+		masudaCell.actionSwitch.isOn = huntState!.huntMethod == HuntMethod.Masuda
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == HuntMethod.Masuda)
 
 		resolveSwitchStates()
 	}
@@ -181,10 +181,10 @@ class GameSettingsContainer: UIView
 
 	@objc fileprivate func changeIsLureInUse(_ sender: Any)
 	{
-		huntState!.isLureInUse = lureCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
+		huntState!.huntMethod = lureCell.actionSwitch.isOn ? HuntMethod.Lure : HuntMethod.Encounters
+		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.huntMethod == HuntMethod.Lure)
 		huntStateService.save(huntState!)
-		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmCell.actionSwitch.isOn, huntState!.isLureInUse, masudaCell.actionSwitch.isOn)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
 	}
 
@@ -193,16 +193,16 @@ class GameSettingsContainer: UIView
 		huntState?.isShinyCharmActive = shinyCharmCell.actionSwitch.isOn
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
 		huntStateService.save(huntState!)
-		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, huntState!.isShinyCharmActive, lureCell.actionSwitch.isOn, masudaCell.actionSwitch.isOn)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
 	}
 
 	@objc fileprivate func changeIsMasudaHunting(_ sender: Any)
 	{
-		huntState?.isMasudaHunting = masudaCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+		huntState?.huntMethod = masudaCell.actionSwitch.isOn ? HuntMethod.Masuda : HuntMethod.Encounters
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == HuntMethod.Masuda)
 		huntStateService.save(huntState!)
-		huntState?.shinyOdds = oddsService.getShinyOdds(generationSegmentedControl.selectedSegmentIndex, shinyCharmCell.actionSwitch.isOn, lureCell.actionSwitch.isOn, huntState!.isMasudaHunting)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
 	}
 
@@ -215,13 +215,13 @@ class GameSettingsContainer: UIView
 		huntState!.isShinyCharmActive = shinyCharmCell.actionSwitch.isOn
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
 
-		huntState!.isLureInUse = lureCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.isLureInUse)
+		huntState!.huntMethod = lureCell.actionSwitch.isOn ? HuntMethod.Lure : HuntMethod.Encounters
+		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.huntMethod == HuntMethod.Lure)
 
-		huntState!.isMasudaHunting = masudaCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.isMasudaHunting)
+		huntState!.huntMethod = masudaCell.actionSwitch.isOn ? HuntMethod.Masuda : HuntMethod.Encounters
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == HuntMethod.Masuda)
 
-		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting)
+		huntState!.shinyOdds = oddsService.getShinyOdds(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod)
 
 		setShinyOddsLabelText()
 

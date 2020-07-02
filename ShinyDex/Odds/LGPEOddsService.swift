@@ -13,10 +13,10 @@ class LGPEOddsService
 	fileprivate var isShinyCharmActive = false
 	fileprivate var isLureActive = false
 
-	func getOdds(catchCombo: Int, isCharmActive: Bool, isLureInUse: Bool) -> Int
+	func getOdds(catchCombo: Int, isCharmActive: Bool, huntMethod: HuntMethod) -> Int
 	{
 		isShinyCharmActive = isCharmActive
-		isLureActive = isLureInUse
+		isLureActive = huntMethod == HuntMethod.Lure
 
 		if catchCombo >= 0 && catchCombo <= 10
 		{

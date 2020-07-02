@@ -15,9 +15,9 @@ class OddsService
 	fileprivate let masudaOddsService = MasudaOddsService()
 	fileprivate let genTwoBreedingOddsService = Gen2BreedingOddsService()
 
-	func getShinyOdds(_ generation: Int, _ isCharmActive: Bool, _ isLureInUse: Bool, _ isMasudaHunting: Bool, _ encounters: Int = 0) -> Int
+	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int
 	{
-		if isMasudaHunting
+		if huntMethod == HuntMethod.Masuda
 		{
 			return masudaOddsService.getOdds(generation: generation, isCharmActive: isCharmActive)
 		}
@@ -41,6 +41,6 @@ class OddsService
 		{
 			return gen8OddsService.getOdds(battles: encounters, isCharmActive: isCharmActive)
 		}
-		return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, isLureInUse: isLureInUse)
+		return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
 	}
 }

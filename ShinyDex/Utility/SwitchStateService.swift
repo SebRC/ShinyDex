@@ -31,7 +31,7 @@ class SwitchStateService
 		if generation == 6
 		{
 			enableSwitch(uiSwitch: lureSwitch)
-			lureSwitch.isOn = huntState.isLureInUse
+			lureSwitch.isOn = huntState.huntMethod == HuntMethod.Lure
 		}
 		else
 		{

@@ -54,7 +54,7 @@ class TextResolver
 		{
 			labelTitle = " Catch Combo:"
 		}
-		else if huntState.isMasudaHunting
+		else if huntState.huntMethod == HuntMethod.Masuda
 		{
 			labelTitle = " Eggs:"
 		}

@@ -14,10 +14,10 @@ class LGPEProbabilityService
 	fileprivate var isLureActive = false
 	fileprivate var catchCombo = 0
 
-	func getProbability(combo: Int, isCharmActive: Bool, isLureInUse: Bool) -> Double
+	func getProbability(combo: Int, isCharmActive: Bool, huntMethod: HuntMethod) -> Double
 	{
 		isShinyCharmActive = isCharmActive
-		isLureActive = isLureInUse
+		isLureActive = huntMethod == HuntMethod.Lure
 		catchCombo = combo
 
 		if combo >= 0 && combo <= 10
