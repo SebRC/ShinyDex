@@ -13,6 +13,7 @@ class OddsService
 	fileprivate let lgpeOddsService = LGPEOddsService()
 	fileprivate let gen8OddsService = Gen8OddsService()
 	fileprivate let masudaOddsService = MasudaOddsService()
+	fileprivate let genTwoBreedingOddsService = Gen2BreedingOddsService()
 
 	func getShinyOdds(_ generation: Int, _ isCharmActive: Bool, _ isLureInUse: Bool, _ isMasudaHunting: Bool, _ encounters: Int = 0) -> Int
 	{

@@ -19,6 +19,8 @@
 		96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4624561E1C00C45A00 /* CreateHuntCell.swift */; };
 		96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */; };
 		96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4A24571E8500C45A00 /* HuntPickerCell.swift */; };
+		9648AE8B24ADCAE300E819CC /* Gen2BreedingOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */; };
+		9648AE8D24AE110500E819CC /* HuntMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648AE8C24AE110500E819CC /* HuntMethod.swift */; };
 		964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */; };
 		964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */; };
 		964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080F23EF58A500459450 /* PokeballCell.swift */; };
@@ -99,6 +101,8 @@
 		96435D4624561E1C00C45A00 /* CreateHuntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntCell.swift; sourceTree = "<group>"; };
 		96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPickerModalVC.swift; sourceTree = "<group>"; };
 		96435D4A24571E8500C45A00 /* HuntPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPickerCell.swift; sourceTree = "<group>"; };
+		9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen2BreedingOddsService.swift; sourceTree = "<group>"; };
+		9648AE8C24AE110500E819CC /* HuntMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMethod.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				96FC082023EF595700459450 /* HuntStateRepository.swift */,
 				9607F773242A8C2900263CF6 /* HuntStateService.swift */,
 				9607F779242AA20500263CF6 /* HuntState.swift */,
+				9648AE8C24AE110500E819CC /* HuntMethod.swift */,
 			);
 			path = HuntState;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				9689C72624084CCF0007AD5D /* LGPEOddsService.swift */,
 				9689C72E2408FAB00007AD5D /* Gen8OddsService.swift */,
 				967F63072465E419008F2C4B /* MasudaOddsService.swift */,
+				9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */,
 			);
 			path = Odds;
 			sourceTree = "<group>";
@@ -539,6 +545,7 @@
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,
 				966C211424103FE30019F835 /* FontSettingsService.swift in Sources */,
 				96FC07E623EF511500459450 /* GifSwift.swift in Sources */,
+				9648AE8B24ADCAE300E819CC /* Gen2BreedingOddsService.swift in Sources */,
 				96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
 				96C96D482444696000D30186 /* FontThemeName.swift in Sources */,
@@ -590,6 +597,7 @@
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
+				9648AE8D24AE110500E819CC /* HuntMethod.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
 				966C211A241174690019F835 /* ColorService.swift in Sources */,
 				967F63002465C608008F2C4B /* GameSettingsCell.swift in Sources */,
