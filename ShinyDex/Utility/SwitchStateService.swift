@@ -11,27 +11,38 @@ import UIKit
 
 class SwitchStateService
 {
-	fileprivate var huntStateService = HuntStateService()
-	
-	func resolveShinyCharmSwitchState(generation: Int, shinyCharmSwitch: UISwitch)
+	func resolveGen2BreddingSwitchState(huntState: HuntState, gen2BreedingSwitch: UISwitch)
 	{
-		if generation < 2
+		if huntState.generation == 0
+		{
+			enableSwitch(uiSwitch: gen2BreedingSwitch)
+			gen2BreedingSwitch.isOn = huntState.huntMethod == .Gen2Breeding
+		}
+		else
+		{
+			disableSwitch(uiSwitch: gen2BreedingSwitch)
+		}
+	}
+	
+	func resolveShinyCharmSwitchState(huntState: HuntState, shinyCharmSwitch: UISwitch)
+	{
+		if huntState.generation < 2
 		{
 			disableSwitch(uiSwitch: shinyCharmSwitch)
 		}
 		else
 		{
 			enableSwitch(uiSwitch: shinyCharmSwitch)
+			shinyCharmSwitch.isOn = huntState.isShinyCharmActive
 		}
 	}
 
-	func resolveLureSwitchState(generation: Int, lureSwitch: UISwitch)
+	func resolveLureSwitchState(huntState: HuntState, lureSwitch: UISwitch)
 	{
-		let huntState = huntStateService.get()
-		if generation == 6
+		if huntState.generation == 6
 		{
 			enableSwitch(uiSwitch: lureSwitch)
-			lureSwitch.isOn = huntState.isLureInUse
+			lureSwitch.isOn = huntState.huntMethod == .Lure
 		}
 		else
 		{
@@ -39,15 +50,16 @@ class SwitchStateService
 		}
 	}
 
-	func resolveMasudaSwitchState(generation : Int, masudaSwitch: UISwitch)
+	func resolveMasudaSwitchState(huntState: HuntState, masudaSwitch: UISwitch)
 	{
-		if generation < 1 || generation == 6
+		if huntState.generation < 1 || huntState.generation == 6
 		{
 			disableSwitch(uiSwitch: masudaSwitch)
 		}
 		else
 		{
 			enableSwitch(uiSwitch: masudaSwitch)
+			masudaSwitch.isOn = huntState.huntMethod == .Masuda
 		}
 	}
 

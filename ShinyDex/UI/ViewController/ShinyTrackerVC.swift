@@ -91,13 +91,17 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		if huntState!.isLureInUse
+		if huntState!.huntMethod == .Lure
 		{
 			return UIImage(named: "max-lure")!
 		}
-		else if huntState!.isMasudaHunting
+		else if huntState!.huntMethod == .Masuda
 		{
 			return UIImage(named: "egg")!
+		}
+		else if huntState!.huntMethod == .Gen2Breeding
+		{
+			return UIImage(named: "gyarados")!
 		}
 
 		return UIImage(systemName: "info.circle.fill")!
@@ -179,9 +183,9 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setProbability()
 	{
 		let encounters = pokemon.encounters
-		huntState!.shinyOdds = oddsService.getShinyOdds(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting, encounters)
+		huntState!.shinyOdds = oddsService.getShinyOdds(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod, encounters: encounters)
 
-		probability = probabilityService.getProbability(huntState!.generation, huntState!.isShinyCharmActive, huntState!.isLureInUse, huntState!.isMasudaHunting, encounters, huntState!.shinyOdds)
+		probability = probabilityService.getProbability(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod, encounters: encounters, shinyOdds: huntState!.shinyOdds)
 	}
 
 	fileprivate func setProbabilityLabelText()

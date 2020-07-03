@@ -30,8 +30,6 @@ class MenuTVC: UITableViewController
 
 		tableView.separatorColor = colorService.getSecondaryColor()
 
-		allPokemon = pokemonService.getAll()
-
 		hunts = huntService.getAll()
 		
 		showNavigationBar()
