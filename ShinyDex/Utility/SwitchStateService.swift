@@ -76,6 +76,19 @@ class SwitchStateService
 		}
 	}
 
+	func resolveChainFishingSwitchState(huntState: HuntState, chainFishingSwitch: UISwitch)
+	{
+		if huntState.generation == 3
+		{
+			enableSwitch(uiSwitch: chainFishingSwitch)
+			chainFishingSwitch.isOn = huntState.huntMethod == .ChainFishing
+		}
+		else
+		{
+			disableSwitch(uiSwitch: chainFishingSwitch)
+		}
+	}
+
 	func resolveSosChainingSwitchState(huntState: HuntState, sosChainingSwitch: UISwitch)
 	{
 		if huntState.generation == 4
