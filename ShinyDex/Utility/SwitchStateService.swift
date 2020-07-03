@@ -76,6 +76,19 @@ class SwitchStateService
 		}
 	}
 
+	func resolveSosChainingSwitchState(huntState: HuntState, sosChainingSwitch: UISwitch)
+	{
+		if huntState.generation == 4
+		{
+			enableSwitch(uiSwitch: sosChainingSwitch)
+			sosChainingSwitch.isOn = huntState.huntMethod == .SosChaining
+		}
+		else
+		{
+			disableSwitch(uiSwitch: sosChainingSwitch)
+		}
+	}
+
 	fileprivate func disableSwitch(uiSwitch: UISwitch)
 	{
 		uiSwitch.isOn = false

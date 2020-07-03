@@ -107,6 +107,10 @@ class ShinyTrackerVC: UIViewController
 		{
 			return UIImage(named: "heart-mail")!
 		}
+		else if huntState!.huntMethod == .SosChaining
+		{
+			return UIImage(named: "sos")!
+		}
 		else if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
 		{
 			return UIImage(named: "shiny-charm")!

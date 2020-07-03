@@ -58,6 +58,10 @@ class TextResolver
 		{
 			labelTitle = " Eggs:"
 		}
+		else if huntState.huntMethod == .SosChaining
+		{
+			labelTitle = " Chain:"
+		}
 		else
 		{
 			labelTitle = " Encounters:"

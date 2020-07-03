@@ -78,6 +78,7 @@ class GameSettingsContainer: UIView
 		genTwoBreedingCell.actionSwitch.addTarget(self, action: #selector(changeIsGen2Breeding), for: .valueChanged)
 		friendSafariCell.actionSwitch.addTarget(self, action: #selector(changeIsFriendSafariHunting), for: .valueChanged)
 		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
+		sosChainCell.actionSwitch.addTarget(self, action: #selector(changeIsSosChaining), for: .valueChanged)
 		setUIColors()
 		setFonts()
 		setShinyOddsLabelText()
@@ -120,6 +121,9 @@ class GameSettingsContainer: UIView
 
 		friendSafariCell.actionSwitch.isOn = huntState!.huntMethod == .FriendSafari
 		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: huntState!.huntMethod == .FriendSafari)
+
+		sosChainCell.actionSwitch.isOn = huntState!.huntMethod == .SosChaining
+		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
 
 		lureCell.actionSwitch.isOn = huntState!.huntMethod == .Lure
 		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Lure)
@@ -232,6 +236,15 @@ class GameSettingsContainer: UIView
 		setShinyOddsLabelText()
 	}
 
+	@objc fileprivate func changeIsSosChaining(_ sender: Any)
+	{
+		huntState?.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
+		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
+		huntStateService.save(huntState!)
+		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
+		setShinyOddsLabelText()
+	}
+
 	@objc fileprivate func changeGenerationPressed(_ sender: Any)
 	{
 		resolveSwitchStates()
@@ -250,6 +263,9 @@ class GameSettingsContainer: UIView
 		huntState!.huntMethod = masudaCell.actionSwitch.isOn ? .Masuda : .Encounters
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Masuda)
 
+		huntState!.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
+		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
+
 		huntState!.shinyOdds = oddsService.getShinyOdds(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod)
 
 		setShinyOddsLabelText()
@@ -266,5 +282,6 @@ class GameSettingsContainer: UIView
 		switchStateService.resolveMasudaSwitchState(huntState: huntState!, masudaSwitch: masudaCell.actionSwitch)
 		switchStateService.resolveGen2BreddingSwitchState(huntState: huntState!, gen2BreedingSwitch: genTwoBreedingCell.actionSwitch)
 		switchStateService.resolveFriendSafariSwitchState(huntState: huntState!, friendSafariSwitch: friendSafariCell.actionSwitch)
+		switchStateService.resolveSosChainingSwitchState(huntState: huntState!, sosChainingSwitch: sosChainCell.actionSwitch)
 	}
 }
