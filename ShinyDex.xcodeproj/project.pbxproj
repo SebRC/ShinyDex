@@ -11,6 +11,7 @@
 		9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F773242A8C2900263CF6 /* HuntStateService.swift */; };
 		9607F778242A971000263CF6 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F777242A971000263CF6 /* PokemonService.swift */; };
 		9607F77A242AA20500263CF6 /* HuntState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F779242AA20500263CF6 /* HuntState.swift */; };
+		961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
@@ -93,6 +94,7 @@
 		9607F773242A8C2900263CF6 /* HuntStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntStateService.swift; sourceTree = "<group>"; };
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		9607F779242AA20500263CF6 /* HuntState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntState.swift; sourceTree = "<group>"; };
+		961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsService.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				9689C72E2408FAB00007AD5D /* Gen8OddsService.swift */,
 				967F63072465E419008F2C4B /* MasudaOddsService.swift */,
 				9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */,
+				961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */,
 			);
 			path = Odds;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
+				961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */,
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,

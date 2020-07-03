@@ -103,6 +103,14 @@ class ShinyTrackerVC: UIViewController
 		{
 			return UIImage(named: "gyarados")!
 		}
+		else if huntState!.huntMethod == .FriendSafari
+		{
+			return UIImage(named: "heart-mail")!
+		}
+		else if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
+		{
+			return UIImage(named: "shiny-charm")!
+		}
 
 		return UIImage(systemName: "info.circle.fill")!
 	}

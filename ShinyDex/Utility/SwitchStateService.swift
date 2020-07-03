@@ -37,6 +37,19 @@ class SwitchStateService
 		}
 	}
 
+	func resolveFriendSafariSwitchState(huntState: HuntState, friendSafariSwitch: UISwitch)
+	{
+		if huntState.generation == 3
+		{
+			enableSwitch(uiSwitch: friendSafariSwitch)
+			friendSafariSwitch.isOn = huntState.huntMethod == .FriendSafari
+		}
+		else
+		{
+			disableSwitch(uiSwitch: friendSafariSwitch)
+		}
+	}
+
 	func resolveLureSwitchState(huntState: HuntState, lureSwitch: UISwitch)
 	{
 		if huntState.generation == 6

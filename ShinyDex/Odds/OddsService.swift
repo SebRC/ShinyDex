@@ -14,16 +14,21 @@ class OddsService
 	fileprivate let gen8OddsService = Gen8OddsService()
 	fileprivate let masudaOddsService = MasudaOddsService()
 	fileprivate let gen2BreedingOddsService = Gen2BreedingOddsService()
+	fileprivate let friendSafariOddsService = FriendSafariOddsService()
 
 	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int
 	{
+		if huntMethod == .Gen2Breeding
+		{
+			return gen2BreedingOddsService.getOdds()
+		}
 		if huntMethod == .Masuda
 		{
 			return masudaOddsService.getOdds(generation: generation, isCharmActive: isCharmActive)
 		}
-		if huntMethod == .Gen2Breeding
+		if huntMethod == .FriendSafari
 		{
-			return gen2BreedingOddsService.getOdds()
+			return friendSafariOddsService.getOdds(isShinyCharmActive: isCharmActive)
 		}
 		if generation == 0 || generation == 1 || generation == 2 && !isCharmActive
 		{
