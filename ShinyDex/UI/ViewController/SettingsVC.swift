@@ -188,6 +188,6 @@ class SettingsVC: UIViewController
 		setUIColors()
 		gameSettingsContainer.setUIColors()
 		gameSettingsContainer.setCellColors()
-		setAttributedFonts()
+		setFonts()
 	}
 }

@@ -107,6 +107,10 @@ class ShinyTrackerVC: UIViewController
 		{
 			return UIImage(named: "heart-mail")!
 		}
+		else if huntState!.huntMethod == .ChainFishing
+		{
+			return UIImage(named: "super-rod")!
+		}
 		else if huntState!.huntMethod == .SosChaining
 		{
 			return UIImage(named: "sos")!

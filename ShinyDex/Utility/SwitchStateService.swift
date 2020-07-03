@@ -29,6 +29,7 @@ class SwitchStateService
 		if huntState.generation < 2
 		{
 			disableSwitch(uiSwitch: shinyCharmSwitch)
+			huntState.isShinyCharmActive = false
 		}
 		else
 		{
@@ -73,6 +74,19 @@ class SwitchStateService
 		{
 			enableSwitch(uiSwitch: masudaSwitch)
 			masudaSwitch.isOn = huntState.huntMethod == .Masuda
+		}
+	}
+
+	func resolveChainFishingSwitchState(huntState: HuntState, chainFishingSwitch: UISwitch)
+	{
+		if huntState.generation == 3
+		{
+			enableSwitch(uiSwitch: chainFishingSwitch)
+			chainFishingSwitch.isOn = huntState.huntMethod == .ChainFishing
+		}
+		else
+		{
+			disableSwitch(uiSwitch: chainFishingSwitch)
 		}
 	}
 
