@@ -58,7 +58,7 @@ class TextResolver
 		{
 			labelTitle = " Eggs:"
 		}
-		else if huntState.huntMethod == .SosChaining
+		else if huntState.huntMethod == .SosChaining && huntState.huntMethod == .ChainFishing
 		{
 			labelTitle = " Chain:"
 		}
