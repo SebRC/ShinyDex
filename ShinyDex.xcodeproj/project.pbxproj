@@ -41,6 +41,7 @@
 		967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63072465E419008F2C4B /* MasudaOddsService.swift */; };
 		967F630A2465EE24008F2C4B /* MasudaProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63092465EE24008F2C4B /* MasudaProbabilityService.swift */; };
 		9682924A245C9DF600F60BE2 /* HuntNameEditorModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */; };
+		9684072F24AF5AAD005FE3D3 /* SosChainingOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684072E24AF5AAD005FE3D3 /* SosChainingOddsService.swift */; };
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
 		9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */; };
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
@@ -117,6 +118,7 @@
 		967F63072465E419008F2C4B /* MasudaOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasudaOddsService.swift; sourceTree = "<group>"; };
 		967F63092465EE24008F2C4B /* MasudaProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasudaProbabilityService.swift; sourceTree = "<group>"; };
 		96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntNameEditorModalVC.swift; sourceTree = "<group>"; };
+		9684072E24AF5AAD005FE3D3 /* SosChainingOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SosChainingOddsService.swift; sourceTree = "<group>"; };
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
 		9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEProbabilityService.swift; sourceTree = "<group>"; };
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				967F63072465E419008F2C4B /* MasudaOddsService.swift */,
 				9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */,
 				961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */,
+				9684072E24AF5AAD005FE3D3 /* SosChainingOddsService.swift */,
 			);
 			path = Odds;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				9648AE8D24AE110500E819CC /* HuntMethod.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
 				966C211A241174690019F835 /* ColorService.swift in Sources */,
+				9684072F24AF5AAD005FE3D3 /* SosChainingOddsService.swift in Sources */,
 				967F63002465C608008F2C4B /* GameSettingsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
