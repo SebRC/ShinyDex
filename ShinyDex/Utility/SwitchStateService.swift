@@ -29,6 +29,7 @@ class SwitchStateService
 		if huntState.generation < 2
 		{
 			disableSwitch(uiSwitch: shinyCharmSwitch)
+			huntState.isShinyCharmActive = false
 		}
 		else
 		{
