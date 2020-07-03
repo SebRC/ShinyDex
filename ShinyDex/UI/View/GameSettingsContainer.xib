@@ -117,7 +117,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrj-zV-AHL" userLabel="ExplanationSeparator">
-                    <rect key="frame" x="7" y="124" width="340" height="2"/>
+                    <rect key="frame" x="10" y="124" width="340" height="2"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
