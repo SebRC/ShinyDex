@@ -170,15 +170,6 @@ class GameSettingsContainer: UIView
 		{
 			cell.setUIColors()
 		}
-//		genTwoBreedingCell.setUIColors()
-//		masudaCell.setUIColors()
-//		pokeradarCell.setUIColors()
-//		shinyCharmCell.setUIColors()
-//		chainFishingCell.setUIColors()
-//		dexNavCell.setUIColors()
-//		friendSafariCell.setUIColors()
-//		sosChainCell.setUIColors()
-//		lureCell.setUIColors()
 	}
 
 	func setFonts()
@@ -195,15 +186,6 @@ class GameSettingsContainer: UIView
 		{
 			cell.setFonts()
 		}
-//		genTwoBreedingCell.setFonts()
-//		masudaCell.setFonts()
-//		pokeradarCell.setFonts()
-//		shinyCharmCell.setFonts()
-//		chainFishingCell.setFonts()
-//		dexNavCell.setFonts()
-//		friendSafariCell.setFonts()
-//		sosChainCell.setFonts()
-//		lureCell.setFonts()
 	}
 
 	@objc fileprivate func changeIsGen2Breeding(_ sender: Any)
@@ -219,13 +201,8 @@ class GameSettingsContainer: UIView
 	{
 		huntState!.huntMethod = friendSafariCell.actionSwitch.isOn ? .FriendSafari : .Encounters
 		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: huntState!.huntMethod == .FriendSafari)
-		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: false)
-		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: false)
-		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: false)
-		pokeradarCell.actionSwitch.isOn = false
-		chainFishingCell.actionSwitch.isOn = false
-		dexNavCell.actionSwitch.isOn = false
 
+		turnSwitchesOff(enabledCell: friendSafariCell, huntMethod: huntState!.huntMethod)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
@@ -253,6 +230,8 @@ class GameSettingsContainer: UIView
 	{
 		huntState?.huntMethod = masudaCell.actionSwitch.isOn ? .Masuda : .Encounters
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Masuda)
+
+		turnSwitchesOff(enabledCell: masudaCell, huntMethod: huntState!.huntMethod)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
@@ -264,14 +243,6 @@ class GameSettingsContainer: UIView
 		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: huntState!.huntMethod == .ChainFishing)
 
 		turnSwitchesOff(enabledCell: chainFishingCell, huntMethod: huntState!.huntMethod)
-//		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: false)
-//		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: false)
-//		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: false)
-//		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: false)
-//		pokeradarCell.actionSwitch.isOn = false
-//		friendSafariCell.actionSwitch.isOn = false
-//		dexNavCell.actionSwitch.isOn = false
-
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
@@ -281,6 +252,8 @@ class GameSettingsContainer: UIView
 	{
 		huntState?.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
+
+		turnSwitchesOff(enabledCell: sosChainCell, huntMethod: huntState!.huntMethod)
 		huntStateService.save(huntState!)
 		huntState?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: huntState!.huntMethod)
 		setShinyOddsLabelText()
@@ -319,14 +292,16 @@ class GameSettingsContainer: UIView
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod)
 	{
-		let cellsToTurnOff = gameSettingsCells!.filter {$0 != enabledCell || $0 != shinyCharmCell}
-		for cell in cellsToTurnOff
+		gameSettingsCells!.removeAll{$0 == enabledCell || $0 == shinyCharmCell}
+		for cell in gameSettingsCells!
 		{
 			setImageViewAlpha(imageView: cell.iconImageView, isSwitchOn: false)
 			cell.actionSwitch.isOn = false
 		}
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: huntState!.isShinyCharmActive)
-		setImageViewAlpha(imageView: enabledCell.iconImageView, isSwitchOn: huntMethod == huntState!.huntMethod)
+		setImageViewAlpha(imageView: enabledCell.iconImageView, isSwitchOn: enabledCell.actionSwitch.isOn)
+		gameSettingsCells!.append(enabledCell)
+		gameSettingsCells!.append(shinyCharmCell)
 	}
 
 	fileprivate func resolveSwitchStates()
