@@ -91,13 +91,17 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		if huntState!.huntMethod == HuntMethod.Lure
+		if huntState!.huntMethod == .Lure
 		{
 			return UIImage(named: "max-lure")!
 		}
-		else if huntState!.huntMethod == HuntMethod.Masuda
+		else if huntState!.huntMethod == .Masuda
 		{
 			return UIImage(named: "egg")!
+		}
+		else if huntState!.huntMethod == .Gen2Breeding
+		{
+			return UIImage(named: "gyarados")!
 		}
 
 		return UIImage(systemName: "info.circle.fill")!
