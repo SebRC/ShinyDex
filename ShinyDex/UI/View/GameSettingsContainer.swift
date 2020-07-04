@@ -235,7 +235,7 @@ class GameSettingsContainer: UIView
 	{
 		huntState!.generation = generationSegmentedControl.selectedSegmentIndex
 
-		if huntState?.generation == 0
+		if huntState?.huntMethod != .Masuda || huntState?.generation == 0 || huntState?.generation == 6
 		{
 			huntState?.huntMethod = .Encounters
 		}
@@ -262,13 +262,20 @@ class GameSettingsContainer: UIView
 		{
 			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: false)
 		}
+		if huntState?.generation == 6
+		{
+			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Lure)
+		}
+		else
+		{
+			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: false)
+		}
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Masuda)
 		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Pokeradar)
 		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: huntState!.huntMethod == .ChainFishing)
 		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: huntState!.huntMethod == .DexNav)
 		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: huntState!.huntMethod == .FriendSafari)
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
-		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Lure)
 	}
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod)
