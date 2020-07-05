@@ -27,6 +27,7 @@ class ShinyTrackerVC: UIViewController
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
 	var probability: Double?
+	var methodDecrement = 0
 	var huntState: HuntState?
 	var setEncountersPressed = false
 	var isAddingToHunt = false
@@ -58,6 +59,8 @@ class ShinyTrackerVC: UIViewController
 		setGif()
 
 		huntState = huntStateService.get()
+
+		setMethodDecrement()
 	
 		resolveEncounterDetails()
 		
@@ -72,6 +75,30 @@ class ShinyTrackerVC: UIViewController
 		setOddsLabelText()
 		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+	}
+
+	fileprivate func setMethodDecrement()
+	{
+		if huntState!.huntMethod == .SosChaining || huntState!.huntMethod == .Lure || huntState!.generation == 6
+		{
+			methodDecrement = 30
+		}
+		else if huntState!.huntMethod == .ChainFishing
+		{
+			methodDecrement = 20
+		}
+		else if huntState!.huntMethod == .Pokeradar
+		{
+			methodDecrement = 40
+		}
+		else if huntState!.generation == 5
+		{
+			methodDecrement = 500
+		}
+		else
+		{
+			methodDecrement = 0
+		}
 	}
 
 	fileprivate func hidePopupView()
@@ -114,6 +141,10 @@ class ShinyTrackerVC: UIViewController
 		else if huntState!.huntMethod == .SosChaining
 		{
 			return UIImage(named: "sos")!
+		}
+		else if huntState!.huntMethod == .Pokeradar
+		{
+			return UIImage(named: "poke-radar")!
 		}
 		else if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
 		{
@@ -165,7 +196,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		numberLabel.font = fontSettingsService.getSmallFont()
 		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
-		encountersLabel.font = fontSettingsService.getSmallFont()
+		encountersLabel.font = fontSettingsService.getExtraSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 		oddsLabel.font = fontSettingsService.getSmallFont()
 	}
@@ -191,23 +222,24 @@ class ShinyTrackerVC: UIViewController
 	{
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
 	
 	fileprivate func setProbability()
 	{
-		let encounters = pokemon.encounters
-		huntState!.shinyOdds = oddsService.getShinyOdds(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod, encounters: encounters)
 
-		probability = probabilityService.getProbability(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod, encounters: encounters, shinyOdds: huntState!.shinyOdds)
+		var encounters = pokemon.encounters
+		huntState!.shinyOdds = oddsService.getShinyOdds(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod, encounters: encounters)
+		encounters -= methodDecrement
+		probability = probabilityService.getProbability(encounters: encounters, shinyOdds: huntState!.shinyOdds)
 	}
 
 	fileprivate func setProbabilityLabelText()
 	{
 		let encounters = pokemon.encounters
-		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: huntState!.shinyOdds, probability: probability!)
+		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, shinyOdds: huntState!.shinyOdds, probability: probability!,  huntState: huntState!, methodDecrement: methodDecrement)
 		probabilityLabel.text = probabilityLabelText
 	}
 	
@@ -288,12 +320,11 @@ class ShinyTrackerVC: UIViewController
 		else if setEncountersPressed
 		{
 			setEncountersPressed = false
-			
 			let destVC = segue.destination as! SetEncountersModalVC
-			
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
 			destVC.huntState = huntState
+			destVC.methodDecrement = methodDecrement
 		}
 		else if isAddingToHunt
 		{
@@ -359,9 +390,10 @@ class ShinyTrackerVC: UIViewController
 	{
 		huntState = huntStateService.get()
 		setMethodImage()
+		setMethodDecrement()
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
 	}
 }

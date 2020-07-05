@@ -15,6 +15,7 @@ class SetEncountersModalVC: UIViewController
 	var pokemon: Pokemon!
 	var pokemonService: PokemonService!
 	var huntState: HuntState!
+	var methodDecrement: Int!
 	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
@@ -44,7 +45,7 @@ class SetEncountersModalVC: UIViewController
 	{
 		setEncountersView.nameLabel.text = " \(pokemon.name)"
 		setEncountersView.numberLabel.text = " No. \(pokemon.number + 1)"
-		setEncountersView.encountersLabel.text = " \(textResolver.getEncountersLabelText(huntState: huntState, encounters: pokemon.encounters))"
+		setEncountersView.encountersLabel.text = " \(textResolver.getEncountersLabelText(huntState: huntState, encounters: pokemon.encounters, methodDecrement: methodDecrement))"
 	}
 	
 	fileprivate func setButtonActions()

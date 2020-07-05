@@ -20,19 +20,19 @@ class Gen8OddsService
 		{
 			return getTier6Odds()
 		}
-		else if battles > 50 && battles < 100
+		else if battles >= 50 && battles < 100
 		{
 			return getTier5Odds()
 		}
-		else if battles > 100 && battles < 200
+		else if battles >= 100 && battles < 200
 		{
 			return getTier4Odds()
 		}
-		else if battles > 200 && battles < 300
+		else if battles >= 200 && battles < 300
 		{
 			return getTier3Odds()
 		}
-		else if battles > 300 && battles < 500
+		else if battles >= 300 && battles < 500
 		{
 			return getTier2Odds()
 		}
@@ -41,55 +41,31 @@ class Gen8OddsService
 
 	fileprivate func getTier6Odds() -> Int
 	{
-		if isShinyCharmActive
-		{
-			return 1365
-		}
-		return 4096
+		return isShinyCharmActive ? 1365 : 4096
 	}
 
 	fileprivate func getTier5Odds() -> Int
 	{
-		if isShinyCharmActive
-		{
-			return 1024
-		}
-		return 2048
+		return isShinyCharmActive ? 1024 : 2048
 	}
 
 	fileprivate func getTier4Odds() -> Int
 	{
-		if isShinyCharmActive
-		{
-			return 819
-		}
-		return 1365
+		return isShinyCharmActive ? 819 : 1365
 	}
 
 	fileprivate func getTier3Odds() -> Int
 	{
-		if isShinyCharmActive
-		{
-			return 683
-		}
-		return 1024
+		return isShinyCharmActive ? 683 : 1024
 	}
 
 	fileprivate func getTier2Odds() -> Int
 	{
-		if isShinyCharmActive
-		{
-			return 585
-		}
-		return 819
+		return isShinyCharmActive ? 585 : 819
 	}
 
 	fileprivate func getTier1Odds() -> Int
 	{
-		if isShinyCharmActive
-		{
-			return 512
-		}
-		return 683
+		return isShinyCharmActive ? 512 : 683
 	}
 }
