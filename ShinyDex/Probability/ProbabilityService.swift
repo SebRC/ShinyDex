@@ -10,24 +10,8 @@ import Foundation
 
 class ProbabilityService
 {
-	fileprivate let lgpeProbabilityService = LGPEProbabilityService()
-	fileprivate let gen8ProbabilityService = Gen8ProbabilityService()
-	fileprivate let masudaProbabilityService = MasudaProbabilityService()
-
-	func getProbability(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int, shinyOdds: Int) -> Double
+	func getProbability(encounters: Int, shinyOdds: Int) -> Double
 	{
-		if huntMethod == HuntMethod.Masuda
-		{
-			return masudaProbabilityService.getProbability(eggsHatched: encounters, odds: shinyOdds)
-		}
-		if generation == 5
-		{
-			return gen8ProbabilityService.getProbability(battles: encounters, isCharmActive: isCharmActive)
-		}
-		else if generation == 6
-		{
-			return lgpeProbabilityService.getProbability(combo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
-		}
 		return Double.getProbability(encounters: encounters, odds: shinyOdds)
 	}
 

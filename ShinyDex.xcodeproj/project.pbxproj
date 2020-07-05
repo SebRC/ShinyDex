@@ -40,17 +40,14 @@
 		967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */; };
 		967F63062465C927008F2C4B /* GameSettingsContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967F63052465C927008F2C4B /* GameSettingsContainer.xib */; };
 		967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63072465E419008F2C4B /* MasudaOddsService.swift */; };
-		967F630A2465EE24008F2C4B /* MasudaProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63092465EE24008F2C4B /* MasudaProbabilityService.swift */; };
 		9682924A245C9DF600F60BE2 /* HuntNameEditorModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */; };
 		9684072F24AF5AAD005FE3D3 /* SosChainingOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684072E24AF5AAD005FE3D3 /* SosChainingOddsService.swift */; };
 		9684073124AF6A2A005FE3D3 /* ChainFishingOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684073024AF6A2A005FE3D3 /* ChainFishingOddsService.swift */; };
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
-		9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */; };
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
 		9689C72D240851DD0007AD5D /* OddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72C240851DD0007AD5D /* OddsService.swift */; };
 		9689C72F2408FAB00007AD5D /* Gen8OddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72E2408FAB00007AD5D /* Gen8OddsService.swift */; };
 		9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C7302409633E0007AD5D /* ProbabilityService.swift */; };
-		9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C732240965420007AD5D /* Gen8ProbabilityService.swift */; };
 		96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */; };
 		96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */; };
 		96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* ButtonStrip.swift */; };
@@ -119,17 +116,14 @@
 		967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsContainer.swift; sourceTree = "<group>"; };
 		967F63052465C927008F2C4B /* GameSettingsContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSettingsContainer.xib; sourceTree = "<group>"; };
 		967F63072465E419008F2C4B /* MasudaOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasudaOddsService.swift; sourceTree = "<group>"; };
-		967F63092465EE24008F2C4B /* MasudaProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasudaProbabilityService.swift; sourceTree = "<group>"; };
 		96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntNameEditorModalVC.swift; sourceTree = "<group>"; };
 		9684072E24AF5AAD005FE3D3 /* SosChainingOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SosChainingOddsService.swift; sourceTree = "<group>"; };
 		9684073024AF6A2A005FE3D3 /* ChainFishingOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainFishingOddsService.swift; sourceTree = "<group>"; };
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
-		9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEProbabilityService.swift; sourceTree = "<group>"; };
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
 		9689C72C240851DD0007AD5D /* OddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsService.swift; sourceTree = "<group>"; };
 		9689C72E2408FAB00007AD5D /* Gen8OddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen8OddsService.swift; sourceTree = "<group>"; };
 		9689C7302409633E0007AD5D /* ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbabilityService.swift; sourceTree = "<group>"; };
-		9689C732240965420007AD5D /* Gen8ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen8ProbabilityService.swift; sourceTree = "<group>"; };
 		96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationPopup.swift; sourceTree = "<group>"; };
 		96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
 		96A72990245F12C500AF3F5F /* ButtonStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStrip.swift; sourceTree = "<group>"; };
@@ -267,9 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				9689C7302409633E0007AD5D /* ProbabilityService.swift */,
-				9689C72824084DD90007AD5D /* LGPEProbabilityService.swift */,
-				9689C732240965420007AD5D /* Gen8ProbabilityService.swift */,
-				967F63092465EE24008F2C4B /* MasudaProbabilityService.swift */,
 			);
 			path = Probability;
 			sourceTree = "<group>";
@@ -573,7 +564,6 @@
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
 				9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */,
-				9689C733240965420007AD5D /* Gen8ProbabilityService.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
 				961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */,
@@ -589,7 +579,6 @@
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
 				96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */,
-				967F630A2465EE24008F2C4B /* MasudaProbabilityService.swift in Sources */,
 				96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */,
 				96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */,
 				962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */,
@@ -601,7 +590,6 @@
 				967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */,
 				9684073124AF6A2A005FE3D3 /* ChainFishingOddsService.swift in Sources */,
 				96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */,
-				9689C72924084DD90007AD5D /* LGPEProbabilityService.swift in Sources */,
 				96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */,
 				9607F778242A971000263CF6 /* PokemonService.swift in Sources */,
 				96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */,
