@@ -31,13 +31,21 @@ class ProbabilityService
 		return Double.getProbability(encounters: encounters, odds: shinyOdds)
 	}
 
-	func getProbabilityText(encounters: Int, shinyOdds: Int, probability: Double) -> String
+	func getProbabilityText(encounters: Int, shinyOdds: Int, probability: Double, huntState: HuntState, methodDecrement: Int) -> String
 	{
-		let huntIsOverOdds = encounters > shinyOdds
+		let huntIsOverOdds = encounters - methodDecrement > shinyOdds
+
+		if huntState.huntMethod == .Lure && encounters <= 30 || huntState.generation == 6 && encounters <= 30
+			|| huntState.huntMethod == .Pokeradar && encounters <= 40
+			|| huntState.huntMethod == .ChainFishing && encounters <= 20
+			|| huntState.huntMethod == .SosChaining && encounters <= 30
+		{
+			return " Reach max chain to see probability"
+		}
 
 		if huntIsOverOdds
 		{
-			return " Hunt has gone over odds."
+			return " Hunt has gone over odds"
 		}
 		else
 		{

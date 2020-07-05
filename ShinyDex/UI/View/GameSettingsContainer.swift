@@ -82,6 +82,7 @@ class GameSettingsContainer: UIView
 		friendSafariCell.actionSwitch.addTarget(self, action: #selector(changeIsFriendSafariHunting), for: .valueChanged)
 		chainFishingCell.actionSwitch.addTarget(self, action: #selector(changeIsChainFishing(_:)), for: .valueChanged)
 		sosChainCell.actionSwitch.addTarget(self, action: #selector(changeIsSosChaining), for: .valueChanged)
+		pokeradarCell.actionSwitch.addTarget(self, action: #selector(changeIsPokeradarHunting), for: .valueChanged)
 		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 		setUIColors()
 		setFonts()
@@ -217,6 +218,13 @@ class GameSettingsContainer: UIView
 		turnSwitchesOff(enabledCell: masudaCell, huntMethod: huntState!.huntMethod)
 	}
 
+	@objc fileprivate func changeIsPokeradarHunting(_ sender: Any)
+	{
+		huntState?.huntMethod = pokeradarCell.actionSwitch.isOn ? .Pokeradar : .Encounters
+		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Pokeradar)
+		turnSwitchesOff(enabledCell: pokeradarCell, huntMethod: huntState!.huntMethod)
+	}
+
 	@objc fileprivate func changeIsChainFishing(_ sender: Any)
 	{
 		huntState?.huntMethod = chainFishingCell.actionSwitch.isOn ? .ChainFishing : .Encounters
@@ -304,5 +312,6 @@ class GameSettingsContainer: UIView
 		switchStateService.resolveFriendSafariSwitchState(huntState: huntState!, friendSafariSwitch: friendSafariCell.actionSwitch)
 		switchStateService.resolveSosChainingSwitchState(huntState: huntState!, sosChainingSwitch: sosChainCell.actionSwitch)
 		switchStateService.resolveChainFishingSwitchState(huntState: huntState!, chainFishingSwitch: chainFishingCell.actionSwitch)
+		switchStateService.resolvePokeradarSwitchState(huntState: huntState!, pokeradarSwitch: pokeradarCell.actionSwitch)
 	}
 }

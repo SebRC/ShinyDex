@@ -103,6 +103,19 @@ class SwitchStateService
 		}
 	}
 
+	func resolvePokeradarSwitchState(huntState: HuntState, pokeradarSwitch: UISwitch)
+	{
+		if huntState.generation == 1 || huntState.generation == 3
+		{
+			enableSwitch(uiSwitch: pokeradarSwitch)
+			pokeradarSwitch.isOn = huntState.huntMethod == .Pokeradar
+		}
+		else
+		{
+			disableSwitch(uiSwitch: pokeradarSwitch)
+		}
+	}
+
 	fileprivate func disableSwitch(uiSwitch: UISwitch)
 	{
 		uiSwitch.isOn = false

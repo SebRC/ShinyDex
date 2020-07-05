@@ -17,6 +17,7 @@ class OddsService
 	fileprivate let friendSafariOddsService = FriendSafariOddsService()
 	fileprivate let chainFishingOddsService = ChainFishingOddsService()
 	fileprivate let sosChainingOddsService = SosChainingOddsService()
+	fileprivate let pokeradarOddsService = PokeradarOddsService()
 
 	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int
 	{
@@ -27,6 +28,10 @@ class OddsService
 		if huntMethod == .Masuda
 		{
 			return masudaOddsService.getOdds(generation: generation, isCharmActive: isCharmActive)
+		}
+		if huntMethod == .Pokeradar
+		{
+			return pokeradarOddsService.getOdds(chain: encounters)
 		}
 		if huntMethod == .FriendSafari
 		{
