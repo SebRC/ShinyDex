@@ -192,7 +192,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		numberLabel.font = fontSettingsService.getSmallFont()
 		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
-		encountersLabel.font = fontSettingsService.getSmallFont()
+		encountersLabel.font = fontSettingsService.getExtraSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 		oddsLabel.font = fontSettingsService.getSmallFont()
 	}
@@ -218,7 +218,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
@@ -322,6 +322,7 @@ class ShinyTrackerVC: UIViewController
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
 			destVC.huntState = huntState
+			destVC.methodDecrement = methodDecrement
 		}
 		else if isAddingToHunt
 		{
@@ -390,7 +391,7 @@ class ShinyTrackerVC: UIViewController
 		setMethodDecrement()
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters)
+		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
 	}
 }

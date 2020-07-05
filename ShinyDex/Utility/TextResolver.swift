@@ -47,25 +47,43 @@ class TextResolver
 		return "Kanto"
 	}
 
-	func getEncountersLabelText(huntState: HuntState, encounters: Int) -> String
+	func getEncountersLabelText(huntState: HuntState, encounters: Int, methodDecrement: Int = 0) -> String
 	{
-		let labelTitle: String?
+		let encountersDecremented = encounters - methodDecrement
+		var maxChainReached = false
+
+		if huntState.huntMethod == .Lure || huntState.huntMethod == .SosChaining || huntState.generation == 6
+		{
+			maxChainReached = encounters > 30
+		}
+		else if huntState.huntMethod == .ChainFishing
+		{
+			maxChainReached = encounters > 20
+		}
+		else if huntState.huntMethod == .Pokeradar
+		{
+			maxChainReached = encounters > 40
+		}
+
 		if huntState.generation == 6
 		{
-			labelTitle = " Catch Combo:"
+			return maxChainReached
+				? " Catch Combo: \(methodDecrement) + \(encountersDecremented) seen"
+				: " Catch Combo: \(encounters)"
 		}
 		else if huntState.huntMethod == .Masuda || huntState.huntMethod == .Gen2Breeding
 		{
-			labelTitle = " Eggs:"
+			return " Eggs: \(encounters)"
 		}
 		else if huntState.huntMethod == .SosChaining || huntState.huntMethod == .ChainFishing || huntState.huntMethod == .Pokeradar
 		{
-			labelTitle = " Chain:"
+			return maxChainReached
+				? " Chain: \(methodDecrement) + \(encountersDecremented) seen"
+				: " Chain: \(encounters)"
 		}
 		else
 		{
-			labelTitle = " Encounters:"
+			return " Encounters: \(encounters)"
 		}
-		return "\(labelTitle!) \(encounters)"
 	}
 }
