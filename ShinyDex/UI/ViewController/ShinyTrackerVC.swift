@@ -91,6 +91,10 @@ class ShinyTrackerVC: UIViewController
 		{
 			methodDecrement = 40
 		}
+		else if huntState!.generation == 5
+		{
+			methodDecrement = 500
+		}
 		else
 		{
 			methodDecrement = 0
@@ -316,9 +320,7 @@ class ShinyTrackerVC: UIViewController
 		else if setEncountersPressed
 		{
 			setEncountersPressed = false
-			
 			let destVC = segue.destination as! SetEncountersModalVC
-			
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
 			destVC.huntState = huntState

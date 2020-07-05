@@ -51,8 +51,9 @@ class TextResolver
 	{
 		let encountersDecremented = encounters - methodDecrement
 		var maxChainReached = false
+		let huntVerb = huntState.generation == 5 ? "Battles" : "Chain"
 
-		if huntState.huntMethod == .Lure || huntState.huntMethod == .SosChaining || huntState.generation == 6
+		if huntState.huntMethod == .Lure || huntState.huntMethod == .SosChaining
 		{
 			maxChainReached = encounters > 30
 		}
@@ -63,6 +64,10 @@ class TextResolver
 		else if huntState.huntMethod == .Pokeradar
 		{
 			maxChainReached = encounters > 40
+		}
+		else if huntState.generation == 5
+		{
+			maxChainReached = encounters > 500
 		}
 
 		if huntState.generation == 6
@@ -75,11 +80,11 @@ class TextResolver
 		{
 			return " Eggs: \(encounters)"
 		}
-		else if huntState.huntMethod == .SosChaining || huntState.huntMethod == .ChainFishing || huntState.huntMethod == .Pokeradar
+		else if huntState.huntMethod == .SosChaining || huntState.huntMethod == .ChainFishing || huntState.huntMethod == .Pokeradar || huntState.generation == 5
 		{
 			return maxChainReached
-				? " Chain: \(methodDecrement) + \(encountersDecremented) seen"
-				: " Chain: \(encounters)"
+				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) seen"
+				: " \(huntVerb): \(encounters)"
 		}
 		else
 		{
