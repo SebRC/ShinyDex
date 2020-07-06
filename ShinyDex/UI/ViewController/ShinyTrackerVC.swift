@@ -91,6 +91,10 @@ class ShinyTrackerVC: UIViewController
 		{
 			methodDecrement = 40
 		}
+		else if huntState!.huntMethod == .DexNav
+		{
+			methodDecrement = 999
+		}
 		else if huntState!.generation == 5
 		{
 			methodDecrement = 500

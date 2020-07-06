@@ -51,7 +51,7 @@ class TextResolver
 	{
 		let encountersDecremented = encounters - methodDecrement
 		var maxChainReached = false
-		let huntVerb = huntState.generation == 5 ? "Battles" : "Chain"
+		var huntVerb = huntState.generation == 5 ? "Battles" : "Chain"
 
 		if huntState.huntMethod == .Lure || huntState.huntMethod == .SosChaining
 		{
@@ -64,6 +64,10 @@ class TextResolver
 		else if huntState.huntMethod == .Pokeradar
 		{
 			maxChainReached = encounters > 40
+		}
+		else if huntState.huntMethod == .DexNav
+		{
+			maxChainReached = encounters > 999
 		}
 		else if huntState.generation == 5
 		{
@@ -85,6 +89,13 @@ class TextResolver
 			return maxChainReached
 				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) \(huntState.huntMethod == .Pokeradar ? "patches" : "seen")"
 				: " \(huntVerb): \(encounters)"
+		}
+		else if huntState.huntMethod == .DexNav
+		{
+			huntVerb = "Search level"
+			return maxChainReached
+			? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) seen"
+			: " \(huntVerb): \(encounters)"
 		}
 		else
 		{
