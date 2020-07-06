@@ -83,7 +83,7 @@ class TextResolver
 		else if huntState.huntMethod == .SosChaining || huntState.huntMethod == .ChainFishing || huntState.huntMethod == .Pokeradar || huntState.generation == 5
 		{
 			return maxChainReached
-				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) seen"
+				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) \(huntState.huntMethod == .Pokeradar ? "patches" : "seen")"
 				: " \(huntVerb): \(encounters)"
 		}
 		else
