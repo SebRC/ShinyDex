@@ -146,6 +146,10 @@ class ShinyTrackerVC: UIViewController
 		{
 			return UIImage(named: "poke-radar")!
 		}
+		else if huntState!.huntMethod == .DexNav
+		{
+			return UIImage(named: "wide-lens")!
+		}
 		else if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
 		{
 			return UIImage(named: "shiny-charm")!

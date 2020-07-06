@@ -116,6 +116,19 @@ class SwitchStateService
 		}
 	}
 
+	func resolveDexNavSwitchState(huntState: HuntState, dexNavSwitch: UISwitch)
+	{
+		if huntState.generation == 3
+		{
+			enableSwitch(uiSwitch: dexNavSwitch)
+			dexNavSwitch.isOn = huntState.huntMethod == .DexNav
+		}
+		else
+		{
+			disableSwitch(uiSwitch: dexNavSwitch)
+		}
+	}
+
 	fileprivate func disableSwitch(uiSwitch: UISwitch)
 	{
 		uiSwitch.isOn = false
