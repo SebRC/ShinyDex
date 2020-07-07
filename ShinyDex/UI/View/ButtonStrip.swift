@@ -18,7 +18,11 @@ class ButtonStrip: UIView
 	@IBOutlet weak var pokeballButton: UIButton!
 	@IBOutlet weak var mapBallSeparator: UIView!
 	@IBOutlet weak var locationButton: UIButton!
+	@IBOutlet weak var ballOddsSeparator: UIView!
+	@IBOutlet weak var oddsLabel: UILabel!
+
 	fileprivate var colorService: ColorService?
+	fileprivate var fontSettingsService = FontSettingsService()
 	
 	let nibName = "ButtonStrip"
     var contentView:UIView?
@@ -33,6 +37,8 @@ class ButtonStrip: UIView
 		setColors()
 		
 		roundCorners()
+
+		oddsLabel.font = fontSettingsService.getSmallFont()
     }
 	
     override init(frame: CGRect)
@@ -63,9 +69,12 @@ class ButtonStrip: UIView
 		encountersMethodSeparator.backgroundColor = colorService!.getPrimaryColor()
 		methodMapSeparator.backgroundColor = colorService!.getPrimaryColor()
 		mapBallSeparator.backgroundColor = colorService?.getPrimaryColor()
+		ballOddsSeparator.backgroundColor = colorService?.getPrimaryColor()
 		
 		methodButton.tintColor = colorService!.getTertiaryColor()
 		updateEncountersButton.tintColor = colorService!.getTertiaryColor()
+
+		oddsLabel.textColor = colorService!.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -73,5 +82,6 @@ class ButtonStrip: UIView
 		encountersMethodSeparator.layer.cornerRadius = 10
 		methodMapSeparator.layer.cornerRadius = 10
 		mapBallSeparator.layer.cornerRadius = 10
+		ballOddsSeparator.layer.cornerRadius = 10
 	}
 }

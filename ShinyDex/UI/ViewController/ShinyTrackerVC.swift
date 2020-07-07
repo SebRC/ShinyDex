@@ -20,7 +20,6 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
-	@IBOutlet weak var oddsLabel: UILabel!
 	
 	var pokemon: Pokemon!
 	var hunts: [Hunt]!
@@ -183,8 +182,6 @@ class ShinyTrackerVC: UIViewController
 		
 		plusButton.tintColor = colorService.getTertiaryColor()
 		minusButton.tintColor = colorService.getTertiaryColor()
-
-		oddsLabel.textColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -207,7 +204,6 @@ class ShinyTrackerVC: UIViewController
 		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
 		encountersLabel.font = fontSettingsService.getExtraSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
-		oddsLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -260,7 +256,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setOddsLabelText()
 	{
-		oddsLabel.text = "1/\(huntState!.shinyOdds)"
+		buttonStrip.oddsLabel.text = "1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func minusButtonIsEnabled() -> Bool
