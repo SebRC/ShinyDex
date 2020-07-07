@@ -32,6 +32,7 @@ class ShinyTrackerVC: UIViewController
 	var setEncountersPressed = false
 	var isAddingToHunt = false
 	var infoPressed = false
+	var locationPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -224,6 +225,7 @@ class ShinyTrackerVC: UIViewController
 		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
 		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
+		buttonStrip.locationButton.addTarget(self, action: #selector(locationButtonPressed), for: .touchUpInside)
 	}
 	
 	fileprivate func resolveEncounterDetails()
@@ -318,6 +320,12 @@ class ShinyTrackerVC: UIViewController
 	{
 		performSegue(withIdentifier: "shinyTrackerToModalSegue", sender: self)
 	}
+
+	@objc fileprivate func locationButtonPressed(_ sender: Any)
+	{
+		locationPressed = true
+		performSegue(withIdentifier: "locationSegue", sender: self)
+	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
@@ -344,6 +352,10 @@ class ShinyTrackerVC: UIViewController
 			destVC.colorService = colorService
 			destVC.hunts = hunts
 			destVC.pokemon = pokemon
+		}
+		else if locationPressed
+		{
+			locationPressed = false
 		}
 		else
 		{

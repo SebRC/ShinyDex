@@ -30,6 +30,7 @@
 		964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081023EF58A500459450 /* PokemonCell.swift */; };
 		964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081123EF58A500459450 /* CurrentHuntCell.swift */; };
 		964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081223EF58A500459450 /* MenuCell.swift */; };
+		9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660629D24B4BF3200B2B654 /* LocationVC.swift */; };
 		9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9669E34923F1DF7D0048C5C5 /* FlexColorPicker */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
@@ -108,6 +109,7 @@
 		96435D4A24571E8500C45A00 /* HuntPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPickerCell.swift; sourceTree = "<group>"; };
 		9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen2BreedingOddsService.swift; sourceTree = "<group>"; };
 		9648AE8C24AE110500E819CC /* HuntMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMethod.swift; sourceTree = "<group>"; };
+		9660629D24B4BF3200B2B654 /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 				96FC083023EF59AA00459450 /* SettingsVC.swift */,
 				96FC082E23EF59AA00459450 /* ShinyTrackerVC.swift */,
 				9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */,
+				9660629D24B4BF3200B2B654 /* LocationVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
 				9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */,
+				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
 				961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */,

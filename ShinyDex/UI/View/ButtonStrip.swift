@@ -11,11 +11,13 @@ import UIKit
 @IBDesignable
 class ButtonStrip: UIView
 {
+	@IBOutlet weak var methodMapSeparator: UIView!
 	@IBOutlet weak var updateEncountersButton: UIButton!
 	@IBOutlet weak var methodButton: UIButton!
 	@IBOutlet weak var encountersMethodSeparator: UIView!
 	@IBOutlet weak var pokeballButton: UIButton!
-	@IBOutlet weak var methodBallSeparator: UIView!
+	@IBOutlet weak var mapBallSeparator: UIView!
+	@IBOutlet weak var locationButton: UIButton!
 	fileprivate var colorService: ColorService?
 	
 	let nibName = "ButtonStrip"
@@ -59,7 +61,8 @@ class ButtonStrip: UIView
 		contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
 		encountersMethodSeparator.backgroundColor = colorService!.getPrimaryColor()
-		methodBallSeparator.backgroundColor = colorService?.getPrimaryColor()
+		methodMapSeparator.backgroundColor = colorService!.getPrimaryColor()
+		mapBallSeparator.backgroundColor = colorService?.getPrimaryColor()
 		
 		methodButton.tintColor = colorService!.getTertiaryColor()
 		updateEncountersButton.tintColor = colorService!.getTertiaryColor()
@@ -68,6 +71,7 @@ class ButtonStrip: UIView
 	fileprivate func roundCorners()
 	{
 		encountersMethodSeparator.layer.cornerRadius = 10
-		methodBallSeparator.layer.cornerRadius = 10
+		methodMapSeparator.layer.cornerRadius = 10
+		mapBallSeparator.layer.cornerRadius = 10
 	}
 }
