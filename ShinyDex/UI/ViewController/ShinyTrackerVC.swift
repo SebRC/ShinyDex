@@ -91,6 +91,10 @@ class ShinyTrackerVC: UIViewController
 		{
 			methodDecrement = 40
 		}
+		else if huntState!.huntMethod == .DexNav
+		{
+			methodDecrement = 999
+		}
 		else if huntState!.generation == 5
 		{
 			methodDecrement = 500
@@ -145,6 +149,10 @@ class ShinyTrackerVC: UIViewController
 		else if huntState!.huntMethod == .Pokeradar
 		{
 			return UIImage(named: "poke-radar")!
+		}
+		else if huntState!.huntMethod == .DexNav
+		{
+			return UIImage(named: "wide-lens")!
 		}
 		else if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
 		{

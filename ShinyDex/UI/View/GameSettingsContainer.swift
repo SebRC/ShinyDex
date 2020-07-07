@@ -83,6 +83,7 @@ class GameSettingsContainer: UIView
 		chainFishingCell.actionSwitch.addTarget(self, action: #selector(changeIsChainFishing(_:)), for: .valueChanged)
 		sosChainCell.actionSwitch.addTarget(self, action: #selector(changeIsSosChaining), for: .valueChanged)
 		pokeradarCell.actionSwitch.addTarget(self, action: #selector(changeIsPokeradarHunting), for: .valueChanged)
+		dexNavCell.actionSwitch.addTarget(self, action: #selector(changeIsDexNavHunting), for: .valueChanged)
 		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 		setUIColors()
 		setFonts()
@@ -121,6 +122,7 @@ class GameSettingsContainer: UIView
 		friendSafariCell.actionSwitch.isOn = huntState!.huntMethod == .FriendSafari
 		chainFishingCell.actionSwitch.isOn = huntState!.huntMethod == .ChainFishing
 		sosChainCell.actionSwitch.isOn = huntState!.huntMethod == .SosChaining
+		dexNavCell.actionSwitch.isOn = huntState!.huntMethod == .DexNav
 		lureCell.actionSwitch.isOn = huntState!.huntMethod == .Lure
 
 		setAllImageViewAlphas()
@@ -232,6 +234,13 @@ class GameSettingsContainer: UIView
 		turnSwitchesOff(enabledCell: chainFishingCell, huntMethod: huntState!.huntMethod)
 	}
 
+	@objc fileprivate func changeIsDexNavHunting(_ sender: Any)
+	{
+		huntState?.huntMethod = dexNavCell.actionSwitch.isOn ? .DexNav : .Encounters
+		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: huntState!.huntMethod == .DexNav)
+		turnSwitchesOff(enabledCell: dexNavCell, huntMethod: huntState!.huntMethod)
+	}
+
 	@objc fileprivate func changeIsSosChaining(_ sender: Any)
 	{
 		huntState?.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
@@ -283,6 +292,7 @@ class GameSettingsContainer: UIView
 		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: huntState!.huntMethod == .ChainFishing)
 		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: huntState!.huntMethod == .DexNav)
 		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: huntState!.huntMethod == .FriendSafari)
+		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: huntState!.huntMethod == .DexNav)
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
 	}
 
@@ -313,5 +323,6 @@ class GameSettingsContainer: UIView
 		switchStateService.resolveSosChainingSwitchState(huntState: huntState!, sosChainingSwitch: sosChainCell.actionSwitch)
 		switchStateService.resolveChainFishingSwitchState(huntState: huntState!, chainFishingSwitch: chainFishingCell.actionSwitch)
 		switchStateService.resolvePokeradarSwitchState(huntState: huntState!, pokeradarSwitch: pokeradarCell.actionSwitch)
+		switchStateService.resolveDexNavSwitchState(huntState: huntState!, dexNavSwitch: dexNavCell.actionSwitch)
 	}
 }

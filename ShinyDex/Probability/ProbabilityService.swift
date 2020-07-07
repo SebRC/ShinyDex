@@ -30,6 +30,11 @@ class ProbabilityService
 			return " \(methodVerb) \(methodDecrement) to see probability"
 		}
 
+		if huntState.huntMethod == .DexNav && encounters <= 999
+		{
+			return " Reach search level \(methodDecrement) to see probability"
+		}
+
 		if huntIsOverOdds
 		{
 			return " Hunt has gone over odds"
