@@ -352,6 +352,9 @@ class ShinyTrackerVC: UIViewController
 		else if locationPressed
 		{
 			locationPressed = false
+			let destVC = segue.destination as! LocationVC
+			destVC.generation = huntState?.generation
+			destVC.pokemon = pokemon
 		}
 		else
 		{
