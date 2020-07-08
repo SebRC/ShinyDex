@@ -11,8 +11,8 @@ import FlexColorPicker
 
 class ColorPickerVC: CustomColorPickerViewController
 {
-	var primaryWasPressed: Bool!
 	var currentColor: Int!
+	var theme: Theme!
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 
@@ -41,11 +41,11 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		cancelButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		
-		if primaryWasPressed == nil
+		if theme == .Tertiary
 		{
 			titleLabel.text = "Tertiary Color"
 		}
-		else if primaryWasPressed
+		else if theme == .Primary
 		{
 			titleLabel.text = "Primary Color"
 		}
@@ -58,20 +58,7 @@ class ColorPickerVC: CustomColorPickerViewController
 	@IBAction func savePressed(_ sender: Any)
 	{
 		let color = Int(selectedColor.hexValue(), radix: 16)
-		
-		if primaryWasPressed == nil
-		{
-			colorService.save(hex: color!, name: "tertiaryColor")
-		}
-		else if primaryWasPressed
-		{
-			colorService.save(hex: color!, name: "primaryColor")
-		}
-		else
-		{
-			colorService.save(hex: color!, name: "secondaryColor")
-		}
-		
+		colorService.save(hex: color!, name: theme.rawValue)
 		performSegue(withIdentifier: "colorPickerUnwind", sender: self)
 	}
 	
