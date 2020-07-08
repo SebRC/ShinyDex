@@ -20,7 +20,6 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
-	@IBOutlet weak var oddsLabel: UILabel!
 	
 	var pokemon: Pokemon!
 	var hunts: [Hunt]!
@@ -32,6 +31,7 @@ class ShinyTrackerVC: UIViewController
 	var setEncountersPressed = false
 	var isAddingToHunt = false
 	var infoPressed = false
+	var locationPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -182,8 +182,6 @@ class ShinyTrackerVC: UIViewController
 		
 		plusButton.tintColor = colorService.getTertiaryColor()
 		minusButton.tintColor = colorService.getTertiaryColor()
-
-		oddsLabel.textColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
@@ -206,7 +204,6 @@ class ShinyTrackerVC: UIViewController
 		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
 		encountersLabel.font = fontSettingsService.getExtraSmallFont()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
-		oddsLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -224,6 +221,7 @@ class ShinyTrackerVC: UIViewController
 		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
 		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
+		buttonStrip.locationButton.addTarget(self, action: #selector(locationButtonPressed), for: .touchUpInside)
 	}
 	
 	fileprivate func resolveEncounterDetails()
@@ -258,7 +256,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setOddsLabelText()
 	{
-		oddsLabel.text = "1/\(huntState!.shinyOdds)"
+		buttonStrip.oddsLabel.text = "1/\(huntState!.shinyOdds)"
 	}
 	
 	fileprivate func minusButtonIsEnabled() -> Bool
@@ -318,6 +316,12 @@ class ShinyTrackerVC: UIViewController
 	{
 		performSegue(withIdentifier: "shinyTrackerToModalSegue", sender: self)
 	}
+
+	@objc fileprivate func locationButtonPressed(_ sender: Any)
+	{
+		locationPressed = true
+		performSegue(withIdentifier: "locationSegue", sender: self)
+	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
@@ -343,6 +347,13 @@ class ShinyTrackerVC: UIViewController
 			destVC.fontSettingsService = fontSettingsService
 			destVC.colorService = colorService
 			destVC.hunts = hunts
+			destVC.pokemon = pokemon
+		}
+		else if locationPressed
+		{
+			locationPressed = false
+			let destVC = segue.destination as! LocationVC
+			destVC.generation = huntState?.generation
 			destVC.pokemon = pokemon
 		}
 		else
