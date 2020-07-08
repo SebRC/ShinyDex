@@ -47,28 +47,6 @@ class TextResolver
 		return "Kanto"
 	}
 
-	func getUrl(generation: Int) -> String
-	{
-		if generation == 1
-		{
-			return "dp"
-		}
-		if generation == 2
-		{
-			return "bw"
-		}
-		if generation == 3
-		{
-			return "xy"
-		}
-		if generation == 5
-		{
-			return "swsh"
-		}
-
-		return "sm"
-	}
-
 	func getEncountersLabelText(huntState: HuntState, encounters: Int, methodDecrement: Int = 0) -> String
 	{
 		let encountersDecremented = encounters - methodDecrement
