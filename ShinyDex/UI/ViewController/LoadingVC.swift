@@ -10,11 +10,10 @@ import UIKit
 
 class LoadingVC: UIViewController
 {
-	
-	@IBOutlet weak var settingUpProfileLabel: UILabel!
-	@IBOutlet weak var loadingImageView: UIImageView!
-	@IBOutlet weak var pokeballImageView: UIImageView!
+	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
+	var colorService = ColorService()
+	var fontSettingsService = FontSettingsService()
 	var isFirstTimeUser: Bool!
 	var loadingGifData: Data?
 	var pokeballGifData: Data?
@@ -22,14 +21,14 @@ class LoadingVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		view.backgroundColor = colorService.getSecondaryColor()
+		loadingLabel.textColor = colorService.getTertiaryColor()
+		loadingLabel.font = fontSettingsService.getMediumFont()
 		
 		resolveUserStatus()
 		
 		hideNavigationBar()
-		
-		displayGifs()
-		
-		setVisibilityOfSettingUpProfileLabel()
 		
 		if isFirstTimeUser
 		{
@@ -52,29 +51,9 @@ class LoadingVC: UIViewController
 		navigationController?.isNavigationBarHidden = true
 	}
 	
-	fileprivate func displayGifs()
-	{
-		let loadingGifAsset = NSDataAsset(name: "loading")
-		
-		let loadingGifData = loadingGifAsset!.data
-		
-		let pokeballGifAsset = NSDataAsset(name: "original")
-		
-		let pokeballGifData = pokeballGifAsset!.data
-		
-		loadingImageView.image = UIImage.gifImageWithData(loadingGifData, 3000.0)
-		pokeballImageView.image = UIImage.gifImageWithData(pokeballGifData, 900.0)
-	}
-	
-	fileprivate func setVisibilityOfSettingUpProfileLabel()
-	{
-		settingUpProfileLabel.isHidden = isFirstTimeUser
-	}
-	
 	fileprivate func proceedAsNewUser()
 	{
 		pokemonService.populateDatabase()
-		
 		performSegue(withIdentifier: "loadSegue", sender: self)
 	}
 	
@@ -86,7 +65,6 @@ class LoadingVC: UIViewController
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
 		let destVC = segue.destination as? MenuTVC
-		
 		destVC?.pokemonService = pokemonService
 	}
 }
