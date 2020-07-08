@@ -15,60 +15,54 @@ class ColorRepository
 
 	func save(hex: Int, name: String)
 	{
-		defaults.set(hex, forKey: name)
+		defaults.set(hex == 0 ? hex + 1 : hex, forKey: name)
 	}
 
 	func getPrimaryColor() -> UIColor
 	{
 		if let loadedPrimaryColor = defaults.integer(forKey: "primaryColor") as Int?
 		{
-			return UIColor(netHex: loadedPrimaryColor)
+			return loadedPrimaryColor == 0 ? UIColor(netHex: 0xABE8ED) : UIColor(netHex: loadedPrimaryColor)
 		}
-		return UIColor(netHex: 0xABE8ED)
 	}
 
 	func getSecondaryColor() -> UIColor
 	{
 		if let loadedSecondaryColor = defaults.integer(forKey: "secondaryColor") as Int?
 		{
-			return UIColor(netHex: loadedSecondaryColor)
+			return loadedSecondaryColor == 0 ? UIColor(netHex: 0x86BFE4) : UIColor(netHex: loadedSecondaryColor)
 		}
-		return UIColor(netHex: 0x03C4FB)
 	}
 
 	func getTertiaryColor() -> UIColor
 	{
 		if let loadedTertiaryColor = defaults.integer(forKey: "tertiaryColor") as Int?
 		{
-			return UIColor(netHex: loadedTertiaryColor)
+			return loadedTertiaryColor == 0 ? UIColor(netHex: 0xFFFFFF) : UIColor(netHex: loadedTertiaryColor)
 		}
-		return UIColor(netHex: 0xFFFFFF)
 	}
 
 	func getPrimaryHex() -> Int
 	{
 		if let loadedPrimaryHex = defaults.integer(forKey: "primaryColor") as Int?
 		{
-			return loadedPrimaryHex
+			return loadedPrimaryHex == 0 ? 0xABE8ED : loadedPrimaryHex
 		}
-		return 0xABE8ED
 	}
 
 	func getSecondaryHex() -> Int
 	{
 		if let loadedSecondaryHex = defaults.integer(forKey: "secondaryColor") as Int?
 		{
-			return loadedSecondaryHex
+			return loadedSecondaryHex == 0 ? 0x03C4FB : loadedSecondaryHex
 		}
-		return 0x03C4FB
 	}
 
 	func getTertiaryHex() -> Int
 	{
 		if let loadedTertiaryHex = defaults.integer(forKey: "tertiaryColor") as Int?
 		{
-			return loadedTertiaryHex
+			return loadedTertiaryHex == 0 ? 0xFFFFFF : loadedTertiaryHex
 		}
-		return 0xFFFFFF
 	}
 }

@@ -22,13 +22,17 @@ class LoadingVC: UIViewController
 	{
         super.viewDidLoad()
 
+		resolveUserStatus()
+		hideNavigationBar()
+
+		if isFirstTimeUser
+		{
+			fontSettingsService.save(fontThemeName: FontThemeName.Retro.description)
+		}
+
 		view.backgroundColor = colorService.getSecondaryColor()
 		loadingLabel.textColor = colorService.getTertiaryColor()
 		loadingLabel.font = fontSettingsService.getMediumFont()
-		
-		resolveUserStatus()
-		
-		hideNavigationBar()
 		
 		if isFirstTimeUser
 		{
