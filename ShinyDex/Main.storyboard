@@ -1040,26 +1040,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="STC-MY-K7H">
-                                <rect key="frame" x="25" y="193" width="325" height="325"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="STC-MY-K7H" secondAttribute="height" multiplier="1:1" id="sVK-CQ-SeP"/>
-                                </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZU9-Yf-50A">
-                                <rect key="frame" x="0.0" y="537" width="375" height="110"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="ZU9-Yf-50A" secondAttribute="height" multiplier="75:22" id="3OJ-oT-CCs"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPF-rV-2Tn">
-                                <rect key="frame" x="25" y="64" width="325" height="113"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading . . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPF-rV-2Tn">
+                                <rect key="frame" x="25" y="277" width="325" height="113"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="EPF-rV-2Tn" secondAttribute="height" multiplier="325:113" id="pjM-Gy-TQa"/>
                                 </constraints>
-                                <string key="text">Your profile is being set up.
-This could take a little while.
-Don't close the application before the setup is complete.</string>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -1067,24 +1052,16 @@ Don't close the application before the setup is complete.</string>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ZU9-Yf-50A" firstAttribute="trailing" secondItem="6jV-0b-jK4" secondAttribute="trailing" id="2fE-D4-mqJ"/>
-                            <constraint firstItem="6jV-0b-jK4" firstAttribute="bottom" secondItem="ZU9-Yf-50A" secondAttribute="bottom" constant="20" id="2gu-20-5DT"/>
-                            <constraint firstItem="6jV-0b-jK4" firstAttribute="trailing" secondItem="STC-MY-K7H" secondAttribute="trailing" constant="25" id="E9d-qr-vVC"/>
-                            <constraint firstItem="STC-MY-K7H" firstAttribute="leading" secondItem="6jV-0b-jK4" secondAttribute="leading" constant="25" id="EpN-yT-hJO"/>
-                            <constraint firstItem="EPF-rV-2Tn" firstAttribute="top" secondItem="6jV-0b-jK4" secondAttribute="top" constant="20" id="Pzi-RL-dgS"/>
-                            <constraint firstItem="ZU9-Yf-50A" firstAttribute="top" secondItem="STC-MY-K7H" secondAttribute="bottom" constant="19" id="VQr-nN-CkB"/>
-                            <constraint firstItem="STC-MY-K7H" firstAttribute="top" secondItem="EPF-rV-2Tn" secondAttribute="bottom" constant="16" id="nfR-ur-Xii"/>
+                            <constraint firstItem="EPF-rV-2Tn" firstAttribute="centerY" secondItem="Y8K-93-gJA" secondAttribute="centerY" id="KsE-ur-3qQ"/>
                             <constraint firstItem="6jV-0b-jK4" firstAttribute="trailing" secondItem="EPF-rV-2Tn" secondAttribute="trailing" constant="25" id="oso-wQ-a1s"/>
-                            <constraint firstItem="ZU9-Yf-50A" firstAttribute="leading" secondItem="6jV-0b-jK4" secondAttribute="leading" id="tYV-Ms-q4u"/>
+                            <constraint firstItem="EPF-rV-2Tn" firstAttribute="centerX" secondItem="Y8K-93-gJA" secondAttribute="centerX" id="tsG-ns-Euq"/>
                             <constraint firstItem="EPF-rV-2Tn" firstAttribute="leading" secondItem="6jV-0b-jK4" secondAttribute="leading" constant="25" id="xH9-eT-sDe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6jV-0b-jK4"/>
                     </view>
                     <navigationItem key="navigationItem" id="i14-au-vxq"/>
                     <connections>
-                        <outlet property="loadingImageView" destination="ZU9-Yf-50A" id="ibn-W7-0h4"/>
-                        <outlet property="pokeballImageView" destination="STC-MY-K7H" id="WkG-uz-dfy"/>
-                        <outlet property="settingUpProfileLabel" destination="EPF-rV-2Tn" id="YZc-op-h8D"/>
+                        <outlet property="loadingLabel" destination="EPF-rV-2Tn" id="YZc-op-h8D"/>
                         <segue destination="Ffe-gu-68j" kind="show" identifier="loadSegue" id="OD8-Jc-Voo"/>
                     </connections>
                 </viewController>
