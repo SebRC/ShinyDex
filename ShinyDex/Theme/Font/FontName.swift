@@ -16,7 +16,7 @@ enum FontName : CustomStringConvertible
 	{
 		switch self
 		{
-		case .PokemonGB: return "PokemonGB"
+			case .PokemonGB: return "PokemonGB"
 		}
 	}
 }
