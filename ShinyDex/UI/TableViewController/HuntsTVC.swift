@@ -15,6 +15,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var colorService: ColorService!
 	var huntService: HuntService!
 	var huntStateService: HuntStateService!
+	var huntState: HuntState?
 	var encounters = 0
 	var selectedIndex = 0
 	var selectedSection = 0
@@ -24,7 +25,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var isEditingName = false
 	var hunts: [Hunt]!
 	var allPokemon: [Pokemon]!
-	var collapsedSections = Set<Int>()
 
 	@IBOutlet weak var createHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
@@ -33,6 +33,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
+		huntState = huntStateService.get()
 
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -99,7 +101,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		if collapsedSections.contains(section)
+		if huntState!.collapsedSections.contains(section)
 		{
 			return 0
 		}
@@ -161,7 +163,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		let footerView = UIView()
 		footerView.layer.cornerRadius = 5
-		if collapsedSections.contains(section)
+		if huntState!.collapsedSections.contains(section)
 		{
 			footerView.backgroundColor = colorService.getPrimaryColor()
 		}
@@ -197,16 +199,17 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 			return indexPaths
 		}
-		if collapsedSections.contains(section)
+		if huntState!.collapsedSections.contains(section)
 		{
-			collapsedSections.remove(section)
+			huntState!.collapsedSections.remove(section)
 			tableView.insertRows(at: indexPathsForSection(), with: .fade)
 		}
 		else
 		{
-			collapsedSections.insert(section)
+			huntState!.collapsedSections.insert(section)
 			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
 		}
+		huntStateService.save(huntState!)
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
 		{
 			self.tableView.reloadData()
