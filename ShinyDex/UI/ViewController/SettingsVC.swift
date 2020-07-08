@@ -12,7 +12,7 @@ class SettingsVC: UIViewController
 {
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
-	var primaryWasPressed: Bool?
+	var theme = Theme.Primary
 
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
@@ -147,11 +147,11 @@ class SettingsVC: UIViewController
 	{
 		let destVC = segue.destination as! ColorPickerVC
 		
-		if primaryWasPressed == nil
+		if theme == .Tertiary
 		{
 			destVC.currentColor = colorService?.getTertiaryHex()
 		}
-		else if primaryWasPressed!
+		else if theme == .Primary
 		{
 			destVC.currentColor = colorService?.getPrimaryHex()
 		}
@@ -160,26 +160,26 @@ class SettingsVC: UIViewController
 			destVC.currentColor = colorService?.getSecondaryHex()
 		}
 		
-		destVC.primaryWasPressed = primaryWasPressed
+		destVC.theme = theme
 		destVC.fontSettingsService = fontSettingsService
 		destVC.colorService = colorService
 	}
 	
 	@objc fileprivate func primaryEditButtonPressed()
 	{
-		primaryWasPressed = true
+		theme = .Primary
 		performSegue(withIdentifier: "colorPickerSegue", sender: self)
 	}
 	
 	@objc fileprivate func secondaryEditButtonPressed()
 	{
-		primaryWasPressed = false
+		theme = .Secondary
 		performSegue(withIdentifier: "colorPickerSegue", sender: self)
 	}
 	
 	@objc fileprivate func tertiaryEditButtonPressed()
 	{
-		primaryWasPressed = nil
+		theme = .Tertiary
 		performSegue(withIdentifier: "colorPickerSegue", sender: self)
 	}
 	
