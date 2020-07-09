@@ -117,6 +117,5 @@ class SetEncountersView: UIView
 		numberLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		encountersLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		spriteBackgroundView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		buttonSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 }
