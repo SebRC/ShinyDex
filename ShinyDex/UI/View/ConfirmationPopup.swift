@@ -32,7 +32,6 @@ class ConfirmationPopup: UIView
 		fontSettingsService = FontSettingsService()
 		setConfirmationPopupFonts()
 		setColors()
-		roundSeparatorCorners()
     }
 	
     override init(frame: CGRect)
@@ -75,10 +74,5 @@ class ConfirmationPopup: UIView
 		confirmButton.backgroundColor = colorService?.getPrimaryColor()
 		confirmButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
 		cancelButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
-	}
-	
-	fileprivate func roundSeparatorCorners()
-	{
-		buttonSeparator.layer.cornerRadius = 5
 	}
 }

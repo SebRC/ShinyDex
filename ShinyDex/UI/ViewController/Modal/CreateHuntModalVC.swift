@@ -37,12 +37,12 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.dataSource = self
 		textField.delegate = self
 		view.backgroundColor = colorService.getSecondaryColor()
-		cancelButton.layer.cornerRadius = 10
+		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.isEnabled = false
-		confirmButton.layer.cornerRadius = 10
+		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
@@ -54,7 +54,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		popupView.actionLabel.textColor = colorService!.getTertiaryColor()
 		popupView.iconImageView.tintColor = colorService!.getTertiaryColor()
 		popupView.actionLabel.font = fontSettingsService.getSmallFont()
-		popupView.layer.cornerRadius = 10
+		popupView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		tableView.backgroundColor = .clear
 		setUpSearchController()
     }
@@ -74,7 +74,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
 		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
 		searchBar.clipsToBounds = true
-		searchBar.layer.cornerRadius = 10
+		searchBar.layer.cornerRadius = CornerRadius.Standard.rawValue
 		searchBar.barTintColor = colorService.getPrimaryColor()
 	}
 

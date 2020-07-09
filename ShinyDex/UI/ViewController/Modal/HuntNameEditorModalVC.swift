@@ -30,6 +30,7 @@ class HuntNameEditorModalVC: UIViewController
 		titleLabel.text = "Changing name of \(hunt.name)"
 		titleLabel.font = fontSettingsService.getExtraSmallFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
+		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.text = "Enter a new name"
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
@@ -37,7 +38,7 @@ class HuntNameEditorModalVC: UIViewController
 		textField.font = fontSettingsService.getSmallFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
-		editorView.layer.cornerRadius = 10
+		editorView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		editorView.backgroundColor = colorService.getSecondaryColor()
 		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()

@@ -46,8 +46,8 @@ class GameSettingsContainer: UIView
 
 		gameSettingsCells = [genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
 
-		explanationSeparator.layer.cornerRadius = 5
-		generationSeparator.layer.cornerRadius = 5
+		explanationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		generationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
 		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"

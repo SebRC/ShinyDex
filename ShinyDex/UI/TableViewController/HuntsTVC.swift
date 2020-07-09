@@ -39,7 +39,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		tableView.delegate = self
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
-		createHuntButton.layer.cornerRadius = 10
+		createHuntButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		setClearHuntButtonState()
 		setUpBackButton()
@@ -162,7 +162,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
 	{
 		let footerView = UIView()
-		footerView.layer.cornerRadius = 5
+		footerView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		if huntState!.collapsedSections.contains(section)
 		{
 			footerView.backgroundColor = colorService.getPrimaryColor()
