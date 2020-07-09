@@ -122,44 +122,32 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		if huntState!.huntMethod == .Lure
+		switch huntState!.huntMethod
 		{
-			return UIImage(named: "max-lure")!
-		}
-		else if huntState!.huntMethod == .Masuda
-		{
-			return UIImage(named: "egg")!
-		}
-		else if huntState!.huntMethod == .Gen2Breeding
-		{
+		case .Gen2Breeding:
 			return UIImage(named: "gyarados")!
-		}
-		else if huntState!.huntMethod == .FriendSafari
-		{
-			return UIImage(named: "heart-mail")!
-		}
-		else if huntState!.huntMethod == .ChainFishing
-		{
-			return UIImage(named: "super-rod")!
-		}
-		else if huntState!.huntMethod == .SosChaining
-		{
-			return UIImage(named: "sos")!
-		}
-		else if huntState!.huntMethod == .Pokeradar
-		{
+		case .Masuda:
+			return UIImage(named: "egg")!
+		case .Pokeradar:
 			return UIImage(named: "poke-radar")!
-		}
-		else if huntState!.huntMethod == .DexNav
-		{
+		case .FriendSafari:
+			return UIImage(named: "heart-mail")!
+		case .ChainFishing:
+			return UIImage(named: "super-rod")!
+		case .DexNav:
 			return UIImage(named: "wide-lens")!
-		}
-		else if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
-		{
-			return UIImage(named: "shiny-charm")!
-		}
+		case .SosChaining:
+			return UIImage(named: "sos")!
+		case .Lure:
+			return UIImage(named: "max-lure")!
+		default:
+			if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
+			{
+				return UIImage(named: "shiny-charm")!
+			}
 
-		return UIImage(systemName: "info.circle.fill")!
+			return UIImage(systemName: "info.circle.fill")!
+		}
 	}
 	
 	fileprivate func setUIColors()

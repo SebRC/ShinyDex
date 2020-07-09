@@ -144,37 +144,26 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func slicePokemonList()
 	{
-		if generation == 0
+		switch generation
 		{
+		case 0:
 			allPokemon = Array(allPokemon[0..<151])
-		}
-		else if generation == 1
-		{
+		case 1:
 			allPokemon = Array(allPokemon[151..<251])
-		}
-		else if generation == 2
-		{
+		case 2:
 			allPokemon = Array(allPokemon[251..<386])
-		}
-		else if generation == 3
-		{
+		case 3:
 			allPokemon = Array(allPokemon[386..<493])
-		}
-		else if generation == 4
-		{
+		case 4:
 			allPokemon = Array(allPokemon[493..<649])
-		}
-		else if generation == 5
-		{
+		case 5:
 			allPokemon = Array(allPokemon[649..<721])
-		}
-		else if generation == 6
-		{
+		case 6:
 			allPokemon = Array(allPokemon[721..<807])
-		}
-		else if generation == 7
-		{
+		case 7:
 			allPokemon = Array(allPokemon[807..<892])
+		default:
+			allPokemon = Array(allPokemon[0..<892])
 		}
 	}
 
@@ -382,35 +371,25 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 
 	fileprivate func resolveCounter(generation: Int) -> Int
 	{
-		if generation == 1
+		switch generation
 		{
+		case 1:
 			return 151
-		}
-		else if generation == 2
-		{
+		case 2:
 			return 251
-		}
-		else if generation == 3
-		{
+		case 3:
 			return 386
-		}
-		else if generation == 4
-		{
+		case 4:
 			return 493
-		}
-		else if generation == 5
-		{
+		case 5:
 			return 649
-		}
-		else if generation == 6
-		{
+		case 6:
 			return 721
-		}
-		else if generation == 7
-		{
+		case 7:
 			return 807
+		default:
+			return 0
 		}
-		return 0
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
