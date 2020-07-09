@@ -213,7 +213,12 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setGif()
 	{
-		gifImageView.image = UIImage.gifImageWithData(pokemon.shinyGifData, 300.0)
+		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)")
+		{
+			let data = shinyGifAsset.data
+			gifImageView.image = UIImage.gifImageWithData(data, 300.0)
+		}
+
 	}
 	
 	fileprivate func setButtonActions()

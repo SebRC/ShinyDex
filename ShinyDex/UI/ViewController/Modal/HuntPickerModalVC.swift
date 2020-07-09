@@ -32,7 +32,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cancelButton.layer.cornerRadius = 10
 		pokemonIndicatorView.contentView?.backgroundColor = colorService.getSecondaryColor()
 		pokemonIndicatorView.layer.cornerRadius = 10
-		pokemonIndicatorView.pokemonImageView.image = pokemon.shinyImage
+		pokemonIndicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
 		pokemonIndicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to"
 		pokemonIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		pokemonIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()

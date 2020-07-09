@@ -122,7 +122,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 			cell.numberLabel.isEnabled = true
 			cell.spriteImageView.alpha = 1.0
 		}
-		cell.spriteImageView.image = pokemon.shinyImage
+		cell.spriteImageView.image = UIImage(named: pokemon.name.lowercased())
 		cell.nameLabel.text = pokemon.name
 		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
 		cell.nameLabel.font = fontSettingsService.getSmallFont()

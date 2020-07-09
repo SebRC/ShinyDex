@@ -226,7 +226,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon)
 	{
-		currentHuntCell.sprite.image = pokemon.shinyImage
+		currentHuntCell.sprite.image = UIImage(named: pokemon.name.lowercased())
 		
 		currentHuntCell.nameLabel.text = pokemon.name
 		currentHuntCell.nameLabel.textColor = colorService!.getTertiaryColor()

@@ -52,7 +52,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		pokeballIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()
 		
-		pokeballIndicatorView.pokemonImageView.image = pokemon.shinyImage
+		pokeballIndicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
 	fileprivate func populatePokeballList()

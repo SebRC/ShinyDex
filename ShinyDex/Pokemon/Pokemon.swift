@@ -19,8 +19,6 @@ class Pokemon: NSObject
 	var caughtDescription: String
 	var caughtBall: String
 	var isBeingHunted: Bool
-	var shinyImage: UIImage?
-	var shinyGifData: Data
 
 	init(pokemonEntity: NSManagedObject)
 	{
@@ -31,16 +29,5 @@ class Pokemon: NSObject
 		self.encounters = pokemonEntity.value(forKey: "encounters") as! Int
 		self.isBeingHunted = pokemonEntity.value(forKey: "isBeingHunted") as? Bool ?? false
 		self.caughtBall = pokemonEntity.value(forKey: "caughtBall") as! String
-		self.shinyImage = UIImage(named: name.lowercased())
-
-		if let shinyGifAsset = NSDataAsset(name: "\(name)")
-		{
-			let data = shinyGifAsset.data
-			self.shinyGifData = data
-		}
-		else
-		{
-			self.shinyGifData = Data()
-		}
 	}
 }

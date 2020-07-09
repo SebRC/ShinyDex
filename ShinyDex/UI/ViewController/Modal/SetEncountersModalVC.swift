@@ -38,7 +38,7 @@ class SetEncountersModalVC: UIViewController
 	
 	fileprivate func setSpriteImageView()
 	{
-		setEncountersView.spriteImageView.image = pokemon.shinyImage
+		setEncountersView.spriteImageView.image = UIImage(named: pokemon.name.lowercased())
 	}
 	
 	fileprivate func setLabelTexts()
