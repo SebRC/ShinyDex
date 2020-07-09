@@ -139,7 +139,7 @@ class MenuTVC: UITableViewController
 		
 		if showCurrentHuntImage
 		{
-			cell.generationImage.image = hunts[0].pokemon[0].shinyImage
+			cell.generationImage.image = UIImage(named: hunts[0].pokemon[0].name.lowercased())
 		}
 		else
 		{
