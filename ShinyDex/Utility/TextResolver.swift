@@ -12,39 +12,27 @@ class TextResolver
 {
 	func getGenTitle(gen: Int) -> String
 	{
-		if gen == 1
+		switch gen
 		{
+		case 1:
 			return "Johto"
-		}
-		else if gen == 2
-		{
+		case 2:
 			return "Hoenn"
-		}
-		else if gen == 3
-		{
+		case 3:
 			return "Sinnoh"
-		}
-		else if gen == 4
-		{
+		case 4:
 			return "Unova"
-		}
-		else if gen == 5
-		{
+		case 5:
 			return "Kalos"
-		}
-		else if gen == 6
-		{
+		case 6:
 			return "Alola"
-		}
-		else if gen == 7
-		{
+		case 7:
 			return "Galar"
-		}
-		else if gen == 8
-		{
+		case 8:
 			return "Hunts"
+		default:
+			return "Kanto"
 		}
-		return "Kanto"
 	}
 
 	func getEncountersLabelText(huntState: HuntState, encounters: Int, methodDecrement: Int = 0) -> String

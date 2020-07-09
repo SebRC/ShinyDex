@@ -154,43 +154,29 @@ class MenuTVC: UITableViewController
 	
 	fileprivate func resolveGenImage(gen : Int) -> UIImage
 	{
-		if gen == 0
+		switch gen
 		{
+		case 0:
+			return UIImage(named: "gen1")!
+		case 1:
+			return UIImage(named: "gen2")!
+		case 2:
+			return UIImage(named: "gen3")!
+		case 3:
+			return UIImage(named: "gen4")!
+		case 4:
+			return UIImage(named: "gen5")!
+		case 5:
+			return UIImage(named: "gen6")!
+		case 6:
+			return UIImage(named: "gen7")!
+		case 7:
+			return UIImage(named: "gen8")!
+		case 8:
+			return UIImage(named: "shiny-charm")!
+		default:
 			return UIImage(named: "gen1")!
 		}
-		else if gen == 1
-		{
-			return UIImage(named: "gen2")!
-		}
-		else if gen == 2
-		{
-			return UIImage(named: "gen3")!
-		}
-		else if gen == 3
-		{
-			return UIImage(named: "gen4")!
-		}
-		else if gen == 4
-		{
-			return UIImage(named: "gen5")!
-		}
-		else if gen == 5
-		{
-			return UIImage(named: "gen6")!
-		}
-		else if gen == 6
-		{
-			return UIImage(named: "gen7")!
-		}
-		else if gen == 7
-		{
-			return UIImage(named: "gen8")!
-		}
-		else if gen == 8
-		{
-			return UIImage(named: "shiny-charm")!
-		}
-		return UIImage(named: "gen1")!
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)

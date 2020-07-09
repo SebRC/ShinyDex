@@ -40,18 +40,18 @@ class ColorPickerVC: CustomColorPickerViewController
 		saveButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
 		
 		cancelButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
-		
-		if theme == .Tertiary
+
+		switch theme
 		{
-			titleLabel.text = "Tertiary Color"
-		}
-		else if theme == .Primary
-		{
+		case .Primary:
 			titleLabel.text = "Primary Color"
-		}
-		else
-		{
+			break
+		case .Secondary:
 			titleLabel.text = "Secondary Color"
+			break
+		default:
+			titleLabel.text = "Tertiary Color"
+			break
 		}
 	}
 	

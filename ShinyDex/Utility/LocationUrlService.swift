@@ -39,26 +39,20 @@ class LocationUrlService
 
 	fileprivate func getGenerationIdentifier(generation: Int) -> String
 	{
-		if generation == 0
+		switch generation
 		{
+		case 0:
 			return "gs"
-		}
-		if generation == 1
-		{
+		case 1:
 			return "dp"
-		}
-		if generation == 2
-		{
+		case 2:
 			return "bw"
-		}
-		if generation == 3
-		{
+		case 3:
 			return "xy"
-		}
-		if generation == 5
-		{
+		case 4:
 			return "swsh"
+		default:
+			return "sm"
 		}
-		return "sm"
 	}
 }

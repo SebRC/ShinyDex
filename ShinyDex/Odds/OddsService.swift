@@ -22,54 +22,43 @@ class OddsService
 
 	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int
 	{
-		if huntMethod == .Gen2Breeding
-		{
+		switch huntMethod {
+		case .Gen2Breeding:
 			return gen2BreedingOddsService.getOdds()
-		}
-		if huntMethod == .Masuda
-		{
+		case .Masuda:
 			return masudaOddsService.getOdds(generation: generation, isCharmActive: isCharmActive)
-		}
-		if huntMethod == .Pokeradar
-		{
+		case .Pokeradar:
 			return pokeradarOddsService.getOdds(chain: encounters)
-		}
-		if huntMethod == .FriendSafari
-		{
+		case .FriendSafari:
 			return friendSafariOddsService.getOdds(isShinyCharmActive: isCharmActive)
-		}
-		if huntMethod == .ChainFishing
-		{
+		case .ChainFishing:
 			return chainFishingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
-		}
-		if huntMethod == .DexNav
-		{
+		case .DexNav:
 			return dexNavOddsService.getOdds(searchLevel: encounters, isShinyCharmActive: isCharmActive)
-		}
-		if huntMethod == .SosChaining
-		{
+		case .SosChaining:
 			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
+		default:
+			if generation == 0 || generation == 1 || generation == 2 && !isCharmActive
+			{
+				return 8192
+			}
+			else if generation == 2
+			{
+				return 2731
+			}
+			else if generation > 2 && generation < 5 && !isCharmActive
+			{
+				return 4096
+			}
+			else if generation > 2 && generation < 5
+			{
+				return 1365
+			}
+			else if generation == 5
+			{
+				return gen8OddsService.getOdds(battles: encounters, isCharmActive: isCharmActive)
+			}
+			return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
 		}
-		if generation == 0 || generation == 1 || generation == 2 && !isCharmActive
-		{
-			return 8192
-		}
-		else if generation == 2
-		{
-			return 2731
-		}
-		else if generation > 2 && generation < 5 && !isCharmActive
-		{
-			return 4096
-		}
-		else if generation > 2 && generation < 5
-		{
-			return 1365
-		}
-		else if generation == 5
-		{
-			return gen8OddsService.getOdds(battles: encounters, isCharmActive: isCharmActive)
-		}
-		return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
 	}
 }
