@@ -49,7 +49,7 @@ class ConfirmationModalVC: UIViewController
 	
 	fileprivate func roundConfirmationPopupViewCorners()
 	{
-		confirmationPopup.layer.cornerRadius = 10
+		confirmationPopup.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)

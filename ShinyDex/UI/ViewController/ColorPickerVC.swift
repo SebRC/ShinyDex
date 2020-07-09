@@ -29,9 +29,9 @@ class ColorPickerVC: CustomColorPickerViewController
 		
 		view.backgroundColor = .white
 		
-		saveButton.layer.cornerRadius = 10
+		saveButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		
-		cancelButton.layer.cornerRadius = 10
+		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		
 		titleLabel.textColor = .black
 		

@@ -26,7 +26,7 @@ class GameSettingsCell: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
-		separator.layer.cornerRadius = 5
+		separator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		setUIColors()
 		setFonts()
     }

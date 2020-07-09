@@ -102,12 +102,12 @@ class SettingsVC: UIViewController
 	
 	fileprivate func roundCorners()
 	{
-		gameSettingsContainer.layer.cornerRadius = 10
-		themeSettingsBackgroundView.layer.cornerRadius = 10
-		primaryEditButton.layer.cornerRadius = 10
-		secondaryEditButton.layer.cornerRadius = 10
-		tertiaryEditButton.layer.cornerRadius = 10
-		themeFontSeparator.layer.cornerRadius = 5
+		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard.rawValue
+		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		primaryEditButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		secondaryEditButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		tertiaryEditButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		themeFontSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	fileprivate func setEditButtonActions()

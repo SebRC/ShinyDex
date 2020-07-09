@@ -33,7 +33,7 @@ class SetEncountersModalVC: UIViewController
 	
 	fileprivate func roundViewCorners()
 	{
-		setEncountersView.layer.cornerRadius = 10
+		setEncountersView.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	fileprivate func setSpriteImageView()

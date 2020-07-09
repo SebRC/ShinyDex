@@ -36,7 +36,7 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 	
 	fileprivate func roundViewCorner()
 	{
-		gameSettingsContainer.layer.cornerRadius = 10
+		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 
 	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)

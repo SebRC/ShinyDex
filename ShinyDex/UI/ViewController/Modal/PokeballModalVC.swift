@@ -42,7 +42,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
 		pokeballTableView.separatorColor = colorService.getPrimaryColor()
 		
-		pokeballIndicatorView.layer.cornerRadius = 10
+		pokeballIndicatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		
 		pokeballIndicatorView.backgroundColor = colorService.getSecondaryColor()
 		
@@ -66,12 +66,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func roundTableViewCorners()
 	{
-		pokeballTableView.layer.cornerRadius = 10
+		pokeballTableView.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	fileprivate func roundCancelButtonCorners()
 	{
-		cancelButton.layer.cornerRadius = 10
+		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	fileprivate func setCancelButtonFont()

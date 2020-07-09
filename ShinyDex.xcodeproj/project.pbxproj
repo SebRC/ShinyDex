@@ -16,6 +16,7 @@
 		961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */; };
 		9622379824B5E28B006BBC43 /* LocationUrlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379724B5E28B006BBC43 /* LocationUrlService.swift */; };
 		9622379A24B5EC29006BBC43 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379924B5EC29006BBC43 /* Theme.swift */; };
+		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
@@ -103,6 +104,7 @@
 		961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsService.swift; sourceTree = "<group>"; };
 		9622379724B5E28B006BBC43 /* LocationUrlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlService.swift; sourceTree = "<group>"; };
 		9622379924B5EC29006BBC43 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				96FC083E23EF59DA00459450 /* View */,
 				96FC082C23EF599900459450 /* ViewController */,
 				96FC082523EF596200459450 /* TableViewController */,
+				9622379B24B715DD006BBC43 /* CornerRadius.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */,
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
+				9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
 				9648AE8D24AE110500E819CC /* HuntMethod.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
