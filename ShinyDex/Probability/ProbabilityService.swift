@@ -25,7 +25,7 @@ class ProbabilityService
 			|| huntState.huntMethod == .Pokeradar && encounters <= 40
 			|| huntState.huntMethod == .ChainFishing && encounters <= 20
 			|| huntState.huntMethod == .SosChaining && encounters <= 30
-			|| huntState.generation == 5 && encounters <= 500
+			|| huntState.generation == 5 && huntState.huntMethod != .Masuda && encounters <= 500
 		{
 			return " \(methodVerb) \(methodDecrement) to see probability"
 		}
