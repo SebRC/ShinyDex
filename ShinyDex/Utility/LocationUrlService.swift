@@ -49,7 +49,7 @@ class LocationUrlService
 			return "bw"
 		case 3:
 			return "xy"
-		case 4:
+		case 5:
 			return "swsh"
 		default:
 			return "sm"
