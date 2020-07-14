@@ -86,9 +86,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		var encounters = 0
 		for hunt in hunts
 		{
+			hunt.totalEncounters = 0
 			for pokemon in hunt.pokemon
 			{
 				encounters += pokemon.encounters
+				hunt.totalEncounters += pokemon.encounters
 			}
 		}
 		return encounters
