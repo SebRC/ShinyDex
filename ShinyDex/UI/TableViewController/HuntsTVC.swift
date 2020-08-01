@@ -33,8 +33,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-
-		huntState = huntStateService.get()
 		
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -48,6 +46,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
+
+		huntState = huntStateService.get()
 		
 		setColors()
 		
