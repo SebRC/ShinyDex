@@ -23,11 +23,11 @@ class LocationUrlService
 	{
 		var numberPrefix = ""
 
-		if dexNumber < 10
+		if dexNumber < 9
 		{
 			numberPrefix = "00"
 		}
-		else if dexNumber > 9 && dexNumber < 100
+		else if dexNumber >= 9  && dexNumber < 99
 		{
 			numberPrefix = "0"
 		}

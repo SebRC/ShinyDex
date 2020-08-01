@@ -35,7 +35,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         super.viewDidLoad()
 
 		huntState = huntStateService.get()
-
+		
 		tableView.delegate = self
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
