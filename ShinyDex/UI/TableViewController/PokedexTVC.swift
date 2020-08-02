@@ -16,7 +16,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var allPokemon = [Pokemon]()
 	var hunts: [Hunt]!
 	let textResolver = TextResolver()
-	var encounterIndex = 0
+	var selectedIndex = 0
 	var generation = 0
 	var changeCaughtBallPressed = false
 	var isAddingToHunt = false
@@ -39,7 +39,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		slicePokemonList()
 		
 		setUIColors()
-		
+
 		setUpScopeBar()
 		
 		setUpSearchController()
@@ -80,7 +80,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setUpScopeBar()
 	{
-		searchController.searchBar.scopeButtonTitles = ["Shinydex", "Caught", "Not Caught"]
+		searchController.searchBar.scopeButtonTitles = generation == 9 ? ["Caught"] : ["Shinydex", "Caught", "Not Caught"]
 		searchController.searchBar.delegate = self
 	}
 	
@@ -163,7 +163,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		case 7:
 			allPokemon = Array(allPokemon[807..<892])
 		default:
-			allPokemon = Array(allPokemon[0..<892])
+			allPokemon = allPokemon.filter({$0.caughtBall != "none"})
 		}
 	}
 
@@ -296,7 +296,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
-		encounterIndex = indexPath.row
+		selectedIndex = indexPath.row
 		performSegue(withIdentifier: "encountersSegue", sender: nil)
 	}
 	
@@ -340,7 +340,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		shinyTrackerVC.pokemonService = pokemonService
 		shinyTrackerVC.huntStateService = huntStateService
 		shinyTrackerVC.huntService = huntService
-		shinyTrackerVC.pokemon = allPokemon[getIndexFromFullList(index: encounterIndex)]
+		shinyTrackerVC.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : allPokemon[selectedIndex]
 		shinyTrackerVC.hunts = hunts
 	}
 	
@@ -353,42 +353,18 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		{
 			pokemon?.caughtBall = sourceTVC.pokemon.caughtBall
 			pokemonService.save(pokemon: pokemon!)
+			if pokemon?.caughtBall == "none"
+			{
+				if isFiltering() && searchController.searchBar.selectedScopeButtonIndex == 1
+				{
+					filteredPokemon.removeAll(where: {$0.name == pokemon?.name})
+				}
+				if generation == 9
+				{
+					allPokemon.removeAll(where: {$0.name == pokemon?.name})
+				}
+			}
 			tableView.reloadData()
-		}
-	}
-	
-	fileprivate func getIndexFromFullList(index: Int) -> Int
-	{
-		var indexOfPokemon: Int
-		if isFiltering()
-		{
-			indexOfPokemon = filteredPokemon[index].number - resolveCounter(generation: generation)
-			return indexOfPokemon
-		}
-		indexOfPokemon = allPokemon[index].number - resolveCounter(generation: generation)
-		return indexOfPokemon
-	}
-
-	fileprivate func resolveCounter(generation: Int) -> Int
-	{
-		switch generation
-		{
-		case 1:
-			return 151
-		case 2:
-			return 251
-		case 3:
-			return 386
-		case 4:
-			return 493
-		case 5:
-			return 649
-		case 6:
-			return 721
-		case 7:
-			return 807
-		default:
-			return 0
 		}
 	}
 	

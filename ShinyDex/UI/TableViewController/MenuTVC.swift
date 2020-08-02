@@ -107,7 +107,7 @@ class MenuTVC: UITableViewController
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		return 9
+		return 10
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -174,6 +174,8 @@ class MenuTVC: UITableViewController
 			return UIImage(named: "gen8")!
 		case 8:
 			return UIImage(named: "shiny-charm")!
+		case 9:
+			return UIImage(named: "collection")!
 		default:
 			return UIImage(named: "gen1")!
 		}
@@ -189,7 +191,7 @@ class MenuTVC: UITableViewController
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}
-		else if genIndex == 9
+		else if genIndex == 10
 		{
 			let destVC = segue.destination as? SettingsVC
 			destVC?.fontSettingsService = fontSettingsService
@@ -225,7 +227,7 @@ class MenuTVC: UITableViewController
 	
 	@IBAction func settingsPressed(_ sender: Any)
 	{
-		genIndex = 9
+		genIndex = 10
 		performSegue(withIdentifier: "settingsSegue", sender: self)
 	}
 	
