@@ -33,9 +33,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-
-		huntState = huntStateService.get()
-
+		
 		tableView.delegate = self
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
@@ -48,6 +46,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
+
+		huntState = huntStateService.get()
 		
 		setColors()
 		
@@ -86,9 +86,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		var encounters = 0
 		for hunt in hunts
 		{
+			hunt.totalEncounters = 0
 			for pokemon in hunt.pokemon
 			{
 				encounters += pokemon.encounters
+				hunt.totalEncounters += pokemon.encounters
 			}
 		}
 		return encounters

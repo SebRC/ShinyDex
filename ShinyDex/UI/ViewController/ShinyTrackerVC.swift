@@ -95,7 +95,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			methodDecrement = 999
 		}
-		else if huntState!.generation == 5
+		else if huntState!.generation == 5 && huntState!.huntMethod != .Masuda
 		{
 			methodDecrement = 500
 		}

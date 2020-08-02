@@ -985,7 +985,7 @@
                         <segue destination="hfA-YG-QwI" kind="presentation" identifier="infoPopupSegue" id="3DU-z9-Fvh"/>
                         <segue destination="bTN-i7-7fD" kind="presentation" identifier="setEncountersSegue" id="EMp-OP-8UQ"/>
                         <segue destination="ti9-ne-P4I" kind="presentation" identifier="shinyTrackerToHuntPickerSegue" id="LE8-BB-dtk"/>
-                        <segue destination="FCX-sg-VKY" kind="presentation" identifier="locationSegue" id="jxE-SP-MfD"/>
+                        <segue destination="FCX-sg-VKY" kind="show" identifier="locationSegue" id="jxE-SP-MfD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATd-Jv-H7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1325,11 +1325,12 @@
             <objects>
                 <viewController id="FCX-sg-VKY" customClass="LocationVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D6n-lN-J80">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Igf-1U-Xmc"/>
                     </view>
+                    <navigationItem key="navigationItem" id="fhO-pp-hYa"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhX-Ds-AGA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

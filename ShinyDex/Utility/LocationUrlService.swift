@@ -23,11 +23,11 @@ class LocationUrlService
 	{
 		var numberPrefix = ""
 
-		if dexNumber < 10
+		if dexNumber < 9
 		{
 			numberPrefix = "00"
 		}
-		else if dexNumber > 9 && dexNumber < 100
+		else if dexNumber >= 9  && dexNumber < 99
 		{
 			numberPrefix = "0"
 		}
@@ -49,7 +49,7 @@ class LocationUrlService
 			return "bw"
 		case 3:
 			return "xy"
-		case 4:
+		case 5:
 			return "swsh"
 		default:
 			return "sm"
