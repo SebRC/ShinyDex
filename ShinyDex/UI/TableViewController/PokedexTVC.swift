@@ -39,7 +39,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		slicePokemonList()
 		
 		setUIColors()
-		
+
 		setUpScopeBar()
 		
 		setUpSearchController()
@@ -80,7 +80,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setUpScopeBar()
 	{
-		searchController.searchBar.scopeButtonTitles = ["Shinydex", "Caught", "Not Caught"]
+		searchController.searchBar.scopeButtonTitles = generation == 9 ? ["Caught"] : ["Shinydex", "Caught", "Not Caught"]
 		searchController.searchBar.delegate = self
 	}
 	
@@ -163,7 +163,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		case 7:
 			allPokemon = Array(allPokemon[807..<892])
 		default:
-			allPokemon = Array(allPokemon[0..<892])
+			allPokemon = allPokemon.filter({$0.caughtBall != "none"})
 		}
 	}
 

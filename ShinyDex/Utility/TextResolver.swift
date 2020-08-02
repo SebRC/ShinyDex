@@ -30,6 +30,8 @@ class TextResolver
 			return "Galar"
 		case 8:
 			return "Hunts"
+		case 9:
+			return "Collection"
 		default:
 			return "Kanto"
 		}
