@@ -141,18 +141,18 @@ class GameSettingsContainer: UIView
 
 	func setUIColors()
 	{
-		contentView?.backgroundColor = colorService.getSecondaryColor()
+		contentView?.backgroundColor = colorService.getPrimaryColor()
 		explanationLabel.textColor = colorService.getTertiaryColor()
-		explanationSeparator.backgroundColor = colorService.getPrimaryColor()
-		generationSeparator.backgroundColor = colorService.getPrimaryColor()
+		explanationSeparator.backgroundColor = colorService.getSecondaryColor()
+		generationSeparator.backgroundColor = colorService.getSecondaryColor()
 		generationLabel.textColor = colorService.getTertiaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		generationLabel.textColor = colorService.getTertiaryColor()
-		generationSegmentedControl.backgroundColor = colorService.getSecondaryColor()
-		generationSegmentedControl.tintColor = colorService.getPrimaryColor()
+		generationSegmentedControl.backgroundColor = colorService.getPrimaryColor()
+		generationSegmentedControl.tintColor = colorService.getSecondaryColor()
 	}
 
 	func setCellColors()

@@ -53,17 +53,17 @@ class SettingsVC: UIViewController
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
-		navigationController?.navigationBar.barTintColor = colorService!.getSecondaryColor()
+		navigationController?.navigationBar.barTintColor = colorService!.getPrimaryColor()
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 		navigationController?.navigationBar.tintColor = colorService!.getTertiaryColor()
 		
-		view.backgroundColor = colorService!.getPrimaryColor()
+		view.backgroundColor = colorService!.getSecondaryColor()
 		
 		themeLabel.textColor = colorService!.getTertiaryColor()
 		
-		primaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
+		primaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
-		secondaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
+		secondaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
 		
 		tertiaryEditButton.contentView?.backgroundColor = colorService!.getTertiaryColor()
 		
@@ -72,10 +72,10 @@ class SettingsVC: UIViewController
 		fontLabel.textColor = colorService!.getTertiaryColor()
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		fontSegmentedControl.backgroundColor = colorService!.getSecondaryColor()
-		fontSegmentedControl.tintColor = colorService!.getPrimaryColor()
-		themeFontSeparator.backgroundColor = colorService!.getPrimaryColor()
-		themeSettingsBackgroundView.backgroundColor = colorService.getSecondaryColor()
+		fontSegmentedControl.backgroundColor = colorService!.getPrimaryColor()
+		fontSegmentedControl.tintColor = colorService!.getSecondaryColor()
+		themeFontSeparator.backgroundColor = colorService!.getSecondaryColor()
+		themeSettingsBackgroundView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	fileprivate func setFonts()
