@@ -54,12 +54,12 @@ class GameSettingsCell: UIView
 
 	func setUIColors()
 	{
-		contentView?.backgroundColor = colorService.getSecondaryColor()
-		separator.backgroundColor = colorService.getPrimaryColor()
+		contentView?.backgroundColor = colorService.getPrimaryColor()
+		separator.backgroundColor = colorService.getSecondaryColor()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
-		actionSwitch.onTintColor = colorService.getPrimaryColor()
-		actionSwitch.thumbTintColor = colorService.getSecondaryColor()
+		actionSwitch.onTintColor = colorService.getSecondaryColor()
+		actionSwitch.thumbTintColor = colorService.getPrimaryColor()
 	}
 
 	func setFonts()
