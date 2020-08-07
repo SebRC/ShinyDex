@@ -268,7 +268,7 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func plusPressed(_ sender: Any)
 	{
-		pokemon.encounters += 1
+		pokemon.encounters += huntState!.increment
 		resolveEncounterDetails()
 		pokemonService.save(pokemon: pokemon)
 	}

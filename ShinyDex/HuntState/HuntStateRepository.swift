@@ -33,7 +33,7 @@ class HuntStateRepository
 		}
 		if let loadedIncrement = defaults.integer(forKey: "increment") as Int?
 		{
-			increment = loadedIncrement
+			increment = loadedIncrement == 0 ? 1 : loadedIncrement
 		}
 		if let loadedCollapsedSections = defaults.array(forKey: "collapsedSections")
 		{
