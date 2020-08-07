@@ -32,6 +32,7 @@ class ShinyTrackerVC: UIViewController
 	var isAddingToHunt = false
 	var infoPressed = false
 	var locationPressed = false
+	var incrementPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -211,8 +212,9 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setButtonActions()
 	{
-		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
+		buttonStrip.incrementButton.addTarget(self, action: #selector(incrementButtonPressed), for: .touchUpInside)
+		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 		buttonStrip.locationButton.addTarget(self, action: #selector(locationButtonPressed), for: .touchUpInside)
 	}
@@ -305,6 +307,12 @@ class ShinyTrackerVC: UIViewController
 		performSegue(withIdentifier: "setEncountersSegue", sender: self)
 	}
 
+	@objc fileprivate func incrementButtonPressed(_ sender: Any)
+	{
+		incrementPressed = true
+		performSegue(withIdentifier: "incrementSegue", sender: self)
+	}
+
 	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any)
 	{
 		performSegue(withIdentifier: "shinyTrackerToModalSegue", sender: self)
@@ -348,6 +356,10 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! LocationVC
 			destVC.generation = huntState?.generation
 			destVC.pokemon = pokemon
+		}
+		else if incrementPressed
+		{
+			incrementPressed = false
 		}
 		else
 		{

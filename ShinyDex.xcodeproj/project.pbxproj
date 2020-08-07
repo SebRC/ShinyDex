@@ -20,6 +20,7 @@
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
+		963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */; };
 		96435D432454807B00C45A00 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D422454807B00C45A00 /* Pokemon.swift */; };
 		96435D452455C31A00C45A00 /* CreateHuntModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */; };
 		96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4624561E1C00C45A00 /* CreateHuntCell.swift */; };
@@ -108,6 +109,7 @@
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
+		963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementVC.swift; sourceTree = "<group>"; };
 		96435D422454807B00C45A00 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntModalVC.swift; sourceTree = "<group>"; };
 		96435D4624561E1C00C45A00 /* CreateHuntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHuntCell.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */,
 				96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */,
 				96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */,
+				963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */,
 				9607F77A242AA20500263CF6 /* HuntState.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
+				963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,
 				967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */,
 				9684073124AF6A2A005FE3D3 /* ChainFishingOddsService.swift in Sources */,
