@@ -70,6 +70,8 @@ class ShinyTrackerVC: UIViewController
 		setPokeballButtonImage()
 
 		setMethodImage()
+
+		setIncrementImage()
 		
 		setButtonActions()
 
@@ -424,5 +426,32 @@ class ShinyTrackerVC: UIViewController
 		setProbabilityLabelText()
 		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
+	}
+
+	@IBAction func confirmIncrement(_ unwindSegue: UIStoryboardSegue)
+	{
+		setIncrementImage()
+	}
+
+	fileprivate func setIncrementImage()
+	{
+		switch huntState!.increment
+		{
+		case 0,1:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "1.circle.fill"), for: .normal)
+			break
+		case 3:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "3.circle.fill"), for: .normal)
+			break
+		case 4:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "4.circle.fill"), for: .normal)
+			break
+		case 5:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "5.circle.fill"), for: .normal)
+			break
+		default:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "6.circle.fill"), for: .normal)
+			break
+		}
 	}
 }

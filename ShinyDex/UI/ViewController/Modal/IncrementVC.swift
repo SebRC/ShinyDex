@@ -48,6 +48,14 @@ class IncrementVC: UIViewController
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
 
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor()]
+
+		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
+		incrementSegmentedControl.backgroundColor = colorService!.getPrimaryColor()
+		incrementSegmentedControl.tintColor = colorService!.getSecondaryColor()
+		incrementSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
+
 		switch huntState.increment
 		{
 		case 0, 1:
@@ -101,7 +109,7 @@ class IncrementVC: UIViewController
 	{
 		huntState.increment = selectedIncrement
 		huntStateService.save(huntState)
-		dismiss(animated: true)
+		performSegue(withIdentifier: "incrementUnwind", sender: self)
 	}
 
 	fileprivate func setDescriptionText(increment: Int)

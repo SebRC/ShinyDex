@@ -1358,7 +1358,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya1-HY-9Vb" userLabel="descriptionLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya1-HY-9Vb" userLabel="descriptionLabel">
                                         <rect key="frame" x="8" y="82" width="271" height="77"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ya1-HY-9Vb" secondAttribute="height" multiplier="267:37" constant="-284.64864864864865" id="QXx-H3-7hg"/>
@@ -1466,9 +1466,11 @@
                         <outlet property="modalView" destination="XnS-NM-SQv" id="ANw-tK-pla"/>
                         <outlet property="titleLabel" destination="jOP-6d-NxO" id="3mJ-xb-5s7"/>
                         <outlet property="verticalSeparator" destination="5AI-6q-dZ9" id="I1g-BS-ADO"/>
+                        <segue destination="Orb-sM-OLC" kind="unwind" identifier="incrementUnwind" unwindAction="confirmIncrement:" id="4kU-J9-uBE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQX-vm-DoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Orb-sM-OLC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5984.8000000000002" y="1061.9190404797603"/>
         </scene>
