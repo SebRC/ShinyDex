@@ -61,9 +61,9 @@ class SettingsVC: UIViewController
 		
 		themeLabel.textColor = colorService!.getTertiaryColor()
 		
-		primaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
+		primaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
 		
-		secondaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
+		secondaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
 		tertiaryEditButton.contentView?.backgroundColor = colorService!.getTertiaryColor()
 		
