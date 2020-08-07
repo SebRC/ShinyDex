@@ -360,6 +360,11 @@ class ShinyTrackerVC: UIViewController
 		else if incrementPressed
 		{
 			incrementPressed = false
+			let destVC = segue.destination as! IncrementVC
+			destVC.colorService = colorService
+			destVC.fontSettingsService = fontSettingsService
+			destVC.huntStateService = huntStateService
+			destVC.huntState = huntState
 		}
 		else
 		{
