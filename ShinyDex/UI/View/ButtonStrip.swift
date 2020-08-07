@@ -14,12 +14,14 @@ class ButtonStrip: UIView
 	@IBOutlet weak var methodMapSeparator: UIView!
 	@IBOutlet weak var updateEncountersButton: UIButton!
 	@IBOutlet weak var methodButton: UIButton!
-	@IBOutlet weak var encountersMethodSeparator: UIView!
+	@IBOutlet weak var encountersIncrementSeparator: UIView!
 	@IBOutlet weak var pokeballButton: UIButton!
 	@IBOutlet weak var mapBallSeparator: UIView!
 	@IBOutlet weak var locationButton: UIButton!
 	@IBOutlet weak var ballOddsSeparator: UIView!
 	@IBOutlet weak var oddsLabel: UILabel!
+	@IBOutlet weak var incrementButton: UIButton!
+	@IBOutlet weak var incrementMethodSeparator: UIView!
 
 	fileprivate var colorService: ColorService?
 	fileprivate var fontSettingsService = FontSettingsService()
@@ -66,20 +68,23 @@ class ButtonStrip: UIView
 	{
 		contentView?.backgroundColor = colorService!.getSecondaryColor()
 		
-		encountersMethodSeparator.backgroundColor = colorService!.getPrimaryColor()
+		encountersIncrementSeparator.backgroundColor = colorService!.getPrimaryColor()
+		incrementMethodSeparator.backgroundColor = colorService!.getPrimaryColor()
 		methodMapSeparator.backgroundColor = colorService!.getPrimaryColor()
 		mapBallSeparator.backgroundColor = colorService?.getPrimaryColor()
 		ballOddsSeparator.backgroundColor = colorService?.getPrimaryColor()
-		
-		methodButton.tintColor = colorService!.getTertiaryColor()
+
 		updateEncountersButton.tintColor = colorService!.getTertiaryColor()
+		incrementButton.tintColor = colorService!.getTertiaryColor()
+		methodButton.tintColor = colorService!.getTertiaryColor()
 
 		oddsLabel.textColor = colorService!.getTertiaryColor()
 	}
 	
 	fileprivate func roundCorners()
 	{
-		encountersMethodSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		encountersIncrementSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		incrementMethodSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		methodMapSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		mapBallSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		ballOddsSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
