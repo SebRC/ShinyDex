@@ -1348,7 +1348,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnS-NM-SQv">
                                 <rect key="frame" x="44" y="234" width="287" height="220"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing encounter increment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOP-6d-NxO" userLabel="titleLabel">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing increment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOP-6d-NxO" userLabel="titleLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="287" height="38"/>
                                         <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1458,13 +1458,14 @@
                         <viewLayoutGuide key="safeArea" id="9Wm-uI-mqD"/>
                     </view>
                     <connections>
-                        <outlet property="buttonBackgroundView" destination="S1j-UH-SSc" id="c2a-qd-bVg"/>
-                        <outlet property="buttonSeparatorView" destination="5AI-6q-dZ9" id="I1g-BS-ADO"/>
                         <outlet property="cancelButton" destination="wGJ-oa-vaK" id="aht-a3-5xE"/>
                         <outlet property="confirmButton" destination="M1Z-lJ-nZE" id="t2m-zE-ujV"/>
                         <outlet property="descriptionLabel" destination="ya1-HY-9Vb" id="PPu-Jo-daE"/>
+                        <outlet property="horizontalSeparator" destination="S1j-UH-SSc" id="c2a-qd-bVg"/>
                         <outlet property="incrementSegmentedControl" destination="EzJ-L4-4Zj" id="zzs-EE-beW"/>
+                        <outlet property="modalView" destination="XnS-NM-SQv" id="ANw-tK-pla"/>
                         <outlet property="titleLabel" destination="jOP-6d-NxO" id="3mJ-xb-5s7"/>
+                        <outlet property="verticalSeparator" destination="5AI-6q-dZ9" id="I1g-BS-ADO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQX-vm-DoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -10,12 +10,13 @@ import UIKit
 
 class IncrementVC: UIViewController
 {
+	@IBOutlet weak var modalView: UIView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
-	@IBOutlet weak var buttonBackgroundView: UIView!
-	@IBOutlet weak var buttonSeparatorView: UIView!
+	@IBOutlet weak var horizontalSeparator: UIView!
+	@IBOutlet weak var verticalSeparator: UIView!
 	@IBOutlet weak var incrementSegmentedControl: UISegmentedControl!
 
 	var colorService: ColorService!
@@ -30,6 +31,22 @@ class IncrementVC: UIViewController
 	{
         super.viewDidLoad()
 		selectedIncrement = huntState.increment
+
+		titleLabel.font = fontSettingsService.getExtraSmallFont()
+		titleLabel.textColor = colorService.getTertiaryColor()
+		titleLabel.backgroundColor = colorService.getPrimaryColor()
+		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
+		descriptionLabel.textColor = colorService.getTertiaryColor()
+		modalView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		modalView.backgroundColor = colorService.getSecondaryColor()
+		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
+		confirmButton.backgroundColor = colorService.getPrimaryColor()
+		confirmButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
+		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
+		cancelButton.backgroundColor = colorService.getPrimaryColor()
+		cancelButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
+		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
+		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
 
 		switch huntState.increment
 		{
@@ -49,7 +66,6 @@ class IncrementVC: UIViewController
 			incrementSegmentedControl.selectedSegmentIndex = 4
 			break
 		}
-
 		setDescriptionText(increment: huntState.increment)
     }
 
@@ -96,10 +112,10 @@ class IncrementVC: UIViewController
 			descriptionLabel.text = "Used for single encounters, like when soft resetting, Pokéradar chaining or chain fishing"
 			break
 		case 3:
-			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches are the most frequent"
+			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent"
 			break
 		case 4:
-			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches are the most frequent"
+			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent"
 			break
 		case 5:
 			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once"
@@ -108,5 +124,10 @@ class IncrementVC: UIViewController
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once"
 			break
 		}
+	}
+
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+	{
+		dismissModalOnTouchOutside(touches: touches)
 	}
 }

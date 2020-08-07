@@ -61,4 +61,9 @@ class HuntNameEditorModalVC: UIViewController
 	{
 		dismiss(animated: true)
 	}
+
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+	{
+		dismissModalOnTouchOutside(touches: touches)
+	}
 }
