@@ -54,7 +54,6 @@ class IncrementVC: UIViewController
 		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		incrementSegmentedControl.backgroundColor = colorService!.getPrimaryColor()
 		incrementSegmentedControl.tintColor = colorService!.getSecondaryColor()
-		incrementSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 
 		switch huntState.increment
 		{

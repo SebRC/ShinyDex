@@ -1373,11 +1373,11 @@
                                             <constraint firstAttribute="width" secondItem="EzJ-L4-4Zj" secondAttribute="height" multiplier="271:31" id="fD1-pQ-mOI"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="1"/>
-                                            <segment title="3"/>
-                                            <segment title="4"/>
-                                            <segment title="5"/>
-                                            <segment title="6"/>
+                                            <segment title="" image="1.circle.fill" catalog="system"/>
+                                            <segment title="" image="3.circle.fill" catalog="system"/>
+                                            <segment title="" image="4.circle.fill" catalog="system"/>
+                                            <segment title="" image="5.circle.fill" catalog="system"/>
+                                            <segment title="" image="6.circle.fill" catalog="system"/>
                                         </segments>
                                         <connections>
                                             <action selector="incrementChanged:" destination="Od0-22-4ap" eventType="valueChanged" id="HAl-lc-7wh"/>
@@ -1501,6 +1501,11 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
+        <image name="1.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="3.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="4.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="5.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="6.circle.fill" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
