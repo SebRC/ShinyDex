@@ -32,6 +32,7 @@ class ShinyTrackerVC: UIViewController
 	var isAddingToHunt = false
 	var infoPressed = false
 	var locationPressed = false
+	var incrementPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService: PokemonService!
 	var fontSettingsService: FontSettingsService!
@@ -69,6 +70,8 @@ class ShinyTrackerVC: UIViewController
 		setPokeballButtonImage()
 
 		setMethodImage()
+
+		setIncrementImage()
 		
 		setButtonActions()
 
@@ -211,8 +214,9 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setButtonActions()
 	{
-		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
+		buttonStrip.incrementButton.addTarget(self, action: #selector(incrementButtonPressed), for: .touchUpInside)
+		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 		buttonStrip.locationButton.addTarget(self, action: #selector(locationButtonPressed), for: .touchUpInside)
 	}
@@ -264,7 +268,7 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func plusPressed(_ sender: Any)
 	{
-		pokemon.encounters += 1
+		pokemon.encounters += huntState!.increment
 		resolveEncounterDetails()
 		pokemonService.save(pokemon: pokemon)
 	}
@@ -303,6 +307,12 @@ class ShinyTrackerVC: UIViewController
 	{
 		setEncountersPressed = true
 		performSegue(withIdentifier: "setEncountersSegue", sender: self)
+	}
+
+	@objc fileprivate func incrementButtonPressed(_ sender: Any)
+	{
+		incrementPressed = true
+		performSegue(withIdentifier: "incrementSegue", sender: self)
 	}
 
 	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any)
@@ -348,6 +358,15 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! LocationVC
 			destVC.generation = huntState?.generation
 			destVC.pokemon = pokemon
+		}
+		else if incrementPressed
+		{
+			incrementPressed = false
+			let destVC = segue.destination as! IncrementVC
+			destVC.colorService = colorService
+			destVC.fontSettingsService = fontSettingsService
+			destVC.huntStateService = huntStateService
+			destVC.huntState = huntState
 		}
 		else
 		{
@@ -407,5 +426,32 @@ class ShinyTrackerVC: UIViewController
 		setProbabilityLabelText()
 		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
+	}
+
+	@IBAction func confirmIncrement(_ unwindSegue: UIStoryboardSegue)
+	{
+		setIncrementImage()
+	}
+
+	fileprivate func setIncrementImage()
+	{
+		switch huntState!.increment
+		{
+		case 0,1:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "1.circle.fill"), for: .normal)
+			break
+		case 3:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "3.circle.fill"), for: .normal)
+			break
+		case 4:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "4.circle.fill"), for: .normal)
+			break
+		case 5:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "5.circle.fill"), for: .normal)
+			break
+		default:
+			buttonStrip.incrementButton.setImage(UIImage(systemName: "6.circle.fill"), for: .normal)
+			break
+		}
 	}
 }

@@ -75,4 +75,9 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	{
 		dismiss(animated: true)
 	}
+
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+	{
+		dismissModalOnTouchOutside(touches: touches)
+	}
 }
