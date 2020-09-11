@@ -51,6 +51,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.nameLabel.text = hunts[indexPath.row].name
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
 		cell.nameLabel.font = fontSettingsService.getMediumFont()
+		cell.iconImageView.image = UIImage(named: hunts[indexPath.row].pokemon[0].name.lowercased())
 		return cell
 	}
 
