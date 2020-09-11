@@ -52,7 +52,7 @@ class GameSettingsContainer: UIView
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
 		useIncrementCell.titleLabel.text = "Use increment in Hunts"
 		useIncrementCell.descriptionLabel.text = "The encounter increment can be changed on an individual Pokémon"
-		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
+		genTwoBreedingCell.iconImageView.image = UIImage(named: "ditto-large")
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
 		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"
 		masudaCell.iconImageView.image = UIImage(named: "egg")
@@ -321,7 +321,7 @@ class GameSettingsContainer: UIView
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod)
 	{
-		gameSettingsCells!.removeAll{$0 == enabledCell || $0 == shinyCharmCell}
+		gameSettingsCells!.removeAll{$0 == enabledCell || $0 == shinyCharmCell || $0 == useIncrementCell}
 		for cell in gameSettingsCells!
 		{
 			setImageViewAlpha(imageView: cell.iconImageView, isSwitchOn: false)
