@@ -284,9 +284,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
-                                                    <rect key="frame" x="98" y="0.0" width="185" height="80"/>
+                                                    <rect key="frame" x="98" y="0.0" width="170" height="80"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="37:16" id="WmK-de-67s"/>
+                                                        <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="37:16" constant="-15" id="WmK-de-67s"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -300,6 +300,7 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="UUc-UJ-huP" secondAttribute="trailing" constant="15" id="XJ4-im-2JX"/>
                                                 <constraint firstItem="UUc-UJ-huP" firstAttribute="bottom" secondItem="7bW-Or-Y3N" secondAttribute="bottom" id="ZOl-zO-G4l"/>
                                                 <constraint firstItem="UUc-UJ-huP" firstAttribute="top" secondItem="7bW-Or-Y3N" secondAttribute="top" id="d9I-EM-EMi"/>
                                                 <constraint firstItem="7bW-Or-Y3N" firstAttribute="top" secondItem="dKx-F3-6Bk" secondAttribute="top" id="dGh-6D-QcN"/>
