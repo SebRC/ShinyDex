@@ -1,5 +1,5 @@
 //
-//  ProbabilityService.swift
+//  PercentageService.swift
 //  ShinyDex
 //
 //  Created by Sebastian Christiansen on 28/02/2020.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-class ProbabilityService
+class PercentageService
 {
-	func getProbability(encounters: Int, shinyOdds: Int) -> Double
+	func getPercentage(encounters: Int, shinyOdds: Int) -> Double
 	{
-		return Double.getProbability(encounters: encounters, odds: shinyOdds)
+		return Double.getPercentage(encounters: encounters, odds: shinyOdds)
 	}
 
-	func getProbabilityText(encounters: Int, shinyOdds: Int, probability: Double, huntState: HuntState, methodDecrement: Int) -> String
+	func getPercentageText(encounters: Int, shinyOdds: Int, percentage: Double, huntState: HuntState, methodDecrement: Int) -> String
 	{
 		let huntIsOverOdds = encounters - methodDecrement > shinyOdds
 		let methodVerb = huntState.generation == 5 ? "Battle" : "Chain"
@@ -27,12 +27,12 @@ class ProbabilityService
 			|| huntState.huntMethod == .SosChaining && encounters <= 30
 			|| huntState.generation == 5 && huntState.huntMethod != .Masuda && encounters <= 500
 		{
-			return " \(methodVerb) \(methodDecrement) to see probability"
+			return " \(methodVerb) \(methodDecrement) to see percentage"
 		}
 
 		if huntState.huntMethod == .DexNav && encounters <= 999
 		{
-			return " Reach search level \(methodDecrement) to see probability"
+			return " Reach search level \(methodDecrement) to see percentage"
 		}
 
 		if huntIsOverOdds
@@ -41,8 +41,8 @@ class ProbabilityService
 		}
 		else
 		{
-			let formattedProbability = String(format: "%.2f", probability)
-			return " Probability is \(formattedProbability)%"
+			let formattedPercentage = String(format: "%.2f", percentage)
+			return " Percentage of odds is \(formattedPercentage)%"
 		}
 	}
 }

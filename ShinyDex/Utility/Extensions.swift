@@ -113,7 +113,7 @@ extension UIViewController
 
 extension Double
 {
-	static func getProbability(encounters: Int, odds: Int) -> Double
+	static func getPercentage(encounters: Int, odds: Int) -> Double
 	{
 		return Double(encounters) / Double(odds) * 100
 	}
