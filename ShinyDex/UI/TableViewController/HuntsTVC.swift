@@ -266,9 +266,10 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-			hunts[indexPath.section].totalEncounters += 1
-			pokemon.encounters += 1
-			encounters += 1
+			let increment = huntState!.useIncrementInHunts ? huntState!.increment : 1
+			hunts[indexPath.section].totalEncounters += increment
+			pokemon.encounters += increment
+			encounters += increment
 			navigationItem.title = String(encounters)
 			tableView.reloadData()
 			pokemonService.save(pokemon: pokemon)
