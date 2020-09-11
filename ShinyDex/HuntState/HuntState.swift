@@ -15,14 +15,16 @@ class HuntState
 	var shinyOdds: Int
 	var huntMethod: HuntMethod
 	var increment: Int
+	var useIncrementInHunts: Bool
 	var collapsedSections: Set<Int>
 
-	init(generation: Int, isShinyCharmActive: Bool, huntMethod: HuntMethod, increment: Int, collapsedSections: Set<Int>, shinyOdds: Int = 8192)
+	init(generation: Int, isShinyCharmActive: Bool, huntMethod: HuntMethod, increment: Int, useIncrementInHunts: Bool, collapsedSections: Set<Int>, shinyOdds: Int = 8192)
 	{
 		self.generation = generation
 		self.isShinyCharmActive = isShinyCharmActive
 		self.huntMethod = huntMethod
 		self.increment = increment
+		self.useIncrementInHunts = useIncrementInHunts
 		self.collapsedSections = collapsedSections
 		self.shinyOdds = shinyOdds
 	}

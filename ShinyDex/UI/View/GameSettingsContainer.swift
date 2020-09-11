@@ -35,6 +35,7 @@ class GameSettingsContainer: UIView
 	@IBOutlet weak var friendSafariCell: GameSettingsCell!
 	@IBOutlet weak var explanationLabel: UILabel!
 	@IBOutlet weak var explanationSeparator: UIView!
+	@IBOutlet weak var useIncrementCell: GameSettingsCell!
 
 
 	required init?(coder aDecoder: NSCoder)
@@ -44,10 +45,13 @@ class GameSettingsContainer: UIView
 
 		huntState = huntStateService.get()
 
-		gameSettingsCells = [genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
+		gameSettingsCells = [useIncrementCell,genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
 
 		explanationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		generationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
+		useIncrementCell.titleLabel.text = "Use increment in Hunts"
+		useIncrementCell.descriptionLabel.text = "The encounter increment can be changed on an individual Pokémon"
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "gyarados")
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
 		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"
@@ -85,6 +89,7 @@ class GameSettingsContainer: UIView
 		pokeradarCell.actionSwitch.addTarget(self, action: #selector(changeIsPokeradarHunting), for: .valueChanged)
 		dexNavCell.actionSwitch.addTarget(self, action: #selector(changeIsDexNavHunting), for: .valueChanged)
 		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
+		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
 		setShinyOddsLabelText()
@@ -124,6 +129,7 @@ class GameSettingsContainer: UIView
 		sosChainCell.actionSwitch.isOn = huntState!.huntMethod == .SosChaining
 		dexNavCell.actionSwitch.isOn = huntState!.huntMethod == .DexNav
 		lureCell.actionSwitch.isOn = huntState!.huntMethod == .Lure
+		useIncrementCell.actionSwitch.isOn = huntState!.useIncrementInHunts
 
 		setAllImageViewAlphas()
 		resolveSwitchStates()
@@ -153,10 +159,12 @@ class GameSettingsContainer: UIView
 		generationLabel.textColor = colorService.getTertiaryColor()
 		generationSegmentedControl.backgroundColor = colorService.getPrimaryColor()
 		generationSegmentedControl.tintColor = colorService.getSecondaryColor()
+		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
 	}
 
 	func setCellColors()
 	{
+		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
 		for cell in gameSettingsCells!
 		{
 			cell.setUIColors()
@@ -169,6 +177,7 @@ class GameSettingsContainer: UIView
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
+		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 
 	func setCellFonts()
@@ -177,6 +186,7 @@ class GameSettingsContainer: UIView
 		{
 			cell.setFonts()
 		}
+		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 
 	@objc fileprivate func changeIsGen2Breeding(_ sender: Any)
@@ -218,6 +228,7 @@ class GameSettingsContainer: UIView
 		huntState?.huntMethod = masudaCell.actionSwitch.isOn ? .Masuda : .Encounters
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Masuda)
 		turnSwitchesOff(enabledCell: masudaCell, huntMethod: huntState!.huntMethod)
+		huntStateService.save(huntState!)
 	}
 
 	@objc fileprivate func changeIsPokeradarHunting(_ sender: Any)
@@ -225,6 +236,7 @@ class GameSettingsContainer: UIView
 		huntState?.huntMethod = pokeradarCell.actionSwitch.isOn ? .Pokeradar : .Encounters
 		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: huntState!.huntMethod == .Pokeradar)
 		turnSwitchesOff(enabledCell: pokeradarCell, huntMethod: huntState!.huntMethod)
+		huntStateService.save(huntState!)
 	}
 
 	@objc fileprivate func changeIsChainFishing(_ sender: Any)
@@ -232,6 +244,7 @@ class GameSettingsContainer: UIView
 		huntState?.huntMethod = chainFishingCell.actionSwitch.isOn ? .ChainFishing : .Encounters
 		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: huntState!.huntMethod == .ChainFishing)
 		turnSwitchesOff(enabledCell: chainFishingCell, huntMethod: huntState!.huntMethod)
+		huntStateService.save(huntState!)
 	}
 
 	@objc fileprivate func changeIsDexNavHunting(_ sender: Any)
@@ -239,6 +252,7 @@ class GameSettingsContainer: UIView
 		huntState?.huntMethod = dexNavCell.actionSwitch.isOn ? .DexNav : .Encounters
 		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: huntState!.huntMethod == .DexNav)
 		turnSwitchesOff(enabledCell: dexNavCell, huntMethod: huntState!.huntMethod)
+		huntStateService.save(huntState!)
 	}
 
 	@objc fileprivate func changeIsSosChaining(_ sender: Any)
@@ -246,6 +260,14 @@ class GameSettingsContainer: UIView
 		huntState?.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
 		turnSwitchesOff(enabledCell: sosChainCell, huntMethod: huntState!.huntMethod)
+		huntStateService.save(huntState!)
+	}
+
+	@objc fileprivate func changeUseIncrementInHunts(_ sender: Any)
+	{
+		huntState?.useIncrementInHunts = useIncrementCell.actionSwitch.isOn
+		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: huntState!.useIncrementInHunts)
+		huntStateService.save(huntState!)
 	}
 
 	@objc fileprivate func changeGenerationPressed(_ sender: Any)
@@ -294,6 +316,7 @@ class GameSettingsContainer: UIView
 		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: huntState!.huntMethod == .FriendSafari)
 		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: huntState!.huntMethod == .DexNav)
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: huntState!.huntMethod == .SosChaining)
+		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: huntState!.useIncrementInHunts)
 	}
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod)
