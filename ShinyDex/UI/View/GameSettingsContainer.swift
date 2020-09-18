@@ -155,7 +155,7 @@ class GameSettingsContainer: UIView
 	{
 		contentView?.backgroundColor = colorService.getPrimaryColor()
 		explanationLabel.textColor = colorService.getTertiaryColor()
-		applyToAllButton.titleLabel?.textColor = colorService.getTertiaryColor()
+		applyToAllButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		applyToAllButton.backgroundColor = colorService.getSecondaryColor()
 		explanationSeparator.backgroundColor = colorService.getSecondaryColor()
 		generationSeparator.backgroundColor = colorService.getSecondaryColor()
