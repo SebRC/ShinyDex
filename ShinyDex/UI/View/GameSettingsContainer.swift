@@ -143,7 +143,7 @@ class GameSettingsContainer: UIView
 	{
 		explanationLabel.text = pokemon.name == "Placeholder"
 		? "From here you can apply game settings to all Pokémon. Editing the settings will not be applied to any Pokémon, unless the button below is pressed."
-		: "Editing the game settings from here will immediately apply it to \(pokemon.name).To apply the selected settings to all Pokémon, press the button below."
+		: "Editing the game settings from here will immediately apply it to \(pokemon.name).\nTo apply the selected settings to all Pokémon, press the button below."
 	}
 
 	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool)
