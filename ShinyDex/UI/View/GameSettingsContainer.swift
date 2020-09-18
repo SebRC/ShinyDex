@@ -17,6 +17,7 @@ class GameSettingsContainer: UIView
 	var switchStateService = SwitchStateService()
 	var pokemon: Pokemon!
 	var gameSettingsCells: [GameSettingsCell]?
+	var delegate: SegueActivated!
 
 	let nibName = "GameSettingsContainer"
     var contentView: UIView?
@@ -367,5 +368,6 @@ class GameSettingsContainer: UIView
 
 	@IBAction func applyToAllPressed(_ sender: Any)
 	{
+		delegate.segueActivated()
 	}
 }

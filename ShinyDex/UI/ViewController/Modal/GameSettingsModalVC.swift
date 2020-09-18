@@ -8,11 +8,12 @@
 
 import UIKit
 
-class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate
+class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate, SegueActivated
 {
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 	@IBOutlet weak var scrollView: UIScrollView!
 	var pokemon: Pokemon!
+	var applyPressed = false
 	
 	override func viewDidLoad()
 	{
@@ -21,6 +22,7 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 		gameSettingsContainer.setShinyOddsLabelText()
 		gameSettingsContainer.resolveUIObjectsState()
 		gameSettingsContainer.setExplanationLabelText()
+		gameSettingsContainer.delegate = self
 
 		presentationController?.delegate = self
 
@@ -47,5 +49,21 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
 	{
 		performSegue(withIdentifier: "infoUnwind", sender: self)
+	}
+
+	func segueActivated()
+	{
+		applyPressed = true
+		performSegue(withIdentifier: "gameSettingsToApplyToAllSegue", sender: self)
+	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+	{
+		if applyPressed
+		{
+			applyPressed = false
+			let destVC = segue.destination as! ApplyToAllVC
+			destVC.pokemon = pokemon
+		}
 	}
 }

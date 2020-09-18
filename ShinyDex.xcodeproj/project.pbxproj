@@ -35,6 +35,8 @@
 		964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081123EF58A500459450 /* CurrentHuntCell.swift */; };
 		964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081223EF58A500459450 /* MenuCell.swift */; };
 		9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9660629D24B4BF3200B2B654 /* LocationVC.swift */; };
+		966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966478A92515362100AA50AA /* ApplyToAllVC.swift */; };
+		966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966478AB25153FAD00AA50AA /* SegueActivated.swift */; };
 		9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9669E34923F1DF7D0048C5C5 /* FlexColorPicker */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
@@ -118,6 +120,8 @@
 		9648AE8A24ADCAE300E819CC /* Gen2BreedingOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen2BreedingOddsService.swift; sourceTree = "<group>"; };
 		9648AE8C24AE110500E819CC /* HuntMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMethod.swift; sourceTree = "<group>"; };
 		9660629D24B4BF3200B2B654 /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
+		966478A92515362100AA50AA /* ApplyToAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyToAllVC.swift; sourceTree = "<group>"; };
+		966478AB25153FAD00AA50AA /* SegueActivated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueActivated.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -433,6 +437,8 @@
 				96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */,
 				96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */,
 				963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */,
+				966478A92515362100AA50AA /* ApplyToAllVC.swift */,
+				966478AB25153FAD00AA50AA /* SegueActivated.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -585,6 +591,7 @@
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				9622379A24B5EC29006BBC43 /* Theme.swift in Sources */,
+				966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
 				961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */,
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
@@ -593,6 +600,7 @@
 				96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */,
 				9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */,
 				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
+				966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
 				966C211D24118BC50019F835 /* HuntService.swift in Sources */,
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,

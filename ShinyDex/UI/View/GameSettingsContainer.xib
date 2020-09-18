@@ -126,7 +126,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Apply to all Pokémon"/>
                     <connections>
-                        <action selector="applyToAllPressed:" destination="-1" eventType="touchUpInside" id="L6Y-bS-bP5"/>
+                        <action selector="applyToAllPressed:" destination="-1" eventType="touchUpInside" id="zx3-FF-6LX"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Explanation text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-CS-vmt">

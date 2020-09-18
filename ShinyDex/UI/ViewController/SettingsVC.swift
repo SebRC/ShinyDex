@@ -8,12 +8,13 @@
 
 import UIKit
 
-class SettingsVC: UIViewController
+class SettingsVC: UIViewController, SegueActivated
 {
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var theme = Theme.Primary
 	var pokemon: Pokemon!
+	var applyPressed = false
 
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
@@ -38,6 +39,8 @@ class SettingsVC: UIViewController
 		gameSettingsContainer.setShinyOddsLabelText()
 		gameSettingsContainer.resolveUIObjectsState()
 		gameSettingsContainer.setExplanationLabelText()
+		gameSettingsContainer.delegate = self
+
 
 		setUIColors()
 		
@@ -151,24 +154,34 @@ class SettingsVC: UIViewController
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		let destVC = segue.destination as! ColorPickerVC
-		
-		if theme == .Tertiary
+		if applyPressed
 		{
-			destVC.currentColor = colorService?.getTertiaryHex()
-		}
-		else if theme == .Primary
-		{
-			destVC.currentColor = colorService?.getPrimaryHex()
+			applyPressed = false
+			let destVC = segue.destination as! ApplyToAllVC
+			destVC.pokemon = pokemon
 		}
 		else
 		{
-			destVC.currentColor = colorService?.getSecondaryHex()
+			let destVC = segue.destination as! ColorPickerVC
+
+			if theme == .Tertiary
+			{
+				destVC.currentColor = colorService?.getTertiaryHex()
+			}
+			else if theme == .Primary
+			{
+				destVC.currentColor = colorService?.getPrimaryHex()
+			}
+			else
+			{
+				destVC.currentColor = colorService?.getSecondaryHex()
+			}
+
+			destVC.theme = theme
+			destVC.fontSettingsService = fontSettingsService
+			destVC.colorService = colorService
 		}
-		
-		destVC.theme = theme
-		destVC.fontSettingsService = fontSettingsService
-		destVC.colorService = colorService
+
 	}
 	
 	@objc fileprivate func primaryEditButtonPressed()
@@ -195,5 +208,11 @@ class SettingsVC: UIViewController
 		gameSettingsContainer.setUIColors()
 		gameSettingsContainer.setCellColors()
 		setFonts()
+	}
+
+	func segueActivated()
+	{
+		applyPressed = true
+		performSegue(withIdentifier: "settingsToApplyToAllSegue", sender: self)
 	}
 }
