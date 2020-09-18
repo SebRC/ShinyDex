@@ -22,6 +22,7 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
+	var allPokemon: [Pokemon]!
 	var hunts: [Hunt]!
 	let percentageService = PercentageService()
 	let oddsService = OddsService()
@@ -336,6 +337,7 @@ class ShinyTrackerVC: UIViewController
 			infoPressed = false
 			let destVC = segue.destination as! GameSettingsModalVC
 			destVC.pokemon = pokemon
+			destVC.allPokemon = allPokemon
 		}
 		else if setEncountersPressed
 		{

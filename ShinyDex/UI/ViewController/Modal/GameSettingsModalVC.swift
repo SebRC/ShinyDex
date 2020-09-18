@@ -14,6 +14,7 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 	@IBOutlet weak var scrollView: UIScrollView!
 	var pokemon: Pokemon!
 	var applyPressed = false
+	var allPokemon: [Pokemon]!
 	
 	override func viewDidLoad()
 	{
@@ -64,6 +65,7 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 			applyPressed = false
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
+			destVC.allPokemon = allPokemon
 		}
 	}
 }

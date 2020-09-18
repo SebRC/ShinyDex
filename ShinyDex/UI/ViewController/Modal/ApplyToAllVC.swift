@@ -22,6 +22,7 @@ class ApplyToAllVC: UIViewController
 	let colorService = ColorService()
 	let pokemonService = PokemonService()
 	var pokemon: Pokemon!
+	var allPokemon: [Pokemon]!
 
 	override func viewDidLoad()
 	{
@@ -51,7 +52,7 @@ class ApplyToAllVC: UIViewController
 
 	@IBAction func confirmPressed(_ sender: Any)
 	{
-		pokemonService.applyToAll(pokemon: pokemon)
+		pokemonService.applyToAll(pokemon: pokemon, allPokemon: allPokemon)
 		dismiss(animated: true)
 	}
 

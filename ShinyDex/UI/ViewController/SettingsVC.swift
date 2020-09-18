@@ -14,6 +14,7 @@ class SettingsVC: UIViewController, SegueActivated
 	var colorService: ColorService!
 	var theme = Theme.Primary
 	var pokemon: Pokemon!
+	var allPokemon: [Pokemon]!
 	var applyPressed = false
 
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
@@ -159,6 +160,7 @@ class SettingsVC: UIViewController, SegueActivated
 			applyPressed = false
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
+			destVC.allPokemon = allPokemon
 		}
 		else
 		{

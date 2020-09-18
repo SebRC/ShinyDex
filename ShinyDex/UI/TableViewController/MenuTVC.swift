@@ -197,6 +197,7 @@ class MenuTVC: UITableViewController
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 			destVC?.pokemon = Pokemon()
+			destVC?.allPokemon = allPokemon
 		}
 		else
 		{

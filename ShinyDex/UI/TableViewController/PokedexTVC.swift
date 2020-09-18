@@ -14,6 +14,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
+	var slicedPokemon = [Pokemon]()
 	var hunts: [Hunt]!
 	let textResolver = TextResolver()
 	var selectedIndex = 0
@@ -36,7 +37,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 
 		tableView.separatorColor = colorService.getSecondaryColor()
 
-		slicePokemonList()
+		slicedPokemon = slicePokemonList()
 		
 		setUIColors()
 
@@ -142,28 +143,28 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		navigationItem.title = textResolver.getGenTitle(gen: generation)
 	}
 	
-	fileprivate func slicePokemonList()
+	fileprivate func slicePokemonList() -> [Pokemon]
 	{
 		switch generation
 		{
 		case 0:
-			allPokemon = Array(allPokemon[0..<151])
+			return Array(allPokemon[0..<151])
 		case 1:
-			allPokemon = Array(allPokemon[151..<251])
+			return Array(allPokemon[151..<251])
 		case 2:
-			allPokemon = Array(allPokemon[251..<386])
+			return Array(allPokemon[251..<386])
 		case 3:
-			allPokemon = Array(allPokemon[386..<493])
+			return Array(allPokemon[386..<493])
 		case 4:
-			allPokemon = Array(allPokemon[493..<649])
+			return Array(allPokemon[493..<649])
 		case 5:
-			allPokemon = Array(allPokemon[649..<721])
+			return Array(allPokemon[649..<721])
 		case 6:
-			allPokemon = Array(allPokemon[721..<807])
+			return Array(allPokemon[721..<807])
 		case 7:
-			allPokemon = Array(allPokemon[807..<892])
+			return Array(allPokemon[807..<892])
 		default:
-			allPokemon = allPokemon.filter({$0.caughtBall != "none"})
+			return allPokemon.filter({$0.caughtBall != "none"})
 		}
 	}
 
@@ -220,7 +221,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		}
 		else
 		{
-			return allPokemon[index]
+			return slicedPokemon[index]
 		}
 	}
 	
@@ -231,7 +232,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	func filterContentForSearchText(_ searchText: String, scope: String = "Regular")
 	{
-		filteredPokemon = allPokemon.filter( {(pokemon : Pokemon) -> Bool in
+		filteredPokemon = slicedPokemon.filter( {(pokemon : Pokemon) -> Bool in
 			
 			let doesCategoryMatch = (scope == "Shinydex") || (scope == pokemon.caughtDescription)
 			
@@ -253,7 +254,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		return isFiltering() ? filteredPokemon.count : allPokemon.count
+		return isFiltering() ? filteredPokemon.count : slicedPokemon.count
     }
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -325,6 +326,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			let destVC = segue.destination as? ShinyTrackerVC
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
+			destVC?.allPokemon = allPokemon
 			setShinyTrackerProperties(shinyTrackerVC: destVC!)
 		}
 	}
@@ -340,7 +342,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		shinyTrackerVC.pokemonService = pokemonService
 		shinyTrackerVC.huntStateService = huntStateService
 		shinyTrackerVC.huntService = huntService
-		shinyTrackerVC.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : allPokemon[selectedIndex]
+		shinyTrackerVC.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
 		shinyTrackerVC.hunts = hunts
 	}
 	
@@ -361,7 +363,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 				}
 				if generation == 9
 				{
-					allPokemon.removeAll(where: {$0.name == pokemon?.name})
+					slicedPokemon.removeAll(where: {$0.name == pokemon?.name})
 				}
 			}
 			tableView.reloadData()

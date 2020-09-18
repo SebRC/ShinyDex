@@ -42,9 +42,9 @@ class PokemonService
 		}
 	}
 
-	func applyToAll(pokemon: Pokemon)
+	func applyToAll(pokemon: Pokemon, allPokemon: [Pokemon])
 	{
-		for pokemonEntity in getAll()
+		for pokemonEntity in allPokemon
 		{
 			pokemonEntity.generation = pokemon.generation
 			pokemonEntity.isShinyCharmActive = pokemon.isShinyCharmActive
