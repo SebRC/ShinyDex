@@ -28,7 +28,7 @@ class ShinyTrackerVC: UIViewController
 	let oddsService = OddsService()
 	var percentage: Double?
 	var methodDecrement = 0
-	var huntState: HuntState?
+	var huntSections: HuntSections?
 	var setEncountersPressed = false
 	var isAddingToHunt = false
 	var infoPressed = false
@@ -39,7 +39,7 @@ class ShinyTrackerVC: UIViewController
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntService: HuntService!
-	var huntStateService: HuntStateService!
+	var huntSectionsService: HuntSectionsService!
 	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
@@ -60,7 +60,7 @@ class ShinyTrackerVC: UIViewController
 		
 		setGif()
 
-		huntState = huntStateService.get()
+		huntSections = huntSectionsService.get()
 
 		setMethodDecrement()
 	
@@ -345,7 +345,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! SetEncountersModalVC
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
-			destVC.huntState = huntState
+			destVC.huntSections = huntSections
 			destVC.methodDecrement = methodDecrement
 		}
 		else if isAddingToHunt
@@ -426,7 +426,7 @@ class ShinyTrackerVC: UIViewController
 
 	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
 	{
-		huntState = huntStateService.get()
+		huntSections = huntSectionsService.get()
 		setMethodImage()
 		setMethodDecrement()
 		setPercentage()

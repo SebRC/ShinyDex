@@ -1,5 +1,5 @@
 //
-//  HuntState.swift
+//  HuntSections.swift
 //  ShinyDex
 //
 //  Created by Sebastian Christiansen on 24/03/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HuntState
+class HuntSections
 {
 	var collapsedSections: Set<Int>
 

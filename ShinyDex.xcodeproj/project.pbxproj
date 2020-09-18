@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082023EF595700459450 /* HuntStateRepository.swift */; };
-		9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F773242A8C2900263CF6 /* HuntStateService.swift */; };
+		9607F775242A92C900263CF6 /* HuntSectionsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC082023EF595700459450 /* HuntSectionsRepository.swift */; };
+		9607F776242A92D000263CF6 /* HuntSectionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F773242A8C2900263CF6 /* HuntSectionsService.swift */; };
 		9607F778242A971000263CF6 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F777242A971000263CF6 /* PokemonService.swift */; };
-		9607F77A242AA20500263CF6 /* HuntState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F779242AA20500263CF6 /* HuntState.swift */; };
+		9607F77A242AA20500263CF6 /* HuntSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F779242AA20500263CF6 /* HuntSections.swift */; };
 		960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */; };
 		960A5B1524B3A91A00121B2A /* DexNavOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */; };
 		961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */; };
@@ -99,9 +99,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9607F773242A8C2900263CF6 /* HuntStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntStateService.swift; sourceTree = "<group>"; };
+		9607F773242A8C2900263CF6 /* HuntSectionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSectionsService.swift; sourceTree = "<group>"; };
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
-		9607F779242AA20500263CF6 /* HuntState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntState.swift; sourceTree = "<group>"; };
+		9607F779242AA20500263CF6 /* HuntSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSections.swift; sourceTree = "<group>"; };
 		960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsService.swift; sourceTree = "<group>"; };
 		960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexNavOddsService.swift; sourceTree = "<group>"; };
 		961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsService.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 		96FC081223EF58A500459450 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		96FC081423EF58E900459450 /* Pokemon-GB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pokemon-GB.ttf"; sourceTree = "<group>"; };
 		96FC081723EF590500459450 /* Pokeball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokeball.swift; sourceTree = "<group>"; };
-		96FC082023EF595700459450 /* HuntStateRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntStateRepository.swift; sourceTree = "<group>"; };
+		96FC082023EF595700459450 /* HuntSectionsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntSectionsRepository.swift; sourceTree = "<group>"; };
 		96FC082123EF595700459450 /* HuntRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntRepository.swift; sourceTree = "<group>"; };
 		96FC082623EF598E00459450 /* MenuTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTVC.swift; sourceTree = "<group>"; };
 		96FC082723EF598E00459450 /* HuntsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuntsTVC.swift; sourceTree = "<group>"; };
@@ -203,15 +203,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9607F772242A8B9300263CF6 /* HuntState */ = {
+		9607F772242A8B9300263CF6 /* HuntSections */ = {
 			isa = PBXGroup;
 			children = (
-				96FC082023EF595700459450 /* HuntStateRepository.swift */,
-				9607F773242A8C2900263CF6 /* HuntStateService.swift */,
-				9607F779242AA20500263CF6 /* HuntState.swift */,
-				9648AE8C24AE110500E819CC /* HuntMethod.swift */,
+				96FC082023EF595700459450 /* HuntSectionsRepository.swift */,
+				9607F773242A8C2900263CF6 /* HuntSectionsService.swift */,
+				9607F779242AA20500263CF6 /* HuntSections.swift */,
 			);
-			path = HuntState;
+			path = HuntSections;
 			sourceTree = "<group>";
 		};
 		962E58B52411A690001D5E41 /* UI */ = {
@@ -231,6 +230,7 @@
 				96FC07DA23EF455A00459450 /* PokemonRepository.swift */,
 				9607F777242A971000263CF6 /* PokemonService.swift */,
 				96435D422454807B00C45A00 /* Pokemon.swift */,
+				9648AE8C24AE110500E819CC /* HuntMethod.swift */,
 			);
 			path = Pokemon;
 			sourceTree = "<group>";
@@ -275,12 +275,12 @@
 			path = Hunt;
 			sourceTree = "<group>";
 		};
-		9689C7342409ACFD0007AD5D /* Probability */ = {
+		9689C7342409ACFD0007AD5D /* Percentage */ = {
 			isa = PBXGroup;
 			children = (
 				9689C7302409633E0007AD5D /* PercentageService.swift */,
 			);
-			path = Probability;
+			path = Percentage;
 			sourceTree = "<group>";
 		};
 		9689C7352409AD0A0007AD5D /* Odds */ = {
@@ -323,10 +323,10 @@
 				96FC079C23EF192400459450 /* AppDelegate.swift */,
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				96FC081623EF58F200459450 /* Pokeball */,
-				9607F772242A8B9300263CF6 /* HuntState */,
+				9607F772242A8B9300263CF6 /* HuntSections */,
 				966C211B24118BA40019F835 /* Hunt */,
 				9689C7352409AD0A0007AD5D /* Odds */,
-				9689C7342409ACFD0007AD5D /* Probability */,
+				9689C7342409ACFD0007AD5D /* Percentage */,
 				966C2115241173B90019F835 /* Theme */,
 				962E58B52411A690001D5E41 /* UI */,
 				96FC081323EF58C400459450 /* fonts */,
@@ -587,7 +587,7 @@
 				967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */,
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
-				9607F776242A92D000263CF6 /* HuntStateService.swift in Sources */,
+				9607F776242A92D000263CF6 /* HuntSectionsService.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				9622379A24B5EC29006BBC43 /* Theme.swift in Sources */,
@@ -598,7 +598,7 @@
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */,
-				9607F775242A92C900263CF6 /* HuntStateRepository.swift in Sources */,
+				9607F775242A92C900263CF6 /* HuntSectionsRepository.swift in Sources */,
 				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
 				966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
@@ -613,7 +613,7 @@
 				9682924A245C9DF600F60BE2 /* HuntNameEditorModalVC.swift in Sources */,
 				960A5B1524B3A91A00121B2A /* DexNavOddsService.swift in Sources */,
 				964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */,
-				9607F77A242AA20500263CF6 /* HuntState.swift in Sources */,
+				9607F77A242AA20500263CF6 /* HuntSections.swift in Sources */,
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
 				963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,

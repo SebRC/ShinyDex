@@ -14,7 +14,7 @@ class SetEncountersModalVC: UIViewController
 	
 	var pokemon: Pokemon!
 	var pokemonService: PokemonService!
-	var huntState: HuntState!
+	var huntSections: HuntSections!
 	var methodDecrement: Int!
 	var textResolver = TextResolver()
 	

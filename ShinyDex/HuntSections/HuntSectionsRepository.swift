@@ -1,5 +1,5 @@
 //
-//  HuntStateRepository.swift
+//  HuntSectionsRepository.swift
 //  ShinyDexPrototype
 //
 //  Created by Sebastian Christiansen on 21/09/2019.
@@ -8,22 +8,22 @@
 
 import Foundation
 
-class HuntStateRepository
+class HuntSectionsRepository
 {
 	fileprivate let defaults = UserDefaults.standard
 
-	func get() -> HuntState
+	func get() -> HuntSections
 	{
 		var collapsedSections = Set<Int>()
 		if let loadedCollapsedSections = defaults.array(forKey: "collapsedSections")
 		{
 			collapsedSections = Set(loadedCollapsedSections.map { $0 as! Int })
 		}
-		return HuntState(collapsedSections: collapsedSections)
+		return HuntSections(collapsedSections: collapsedSections)
 	}
 
-	func save(_ huntState: HuntState)
+	func save(_ huntSections: HuntSections)
 	{
-		defaults.set(Array(huntState.collapsedSections), forKey: "collapsedSections")
+		defaults.set(Array(huntSections.collapsedSections), forKey: "collapsedSections")
 	}
 }

@@ -27,7 +27,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntService: HuntService!
-	var huntStateService: HuntStateService!
+	var huntSectionsService: HuntSectionsService!
 
 	@IBOutlet var popupView: PopupView!
 	
@@ -340,7 +340,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
 	{
 		shinyTrackerVC.pokemonService = pokemonService
-		shinyTrackerVC.huntStateService = huntStateService
+		shinyTrackerVC.huntSectionsService = huntSectionsService
 		shinyTrackerVC.huntService = huntService
 		shinyTrackerVC.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
 		shinyTrackerVC.hunts = hunts
