@@ -22,12 +22,13 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
+	var allPokemon: [Pokemon]!
 	var hunts: [Hunt]!
 	let percentageService = PercentageService()
 	let oddsService = OddsService()
 	var percentage: Double?
 	var methodDecrement = 0
-	var huntState: HuntState?
+	var huntSections: HuntSections?
 	var setEncountersPressed = false
 	var isAddingToHunt = false
 	var infoPressed = false
@@ -38,7 +39,7 @@ class ShinyTrackerVC: UIViewController
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntService: HuntService!
-	var huntStateService: HuntStateService!
+	var huntSectionsService: HuntSectionsService!
 	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
@@ -59,7 +60,7 @@ class ShinyTrackerVC: UIViewController
 		
 		setGif()
 
-		huntState = huntStateService.get()
+		huntSections = huntSectionsService.get()
 
 		setMethodDecrement()
 	
@@ -82,23 +83,23 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setMethodDecrement()
 	{
-		if huntState!.huntMethod == .SosChaining || huntState!.huntMethod == .Lure || huntState!.generation == 6
+		if pokemon!.huntMethod == .SosChaining || pokemon!.huntMethod == .Lure || pokemon!.generation == 6
 		{
 			methodDecrement = 30
 		}
-		else if huntState!.huntMethod == .ChainFishing
+		else if pokemon!.huntMethod == .ChainFishing
 		{
 			methodDecrement = 20
 		}
-		else if huntState!.huntMethod == .Pokeradar
+		else if pokemon!.huntMethod == .Pokeradar
 		{
 			methodDecrement = 40
 		}
-		else if huntState!.huntMethod == .DexNav
+		else if pokemon!.huntMethod == .DexNav
 		{
 			methodDecrement = 999
 		}
-		else if huntState!.generation == 5 && huntState!.huntMethod != .Masuda
+		else if pokemon!.generation == 5 && pokemon!.huntMethod != .Masuda
 		{
 			methodDecrement = 500
 		}
@@ -125,7 +126,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		switch huntState!.huntMethod
+		switch pokemon!.huntMethod
 		{
 		case .Gen2Breeding:
 			return UIImage(named: "ditto-large")!
@@ -144,7 +145,7 @@ class ShinyTrackerVC: UIViewController
 		case .Lure:
 			return UIImage(named: "max-lure")!
 		default:
-			if huntState!.huntMethod == .Encounters && huntState!.isShinyCharmActive
+			if pokemon!.huntMethod == .Encounters && pokemon!.isShinyCharmActive
 			{
 				return UIImage(named: "shiny-charm")!
 			}
@@ -225,7 +226,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		setPercentage()
 		setPercentageLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
+		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
@@ -234,15 +235,15 @@ class ShinyTrackerVC: UIViewController
 	{
 
 		var encounters = pokemon.encounters
-		huntState!.shinyOdds = oddsService.getShinyOdds(generation: huntState!.generation, isCharmActive: huntState!.isShinyCharmActive, huntMethod: huntState!.huntMethod, encounters: encounters)
+		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod, encounters: encounters)
 		encounters -= methodDecrement
-		percentage = percentageService.getPercentage(encounters: encounters, shinyOdds: huntState!.shinyOdds)
+		percentage = percentageService.getPercentage(encounters: encounters, shinyOdds: pokemon!.shinyOdds)
 	}
 
 	fileprivate func setPercentageLabelText()
 	{
 		let encounters = pokemon.encounters
-		let percentageLabelText = percentageService.getPercentageText(encounters: encounters, shinyOdds: huntState!.shinyOdds, percentage: percentage!,  huntState: huntState!, methodDecrement: methodDecrement)
+		let percentageLabelText = percentageService.getPercentageText(encounters: encounters, shinyOdds: pokemon!.shinyOdds, percentage: percentage!,  pokemon: pokemon!, methodDecrement: methodDecrement)
 		percentageLabel.text = percentageLabelText
 		percentageLabel.font = percentageLabel.text!.contains("Reach")
 		? fontSettingsService.getXxSmallFont()
@@ -256,7 +257,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setOddsLabelText()
 	{
-		buttonStrip.oddsLabel.text = "1/\(huntState!.shinyOdds)"
+		buttonStrip.oddsLabel.text = "1/\(pokemon!.shinyOdds)"
 	}
 	
 	fileprivate func minusButtonIsEnabled() -> Bool
@@ -271,7 +272,7 @@ class ShinyTrackerVC: UIViewController
 	
 	@IBAction func plusPressed(_ sender: Any)
 	{
-		pokemon.encounters += huntState!.increment
+		pokemon.encounters += pokemon!.increment
 		resolveEncounterDetails()
 		pokemonService.save(pokemon: pokemon)
 	}
@@ -334,6 +335,9 @@ class ShinyTrackerVC: UIViewController
 		if infoPressed
 		{
 			infoPressed = false
+			let destVC = segue.destination as! GameSettingsModalVC
+			destVC.pokemon = pokemon
+			destVC.allPokemon = allPokemon
 		}
 		else if setEncountersPressed
 		{
@@ -341,7 +345,7 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! SetEncountersModalVC
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
-			destVC.huntState = huntState
+			destVC.huntSections = huntSections
 			destVC.methodDecrement = methodDecrement
 		}
 		else if isAddingToHunt
@@ -359,7 +363,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			locationPressed = false
 			let destVC = segue.destination as! LocationVC
-			destVC.generation = huntState?.generation
+			destVC.generation = pokemon!.generation
 			destVC.pokemon = pokemon
 		}
 		else if incrementPressed
@@ -368,8 +372,8 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! IncrementVC
 			destVC.colorService = colorService
 			destVC.fontSettingsService = fontSettingsService
-			destVC.huntStateService = huntStateService
-			destVC.huntState = huntState
+			destVC.pokemonService = pokemonService
+			destVC.pokemon = pokemon
 		}
 		else
 		{
@@ -422,12 +426,12 @@ class ShinyTrackerVC: UIViewController
 
 	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
 	{
-		huntState = huntStateService.get()
+		huntSections = huntSectionsService.get()
 		setMethodImage()
 		setMethodDecrement()
 		setPercentage()
 		setPercentageLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(huntState: huntState!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
+		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
 		setOddsLabelText()
 	}
 
@@ -438,7 +442,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setIncrementImage()
 	{
-		switch huntState!.increment
+		switch pokemon!.increment
 		{
 		case 0,1:
 			buttonStrip.incrementButton.setImage(UIImage(systemName: "1.circle.fill"), for: .normal)

@@ -14,8 +14,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntService: HuntService!
-	var huntStateService: HuntStateService!
-	var huntState: HuntState?
+	var huntSectionsService: HuntSectionsService!
+	var huntSections: HuntSections?
 	var encounters = 0
 	var selectedIndex = 0
 	var selectedSection = 0
@@ -47,7 +47,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		super.viewWillAppear(animated)
 
-		huntState = huntStateService.get()
+		huntSections = huntSectionsService.get()
 		
 		setColors()
 		
@@ -103,7 +103,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		if huntState!.collapsedSections.contains(section)
+		if huntSections!.collapsedSections.contains(section)
 		{
 			return 0
 		}
@@ -165,7 +165,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		let footerView = UIView()
 		footerView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		if huntState!.collapsedSections.contains(section)
+		if huntSections!.collapsedSections.contains(section)
 		{
 			footerView.backgroundColor = colorService.getPrimaryColor()
 		}
@@ -201,17 +201,17 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 			return indexPaths
 		}
-		if huntState!.collapsedSections.contains(section)
+		if huntSections!.collapsedSections.contains(section)
 		{
-			huntState!.collapsedSections.remove(section)
+			huntSections!.collapsedSections.remove(section)
 			tableView.insertRows(at: indexPathsForSection(), with: .fade)
 		}
 		else
 		{
-			huntState!.collapsedSections.insert(section)
+			huntSections!.collapsedSections.insert(section)
 			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
 		}
-		huntStateService.save(huntState!)
+		huntSectionsService.save(huntSections!)
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
 		{
 			self.tableView.reloadData()
@@ -266,7 +266,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-			let increment = huntState!.useIncrementInHunts ? huntState!.increment : 1
+			let increment = pokemon.useIncrementInHunts ? pokemon.increment : 1
 			hunts[indexPath.section].totalEncounters += increment
 			pokemon.encounters += increment
 			encounters += increment
@@ -359,7 +359,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
 			destVC?.pokemonService = pokemonService
-			destVC?.huntStateService = huntStateService
+			destVC?.huntSectionsService = huntSectionsService
 			destVC?.huntService = huntService
 			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
 			destVC?.fontSettingsService = fontSettingsService

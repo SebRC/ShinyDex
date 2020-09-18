@@ -15,22 +15,22 @@ class PercentageService
 		return Double.getPercentage(encounters: encounters, odds: shinyOdds)
 	}
 
-	func getPercentageText(encounters: Int, shinyOdds: Int, percentage: Double, huntState: HuntState, methodDecrement: Int) -> String
+	func getPercentageText(encounters: Int, shinyOdds: Int, percentage: Double, pokemon: Pokemon, methodDecrement: Int) -> String
 	{
 		let huntIsOverOdds = encounters - methodDecrement > shinyOdds
-		let methodVerb = huntState.generation == 5 ? "Battle" : "Chain"
+		let methodVerb = pokemon.generation == 5 ? "Battle" : "Chain"
 
-		if huntState.huntMethod == .Lure && encounters <= 30
-			|| huntState.generation == 6 && encounters <= 30
-			|| huntState.huntMethod == .Pokeradar && encounters <= 40
-			|| huntState.huntMethod == .ChainFishing && encounters <= 20
-			|| huntState.huntMethod == .SosChaining && encounters <= 30
-			|| huntState.generation == 5 && huntState.huntMethod != .Masuda && encounters <= 500
+		if pokemon.huntMethod == .Lure && encounters <= 30
+			|| pokemon.generation == 6 && encounters <= 30
+			|| pokemon.huntMethod == .Pokeradar && encounters <= 40
+			|| pokemon.huntMethod == .ChainFishing && encounters <= 20
+			|| pokemon.huntMethod == .SosChaining && encounters <= 30
+			|| pokemon.generation == 5 && pokemon.huntMethod != .Masuda && encounters <= 500
 		{
 			return " \(methodVerb) \(methodDecrement) to see percentage"
 		}
 
-		if huntState.huntMethod == .DexNav && encounters <= 999
+		if pokemon.huntMethod == .DexNav && encounters <= 999
 		{
 			return " Reach search level \(methodDecrement) to see percentage"
 		}

@@ -42,6 +42,19 @@ class PokemonService
 		}
 	}
 
+	func applyToAll(pokemon: Pokemon, allPokemon: [Pokemon])
+	{
+		for pokemonEntity in allPokemon
+		{
+			pokemonEntity.generation = pokemon.generation
+			pokemonEntity.isShinyCharmActive = pokemon.isShinyCharmActive
+			pokemonEntity.shinyOdds = pokemon.shinyOdds
+			pokemonEntity.huntMethod = pokemon.huntMethod
+			pokemonEntity.useIncrementInHunts = pokemon.useIncrementInHunts
+			save(pokemon: pokemonEntity)
+		}
+	}
+
 	func deleteAll()
 	{
 		pokemonRepository.deleteAll()
