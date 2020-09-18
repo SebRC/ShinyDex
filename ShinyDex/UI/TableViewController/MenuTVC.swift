@@ -196,6 +196,7 @@ class MenuTVC: UITableViewController
 			let destVC = segue.destination as? SettingsVC
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
+			destVC?.pokemon = Pokemon()
 		}
 		else
 		{

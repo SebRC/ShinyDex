@@ -12,10 +12,15 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 {
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 	@IBOutlet weak var scrollView: UIScrollView!
+	var pokemon: Pokemon!
 	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+		gameSettingsContainer.pokemon = pokemon
+		gameSettingsContainer.setShinyOddsLabelText()
+		gameSettingsContainer.resolveUIObjectsState()
+		gameSettingsContainer.setExplanationLabelText()
 
 		presentationController?.delegate = self
 

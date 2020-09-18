@@ -48,6 +48,13 @@ public class PokemonRepository
 		pokemon.pokemonEntity.setValue(pokemon.caughtDescription, forKey: "caughtDescription")
 		pokemon.pokemonEntity.setValue(pokemon.caughtBall, forKey: "caughtBall")
 		pokemon.pokemonEntity.setValue(pokemon.isBeingHunted, forKey: "isBeingHunted")
+
+		pokemon.pokemonEntity.setValue(pokemon.generation, forKey: "generation")
+		pokemon.pokemonEntity.setValue(pokemon.isShinyCharmActive, forKey: "isShinyCharmActive")
+		pokemon.pokemonEntity.setValue(pokemon.shinyOdds, forKey: "shinyOdds")
+		pokemon.pokemonEntity.setValue(pokemon.huntMethod.rawValue, forKey: "huntMethod")
+		pokemon.pokemonEntity.setValue(pokemon.increment, forKey: "increment")
+		pokemon.pokemonEntity.setValue(pokemon.useIncrementInHunts, forKey: "useIncrementInHunts")
 		
 		do
 		{
@@ -69,6 +76,13 @@ public class PokemonRepository
 		pokemonEntity.setValue("Not Caught", forKey: "caughtDescription")
 		pokemonEntity.setValue("none", forKey: "caughtBall")
 		pokemonEntity.setValue(false, forKey: "isBeingHunted")
+
+		pokemonEntity.setValue(0, forKey: "generation")
+		pokemonEntity.setValue(false, forKey: "isShinyCharmActive")
+		pokemonEntity.setValue(8192, forKey: "shinyOdds")
+		pokemonEntity.setValue(HuntMethod.Encounters.rawValue, forKey: "huntMethod")
+		pokemonEntity.setValue(1, forKey: "increment")
+		pokemonEntity.setValue(false, forKey: "useIncrementInHunts")
 
 		let pokemon = Pokemon(pokemonEntity: pokemonEntity)
 

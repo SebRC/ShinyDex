@@ -37,50 +37,50 @@ class TextResolver
 		}
 	}
 
-	func getEncountersLabelText(huntState: HuntState, encounters: Int, methodDecrement: Int = 0) -> String
+	func getEncountersLabelText(pokemon: Pokemon, encounters: Int, methodDecrement: Int = 0) -> String
 	{
 		let encountersDecremented = encounters - methodDecrement
 		var maxChainReached = false
-		var huntVerb = huntState.generation == 5 ? "Battles" : "Chain"
+		var huntVerb = pokemon.generation == 5 ? "Battles" : "Chain"
 
-		if huntState.huntMethod == .Lure || huntState.huntMethod == .SosChaining
+		if pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining
 		{
 			maxChainReached = encounters > 30
 		}
-		else if huntState.huntMethod == .ChainFishing
+		else if pokemon.huntMethod == .ChainFishing
 		{
 			maxChainReached = encounters > 20
 		}
-		else if huntState.huntMethod == .Pokeradar
+		else if pokemon.huntMethod == .Pokeradar
 		{
 			maxChainReached = encounters > 40
 		}
-		else if huntState.huntMethod == .DexNav
+		else if pokemon.huntMethod == .DexNav
 		{
 			maxChainReached = encounters > 999
 		}
-		else if huntState.generation == 5
+		else if pokemon.generation == 5
 		{
 			maxChainReached = encounters > 500
 		}
 
-		if huntState.generation == 6
+		if pokemon.generation == 6
 		{
 			return maxChainReached
 				? " Catch Combo: \(methodDecrement) + \(encountersDecremented) seen"
 				: " Catch Combo: \(encounters)"
 		}
-		else if huntState.huntMethod == .Masuda || huntState.huntMethod == .Gen2Breeding
+		else if pokemon.huntMethod == .Masuda || pokemon.huntMethod == .Gen2Breeding
 		{
 			return " Eggs: \(encounters)"
 		}
-		else if huntState.huntMethod == .SosChaining || huntState.huntMethod == .ChainFishing || huntState.huntMethod == .Pokeradar || huntState.generation == 5
+		else if pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .ChainFishing || pokemon.huntMethod == .Pokeradar || pokemon.generation == 5
 		{
 			return maxChainReached
-				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) \(huntState.huntMethod == .Pokeradar ? "patches" : "seen")"
+				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) \(pokemon.huntMethod == .Pokeradar ? "patches" : "seen")"
 				: " \(huntVerb): \(encounters)"
 		}
-		else if huntState.huntMethod == .DexNav
+		else if pokemon.huntMethod == .DexNav
 		{
 			huntVerb = "Search level"
 			return maxChainReached

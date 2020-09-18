@@ -21,8 +21,8 @@ class IncrementVC: UIViewController
 
 	var colorService: ColorService!
 	var fontSettingsService: FontSettingsService!
-	var huntStateService: HuntStateService!
-	var huntState: HuntState!
+	var pokemonService: PokemonService!
+	var pokemon: Pokemon!
 	var selectedIncrement = 1
 	
 
@@ -30,7 +30,7 @@ class IncrementVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		selectedIncrement = huntState.increment
+		selectedIncrement = pokemon.increment
 
 		titleLabel.font = fontSettingsService.getExtraSmallFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
@@ -55,7 +55,7 @@ class IncrementVC: UIViewController
 		incrementSegmentedControl.backgroundColor = colorService!.getPrimaryColor()
 		incrementSegmentedControl.tintColor = colorService!.getSecondaryColor()
 
-		switch huntState.increment
+		switch pokemon.increment
 		{
 		case 0, 1:
 			incrementSegmentedControl.selectedSegmentIndex = 0
@@ -73,7 +73,7 @@ class IncrementVC: UIViewController
 			incrementSegmentedControl.selectedSegmentIndex = 4
 			break
 		}
-		setDescriptionText(increment: huntState.increment)
+		setDescriptionText(increment: pokemon.increment)
     }
 
 	@IBAction func incrementChanged(_ sender: Any)
@@ -106,8 +106,8 @@ class IncrementVC: UIViewController
 
 	@IBAction func confirmPressed(_ sender: Any)
 	{
-		huntState.increment = selectedIncrement
-		huntStateService.save(huntState)
+		pokemon.increment = selectedIncrement
+		pokemonService.save(pokemon: pokemon)
 		performSegue(withIdentifier: "incrementUnwind", sender: self)
 	}
 

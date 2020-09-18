@@ -14,46 +14,16 @@ class HuntStateRepository
 
 	func get() -> HuntState
 	{
-		var generation = 0
-		var isShinyCharmActive = false
-		var huntMethod = HuntMethod.Encounters
-		var increment = 1
-		var useIncrementInHunts = false
 		var collapsedSections = Set<Int>()
-		if let loadedGeneration = defaults.integer(forKey: "generation") as Int?
-		{
-			generation = loadedGeneration
-		}
-		if let loadedIsShinyCharmActive = defaults.bool(forKey: "isShinyCharmActive") as Bool?
-		{
-			isShinyCharmActive = loadedIsShinyCharmActive
-		}
-		if let loadedHuntMethod = defaults.string(forKey: "huntMethod") as String?
-		{
-			huntMethod = HuntMethod(rawValue: loadedHuntMethod)!
-		}
-		if let loadedIncrement = defaults.integer(forKey: "increment") as Int?
-		{
-			increment = loadedIncrement == 0 ? 1 : loadedIncrement
-		}
-		if let loadedUseIncrementInHunts = defaults.bool(forKey: "useIncrementInHunts") as Bool?
-		{
-			useIncrementInHunts = loadedUseIncrementInHunts
-		}
 		if let loadedCollapsedSections = defaults.array(forKey: "collapsedSections")
 		{
 			collapsedSections = Set(loadedCollapsedSections.map { $0 as! Int })
 		}
-		return HuntState(generation: generation, isShinyCharmActive: isShinyCharmActive, huntMethod: huntMethod, increment: increment, useIncrementInHunts: useIncrementInHunts, collapsedSections: collapsedSections)
+		return HuntState(collapsedSections: collapsedSections)
 	}
 
 	func save(_ huntState: HuntState)
 	{
-		defaults.set(huntState.generation, forKey: "generation")
-		defaults.set(huntState.isShinyCharmActive, forKey: "isShinyCharmActive")
-		defaults.set(huntState.huntMethod.rawValue, forKey: "huntMethod")
-		defaults.set(huntState.increment, forKey: "increment")
-		defaults.set(huntState.useIncrementInHunts, forKey: "useIncrementInHunts")
 		defaults.set(Array(huntState.collapsedSections), forKey: "collapsedSections")
 	}
 }

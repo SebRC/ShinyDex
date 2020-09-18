@@ -266,7 +266,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-			let increment = huntState!.useIncrementInHunts ? huntState!.increment : 1
+			let increment = pokemon.useIncrementInHunts ? pokemon.increment : 1
 			hunts[indexPath.section].totalEncounters += increment
 			pokemon.encounters += increment
 			encounters += increment

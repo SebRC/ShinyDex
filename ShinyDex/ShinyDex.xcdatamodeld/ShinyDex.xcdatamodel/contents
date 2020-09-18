@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HuntEntity" representedClassName="." syncable="YES">
         <attribute name="indexes" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -8,12 +8,18 @@
         <attribute name="caughtBall" optional="YES" attributeType="String"/>
         <attribute name="caughtDescription" optional="YES" attributeType="String"/>
         <attribute name="encounters" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="generation" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="huntMethod" optional="YES" attributeType="String"/>
+        <attribute name="increment" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isBeingHunted" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isShinyCharmActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="shinyOdds" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="useIncrementInHunts" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="HuntEntity" positionX="103.625" positionY="-14.2890625" width="128" height="73"/>
-        <element name="PokemonEntity" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="PokemonEntity" positionX="-63" positionY="-18" width="128" height="223"/>
     </elements>
 </model>

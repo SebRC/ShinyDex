@@ -13,6 +13,7 @@ class SettingsVC: UIViewController
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var theme = Theme.Primary
+	var pokemon: Pokemon!
 
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
@@ -32,6 +33,11 @@ class SettingsVC: UIViewController
         scrollView.topAnchor.constraint(equalTo: themeSettingsBackgroundView.topAnchor, constant: 8.0).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
+
+		gameSettingsContainer.pokemon = pokemon
+		gameSettingsContainer.setShinyOddsLabelText()
+		gameSettingsContainer.resolveUIObjectsState()
+		gameSettingsContainer.setExplanationLabelText()
 
 		setUIColors()
 		
