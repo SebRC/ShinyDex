@@ -1091,17 +1091,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cUU-Gy-Owh">
-                                <rect key="frame" x="31" y="224" width="313" height="362"/>
+                                <rect key="frame" x="31" y="224" width="182.5" height="362"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="362" id="0oB-hP-09f"/>
                                     <constraint firstAttribute="width" secondItem="cUU-Gy-Owh" secondAttribute="height" multiplier="326:377" id="Tz8-pW-tDO"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pokeballCell" rowHeight="137" id="bI9-WJ-t2B" customClass="PokeballCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="283" height="137"/>
+                                        <rect key="frame" x="15" y="55.5" width="152.5" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bI9-WJ-t2B" id="wCW-qx-GQF">
-                                            <rect key="frame" x="0.0" y="0.0" width="283" height="137"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="152.5" height="137"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokeball" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-A3-TPx">
@@ -1139,7 +1139,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dux-jX-zZu">
-                                <rect key="frame" x="31" y="28" width="313" height="50"/>
+                                <rect key="frame" x="31" y="28" width="182.5" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Dux-jX-zZu" secondAttribute="height" multiplier="163:25" constant="-13" id="LI6-Tc-7MS"/>
@@ -1150,7 +1150,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwA-Gy-GqJ" customClass="PokeballIndicatorView" customModule="ShinyDex" customModuleProvider="target">
-                                <rect key="frame" x="31" y="94" width="313" height="96"/>
+                                <rect key="frame" x="31" y="74" width="182.5" height="56"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="RwA-Gy-GqJ" secondAttribute="height" multiplier="163:50" id="0EH-x9-A8h"/>
@@ -1510,9 +1510,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GWK-Tp-YuW"/>
-        <segue reference="7k3-aT-9gU"/>
-        <segue reference="LE8-BB-dtk"/>
+        <segue reference="mSu-1U-tG2"/>
+        <segue reference="LJI-fC-w8z"/>
+        <segue reference="DHy-Un-iod"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
