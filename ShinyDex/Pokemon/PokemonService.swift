@@ -50,7 +50,6 @@ class PokemonService
 			pokemonEntity.isShinyCharmActive = pokemon.isShinyCharmActive
 			pokemonEntity.shinyOdds = pokemon.shinyOdds
 			pokemonEntity.huntMethod = pokemon.huntMethod
-			pokemonEntity.increment = pokemon.increment
 			pokemonEntity.useIncrementInHunts = pokemon.useIncrementInHunts
 			save(pokemon: pokemonEntity)
 		}
