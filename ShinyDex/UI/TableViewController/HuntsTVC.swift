@@ -147,7 +147,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
 		collapseButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		collapseButton.titleLabel?.alpha = 0.4
 		let editButton = UIButton(frame: CGRect(x: collapseButton.frame.width, y: 0, width: tableView.frame.width - collapseButton.frame.width, height: 60))
 		editButton.addTarget(self, action: #selector(editSectionHeader(sender:)), for: .touchUpInside)
 		editButton.tag = section
