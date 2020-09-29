@@ -41,7 +41,7 @@ class TextResolver
 	{
 		let encountersDecremented = encounters - methodDecrement
 		var maxChainReached = false
-		var huntVerb = pokemon.generation == 5 ? "Battles" : "Chain"
+		var huntVerb = pokemon.generation == 8 ? "Battles" : "Chain"
 
 		if pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining
 		{
@@ -59,12 +59,12 @@ class TextResolver
 		{
 			maxChainReached = encounters > 999
 		}
-		else if pokemon.generation == 5
+		else if pokemon.generation == 8
 		{
 			maxChainReached = encounters > 500
 		}
 
-		if pokemon.generation == 6
+		if pokemon.generation == 0
 		{
 			return maxChainReached
 				? " Catch Combo: \(methodDecrement) + \(encountersDecremented) seen"
@@ -74,7 +74,7 @@ class TextResolver
 		{
 			return " Eggs: \(encounters)"
 		}
-		else if pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .ChainFishing || pokemon.huntMethod == .Pokeradar || pokemon.generation == 5
+		else if pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .ChainFishing || pokemon.huntMethod == .Pokeradar || pokemon.generation == 8
 		{
 			return maxChainReached
 				? " \(huntVerb): \(methodDecrement) + \(encountersDecremented) \(pokemon.huntMethod == .Pokeradar ? "patches" : "seen")"

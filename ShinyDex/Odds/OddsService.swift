@@ -38,23 +38,23 @@ class OddsService
 		case .SosChaining:
 			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
 		default:
-			if generation == 0 || generation == 1 || generation == 2 && !isCharmActive
+			if generation == 2 || generation == 4 || generation == 5 && !isCharmActive
 			{
 				return 8192
 			}
-			else if generation == 2
+			else if generation == 5
 			{
 				return 2731
 			}
-			else if generation > 2 && generation < 5 && !isCharmActive
+			else if generation > 5 && generation <= 8 && !isCharmActive
 			{
 				return 4096
 			}
-			else if generation > 2 && generation < 5
+			else if generation > 5 && generation < 8
 			{
 				return 1365
 			}
-			else if generation == 5
+			else if generation == 8
 			{
 				return gen8OddsService.getOdds(battles: encounters, isCharmActive: isCharmActive)
 			}

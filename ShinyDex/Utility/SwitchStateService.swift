@@ -13,7 +13,7 @@ class SwitchStateService
 {
 	func resolveGen2BreddingSwitchState(pokemon: Pokemon, gen2BreedingSwitch: UISwitch)
 	{
-		if pokemon.generation == 0
+		if pokemon.generation == 2
 		{
 			enableSwitch(uiSwitch: gen2BreedingSwitch)
 			gen2BreedingSwitch.isOn = pokemon.huntMethod == .Gen2Breeding
@@ -26,21 +26,21 @@ class SwitchStateService
 	
 	func resolveShinyCharmSwitchState(pokemon: Pokemon, shinyCharmSwitch: UISwitch)
 	{
-		if pokemon.generation < 2
-		{
-			disableSwitch(uiSwitch: shinyCharmSwitch)
-			pokemon.isShinyCharmActive = false
-		}
-		else
+		if pokemon.generation > 4 || pokemon.generation == 0
 		{
 			enableSwitch(uiSwitch: shinyCharmSwitch)
 			shinyCharmSwitch.isOn = pokemon.isShinyCharmActive
+		}
+		else
+		{
+			disableSwitch(uiSwitch: shinyCharmSwitch)
+			pokemon.isShinyCharmActive = false
 		}
 	}
 
 	func resolveFriendSafariSwitchState(pokemon: Pokemon, friendSafariSwitch: UISwitch)
 	{
-		if pokemon.generation == 3
+		if pokemon.generation == 6
 		{
 			enableSwitch(uiSwitch: friendSafariSwitch)
 			friendSafariSwitch.isOn = pokemon.huntMethod == .FriendSafari
@@ -53,7 +53,7 @@ class SwitchStateService
 
 	func resolveLureSwitchState(pokemon: Pokemon, lureSwitch: UISwitch)
 	{
-		if pokemon.generation == 6
+		if pokemon.generation == 0
 		{
 			enableSwitch(uiSwitch: lureSwitch)
 			lureSwitch.isOn = pokemon.huntMethod == .Lure
@@ -66,7 +66,7 @@ class SwitchStateService
 
 	func resolveMasudaSwitchState(pokemon: Pokemon, masudaSwitch: UISwitch)
 	{
-		if pokemon.generation < 1 || pokemon.generation == 6
+		if pokemon.generation < 4
 		{
 			disableSwitch(uiSwitch: masudaSwitch)
 		}
@@ -79,7 +79,7 @@ class SwitchStateService
 
 	func resolveChainFishingSwitchState(pokemon: Pokemon, chainFishingSwitch: UISwitch)
 	{
-		if pokemon.generation == 3
+		if pokemon.generation == 6
 		{
 			enableSwitch(uiSwitch: chainFishingSwitch)
 			chainFishingSwitch.isOn = pokemon.huntMethod == .ChainFishing
@@ -92,7 +92,7 @@ class SwitchStateService
 
 	func resolveSosChainingSwitchState(pokemon: Pokemon, sosChainingSwitch: UISwitch)
 	{
-		if pokemon.generation == 4
+		if pokemon.generation == 7
 		{
 			enableSwitch(uiSwitch: sosChainingSwitch)
 			sosChainingSwitch.isOn = pokemon.huntMethod == .SosChaining
@@ -105,7 +105,7 @@ class SwitchStateService
 
 	func resolvePokeradarSwitchState(pokemon: Pokemon, pokeradarSwitch: UISwitch)
 	{
-		if pokemon.generation == 1 || pokemon.generation == 3
+		if pokemon.generation == 4 || pokemon.generation == 6
 		{
 			enableSwitch(uiSwitch: pokeradarSwitch)
 			pokeradarSwitch.isOn = pokemon.huntMethod == .Pokeradar
@@ -118,7 +118,7 @@ class SwitchStateService
 
 	func resolveDexNavSwitchState(pokemon: Pokemon, dexNavSwitch: UISwitch)
 	{
-		if pokemon.generation == 3
+		if pokemon.generation == 6
 		{
 			enableSwitch(uiSwitch: dexNavSwitch)
 			dexNavSwitch.isOn = pokemon.huntMethod == .DexNav

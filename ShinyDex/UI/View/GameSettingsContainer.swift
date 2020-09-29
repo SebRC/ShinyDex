@@ -118,7 +118,7 @@ class GameSettingsContainer: UIView
 
 	func resolveUIObjectsState()
 	{
-		generationSegmentedControl.selectedSegmentIndex = pokemon!.generation
+		generationSegmentedControl.selectedSegmentIndex = resolveSelectedSegment()
 
 		genTwoBreedingCell.actionSwitch.isOn = pokemon!.huntMethod == .Gen2Breeding
 		masudaCell.actionSwitch.isOn = pokemon!.huntMethod == .Masuda
@@ -134,8 +134,29 @@ class GameSettingsContainer: UIView
 		resolveSwitchStates()
 	}
 
+	func resolveSelectedSegment() -> Int
+	{
+		switch pokemon!.generation {
+		case 2:
+			return 0
+		case 4:
+			return 1
+		case 5:
+			return 2
+		case 6:
+			return 3
+		case 7:
+			return 4
+		case 8:
+			return 6
+		default:
+			return 7
+		}
+	}
+
 	func setShinyOddsLabelText()
 	{
+		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod)
 		shinyOddsLabel.text = "Shiny Odds: 1/\(pokemon!.shinyOdds)"
 	}
 
@@ -212,6 +233,8 @@ class GameSettingsContainer: UIView
 		pokemon!.huntMethod = friendSafariCell.actionSwitch.isOn ? .FriendSafari : .Encounters
 		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .FriendSafari)
 		turnSwitchesOff(enabledCell: friendSafariCell, huntMethod: pokemon!.huntMethod)
+		setShinyOddsLabelText()
+		saveIfReal()
 	}
 
 	@objc fileprivate func changeIsLureInUse(_ sender: Any)
@@ -237,6 +260,7 @@ class GameSettingsContainer: UIView
 		pokemon?.huntMethod = masudaCell.actionSwitch.isOn ? .Masuda : .Encounters
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Masuda)
 		turnSwitchesOff(enabledCell: masudaCell, huntMethod: pokemon!.huntMethod)
+		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
@@ -245,6 +269,7 @@ class GameSettingsContainer: UIView
 		pokemon?.huntMethod = pokeradarCell.actionSwitch.isOn ? .Pokeradar : .Encounters
 		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Pokeradar)
 		turnSwitchesOff(enabledCell: pokeradarCell, huntMethod: pokemon!.huntMethod)
+		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
@@ -253,6 +278,7 @@ class GameSettingsContainer: UIView
 		pokemon?.huntMethod = chainFishingCell.actionSwitch.isOn ? .ChainFishing : .Encounters
 		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .ChainFishing)
 		turnSwitchesOff(enabledCell: chainFishingCell, huntMethod: pokemon!.huntMethod)
+		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
@@ -261,6 +287,7 @@ class GameSettingsContainer: UIView
 		pokemon?.huntMethod = dexNavCell.actionSwitch.isOn ? .DexNav : .Encounters
 		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .DexNav)
 		turnSwitchesOff(enabledCell: dexNavCell, huntMethod: pokemon!.huntMethod)
+		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
@@ -269,6 +296,7 @@ class GameSettingsContainer: UIView
 		pokemon?.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .SosChaining)
 		turnSwitchesOff(enabledCell: sosChainCell, huntMethod: pokemon!.huntMethod)
+		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
@@ -281,21 +309,22 @@ class GameSettingsContainer: UIView
 
 	@objc fileprivate func changeGenerationPressed(_ sender: Any)
 	{
-		pokemon!.generation = generationSegmentedControl.selectedSegmentIndex
+		if generationSegmentedControl.selectedSegmentIndex != 6
+		{
+			pokemon!.generation = Int(generationSegmentedControl.titleForSegment(at: generationSegmentedControl.selectedSegmentIndex)!)!
+		}
+		else
+		{
+			pokemon!.generation = 0
+		}
 
-		if pokemon?.huntMethod != .Masuda || pokemon?.generation == 0 || pokemon?.generation == 6
+		if pokemon?.huntMethod != .Masuda || pokemon?.generation == 2 || pokemon?.generation == 0
 		{
 			pokemon?.huntMethod = .Encounters
 		}
-
 		resolveSwitchStates()
-
 		setAllImageViewAlphas()
-
-		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod)
-
 		setShinyOddsLabelText()
-
 		saveIfReal()
 	}
 
@@ -310,7 +339,7 @@ class GameSettingsContainer: UIView
 	fileprivate func setAllImageViewAlphas()
 	{
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
-		if pokemon?.generation == 0
+		if pokemon?.generation == 2
 		{
 			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Gen2Breeding)
 		}
@@ -318,7 +347,7 @@ class GameSettingsContainer: UIView
 		{
 			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: false)
 		}
-		if pokemon?.generation == 6
+		if pokemon?.generation == 0
 		{
 			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Lure)
 		}
