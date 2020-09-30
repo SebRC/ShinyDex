@@ -55,47 +55,13 @@ class IncrementVC: UIViewController
 		incrementSegmentedControl.backgroundColor = colorService!.getPrimaryColor()
 		incrementSegmentedControl.tintColor = colorService!.getSecondaryColor()
 
-		switch pokemon.increment
-		{
-		case 0, 1:
-			incrementSegmentedControl.selectedSegmentIndex = 0
-			break
-		case 3:
-			incrementSegmentedControl.selectedSegmentIndex = 1
-			break
-		case 4:
-			incrementSegmentedControl.selectedSegmentIndex = 2
-			break
-		case 5:
-			incrementSegmentedControl.selectedSegmentIndex = 3
-			break
-		default:
-			incrementSegmentedControl.selectedSegmentIndex = 4
-			break
-		}
+		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment - 1
 		setDescriptionText(increment: pokemon.increment)
     }
 
 	@IBAction func incrementChanged(_ sender: Any)
 	{
-		switch incrementSegmentedControl.selectedSegmentIndex
-		{
-		case 0:
-			selectedIncrement = 1
-			break
-		case 1:
-			selectedIncrement = 3
-			break
-		case 2:
-			selectedIncrement = 4
-			break
-		case 3:
-			selectedIncrement = 5
-			break
-		default:
-			selectedIncrement = 6
-			break
-		}
+		selectedIncrement = incrementSegmentedControl.selectedSegmentIndex + 1
 		setDescriptionText(increment: selectedIncrement)
 	}
 	
@@ -115,9 +81,11 @@ class IncrementVC: UIViewController
 	{
 		switch increment
 		{
-		case 0, 1:
-			descriptionLabel.text = "Used for single encounters, like when soft resetting, Pokéradar chaining or chain fishing"
+		case 1:
+			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing"
 			break
+		case 2:
+			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems"
 		case 3:
 			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent"
 			break
@@ -125,7 +93,7 @@ class IncrementVC: UIViewController
 			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent"
 			break
 		case 5:
-			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once"
+			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset"
 			break
 		default:
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once"

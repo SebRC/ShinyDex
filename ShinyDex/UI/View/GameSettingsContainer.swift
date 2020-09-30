@@ -52,7 +52,7 @@ class GameSettingsContainer: UIView
 		generationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
 		useIncrementCell.titleLabel.text = "Use increment in Hunts"
-		useIncrementCell.descriptionLabel.text = "The encounter increment can be changed on an individual Pokémon"
+		useIncrementCell.descriptionLabel.text = "Enable the encounter increment to be active when hunting from the Hunts menu"
 		genTwoBreedingCell.actionSwitch.tag = 0
 		genTwoBreedingCell.iconImageView.image = UIImage(named: "ditto-large")
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
@@ -258,6 +258,7 @@ class GameSettingsContainer: UIView
 		}
 		else if tag == 3
 		{
+			selectedHuntMethod = pokemon!.huntMethod
 			pokemon!.isShinyCharmActive = sender.isOn
 			setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
 			cell = shinyCharmCell
@@ -294,7 +295,7 @@ class GameSettingsContainer: UIView
 			cell = lureCell
 			callTurnSwitchesOff = false
 		}
-		activeHuntMethod = sender.isOn ? selectedHuntMethod : .Encounters
+		activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
 		pokemon!.huntMethod = activeHuntMethod
 		setImageViewAlpha(imageView: icon, isSwitchOn: pokemon!.huntMethod == selectedHuntMethod)
 		if callTurnSwitchesOff
