@@ -122,31 +122,15 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		switch pokemon!.huntMethod
+		if !pokemon!.isShinyCharmActive
 		{
-		case .Gen2Breeding:
-			return UIImage(named: "ditto-large")!
-		case .Masuda:
-			return UIImage(named: "egg")!
-		case .Pokeradar:
-			return UIImage(named: "poke-radar")!
-		case .FriendSafari:
-			return UIImage(named: "heart-mail")!
-		case .ChainFishing:
-			return UIImage(named: "super-rod")!
-		case .DexNav:
-			return UIImage(named: "wide-lens")!
-		case .SosChaining:
-			return UIImage(named: "sos")!
-		case .Lure:
-			return UIImage(named: "max-lure")!
-		default:
-			if pokemon!.huntMethod == .Encounters && pokemon!.isShinyCharmActive
-			{
-				return UIImage(named: "shiny-charm")!
-			}
-
-			return UIImage(systemName: "info.circle.fill")!
+			return pokemon!.huntMethod != HuntMethod.Encounters
+			? UIImage(named: pokemon!.huntMethod.rawValue)!
+			: UIImage(systemName: "info.circle.fill")!
+		}
+		else
+		{
+			return UIImage(named: "shiny-charm")!
 		}
 	}
 	
