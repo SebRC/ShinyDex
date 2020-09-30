@@ -340,7 +340,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
 	{
 		shinyTrackerVC.pokemonService = pokemonService
-		shinyTrackerVC.huntSectionsService = huntSectionsService
 		shinyTrackerVC.huntService = huntService
 		shinyTrackerVC.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
 		shinyTrackerVC.hunts = hunts

@@ -52,43 +52,52 @@ class GameSettingsContainer: UIView
 		generationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
 		useIncrementCell.titleLabel.text = "Use increment in Hunts"
-		useIncrementCell.descriptionLabel.text = "The encounter increment can be changed on an individual Pokémon"
-		genTwoBreedingCell.iconImageView.image = UIImage(named: "ditto-large")
+		useIncrementCell.descriptionLabel.text = "Enable the encounter increment to be active when hunting from the Hunts menu"
+		genTwoBreedingCell.actionSwitch.tag = 0
+		genTwoBreedingCell.iconImageView.image = UIImage(named: HuntMethod.Gen2Breeding.rawValue)
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
 		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in generation 2"
-		masudaCell.iconImageView.image = UIImage(named: "egg")
+		masudaCell.actionSwitch.tag = 1
+		masudaCell.iconImageView.image = UIImage(named: HuntMethod.Masuda.rawValue)
 		masudaCell.titleLabel.text = "Masuda"
 		masudaCell.descriptionLabel.text = "The Masuda method is only available from generation 4 and onwards"
-		pokeradarCell.iconImageView.image = UIImage(named: "poke-radar")
+		pokeradarCell.actionSwitch.tag = 2
+		pokeradarCell.iconImageView.image = UIImage(named: HuntMethod.Pokeradar.rawValue)
 		pokeradarCell.titleLabel.text = "Pokéradar"
 		pokeradarCell.descriptionLabel.text = "The Pokéradar is only available in Diamond, Pearl, Platinum, X and Y (Generation 4 & 6)"
+		shinyCharmCell.actionSwitch.tag = 3
 		shinyCharmCell.iconImageView.image = UIImage(named: "shiny-charm")
 		shinyCharmCell.titleLabel.text = "Shiny Charm"
 		shinyCharmCell.descriptionLabel.text = "The shiny charm is only available from generation 5 and onwards"
-		chainFishingCell.iconImageView.image = UIImage(named: "super-rod")
+		chainFishingCell.actionSwitch.tag = 4
+		chainFishingCell.iconImageView.image = UIImage(named: HuntMethod.ChainFishing.rawValue)
 		chainFishingCell.titleLabel.text = "Chain fishing"
 		chainFishingCell.descriptionLabel.text = "Chain fishing is only available in generation 6 (X, Y, Omega Ruby and Alpha Sapphire)"
-		dexNavCell.iconImageView.image = UIImage(named: "wide-lens")
+		dexNavCell.actionSwitch.tag = 5
+		dexNavCell.iconImageView.image = UIImage(named: HuntMethod.DexNav.rawValue)
 		dexNavCell.titleLabel.text = "DexNav"
 		dexNavCell.descriptionLabel.text = "The DexNav is only available in Omega Ruby & Alpha Sapphire (Generation 6)"
-		friendSafariCell.iconImageView.image = UIImage(named: "heart-mail")
+		friendSafariCell.actionSwitch.tag = 6
+		friendSafariCell.iconImageView.image = UIImage(named: HuntMethod.FriendSafari.rawValue)
 		friendSafariCell.titleLabel.text = "Friend Safari"
 		friendSafariCell.descriptionLabel.text = "The Friend Safari is only available in X & Y (Generation 6)"
-		sosChainCell.iconImageView.image = UIImage(named: "sos")
+		sosChainCell.actionSwitch.tag = 7
+		sosChainCell.iconImageView.image = UIImage(named: HuntMethod.SosChaining.rawValue)
 		sosChainCell.titleLabel.text = "SOS chaining"
 		sosChainCell.descriptionLabel.text = "SOS chaining is only available in generation 7"
-		lureCell.iconImageView.image = UIImage(named: "max-lure")
+		lureCell.actionSwitch.tag = 8
+		lureCell.iconImageView.image = UIImage(named: HuntMethod.Lure.rawValue)
 		lureCell.titleLabel.text = "Lure"
 		lureCell.descriptionLabel.text = "Lures are only available in Let's Go Pikachu & Eevee"
-		lureCell.actionSwitch.addTarget(self, action: #selector(changeIsLureInUse), for: .valueChanged)
-		shinyCharmCell.actionSwitch.addTarget(self, action: #selector(changeIsShinyCharmActive), for: .valueChanged)
-		masudaCell.actionSwitch.addTarget(self, action: #selector(changeIsMasudaHunting), for: .valueChanged)
-		genTwoBreedingCell.actionSwitch.addTarget(self, action: #selector(changeIsGen2Breeding), for: .valueChanged)
-		friendSafariCell.actionSwitch.addTarget(self, action: #selector(changeIsFriendSafariHunting), for: .valueChanged)
-		chainFishingCell.actionSwitch.addTarget(self, action: #selector(changeIsChainFishing(_:)), for: .valueChanged)
-		sosChainCell.actionSwitch.addTarget(self, action: #selector(changeIsSosChaining), for: .valueChanged)
-		pokeradarCell.actionSwitch.addTarget(self, action: #selector(changeIsPokeradarHunting), for: .valueChanged)
-		dexNavCell.actionSwitch.addTarget(self, action: #selector(changeIsDexNavHunting), for: .valueChanged)
+		lureCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		shinyCharmCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		masudaCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		genTwoBreedingCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		friendSafariCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		chainFishingCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		sosChainCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		pokeradarCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
@@ -118,7 +127,7 @@ class GameSettingsContainer: UIView
 
 	func resolveUIObjectsState()
 	{
-		generationSegmentedControl.selectedSegmentIndex = pokemon!.generation
+		generationSegmentedControl.selectedSegmentIndex = resolveSelectedSegment()
 
 		genTwoBreedingCell.actionSwitch.isOn = pokemon!.huntMethod == .Gen2Breeding
 		masudaCell.actionSwitch.isOn = pokemon!.huntMethod == .Masuda
@@ -134,8 +143,29 @@ class GameSettingsContainer: UIView
 		resolveSwitchStates()
 	}
 
+	func resolveSelectedSegment() -> Int
+	{
+		switch pokemon!.generation {
+		case 2:
+			return 0
+		case 4:
+			return 1
+		case 5:
+			return 2
+		case 6:
+			return 3
+		case 7:
+			return 4
+		case 8:
+			return 6
+		default:
+			return 7
+		}
+	}
+
 	func setShinyOddsLabelText()
 	{
+		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod)
 		shinyOddsLabel.text = "Shiny Odds: 1/\(pokemon!.shinyOdds)"
 	}
 
@@ -198,77 +228,81 @@ class GameSettingsContainer: UIView
 		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 
-	@objc fileprivate func changeIsGen2Breeding(_ sender: Any)
+	@objc fileprivate func switchPressed(_ sender: UISwitch)
 	{
-		pokemon!.huntMethod = genTwoBreedingCell.actionSwitch.isOn ? .Gen2Breeding : .Encounters
-		setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Gen2Breeding)
-		pokemon?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: pokemon!.huntMethod)
+		let tag = sender.tag
+		var activeHuntMethod = HuntMethod.Encounters
+		var selectedHuntMethod = HuntMethod.Encounters
+		var icon = UIImageView()
+		var cell = GameSettingsCell()
+		var callTurnSwitchesOff = true
+
+		if tag == 0
+		{
+			selectedHuntMethod = .Gen2Breeding
+			icon = genTwoBreedingCell.iconImageView
+			cell = genTwoBreedingCell
+			callTurnSwitchesOff = false
+		}
+		else if tag == 1
+		{
+			selectedHuntMethod = .Masuda
+			icon = masudaCell.iconImageView
+			cell = masudaCell
+		}
+		else if tag == 2
+		{
+			selectedHuntMethod = .Pokeradar
+			icon = pokeradarCell.iconImageView
+			cell = pokeradarCell
+		}
+		else if tag == 3
+		{
+			selectedHuntMethod = pokemon!.huntMethod
+			pokemon!.isShinyCharmActive = sender.isOn
+			setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
+			cell = shinyCharmCell
+			callTurnSwitchesOff = false
+		}
+		else if tag == 4
+		{
+			selectedHuntMethod = .ChainFishing
+			icon = chainFishingCell.iconImageView
+			cell = chainFishingCell
+		}
+		else if tag == 5
+		{
+			selectedHuntMethod = .DexNav
+			icon = dexNavCell.iconImageView
+			cell = dexNavCell
+		}
+		else if tag == 6
+		{
+			selectedHuntMethod = .FriendSafari
+			icon = friendSafariCell.iconImageView
+			cell = friendSafariCell
+		}
+		else if tag == 7
+		{
+			selectedHuntMethod = .SosChaining
+			icon = sosChainCell.iconImageView
+			cell = sosChainCell
+		}
+		else if tag == 8
+		{
+			selectedHuntMethod = .Lure
+			icon = lureCell.iconImageView
+			cell = lureCell
+			callTurnSwitchesOff = false
+		}
+		activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
+		pokemon!.huntMethod = activeHuntMethod
+		setImageViewAlpha(imageView: icon, isSwitchOn: pokemon!.huntMethod == selectedHuntMethod)
+		if callTurnSwitchesOff
+		{
+			turnSwitchesOff(enabledCell: cell, huntMethod: pokemon!.huntMethod)
+		}
 		setShinyOddsLabelText()
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsFriendSafariHunting()
-	{
-		pokemon!.huntMethod = friendSafariCell.actionSwitch.isOn ? .FriendSafari : .Encounters
-		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .FriendSafari)
-		turnSwitchesOff(enabledCell: friendSafariCell, huntMethod: pokemon!.huntMethod)
-	}
-
-	@objc fileprivate func changeIsLureInUse(_ sender: Any)
-	{
-		pokemon!.huntMethod = lureCell.actionSwitch.isOn ? .Lure : .Encounters
-		setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Lure)
-		pokemon?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: pokemon!.huntMethod)
-		setShinyOddsLabelText()
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsShinyCharmActive(_ sender: Any)
-	{
-		pokemon?.isShinyCharmActive = shinyCharmCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
-		pokemon?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod)
-		setShinyOddsLabelText()
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsMasudaHunting(_ sender: Any)
-	{
-		pokemon?.huntMethod = masudaCell.actionSwitch.isOn ? .Masuda : .Encounters
-		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Masuda)
-		turnSwitchesOff(enabledCell: masudaCell, huntMethod: pokemon!.huntMethod)
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsPokeradarHunting(_ sender: Any)
-	{
-		pokemon?.huntMethod = pokeradarCell.actionSwitch.isOn ? .Pokeradar : .Encounters
-		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Pokeradar)
-		turnSwitchesOff(enabledCell: pokeradarCell, huntMethod: pokemon!.huntMethod)
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsChainFishing(_ sender: Any)
-	{
-		pokemon?.huntMethod = chainFishingCell.actionSwitch.isOn ? .ChainFishing : .Encounters
-		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .ChainFishing)
-		turnSwitchesOff(enabledCell: chainFishingCell, huntMethod: pokemon!.huntMethod)
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsDexNavHunting(_ sender: Any)
-	{
-		pokemon?.huntMethod = dexNavCell.actionSwitch.isOn ? .DexNav : .Encounters
-		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .DexNav)
-		turnSwitchesOff(enabledCell: dexNavCell, huntMethod: pokemon!.huntMethod)
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeIsSosChaining(_ sender: Any)
-	{
-		pokemon?.huntMethod = sosChainCell.actionSwitch.isOn ? .SosChaining : .Encounters
-		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .SosChaining)
-		turnSwitchesOff(enabledCell: sosChainCell, huntMethod: pokemon!.huntMethod)
 		saveIfReal()
 	}
 
@@ -281,21 +315,22 @@ class GameSettingsContainer: UIView
 
 	@objc fileprivate func changeGenerationPressed(_ sender: Any)
 	{
-		pokemon!.generation = generationSegmentedControl.selectedSegmentIndex
+		if generationSegmentedControl.selectedSegmentIndex != 6
+		{
+			pokemon!.generation = Int(generationSegmentedControl.titleForSegment(at: generationSegmentedControl.selectedSegmentIndex)!)!
+		}
+		else
+		{
+			pokemon!.generation = 0
+		}
 
-		if pokemon?.huntMethod != .Masuda || pokemon?.generation == 0 || pokemon?.generation == 6
+		if pokemon?.huntMethod != .Masuda || pokemon?.generation == 2 || pokemon?.generation == 0
 		{
 			pokemon?.huntMethod = .Encounters
 		}
-
 		resolveSwitchStates()
-
 		setAllImageViewAlphas()
-
-		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod)
-
 		setShinyOddsLabelText()
-
 		saveIfReal()
 	}
 
@@ -310,7 +345,7 @@ class GameSettingsContainer: UIView
 	fileprivate func setAllImageViewAlphas()
 	{
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
-		if pokemon?.generation == 0
+		if pokemon?.generation == 2
 		{
 			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Gen2Breeding)
 		}
@@ -318,7 +353,7 @@ class GameSettingsContainer: UIView
 		{
 			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: false)
 		}
-		if pokemon?.generation == 6
+		if pokemon?.generation == 0
 		{
 			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Lure)
 		}
@@ -348,8 +383,8 @@ class GameSettingsContainer: UIView
 		setImageViewAlpha(imageView: enabledCell.iconImageView, isSwitchOn: enabledCell.actionSwitch.isOn)
 		gameSettingsCells!.append(enabledCell)
 		gameSettingsCells!.append(shinyCharmCell)
-		pokemon?.shinyOdds = oddsService.getShinyOdds(generation: generationSegmentedControl.selectedSegmentIndex, isCharmActive: shinyCharmCell.actionSwitch.isOn, huntMethod: pokemon!.huntMethod)
-			setShinyOddsLabelText()
+		gameSettingsCells!.append(useIncrementCell)
+		setShinyOddsLabelText()
 		saveIfReal()
 	}
 

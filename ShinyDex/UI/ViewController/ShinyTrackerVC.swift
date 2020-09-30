@@ -28,7 +28,6 @@ class ShinyTrackerVC: UIViewController
 	let oddsService = OddsService()
 	var percentage: Double?
 	var methodDecrement = 0
-	var huntSections: HuntSections?
 	var setEncountersPressed = false
 	var isAddingToHunt = false
 	var infoPressed = false
@@ -39,7 +38,6 @@ class ShinyTrackerVC: UIViewController
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 	var huntService: HuntService!
-	var huntSectionsService: HuntSectionsService!
 	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
@@ -59,8 +57,6 @@ class ShinyTrackerVC: UIViewController
 		setTitle()
 		
 		setGif()
-
-		huntSections = huntSectionsService.get()
 
 		setMethodDecrement()
 	
@@ -83,7 +79,7 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setMethodDecrement()
 	{
-		if pokemon!.huntMethod == .SosChaining || pokemon!.huntMethod == .Lure || pokemon!.generation == 6
+		if pokemon!.huntMethod == .SosChaining || pokemon!.huntMethod == .Lure || pokemon!.generation == 0
 		{
 			methodDecrement = 30
 		}
@@ -99,7 +95,7 @@ class ShinyTrackerVC: UIViewController
 		{
 			methodDecrement = 999
 		}
-		else if pokemon!.generation == 5 && pokemon!.huntMethod != .Masuda
+		else if pokemon!.generation == 8 && pokemon!.huntMethod != .Masuda
 		{
 			methodDecrement = 500
 		}
@@ -126,31 +122,15 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		switch pokemon!.huntMethod
+		if !pokemon!.isShinyCharmActive
 		{
-		case .Gen2Breeding:
-			return UIImage(named: "ditto-large")!
-		case .Masuda:
-			return UIImage(named: "egg")!
-		case .Pokeradar:
-			return UIImage(named: "poke-radar")!
-		case .FriendSafari:
-			return UIImage(named: "heart-mail")!
-		case .ChainFishing:
-			return UIImage(named: "super-rod")!
-		case .DexNav:
-			return UIImage(named: "wide-lens")!
-		case .SosChaining:
-			return UIImage(named: "sos")!
-		case .Lure:
-			return UIImage(named: "max-lure")!
-		default:
-			if pokemon!.huntMethod == .Encounters && pokemon!.isShinyCharmActive
-			{
-				return UIImage(named: "shiny-charm")!
-			}
-
-			return UIImage(systemName: "info.circle.fill")!
+			return pokemon!.huntMethod != HuntMethod.Encounters
+			? UIImage(named: pokemon!.huntMethod.rawValue)!
+			: UIImage(systemName: "info.circle.fill")!
+		}
+		else
+		{
+			return UIImage(named: "shiny-charm")!
 		}
 	}
 	
@@ -345,7 +325,6 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! SetEncountersModalVC
 			destVC.pokemon = pokemon
 			destVC.pokemonService = pokemonService
-			destVC.huntSections = huntSections
 			destVC.methodDecrement = methodDecrement
 		}
 		else if isAddingToHunt
@@ -426,7 +405,6 @@ class ShinyTrackerVC: UIViewController
 
 	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)
 	{
-		huntSections = huntSectionsService.get()
 		setMethodImage()
 		setMethodDecrement()
 		setPercentage()
@@ -442,23 +420,6 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func setIncrementImage()
 	{
-		switch pokemon!.increment
-		{
-		case 0,1:
-			buttonStrip.incrementButton.setImage(UIImage(systemName: "1.circle.fill"), for: .normal)
-			break
-		case 3:
-			buttonStrip.incrementButton.setImage(UIImage(systemName: "3.circle.fill"), for: .normal)
-			break
-		case 4:
-			buttonStrip.incrementButton.setImage(UIImage(systemName: "4.circle.fill"), for: .normal)
-			break
-		case 5:
-			buttonStrip.incrementButton.setImage(UIImage(systemName: "5.circle.fill"), for: .normal)
-			break
-		default:
-			buttonStrip.incrementButton.setImage(UIImage(systemName: "6.circle.fill"), for: .normal)
-			break
-		}
+		buttonStrip.incrementButton.setImage(UIImage(systemName: "\(pokemon!.increment).circle.fill"), for: .normal)
 	}
 }

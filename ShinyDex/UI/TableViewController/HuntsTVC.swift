@@ -358,7 +358,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
 			destVC?.pokemonService = pokemonService
-			destVC?.huntSectionsService = huntSectionsService
 			destVC?.huntService = huntService
 			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
 			destVC?.fontSettingsService = fontSettingsService

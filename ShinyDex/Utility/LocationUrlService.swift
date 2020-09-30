@@ -12,7 +12,7 @@ class LocationUrlService
 {
 	func getUrl(generation: Int, pokemon: Pokemon) -> String
 	{
-		let isGeneration8 = generation == 5
+		let isGeneration8 = generation == 8
 		let numberPrefix = getNumberPrefix(dexNumber: pokemon.number)
 		let generationIdentifier = getGenerationIdentifier(generation: generation)
 
@@ -41,15 +41,15 @@ class LocationUrlService
 	{
 		switch generation
 		{
-		case 0:
-			return "gs"
-		case 1:
-			return "dp"
 		case 2:
-			return "bw"
-		case 3:
-			return "xy"
+			return "gs"
+		case 4:
+			return "dp"
 		case 5:
+			return "bw"
+		case 6:
+			return "xy"
+		case 8:
 			return "swsh"
 		default:
 			return "sm"
