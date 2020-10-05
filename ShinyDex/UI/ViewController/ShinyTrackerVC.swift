@@ -122,15 +122,17 @@ class ShinyTrackerVC: UIViewController
 
 	fileprivate func getMethodImage() -> UIImage
 	{
-		if !pokemon!.isShinyCharmActive
+		let huntMethod = pokemon!.huntMethod
+		let canBeCombinedWithCharm = huntMethod != .Gen2Breeding && huntMethod != .Pokeradar
+		if pokemon!.isShinyCharmActive && canBeCombinedWithCharm
 		{
-			return pokemon!.huntMethod != HuntMethod.Encounters
-			? UIImage(named: pokemon!.huntMethod.rawValue)!
-			: UIImage(systemName: "info.circle.fill")!
+			return UIImage(named: "\(huntMethod.rawValue) + Charm")!
 		}
 		else
 		{
-			return UIImage(named: "shiny-charm")!
+			return huntMethod != .Encounters
+			? UIImage(named: huntMethod.rawValue)!
+			: UIImage(systemName: "info.circle.fill")!
 		}
 	}
 	
