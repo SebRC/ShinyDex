@@ -144,7 +144,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		newHunt.pokemon.append(pokemon)
 		newHunt.indexes.append(pokemon.number)
 		confirmButton.isEnabled = true
-		popupView.actionLabel.text = "\(pokemon.name) was added to \(newHunt.name)."
+		popupView.actionLabel.text = "\(pokemon.name) was added to \(getHuntName())."
 		popupHandler.showPopup(popupView: popupView)
 		tableView.reloadData()
 	}
@@ -204,7 +204,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	@IBAction func confirmPressed(_ sender: Any)
 	{
-		newHunt.name = textField.text ?? "New Hunt"
+		newHunt.name = getHuntName()
 		newHunt.pokemon = newHunt.pokemon.sorted(by: { $0.number < $1.number})
 		for pokemon in newHunt.pokemon
 		{
@@ -231,12 +231,17 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool
 	{
         self.view.endEditing(true)
-		newHunt.name = textField.text ?? "New Hunt"
+		newHunt.name = getHuntName()
         return false
     }
 
 	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
 	{
 		markSelectedPokemonAsNotHunted()
+	}
+
+	fileprivate func getHuntName() -> String
+	{
+		return (textField.text == "" ? "New Hunt" : textField.text)!
 	}
 }
