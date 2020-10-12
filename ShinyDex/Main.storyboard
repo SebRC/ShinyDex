@@ -1510,7 +1510,7 @@ Are you sure you want to do this?</string>
                                             <constraint firstAttribute="width" secondItem="EzJ-L4-4Zj" secondAttribute="height" multiplier="271:31" id="fD1-pQ-mOI"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="1"/>
+                                            <segment title="" image="1.circle.fill" catalog="system"/>
                                             <segment title="" image="2.circle.fill" catalog="system"/>
                                             <segment title="" image="3.circle.fill" catalog="system"/>
                                             <segment title="" image="4.circle.fill" catalog="system"/>
@@ -1640,6 +1640,7 @@ Are you sure you want to do this?</string>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
+        <image name="1.circle.fill" catalog="system" width="128" height="121"/>
         <image name="2.circle.fill" catalog="system" width="128" height="121"/>
         <image name="3.circle.fill" catalog="system" width="128" height="121"/>
         <image name="4.circle.fill" catalog="system" width="128" height="121"/>
