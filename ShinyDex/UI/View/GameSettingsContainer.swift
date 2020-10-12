@@ -157,9 +157,9 @@ class GameSettingsContainer: UIView
 		case 7:
 			return 4
 		case 8:
-			return 6
+			return 5
 		default:
-			return 7
+			return 6
 		}
 	}
 

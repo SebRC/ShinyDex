@@ -32,15 +32,8 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
 		
-		setClearBackground()
-		
 		roundViewCorner()
     }
-	
-	fileprivate func setClearBackground()
-	{
-		view.backgroundColor = .clear
-	}
 	
 	fileprivate func roundViewCorner()
 	{

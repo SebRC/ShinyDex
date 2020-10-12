@@ -100,9 +100,4 @@ class IncrementVC: UIViewController
 			break
 		}
 	}
-
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-	{
-		dismissModalOnTouchOutside(touches: touches)
-	}
 }

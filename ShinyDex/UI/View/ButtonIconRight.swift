@@ -22,7 +22,6 @@ class ButtonIconRight: UIView
 
 	var fontSettingsService: FontSettingsService?
 	var colorService: ColorService?
-	var xxSmalFont: UIFont?
 
 	let nibName = "ButtonIconRight"
     var contentView: UIView?
@@ -33,13 +32,8 @@ class ButtonIconRight: UIView
         commonInit()
 
 		fontSettingsService = FontSettingsService()
-
 		colorService = ColorService()
-
-		xxSmalFont = fontSettingsService?.getXxSmallFont()
-		
 		setColors()
-		
 		setFonts()
     }
 	
@@ -75,6 +69,6 @@ class ButtonIconRight: UIView
 	
 	fileprivate func setFonts()
 	{
-		label.font = xxSmalFont
+		label.font = fontSettingsService?.getXxSmallFont()
 	}
 }

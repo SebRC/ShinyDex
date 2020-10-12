@@ -17,8 +17,8 @@ enum FontThemeName : CustomStringConvertible
 	{
 		switch self
 		{
-		case .Retro: return "Retro"
-		case .Modern: return "Modern"
+			case .Retro: return "Retro"
+			case .Modern: return "Modern"
 		}
 	}
 }
