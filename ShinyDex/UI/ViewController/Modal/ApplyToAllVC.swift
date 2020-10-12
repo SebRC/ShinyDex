@@ -55,10 +55,4 @@ class ApplyToAllVC: UIViewController
 		pokemonService.applyToAll(pokemon: pokemon, allPokemon: allPokemon)
 		dismiss(animated: true)
 	}
-
-
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-	{
-		dismissModalOnTouchOutside(touches: touches)
-	}
 }

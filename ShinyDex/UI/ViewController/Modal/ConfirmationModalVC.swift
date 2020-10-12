@@ -18,17 +18,10 @@ class ConfirmationModalVC: UIViewController
 	{
         super.viewDidLoad()
 		
-		setClearBackground()
-		
 		setButtonActions()
 		
 		roundConfirmationPopupViewCorners()
     }
-	
-	fileprivate func setClearBackground()
-	{
-		view.backgroundColor = .clear
-	}
 	
 	fileprivate func setButtonActions()
 	{
@@ -50,10 +43,5 @@ class ConfirmationModalVC: UIViewController
 	fileprivate func roundConfirmationPopupViewCorners()
 	{
 		confirmationPopup.layer.cornerRadius = CornerRadius.Standard.rawValue
-	}
-	
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-	{
-		dismissModalOnTouchOutside(touches: touches)
 	}
 }

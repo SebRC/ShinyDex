@@ -1,5 +1,5 @@
 //
-//  PokeballIndicatorView.swift
+//  IndicatorView.swift
 //  ShinyDexPrototype
 //
 //  Created by Sebastian Christiansen on 13/11/2019.
@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class PokeballIndicatorView: UIView
+class IndicatorView: UIView
 {
-	let nibName = "PokeballIndicatorView"
+	let nibName = "IndicatorView"
     var contentView:UIView?
 	
 	@IBOutlet weak var titleLabel: UILabel!

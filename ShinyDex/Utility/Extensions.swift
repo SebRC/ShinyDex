@@ -98,19 +98,6 @@ extension UIButton
   }
 }
 
-extension UIViewController
-{
-	func dismissModalOnTouchOutside(touches: Set<UITouch>)
-	{
-		let touch: UITouch? = touches.first
-
-		if touch?.view == view
-		{
-			dismiss(animated: true)
-		}
-	}
-}
-
 extension Double
 {
 	static func getPercentage(encounters: Int, odds: Int) -> Double

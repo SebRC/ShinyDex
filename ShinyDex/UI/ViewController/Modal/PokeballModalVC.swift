@@ -10,7 +10,8 @@ import UIKit
 
 class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-	@IBOutlet weak var pokeballIndicatorView: PokeballIndicatorView!
+
+	@IBOutlet weak var indicatorView: IndicatorView!
 	@IBOutlet weak var pokeballTableView: UITableView!
 	
 	@IBOutlet weak var cancelButton: UIButton!
@@ -37,22 +38,15 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		roundCancelButtonCorners()
 		
 		setCancelButtonFont()
-		
-		setTableViewBackgroundColor()
 
 		pokeballTableView.separatorColor = colorService.getPrimaryColor()
-		
-		pokeballIndicatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		
-		pokeballIndicatorView.backgroundColor = colorService.getSecondaryColor()
-		
-		pokeballIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
-		
-		pokeballIndicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
-		
-		pokeballIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()
-		
-		pokeballIndicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
+		pokeballTableView.backgroundColor = .clear
+		indicatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		indicatorView.backgroundColor = colorService.getSecondaryColor()
+		indicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
+		indicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
+		indicatorView.titleLabel.textColor = colorService.getTertiaryColor()
+		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
 	fileprivate func populatePokeballList()
@@ -77,11 +71,6 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	fileprivate func setCancelButtonFont()
 	{
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
-	}
-	
-	fileprivate func setTableViewBackgroundColor()
-	{
-		pokeballTableView.backgroundColor = .clear
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -131,10 +120,5 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	fileprivate func setNameLabelFont(nameLabel: UILabel)
 	{
 		nameLabel.font = fontSettingsService.getLargeFont()
-	}
-
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-	{
-		dismissModalOnTouchOutside(touches: touches)
 	}
 }

@@ -66,9 +66,4 @@ class SetEncountersModalVC: UIViewController
 		
 		performSegue(withIdentifier: "encountersUnwind", sender: self)
 	}
-	
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-	{
-		dismissModalOnTouchOutside(touches: touches)
-	}
 }

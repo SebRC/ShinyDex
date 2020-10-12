@@ -16,14 +16,8 @@ class FontSettingsService
 
 	func getFontAsNSAttibutedStringKey(fontSize: CGFloat) -> AnyHashable
 	{
-		let fontTheme = fontSettingsRepository.getFontThemeName()
-		if fontTheme == FontThemeName.Modern.description
-		{
-			return [NSAttributedString.Key.font : UIFont.systemFont(ofSize: fontSize),
-					NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-		}
-		return [NSAttributedString.Key.font : UIFont(name: FontName.PokemonGB.description, size: fontSize)!,
-				NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
+		return [NSAttributedString.Key.font : getFont(fontSize: fontSize),
+		NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 	}
 
 	func getFontThemeName() -> String

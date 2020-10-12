@@ -18,7 +18,8 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
 
-	@IBOutlet weak var pokemonIndicatorView: PokeballIndicatorView!
+
+	@IBOutlet weak var indicatorView: IndicatorView!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	override func viewDidLoad()
@@ -30,12 +31,12 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
-		pokemonIndicatorView.contentView?.backgroundColor = colorService.getSecondaryColor()
-		pokemonIndicatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		pokemonIndicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
-		pokemonIndicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to"
-		pokemonIndicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
-		pokemonIndicatorView.titleLabel.textColor = colorService.getTertiaryColor()
+		indicatorView.contentView?.backgroundColor = colorService.getSecondaryColor()
+		indicatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
+		indicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to"
+		indicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
+		indicatorView.titleLabel.textColor = colorService.getTertiaryColor()
 		tableView.separatorColor = colorService.getPrimaryColor()
 		tableView.layer.cornerRadius = CornerRadius.Standard.rawValue
     }
@@ -75,10 +76,5 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBAction func cancelPressed(_ sender: Any)
 	{
 		dismiss(animated: true)
-	}
-
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-	{
-		dismissModalOnTouchOutside(touches: touches)
 	}
 }

@@ -60,8 +60,8 @@
 		96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */; };
 		96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* ButtonStrip.swift */; };
 		96A72993245F12C600AF3F5F /* ButtonStrip.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72991245F12C500AF3F5F /* ButtonStrip.xib */; };
-		96A72996245F13A200AF3F5F /* PokeballIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72994245F13A200AF3F5F /* PokeballIndicatorView.swift */; };
-		96A72997245F13A200AF3F5F /* PokeballIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72995245F13A200AF3F5F /* PokeballIndicatorView.xib */; };
+		96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72994245F13A200AF3F5F /* IndicatorView.swift */; };
+		96A72997245F13A200AF3F5F /* IndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72995245F13A200AF3F5F /* IndicatorView.xib */; };
 		96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72998245F14DF00AF3F5F /* PopupView.swift */; };
 		96A7299B245F14DF00AF3F5F /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72999245F14DF00AF3F5F /* PopupView.xib */; };
 		96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */; };
@@ -144,8 +144,8 @@
 		96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
 		96A72990245F12C500AF3F5F /* ButtonStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStrip.swift; sourceTree = "<group>"; };
 		96A72991245F12C500AF3F5F /* ButtonStrip.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonStrip.xib; sourceTree = "<group>"; };
-		96A72994245F13A200AF3F5F /* PokeballIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballIndicatorView.swift; sourceTree = "<group>"; };
-		96A72995245F13A200AF3F5F /* PokeballIndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PokeballIndicatorView.xib; sourceTree = "<group>"; };
+		96A72994245F13A200AF3F5F /* IndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		96A72995245F13A200AF3F5F /* IndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndicatorView.xib; sourceTree = "<group>"; };
 		96A72998245F14DF00AF3F5F /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		96A72999245F14DF00AF3F5F /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
 		96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetEncountersView.xib; sourceTree = "<group>"; };
@@ -450,8 +450,8 @@
 				96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */,
 				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				96A72991245F12C500AF3F5F /* ButtonStrip.xib */,
-				96A72994245F13A200AF3F5F /* PokeballIndicatorView.swift */,
-				96A72995245F13A200AF3F5F /* PokeballIndicatorView.xib */,
+				96A72994245F13A200AF3F5F /* IndicatorView.swift */,
+				96A72995245F13A200AF3F5F /* IndicatorView.xib */,
 				96A72998245F14DF00AF3F5F /* PopupView.swift */,
 				96A72999245F14DF00AF3F5F /* PopupView.xib */,
 				96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */,
@@ -541,7 +541,7 @@
 			files = (
 				967F63022465C66C008F2C4B /* GameSettingsCell.xib in Resources */,
 				967F63062465C927008F2C4B /* GameSettingsContainer.xib in Resources */,
-				96A72997245F13A200AF3F5F /* PokeballIndicatorView.xib in Resources */,
+				96A72997245F13A200AF3F5F /* IndicatorView.xib in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96A72993245F12C600AF3F5F /* ButtonStrip.xib in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
@@ -565,7 +565,7 @@
 			files = (
 				96C96D46244462EF00D30186 /* FontName.swift in Sources */,
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
-				96A72996245F13A200AF3F5F /* PokeballIndicatorView.swift in Sources */,
+				96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */,
 				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
 				9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,

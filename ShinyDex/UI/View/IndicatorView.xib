@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokeballIndicatorView" customModule="ShinyDex" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IndicatorView" customModule="ShinyDex" customModuleProvider="target">
             <connections>
                 <outlet property="pokemonImageView" destination="pKb-tJ-ule" id="cgc-9r-gv5"/>
                 <outlet property="titleLabel" destination="LGB-9G-tVe" id="E65-sG-qEb"/>
