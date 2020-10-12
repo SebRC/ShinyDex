@@ -21,9 +21,8 @@ class LocationUrlService
 		let generationIdentifier = generation < minimumGeneration
 			? generationPrefixes[minimumGeneration]!
 			: generationPrefixes[generation]!
-		let url = "https://serebii.net/pokedex-\(generationIdentifier)/\(isGeneration8 ? pokemon.name.lowercased() : numberPrefix)\(isGeneration8 ? "" : ".shtml")"
 
-		return url
+		return "https://serebii.net/pokedex-\(generationIdentifier)/\(isGeneration8 ? pokemon.name.lowercased() : numberPrefix)\(isGeneration8 ? "" : ".shtml")"
 	}
 
 	fileprivate func getMinimumGeneration(dexNumber: Int) -> Int
