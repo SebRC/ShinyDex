@@ -16,7 +16,6 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var minusButton: UIButton!
 	@IBOutlet weak var percentageLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
-	@IBOutlet weak var popupView: PopupView!
 	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
@@ -43,8 +42,6 @@ class ShinyTrackerVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
-		hidePopupView()
 		
 		setUIColors()
 		
@@ -104,11 +101,6 @@ class ShinyTrackerVC: UIViewController
 			methodDecrement = 0
 		}
 	}
-
-	fileprivate func hidePopupView()
-	{
-		popupView.isHidden = true
-	}
 	
 	fileprivate func setPokeballButtonImage()
 	{
@@ -139,9 +131,6 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setUIColors()
 	{
 		view.backgroundColor = colorService.getPrimaryColor()
-		popupView.backgroundColor = colorService.getSecondaryColor()
-		popupView.actionLabel.textColor = colorService.getTertiaryColor()
-		popupView.iconImageView.tintColor = colorService.getTertiaryColor()
 		
 		numberLabel.backgroundColor = colorService.getSecondaryColor()
 		numberLabel.textColor = colorService.getTertiaryColor()
@@ -160,7 +149,6 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func roundCorners()
 	{
-		popupView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		numberLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		encountersLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		percentageLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
@@ -177,7 +165,6 @@ class ShinyTrackerVC: UIViewController
 		numberLabel.font = fontSettingsService.getSmallFont()
 		percentageLabel.font = fontSettingsService.getExtraSmallFont()
 		encountersLabel.font = fontSettingsService.getExtraSmallFont()
-		popupView.actionLabel.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func setTitle()
@@ -271,15 +258,13 @@ class ShinyTrackerVC: UIViewController
 		if hunts.isEmpty
 		{
 			huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
-			popupView.actionLabel.text = "\(pokemon!.name) was added to New Hunt."
-			popupHandler.showPopup(popupView: popupView)
+			popupHandler.showPopup(text: "\(pokemon!.name) was added to New Hunt.")
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else if hunts.count == 1
 		{
 			huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
-			popupView.actionLabel.text = "\(pokemon!.name) was added to \(hunts[0].name)."
-			popupHandler.showPopup(popupView: popupView)
+			popupHandler.showPopup(text: "\(pokemon!.name) was added to \(hunts[0].name).")
 			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		}
 		else
@@ -401,8 +386,7 @@ class ShinyTrackerVC: UIViewController
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		let source = unwindSegue.source as! HuntPickerModalVC
 		let huntName = source.pickedHuntName
-		popupView.actionLabel.text = "\(pokemon!.name) was added to \(huntName!)."
-		popupHandler.showPopup(popupView: popupView)
+		popupHandler.showPopup(text: "\(pokemon!.name) was added to \(huntName!).")
 	}
 
 	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue)

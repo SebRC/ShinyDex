@@ -28,8 +28,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var colorService: ColorService!
 	var huntService: HuntService!
 	var huntSectionsService: HuntSectionsService!
-
-	@IBOutlet var popupView: PopupView!
 	
 	override func viewDidLoad()
 	{
@@ -48,8 +46,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		setUpBackButton()
 		
 		setFonts()
-		
-		roundPopupViewCorners()
     }
 	
 	override func viewWillAppear(_ animated: Bool)
@@ -65,12 +61,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setUIColors()
 	{
-		popupView.backgroundColor = colorService!.getSecondaryColor()
-		
-		popupView.actionLabel.textColor = colorService!.getTertiaryColor()
-		
-		popupView.iconImageView.tintColor = colorService!.getTertiaryColor()
-		
 		navigationController?.navigationBar.backgroundColor = colorService!.getSecondaryColor()
 		
 		tableView.backgroundColor = colorService!.getSecondaryColor()
@@ -129,13 +119,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
 		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
 		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont(), NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()], for: .normal)
-		
-		popupView.actionLabel.font = fontSettingsService.getSmallFont()
-	}
-	
-	fileprivate func roundPopupViewCorners()
-	{
-		popupView.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	fileprivate func setTitle()
@@ -194,15 +177,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			if hunts.isEmpty
 			{
 				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
-				popupView.actionLabel.text = "\(pokemon!.name) was added to New Hunt."
-				popupHandler.showPopup(popupView: popupView)
+				popupHandler.showPopup(text: "\(pokemon!.name) was added to New Hunt.")
 				tableView.reloadData()
 			}
 			else if hunts.count == 1
 			{
 				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
-				popupView.actionLabel.text = "\(pokemon!.name) was added to \(hunts[0].name)."
-				popupHandler.showPopup(popupView: popupView)
+				popupHandler.showPopup(text: "\(pokemon!.name) was added to \(hunts[0].name).")
 				tableView.reloadData()
 			}
 			else
@@ -379,7 +360,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		tableView.reloadData()
 		let source = unwindSegue.source as! HuntPickerModalVC
 		let name = source.pickedHuntName!
-		popupView.actionLabel.text = "\(pokemon!.name) was added to \(name)."
-		popupHandler.showPopup(popupView: popupView)
+		popupHandler.showPopup(text: "\(pokemon!.name) was added to \(name).")
 	}
 }
