@@ -360,6 +360,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			destVC?.pokemonService = pokemonService
 			destVC?.huntService = huntService
 			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
+			destVC?.allPokemon = allPokemon
 			destVC?.fontSettingsService = fontSettingsService
 			destVC?.colorService = colorService
 		}

@@ -11,21 +11,23 @@ import UIKit
 
 class PopupHandler
 {
-	func showPopup(popupView: UIView)
+	func showPopup(text: String)
 	{
-		centerPopupView(popupView: popupView)
-		popupView.isHidden = false
-		popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-		popupView.alpha = 0.0
+		let popup = PopupView()
+		popup.actionLabel.text = text
+		popup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width / 1.25, height: 50)
+		centerPopupView(popupView: popup)
+		popup.isHidden = false
+		popup.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+		popup.alpha = 0.0
 		UIView.animate(withDuration: 0.25, animations: {
-			popupView.alpha = 1.0
+			popup.alpha = 1.0
 			
-			popupView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+			popup.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 		})
-		
 		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2)
 		{
-			self.removeAnimate(popupView: popupView)
+			self.removeAnimate(popupView: popup)
 		}
 	}
 
@@ -40,9 +42,7 @@ class PopupHandler
 	fileprivate func centerPopupView(popupView: UIView)
 	{
 		let window = UIApplication.shared.windows.filter{$0.isKeyWindow}.first
-		
 		popupView.center = window!.center
-		
 		window!.addSubview(popupView)
 	}
 	

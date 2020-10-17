@@ -14,6 +14,8 @@ class PopupView: UIView
 {
 	let nibName = "PopupView"
     var contentView:UIView?
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 
 	@IBOutlet weak var actionLabel: UILabel!
 	@IBOutlet weak var iconImageView: UIImageView!
@@ -36,6 +38,12 @@ class PopupView: UIView
         view.frame = self.bounds
         self.addSubview(view)
         contentView = view
+		contentView?.backgroundColor = colorService.getPrimaryColor()
+		contentView?.backgroundColor = colorService.getSecondaryColor()
+		actionLabel.textColor = colorService.getTertiaryColor()
+		iconImageView.tintColor = colorService.getTertiaryColor()
+		actionLabel.font = fontSettingsService.getSmallFont()
+		contentView?.layer.cornerRadius = CornerRadius.Standard.rawValue
     }
 	
     func loadViewFromNib() -> UIView?

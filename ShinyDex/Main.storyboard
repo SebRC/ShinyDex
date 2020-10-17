@@ -126,9 +126,12 @@ Are you sure you want to do this?</string>
                         <outlet property="horizontalSeparator" destination="Kvm-YK-p1Z" id="R1s-1m-hMV"/>
                         <outlet property="titleLabel" destination="a6c-3c-xox" id="f7o-Gs-rEa"/>
                         <outlet property="verticalSeparator" destination="taS-ZH-vQU" id="9OB-7A-iHr"/>
+                        <segue destination="VDu-fR-9Ys" kind="unwind" identifier="applyAllUnwindToSettings" unwindAction="showSettingsConfirmation:" id="ViW-R1-P1m"/>
+                        <segue destination="VDu-fR-9Ys" kind="unwind" identifier="applyAllUnwindToGameSettings" unwindAction="showGameSettingsConfirmation:" id="Hj3-Yh-RXf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oHm-dg-hxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="VDu-fR-9Ys" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5942" y="-475"/>
         </scene>
@@ -576,18 +579,12 @@ Are you sure you want to do this?</string>
                     <navigationItem key="navigationItem" title="Pokédex" id="wFS-bO-f0g"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="popupView" destination="nmO-SS-fr7" id="vzw-J1-3E6"/>
                         <segue destination="9Np-ox-Xbt" kind="show" identifier="encountersSegue" id="LJI-fC-w8z"/>
                         <segue destination="DaS-ul-zkm" kind="presentation" identifier="pokedexToModalSegue" id="mSu-1U-tG2"/>
                         <segue destination="ti9-ne-P4I" kind="presentation" identifier="pokedexToHuntPickerSegue" id="DHy-Un-iod"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M5b-gN-iKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="nmO-SS-fr7" customClass="PopupView" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="349" height="55"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <viewLayoutGuide key="safeArea" id="foU-mU-wHc"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="1812" y="295.50224887556226"/>
         </scene>
@@ -899,7 +896,6 @@ Are you sure you want to do this?</string>
                     <connections>
                         <outlet property="cancelButton" destination="cjQ-Ze-7Ja" id="y27-qe-wDo"/>
                         <outlet property="confirmButton" destination="2XJ-v5-OvE" id="6Ei-V6-CKx"/>
-                        <outlet property="popupView" destination="jos-hr-aGC" id="7ca-uC-rEm"/>
                         <outlet property="searchBar" destination="50k-1o-2Cg" id="5o6-1z-Ytm"/>
                         <outlet property="tableView" destination="wVL-uN-frE" id="E2i-ns-74t"/>
                         <outlet property="textField" destination="TXa-GF-GTi" id="o1L-5E-y0i"/>
@@ -1113,7 +1109,6 @@ Are you sure you want to do this?</string>
                         <outlet property="numberLabel" destination="Fbx-d5-p1R" id="0fg-B2-3jr"/>
                         <outlet property="percentageLabel" destination="ChG-Aa-Alk" id="jmo-Xi-GEq"/>
                         <outlet property="plusButton" destination="kUC-0o-iXh" id="ZQE-L1-U8k"/>
-                        <outlet property="popupView" destination="pZU-xU-pxP" id="ekS-u2-cWj"/>
                         <segue destination="DaS-ul-zkm" kind="presentation" identifier="shinyTrackerToModalSegue" id="GWK-Tp-YuW"/>
                         <segue destination="hfA-YG-QwI" kind="presentation" identifier="infoPopupSegue" id="3DU-z9-Fvh"/>
                         <segue destination="bTN-i7-7fD" kind="presentation" identifier="setEncountersSegue" id="EMp-OP-8UQ"/>
@@ -1636,7 +1631,7 @@ Are you sure you want to do this?</string>
         <segue reference="GWK-Tp-YuW"/>
         <segue reference="LJI-fC-w8z"/>
         <segue reference="LE8-BB-dtk"/>
-        <segue reference="m7y-w4-r1a"/>
+        <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

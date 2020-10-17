@@ -12,6 +12,7 @@ class SettingsVC: UIViewController, SegueActivated
 {
 	var fontSettingsService: FontSettingsService!
 	var colorService: ColorService!
+	var popupHandler = PopupHandler()
 	var theme = Theme.Primary
 	var pokemon: Pokemon!
 	var allPokemon: [Pokemon]!
@@ -161,6 +162,7 @@ class SettingsVC: UIViewController, SegueActivated
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
 			destVC.allPokemon = allPokemon
+			destVC.isFromSettings = true
 		}
 		else
 		{
@@ -216,5 +218,9 @@ class SettingsVC: UIViewController, SegueActivated
 	{
 		applyPressed = true
 		performSegue(withIdentifier: "settingsToApplyToAllSegue", sender: self)
+	}
+	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue)
+	{
+		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
 	}
 }

@@ -23,6 +23,7 @@ class ApplyToAllVC: UIViewController
 	let pokemonService = PokemonService()
 	var pokemon: Pokemon!
 	var allPokemon: [Pokemon]!
+	var isFromSettings = true
 
 	override func viewDidLoad()
 	{
@@ -53,6 +54,6 @@ class ApplyToAllVC: UIViewController
 	@IBAction func confirmPressed(_ sender: Any)
 	{
 		pokemonService.applyToAll(pokemon: pokemon, allPokemon: allPokemon)
-		dismiss(animated: true)
+		performSegue(withIdentifier: isFromSettings ? "applyAllUnwindToSettings" : "applyAllUnwindToGameSettings", sender: self)
 	}
 }

@@ -15,6 +15,7 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 	var pokemon: Pokemon!
 	var applyPressed = false
 	var allPokemon: [Pokemon]!
+	var popupHandler = PopupHandler()
 	
 	override func viewDidLoad()
 	{
@@ -59,6 +60,12 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
 			destVC.allPokemon = allPokemon
+			destVC.isFromSettings = false
 		}
+	}
+
+	@IBAction func showGameSettingsConfirmation(_ unwindSegue: UIStoryboardSegue)
+	{
+		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
 	}
 }

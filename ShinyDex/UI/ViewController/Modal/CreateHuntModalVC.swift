@@ -24,7 +24,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet var popupView: PopupView!
 	@IBOutlet weak var searchBar: UISearchBar!
 
 	override func viewDidLoad()
@@ -50,11 +49,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
-		popupView.backgroundColor = colorService!.getSecondaryColor()
-		popupView.actionLabel.textColor = colorService!.getTertiaryColor()
-		popupView.iconImageView.tintColor = colorService!.getTertiaryColor()
-		popupView.actionLabel.font = fontSettingsService.getSmallFont()
-		popupView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		tableView.backgroundColor = .clear
 		setUpSearchController()
     }
@@ -144,8 +138,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		newHunt.pokemon.append(pokemon)
 		newHunt.indexes.append(pokemon.number)
 		confirmButton.isEnabled = true
-		popupView.actionLabel.text = "\(pokemon.name) was added to \(getHuntName())."
-		popupHandler.showPopup(popupView: popupView)
+		popupHandler.showPopup(text: "\(pokemon.name) was added to \(getHuntName()).")
 		tableView.reloadData()
 	}
 
