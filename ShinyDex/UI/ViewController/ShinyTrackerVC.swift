@@ -190,7 +190,7 @@ class ShinyTrackerVC: UIViewController
 		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)")
 		{
 			let data = shinyGifAsset.data
-			gifImageView.image = UIImage.gifImageWithData(data, 300.0)
+			gifImageView.animate(withGIFData: data)
 		}
 
 	}

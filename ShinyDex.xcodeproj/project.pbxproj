@@ -67,6 +67,7 @@
 		96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */; };
 		96A7299F245F15FF00AF3F5F /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
+		96C37E76253B3D6800235DA4 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 96C37E75253B3D6800235DA4 /* Gifu */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
@@ -76,7 +77,6 @@
 		96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07D823EF437C00459450 /* SceneDelegate.swift */; };
 		96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07DA23EF455A00459450 /* PokemonRepository.swift */; };
 		96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07DE23EF50C700459450 /* TextResolver.swift */; };
-		96FC07E623EF511500459450 /* GifSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07E323EF511500459450 /* GifSwift.swift */; };
 		96FC07E723EF511500459450 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07E423EF511500459450 /* Extensions.swift */; };
 		96FC07E923EF511500459450 /* TxtReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07E023EF511400459450 /* TxtReader.swift */; };
 		96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07E123EF511500459450 /* PopupHandler.swift */; };
@@ -164,7 +164,6 @@
 		96FC07DE23EF50C700459450 /* TextResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResolver.swift; sourceTree = "<group>"; };
 		96FC07E023EF511400459450 /* TxtReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtReader.swift; sourceTree = "<group>"; };
 		96FC07E123EF511500459450 /* PopupHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandler.swift; sourceTree = "<group>"; };
-		96FC07E323EF511500459450 /* GifSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifSwift.swift; sourceTree = "<group>"; };
 		96FC07E423EF511500459450 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		96FC07ED23EF529B00459450 /* pokeballs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pokeballs.txt; sourceTree = "<group>"; };
 		96FC07EE23EF529B00459450 /* allGens.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = allGens.txt; sourceTree = "<group>"; };
@@ -197,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */,
+				96C37E76253B3D6800235DA4 /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				96FC07E423EF511500459450 /* Extensions.swift */,
-				96FC07E323EF511500459450 /* GifSwift.swift */,
 				96FC07E123EF511500459450 /* PopupHandler.swift */,
 				96FC07E023EF511400459450 /* TxtReader.swift */,
 				96FC07DE23EF50C700459450 /* TextResolver.swift */,
@@ -493,6 +492,7 @@
 			name = ShinyDex;
 			packageProductDependencies = (
 				9669E34923F1DF7D0048C5C5 /* FlexColorPicker */,
+				96C37E75253B3D6800235DA4 /* Gifu */,
 			);
 			productName = ShinyDex;
 			productReference = 96FC079923EF192400459450 /* ShinyDex.app */;
@@ -524,6 +524,7 @@
 			mainGroup = 96FC079023EF192400459450;
 			packageReferences = (
 				9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */,
+				96C37E74253B3D6800235DA4 /* XCRemoteSwiftPackageReference "Gifu" */,
 			);
 			productRefGroup = 96FC079A23EF192400459450 /* Products */;
 			projectDirPath = "";
@@ -571,7 +572,6 @@
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,
 				966C211424103FE30019F835 /* FontSettingsService.swift in Sources */,
-				96FC07E623EF511500459450 /* GifSwift.swift in Sources */,
 				9648AE8B24ADCAE300E819CC /* Gen2BreedingOddsService.swift in Sources */,
 				96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
@@ -840,6 +840,14 @@
 				minimumVersion = 1.3.1;
 			};
 		};
+		96C37E74253B3D6800235DA4 /* XCRemoteSwiftPackageReference "Gifu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Gifu.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -847,6 +855,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */;
 			productName = FlexColorPicker;
+		};
+		96C37E75253B3D6800235DA4 /* Gifu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96C37E74253B3D6800235DA4 /* XCRemoteSwiftPackageReference "Gifu" */;
+			productName = Gifu;
 		};
 /* End XCSwiftPackageProductDependency section */
 
