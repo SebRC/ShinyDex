@@ -163,8 +163,8 @@ class ShinyTrackerVC: UIViewController
 	fileprivate func setFonts()
 	{
 		numberLabel.font = fontSettingsService.getSmallFont()
+		encountersLabel.font = fontSettingsService.getSmallFont()
 		percentageLabel.font = fontSettingsService.getExtraSmallFont()
-		encountersLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 	
 	fileprivate func setTitle()
