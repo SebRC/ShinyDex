@@ -19,8 +19,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	let textResolver = TextResolver()
 	var selectedIndex = 0
 	var generation = 0
-	var changeCaughtBallPressed = false
-	var isAddingToHunt = false
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
 	var pokemonService = PokemonService()
@@ -159,7 +157,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	func changeCaughtButtonPressed(_ sender: UIButton)
 	{
-		changeCaughtBallPressed = true
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
@@ -189,7 +186,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			}
 			else
 			{
-				isAddingToHunt = true
 				performSegue(withIdentifier: "pokedexToHuntPickerSegue", sender: self)
 			}
 		}
@@ -285,15 +281,14 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if changeCaughtBallPressed
+		let identifier = segue.identifier
+		if identifier == "pokedexToModalSegue"
 		{
-			changeCaughtBallPressed = false
 			let destVC = segue.destination as? PokeballModalVC
 			destVC?.pokemon = pokemon
 		}
-		else if isAddingToHunt
+		else if segue.identifier == "pokedexToHuntPickerSegue"
 		{
-			isAddingToHunt = false
 			let destVC = segue.destination as? HuntPickerModalVC
 			destVC?.pokemon = pokemon
 		}

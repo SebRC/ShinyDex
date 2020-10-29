@@ -26,11 +26,6 @@ class ShinyTrackerVC: UIViewController
 	let oddsService = OddsService()
 	var percentage: Double?
 	var methodDecrement = 0
-	var setEncountersPressed = false
-	var isAddingToHunt = false
-	var infoPressed = false
-	var locationPressed = false
-	var incrementPressed = false
 	let popupHandler = PopupHandler()
 	var pokemonService = PokemonService()
 	var fontSettingsService = FontSettingsService()
@@ -269,20 +264,22 @@ class ShinyTrackerVC: UIViewController
 		}
 		else
 		{
-			isAddingToHunt = true
 			performSegue(withIdentifier: "shinyTrackerToHuntPickerSegue", sender: self)
 		}
 	}
-	
+
+	@objc fileprivate func infoButtonPressed(_ sender: Any)
+	{
+		performSegue(withIdentifier: "infoPopupSegue", sender: self)
+	}
+
 	@objc fileprivate func updateEncountersPressed(_ sender: Any)
 	{
-		setEncountersPressed = true
 		performSegue(withIdentifier: "setEncountersSegue", sender: self)
 	}
 
 	@objc fileprivate func incrementButtonPressed(_ sender: Any)
 	{
-		incrementPressed = true
 		performSegue(withIdentifier: "incrementSegue", sender: self)
 	}
 
@@ -293,41 +290,36 @@ class ShinyTrackerVC: UIViewController
 
 	@objc fileprivate func locationButtonPressed(_ sender: Any)
 	{
-		locationPressed = true
 		performSegue(withIdentifier: "locationSegue", sender: self)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if infoPressed
+		let identifier = segue.identifier
+		if identifier == "infoPopupSegue"
 		{
-			infoPressed = false
 			let destVC = segue.destination as! GameSettingsModalVC
 			destVC.pokemon = pokemon
 		}
-		else if setEncountersPressed
+		else if identifier == "setEncountersSegue"
 		{
-			setEncountersPressed = false
 			let destVC = segue.destination as! SetEncountersModalVC
 			destVC.pokemon = pokemon
 			destVC.methodDecrement = methodDecrement
 		}
-		else if isAddingToHunt
+		else if identifier == "shinyTrackerToHuntPickerSegue"
 		{
-			isAddingToHunt = false
 			let destVC = segue.destination as! HuntPickerModalVC
 			destVC.pokemon = pokemon
 		}
-		else if locationPressed
+		else if identifier == "locationSegue"
 		{
-			locationPressed = false
 			let destVC = segue.destination as! LocationVC
 			destVC.generation = pokemon!.generation
 			destVC.pokemon = pokemon
 		}
-		else if incrementPressed
+		else if identifier == "incrementSegue"
 		{
-			incrementPressed = false
 			let destVC = segue.destination as! IncrementVC
 			destVC.pokemon = pokemon
 		}
@@ -336,12 +328,6 @@ class ShinyTrackerVC: UIViewController
 			let destVC = segue.destination as! PokeballModalVC
 			destVC.pokemon = pokemon
 		}
-	}
-	
-	@objc fileprivate func infoButtonPressed(_ sender: Any)
-	{
-		infoPressed = true
-		performSegue(withIdentifier: "infoPopupSegue", sender: self)
 	}
 	
 	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)

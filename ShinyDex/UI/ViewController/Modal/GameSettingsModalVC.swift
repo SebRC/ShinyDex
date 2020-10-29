@@ -13,7 +13,6 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 	@IBOutlet weak var scrollView: UIScrollView!
 	var pokemon: Pokemon!
-	var applyPressed = false
 	var popupHandler = PopupHandler()
 	
 	override func viewDidLoad()
@@ -47,15 +46,13 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 
 	func segueActivated()
 	{
-		applyPressed = true
 		performSegue(withIdentifier: "gameSettingsToApplyToAllSegue", sender: self)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if applyPressed
+		if segue.identifier == "gameSettingsToApplyToAllSegue"
 		{
-			applyPressed = false
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
 			destVC.isFromSettings = false

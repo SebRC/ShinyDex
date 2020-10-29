@@ -20,7 +20,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var selectedIndex = 0
 	var selectedSection = 0
 	var popupHandler = PopupHandler()
-	var isEditingName = false
 	var hunts = [Hunt]()
 
 	@IBOutlet weak var createHuntButton: UIButton!
@@ -220,7 +219,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	private func editSectionHeader(sender: UIButton)
 	{
 		selectedSection = sender.tag
-		isEditingName = true
 		performSegue(withIdentifier: "huntNameEditorSegue", sender: self)
 	}
 	
@@ -326,9 +324,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if isEditingName
+		if segue.identifier == "huntNameEditorSegue"
 		{
-			isEditingName = false
 			let destVC = segue.destination as! HuntNameEditorModalVC
 			destVC.hunt = hunts[selectedSection]
 		}

@@ -15,7 +15,6 @@ class SettingsVC: UIViewController, SegueActivated
 	var popupHandler = PopupHandler()
 	var theme = Theme.Primary
 	var pokemon: Pokemon!
-	var applyPressed = false
 
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
@@ -155,9 +154,8 @@ class SettingsVC: UIViewController, SegueActivated
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if applyPressed
+		if segue.identifier == "settingsToApplyToAllSegue"
 		{
-			applyPressed = false
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
 			destVC.isFromSettings = true
@@ -211,7 +209,6 @@ class SettingsVC: UIViewController, SegueActivated
 
 	func segueActivated()
 	{
-		applyPressed = true
 		performSegue(withIdentifier: "settingsToApplyToAllSegue", sender: self)
 	}
 	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue)
