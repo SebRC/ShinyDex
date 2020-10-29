@@ -121,4 +121,9 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	{
 		nameLabel.font = fontSettingsService.getLargeFont()
 	}
+	
+	@IBAction func cancelPressed(_ sender: Any)
+	{
+		dismiss(animated: true)
+	}
 }

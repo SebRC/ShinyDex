@@ -330,9 +330,6 @@ class ShinyTrackerVC: UIViewController
 		}
 	}
 	
-	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)
-	{}
-	
 	@IBAction func save(_ unwindSegue: UIStoryboardSegue)
 	{
 		if let sourceTVC = unwindSegue.source as? PokeballModalVC
