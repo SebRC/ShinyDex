@@ -46,11 +46,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		super.viewWillAppear(animated)
 
 		huntSections = huntSectionsService.get()
-		
+		hunts = huntService.getAll()
 		setColors()
-		
 		setEncounters()
-		
 		tableView.reloadData()
 	}
 	
