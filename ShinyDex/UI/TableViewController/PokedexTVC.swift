@@ -15,28 +15,26 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
 	var slicedPokemon = [Pokemon]()
-	var hunts: [Hunt]!
+	var hunts = [Hunt]()
 	let textResolver = TextResolver()
 	var selectedIndex = 0
 	var generation = 0
-	var changeCaughtBallPressed = false
-	var isAddingToHunt = false
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
-	var pokemonService: PokemonService!
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
-	var huntService: HuntService!
-	var huntSectionsService: HuntSectionsService!
+	var pokemonService = PokemonService()
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
+	var huntService = HuntService()
+	var huntSectionsService = HuntSectionsService()
 	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
 
-		tableView.separatorColor = colorService.getSecondaryColor()
-
+		allPokemon = pokemonService.getAll()
+		hunts = huntService.getAll()
 		slicedPokemon = slicePokemonList()
-		
+
 		setUIColors()
 
 		setUpScopeBar()
@@ -61,12 +59,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	fileprivate func setUIColors()
 	{
-		navigationController?.navigationBar.backgroundColor = colorService!.getSecondaryColor()
+		navigationController?.navigationBar.backgroundColor = colorService.getSecondaryColor()
+
+		tableView.separatorColor = colorService.getSecondaryColor()
+		tableView.backgroundColor = colorService.getSecondaryColor()
 		
-		tableView.backgroundColor = colorService!.getSecondaryColor()
-		
-		searchController.searchBar.backgroundColor = colorService!.getSecondaryColor()
-		searchController.searchBar.barTintColor = colorService!.getSecondaryColor()
+		searchController.searchBar.backgroundColor = colorService.getSecondaryColor()
+		searchController.searchBar.barTintColor = colorService.getSecondaryColor()
 	}
 	
 	fileprivate func setUpScopeBar()
@@ -94,13 +93,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		
 		navigationItem.backBarButtonItem = backButton
 		
-		navigationController?.navigationBar.tintColor = colorService!.getTertiaryColor()
+		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setNavigationBarFont()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
+			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
@@ -158,7 +157,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	func changeCaughtButtonPressed(_ sender: UIButton)
 	{
-		changeCaughtBallPressed = true
 		if let indexPath = getCurrentCellIndexPath(sender)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
@@ -188,7 +186,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			}
 			else
 			{
-				isAddingToHunt = true
 				performSegue(withIdentifier: "pokedexToHuntPickerSegue", sender: self)
 			}
 		}
@@ -265,9 +262,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
 		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
-		pokemonCell.pokemonName.textColor = colorService!.getTertiaryColor()
-		pokemonCell.pokemonNumber.textColor = colorService!.getTertiaryColor()
-		pokemonCell.addToCurrentHuntButton.tintColor = colorService!.getTertiaryColor()
+		pokemonCell.pokemonName.textColor = colorService.getTertiaryColor()
+		pokemonCell.pokemonNumber.textColor = colorService.getTertiaryColor()
+		pokemonCell.addToCurrentHuntButton.tintColor = colorService.getTertiaryColor()
 		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
@@ -284,46 +281,22 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if changeCaughtBallPressed
+		let identifier = segue.identifier
+		if identifier == "pokedexToModalSegue"
 		{
-			changeCaughtBallPressed = false
 			let destVC = segue.destination as? PokeballModalVC
-			destVC?.fontSettingsService = fontSettingsService
-			setPokeballModalProperties(pokeballModalVC: destVC!)
-		}
-		else if isAddingToHunt
-		{
-			isAddingToHunt = false
-			let destVC = segue.destination as? HuntPickerModalVC
-			destVC?.pokemonService = pokemonService
-			destVC?.hunts = hunts
 			destVC?.pokemon = pokemon
-			destVC?.huntService = huntService
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.colorService = colorService
+		}
+		else if segue.identifier == "pokedexToHuntPickerSegue"
+		{
+			let destVC = segue.destination as? HuntPickerModalVC
+			destVC?.pokemon = pokemon
 		}
 		else
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.colorService = colorService
-			destVC?.allPokemon = allPokemon
-			setShinyTrackerProperties(shinyTrackerVC: destVC!)
+			destVC?.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
 		}
-	}
-	
-	fileprivate func setPokeballModalProperties(pokeballModalVC: PokeballModalVC)
-	{
-		pokeballModalVC.pokemonService = pokemonService
-		pokeballModalVC.pokemon = pokemon
-	}
-	
-	fileprivate func setShinyTrackerProperties(shinyTrackerVC: ShinyTrackerVC)
-	{
-		shinyTrackerVC.pokemonService = pokemonService
-		shinyTrackerVC.huntService = huntService
-		shinyTrackerVC.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
-		shinyTrackerVC.hunts = hunts
 	}
 	
 	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)
@@ -352,7 +325,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = colorService!.getPrimaryColor()
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)

@@ -65,10 +65,4 @@ class LoadingVC: UIViewController
 	{
 		performSegue(withIdentifier: "loadSegue", sender: self)
 	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
-		let destVC = segue.destination as? MenuTVC
-		destVC?.pokemonService = pokemonService
-	}
 }

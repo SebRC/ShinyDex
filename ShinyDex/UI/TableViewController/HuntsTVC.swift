@@ -10,21 +10,17 @@ import UIKit
 
 class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CurrentHuntCellDelegate {
 
-	var pokemonService: PokemonService!
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
-	var huntService: HuntService!
-	var huntSectionsService: HuntSectionsService!
+	var pokemonService = PokemonService()
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
+	var huntService = HuntService()
+	var huntSectionsService = HuntSectionsService()
 	var huntSections: HuntSections?
 	var encounters = 0
 	var selectedIndex = 0
 	var selectedSection = 0
 	var popupHandler = PopupHandler()
-	var isClearingCurrentHunt = false
-	var isCreatingHunt = false
-	var isEditingName = false
-	var hunts: [Hunt]!
-	var allPokemon: [Pokemon]!
+	var hunts = [Hunt]()
 
 	@IBOutlet weak var createHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
@@ -33,7 +29,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
+
+		hunts = huntService.getAll()
+		huntSections = huntSectionsService.get()
 		tableView.delegate = self
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
@@ -221,7 +219,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	private func editSectionHeader(sender: UIButton)
 	{
 		selectedSection = sender.tag
-		isEditingName = true
 		performSegue(withIdentifier: "huntNameEditorSegue", sender: self)
 	}
 	
@@ -230,19 +227,19 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		currentHuntCell.sprite.image = UIImage(named: pokemon.name.lowercased())
 		
 		currentHuntCell.nameLabel.text = pokemon.name
-		currentHuntCell.nameLabel.textColor = colorService!.getTertiaryColor()
+		currentHuntCell.nameLabel.textColor = colorService.getTertiaryColor()
 		currentHuntCell.nameLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.numberLabel.text = "No. \(String(pokemon.number + 1))"
-		currentHuntCell.numberLabel.textColor = colorService!.getTertiaryColor()
+		currentHuntCell.numberLabel.textColor = colorService.getTertiaryColor()
 		currentHuntCell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
-		currentHuntCell.encountersLabel.textColor = colorService!.getTertiaryColor()
+		currentHuntCell.encountersLabel.textColor = colorService.getTertiaryColor()
 		currentHuntCell.encountersLabel.font = fontSettingsService.getMediumFont()
 		
-		currentHuntCell.plusButton.tintColor = colorService!.getTertiaryColor()
-		currentHuntCell.minusButton.tintColor = colorService!.getTertiaryColor()
+		currentHuntCell.plusButton.tintColor = colorService.getTertiaryColor()
+		currentHuntCell.minusButton.tintColor = colorService.getTertiaryColor()
 	}
 
 	func decrementEncounters(_ sender: UIButton)
@@ -294,7 +291,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				self.encounters -= currentHunt.pokemon[indexPath.row].encounters
 				currentHunt.totalEncounters -= currentHunt.pokemon[indexPath.row].encounters
 				currentHunt.pokemon[indexPath.row].isBeingHunted = false
-				self.allPokemon[pokemonNumber].isBeingHunted = false
 				self.pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
 				currentHunt.pokemon.remove(at: indexPath.row)
 				currentHunt.indexes.removeAll{$0 == pokemonNumber}
@@ -328,53 +324,26 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if isClearingCurrentHunt
+		if segue.identifier == "huntNameEditorSegue"
 		{
-			let destVC = segue.destination as? ConfirmationModalVC
-			destVC?.huntService = huntService
-			isClearingCurrentHunt = false
-		}
-		else if isCreatingHunt
-		{
-			isCreatingHunt = false
-			let destVC = segue.destination as? CreateHuntModalVC
-			destVC?.colorService = colorService
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.huntService = huntService
-			destVC?.pokemonService = pokemonService
-			destVC?.hunts = hunts
-			destVC?.allPokemon = allPokemon
-		}
-		else if isEditingName
-		{
-			isEditingName = false
 			let destVC = segue.destination as! HuntNameEditorModalVC
-			destVC.huntService = huntService
-			destVC.colorService = colorService
-			destVC.fontSettingsService = fontSettingsService
 			destVC.hunt = hunts[selectedSection]
 		}
 		else
 		{
 			let destVC = segue.destination as? ShinyTrackerVC
-			destVC?.pokemonService = pokemonService
-			destVC?.huntService = huntService
 			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
-			destVC?.allPokemon = allPokemon
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.colorService = colorService
 		}
 	}
 	
 	@IBAction func clearCurrentHuntPressed(_ sender: Any)
 	{
-		isClearingCurrentHunt = true
 		performSegue(withIdentifier: "shinyTrackerToConfirmationModal", sender: self)
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = colorService!.getPrimaryColor()
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
@@ -384,8 +353,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		{
 			for pokemon in hunt.pokemon
 			{
-				allPokemon[pokemon.number].isBeingHunted = false
-				pokemonService.save(pokemon: allPokemon[pokemon.number])
+				pokemon.isBeingHunted = false
+				pokemonService.save(pokemon: pokemon)
 			}
 		}
 		hunts.removeAll()
@@ -415,7 +384,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 	@IBAction func createHuntButtonPressed(_ sender: Any)
 	{
-		isCreatingHunt = true
 		performSegue(withIdentifier: "createHuntSegue", sender: self)
 	}
 }

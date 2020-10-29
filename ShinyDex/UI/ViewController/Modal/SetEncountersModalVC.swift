@@ -13,7 +13,6 @@ class SetEncountersModalVC: UIViewController
 	@IBOutlet weak var setEncountersView: SetEncountersView!
 	
 	var pokemon: Pokemon!
-	var pokemonService: PokemonService!
 	var methodDecrement: Int!
 	var textResolver = TextResolver()
 	

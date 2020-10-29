@@ -18,7 +18,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokeballs = [Pokeball]()
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
-	var pokemonService: PokemonService!
+	var pokemonService = PokemonService()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var modalPosition: CGRect!
@@ -120,5 +120,10 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	fileprivate func setNameLabelFont(nameLabel: UILabel)
 	{
 		nameLabel.font = fontSettingsService.getLargeFont()
+	}
+	
+	@IBAction func cancelPressed(_ sender: Any)
+	{
+		dismiss(animated: true)
 	}
 }
