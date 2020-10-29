@@ -10,13 +10,13 @@ import UIKit
 
 class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
-	var hunts: [Hunt]!
+	var hunts = [Hunt]()
 	var pickedHuntName: String?
 	var pokemon: Pokemon!
-	var pokemonService: PokemonService!
-	var huntService: HuntService!
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
+	var pokemonService = PokemonService()
+	var huntService = HuntService()
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 
 
 	@IBOutlet weak var indicatorView: IndicatorView!
@@ -25,6 +25,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+		hunts = huntService.getAll()
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.backgroundColor = .clear

@@ -10,12 +10,11 @@ import UIKit
 
 class SettingsVC: UIViewController, SegueActivated
 {
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 	var popupHandler = PopupHandler()
 	var theme = Theme.Primary
 	var pokemon: Pokemon!
-	var allPokemon: [Pokemon]!
 	var applyPressed = false
 
 	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
@@ -60,32 +59,32 @@ class SettingsVC: UIViewController, SegueActivated
 	fileprivate func setUIColors()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
+			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
-		navigationController?.navigationBar.barTintColor = colorService!.getPrimaryColor()
+		navigationController?.navigationBar.barTintColor = colorService.getPrimaryColor()
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		navigationController?.navigationBar.tintColor = colorService!.getTertiaryColor()
+		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
 		
-		view.backgroundColor = colorService!.getSecondaryColor()
+		view.backgroundColor = colorService.getSecondaryColor()
 		
-		themeLabel.textColor = colorService!.getTertiaryColor()
+		themeLabel.textColor = colorService.getTertiaryColor()
 		
-		primaryEditButton.contentView?.backgroundColor = colorService!.getPrimaryColor()
+		primaryEditButton.contentView?.backgroundColor = colorService.getPrimaryColor()
 		
-		secondaryEditButton.contentView?.backgroundColor = colorService!.getSecondaryColor()
+		secondaryEditButton.contentView?.backgroundColor = colorService.getSecondaryColor()
 		
-		tertiaryEditButton.contentView?.backgroundColor = colorService!.getTertiaryColor()
+		tertiaryEditButton.contentView?.backgroundColor = colorService.getTertiaryColor()
 		
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor()]
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 		
-		fontLabel.textColor = colorService!.getTertiaryColor()
+		fontLabel.textColor = colorService.getTertiaryColor()
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		fontSegmentedControl.backgroundColor = colorService!.getPrimaryColor()
-		fontSegmentedControl.tintColor = colorService!.getSecondaryColor()
-		themeFontSeparator.backgroundColor = colorService!.getSecondaryColor()
+		fontSegmentedControl.backgroundColor = colorService.getPrimaryColor()
+		fontSegmentedControl.tintColor = colorService.getSecondaryColor()
+		themeFontSeparator.backgroundColor = colorService.getSecondaryColor()
 		themeSettingsBackgroundView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
@@ -104,7 +103,7 @@ class SettingsVC: UIViewController, SegueActivated
 	fileprivate func setAttributedFonts()
 	{
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService!.getTertiaryColor(),
+			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
@@ -161,7 +160,6 @@ class SettingsVC: UIViewController, SegueActivated
 			applyPressed = false
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
-			destVC.allPokemon = allPokemon
 			destVC.isFromSettings = true
 		}
 		else
@@ -170,20 +168,17 @@ class SettingsVC: UIViewController, SegueActivated
 
 			if theme == .Tertiary
 			{
-				destVC.currentColor = colorService?.getTertiaryHex()
+				destVC.currentColor = colorService.getTertiaryHex()
 			}
 			else if theme == .Primary
 			{
-				destVC.currentColor = colorService?.getPrimaryHex()
+				destVC.currentColor = colorService.getPrimaryHex()
 			}
 			else
 			{
-				destVC.currentColor = colorService?.getSecondaryHex()
+				destVC.currentColor = colorService.getSecondaryHex()
 			}
-
 			destVC.theme = theme
-			destVC.fontSettingsService = fontSettingsService
-			destVC.colorService = colorService
 		}
 
 	}

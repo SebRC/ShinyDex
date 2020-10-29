@@ -14,7 +14,7 @@ class MenuTVC: UITableViewController
 	var allPokemon = [Pokemon]()
 	var hunts = [Hunt]()
 	let textResolver = TextResolver()
-	var pokemonService: PokemonService!
+	var pokemonService = PokemonService()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
@@ -183,48 +183,16 @@ class MenuTVC: UITableViewController
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if genIndex == 8
-		{
-			let destVC = segue.destination as? HuntsTVC
-
-			setCurrentHuntRepositories(huntsTVC: destVC!)
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.colorService = colorService
-		}
-		else if genIndex == 10
+		if genIndex == 10
 		{
 			let destVC = segue.destination as? SettingsVC
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.colorService = colorService
 			destVC?.pokemon = Pokemon()
-			destVC?.allPokemon = allPokemon
 		}
 		else
 		{
 			let destVC = segue.destination as? PokedexTVC
-			destVC?.fontSettingsService = fontSettingsService
-			destVC?.colorService = colorService
-			setPokedexRepositories(pokedexTVC: destVC!)
+			destVC?.generation = genIndex
 		}
-	}
-	
-	fileprivate func setCurrentHuntRepositories(huntsTVC: HuntsTVC)
-	{
-		huntsTVC.pokemonService = pokemonService
-		huntsTVC.huntSectionsService = huntSectionsService
-		huntsTVC.huntService = huntService
-		huntsTVC.hunts = hunts
-		huntsTVC.allPokemon = allPokemon
-	}
-	
-	fileprivate func setPokedexRepositories(pokedexTVC: PokedexTVC)
-	{
-		pokedexTVC.generation = genIndex
-		pokedexTVC.pokemonService = pokemonService
-		pokedexTVC.huntService = huntService
-		pokedexTVC.huntSectionsService = huntSectionsService
-		pokedexTVC.allPokemon = allPokemon
-		pokedexTVC.hunts = hunts
 	}
 	
 	@IBAction func settingsPressed(_ sender: Any)

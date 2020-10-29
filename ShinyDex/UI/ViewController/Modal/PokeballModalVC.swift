@@ -18,7 +18,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokeballs = [Pokeball]()
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
-	var pokemonService: PokemonService!
+	var pokemonService = PokemonService()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var modalPosition: CGRect!

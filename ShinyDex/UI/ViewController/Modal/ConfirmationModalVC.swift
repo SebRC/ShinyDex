@@ -10,7 +10,7 @@ import UIKit
 
 class ConfirmationModalVC: UIViewController
 {
-	var huntService: HuntService!
+	var huntService = HuntService()
 
 	@IBOutlet weak var confirmationPopup: ConfirmationPopup!
 	

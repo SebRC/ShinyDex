@@ -22,12 +22,13 @@ class ApplyToAllVC: UIViewController
 	let colorService = ColorService()
 	let pokemonService = PokemonService()
 	var pokemon: Pokemon!
-	var allPokemon: [Pokemon]!
+	var allPokemon = [Pokemon]()
 	var isFromSettings = true
 
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+		allPokemon = pokemonService.getAll()
 		titleLabel.font = fontSettingsService.getExtraSmallFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()

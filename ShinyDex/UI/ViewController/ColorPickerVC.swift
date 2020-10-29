@@ -13,8 +13,8 @@ class ColorPickerVC: CustomColorPickerViewController
 {
 	var currentColor: Int!
 	var theme: Theme!
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 
 	@IBOutlet weak var saveButton: UIButton!
 	@IBOutlet weak var cancelButton: UIButton!

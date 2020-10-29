@@ -21,8 +21,8 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
-	var allPokemon: [Pokemon]!
-	var hunts: [Hunt]!
+	var allPokemon = [Pokemon]()
+	var hunts = [Hunt]()
 	let percentageService = PercentageService()
 	let oddsService = OddsService()
 	var percentage: Double?
@@ -33,16 +33,17 @@ class ShinyTrackerVC: UIViewController
 	var locationPressed = false
 	var incrementPressed = false
 	let popupHandler = PopupHandler()
-	var pokemonService: PokemonService!
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
-	var huntService: HuntService!
+	var pokemonService = PokemonService()
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
+	var huntService = HuntService()
 	var textResolver = TextResolver()
 	
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
+		allPokemon = pokemonService.getAll()
+		hunts = huntService.getAll()
 		setUIColors()
 		
 		roundCorners()
@@ -304,25 +305,18 @@ class ShinyTrackerVC: UIViewController
 			infoPressed = false
 			let destVC = segue.destination as! GameSettingsModalVC
 			destVC.pokemon = pokemon
-			destVC.allPokemon = allPokemon
 		}
 		else if setEncountersPressed
 		{
 			setEncountersPressed = false
 			let destVC = segue.destination as! SetEncountersModalVC
 			destVC.pokemon = pokemon
-			destVC.pokemonService = pokemonService
 			destVC.methodDecrement = methodDecrement
 		}
 		else if isAddingToHunt
 		{
 			isAddingToHunt = false
 			let destVC = segue.destination as! HuntPickerModalVC
-			destVC.huntService = huntService
-			destVC.pokemonService = pokemonService
-			destVC.fontSettingsService = fontSettingsService
-			destVC.colorService = colorService
-			destVC.hunts = hunts
 			destVC.pokemon = pokemon
 		}
 		else if locationPressed
@@ -336,22 +330,13 @@ class ShinyTrackerVC: UIViewController
 		{
 			incrementPressed = false
 			let destVC = segue.destination as! IncrementVC
-			destVC.colorService = colorService
-			destVC.fontSettingsService = fontSettingsService
-			destVC.pokemonService = pokemonService
 			destVC.pokemon = pokemon
 		}
 		else
 		{
 			let destVC = segue.destination as! PokeballModalVC
-			setPokeballModalProperties(pokeballModalVC: destVC)
+			destVC.pokemon = pokemon
 		}
-	}
-	
-	fileprivate func setPokeballModalProperties(pokeballModalVC: PokeballModalVC)
-	{
-		pokeballModalVC.pokemonService = pokemonService
-		pokeballModalVC.pokemon = pokemon
 	}
 	
 	@objc fileprivate func infoButtonPressed(_ sender: Any)

@@ -59,7 +59,6 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 			applyPressed = false
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
-			destVC.allPokemon = allPokemon
 			destVC.isFromSettings = false
 		}
 	}

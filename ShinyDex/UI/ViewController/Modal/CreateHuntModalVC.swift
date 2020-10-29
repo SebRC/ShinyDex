@@ -10,15 +10,15 @@ import UIKit
 
 class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate
 {
-	var fontSettingsService: FontSettingsService!
-	var colorService: ColorService!
-	var huntService: HuntService!
-	var pokemonService: PokemonService!
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
+	var huntService = HuntService()
+	var pokemonService = PokemonService()
 	var popupHandler = PopupHandler()
 	var filteredPokemon = [Pokemon]()
-	var allPokemon: [Pokemon]!
+	var allPokemon = [Pokemon]()
 	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
-	var hunts: [Hunt]!
+	var hunts = [Hunt]()
 
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var cancelButton: UIButton!
@@ -29,6 +29,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+		allPokemon = pokemonService.getAll()
+		hunts = huntService.getAll()
 
 		presentationController?.delegate = self
 		searchBar.delegate = self
@@ -121,8 +123,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
 		cell.nameLabel.font = fontSettingsService.getSmallFont()
 		cell.numberLabel.font = fontSettingsService.getExtraSmallFont()
-		cell.nameLabel.textColor = colorService!.getTertiaryColor()
-		cell.numberLabel.textColor = colorService!.getTertiaryColor()
+		cell.nameLabel.textColor = colorService.getTertiaryColor()
+		cell.numberLabel.textColor = colorService.getTertiaryColor()
         return cell
 	}
 
@@ -144,7 +146,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
 	{
-		cell.backgroundColor = colorService!.getPrimaryColor()
+		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 
 	func filterContentForSearchText(_ searchText: String)
