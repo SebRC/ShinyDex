@@ -33,13 +33,10 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
         super.viewDidLoad()
 
-		tableView.separatorColor = colorService.getSecondaryColor()
-
 		allPokemon = pokemonService.getAll()
 		hunts = huntService.getAll()
-
 		slicedPokemon = slicePokemonList()
-		
+
 		setUIColors()
 
 		setUpScopeBar()
@@ -65,7 +62,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	fileprivate func setUIColors()
 	{
 		navigationController?.navigationBar.backgroundColor = colorService.getSecondaryColor()
-		
+
+		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = colorService.getSecondaryColor()
 		
 		searchController.searchBar.backgroundColor = colorService.getSecondaryColor()

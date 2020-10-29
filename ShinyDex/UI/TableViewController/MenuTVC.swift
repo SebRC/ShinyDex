@@ -11,7 +11,6 @@ import UIKit
 class MenuTVC: UITableViewController
 {
 	var genIndex = 0
-	var allPokemon = [Pokemon]()
 	var hunts = [Hunt]()
 	let textResolver = TextResolver()
 	var pokemonService = PokemonService()
@@ -44,8 +43,6 @@ class MenuTVC: UITableViewController
 	override func viewWillAppear(_ animated: Bool)
 	{
 		super.viewWillAppear(animated)
-
-		allPokemon = pokemonService.getAll()
 
 		hunts = huntService.getAll()
 		

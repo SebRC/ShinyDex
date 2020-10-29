@@ -14,7 +14,6 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 	@IBOutlet weak var scrollView: UIScrollView!
 	var pokemon: Pokemon!
 	var applyPressed = false
-	var allPokemon: [Pokemon]!
 	var popupHandler = PopupHandler()
 	
 	override func viewDidLoad()

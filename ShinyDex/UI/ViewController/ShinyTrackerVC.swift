@@ -21,7 +21,6 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
-	var allPokemon = [Pokemon]()
 	var hunts = [Hunt]()
 	let percentageService = PercentageService()
 	let oddsService = OddsService()
@@ -42,8 +41,8 @@ class ShinyTrackerVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		allPokemon = pokemonService.getAll()
 		hunts = huntService.getAll()
+
 		setUIColors()
 		
 		roundCorners()
