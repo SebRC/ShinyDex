@@ -75,20 +75,6 @@ extension UIColor
 
 }
 
-extension UITableViewController
-{
-	func getCurrentCellIndexPath(_ sender : UIButton) -> IndexPath?
-	{
-		let buttonPosition = sender.convert(CGPoint.zero, to : tableView)
-		if let indexPath = tableView.indexPathForRow(at: buttonPosition)
-		{
-			return indexPath
-		}
-
-		return nil
-	}
-}
-
 extension UIButton
 {
   func underline()

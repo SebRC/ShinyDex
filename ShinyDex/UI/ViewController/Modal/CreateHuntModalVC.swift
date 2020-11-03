@@ -169,16 +169,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		return searchBar.text?.isEmpty ?? true
 	}
 
-	func getCurrentCellIndexPath(_ sender : UIButton) -> IndexPath?
-	{
-		let buttonPosition = sender.convert(CGPoint.zero, to : tableView)
-		if let indexPath = tableView.indexPathForRow(at: buttonPosition)
-		{
-			return indexPath
-		}
-		return nil
-	}
-
 	@IBAction func cancelPressed(_ sender: Any)
 	{
 		markSelectedPokemonAsNotHunted()
