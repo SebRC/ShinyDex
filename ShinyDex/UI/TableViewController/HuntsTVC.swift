@@ -362,12 +362,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 	@IBAction func createHuntConfirm(_ unwindSegue: UIStoryboardSegue)
 	{
-		if let source = unwindSegue.source as? CreateHuntModalVC
-		{
-			hunts = source.hunts
-			tableView.reloadData()
-			setEncounters()
-		}
+		hunts = huntService.getAll()
+		tableView.reloadData()
+		setEncounters()
 		clearCurrentHuntButton.isEnabled = true
 	}
 
