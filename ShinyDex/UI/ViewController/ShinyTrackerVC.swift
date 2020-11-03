@@ -84,10 +84,6 @@ class ShinyTrackerVC: UIViewController
 		{
 			methodDecrement = 999
 		}
-		else if pokemon!.generation == 8 && pokemon!.huntMethod != .Masuda
-		{
-			methodDecrement = 500
-		}
 		else
 		{
 			methodDecrement = 0
