@@ -11,7 +11,6 @@ import Foundation
 class OddsService
 {
 	fileprivate let lgpeOddsService = LGPEOddsService()
-	fileprivate let gen8OddsService = Gen8OddsService()
 	fileprivate let masudaOddsService = MasudaOddsService()
 	fileprivate let gen2BreedingOddsService = Gen2BreedingOddsService()
 	fileprivate let friendSafariOddsService = FriendSafariOddsService()
@@ -50,13 +49,9 @@ class OddsService
 			{
 				return 4096
 			}
-			else if generation > 5 && generation < 8
+			else if generation > 5 && generation <= 8
 			{
 				return 1365
-			}
-			else if generation == 8
-			{
-				return gen8OddsService.getOdds(battles: encounters, isCharmActive: isCharmActive)
 			}
 			return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
 		}

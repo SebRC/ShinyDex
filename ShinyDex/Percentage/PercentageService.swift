@@ -18,16 +18,14 @@ class PercentageService
 	func getPercentageText(encounters: Int, shinyOdds: Int, percentage: Double, pokemon: Pokemon, methodDecrement: Int) -> String
 	{
 		let huntIsOverOdds = encounters - methodDecrement > shinyOdds
-		let methodVerb = pokemon.generation == 8 ? "Battle" : "Chain"
 
 		if pokemon.huntMethod == .Lure && encounters <= 30
 			|| pokemon.generation == 0 && encounters <= 30
 			|| pokemon.huntMethod == .Pokeradar && encounters <= 40
 			|| pokemon.huntMethod == .ChainFishing && encounters <= 20
 			|| pokemon.huntMethod == .SosChaining && encounters <= 30
-			|| pokemon.generation == 8 && pokemon.huntMethod != .Masuda && encounters <= 500
 		{
-			return " \(methodVerb) \(methodDecrement) to see percentage"
+			return " Chain \(methodDecrement) to see percentage"
 		}
 
 		if pokemon.huntMethod == .DexNav && encounters <= 999
