@@ -80,7 +80,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
 	{
 	   filterContentForSearchText(self.searchBar.text!)
-	   self.searchBar.resignFirstResponder()
 	}
 
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
@@ -90,8 +89,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
 	{
-		textField.resignFirstResponder()
-		searchBar.resignFirstResponder()
+		searchBar.searchTextField.resignFirstResponder()
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -163,7 +161,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func isFiltering() -> Bool
 	{
-		return searchBar.searchTextField.isEditing && !searchBarIsEmpty()
+		return !searchBarIsEmpty()
 	}
 
 	func searchBarIsEmpty() -> Bool
@@ -210,14 +208,9 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	fileprivate func getSelectedPokemon(index: Int) -> Pokemon
 	{
-		if isFiltering()
-		{
-			return filteredPokemon[index]
-		}
-		else
-		{
-			return allPokemon[index]
-		}
+		return isFiltering()
+			? filteredPokemon[index]
+			: allPokemon[index]
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool
