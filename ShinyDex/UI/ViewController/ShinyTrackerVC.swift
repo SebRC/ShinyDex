@@ -17,7 +17,6 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var percentageLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
 	@IBOutlet weak var buttonStrip: ButtonStrip!
-	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var gifSeparatorView: UIView!
 	
 	var pokemon: Pokemon!
@@ -51,10 +50,8 @@ class ShinyTrackerVC: UIViewController
 		setGif()
 
 		setMethodDecrement()
-	
+
 		resolveEncounterDetails()
-		
-		setNumberLabelText()
 		
 		setPokeballButtonImage()
 
@@ -127,9 +124,6 @@ class ShinyTrackerVC: UIViewController
 	{
 		view.backgroundColor = colorService.getPrimaryColor()
 		
-		numberLabel.backgroundColor = colorService.getSecondaryColor()
-		numberLabel.textColor = colorService.getTertiaryColor()
-		
 		encountersLabel.backgroundColor = colorService.getSecondaryColor()
 		encountersLabel.textColor = colorService.getTertiaryColor()
 		
@@ -144,7 +138,6 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func roundCorners()
 	{
-		numberLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		encountersLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		percentageLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		gifSeparatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
@@ -157,7 +150,6 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setFonts()
 	{
-		numberLabel.font = fontSettingsService.getSmallFont()
 		encountersLabel.font = fontSettingsService.getSmallFont()
 		percentageLabel.font = fontSettingsService.getExtraSmallFont()
 	}
@@ -191,13 +183,15 @@ class ShinyTrackerVC: UIViewController
 		setPercentage()
 		setPercentageLabelText()
 		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
+		encountersLabel.font = encountersLabel.text!.contains("999 +")
+			? fontSettingsService.getExtraSmallFont()
+			: fontSettingsService.getSmallFont()
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
 	
 	fileprivate func setPercentage()
 	{
-
 		var encounters = pokemon.encounters
 		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod, encounters: encounters)
 		encounters -= methodDecrement
@@ -212,11 +206,6 @@ class ShinyTrackerVC: UIViewController
 		percentageLabel.font = percentageLabel.text!.contains("Reach")
 		? fontSettingsService.getXxSmallFont()
 		: fontSettingsService.getExtraSmallFont()
-	}
-	
-	fileprivate func setNumberLabelText()
-	{
-		numberLabel.text = " No. \(pokemon.number + 1)"
 	}
 
 	fileprivate func setOddsLabelText()
@@ -360,9 +349,7 @@ class ShinyTrackerVC: UIViewController
 	{
 		setMethodImage()
 		setMethodDecrement()
-		setPercentage()
-		setPercentageLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
+		resolveEncounterDetails()
 		setOddsLabelText()
 	}
 
