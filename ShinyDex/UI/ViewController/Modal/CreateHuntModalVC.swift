@@ -18,7 +18,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
 	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
-	var hunts = [Hunt]()
 
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var cancelButton: UIButton!
@@ -29,8 +28,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		allPokemon = pokemonService.getAll()
-		hunts = huntService.getAll()
+		allPokemon = Array(pokemonService.getAll()[0..<893])
 
 		presentationController?.delegate = self
 		searchBar.delegate = self
@@ -207,7 +205,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 			newHunt.totalEncounters += pokemon.encounters
 		}
 		huntService.save(hunt: newHunt)
-		hunts.append(newHunt)
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
 	}
 
