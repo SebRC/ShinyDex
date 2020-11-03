@@ -32,7 +32,7 @@ class PercentageService
 
 		if pokemon.huntMethod == .DexNav && encounters <= 999
 		{
-			return " Reach search level \(methodDecrement) to see percentage"
+			return " Reach Search level \(methodDecrement) to see percentage"
 		}
 
 		if huntIsOverOdds
