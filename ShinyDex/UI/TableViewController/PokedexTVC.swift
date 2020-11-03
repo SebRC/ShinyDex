@@ -21,6 +21,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var generation = 0
 	var pokemon: Pokemon?
 	var popupHandler = PopupHandler()
+	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
@@ -157,7 +158,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	func changeCaughtButtonPressed(_ sender: UIButton)
 	{
-		if let indexPath = getCurrentCellIndexPath(sender)
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
 			
@@ -169,7 +170,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	
 	func addToHuntPressed(_ sender: UIButton)
 	{
-		if let indexPath = getCurrentCellIndexPath(sender)
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
 			pokemon = getSelectedPokemon(index: indexPath.row)
 			if hunts.isEmpty

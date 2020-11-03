@@ -10,6 +10,7 @@ import UIKit
 
 class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CurrentHuntCellDelegate {
 
+	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
@@ -242,7 +243,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 	func decrementEncounters(_ sender: UIButton)
 	{
-		if let indexPath = getCurrentCellIndexPath(sender)
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
 
@@ -257,7 +258,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	func incrementEncounters(_ sender: UIButton)
 	{
-		if let indexPath = getCurrentCellIndexPath(sender)
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
 			let increment = pokemon.useIncrementInHunts ? pokemon.increment : 1
@@ -268,17 +269,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			tableView.reloadData()
 			pokemonService.save(pokemon: pokemon)
 		}
-	}
-
-	fileprivate func getCurrentCellIndexPath(_ sender : UIButton) -> IndexPath?
-	{
-		let buttonPosition = sender.convert(CGPoint.zero, to : tableView)
-		if let indexPath = tableView.indexPathForRow(at: buttonPosition)
-		{
-			return indexPath
-		}
-
-		return nil
 	}
 
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)

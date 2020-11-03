@@ -18,6 +18,7 @@
 		9622379A24B5EC29006BBC43 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379924B5EC29006BBC43 /* Theme.swift */; };
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
+		96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96283F20255206B600E736A5 /* TableViewHelper.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
 		963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */; };
@@ -108,6 +109,7 @@
 		9622379924B5EC29006BBC43 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
+		96283F20255206B600E736A5 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
 		963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementVC.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				96FC07DE23EF50C700459450 /* TextResolver.swift */,
 				9689C72A24084FBC0007AD5D /* SwitchStateService.swift */,
 				9622379724B5E28B006BBC43 /* LocationUrlService.swift */,
+				96283F20255206B600E736A5 /* TableViewHelper.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				966C211424103FE30019F835 /* FontSettingsService.swift in Sources */,
 				9648AE8B24ADCAE300E819CC /* Gen2BreedingOddsService.swift in Sources */,
 				96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */,
+				96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
 				96C96D482444696000D30186 /* FontThemeName.swift in Sources */,
 				96A7299F245F15FF00AF3F5F /* SetEncountersView.swift in Sources */,
