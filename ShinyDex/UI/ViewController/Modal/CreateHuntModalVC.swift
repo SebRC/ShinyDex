@@ -210,7 +210,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
         return false
     }
 
-	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
+	func presentationControllerDidDismiss(_ presentationController: UIPresentationController)
 	{
 		markSelectedPokemonAsNotHunted()
 	}
