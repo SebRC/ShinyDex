@@ -36,15 +36,15 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.dataSource = self
 		textField.delegate = self
 		view.backgroundColor = colorService.getSecondaryColor()
-		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
+		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		confirmButton.isEnabled = false
-		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
+		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		textField.font = fontSettingsService.getMediumFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
