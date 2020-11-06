@@ -30,6 +30,7 @@ class ConfirmationPopup: UIView
         commonInit()
 		setConfirmationPopupFonts()
 		setColors()
+		layer.cornerRadius = CornerRadius.Standard.rawValue
     }
 	
     override init(frame: CGRect)

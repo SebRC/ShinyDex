@@ -92,9 +92,9 @@ class SettingsVC: UIViewController, SegueActivated
 		setAttributedFonts()
 		themeLabel.font = fontSettingsService.getExtraLargeFont()
 		fontLabel.font = fontSettingsService.getExtraLargeFont()
-		primaryEditButton.label.font = fontSettingsService.getXxSmallFont()
-		secondaryEditButton.label.font = fontSettingsService.getXxSmallFont()
-		tertiaryEditButton.label.font = fontSettingsService.getXxSmallFont()
+		primaryEditButton.setFont()
+		secondaryEditButton.setFont()
+		tertiaryEditButton.setFont()
 		gameSettingsContainer.setFonts()
 		gameSettingsContainer.setCellFonts()
 	}
@@ -113,9 +113,6 @@ class SettingsVC: UIViewController, SegueActivated
 	{
 		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard.rawValue
 		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		primaryEditButton.layer.cornerRadius = CornerRadius.Standard.rawValue
-		secondaryEditButton.layer.cornerRadius = CornerRadius.Standard.rawValue
-		tertiaryEditButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		themeFontSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	

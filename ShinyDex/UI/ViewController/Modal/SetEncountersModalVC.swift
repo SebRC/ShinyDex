@@ -19,20 +19,11 @@ class SetEncountersModalVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
-		roundViewCorners()
 
 		setSpriteImageView()
-		
 		setLabelTexts()
-		
 		setButtonActions()
     }
-	
-	fileprivate func roundViewCorners()
-	{
-		setEncountersView.layer.cornerRadius = CornerRadius.Standard.rawValue
-	}
 	
 	fileprivate func setSpriteImageView()
 	{

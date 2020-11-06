@@ -35,34 +35,20 @@ class ShinyTrackerVC: UIViewController
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
+
 		hunts = huntService.getAll()
-
 		setUIColors()
-		
 		roundCorners()
-		
-		roundDoubleVerticalButtonsViewCorners()
-		
 		setFonts()
-		
 		setTitle()
-		
 		setGif()
-
 		setMethodDecrement()
-
 		resolveEncounterDetails()
-		
 		setPokeballButtonImage()
-
 		setMethodImage()
-
 		setIncrementImage()
-		
 		setButtonActions()
-
 		setOddsLabelText()
-		
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 	}
 
@@ -137,11 +123,6 @@ class ShinyTrackerVC: UIViewController
 		encountersLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		percentageLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		gifSeparatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
-	}
-	
-	fileprivate func roundDoubleVerticalButtonsViewCorners()
-	{
-		buttonStrip.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
 	fileprivate func setFonts()

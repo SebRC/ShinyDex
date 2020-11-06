@@ -82,5 +82,6 @@ class ButtonStrip: UIView
 		methodMapSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		mapBallSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		ballOddsSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 }

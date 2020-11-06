@@ -1,5 +1,5 @@
 //
-//  SetEncountersView.swift
+//  ButtonIconRight.swift
 //  ShinyDexPrototype
 //
 //  Created by Sebastian Christiansen on 09/12/2019.
@@ -32,7 +32,8 @@ class ButtonIconRight: UIView
         commonInit()
 
 		setColors()
-		setFonts()
+		setFont()
+		layer.cornerRadius = CornerRadius.Standard.rawValue
     }
 	
     override init(frame: CGRect)
@@ -55,6 +56,11 @@ class ButtonIconRight: UIView
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
+
+	func setFont()
+	{
+		label.font = fontSettingsService.getXxSmallFont()
+	}
 	
 	fileprivate func setColors()
 	{
@@ -63,10 +69,5 @@ class ButtonIconRight: UIView
 		iconBackGroundView.backgroundColor = .white
 		label.backgroundColor = .white
 		label.textColor = .black
-	}
-	
-	fileprivate func setFonts()
-	{
-		label.font = fontSettingsService.getXxSmallFont()
 	}
 }
