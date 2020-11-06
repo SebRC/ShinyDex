@@ -77,7 +77,7 @@ public class PokemonRepository
 		pokemonEntity.setValue("none", forKey: "caughtBall")
 		pokemonEntity.setValue(false, forKey: "isBeingHunted")
 
-		pokemonEntity.setValue(0, forKey: "generation")
+		pokemonEntity.setValue(2, forKey: "generation")
 		pokemonEntity.setValue(false, forKey: "isShinyCharmActive")
 		pokemonEntity.setValue(8192, forKey: "shinyOdds")
 		pokemonEntity.setValue(HuntMethod.Encounters.rawValue, forKey: "huntMethod")
