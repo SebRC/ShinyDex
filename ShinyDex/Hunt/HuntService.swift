@@ -40,19 +40,6 @@ class HuntService
 		huntRepository.clear()
 	}
 
-	func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt
-	{
-		let indexes = huntEntity.value(forKey: "indexes") as! [Int]
-		let hunt = Hunt(huntEntity: huntEntity)
-		for index in indexes
-		{
-			let pokemon = allPokemon[index]
-			hunt.pokemon.append(pokemon)
-			hunt.totalEncounters += pokemon.encounters
-		}
-		return hunt
-	}
-
 	func delete(hunt: Hunt)
 	{
 		huntRepository.delete(hunt: hunt)
@@ -78,5 +65,17 @@ class HuntService
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
 		huntRepository.save(hunt: hunts[0])
+	}
+
+	fileprivate func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt
+	{
+		let hunt = Hunt(huntEntity: huntEntity)
+		for index in hunt.indexes
+		{
+			let pokemon = allPokemon[index]
+			hunt.pokemon.append(pokemon)
+			hunt.totalEncounters += pokemon.encounters
+		}
+		return hunt
 	}
 }
