@@ -47,15 +47,7 @@ class HuntRepository
 		}
 		hunt.huntEntity?.setValue(hunt.name, forKey: "name")
 		hunt.huntEntity?.setValue(hunt.indexes, forKey: "indexes")
-
-		do
-		{
-			try managedContext.save()
-		}
-		catch let error as NSError
-		{
-			print("Could not save \(hunt.name). \(error.localizedDescription)")
-		}
+		save()
 	}
 
 	func clear()
@@ -70,10 +62,24 @@ class HuntRepository
 		{
 			print("Could not clear table. \(error.localizedDescription)")
 		}
+		save()
 	}
 
 	func delete(hunt: Hunt)
 	{
 		managedContext.delete(hunt.huntEntity!)
+		save()
+	}
+
+	fileprivate func save()
+	{
+		do
+		{
+			try managedContext.save()
+		}
+		catch let error as NSError
+		{
+			print("Could not save. \(error.localizedDescription)")
+		}
 	}
 }

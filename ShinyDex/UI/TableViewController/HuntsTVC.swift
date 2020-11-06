@@ -299,8 +299,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			}
 			deleteAction.image = UIImage(systemName: "trash.circle.fill")
 			deleteAction.backgroundColor = .systemRed
-			let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-			return configuration
+			return UISwipeActionsConfiguration(actions: [deleteAction])
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
