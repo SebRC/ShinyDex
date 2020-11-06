@@ -19,8 +19,6 @@ class ConfirmationModalVC: UIViewController
         super.viewDidLoad()
 		
 		setButtonActions()
-		
-		roundConfirmationPopupViewCorners()
     }
 	
 	fileprivate func setButtonActions()
@@ -38,10 +36,5 @@ class ConfirmationModalVC: UIViewController
 	{
 		huntService.clear()
 		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
-	}
-	
-	fileprivate func roundConfirmationPopupViewCorners()
-	{
-		confirmationPopup.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 }

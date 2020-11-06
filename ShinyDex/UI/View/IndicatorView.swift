@@ -12,8 +12,10 @@ import UIKit
 class IndicatorView: UIView
 {
 	let nibName = "IndicatorView"
-    var contentView:UIView?
-	
+    var contentView: UIView?
+	fileprivate var colorService = ColorService()
+	fileprivate var fontSettingsService = FontSettingsService()
+
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var pokemonImageView: UIImageView!
 	
@@ -21,6 +23,10 @@ class IndicatorView: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
+		titleLabel.textColor = colorService.getTertiaryColor()
+		layer.cornerRadius = CornerRadius.Standard.rawValue
+		contentView?.backgroundColor = colorService.getSecondaryColor()
+		titleLabel.font = fontSettingsService.getXxSmallFont()
     }
 	
     override init(frame: CGRect)

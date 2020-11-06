@@ -38,7 +38,6 @@ class PopupView: UIView
         view.frame = self.bounds
         self.addSubview(view)
         contentView = view
-		contentView?.backgroundColor = colorService.getPrimaryColor()
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		actionLabel.textColor = colorService.getTertiaryColor()
 		iconImageView.tintColor = colorService.getTertiaryColor()
