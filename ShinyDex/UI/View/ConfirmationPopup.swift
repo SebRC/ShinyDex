@@ -15,8 +15,8 @@ class ConfirmationPopup: UIView
 	let nibName = "ConfirmationPopup"
     var contentView: UIView?
 	
-	var colorService: ColorService?
-	var fontSettingsService: FontSettingsService?
+	var colorService = ColorService()
+	var fontSettingsService = FontSettingsService()
 	
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -28,8 +28,6 @@ class ConfirmationPopup: UIView
 	{
         super.init(coder: aDecoder)
         commonInit()
-		colorService = ColorService()
-		fontSettingsService = FontSettingsService()
 		setConfirmationPopupFonts()
 		setColors()
     }
@@ -57,22 +55,22 @@ class ConfirmationPopup: UIView
 	
 	fileprivate func setConfirmationPopupFonts()
 	{
-		cancelButton.titleLabel?.font = fontSettingsService!.getSmallFont()
-		confirmButton.titleLabel?.font = fontSettingsService!.getSmallFont()
-		titleLabel.font = fontSettingsService!.getSmallFont()
-		descriptionLabel.font = fontSettingsService!.getExtraSmallFont()
+		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
+		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
+		titleLabel.font = fontSettingsService.getSmallFont()
+		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 	
 	fileprivate func setColors()
 	{
-		cancelButton.backgroundColor = colorService?.getPrimaryColor()
-		titleLabel.backgroundColor = colorService?.getPrimaryColor()
-		titleLabel.textColor = colorService?.getTertiaryColor()
-		descriptionLabel.textColor = colorService?.getTertiaryColor()
-		contentView?.backgroundColor = colorService?.getSecondaryColor()
-		buttonSeparator.backgroundColor = colorService?.getSecondaryColor()
-		confirmButton.backgroundColor = colorService?.getPrimaryColor()
-		confirmButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
-		cancelButton.setTitleColor(colorService?.getTertiaryColor(), for: .normal)
+		cancelButton.backgroundColor = colorService.getPrimaryColor()
+		titleLabel.backgroundColor = colorService.getPrimaryColor()
+		titleLabel.textColor = colorService.getTertiaryColor()
+		descriptionLabel.textColor = colorService.getTertiaryColor()
+		contentView?.backgroundColor = colorService.getSecondaryColor()
+		buttonSeparator.backgroundColor = colorService.getSecondaryColor()
+		confirmButton.backgroundColor = colorService.getPrimaryColor()
+		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 	}
 }

@@ -33,19 +33,12 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		populatePokeballList()
 		
-		roundTableViewCorners()
-		
-		roundCancelButtonCorners()
-		
-		setCancelButtonFont()
-
+		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		pokeballTableView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		pokeballTableView.separatorColor = colorService.getPrimaryColor()
 		pokeballTableView.backgroundColor = .clear
-		indicatorView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		indicatorView.backgroundColor = colorService.getSecondaryColor()
-		indicatorView.titleLabel.font = fontSettingsService.getXxSmallFont()
 		indicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
-		indicatorView.titleLabel.textColor = colorService.getTertiaryColor()
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
@@ -56,21 +49,6 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		{
 			pokeballs.append(Pokeball(ballName: pokeball))
 		}
-	}
-	
-	fileprivate func roundTableViewCorners()
-	{
-		pokeballTableView.layer.cornerRadius = CornerRadius.Standard.rawValue
-	}
-	
-	fileprivate func roundCancelButtonCorners()
-	{
-		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
-	}
-	
-	fileprivate func setCancelButtonFont()
-	{
-		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -110,16 +88,10 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setCellProperties(pokeballCell: PokeballCell, pokeball: Pokeball)
 	{
-		setNameLabelFont(nameLabel: pokeballCell.nameLabel)
-
+		pokeballCell.nameLabel.font = fontSettingsService.getLargeFont()
 		pokeballCell.pokeballImageView.image = pokeball.image
 		pokeballCell.nameLabel.text = pokeball.name
 		pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
-	}
-	
-	fileprivate func setNameLabelFont(nameLabel: UILabel)
-	{
-		nameLabel.font = fontSettingsService.getLargeFont()
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any)

@@ -636,7 +636,7 @@ Are you sure you want to do this?</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABG-IX-o9S">
-                                                    <rect key="frame" x="79" y="0.0" width="128" height="20"/>
+                                                    <rect key="frame" x="79" y="0.0" width="141" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ABG-IX-o9S" secondAttribute="height" multiplier="141:22" id="643-VS-Mg8"/>
                                                     </constraints>
@@ -674,7 +674,7 @@ Are you sure you want to do this?</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cad-sG-qz9">
-                                                    <rect key="frame" x="79" y="22" width="109" height="12"/>
+                                                    <rect key="frame" x="79" y="24" width="91" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Cad-sG-qz9" secondAttribute="height" multiplier="91:10" id="Rw8-4s-Drd"/>
                                                     </constraints>
@@ -1251,7 +1251,7 @@ Are you sure you want to do this?</string>
                                     <action selector="cancelPressed:" destination="DaS-ul-zkm" eventType="touchUpInside" id="QKr-sH-UPx"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwA-Gy-GqJ" customClass="IndicatorView" customModule="ShinyDex" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwA-Gy-GqJ" customClass="IndicatorView" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="31" y="74" width="182.5" height="56"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
