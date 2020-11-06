@@ -55,6 +55,6 @@ class ApplyToAllVC: UIViewController
 	@IBAction func confirmPressed(_ sender: Any)
 	{
 		pokemonService.applyToAll(pokemon: pokemon, allPokemon: allPokemon)
-		performSegue(withIdentifier: isFromSettings ? "applyAllUnwindToSettings" : "applyAllUnwindToGameSettings", sender: self)
+		performSegue(withIdentifier: isFromSettings ? "unwindFromSettings" : "unwindFromGameSettings", sender: self)
 	}
 }

@@ -193,7 +193,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 			newHunt.totalEncounters += pokemon.encounters
 		}
 		huntService.save(hunt: newHunt)
-		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
+		performSegue(withIdentifier: "unwindFromCreateHunt", sender: self)
 	}
 
 	fileprivate func getSelectedPokemon(index: Int) -> Pokemon

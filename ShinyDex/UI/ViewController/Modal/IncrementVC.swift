@@ -72,7 +72,7 @@ class IncrementVC: UIViewController
 	{
 		pokemon.increment = selectedIncrement
 		pokemonService.save(pokemon: pokemon)
-		performSegue(withIdentifier: "incrementUnwind", sender: self)
+		performSegue(withIdentifier: "unwindFromEditIncrement", sender: self)
 	}
 
 	fileprivate func setDescriptionText(increment: Int)

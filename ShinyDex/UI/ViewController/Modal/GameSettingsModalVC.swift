@@ -41,17 +41,17 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 
 	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
 	{
-		performSegue(withIdentifier: "infoUnwind", sender: self)
+		performSegue(withIdentifier: "unwindFromGameSettings", sender: self)
 	}
 
 	func segueActivated()
 	{
-		performSegue(withIdentifier: "gameSettingsToApplyToAllSegue", sender: self)
+		performSegue(withIdentifier: "applyToAll", sender: self)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if segue.identifier == "gameSettingsToApplyToAllSegue"
+		if segue.identifier == "applyToAll"
 		{
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon

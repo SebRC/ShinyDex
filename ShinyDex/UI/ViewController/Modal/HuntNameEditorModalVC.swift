@@ -54,7 +54,7 @@ class HuntNameEditorModalVC: UIViewController
 	{
 		hunt.name = textField.text ?? "New Hunt"
 		huntService.save(hunt: hunt)
-		performSegue(withIdentifier: "huntNameEditorUnwind", sender: self)
+		performSegue(withIdentifier: "unwindFromNameEditor", sender: self)
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any)
