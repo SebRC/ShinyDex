@@ -58,11 +58,11 @@ class LoadingVC: UIViewController
 	fileprivate func proceedAsNewUser()
 	{
 		pokemonService.populateDatabase()
-		performSegue(withIdentifier: "loadSegue", sender: self)
+		performSegue(withIdentifier: "load", sender: self)
 	}
 	
 	fileprivate func proceedAsExistingUser()
 	{
-		performSegue(withIdentifier: "loadSegue", sender: self)
+		performSegue(withIdentifier: "load", sender: self)
 	}
 }

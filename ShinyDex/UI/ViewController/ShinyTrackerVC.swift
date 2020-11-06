@@ -230,61 +230,61 @@ class ShinyTrackerVC: UIViewController
 		}
 		else
 		{
-			performSegue(withIdentifier: "shinyTrackerToHuntPickerSegue", sender: self)
+			performSegue(withIdentifier: "pickHunt", sender: self)
 		}
 	}
 
 	@objc fileprivate func infoButtonPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "infoPopupSegue", sender: self)
+		performSegue(withIdentifier: "editInfo", sender: self)
 	}
 
 	@objc fileprivate func updateEncountersPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "setEncountersSegue", sender: self)
+		performSegue(withIdentifier: "editEncounters", sender: self)
 	}
 
 	@objc fileprivate func incrementButtonPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "incrementSegue", sender: self)
+		performSegue(withIdentifier: "editIncrement", sender: self)
 	}
 
 	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "shinyTrackerToModalSegue", sender: self)
+		performSegue(withIdentifier: "pickPokeball", sender: self)
 	}
 
 	@objc fileprivate func locationButtonPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "locationSegue", sender: self)
+		performSegue(withIdentifier: "toLocation", sender: self)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
 		let identifier = segue.identifier
-		if identifier == "infoPopupSegue"
+		if identifier == "editInfo"
 		{
 			let destVC = segue.destination as! GameSettingsModalVC
 			destVC.pokemon = pokemon
 		}
-		else if identifier == "setEncountersSegue"
+		else if identifier == "editEncounters"
 		{
 			let destVC = segue.destination as! SetEncountersModalVC
 			destVC.pokemon = pokemon
 			destVC.methodDecrement = methodDecrement
 		}
-		else if identifier == "shinyTrackerToHuntPickerSegue"
+		else if identifier == "pickHunt"
 		{
 			let destVC = segue.destination as! HuntPickerModalVC
 			destVC.pokemon = pokemon
 		}
-		else if identifier == "locationSegue"
+		else if identifier == "toLocation"
 		{
 			let destVC = segue.destination as! LocationVC
 			destVC.generation = pokemon!.generation
 			destVC.pokemon = pokemon
 		}
-		else if identifier == "incrementSegue"
+		else if identifier == "editIncrement"
 		{
 			let destVC = segue.destination as! IncrementVC
 			destVC.pokemon = pokemon

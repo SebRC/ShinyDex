@@ -59,7 +59,7 @@ class ColorPickerVC: CustomColorPickerViewController
 	{
 		let color = Int(selectedColor.hexValue(), radix: 16)
 		colorService.save(hex: color!, name: theme.rawValue)
-		performSegue(withIdentifier: "colorPickerUnwind", sender: self)
+		performSegue(withIdentifier: "unwindFromColorPicker", sender: self)
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any)

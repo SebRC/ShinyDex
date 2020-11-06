@@ -35,6 +35,6 @@ class ConfirmationModalVC: UIViewController
 	@objc func confirmAction(sender: UIButton!)
 	{
 		huntService.clear()
-		performSegue(withIdentifier: "confirmUnwindSegue", sender: self)
+		performSegue(withIdentifier: "unwindFromConfirmation", sender: self)
 	}
 }

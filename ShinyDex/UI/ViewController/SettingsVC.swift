@@ -151,7 +151,7 @@ class SettingsVC: UIViewController, SegueActivated
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if segue.identifier == "settingsToApplyToAllSegue"
+		if segue.identifier == "applyToAll"
 		{
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
@@ -181,19 +181,19 @@ class SettingsVC: UIViewController, SegueActivated
 	@objc fileprivate func primaryEditButtonPressed()
 	{
 		theme = .Primary
-		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+		performSegue(withIdentifier: "pickColor", sender: self)
 	}
 	
 	@objc fileprivate func secondaryEditButtonPressed()
 	{
 		theme = .Secondary
-		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+		performSegue(withIdentifier: "pickColor", sender: self)
 	}
 	
 	@objc fileprivate func tertiaryEditButtonPressed()
 	{
 		theme = .Tertiary
-		performSegue(withIdentifier: "colorPickerSegue", sender: self)
+		performSegue(withIdentifier: "pickColor", sender: self)
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
@@ -206,7 +206,7 @@ class SettingsVC: UIViewController, SegueActivated
 
 	func segueActivated()
 	{
-		performSegue(withIdentifier: "settingsToApplyToAllSegue", sender: self)
+		performSegue(withIdentifier: "applyToAll", sender: self)
 	}
 	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue)
 	{

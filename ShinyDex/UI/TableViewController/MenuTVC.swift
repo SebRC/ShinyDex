@@ -117,11 +117,11 @@ class MenuTVC: UITableViewController
 		genIndex = indexPath.row
 		if genIndex == 8
 		{
-			performSegue(withIdentifier: "currentHuntSegue", sender: self)
+			performSegue(withIdentifier: "toHunts", sender: self)
 		}
 		else
 		{
-			performSegue(withIdentifier: "pokedexSegue", sender: self)
+			performSegue(withIdentifier: "toPokedex", sender: self)
 		}
 		
 	}
@@ -180,7 +180,7 @@ class MenuTVC: UITableViewController
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if segue.identifier == "settingsSegue"
+		if segue.identifier == "toSettings"
 		{
 			let destVC = segue.destination as? SettingsVC
 			destVC?.pokemon = Pokemon()
@@ -194,7 +194,7 @@ class MenuTVC: UITableViewController
 	
 	@IBAction func settingsPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "settingsSegue", sender: self)
+		performSegue(withIdentifier: "toSettings", sender: self)
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)

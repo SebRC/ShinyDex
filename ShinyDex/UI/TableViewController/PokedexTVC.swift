@@ -165,7 +165,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			tableView.reloadRows(at: [indexPath], with: .automatic)
 		}
 		
-		performSegue(withIdentifier: "pokedexToModalSegue", sender: self)
+		performSegue(withIdentifier: "pickPokeball", sender: self)
 	}
 	
 	func addToHuntPressed(_ sender: UIButton)
@@ -187,7 +187,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 			}
 			else
 			{
-				performSegue(withIdentifier: "pokedexToHuntPickerSegue", sender: self)
+				performSegue(withIdentifier: "pickHunt", sender: self)
 			}
 		}
 	}
@@ -277,18 +277,18 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
 	{
 		selectedIndex = indexPath.row
-		performSegue(withIdentifier: "encountersSegue", sender: nil)
+		performSegue(withIdentifier: "trackShiny", sender: nil)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
 		let identifier = segue.identifier
-		if identifier == "pokedexToModalSegue"
+		if identifier == "pickPokeball"
 		{
 			let destVC = segue.destination as? PokeballModalVC
 			destVC?.pokemon = pokemon
 		}
-		else if segue.identifier == "pokedexToHuntPickerSegue"
+		else if segue.identifier == "pickHunt"
 		{
 			let destVC = segue.destination as? HuntPickerModalVC
 			destVC?.pokemon = pokemon

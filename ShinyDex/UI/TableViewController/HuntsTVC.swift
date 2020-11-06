@@ -218,7 +218,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	private func editSectionHeader(sender: UIButton)
 	{
 		selectedSection = sender.tag
-		performSegue(withIdentifier: "huntNameEditorSegue", sender: self)
+		performSegue(withIdentifier: "editName", sender: self)
 	}
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon)
@@ -306,12 +306,12 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		selectedIndex = indexPath.row
 		selectedSection = indexPath.section
-		performSegue(withIdentifier: "encountersSegue", sender: self)
+		performSegue(withIdentifier: "trackShiny", sender: self)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 	{
-		if segue.identifier == "huntNameEditorSegue"
+		if segue.identifier == "editName"
 		{
 			let destVC = segue.destination as! HuntNameEditorModalVC
 			destVC.hunt = hunts[selectedSection]
@@ -325,7 +325,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	@IBAction func clearCurrentHuntPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "shinyTrackerToConfirmationModal", sender: self)
+		performSegue(withIdentifier: "confirmClear", sender: self)
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
@@ -368,6 +368,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 	@IBAction func createHuntButtonPressed(_ sender: Any)
 	{
-		performSegue(withIdentifier: "createHuntSegue", sender: self)
+		performSegue(withIdentifier: "createHunt", sender: self)
 	}
 }

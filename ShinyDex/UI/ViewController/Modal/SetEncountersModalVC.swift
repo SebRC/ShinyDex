@@ -54,6 +54,6 @@ class SetEncountersModalVC: UIViewController
 		setEncountersView.encountersTextField.resignFirstResponder()
 		setEncountersView.encountersTextField.text = ""
 		
-		performSegue(withIdentifier: "encountersUnwind", sender: self)
+		performSegue(withIdentifier: "unwindFromEditEncounters", sender: self)
 	}
 }

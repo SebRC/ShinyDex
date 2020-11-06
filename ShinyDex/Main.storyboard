@@ -126,8 +126,8 @@ Are you sure you want to do this?</string>
                         <outlet property="horizontalSeparator" destination="Kvm-YK-p1Z" id="R1s-1m-hMV"/>
                         <outlet property="titleLabel" destination="a6c-3c-xox" id="f7o-Gs-rEa"/>
                         <outlet property="verticalSeparator" destination="taS-ZH-vQU" id="9OB-7A-iHr"/>
-                        <segue destination="VDu-fR-9Ys" kind="unwind" identifier="applyAllUnwindToSettings" unwindAction="showSettingsConfirmation:" id="ViW-R1-P1m"/>
-                        <segue destination="VDu-fR-9Ys" kind="unwind" identifier="applyAllUnwindToGameSettings" unwindAction="showGameSettingsConfirmation:" id="Hj3-Yh-RXf"/>
+                        <segue destination="VDu-fR-9Ys" kind="unwind" identifier="unwindFromSettings" unwindAction="showSettingsConfirmation:" id="ViW-R1-P1m"/>
+                        <segue destination="VDu-fR-9Ys" kind="unwind" identifier="unwindFromGameSettings" unwindAction="showGameSettingsConfirmation:" id="Hj3-Yh-RXf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oHm-dg-hxE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -224,8 +224,8 @@ Are you sure you want to do this?</string>
                         <outlet property="themeFontSeparator" destination="uIg-nb-wgr" id="KeY-pI-HMt"/>
                         <outlet property="themeLabel" destination="obV-Pl-0xh" id="s3x-fY-5CT"/>
                         <outlet property="themeSettingsBackgroundView" destination="801-Gx-HtI" id="A0D-jB-lyd"/>
-                        <segue destination="dyA-ui-Ncu" kind="presentation" identifier="colorPickerSegue" id="SZg-GS-Keg"/>
-                        <segue destination="Kuf-5k-0pa" kind="presentation" identifier="settingsToApplyToAllSegue" id="m7y-w4-r1a"/>
+                        <segue destination="dyA-ui-Ncu" kind="presentation" identifier="pickColor" id="SZg-GS-Keg"/>
+                        <segue destination="Kuf-5k-0pa" kind="presentation" identifier="applyToAll" id="m7y-w4-r1a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOr-6u-MBY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -368,7 +368,7 @@ Are you sure you want to do this?</string>
                         <outlet property="redSlider" destination="Kt6-0I-ORB" id="fs5-s0-q1b"/>
                         <outlet property="saveButton" destination="Mz7-kV-MBm" id="Sep-s7-Djk"/>
                         <outlet property="titleLabel" destination="Pkb-S2-9ET" id="68D-jT-ZWh"/>
-                        <segue destination="RjM-2c-zD2" kind="unwind" identifier="colorPickerUnwind" unwindAction="confirm:" id="V7L-dr-ghY"/>
+                        <segue destination="RjM-2c-zD2" kind="unwind" identifier="unwindFromColorPicker" unwindAction="confirm:" id="V7L-dr-ghY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wdb-0z-AwA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -579,9 +579,9 @@ Are you sure you want to do this?</string>
                     <navigationItem key="navigationItem" title="Pokédex" id="wFS-bO-f0g"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="9Np-ox-Xbt" kind="show" identifier="encountersSegue" id="LJI-fC-w8z"/>
-                        <segue destination="DaS-ul-zkm" kind="presentation" identifier="pokedexToModalSegue" id="mSu-1U-tG2"/>
-                        <segue destination="ti9-ne-P4I" kind="presentation" identifier="pokedexToHuntPickerSegue" id="DHy-Un-iod"/>
+                        <segue destination="9Np-ox-Xbt" kind="show" identifier="trackShiny" id="LJI-fC-w8z"/>
+                        <segue destination="DaS-ul-zkm" kind="presentation" identifier="pickPokeball" id="mSu-1U-tG2"/>
+                        <segue destination="ti9-ne-P4I" kind="presentation" identifier="pickHunt" id="DHy-Un-iod"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M5b-gN-iKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -606,7 +606,7 @@ Are you sure you want to do this?</string>
                     </view>
                     <connections>
                         <outlet property="confirmationPopup" destination="Cq7-Sy-jyV" id="PMT-DT-UJ1"/>
-                        <segue destination="vlw-sC-3J3" kind="unwind" identifier="confirmUnwindSegue" unwindAction="confirm:" id="72n-Uf-N6i"/>
+                        <segue destination="vlw-sC-3J3" kind="unwind" identifier="unwindFromConfirmation" unwindAction="confirm:" id="72n-Uf-N6i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5HH-bT-d5x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -754,10 +754,10 @@ Are you sure you want to do this?</string>
                         <outlet property="clearCurrentHuntButton" destination="8a4-58-oVc" id="Klr-BM-8Nd"/>
                         <outlet property="createHuntButton" destination="pZm-OQ-P6f" id="GAi-Vu-3bK"/>
                         <outlet property="tableView" destination="Gp5-an-fuG" id="DhO-tN-76X"/>
-                        <segue destination="9Np-ox-Xbt" kind="show" identifier="encountersSegue" id="7k3-aT-9gU"/>
-                        <segue destination="Scb-Mg-GhT" kind="presentation" identifier="shinyTrackerToConfirmationModal" id="3Of-yo-EPt"/>
-                        <segue destination="zDt-dV-FrH" kind="presentation" identifier="createHuntSegue" id="DrQ-fo-fIT"/>
-                        <segue destination="ePh-sW-OTy" kind="presentation" identifier="huntNameEditorSegue" id="L8n-kh-1Ec"/>
+                        <segue destination="9Np-ox-Xbt" kind="show" identifier="trackShiny" id="7k3-aT-9gU"/>
+                        <segue destination="Scb-Mg-GhT" kind="presentation" identifier="confirmClear" id="3Of-yo-EPt"/>
+                        <segue destination="zDt-dV-FrH" kind="presentation" identifier="createHunt" id="DrQ-fo-fIT"/>
+                        <segue destination="ePh-sW-OTy" kind="presentation" identifier="editName" id="L8n-kh-1Ec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="crR-kA-Och" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -898,7 +898,7 @@ Are you sure you want to do this?</string>
                         <outlet property="searchBar" destination="50k-1o-2Cg" id="5o6-1z-Ytm"/>
                         <outlet property="tableView" destination="wVL-uN-frE" id="E2i-ns-74t"/>
                         <outlet property="textField" destination="TXa-GF-GTi" id="o1L-5E-y0i"/>
-                        <segue destination="LV8-DJ-DxX" kind="unwind" identifier="confirmUnwindSegue" unwindAction="createHuntConfirm:" id="gXn-RJ-hXw"/>
+                        <segue destination="LV8-DJ-DxX" kind="unwind" identifier="unwindFromCreateHunt" unwindAction="createHuntConfirm:" id="gXn-RJ-hXw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xsr-rZ-bNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -974,9 +974,9 @@ Are you sure you want to do this?</string>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="settingsButton" destination="YAX-wR-KFN" id="fb2-0k-36f"/>
-                        <segue destination="MpZ-nK-Pkl" kind="show" identifier="pokedexSegue" id="Yty-9N-5ir"/>
-                        <segue destination="Rot-p2-nVE" kind="show" identifier="settingsSegue" id="Zr0-Q8-5YQ"/>
-                        <segue destination="UEl-xz-2cG" kind="show" identifier="currentHuntSegue" id="W5d-KP-f2g"/>
+                        <segue destination="MpZ-nK-Pkl" kind="show" identifier="toPokedex" id="Yty-9N-5ir"/>
+                        <segue destination="Rot-p2-nVE" kind="show" identifier="toSettings" id="Zr0-Q8-5YQ"/>
+                        <segue destination="UEl-xz-2cG" kind="show" identifier="toHunts" id="W5d-KP-f2g"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0Q-g1-IuQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1094,12 +1094,12 @@ Are you sure you want to do this?</string>
                         <outlet property="minusButton" destination="XRC-EJ-od9" id="gJm-Mx-fBR"/>
                         <outlet property="percentageLabel" destination="ChG-Aa-Alk" id="jmo-Xi-GEq"/>
                         <outlet property="plusButton" destination="kUC-0o-iXh" id="ZQE-L1-U8k"/>
-                        <segue destination="DaS-ul-zkm" kind="presentation" identifier="shinyTrackerToModalSegue" id="GWK-Tp-YuW"/>
-                        <segue destination="hfA-YG-QwI" kind="presentation" identifier="infoPopupSegue" id="3DU-z9-Fvh"/>
-                        <segue destination="bTN-i7-7fD" kind="presentation" identifier="setEncountersSegue" id="EMp-OP-8UQ"/>
-                        <segue destination="ti9-ne-P4I" kind="presentation" identifier="shinyTrackerToHuntPickerSegue" id="LE8-BB-dtk"/>
-                        <segue destination="FCX-sg-VKY" kind="show" identifier="locationSegue" id="jxE-SP-MfD"/>
-                        <segue destination="Od0-22-4ap" kind="presentation" identifier="incrementSegue" id="L1T-AA-4Di"/>
+                        <segue destination="DaS-ul-zkm" kind="presentation" identifier="pickPokeball" id="GWK-Tp-YuW"/>
+                        <segue destination="hfA-YG-QwI" kind="presentation" identifier="editInfo" id="3DU-z9-Fvh"/>
+                        <segue destination="bTN-i7-7fD" kind="presentation" identifier="editEncounters" id="EMp-OP-8UQ"/>
+                        <segue destination="ti9-ne-P4I" kind="presentation" identifier="pickHunt" id="LE8-BB-dtk"/>
+                        <segue destination="FCX-sg-VKY" kind="show" identifier="toLocation" id="jxE-SP-MfD"/>
+                        <segue destination="Od0-22-4ap" kind="presentation" identifier="editIncrement" id="L1T-AA-4Di"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATd-Jv-H7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1138,8 +1138,8 @@ Are you sure you want to do this?</string>
                     <connections>
                         <outlet property="gameSettingsContainer" destination="gcR-cp-b8e" id="MPE-wo-0lY"/>
                         <outlet property="scrollView" destination="4w6-lJ-1OO" id="03W-OU-Dby"/>
-                        <segue destination="TwF-WD-934" kind="unwind" identifier="infoUnwind" unwindAction="dismissModal:" id="fL3-zu-1LC"/>
-                        <segue destination="Kuf-5k-0pa" kind="presentation" identifier="gameSettingsToApplyToAllSegue" id="m5D-ZB-ild"/>
+                        <segue destination="TwF-WD-934" kind="unwind" identifier="unwindFromGameSettings" unwindAction="dismissModal:" id="fL3-zu-1LC"/>
+                        <segue destination="Kuf-5k-0pa" kind="presentation" identifier="applyToAll" id="m5D-ZB-ild"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIa-Z0-vHF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1177,7 +1177,7 @@ Are you sure you want to do this?</string>
                     <navigationItem key="navigationItem" id="i14-au-vxq"/>
                     <connections>
                         <outlet property="loadingLabel" destination="EPF-rV-2Tn" id="YZc-op-h8D"/>
-                        <segue destination="Ffe-gu-68j" kind="show" identifier="loadSegue" id="OD8-Jc-Voo"/>
+                        <segue destination="Ffe-gu-68j" kind="show" identifier="load" id="OD8-Jc-Voo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltV-Am-htp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1404,7 +1404,7 @@ Are you sure you want to do this?</string>
                         <outlet property="textField" destination="9e2-G6-Ddu" id="rMJ-mg-nUa"/>
                         <outlet property="titleLabel" destination="lMb-2x-0tS" id="6Us-1v-Ebv"/>
                         <outlet property="verticalSeparator" destination="kTm-hY-4FP" id="wtQ-sx-SXb"/>
-                        <segue destination="nFk-Yn-l0p" kind="unwind" identifier="huntNameEditorUnwind" unwindAction="confirmHuntName:" id="SZa-ZY-9l4"/>
+                        <segue destination="nFk-Yn-l0p" kind="unwind" identifier="unwindFromNameEditor" unwindAction="confirmHuntName:" id="SZa-ZY-9l4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q1v-k1-cke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1430,7 +1430,7 @@ Are you sure you want to do this?</string>
                     </view>
                     <connections>
                         <outlet property="setEncountersView" destination="8mv-52-iFa" id="G1I-r6-bMd"/>
-                        <segue destination="v8v-79-FDU" kind="unwind" identifier="encountersUnwind" unwindAction="saveEncounters:" id="YoX-s7-1nE"/>
+                        <segue destination="v8v-79-FDU" kind="unwind" identifier="unwindFromEditEncounters" unwindAction="saveEncounters:" id="YoX-s7-1nE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YY1-OA-e9e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1584,7 +1584,7 @@ Are you sure you want to do this?</string>
                         <outlet property="modalView" destination="XnS-NM-SQv" id="ANw-tK-pla"/>
                         <outlet property="titleLabel" destination="jOP-6d-NxO" id="3mJ-xb-5s7"/>
                         <outlet property="verticalSeparator" destination="5AI-6q-dZ9" id="I1g-BS-ADO"/>
-                        <segue destination="Orb-sM-OLC" kind="unwind" identifier="incrementUnwind" unwindAction="confirmIncrement:" id="4kU-J9-uBE"/>
+                        <segue destination="Orb-sM-OLC" kind="unwind" identifier="unwindFromEditIncrement" unwindAction="confirmIncrement:" id="4kU-J9-uBE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQX-vm-DoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1613,9 +1613,9 @@ Are you sure you want to do this?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GWK-Tp-YuW"/>
+        <segue reference="mSu-1U-tG2"/>
         <segue reference="LJI-fC-w8z"/>
-        <segue reference="LE8-BB-dtk"/>
+        <segue reference="DHy-Un-iod"/>
         <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
