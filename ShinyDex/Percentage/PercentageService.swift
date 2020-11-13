@@ -35,8 +35,7 @@ class PercentageService
 
 		if huntIsOverOdds
 		{
-			let formattedPercentage = String(format: "%.2f", percentage - 100)
-			return " Hunt is \(formattedPercentage)% over odds"
+			return " Hunt has gone over odds"
 		}
 		else
 		{

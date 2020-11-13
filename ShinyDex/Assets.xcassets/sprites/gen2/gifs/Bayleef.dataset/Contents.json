@@ -1,12 +1,12 @@
 {
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
   "data" : [
     {
-      "filename" : "Bayleef.gif",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "Bayleef.gif"
     }
-  ],
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
-  }
+  ]
 }
