@@ -140,10 +140,8 @@ class ShinyTrackerVC: UIViewController
 	{
 
 		let imageAsset = NSDataAsset(name: pokemon.name)
-		print("\n\nName of asset: \(imageAsset?.name)")
 		let encoded = imageAsset?.data.base64EncodedData()
 		let decoded = Data(base64Encoded: encoded!)
-		print(decoded?.description)
 		gifImageView.animate(withGIFData: decoded!)
 //		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)")
 //		{
