@@ -138,14 +138,22 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setGif()
 	{
-		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)")
-		{
-			let data = shinyGifAsset.data
-			gifImageView.animate(withGIFData: data)
-		}
 
+		let imageAsset = NSDataAsset(name: pokemon.name)
+		print("\n\nName of asset: \(imageAsset?.name)")
+		let encoded = imageAsset?.data.base64EncodedData()
+		let decoded = Data(base64Encoded: encoded!)
+		print(decoded?.description)
+		gifImageView.animate(withGIFData: decoded!)
+//		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)")
+//		{
+//			let data = shinyGifAsset.data
+//			let encoded = data.base64EncodedData().base64EncodedString()
+//			let imageData = Data(base64Encoded: encoded)
+//			gifImageView.animate(withGIFData: imageData!)
+//		}
 	}
-	
+
 	fileprivate func setButtonActions()
 	{
 		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
