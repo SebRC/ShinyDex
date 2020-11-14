@@ -23,6 +23,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var popupHandler = PopupHandler()
 	var hunts = [Hunt]()
 
+	@IBOutlet weak var rearrangeHuntsButton: UIButton!
 	@IBOutlet weak var createHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
@@ -38,6 +39,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		view.backgroundColor = colorService.getSecondaryColor()
 		createHuntButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
+		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		setClearHuntButtonState()
 		setUpBackButton()
     }
@@ -70,6 +72,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		tableView.separatorColor = colorService.getSecondaryColor()
 		createHuntButton.backgroundColor = colorService.getPrimaryColor()
 		createHuntButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		rearrangeHuntsButton.backgroundColor = colorService.getPrimaryColor()
+		rearrangeHuntsButton.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -369,5 +373,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	@IBAction func createHuntButtonPressed(_ sender: Any)
 	{
 		performSegue(withIdentifier: "createHunt", sender: self)
+	}
+
+	@IBAction func rearrangePressed(_ sender: Any)
+	{
 	}
 }

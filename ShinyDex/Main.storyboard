@@ -722,10 +722,10 @@ Are you sure you want to do this?</string>
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZm-OQ-P6f">
-                                <rect key="frame" x="16" y="60" width="343" height="52"/>
+                                <rect key="frame" x="16" y="60" width="271" height="52"/>
                                 <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="pZm-OQ-P6f" secondAttribute="height" multiplier="343:52" id="c1v-aC-Elm"/>
+                                    <constraint firstAttribute="width" secondItem="pZm-OQ-P6f" secondAttribute="height" multiplier="343:52" constant="-72" id="c1v-aC-Elm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="17"/>
                                 <state key="normal" title="Create Hunt">
@@ -735,10 +735,24 @@ Are you sure you want to do this?</string>
                                     <action selector="createHuntButtonPressed:" destination="UEl-xz-2cG" eventType="touchUpInside" id="0eO-Y7-CHw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMl-ov-RlV">
+                                <rect key="frame" x="305.5" y="61" width="52.5" height="52"/>
+                                <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TMl-ov-RlV" secondAttribute="height" multiplier="26:27" id="7ly-59-7ug"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="arrow.up.arrow.down.square.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="rearrangePressed:" destination="UEl-xz-2cG" eventType="touchUpInside" id="qN6-DM-eri"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="TMl-ov-RlV" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="ByM-4T-7oO"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="O4M-gS-mT0"/>
-                            <constraint firstItem="pZm-OQ-P6f" firstAttribute="centerX" secondItem="Gp5-an-fuG" secondAttribute="centerX" id="bT4-yn-dJi"/>
+                            <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="17" id="VQP-NK-bpx"/>
+                            <constraint firstItem="Gp5-an-fuG" firstAttribute="top" secondItem="TMl-ov-RlV" secondAttribute="bottom" constant="18.5" id="Z9L-9a-drU"/>
+                            <constraint firstItem="pZm-OQ-P6f" firstAttribute="centerX" secondItem="Gp5-an-fuG" secondAttribute="centerX" constant="-36" id="bT4-yn-dJi"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="leading" secondItem="gI3-iF-ULM" secondAttribute="leadingMargin" id="dgk-zo-ehx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dOl-BP-Ow0"/>
@@ -753,6 +767,7 @@ Are you sure you want to do this?</string>
                     <connections>
                         <outlet property="clearCurrentHuntButton" destination="8a4-58-oVc" id="Klr-BM-8Nd"/>
                         <outlet property="createHuntButton" destination="pZm-OQ-P6f" id="GAi-Vu-3bK"/>
+                        <outlet property="rearrangeHuntsButton" destination="TMl-ov-RlV" id="dgj-OP-yhr"/>
                         <outlet property="tableView" destination="Gp5-an-fuG" id="DhO-tN-76X"/>
                         <segue destination="9Np-ox-Xbt" kind="show" identifier="trackShiny" id="7k3-aT-9gU"/>
                         <segue destination="Scb-Mg-GhT" kind="presentation" identifier="confirmClear" id="3Of-yo-EPt"/>
@@ -1614,7 +1629,7 @@ Are you sure you want to do this?</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="mSu-1U-tG2"/>
-        <segue reference="LJI-fC-w8z"/>
+        <segue reference="7k3-aT-9gU"/>
         <segue reference="DHy-Un-iod"/>
         <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>
@@ -1626,6 +1641,7 @@ Are you sure you want to do this?</string>
         <image name="4.circle.fill" catalog="system" width="128" height="121"/>
         <image name="5.circle.fill" catalog="system" width="128" height="121"/>
         <image name="6.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrow.up.arrow.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
