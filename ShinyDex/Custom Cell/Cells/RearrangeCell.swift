@@ -15,7 +15,8 @@ class RearrangeCell: UITableViewCell
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var moveUpButton: UIButton!
 	@IBOutlet weak var moveDownButton: UIButton!
-
+	@IBOutlet weak var iconImageView: UIImageView!
+	
 	@IBAction func moveUp(_ sender: UIButton)
 	{
 		cellDelegate?.moveUp(sender)

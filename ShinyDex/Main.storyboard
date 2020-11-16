@@ -299,7 +299,9 @@ Are you sure you want to do this?</string>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
+                                    <action selector="cancelButton:" destination="RjM-2c-zD2" eventType="touchUpInside" id="o1R-Zx-7Tv"/>
                                     <action selector="cancelPressed:" destination="dyA-ui-Ncu" eventType="touchUpInside" id="g5D-su-oYd"/>
+                                    <action selector="cancelPressed:" destination="RjM-2c-zD2" eventType="touchUpInside" id="jqv-yK-xwy"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing Color" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkb-S2-9ET">
@@ -319,6 +321,8 @@ Are you sure you want to do this?</string>
                                 </constraints>
                                 <state key="normal" title="Save"/>
                                 <connections>
+                                    <action selector="confirmButton:" destination="RjM-2c-zD2" eventType="touchUpInside" id="dwf-Qm-aKW"/>
+                                    <action selector="confirmPressed:" destination="RjM-2c-zD2" eventType="touchUpInside" id="fni-Nr-pvL"/>
                                     <action selector="savePressed:" destination="dyA-ui-Ncu" eventType="touchUpInside" id="cMQ-Pt-Me4"/>
                                 </connections>
                             </button>
@@ -381,23 +385,24 @@ Are you sure you want to do this?</string>
             <objects>
                 <viewController id="c71-fA-uh4" customClass="RearrangeHuntsTVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I4T-I2-xQx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EPu-ia-xVJ">
-                                <rect key="frame" x="16" y="81" width="343" height="566"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EPu-ia-xVJ">
+                                <rect key="frame" x="16" y="20" width="343" height="493"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EPu-ia-xVJ" secondAttribute="height" multiplier="343:493" id="GPB-52-28y"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rearrangeCell" rowHeight="124" id="Zkd-xc-OpX" customClass="RearrangeCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="124"/>
+                                        <rect key="frame" x="15" y="55.5" width="313" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zkd-xc-OpX" id="mh0-nk-ZHr">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="124"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="313" height="124"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbP-oD-Fnn">
-                                                    <rect key="frame" x="278" y="37" width="50" height="50"/>
+                                                    <rect key="frame" x="248" y="37" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="arrow.up.square.fill" catalog="system"/>
@@ -405,8 +410,19 @@ Are you sure you want to do this?</string>
                                                         <action selector="moveUp:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="S7S-gz-vRb"/>
                                                     </connections>
                                                 </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
+                                                    <rect key="frame" x="15" y="44" width="80" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
+                                                    <rect key="frame" x="15" y="0.0" width="180" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jON-OZ-Itl">
-                                                    <rect key="frame" x="186" y="37" width="50" height="50"/>
+                                                    <rect key="frame" x="160" y="37" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="arrow.down.square.fill" catalog="system"/>
@@ -414,16 +430,11 @@ Are you sure you want to do this?</string>
                                                         <action selector="moveDown:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="vCx-oU-8FK"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
-                                                    <rect key="frame" x="15" y="11" width="88" height="102"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="iconImageView" destination="Yh3-5o-wGz" id="hvs-PJ-9Am"/>
+                                            <outlet property="imageView" destination="Yh3-5o-wGz" id="GN3-2i-M0E"/>
                                             <outlet property="moveDownButton" destination="jON-OZ-Itl" id="oUC-To-pN3"/>
                                             <outlet property="moveUpButton" destination="bbP-oD-Fnn" id="EPY-L0-0hi"/>
                                             <outlet property="nameLabel" destination="iRO-yu-5pG" id="7H8-xV-yrx"/>
@@ -431,12 +442,47 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfx-Qg-Yh8">
+                                <rect key="frame" x="209" y="547" width="150" height="55"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wfx-Qg-Yh8" secondAttribute="height" multiplier="15:8" constant="46.875" id="5Vo-Pg-5hW"/>
+                                </constraints>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="confirmPressed:" destination="c71-fA-uh4" eventType="touchUpInside" id="o02-VZ-oSL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFR-H2-gA1">
+                                <rect key="frame" x="16" y="547" width="150" height="55"/>
+                                <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="UFR-H2-gA1" secondAttribute="height" multiplier="15:8" constant="46.875" id="VEo-e7-xyw"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="c71-fA-uh4" eventType="touchUpInside" id="Lfs-ah-Fb9"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="wfx-Qg-Yh8" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="209" id="2WO-af-PYI"/>
+                            <constraint firstItem="wfx-Qg-Yh8" firstAttribute="top" secondItem="EPu-ia-xVJ" secondAttribute="bottom" constant="34" id="Gos-cz-Fz9"/>
+                            <constraint firstItem="EPu-ia-xVJ" firstAttribute="centerX" secondItem="I4T-I2-xQx" secondAttribute="centerX" id="SpH-sx-mnP"/>
+                            <constraint firstItem="EPu-ia-xVJ" firstAttribute="top" secondItem="HGD-QH-pEF" secondAttribute="top" constant="20" id="Zpp-Ch-ciX"/>
+                            <constraint firstItem="UFR-H2-gA1" firstAttribute="top" secondItem="EPu-ia-xVJ" secondAttribute="bottom" constant="34" id="eRU-eC-4VS"/>
+                            <constraint firstItem="HGD-QH-pEF" firstAttribute="bottom" secondItem="wfx-Qg-Yh8" secondAttribute="bottom" constant="45" id="hyg-rd-Z0t"/>
+                            <constraint firstItem="HGD-QH-pEF" firstAttribute="bottom" secondItem="UFR-H2-gA1" secondAttribute="bottom" constant="45" id="oV0-Tg-syw"/>
+                            <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="wfx-Qg-Yh8" secondAttribute="trailing" constant="16" id="q8a-nV-bXN"/>
+                            <constraint firstItem="UFR-H2-gA1" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="16" id="ums-ap-l5k"/>
+                            <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="UFR-H2-gA1" secondAttribute="trailing" constant="209" id="wfx-ue-ncC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="HGD-QH-pEF"/>
                     </view>
                     <navigationItem key="navigationItem" id="MkB-e5-hwU"/>
                     <connections>
+                        <outlet property="cancelButton" destination="UFR-H2-gA1" id="XMM-GR-86P"/>
+                        <outlet property="confirmButton" destination="wfx-Qg-Yh8" id="eAJ-bN-H2I"/>
                         <outlet property="tableView" destination="EPu-ia-xVJ" id="wo5-du-SnL"/>
                     </connections>
                 </viewController>
@@ -804,25 +850,25 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMl-ov-RlV">
-                                <rect key="frame" x="305.5" y="61" width="52.5" height="52"/>
+                                <rect key="frame" x="305.5" y="60" width="52.5" height="54.5"/>
                                 <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TMl-ov-RlV" secondAttribute="height" multiplier="26:27" id="7ly-59-7ug"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="arrow.up.arrow.down.square.fill" catalog="system"/>
+                                <state key="normal" image="arrow.up.arrow.down.square.fill" catalog="system"/>
                                 <connections>
                                     <action selector="rearrangePressed:" destination="UEl-xz-2cG" eventType="touchUpInside" id="qN6-DM-eri"/>
-                                    <segue destination="c71-fA-uh4" kind="show" id="XeX-z3-fqG"/>
+                                    <segue destination="c71-fA-uh4" kind="presentation" id="XeX-z3-fqG"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="TMl-ov-RlV" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="ByM-4T-7oO"/>
+                            <constraint firstItem="TMl-ov-RlV" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="GEN-Yv-KyL"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="O4M-gS-mT0"/>
-                            <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="17" id="VQP-NK-bpx"/>
-                            <constraint firstItem="Gp5-an-fuG" firstAttribute="top" secondItem="TMl-ov-RlV" secondAttribute="bottom" constant="18.5" id="Z9L-9a-drU"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="centerX" secondItem="Gp5-an-fuG" secondAttribute="centerX" constant="-36" id="bT4-yn-dJi"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="leading" secondItem="gI3-iF-ULM" secondAttribute="leadingMargin" id="dgk-zo-ehx"/>
+                            <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="17" id="e8Q-hx-N2P"/>
+                            <constraint firstItem="TMl-ov-RlV" firstAttribute="leading" secondItem="pZm-OQ-P6f" secondAttribute="trailing" constant="18.5" id="uno-mf-Tl0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dOl-BP-Ow0"/>
                     </view>
@@ -1698,7 +1744,7 @@ Are you sure you want to do this?</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="mSu-1U-tG2"/>
-        <segue reference="7k3-aT-9gU"/>
+        <segue reference="LJI-fC-w8z"/>
         <segue reference="DHy-Un-iod"/>
         <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>

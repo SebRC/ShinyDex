@@ -40,6 +40,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		createHuntButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		rearrangeHuntsButton.isEnabled = hunts.count > 1
 		setClearHuntButtonState()
 		setUpBackButton()
     }
