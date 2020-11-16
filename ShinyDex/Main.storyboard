@@ -394,43 +394,65 @@ Are you sure you want to do this?</string>
                                     <constraint firstAttribute="width" secondItem="EPu-ia-xVJ" secondAttribute="height" multiplier="343:493" id="GPB-52-28y"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rearrangeCell" rowHeight="124" id="Zkd-xc-OpX" customClass="RearrangeCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="313" height="124"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rearrangeCell" rowHeight="125" id="Zkd-xc-OpX" customClass="RearrangeCell" customModule="ShinyDex" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="55.5" width="313" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zkd-xc-OpX" id="mh0-nk-ZHr">
-                                            <rect key="frame" x="0.0" y="0.0" width="313" height="124"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="313" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbP-oD-Fnn">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbP-oD-Fnn">
                                                     <rect key="frame" x="248" y="37" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="bbP-oD-Fnn" secondAttribute="height" multiplier="1:1" id="jjW-ct-a48"/>
+                                                    </constraints>
                                                     <state key="normal" image="arrow.up.square.fill" catalog="system"/>
                                                     <connections>
                                                         <action selector="moveUp:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="S7S-gz-vRb"/>
                                                     </connections>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
-                                                    <rect key="frame" x="15" y="44" width="80" height="80"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
+                                                    <rect key="frame" x="15" y="44.5" width="79.5" height="79.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
-                                                    <rect key="frame" x="15" y="0.0" width="180" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
+                                                    <rect key="frame" x="15" y="16.5" width="152" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="iRO-yu-5pG" secondAttribute="height" multiplier="5:1" constant="47" id="6Qn-lg-XYI"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jON-OZ-Itl">
-                                                    <rect key="frame" x="160" y="37" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jON-OZ-Itl">
+                                                    <rect key="frame" x="166" y="37" width="50" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="jON-OZ-Itl" secondAttribute="height" multiplier="1:1" id="jaO-t6-LGR"/>
+                                                    </constraints>
                                                     <state key="normal" image="arrow.down.square.fill" catalog="system"/>
                                                     <connections>
                                                         <action selector="moveDown:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="vCx-oU-8FK"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bbP-oD-Fnn" firstAttribute="trailing" secondItem="mh0-nk-ZHr" secondAttribute="trailingMargin" id="4ua-ID-tzX"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leading" constant="15" id="9g4-cq-jng"/>
+                                                <constraint firstItem="iRO-yu-5pG" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leadingMargin" id="FQJ-8w-ftw"/>
+                                                <constraint firstItem="bbP-oD-Fnn" firstAttribute="leading" secondItem="jON-OZ-Itl" secondAttribute="trailing" constant="32" id="S8g-VO-knF"/>
+                                                <constraint firstItem="jON-OZ-Itl" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="top" constant="37" id="TqG-bZ-Akp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bbP-oD-Fnn" secondAttribute="bottom" constant="27" id="UDv-Lo-mMf"/>
+                                                <constraint firstAttribute="trailing" secondItem="iRO-yu-5pG" secondAttribute="trailing" constant="146" id="Xyi-qt-9nC"/>
+                                                <constraint firstItem="iRO-yu-5pG" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" constant="5.5" id="jT7-jq-EDQ"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="7" id="k8J-0g-fjQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Yh3-5o-wGz" secondAttribute="bottom" constant="1" id="o6G-hy-lxT"/>
+                                                <constraint firstItem="bbP-oD-Fnn" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" constant="26" id="yzv-3R-2tz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="jON-OZ-Itl" secondAttribute="bottom" constant="27" id="zv2-ob-WyT"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="iconImageView" destination="Yh3-5o-wGz" id="hvs-PJ-9Am"/>
@@ -448,7 +470,7 @@ Are you sure you want to do this?</string>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wfx-Qg-Yh8" secondAttribute="height" multiplier="15:8" constant="46.875" id="5Vo-Pg-5hW"/>
                                 </constraints>
-                                <state key="normal" title="Save"/>
+                                <state key="normal" title="Confirm"/>
                                 <connections>
                                     <action selector="confirmPressed:" destination="c71-fA-uh4" eventType="touchUpInside" id="o02-VZ-oSL"/>
                                 </connections>
@@ -459,7 +481,7 @@ Are you sure you want to do this?</string>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="UFR-H2-gA1" secondAttribute="height" multiplier="15:8" constant="46.875" id="VEo-e7-xyw"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelPressed:" destination="c71-fA-uh4" eventType="touchUpInside" id="Lfs-ah-Fb9"/>
                                 </connections>
@@ -484,9 +506,11 @@ Are you sure you want to do this?</string>
                         <outlet property="cancelButton" destination="UFR-H2-gA1" id="XMM-GR-86P"/>
                         <outlet property="confirmButton" destination="wfx-Qg-Yh8" id="eAJ-bN-H2I"/>
                         <outlet property="tableView" destination="EPu-ia-xVJ" id="wo5-du-SnL"/>
+                        <segue destination="T75-nN-NhW" kind="unwind" identifier="unwindFromRearrange" unwindAction="confirmRearrange:" id="5xa-PO-rcu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8MS-OR-4Pn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="T75-nN-NhW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5461.6000000000004" y="-1446.0269865067467"/>
         </scene>
@@ -857,7 +881,6 @@ Are you sure you want to do this?</string>
                                 </constraints>
                                 <state key="normal" image="arrow.up.arrow.down.square.fill" catalog="system"/>
                                 <connections>
-                                    <action selector="rearrangePressed:" destination="UEl-xz-2cG" eventType="touchUpInside" id="qN6-DM-eri"/>
                                     <segue destination="c71-fA-uh4" kind="presentation" id="XeX-z3-fqG"/>
                                 </connections>
                             </button>
@@ -1744,7 +1767,7 @@ Are you sure you want to do this?</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="mSu-1U-tG2"/>
-        <segue reference="LJI-fC-w8z"/>
+        <segue reference="7k3-aT-9gU"/>
         <segue reference="DHy-Un-iod"/>
         <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>

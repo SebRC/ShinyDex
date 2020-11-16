@@ -371,12 +371,22 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		}
 	}
 
+	@IBAction func confirmRearrange(_ unwindSegue: UIStoryboardSegue)
+	{
+		hunts = huntService.getAll()
+		tableView.reloadData()
+	}
+
 	@IBAction func createHuntButtonPressed(_ sender: Any)
 	{
 		performSegue(withIdentifier: "createHunt", sender: self)
 	}
 
-	@IBAction func rearrangePressed(_ sender: Any)
+	fileprivate func reloadData()
 	{
+		UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+			self.tableView.reloadData()
+
+		}, completion: nil)
 	}
 }

@@ -41,7 +41,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
 	{
-		return 200.0
+		return 125.0
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -61,11 +61,12 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
 		cell.nameLabel.font = fontSettingsService.getExtraSmallFont()
 
+		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.moveUpButton.tintColor = colorService.getTertiaryColor()
-		cell.moveUpButton.backgroundColor = colorService.getPrimaryColor()
+		cell.moveUpButton.backgroundColor = colorService.getSecondaryColor()
 		cell.moveUpButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		cell.moveDownButton.tintColor = colorService.getTertiaryColor()
-		cell.moveDownButton.backgroundColor = colorService.getPrimaryColor()
+		cell.moveDownButton.backgroundColor = colorService.getSecondaryColor()
 		cell.moveDownButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 
         return cell
@@ -73,6 +74,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func moveUp(_ sender: UIButton)
 	{
+		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
 			let movedHunt = hunts[indexPath.row]
@@ -85,6 +87,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func moveDown(_ sender: UIButton)
 	{
+		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
 			let movedHunt = hunts[indexPath.row]
@@ -95,7 +98,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		reloadData()
 	}
 
-	private func reloadData()
+	fileprivate func reloadData()
 	{
 		hunts = hunts.sorted(by: { $0.priority < $1.priority})
 		UIView.transition(with: tableView, duration: 0.2, options: .transitionCrossDissolve, animations: {
@@ -106,7 +109,11 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	@IBAction func confirmPressed(_ sender: Any)
 	{
-		dismiss(animated: true)
+		for hunt in hunts
+		{
+			huntService.save(hunt: hunt)
+		}
+		performSegue(withIdentifier: "unwindFromRearrange", sender: self)
 	}
 
 	@IBAction func cancelPressed(_ sender: Any)

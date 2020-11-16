@@ -27,7 +27,7 @@ class HuntService
 		{
 			hunt.pokemon = hunt.pokemon.sorted(by: { $0.number < $1.number})
 		}
-		return hunts
+		return hunts.sorted(by: { $0.priority < $1.priority})
 	}
 
 	func save(hunt: Hunt)
