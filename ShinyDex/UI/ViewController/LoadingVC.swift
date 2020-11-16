@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JavaScriptCore
 
 class LoadingVC: UIViewController
 {
@@ -40,6 +41,8 @@ class LoadingVC: UIViewController
 		}
 		else
 		{
+			//creatBase64ImageJson()
+			//readJson()
 			proceedAsExistingUser()
 		}
     }
@@ -64,5 +67,53 @@ class LoadingVC: UIViewController
 	fileprivate func proceedAsExistingUser()
 	{
 		performSegue(withIdentifier: "load", sender: self)
+	}
+
+	fileprivate func creatBase64ImageJson()
+	{
+		// Dictionary containing data as provided in your question.
+//		case 0:
+//			return Array(allPokemon[0..<151])
+//		case 1:
+//			return Array(allPokemon[151..<251])
+//		case 2:
+//			return Array(allPokemon[251..<386])
+//		case 3:
+//			return Array(allPokemon[386..<493])
+//		case 4:
+//			return Array(allPokemon[493..<649])
+//		case 5:
+//			return Array(allPokemon[649..<721])
+//		case 6:
+//			return Array(allPokemon[721..<807])
+//		case 7:
+//			return Array(allPokemon[807..<893])
+		let allPokemon = pokemonService.getAll()
+		var dictionary : [String : String] = Dictionary()
+		let txtReader = TxtReader()
+
+		var imageAsset = NSDataAsset(name: "Totodile")
+		var encoded = ""
+		for pokemon in allPokemon[0..<151]
+		{
+			print(pokemon.number)
+			autoreleasepool
+			{
+				imageAsset = NSDataAsset(name: pokemon.name)
+				encoded = imageAsset!.data.base64EncodedString()
+				dictionary[pokemon.name] = encoded
+			}
+		}
+
+		txtReader.write(dict: dictionary)
+
+		// Working decoding
+		//let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
+	}
+
+	fileprivate func readJson()
+	{
+		let txt = TxtReader()
+		txt.parse(jsonData: txt.readJson()!)
 	}
 }

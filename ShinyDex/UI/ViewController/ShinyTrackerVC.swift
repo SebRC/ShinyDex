@@ -138,10 +138,16 @@ class ShinyTrackerVC: UIViewController
 	
 	fileprivate func setGif()
 	{
-		let imageAsset = NSDataAsset(name: pokemon.name)
-		let encoded = imageAsset?.data.base64EncodedString()
-		let decoded = Data(base64Encoded: encoded!)
+		let txt = TxtReader()
+		let decoded = Data(base64Encoded: txt.getEncodedImageBase64String())
 		gifImageView.animate(withGIFData: decoded!)
+
+
+		// Working Gif example
+//		let imageAsset = NSDataAsset(name: pokemon.name)
+//		let encoded = imageAsset?.data.base64EncodedString()
+//		let decoded = Data(base64Encoded: encoded!)
+//		gifImageView.animate(withGIFData: decoded!)
 
 
 		// Working image example
