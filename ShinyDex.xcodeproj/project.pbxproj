@@ -44,6 +44,9 @@
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
 		966C211A241174690019F835 /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2119241174690019F835 /* ColorService.swift */; };
 		966C211D24118BC50019F835 /* HuntService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211C24118BC50019F835 /* HuntService.swift */; };
+		96760A0D25629883005CAC5E /* RearrangeHuntsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */; };
+		96760A0F256299EF005CAC5E /* RearrangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96760A0E256299EF005CAC5E /* RearrangeCell.swift */; };
+		96760A1125629C61005CAC5E /* RearrangeCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96760A1025629C61005CAC5E /* RearrangeCellDelegate.swift */; };
 		967F63002465C608008F2C4B /* GameSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F62FF2465C608008F2C4B /* GameSettingsCell.swift */; };
 		967F63022465C66C008F2C4B /* GameSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967F63012465C66C008F2C4B /* GameSettingsCell.xib */; };
 		967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */; };
@@ -128,6 +131,9 @@
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
 		966C2119241174690019F835 /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
 		966C211C24118BC50019F835 /* HuntService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntService.swift; sourceTree = "<group>"; };
+		96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RearrangeHuntsTVC.swift; sourceTree = "<group>"; };
+		96760A0E256299EF005CAC5E /* RearrangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RearrangeCell.swift; sourceTree = "<group>"; };
+		96760A1025629C61005CAC5E /* RearrangeCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RearrangeCellDelegate.swift; sourceTree = "<group>"; };
 		967F62FF2465C608008F2C4B /* GameSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsCell.swift; sourceTree = "<group>"; };
 		967F63012465C66C008F2C4B /* GameSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSettingsCell.xib; sourceTree = "<group>"; };
 		967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsContainer.swift; sourceTree = "<group>"; };
@@ -369,6 +375,7 @@
 			children = (
 				96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */,
 				96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */,
+				96760A1025629C61005CAC5E /* RearrangeCellDelegate.swift */,
 			);
 			path = CellDelegates;
 			sourceTree = "<group>";
@@ -382,6 +389,7 @@
 				96FC081223EF58A500459450 /* MenuCell.swift */,
 				96435D4624561E1C00C45A00 /* CreateHuntCell.swift */,
 				96435D4A24571E8500C45A00 /* HuntPickerCell.swift */,
+				96760A0E256299EF005CAC5E /* RearrangeCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -438,6 +446,7 @@
 				963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */,
 				966478A92515362100AA50AA /* ApplyToAllVC.swift */,
 				966478AB25153FAD00AA50AA /* SegueActivated.swift */,
+				96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -598,11 +607,13 @@
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */,
+				96760A0F256299EF005CAC5E /* RearrangeCell.swift in Sources */,
 				9607F775242A92C900263CF6 /* HuntSectionsRepository.swift in Sources */,
 				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
 				966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
 				966C211D24118BC50019F835 /* HuntService.swift in Sources */,
+				96760A1125629C61005CAC5E /* RearrangeCellDelegate.swift in Sources */,
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
@@ -632,6 +643,7 @@
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
 				9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,
+				96760A0D25629883005CAC5E /* RearrangeHuntsTVC.swift in Sources */,
 				9648AE8D24AE110500E819CC /* HuntMethod.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
 				966C211A241174690019F835 /* ColorService.swift in Sources */,

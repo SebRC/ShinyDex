@@ -17,7 +17,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var popupHandler = PopupHandler()
 	var filteredPokemon = [Pokemon]()
 	var allPokemon = [Pokemon]()
-	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
+	var newHunt = Hunt(name: "New Hunt", pokemon: [Pokemon](), priority: 0)
 
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var cancelButton: UIButton!
@@ -186,6 +186,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBAction func confirmPressed(_ sender: Any)
 	{
 		newHunt.name = getHuntName()
+		newHunt.priority = getPriority()
 		newHunt.pokemon = newHunt.pokemon.sorted(by: { $0.number < $1.number})
 		for pokemon in newHunt.pokemon
 		{
@@ -194,6 +195,25 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		}
 		huntService.save(hunt: newHunt)
 		performSegue(withIdentifier: "unwindFromCreateHunt", sender: self)
+	}
+
+	private func getPriority() -> Int
+	{
+		let hunts = huntService.getAll()
+		if hunts.isEmpty
+		{
+			return 0
+		}
+		var highestPriority = 0
+		for hunt in hunts
+		{
+			if hunt.priority > highestPriority
+			{
+				highestPriority = hunt.priority
+			}
+		}
+
+		return highestPriority + 1
 	}
 
 	fileprivate func getSelectedPokemon(index: Int) -> Pokemon
