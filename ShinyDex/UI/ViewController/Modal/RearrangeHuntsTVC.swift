@@ -112,10 +112,27 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
-			let movedHunt = hunts[indexPath.row]
-			let huntBehind = hunts[indexPath.row + 1]
-			huntBehind.priority = huntBehind.priority - 1
-			movedHunt.priority = movedHunt.priority + 1
+			let pressedIndex = indexPath.row
+			let indexBehind = indexPath.row + 1
+			let movedHunt = hunts[pressedIndex]
+			let huntBehind = hunts[indexBehind]
+			let containsPressed = firstCopy.contains(pressedIndex)
+			let containsBehind = firstCopy.contains(indexBehind)
+
+			if containsPressed && !containsBehind
+			{
+				let index = firstCopy.firstIndex(of: pressedIndex)
+				firstCopy[index!] += 1
+			}
+			else if !containsPressed && containsBehind
+			{
+				let index = firstCopy.firstIndex(of: indexBehind)
+				firstCopy[index!] -= 1
+			}
+
+			huntSections?.collapsedSections = Set(firstCopy)
+			huntBehind.priority -= 1
+			movedHunt.priority += 1
 		}
 		reloadData()
 	}
