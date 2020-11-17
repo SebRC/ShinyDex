@@ -213,10 +213,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
 		}
 		huntSectionsService.save(huntSections!)
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
-		{
-			self.reloadData()
-		}
+		reloadData(duration: 0.2)
 	}
 
 	@objc
@@ -368,7 +365,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let source = unwindSegue.source as? HuntNameEditorModalVC
 		{
 			hunts[selectedSection] = source.hunt
-			reloadData()
+			tableView.reloadData()
 		}
 	}
 
@@ -384,9 +381,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		performSegue(withIdentifier: "createHunt", sender: self)
 	}
 
-	fileprivate func reloadData()
+	fileprivate func reloadData(duration: Double = 0.5)
 	{
-		UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+		UIView.transition(with: tableView, duration: duration, options: .transitionCrossDissolve, animations: {
 			self.tableView.reloadData()
 
 		}, completion: nil)
