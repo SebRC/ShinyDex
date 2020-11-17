@@ -22,6 +22,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
+	@IBOutlet weak var titleLabel: UILabel!
 
     override func viewDidLoad()
 	{
@@ -39,6 +40,9 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		titleLabel.font = fontSettingsService.getExtraLargeFont()
+		titleLabel.textColor = colorService.getTertiaryColor()
+		titleLabel.backgroundColor = .clear
 		hunts = huntService.getAll()
 		huntSections = huntSectionsService.get()
 		firstCopy = Array(huntSectionsService.get().collapsedSections)
@@ -64,7 +68,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
 
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.nameLabel.font = fontSettingsService.getExtraSmallFont()
+		cell.nameLabel.font = fontSettingsService.getMediumFont()
 
 		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.moveUpButton.tintColor = colorService.getTertiaryColor()

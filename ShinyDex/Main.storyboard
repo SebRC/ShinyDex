@@ -389,9 +389,9 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EPu-ia-xVJ">
-                                <rect key="frame" x="16" y="20" width="343" height="493"/>
+                                <rect key="frame" x="16" y="124" width="343" height="389"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="EPu-ia-xVJ" secondAttribute="height" multiplier="343:493" id="GPB-52-28y"/>
+                                    <constraint firstAttribute="width" secondItem="EPu-ia-xVJ" secondAttribute="height" multiplier="343:493" constant="72.356997971602425" id="GPB-52-28y"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rearrangeCell" rowHeight="125" id="Zkd-xc-OpX" customClass="RearrangeCell" customModule="ShinyDex" customModuleProvider="target">
@@ -475,6 +475,15 @@ Are you sure you want to do this?</string>
                                     <action selector="confirmPressed:" destination="c71-fA-uh4" eventType="touchUpInside" id="o02-VZ-oSL"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rearrange Hunts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dP-nh-Uk5">
+                                <rect key="frame" x="29" y="54" width="317" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9dP-nh-Uk5" secondAttribute="height" multiplier="317:48" constant="6.6041666666666288" id="CXh-Oe-ML4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFR-H2-gA1">
                                 <rect key="frame" x="16" y="547" width="150" height="55"/>
                                 <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -489,12 +498,15 @@ Are you sure you want to do this?</string>
                         </subviews>
                         <constraints>
                             <constraint firstItem="wfx-Qg-Yh8" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="209" id="2WO-af-PYI"/>
-                            <constraint firstItem="wfx-Qg-Yh8" firstAttribute="top" secondItem="EPu-ia-xVJ" secondAttribute="bottom" constant="34" id="Gos-cz-Fz9"/>
+                            <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="EPu-ia-xVJ" secondAttribute="trailing" constant="16" id="5Ti-RD-jxD"/>
                             <constraint firstItem="EPu-ia-xVJ" firstAttribute="centerX" secondItem="I4T-I2-xQx" secondAttribute="centerX" id="SpH-sx-mnP"/>
-                            <constraint firstItem="EPu-ia-xVJ" firstAttribute="top" secondItem="HGD-QH-pEF" secondAttribute="top" constant="20" id="Zpp-Ch-ciX"/>
-                            <constraint firstItem="UFR-H2-gA1" firstAttribute="top" secondItem="EPu-ia-xVJ" secondAttribute="bottom" constant="34" id="eRU-eC-4VS"/>
+                            <constraint firstItem="9dP-nh-Uk5" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="29" id="Vz1-lX-idB"/>
+                            <constraint firstItem="EPu-ia-xVJ" firstAttribute="top" secondItem="HGD-QH-pEF" secondAttribute="top" constant="124" id="Zpp-Ch-ciX"/>
+                            <constraint firstItem="EPu-ia-xVJ" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="16" id="aUC-gq-dwO"/>
+                            <constraint firstItem="9dP-nh-Uk5" firstAttribute="top" secondItem="HGD-QH-pEF" secondAttribute="top" constant="54" id="eyw-sl-Du7"/>
                             <constraint firstItem="HGD-QH-pEF" firstAttribute="bottom" secondItem="wfx-Qg-Yh8" secondAttribute="bottom" constant="45" id="hyg-rd-Z0t"/>
                             <constraint firstItem="HGD-QH-pEF" firstAttribute="bottom" secondItem="UFR-H2-gA1" secondAttribute="bottom" constant="45" id="oV0-Tg-syw"/>
+                            <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="9dP-nh-Uk5" secondAttribute="trailing" constant="29" id="pCI-V2-35t"/>
                             <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="wfx-Qg-Yh8" secondAttribute="trailing" constant="16" id="q8a-nV-bXN"/>
                             <constraint firstItem="UFR-H2-gA1" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="16" id="ums-ap-l5k"/>
                             <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="UFR-H2-gA1" secondAttribute="trailing" constant="209" id="wfx-ue-ncC"/>
@@ -506,6 +518,7 @@ Are you sure you want to do this?</string>
                         <outlet property="cancelButton" destination="UFR-H2-gA1" id="XMM-GR-86P"/>
                         <outlet property="confirmButton" destination="wfx-Qg-Yh8" id="eAJ-bN-H2I"/>
                         <outlet property="tableView" destination="EPu-ia-xVJ" id="wo5-du-SnL"/>
+                        <outlet property="titleLabel" destination="9dP-nh-Uk5" id="3fJ-9G-VLH"/>
                         <segue destination="T75-nN-NhW" kind="unwind" identifier="unwindFromRearrange" unwindAction="confirmRearrange:" id="5xa-PO-rcu"/>
                     </connections>
                 </viewController>
