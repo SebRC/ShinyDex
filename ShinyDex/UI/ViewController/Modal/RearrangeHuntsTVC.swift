@@ -82,29 +82,8 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
-			let pressedIndex = indexPath.row
-			let indexInFront = indexPath.row - 1
-			let movedHunt = hunts[pressedIndex]
-			let huntInFront = hunts[indexInFront]
-			let containsPressed = firstCopy.contains(pressedIndex)
-			let containsInFront = firstCopy.contains(indexInFront)
-
-			if containsPressed && !containsInFront
-			{
-				let index = firstCopy.firstIndex(of: pressedIndex)
-				firstCopy[index!] -= 1
-			}
-			else if !containsPressed && containsInFront
-			{
-				let index = firstCopy.firstIndex(of: indexInFront)
-				firstCopy[index!] += 1
-			}
-
-			huntSections?.collapsedSections = Set(firstCopy)
-			huntInFront.priority += 1
-			movedHunt.priority -= 1
+			moveHunt(row: indexPath.row, firstIncrement: -1, secondIncrement: 1)
 		}
-		reloadData()
 	}
 
 	func moveDown(_ sender: UIButton)
@@ -112,28 +91,33 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
-			let pressedIndex = indexPath.row
-			let indexBehind = indexPath.row + 1
-			let movedHunt = hunts[pressedIndex]
-			let huntBehind = hunts[indexBehind]
-			let containsPressed = firstCopy.contains(pressedIndex)
-			let containsBehind = firstCopy.contains(indexBehind)
-
-			if containsPressed && !containsBehind
-			{
-				let index = firstCopy.firstIndex(of: pressedIndex)
-				firstCopy[index!] += 1
-			}
-			else if !containsPressed && containsBehind
-			{
-				let index = firstCopy.firstIndex(of: indexBehind)
-				firstCopy[index!] -= 1
-			}
-
-			huntSections?.collapsedSections = Set(firstCopy)
-			huntBehind.priority -= 1
-			movedHunt.priority += 1
+			moveHunt(row: indexPath.row, firstIncrement: 1, secondIncrement: -1)
 		}
+	}
+
+	fileprivate func moveHunt(row: Int, firstIncrement: Int, secondIncrement: Int)
+	{
+		let pressedIndex = row
+		let adjacentIndex = row + firstIncrement
+		let movedHunt = hunts[pressedIndex]
+		let adjacentHunt = hunts[adjacentIndex]
+		let isPressedCollaped = firstCopy.contains(pressedIndex)
+		let isAdjacentCollapsed = firstCopy.contains(adjacentIndex)
+
+		if isPressedCollaped && !isAdjacentCollapsed
+		{
+			let index = firstCopy.firstIndex(of: pressedIndex)
+			firstCopy[index!] += firstIncrement
+		}
+		else if !isPressedCollaped && isAdjacentCollapsed
+		{
+			let index = firstCopy.firstIndex(of: adjacentIndex)
+			firstCopy[index!] += secondIncrement
+		}
+
+		huntSections?.collapsedSections = Set(firstCopy)
+		adjacentHunt.priority += secondIncrement
+		movedHunt.priority += firstIncrement
 		reloadData()
 	}
 
