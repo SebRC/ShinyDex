@@ -53,7 +53,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		hunts = huntService.getAll()
 		setColors()
 		setEncounters()
-		tableView.reloadData()
+		reloadData()
 	}
 	
 	fileprivate func setClearHuntButtonState()
@@ -215,7 +215,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		huntSectionsService.save(huntSections!)
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
 		{
-			self.tableView.reloadData()
+			self.reloadData()
 		}
 	}
 
@@ -299,7 +299,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 					self.huntService.save(hunt: self.hunts[indexPath.section])
 				}
 				self.setClearHuntButtonState()
-				tableView.reloadData()
+				self.reloadData()
 				completionHandler(true)
 			}
 			deleteAction.image = UIImage(systemName: "trash.circle.fill")
@@ -350,14 +350,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			}
 		}
 		hunts.removeAll()
-		tableView.reloadData()
+		huntSectionsService.removeAll(huntSections: huntSections!)
+		reloadData()
 		setEncounters()
 	}
 
 	@IBAction func createHuntConfirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		hunts = huntService.getAll()
-		tableView.reloadData()
+		reloadData()
 		setEncounters()
 		clearCurrentHuntButton.isEnabled = true
 	}
@@ -367,14 +368,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		if let source = unwindSegue.source as? HuntNameEditorModalVC
 		{
 			hunts[selectedSection] = source.hunt
-			tableView.reloadData()
+			reloadData()
 		}
 	}
 
 	@IBAction func confirmRearrange(_ unwindSegue: UIStoryboardSegue)
 	{
 		hunts = huntService.getAll()
-		tableView.reloadData()
+		huntSections = huntSectionsService.get()
+		reloadData()
 	}
 
 	@IBAction func createHuntButtonPressed(_ sender: Any)

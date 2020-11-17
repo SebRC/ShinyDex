@@ -13,8 +13,11 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	let huntService = HuntService()
 	let colorService = ColorService()
 	let fontSettingsService = FontSettingsService()
+	let huntSectionsService = HuntSectionsService()
 	let tableViewHelper = TableViewHelper()
 	var hunts = [Hunt]()
+	var huntSections: HuntSections?
+	var firstCopy = [Int]()
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var cancelButton: UIButton!
@@ -37,6 +40,8 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		hunts = huntService.getAll()
+		huntSections = huntSectionsService.get()
+		firstCopy = Array(huntSectionsService.get().collapsedSections)
     }
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -77,10 +82,27 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
-			let movedHunt = hunts[indexPath.row]
-			let huntInFront = hunts[indexPath.row - 1]
-			huntInFront.priority = huntInFront.priority + 1
-			movedHunt.priority = movedHunt.priority - 1
+			let pressedIndex = indexPath.row
+			let indexInFront = indexPath.row - 1
+			let movedHunt = hunts[pressedIndex]
+			let huntInFront = hunts[indexInFront]
+			let containsPressed = firstCopy.contains(pressedIndex)
+			let containsInFront = firstCopy.contains(indexInFront)
+
+			if containsPressed && !containsInFront
+			{
+				let index = firstCopy.firstIndex(of: pressedIndex)
+				firstCopy[index!] -= 1
+			}
+			else if !containsPressed && containsInFront
+			{
+				let index = firstCopy.firstIndex(of: indexInFront)
+				firstCopy[index!] += 1
+			}
+
+			huntSections?.collapsedSections = Set(firstCopy)
+			huntInFront.priority += 1
+			movedHunt.priority -= 1
 		}
 		reloadData()
 	}
@@ -113,6 +135,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		{
 			huntService.save(hunt: hunt)
 		}
+		huntSectionsService.save(huntSections!)
 		performSegue(withIdentifier: "unwindFromRearrange", sender: self)
 	}
 

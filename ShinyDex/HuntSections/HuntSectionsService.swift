@@ -14,12 +14,17 @@ class HuntSectionsService
 
 	func get() -> HuntSections
 	{
-		let huntSections = huntSectionsRepository.get()
-		return huntSections
+		return huntSectionsRepository.get()
 	}
 
 	func save(_ huntSections: HuntSections)
 	{
+		huntSectionsRepository.save(huntSections)
+	}
+
+	func removeAll(huntSections: HuntSections)
+	{
+		huntSections.collapsedSections.removeAll()
 		huntSectionsRepository.save(huntSections)
 	}
 }
