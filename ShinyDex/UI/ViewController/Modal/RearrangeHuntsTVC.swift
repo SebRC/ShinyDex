@@ -31,6 +31,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear
+		tableView.separatorColor = colorService.getSecondaryColor()
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
