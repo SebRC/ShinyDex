@@ -28,7 +28,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	override func viewDidLoad()
 	{
         super.viewDidLoad()
-		allPokemon = Array(pokemonService.getAll()[0..<893])
+		allPokemon = pokemonService.getAll()
 
 		presentationController?.delegate = self
 		searchBar.delegate = self

@@ -288,6 +288,20 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				self.navigationItem.title = String(self.encounters)
 				if currentHunt.pokemon.isEmpty
 				{
+					var newOrder = Set<Int>()
+					if indexPath.row != self.hunts.count - 1
+					{
+						for section in self.huntSections!.collapsedSections
+						{
+							var sectionToAdd = section
+							if section > indexPath.row
+							{
+								sectionToAdd = section - 1
+							}
+							newOrder.insert(sectionToAdd)
+						}
+					}
+					self.huntSections?.collapsedSections = newOrder
 					self.hunts.remove(at: indexPath.section)
 					self.huntService.delete(hunt: currentHunt)
 				}
