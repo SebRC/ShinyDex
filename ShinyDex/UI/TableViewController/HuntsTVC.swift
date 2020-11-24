@@ -23,6 +23,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var popupHandler = PopupHandler()
 	var hunts = [Hunt]()
 
+	@IBOutlet weak var rearrangeHuntsButton: UIButton!
 	@IBOutlet weak var createHuntButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
@@ -38,6 +39,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		view.backgroundColor = colorService.getSecondaryColor()
 		createHuntButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
+		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		rearrangeHuntsButton.isEnabled = hunts.count > 1
+		setRearrangeButtonState()
 		setClearHuntButtonState()
 		setUpBackButton()
     }
@@ -50,7 +54,12 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		hunts = huntService.getAll()
 		setColors()
 		setEncounters()
-		tableView.reloadData()
+		reloadData()
+	}
+
+	fileprivate func setRearrangeButtonState()
+	{
+		rearrangeHuntsButton.isEnabled = hunts.count > 1
 	}
 	
 	fileprivate func setClearHuntButtonState()
@@ -70,6 +79,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		tableView.separatorColor = colorService.getSecondaryColor()
 		createHuntButton.backgroundColor = colorService.getPrimaryColor()
 		createHuntButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		rearrangeHuntsButton.backgroundColor = colorService.getPrimaryColor()
+		rearrangeHuntsButton.tintColor = colorService.getTertiaryColor()
 	}
 	
 	fileprivate func setEncounters()
@@ -208,10 +219,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
 		}
 		huntSectionsService.save(huntSections!)
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
-		{
-			self.tableView.reloadData()
-		}
+		reloadData(duration: 0.2)
 	}
 
 	@objc
@@ -286,15 +294,31 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				self.navigationItem.title = String(self.encounters)
 				if currentHunt.pokemon.isEmpty
 				{
+					var newOrder = Set<Int>()
+					if indexPath.row != self.hunts.count - 1
+					{
+						for section in self.huntSections!.collapsedSections
+						{
+							var sectionToAdd = section
+							if section > indexPath.row
+							{
+								sectionToAdd = section - 1
+							}
+							newOrder.insert(sectionToAdd)
+						}
+					}
+					self.huntSections?.collapsedSections = newOrder
 					self.hunts.remove(at: indexPath.section)
 					self.huntService.delete(hunt: currentHunt)
+					self.setClearHuntButtonState()
+					self.setRearrangeButtonState()
 				}
 				else
 				{
 					self.huntService.save(hunt: self.hunts[indexPath.section])
 				}
-				self.setClearHuntButtonState()
-				tableView.reloadData()
+
+				self.reloadData()
 				completionHandler(true)
 			}
 			deleteAction.image = UIImage(systemName: "trash.circle.fill")
@@ -345,16 +369,18 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			}
 		}
 		hunts.removeAll()
-		tableView.reloadData()
+		huntSectionsService.removeAll(huntSections: huntSections!)
+		reloadData()
 		setEncounters()
 	}
 
 	@IBAction func createHuntConfirm(_ unwindSegue: UIStoryboardSegue)
 	{
 		hunts = huntService.getAll()
-		tableView.reloadData()
+		reloadData()
 		setEncounters()
-		clearCurrentHuntButton.isEnabled = true
+		setClearHuntButtonState()
+		setRearrangeButtonState()
 	}
 
 	@IBAction func confirmHuntName(_ unwindSegue: UIStoryboardSegue)
@@ -366,8 +392,23 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		}
 	}
 
+	@IBAction func confirmRearrange(_ unwindSegue: UIStoryboardSegue)
+	{
+		hunts = huntService.getAll()
+		huntSections = huntSectionsService.get()
+		reloadData()
+	}
+
 	@IBAction func createHuntButtonPressed(_ sender: Any)
 	{
 		performSegue(withIdentifier: "createHunt", sender: self)
+	}
+
+	fileprivate func reloadData(duration: Double = 0.5)
+	{
+		UIView.transition(with: tableView, duration: duration, options: .transitionCrossDissolve, animations: {
+			self.tableView.reloadData()
+
+		}, completion: nil)
 	}
 }

@@ -27,7 +27,7 @@ class HuntService
 		{
 			hunt.pokemon = hunt.pokemon.sorted(by: { $0.number < $1.number})
 		}
-		return hunts
+		return hunts.sorted(by: { $0.priority < $1.priority})
 	}
 
 	func save(hunt: Hunt)
@@ -47,7 +47,7 @@ class HuntService
 
 	func createNewHuntWithPokemon(hunts: inout [Hunt], pokemon: Pokemon)
 	{
-		let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon]())
+		let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon](), priority: 0)
 		hunt.pokemon.append(pokemon)
 		hunt.indexes.append(pokemon.number)
 		pokemon.isBeingHunted = true
