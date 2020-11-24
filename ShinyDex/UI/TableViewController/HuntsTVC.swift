@@ -41,6 +41,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.Standard.rawValue
 		rearrangeHuntsButton.isEnabled = hunts.count > 1
+		setRearrangeButtonState()
 		setClearHuntButtonState()
 		setUpBackButton()
     }
@@ -54,6 +55,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		setColors()
 		setEncounters()
 		reloadData()
+	}
+
+	fileprivate func setRearrangeButtonState()
+	{
+		rearrangeHuntsButton.isEnabled = hunts.count > 1
 	}
 	
 	fileprivate func setClearHuntButtonState()
@@ -310,6 +316,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 					self.huntService.save(hunt: self.hunts[indexPath.section])
 				}
 				self.setClearHuntButtonState()
+				self.setRearrangeButtonState()
 				self.reloadData()
 				completionHandler(true)
 			}

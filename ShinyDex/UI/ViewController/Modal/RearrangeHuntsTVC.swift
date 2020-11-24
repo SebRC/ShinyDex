@@ -62,10 +62,10 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rearrangeCell", for: indexPath) as! RearrangeCell
 		let hunt = hunts[indexPath.row]
-		cell.moveUpButton.isEnabled = hunt.priority != 0
-		cell.moveDownButton.isEnabled = hunt.priority != hunts.count - 1
+		cell.moveUpButton.isHidden = hunt.priority == 0
+		cell.moveDownButton.isHidden = hunt.priority == hunts.count - 1
 		cell.cellDelegate = self
-		cell.nameLabel.text = "\(hunt.name): \(hunt.priority)"
+		cell.nameLabel.text = "\(hunt.name)"
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
 
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
