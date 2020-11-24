@@ -419,15 +419,6 @@ Are you sure you want to do this?</string>
                                                         <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
-                                                    <rect key="frame" x="15" y="16.5" width="152" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="iRO-yu-5pG" secondAttribute="height" multiplier="5:1" constant="47" id="6Qn-lg-XYI"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jON-OZ-Itl">
                                                     <rect key="frame" x="166" y="37" width="50" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -439,6 +430,15 @@ Are you sure you want to do this?</string>
                                                         <action selector="moveDown:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="vCx-oU-8FK"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
+                                                    <rect key="frame" x="15" y="11" width="261" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="iRO-yu-5pG" secondAttribute="height" multiplier="5:1" constant="156" id="6Qn-lg-XYI"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bbP-oD-Fnn" firstAttribute="trailing" secondItem="mh0-nk-ZHr" secondAttribute="trailingMargin" id="4ua-ID-tzX"/>
@@ -447,9 +447,9 @@ Are you sure you want to do this?</string>
                                                 <constraint firstItem="bbP-oD-Fnn" firstAttribute="leading" secondItem="jON-OZ-Itl" secondAttribute="trailing" constant="32" id="S8g-VO-knF"/>
                                                 <constraint firstItem="jON-OZ-Itl" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="top" constant="37" id="TqG-bZ-Akp"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="bbP-oD-Fnn" secondAttribute="bottom" constant="27" id="UDv-Lo-mMf"/>
-                                                <constraint firstAttribute="trailing" secondItem="iRO-yu-5pG" secondAttribute="trailing" constant="146" id="Xyi-qt-9nC"/>
-                                                <constraint firstItem="iRO-yu-5pG" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" constant="5.5" id="jT7-jq-EDQ"/>
-                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="7" id="k8J-0g-fjQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="iRO-yu-5pG" secondAttribute="trailing" constant="37" id="Xyi-qt-9nC"/>
+                                                <constraint firstItem="iRO-yu-5pG" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" id="jT7-jq-EDQ"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="12.5" id="k8J-0g-fjQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="Yh3-5o-wGz" secondAttribute="bottom" constant="1" id="o6G-hy-lxT"/>
                                                 <constraint firstItem="bbP-oD-Fnn" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" constant="26" id="yzv-3R-2tz"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="jON-OZ-Itl" secondAttribute="bottom" constant="27" id="zv2-ob-WyT"/>
