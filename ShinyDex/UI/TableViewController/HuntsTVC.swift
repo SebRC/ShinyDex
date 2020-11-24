@@ -378,7 +378,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		hunts = huntService.getAll()
 		reloadData()
 		setEncounters()
-		clearCurrentHuntButton.isEnabled = true
+		setClearHuntButtonState()
+		setRearrangeButtonState()
 	}
 
 	@IBAction func confirmHuntName(_ unwindSegue: UIStoryboardSegue)
