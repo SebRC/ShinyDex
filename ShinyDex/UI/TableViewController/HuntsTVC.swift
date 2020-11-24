@@ -310,13 +310,14 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 					self.huntSections?.collapsedSections = newOrder
 					self.hunts.remove(at: indexPath.section)
 					self.huntService.delete(hunt: currentHunt)
+					self.setClearHuntButtonState()
+					self.setRearrangeButtonState()
 				}
 				else
 				{
 					self.huntService.save(hunt: self.hunts[indexPath.section])
 				}
-				self.setClearHuntButtonState()
-				self.setRearrangeButtonState()
+
 				self.reloadData()
 				completionHandler(true)
 			}
