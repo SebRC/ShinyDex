@@ -1021,7 +1021,7 @@ Are you sure you want to do this?</string>
                                     <action selector="confirmPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="8vk-GB-5Cv"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Hunt" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXa-GF-GTi">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Hunt" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TXa-GF-GTi">
                                 <rect key="frame" x="16" y="20" width="343" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TXa-GF-GTi" secondAttribute="height" multiplier="325:34" constant="-77.588235294117624" id="9rC-9R-NwV"/>
