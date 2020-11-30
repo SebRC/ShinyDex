@@ -237,6 +237,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	fileprivate func getHuntName() -> String
 	{
-		return (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? "New Hunt" : textField.text)!
+		return (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? "\(newHunt.pokemon[0].name)" : textField.text)!
 	}
 }
