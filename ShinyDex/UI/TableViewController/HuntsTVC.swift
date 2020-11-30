@@ -307,6 +307,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 							newOrder.insert(sectionToAdd)
 						}
 					}
+
+					for hunt in self.hunts
+					{
+						if hunt.priority > indexPath.row
+						{
+							hunt.priority -= 1
+							self.huntService.save(hunt: hunt)
+						}
+					}
 					self.huntSections?.collapsedSections = newOrder
 					self.hunts.remove(at: indexPath.section)
 					self.huntService.delete(hunt: currentHunt)
