@@ -65,7 +65,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.moveUpButton.isHidden = hunt.priority == 0
 		cell.moveDownButton.isHidden = hunt.priority == hunts.count - 1
 		cell.cellDelegate = self
-		cell.nameLabel.text = "\(hunt.name): \(hunt.priority)"
+		cell.nameLabel.text = hunt.name
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
 
 		cell.nameLabel.textColor = colorService.getTertiaryColor()

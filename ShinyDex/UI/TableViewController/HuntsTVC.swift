@@ -310,7 +310,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 					for hunt in self.hunts
 					{
-						if hunt.priority > indexPath.row
+						if hunt.priority > indexPath.section
 						{
 							hunt.priority -= 1
 							self.huntService.save(hunt: hunt)
