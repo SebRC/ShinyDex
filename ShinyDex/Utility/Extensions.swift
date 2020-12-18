@@ -39,7 +39,7 @@ extension CreateHuntModalVC: UISearchResultsUpdating
 
 extension CreateHuntModalVC
 {
-	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
+	func searchBar(_ searchBar: UISearchBar)
 	{
 		filterContentForSearchText(searchBar.text!)
 	}

@@ -81,21 +81,16 @@ class IncrementVC: UIViewController
 		{
 		case 1:
 			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing"
-			break
 		case 2:
 			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems"
 		case 3:
 			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent"
-			break
 		case 4:
 			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent"
-			break
 		case 5:
 			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset"
-			break
 		default:
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once"
-			break
 		}
 	}
 }

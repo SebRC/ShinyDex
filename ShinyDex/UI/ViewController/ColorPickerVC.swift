@@ -45,13 +45,10 @@ class ColorPickerVC: CustomColorPickerViewController
 		{
 		case .Primary:
 			titleLabel.text = "Primary Color"
-			break
 		case .Secondary:
 			titleLabel.text = "Secondary Color"
-			break
 		default:
 			titleLabel.text = "Tertiary Color"
-			break
 		}
 	}
 	

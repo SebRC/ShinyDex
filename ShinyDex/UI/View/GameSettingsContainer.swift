@@ -231,7 +231,6 @@ class GameSettingsContainer: UIView
 	@objc fileprivate func switchPressed(_ sender: UISwitch)
 	{
 		let tag = sender.tag
-		var activeHuntMethod = HuntMethod.Encounters
 		var selectedHuntMethod = HuntMethod.Encounters
 		var icon = UIImageView()
 		var cell = GameSettingsCell()
@@ -295,7 +294,7 @@ class GameSettingsContainer: UIView
 			cell = lureCell
 			callTurnSwitchesOff = false
 		}
-		activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
+		let activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
 		pokemon!.huntMethod = activeHuntMethod
 		setImageViewAlpha(imageView: icon, isSwitchOn: pokemon!.huntMethod == selectedHuntMethod)
 		if callTurnSwitchesOff
