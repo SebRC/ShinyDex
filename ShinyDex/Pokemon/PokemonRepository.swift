@@ -28,10 +28,9 @@ public class PokemonRepository
 	func getAll() -> [NSManagedObject]
 	{
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")
-		var pokemonEntityList = [NSManagedObject]()
 		do
 		{
-			pokemonEntityList = try managedContext.fetch(fetchRequest)
+			let pokemonEntityList = try managedContext.fetch(fetchRequest)
 			return pokemonEntityList
 		}
 		catch let error as NSError

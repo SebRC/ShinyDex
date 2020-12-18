@@ -17,7 +17,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var huntService = HuntService()
 	var huntSectionsService = HuntSectionsService()
 	var huntSections: HuntSections?
-	var encounters = 0
+	var totalEncounters = 0
 	var selectedIndex = 0
 	var selectedSection = 0
 	var popupHandler = PopupHandler()
@@ -85,8 +85,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	fileprivate func setEncounters()
 	{
-		encounters = resolveCurrentEncounters()
-		navigationItem.title = String(encounters)
+		totalEncounters = resolveCurrentEncounters()
+		navigationItem.title = String(totalEncounters)
 	}
 	
 	fileprivate func resolveCurrentEncounters() -> Int
@@ -257,8 +257,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 			hunts[indexPath.section].totalEncounters -= 1
 			pokemon.encounters -= 1
-			encounters -= 1
-			navigationItem.title = String(encounters)
+			totalEncounters -= 1
+			navigationItem.title = String(totalEncounters)
 			tableView.reloadData()
 			pokemonService.save(pokemon: pokemon)
 		}
@@ -272,8 +272,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			let increment = pokemon.useIncrementInHunts ? pokemon.increment : 1
 			hunts[indexPath.section].totalEncounters += increment
 			pokemon.encounters += increment
-			encounters += increment
-			navigationItem.title = String(encounters)
+			totalEncounters += increment
+			navigationItem.title = String(totalEncounters)
 			tableView.reloadData()
 			pokemonService.save(pokemon: pokemon)
 		}
@@ -284,14 +284,14 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
 				let currentHunt = self.hunts[indexPath.section]
 				let pokemonNumber = currentHunt.pokemon[indexPath.row].number
-				self.encounters -= currentHunt.pokemon[indexPath.row].encounters
+				self.totalEncounters -= currentHunt.pokemon[indexPath.row].encounters
 				currentHunt.totalEncounters -= currentHunt.pokemon[indexPath.row].encounters
 				currentHunt.pokemon[indexPath.row].isBeingHunted = false
 				self.pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
 				currentHunt.pokemon.remove(at: indexPath.row)
 				currentHunt.indexes.removeAll{$0 == pokemonNumber}
 				tableView.deleteRows(at: [indexPath], with: .fade)
-				self.navigationItem.title = String(self.encounters)
+				self.navigationItem.title = String(self.totalEncounters)
 				if currentHunt.pokemon.isEmpty
 				{
 					var newOrder = Set<Int>()

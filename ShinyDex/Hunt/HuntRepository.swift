@@ -26,10 +26,9 @@ class HuntRepository
 	func getAll() -> [NSManagedObject]
 	{
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
-		var huntEntities = [NSManagedObject]()
 		do
 		{
-			huntEntities = try managedContext.fetch(fetchRequest)
+			let huntEntities = try managedContext.fetch(fetchRequest)
 			return huntEntities
 		}
 		catch let error as NSError
