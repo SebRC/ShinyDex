@@ -19,7 +19,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	let textResolver = TextResolver()
 	var selectedIndex = 0
 	var generation = 0
-	var pokemon: Pokemon?
+	var selectedPokemon: Pokemon?
 	var popupHandler = PopupHandler()
 	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
@@ -160,7 +160,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
-			pokemon = getSelectedPokemon(index: indexPath.row)
+			selectedPokemon = getSelectedPokemon(index: indexPath.row)
 			
 			tableView.reloadRows(at: [indexPath], with: .automatic)
 		}
@@ -172,17 +172,17 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
 		{
-			pokemon = getSelectedPokemon(index: indexPath.row)
+			selectedPokemon = getSelectedPokemon(index: indexPath.row)
 			if hunts.isEmpty
 			{
-				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
-				popupHandler.showPopup(text: "\(pokemon!.name) was added to New Hunt.")
+				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: selectedPokemon!)
+				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to New Hunt.")
 				tableView.reloadData()
 			}
 			else if hunts.count == 1
 			{
-				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
-				popupHandler.showPopup(text: "\(pokemon!.name) was added to \(hunts[0].name).")
+				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: selectedPokemon!)
+				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(hunts[0].name).")
 				tableView.reloadData()
 			}
 			else
@@ -245,9 +245,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	{
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath) as! PokemonCell
 		cell.cellDelegate = self
-		let pokemon = getSelectedPokemon(index: indexPath.row)
-		setCellImage(pokemonCell: cell, pokemon: pokemon)
-		setPokemonCellProperties(pokemonCell: cell, pokemon: pokemon)
+		selectedPokemon = getSelectedPokemon(index: indexPath.row)
+		setCellImage(pokemonCell: cell, pokemon: selectedPokemon!)
+		setPokemonCellProperties(pokemonCell: cell, pokemon: selectedPokemon!)
         return cell
     }
 	
@@ -286,12 +286,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		if identifier == "pickPokeball"
 		{
 			let destVC = segue.destination as? PokeballModalVC
-			destVC?.pokemon = pokemon
+			destVC?.pokemon = selectedPokemon
 		}
 		else if segue.identifier == "pickHunt"
 		{
 			let destVC = segue.destination as? HuntPickerModalVC
-			destVC?.pokemon = pokemon
+			destVC?.pokemon = selectedPokemon
 		}
 		else
 		{
@@ -300,24 +300,21 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		}
 	}
 	
-	@IBAction func cancel(_ unwindSegue: UIStoryboardSegue)
-	{}
-	
 	@IBAction func save(_ unwindSegue: UIStoryboardSegue)
 	{
 		if let sourceTVC = unwindSegue.source as? PokeballModalVC
 		{
-			pokemon?.caughtBall = sourceTVC.pokemon.caughtBall
-			pokemonService.save(pokemon: pokemon!)
-			if pokemon?.caughtBall == "none"
+			selectedPokemon?.caughtBall = sourceTVC.pokemon.caughtBall
+			pokemonService.save(pokemon: selectedPokemon!)
+			if selectedPokemon?.caughtBall == "none"
 			{
 				if isFiltering() && searchController.searchBar.selectedScopeButtonIndex == 1
 				{
-					filteredPokemon.removeAll(where: {$0.name == pokemon?.name})
+					filteredPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
 				}
 				if generation == 9
 				{
-					slicedPokemon.removeAll(where: {$0.name == pokemon?.name})
+					slicedPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
 				}
 			}
 			tableView.reloadData()
@@ -334,6 +331,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		tableView.reloadData()
 		let source = unwindSegue.source as! HuntPickerModalVC
 		let name = source.pickedHuntName!
-		popupHandler.showPopup(text: "\(pokemon!.name) was added to \(name).")
+		popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(name).")
 	}
 }
