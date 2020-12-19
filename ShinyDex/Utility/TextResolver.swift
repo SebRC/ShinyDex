@@ -93,9 +93,6 @@ class TextResolver
 				? " \(methodVerb): \(methodDecrement) + \(encountersDecremented) seen"
 				: " \(methodVerb): \(encounters)"
 		}
-		else
-		{
-			return " Encounters: \(encounters)"
-		}
+		return " Encounters: \(encounters)"
 	}
 }

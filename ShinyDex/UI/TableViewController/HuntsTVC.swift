@@ -279,44 +279,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		}
 	}
 
-	fileprivate func updateHuntPriorities(currentHunt: Hunt, indexPath: IndexPath)
-	{
-		if currentHunt.pokemon.isEmpty
-		{
-			var newOrder = Set<Int>()
-			if indexPath.row != hunts.count - 1
-			{
-				for section in huntSections!.collapsedSections
-				{
-					var sectionToAdd = section
-					if section > indexPath.row
-					{
-						sectionToAdd = section - 1
-					}
-					newOrder.insert(sectionToAdd)
-				}
-			}
-
-			for hunt in hunts
-			{
-				if hunt.priority > indexPath.section
-				{
-					hunt.priority -= 1
-					huntService.save(hunt: hunt)
-				}
-			}
-			huntSections?.collapsedSections = newOrder
-			hunts.remove(at: indexPath.section)
-			huntService.delete(hunt: currentHunt)
-			setClearHuntButtonState()
-			setRearrangeButtonState()
-		}
-		else
-		{
-			huntService.save(hunt: hunts[indexPath.section])
-		}
-	}
-
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
 			-> UISwipeActionsConfiguration? {
 			let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
@@ -330,7 +292,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				currentHunt.indexes.removeAll{$0 == pokemonNumber}
 				tableView.deleteRows(at: [indexPath], with: .fade)
 				self.navigationItem.title = String(self.totalEncounters)
-				self.updateHuntPriorities(currentHunt: currentHunt, indexPath: indexPath)
+
+				if currentHunt.pokemon.isEmpty
+				{
+					self.updateHuntPriorities(currentHunt: currentHunt, indexPath: indexPath)
+				}
+				else
+				{
+					self.huntService.save(hunt: self.hunts[indexPath.section])
+				}
 
 				self.reloadData()
 				completionHandler(true)
@@ -338,6 +308,37 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			deleteAction.image = UIImage(systemName: "trash.circle.fill")
 			deleteAction.backgroundColor = .systemRed
 			return UISwipeActionsConfiguration(actions: [deleteAction])
+	}
+
+	fileprivate func updateHuntPriorities(currentHunt: Hunt, indexPath: IndexPath)
+	{
+		var newOrder = Set<Int>()
+		if indexPath.row != hunts.count - 1
+		{
+			for section in huntSections!.collapsedSections
+			{
+				var sectionToAdd = section
+				if section > indexPath.row
+				{
+					sectionToAdd = section - 1
+				}
+				newOrder.insert(sectionToAdd)
+			}
+		}
+
+		for hunt in hunts
+		{
+			if hunt.priority > indexPath.section
+			{
+				hunt.priority -= 1
+				huntService.save(hunt: hunt)
+			}
+		}
+		huntSections?.collapsedSections = newOrder
+		hunts.remove(at: indexPath.section)
+		huntService.delete(hunt: currentHunt)
+		setClearHuntButtonState()
+		setRearrangeButtonState()
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
