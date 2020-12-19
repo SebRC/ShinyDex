@@ -279,6 +279,44 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		}
 	}
 
+	fileprivate func updateHuntPriorities(currentHunt: Hunt, indexPath: IndexPath)
+	{
+		if currentHunt.pokemon.isEmpty
+		{
+			var newOrder = Set<Int>()
+			if indexPath.row != hunts.count - 1
+			{
+				for section in huntSections!.collapsedSections
+				{
+					var sectionToAdd = section
+					if section > indexPath.row
+					{
+						sectionToAdd = section - 1
+					}
+					newOrder.insert(sectionToAdd)
+				}
+			}
+
+			for hunt in hunts
+			{
+				if hunt.priority > indexPath.section
+				{
+					hunt.priority -= 1
+					huntService.save(hunt: hunt)
+				}
+			}
+			huntSections?.collapsedSections = newOrder
+			hunts.remove(at: indexPath.section)
+			huntService.delete(hunt: currentHunt)
+			setClearHuntButtonState()
+			setRearrangeButtonState()
+		}
+		else
+		{
+			huntService.save(hunt: hunts[indexPath.section])
+		}
+	}
+
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
 			-> UISwipeActionsConfiguration? {
 			let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
@@ -292,40 +330,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				currentHunt.indexes.removeAll{$0 == pokemonNumber}
 				tableView.deleteRows(at: [indexPath], with: .fade)
 				self.navigationItem.title = String(self.totalEncounters)
-				if currentHunt.pokemon.isEmpty
-				{
-					var newOrder = Set<Int>()
-					if indexPath.row != self.hunts.count - 1
-					{
-						for section in self.huntSections!.collapsedSections
-						{
-							var sectionToAdd = section
-							if section > indexPath.row
-							{
-								sectionToAdd = section - 1
-							}
-							newOrder.insert(sectionToAdd)
-						}
-					}
-
-					for hunt in self.hunts
-					{
-						if hunt.priority > indexPath.section
-						{
-							hunt.priority -= 1
-							self.huntService.save(hunt: hunt)
-						}
-					}
-					self.huntSections?.collapsedSections = newOrder
-					self.hunts.remove(at: indexPath.section)
-					self.huntService.delete(hunt: currentHunt)
-					self.setClearHuntButtonState()
-					self.setRearrangeButtonState()
-				}
-				else
-				{
-					self.huntService.save(hunt: self.hunts[indexPath.section])
-				}
+				self.updateHuntPriorities(currentHunt: currentHunt, indexPath: indexPath)
 
 				self.reloadData()
 				completionHandler(true)
