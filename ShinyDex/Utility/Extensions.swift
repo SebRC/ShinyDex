@@ -85,6 +85,24 @@ extension UIButton
   }
 }
 
+extension UIView
+{
+	func initContentView(nibName: String, contentView: inout UIView?)
+	{
+        guard let view = loadViewFromNib(nibName: nibName) else { return }
+        view.frame = self.bounds
+        self.addSubview(view)
+        contentView = view
+    }
+
+	func loadViewFromNib(nibName: String) -> UIView?
+	{
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: nibName, bundle: bundle)
+        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    }
+}
+
 extension Double
 {
 	static func getPercentage(encounters: Int, odds: Int) -> Double
