@@ -39,7 +39,7 @@ extension CreateHuntModalVC: UISearchResultsUpdating
 
 extension CreateHuntModalVC
 {
-	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
+	func searchBar(_ searchBar: UISearchBar)
 	{
 		filterContentForSearchText(searchBar.text!)
 	}
@@ -83,6 +83,24 @@ extension UIButton
 	attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: (self.titleLabel?.text!.count)!))
     self.setAttributedTitle(attributedString, for: .normal)
   }
+}
+
+extension UIView
+{
+	func initContentView(nibName: String, contentView: inout UIView?)
+	{
+        guard let view = loadViewFromNib(nibName: nibName) else { return }
+        view.frame = self.bounds
+        self.addSubview(view)
+        contentView = view
+    }
+
+	func loadViewFromNib(nibName: String) -> UIView?
+	{
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: nibName, bundle: bundle)
+        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    }
 }
 
 extension Double

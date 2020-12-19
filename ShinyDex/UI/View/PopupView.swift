@@ -13,7 +13,7 @@ import UIKit
 class PopupView: UIView
 {
 	let nibName = "PopupView"
-    var contentView:UIView?
+    var contentView: UIView?
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
@@ -23,32 +23,23 @@ class PopupView: UIView
 	required init?(coder aDecoder: NSCoder)
 	{
         super.init(coder: aDecoder)
-        commonInit()
+		initContentView(nibName: nibName, contentView: &contentView)
+		initUI()
     }
 	
     override init(frame: CGRect)
 	{
         super.init(frame: frame)
-        commonInit()
+        initContentView(nibName: nibName, contentView: &contentView)
+		initUI()
     }
-	
-    func commonInit()
+
+	fileprivate func initUI()
 	{
-        guard let view = loadViewFromNib() else { return }
-        view.frame = self.bounds
-        self.addSubview(view)
-        contentView = view
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		actionLabel.textColor = colorService.getTertiaryColor()
 		iconImageView.tintColor = colorService.getTertiaryColor()
 		actionLabel.font = fontSettingsService.getSmallFont()
 		contentView?.layer.cornerRadius = CornerRadius.Standard.rawValue
-    }
-	
-    func loadViewFromNib() -> UIView?
-	{
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
-    }
+	}
 }

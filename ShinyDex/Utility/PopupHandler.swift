@@ -25,10 +25,7 @@ class PopupHandler
 			
 			popup.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 		})
-		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2)
-		{
-			self.removeAnimate(popupView: popup)
-		}
+		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { self.removeAnimate(popupView: popup) }
 	}
 
 	fileprivate func removeAnimate(popupView: UIView)

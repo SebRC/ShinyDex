@@ -43,7 +43,7 @@ class GameSettingsContainer: UIView
 	required init?(coder aDecoder: NSCoder)
 	{
         super.init(coder: aDecoder)
-        commonInit()
+        initContentView(nibName: nibName, contentView: &contentView)
 
 		gameSettingsCells = [useIncrementCell,genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
 
@@ -107,22 +107,7 @@ class GameSettingsContainer: UIView
     override init(frame: CGRect)
 	{
         super.init(frame: frame)
-        commonInit()
-    }
-
-    func commonInit()
-	{
-        guard let view = loadViewFromNib() else { return }
-        view.frame = self.bounds
-        self.addSubview(view)
-        contentView = view
-    }
-
-    func loadViewFromNib() -> UIView?
-	{
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
+        initContentView(nibName: nibName, contentView: &contentView)
     }
 
 	func resolveUIObjectsState()
@@ -231,7 +216,6 @@ class GameSettingsContainer: UIView
 	@objc fileprivate func switchPressed(_ sender: UISwitch)
 	{
 		let tag = sender.tag
-		var activeHuntMethod = HuntMethod.Encounters
 		var selectedHuntMethod = HuntMethod.Encounters
 		var icon = UIImageView()
 		var cell = GameSettingsCell()
@@ -295,7 +279,7 @@ class GameSettingsContainer: UIView
 			cell = lureCell
 			callTurnSwitchesOff = false
 		}
-		activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
+		let activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
 		pokemon!.huntMethod = activeHuntMethod
 		setImageViewAlpha(imageView: icon, isSwitchOn: pokemon!.huntMethod == selectedHuntMethod)
 		if callTurnSwitchesOff

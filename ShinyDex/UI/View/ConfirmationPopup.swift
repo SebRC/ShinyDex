@@ -27,7 +27,7 @@ class ConfirmationPopup: UIView
 	required init?(coder aDecoder: NSCoder)
 	{
         super.init(coder: aDecoder)
-        commonInit()
+        initContentView(nibName: nibName, contentView: &contentView)
 		setConfirmationPopupFonts()
 		setColors()
 		layer.cornerRadius = CornerRadius.Standard.rawValue
@@ -36,24 +36,9 @@ class ConfirmationPopup: UIView
     override init(frame: CGRect)
 	{
         super.init(frame: frame)
-        commonInit()
+		initContentView(nibName: nibName, contentView: &contentView)
     }
-	
-    func commonInit()
-	{
-        guard let view = loadViewFromNib() else { return }
-        view.frame = self.bounds
-        self.addSubview(view)
-        contentView = view
-    }
-	
-    func loadViewFromNib() -> UIView?
-	{
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
-    }
-	
+
 	fileprivate func setConfirmationPopupFonts()
 	{
 		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()

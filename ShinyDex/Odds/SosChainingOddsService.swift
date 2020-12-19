@@ -1,5 +1,5 @@
 //
-//  SosOddsService.swift
+//  SosChainingOddsService.swift
 //  ShinyDex
 //
 //  Created by Sebastian Christiansen on 03/07/2020.
@@ -12,37 +12,18 @@ class SosChainingOddsService
 {
 	func getOdds(isShinyCharmActive: Bool, chain: Int) -> Int
 	{
-		if isShinyCharmActive
+		if chain >= 0 && chain <= 10
 		{
-			if chain >= 0 && chain <= 10
-			{
-				return 1366
-			}
-			else if chain >= 11 && chain <= 20
-			{
-				return 585
-			}
-			else if chain >= 21 && chain <= 30
-			{
-				return 373
-			}
-			return 273
+			return isShinyCharmActive ? 1366 : 4096
 		}
-		else
+		else if chain >= 11 && chain <= 20
 		{
-			if chain >= 0 && chain <= 10
-			{
-				return 4096
-			}
-			else if chain >= 11 && chain <= 20
-			{
-				return 820
-			}
-			else if chain >= 21 && chain <= 30
-			{
-				return 455
-			}
-			return 315
+			return isShinyCharmActive ? 585 : 820
 		}
+		else if chain >= 21 && chain <= 30
+		{
+			return isShinyCharmActive ? 373 : 455
+		}
+		return isShinyCharmActive ? 273 : 315
 	}
 }
