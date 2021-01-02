@@ -75,6 +75,16 @@ extension UIColor
 
 }
 
+extension UIButton
+{
+  func underline()
+{
+    let attributedString = NSMutableAttributedString(string: (self.titleLabel?.text!)!)
+	attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: (self.titleLabel?.text!.count)!))
+    self.setAttributedTitle(attributedString, for: .normal)
+  }
+}
+
 extension UIView
 {
 	func initContentView(nibName: String, contentView: inout UIView?)
@@ -95,12 +105,9 @@ extension UIView
 
 extension Double
 {
-	static func getProbability(encounters: Int, odds: Int) -> Double
+	static func getPercentage(encounters: Int, odds: Int) -> Double
 	{
-		let cumulativeProbability = pow(Double(odds - 1)/Double(odds), Double(encounters))
-		let decimalProbability = 1 - cumulativeProbability
-
-		return Double(truncating: decimalProbability * 100 as NSNumber)
+		return Double(encounters) / Double(odds) * 100
 	}
 }
 
