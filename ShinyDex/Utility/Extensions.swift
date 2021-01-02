@@ -105,9 +105,23 @@ extension UIView
 
 extension Double
 {
-	static func getPercentage(encounters: Int, odds: Int) -> Double
+	static func getProbability(encounters: Int, odds: Int) -> Double
 	{
-		return Double(encounters) / Double(odds) * 100
+		let oddsDetracted = odds - 1
+		let encountersDouble = Double(encounters)
+		let oddsDouble = Double(odds)
+		let oddsDetractedDouble = Double(odds - 1)
+		let test = pow(oddsDetractedDouble/oddsDouble, encountersDouble)
+		let detract = 1 - test
+
+		return Double(truncating: detract * 100 as NSNumber)
+
+
+		//let oddsDetracted = odds - 1
+		let cumulativeProbability = pow(Double(oddsDetracted / odds), Double(encounters))
+		let detractedProbability = 1 - cumulativeProbability
+		//return detractedProbability * 100
+		//return Double(encounters) / Double(odds) * 100
 	}
 }
 
