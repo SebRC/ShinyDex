@@ -58,7 +58,7 @@
 		9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72624084CCF0007AD5D /* LGPEOddsService.swift */; };
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
 		9689C72D240851DD0007AD5D /* OddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72C240851DD0007AD5D /* OddsService.swift */; };
-		9689C7312409633E0007AD5D /* PercentageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C7302409633E0007AD5D /* PercentageService.swift */; };
+		9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C7302409633E0007AD5D /* ProbabilityService.swift */; };
 		96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */; };
 		96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */; };
 		96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* ButtonStrip.swift */; };
@@ -145,7 +145,7 @@
 		9689C72624084CCF0007AD5D /* LGPEOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsService.swift; sourceTree = "<group>"; };
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
 		9689C72C240851DD0007AD5D /* OddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsService.swift; sourceTree = "<group>"; };
-		9689C7302409633E0007AD5D /* PercentageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageService.swift; sourceTree = "<group>"; };
+		9689C7302409633E0007AD5D /* ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbabilityService.swift; sourceTree = "<group>"; };
 		96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationPopup.swift; sourceTree = "<group>"; };
 		96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
 		96A72990245F12C500AF3F5F /* ButtonStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStrip.swift; sourceTree = "<group>"; };
@@ -281,12 +281,12 @@
 			path = Hunt;
 			sourceTree = "<group>";
 		};
-		9689C7342409ACFD0007AD5D /* Percentage */ = {
+		9689C7342409ACFD0007AD5D /* Probability */ = {
 			isa = PBXGroup;
 			children = (
-				9689C7302409633E0007AD5D /* PercentageService.swift */,
+				9689C7302409633E0007AD5D /* ProbabilityService.swift */,
 			);
-			path = Percentage;
+			path = Probability;
 			sourceTree = "<group>";
 		};
 		9689C7352409AD0A0007AD5D /* Odds */ = {
@@ -331,7 +331,7 @@
 				9607F772242A8B9300263CF6 /* HuntSections */,
 				966C211B24118BA40019F835 /* Hunt */,
 				9689C7352409AD0A0007AD5D /* Odds */,
-				9689C7342409ACFD0007AD5D /* Percentage */,
+				9689C7342409ACFD0007AD5D /* Probability */,
 				966C2115241173B90019F835 /* Theme */,
 				962E58B52411A690001D5E41 /* UI */,
 				96FC081323EF58C400459450 /* fonts */,
@@ -638,7 +638,7 @@
 				96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */,
 				96FC083423EF59AA00459450 /* SettingsVC.swift in Sources */,
 				96FC082A23EF598E00459450 /* HuntsTVC.swift in Sources */,
-				9689C7312409633E0007AD5D /* PercentageService.swift in Sources */,
+				9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */,
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
 				9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */,
