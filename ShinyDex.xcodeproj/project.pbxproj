@@ -281,12 +281,12 @@
 			path = Hunt;
 			sourceTree = "<group>";
 		};
-		9689C7342409ACFD0007AD5D /* Percentage */ = {
+		9689C7342409ACFD0007AD5D /* Probability */ = {
 			isa = PBXGroup;
 			children = (
 				9689C7302409633E0007AD5D /* ProbabilityService.swift */,
 			);
-			path = Percentage;
+			path = Probability;
 			sourceTree = "<group>";
 		};
 		9689C7352409AD0A0007AD5D /* Odds */ = {
@@ -331,7 +331,7 @@
 				9607F772242A8B9300263CF6 /* HuntSections */,
 				966C211B24118BA40019F835 /* Hunt */,
 				9689C7352409AD0A0007AD5D /* Odds */,
-				9689C7342409ACFD0007AD5D /* Percentage */,
+				9689C7342409ACFD0007AD5D /* Probability */,
 				966C2115241173B90019F835 /* Theme */,
 				962E58B52411A690001D5E41 /* UI */,
 				96FC081323EF58C400459450 /* fonts */,
