@@ -15,7 +15,7 @@ class ProbabilityService
 		return Double.getProbability(encounters: encounters, odds: shinyOdds)
 	}
 
-	func getProbabilityText(encounters: Int, shinyOdds: Int, probability: Double, pokemon: Pokemon, methodDecrement: Int) -> String
+	func getProbabilityText(encounters: Int, probability: Double, pokemon: Pokemon, methodDecrement: Int) -> String
 	{
 		if pokemon.huntMethod == .Lure && encounters <= 30
 			|| pokemon.generation == 0 && encounters <= 30
