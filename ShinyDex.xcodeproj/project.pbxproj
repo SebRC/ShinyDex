@@ -70,7 +70,6 @@
 		96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */; };
 		96A7299F245F15FF00AF3F5F /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
-		96C37E76253B3D6800235DA4 /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 96C37E75253B3D6800235DA4 /* Gifu */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
@@ -99,6 +98,7 @@
 		96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083723EF59C000459450 /* GameSettingsModalVC.swift */; };
 		96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083823EF59C000459450 /* PokeballModalVC.swift */; };
 		96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083923EF59C000459450 /* ConfirmationModalVC.swift */; };
+		BD38D34BA343BF3EADE325BC /* Pods_ShinyDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -194,6 +194,9 @@
 		96FC083723EF59C000459450 /* GameSettingsModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsModalVC.swift; sourceTree = "<group>"; };
 		96FC083823EF59C000459450 /* PokeballModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballModalVC.swift; sourceTree = "<group>"; };
 		96FC083923EF59C000459450 /* ConfirmationModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationModalVC.swift; sourceTree = "<group>"; };
+		9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.release.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.release.xcconfig"; sourceTree = "<group>"; };
+		BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShinyDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.debug.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,13 +205,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */,
-				96C37E76253B3D6800235DA4 /* Gifu in Frameworks */,
+				BD38D34BA343BF3EADE325BC /* Pods_ShinyDex.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		348278F4B1C61F8C708F457A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		726198376F1CCC57E5500E10 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */,
+				9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9607F772242A8B9300263CF6 /* HuntSections */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +330,8 @@
 			children = (
 				96FC079B23EF192400459450 /* ShinyDex */,
 				96FC079A23EF192400459450 /* Products */,
+				726198376F1CCC57E5500E10 /* Pods */,
+				348278F4B1C61F8C708F457A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -490,9 +512,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96FC07B023EF192800459450 /* Build configuration list for PBXNativeTarget "ShinyDex" */;
 			buildPhases = (
+				FD26A36B73D35D2C79E7CC18 /* [CP] Check Pods Manifest.lock */,
 				96FC079523EF192400459450 /* Sources */,
 				96FC079623EF192400459450 /* Frameworks */,
 				96FC079723EF192400459450 /* Resources */,
+				E8F853A568F6A1358D2179A1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -501,7 +525,6 @@
 			name = ShinyDex;
 			packageProductDependencies = (
 				9669E34923F1DF7D0048C5C5 /* FlexColorPicker */,
-				96C37E75253B3D6800235DA4 /* Gifu */,
 			);
 			productName = ShinyDex;
 			productReference = 96FC079923EF192400459450 /* ShinyDex.app */;
@@ -533,7 +556,6 @@
 			mainGroup = 96FC079023EF192400459450;
 			packageReferences = (
 				9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */,
-				96C37E74253B3D6800235DA4 /* XCRemoteSwiftPackageReference "Gifu" */,
 			);
 			productRefGroup = 96FC079A23EF192400459450 /* Products */;
 			projectDirPath = "";
@@ -567,6 +589,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E8F853A568F6A1358D2179A1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShinyDex/Pods-ShinyDex-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShinyDex/Pods-ShinyDex-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShinyDex/Pods-ShinyDex-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD26A36B73D35D2C79E7CC18 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShinyDex-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		96FC079523EF192400459450 /* Sources */ = {
@@ -782,6 +846,7 @@
 		};
 		96FC07B123EF192800459450 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -802,6 +867,7 @@
 		};
 		96FC07B223EF192800459450 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -852,14 +918,6 @@
 				minimumVersion = 1.3.1;
 			};
 		};
-		96C37E74253B3D6800235DA4 /* XCRemoteSwiftPackageReference "Gifu" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kaishin/Gifu.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -867,11 +925,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9669E34823F1DF7D0048C5C5 /* XCRemoteSwiftPackageReference "FlexColorPicker" */;
 			productName = FlexColorPicker;
-		};
-		96C37E75253B3D6800235DA4 /* Gifu */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 96C37E74253B3D6800235DA4 /* XCRemoteSwiftPackageReference "Gifu" */;
-			productName = Gifu;
 		};
 /* End XCSwiftPackageProductDependency section */
 

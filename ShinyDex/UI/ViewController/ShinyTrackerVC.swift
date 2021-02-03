@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import FLAnimatedImage
 
 class ShinyTrackerVC: UIViewController
 {
-	@IBOutlet weak var gifImageView: UIImageView!
 	@IBOutlet weak var encountersLabel: UILabel!
 	@IBOutlet weak var plusButton: UIButton!
 	@IBOutlet weak var minusButton: UIButton!
@@ -18,7 +18,8 @@ class ShinyTrackerVC: UIViewController
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
 	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var gifSeparatorView: UIView!
-	
+	@IBOutlet weak var animatedImageView: FLAnimatedImageView!
+
 	var pokemon: Pokemon!
 	var hunts = [Hunt]()
 	let probabilityService = ProbabilityService()
@@ -141,7 +142,7 @@ class ShinyTrackerVC: UIViewController
 		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)")
 		{
 			let data = shinyGifAsset.data
-			gifImageView.animate(withGIFData: data)
+			animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: data)
 		}
 
 	}
