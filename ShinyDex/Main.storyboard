@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oQL-iv-Vn4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oQL-iv-Vn4">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -33,9 +35,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-5P-xpk">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMm-5P-xpk">
                                         <rect key="frame" x="0.0" y="127" width="141" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="mMm-5P-xpk" secondAttribute="height" multiplier="141:52" id="f1t-8l-ag5"/>
                                         </constraints>
@@ -45,9 +47,9 @@
                                             <action selector="cancelPressed:" destination="Kuf-5k-0pa" eventType="touchUpInside" id="tvV-xG-Yqx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OJ-ug-dha">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OJ-ug-dha">
                                         <rect key="frame" x="141" y="127" width="146" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9OJ-ug-dha" secondAttribute="height" multiplier="11:4" constant="3" id="1Fg-B7-gg5"/>
                                         </constraints>
@@ -59,14 +61,14 @@
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvm-YK-p1Z">
                                         <rect key="frame" x="0.0" y="126" width="287" height="3"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="3" id="H4D-8E-xEw"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="taS-ZH-vQU">
                                         <rect key="frame" x="141" y="127" width="2" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="IF0-hQ-o0l"/>
                                         </constraints>
@@ -83,7 +85,7 @@ Are you sure you want to do this?</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstItem="Kvm-YK-p1Z" firstAttribute="width" secondItem="tT7-mx-LGX" secondAttribute="width" id="1d3-pR-Q84"/>
                                     <constraint firstItem="9OJ-ug-dha" firstAttribute="top" secondItem="taS-ZH-vQU" secondAttribute="top" id="51H-zu-QD5"/>
@@ -108,7 +110,8 @@ Are you sure you want to do this?</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="quaternaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="GjY-3Z-SyM"/>
+                        <color key="backgroundColor" systemColor="quaternaryLabelColor"/>
                         <constraints>
                             <constraint firstItem="tT7-mx-LGX" firstAttribute="centerX" secondItem="PKT-AF-Ojt" secondAttribute="centerX" id="0GS-7t-FvM"/>
                             <constraint firstItem="tT7-mx-LGX" firstAttribute="width" secondItem="tT7-mx-LGX" secondAttribute="height" multiplier="287:179" id="Exm-Xo-4he"/>
@@ -116,7 +119,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="tT7-mx-LGX" firstAttribute="centerY" secondItem="PKT-AF-Ojt" secondAttribute="centerY" id="jP6-5b-iKc"/>
                             <constraint firstItem="tT7-mx-LGX" firstAttribute="centerX" secondItem="PKT-AF-Ojt" secondAttribute="centerX" id="nGD-xJ-Gp7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="GjY-3Z-SyM"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="mMm-5P-xpk" id="DIf-lo-IbJ"/>
@@ -166,7 +168,7 @@ Are you sure you want to do this?</string>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ou0-uD-pwC" customClass="ButtonIconRight" customModule="ShinyDex" customModuleProvider="target">
                                                 <rect key="frame" x="251" y="35" width="100" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Font" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hG2-wu-NjK">
                                                 <rect key="frame" x="42" y="107" width="274" height="32"/>
@@ -178,7 +180,7 @@ Are you sure you want to do this?</string>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eub-Dx-Bpi" customClass="ButtonIconRight" customModule="ShinyDex" customModuleProvider="target">
                                                 <rect key="frame" x="129" y="35" width="100" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Laq-xs-XpE">
                                                 <rect key="frame" x="40" y="147" width="278" height="32"/>
@@ -194,23 +196,23 @@ Are you sure you want to do this?</string>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIg-nb-wgr">
                                                 <rect key="frame" x="9" y="98" width="340" height="2"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p4l-CK-QUz" customClass="GameSettingsContainer" customModule="ShinyDex" customModuleProvider="target">
                                         <rect key="frame" x="8" y="210" width="360" height="1395"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="cgf-rC-mvf"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="WYe-MS-XZF"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ssf-zf-5zA"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="Npl-AG-KYH"/>
                     <connections>
@@ -260,7 +262,7 @@ Are you sure you want to do this?</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cGr-qd-atg" customClass="ColorPreviewWithHex" customModule="FlexColorPicker">
                                 <rect key="frame" x="66.5" y="298.5" width="242" height="128.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cGr-qd-atg" secondAttribute="height" multiplier="241:128" id="x8C-Kh-Q8S"/>
                                 </constraints>
@@ -290,9 +292,9 @@ Are you sure you want to do this?</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5r-gb-mDt">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5r-gb-mDt">
                                 <rect key="frame" x="62" y="588" width="100" height="50"/>
-                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1sb-SA-T9u"/>
                                     <constraint firstAttribute="width" secondItem="G5r-gb-mDt" secondAttribute="height" multiplier="2:1" id="63a-hM-DkR"/>
@@ -313,9 +315,9 @@ Are you sure you want to do this?</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz7-kV-MBm">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mz7-kV-MBm">
                                 <rect key="frame" x="208" y="588" width="100.5" height="50"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Mz7-kV-MBm" secondAttribute="height" multiplier="2:1" id="WI2-HL-JAy"/>
                                 </constraints>
@@ -327,6 +329,7 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XMk-3i-K81"/>
                         <constraints>
                             <constraint firstItem="G5r-gb-mDt" firstAttribute="baseline" secondItem="Mz7-kV-MBm" secondAttribute="firstBaseline" id="57C-yk-OkS"/>
                             <constraint firstItem="ohA-tD-DCU" firstAttribute="top" secondItem="Pkb-S2-9ET" secondAttribute="bottom" constant="8" id="5Kz-kV-DUW"/>
@@ -353,7 +356,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="XMk-3i-K81" firstAttribute="bottom" secondItem="G5r-gb-mDt" secondAttribute="bottom" constant="9" id="zNv-rF-bsw"/>
                             <constraint firstItem="cGr-qd-atg" firstAttribute="top" secondItem="ohA-tD-DCU" secondAttribute="bottom" constant="39" id="zXV-Zf-7pb"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XMk-3i-K81"/>
                     </view>
                     <navigationItem key="navigationItem" id="mUp-lp-yJ2"/>
                     <userDefinedRuntimeAttributes>
@@ -396,14 +398,14 @@ Are you sure you want to do this?</string>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rearrangeCell" rowHeight="125" id="Zkd-xc-OpX" customClass="RearrangeCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="313" height="125"/>
+                                        <rect key="frame" x="16" y="55.5" width="311" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zkd-xc-OpX" id="mh0-nk-ZHr">
-                                            <rect key="frame" x="0.0" y="0.0" width="313" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="311" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbP-oD-Fnn">
-                                                    <rect key="frame" x="248" y="37" width="50" height="50"/>
+                                                    <rect key="frame" x="245" y="37" width="50" height="50"/>
                                                     <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="bbP-oD-Fnn" secondAttribute="height" multiplier="1:1" id="jjW-ct-a48"/>
@@ -414,14 +416,14 @@ Are you sure you want to do this?</string>
                                                     </connections>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
-                                                    <rect key="frame" x="15" y="44.5" width="79.5" height="79.5"/>
+                                                    <rect key="frame" x="15" y="44" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jON-OZ-Itl">
-                                                    <rect key="frame" x="166" y="37" width="50" height="50"/>
-                                                    <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <rect key="frame" x="163" y="37" width="50" height="50"/>
+                                                    <color key="backgroundColor" systemColor="systemTealColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="jON-OZ-Itl" secondAttribute="height" multiplier="1:1" id="jaO-t6-LGR"/>
                                                     </constraints>
@@ -431,7 +433,7 @@ Are you sure you want to do this?</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRO-yu-5pG">
-                                                    <rect key="frame" x="15" y="11" width="261" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="258" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="iRO-yu-5pG" secondAttribute="height" multiplier="5:1" constant="156" id="6Qn-lg-XYI"/>
                                                     </constraints>
@@ -465,9 +467,9 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfx-Qg-Yh8">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfx-Qg-Yh8">
                                 <rect key="frame" x="209" y="547" width="150" height="55"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wfx-Qg-Yh8" secondAttribute="height" multiplier="15:8" constant="46.875" id="5Vo-Pg-5hW"/>
                                 </constraints>
@@ -485,7 +487,7 @@ Are you sure you want to do this?</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFR-H2-gA1">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFR-H2-gA1">
                                 <rect key="frame" x="16" y="547" width="150" height="55"/>
                                 <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -497,6 +499,7 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="HGD-QH-pEF"/>
                         <constraints>
                             <constraint firstItem="wfx-Qg-Yh8" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="209" id="2WO-af-PYI"/>
                             <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="EPu-ia-xVJ" secondAttribute="trailing" constant="16" id="5Ti-RD-jxD"/>
@@ -512,7 +515,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="UFR-H2-gA1" firstAttribute="leading" secondItem="HGD-QH-pEF" secondAttribute="leading" constant="16" id="ums-ap-l5k"/>
                             <constraint firstItem="HGD-QH-pEF" firstAttribute="trailing" secondItem="UFR-H2-gA1" secondAttribute="trailing" constant="209" id="wfx-ue-ncC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="HGD-QH-pEF"/>
                     </view>
                     <navigationItem key="navigationItem" id="MkB-e5-hwU"/>
                     <connections>
@@ -536,9 +538,9 @@ Are you sure you want to do this?</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-hk-8tF">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-hk-8tF">
                                 <rect key="frame" x="31" y="20" width="313" height="46"/>
-                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3Uq-hk-8tF" secondAttribute="height" multiplier="313:46" id="YB9-rM-2Bf"/>
                                 </constraints>
@@ -549,18 +551,18 @@ Are you sure you want to do this?</string>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="nMq-Ry-9gE">
                                 <rect key="frame" x="31" y="206" width="313" height="371"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="huntPickerCell" rowHeight="80" id="Bnv-Qu-02n" customClass="HuntPickerCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="283" height="80"/>
+                                        <rect key="frame" x="16" y="55.5" width="281" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bnv-Qu-02n" id="dKx-F3-6Bk">
-                                            <rect key="frame" x="0.0" y="0.0" width="283" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="281" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
-                                                    <rect key="frame" x="98" y="0.0" width="170" height="80"/>
+                                                    <rect key="frame" x="98" y="0.0" width="168" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="37:16" constant="-15" id="WmK-de-67s"/>
                                                     </constraints>
@@ -594,12 +596,13 @@ Are you sure you want to do this?</string>
                             </tableView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJd-ng-lQy" customClass="IndicatorView" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="31" y="82" width="313" height="100"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WJd-ng-lQy" secondAttribute="height" multiplier="313:100" id="Irg-6g-sSC"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XKC-WY-055"/>
                         <constraints>
                             <constraint firstItem="WJd-ng-lQy" firstAttribute="trailing" secondItem="3Uq-hk-8tF" secondAttribute="trailing" id="2G4-n0-kB6"/>
                             <constraint firstItem="WJd-ng-lQy" firstAttribute="leading" secondItem="XKC-WY-055" secondAttribute="leading" constant="31" id="5Za-DP-I4G"/>
@@ -615,7 +618,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="3Uq-hk-8tF" firstAttribute="top" secondItem="XKC-WY-055" secondAttribute="top" constant="20" id="nEY-Gm-fbq"/>
                             <constraint firstItem="WJd-ng-lQy" firstAttribute="top" secondItem="c0S-Q9-oOV" secondAttribute="top" constant="82" id="qsy-qW-V4L"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XKC-WY-055"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="3Uq-hk-8tF" id="LDx-GV-92g"/>
@@ -636,7 +638,7 @@ Are you sure you want to do this?</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="RpU-JM-SMh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="pokemonCell" rowHeight="65" id="jVU-gD-WqB" customClass="PokemonCell" customModule="ShinyDex" customModuleProvider="target">
@@ -751,7 +753,7 @@ Are you sure you want to do this?</string>
                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cq7-Sy-jyV" customClass="ConfirmationPopup" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="37" y="223" width="300" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gDn-Kq-wOe"/>
@@ -777,18 +779,18 @@ Are you sure you want to do this?</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Gp5-an-fuG">
                                 <rect key="frame" x="0.0" y="164" width="375" height="503"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="currentHuntCell" rowHeight="100" id="U2K-zP-ETC" customClass="CurrentHuntCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="345" height="100"/>
+                                        <rect key="frame" x="16" y="55.5" width="343" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U2K-zP-ETC" id="90n-sV-m2z">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABG-IX-o9S">
-                                                    <rect key="frame" x="79" y="0.0" width="141" height="22"/>
+                                                    <rect key="frame" x="80" y="0.0" width="142" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ABG-IX-o9S" secondAttribute="height" multiplier="141:22" id="643-VS-Mg8"/>
                                                     </constraints>
@@ -797,7 +799,7 @@ Are you sure you want to do this?</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JfE-7z-shZ">
-                                                    <rect key="frame" x="79" y="70" width="107" height="19"/>
+                                                    <rect key="frame" x="80" y="70" width="106" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="JfE-7z-shZ" secondAttribute="height" multiplier="107:19" id="Jni-3T-6ls"/>
                                                     </constraints>
@@ -826,7 +828,7 @@ Are you sure you want to do this?</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cad-sG-qz9">
-                                                    <rect key="frame" x="79" y="24" width="91" height="10"/>
+                                                    <rect key="frame" x="80" y="24" width="91" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Cad-sG-qz9" secondAttribute="height" multiplier="91:10" id="Rw8-4s-Drd"/>
                                                     </constraints>
@@ -899,6 +901,7 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="dOl-BP-Ow0"/>
                         <constraints>
                             <constraint firstItem="TMl-ov-RlV" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="GEN-Yv-KyL"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="O4M-gS-mT0"/>
@@ -907,7 +910,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="17" id="e8Q-hx-N2P"/>
                             <constraint firstItem="TMl-ov-RlV" firstAttribute="leading" secondItem="pZm-OQ-P6f" secondAttribute="trailing" constant="18.5" id="uno-mf-Tl0"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="dOl-BP-Ow0"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hdn-YF-tBQ">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="xmark.rectangle.fill" catalog="system" id="8a4-58-oVc">
@@ -945,10 +947,10 @@ Are you sure you want to do this?</string>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="createHuntCell" rowHeight="65" id="HPo-yl-S3I" customClass="CreateHuntCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="345" height="65"/>
+                                        <rect key="frame" x="16" y="55.5" width="343" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HPo-yl-S3I" id="q99-Qk-kyI">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="65"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pOA-eV-PWm">
@@ -958,7 +960,7 @@ Are you sure you want to do this?</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg0-jT-JHI">
-                                                    <rect key="frame" x="83" y="3" width="247" height="25.5"/>
+                                                    <rect key="frame" x="83" y="3" width="244" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="xg0-jT-JHI" secondAttribute="height" multiplier="215:22" id="eTA-WK-39m"/>
                                                     </constraints>
@@ -968,7 +970,7 @@ Are you sure you want to do this?</string>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJH-4k-Tjb">
-                                                    <rect key="frame" x="84" y="36.5" width="72" height="10"/>
+                                                    <rect key="frame" x="84" y="36" width="72" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UJH-4k-Tjb" secondAttribute="height" multiplier="137:19" id="1Ma-RK-1TG"/>
                                                     </constraints>
@@ -1010,9 +1012,9 @@ Are you sure you want to do this?</string>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XJ-v5-OvE">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XJ-v5-OvE">
                                 <rect key="frame" x="209" y="547" width="150" height="80"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2XJ-v5-OvE" secondAttribute="height" multiplier="15:8" id="0d6-oX-bE2"/>
                                 </constraints>
@@ -1029,9 +1031,9 @@ Are you sure you want to do this?</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjQ-Ze-7Ja">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjQ-Ze-7Ja">
                                 <rect key="frame" x="16" y="547" width="150" height="80"/>
-                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cjQ-Ze-7Ja" secondAttribute="height" multiplier="15:8" id="qqX-xC-y1L"/>
                                 </constraints>
@@ -1041,6 +1043,7 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="v2C-Pn-4Ly"/>
                         <constraints>
                             <constraint firstItem="2XJ-v5-OvE" firstAttribute="top" secondItem="wVL-uN-frE" secondAttribute="bottom" constant="23" id="171-0S-IVM"/>
                             <constraint firstItem="TXa-GF-GTi" firstAttribute="centerX" secondItem="wVL-uN-frE" secondAttribute="centerX" id="357-It-Drb"/>
@@ -1056,7 +1059,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="TXa-GF-GTi" firstAttribute="trailing" secondItem="50k-1o-2Cg" secondAttribute="trailing" id="spB-qC-mFn"/>
                             <constraint firstItem="50k-1o-2Cg" firstAttribute="top" secondItem="TXa-GF-GTi" secondAttribute="bottom" constant="18" id="z9z-LQ-6V0"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="v2C-Pn-4Ly"/>
                     </view>
                     <navigationItem key="navigationItem" id="uPc-48-bIW"/>
                     <connections>
@@ -1168,12 +1170,6 @@ Are you sure you want to do this?</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-2k-DOC">
-                                <rect key="frame" x="62" y="208" width="250" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="hoS-2k-DOC" secondAttribute="height" multiplier="223:224" constant="1.1160714285714164" id="8D7-ox-R1I"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUC-0o-iXh">
                                 <rect key="frame" x="234" y="521.5" width="125" height="124"/>
                                 <constraints>
@@ -1187,7 +1183,7 @@ Are you sure you want to do this?</string>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4E-f9-VW1">
                                 <rect key="frame" x="55" y="480" width="265" height="10"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="L4E-f9-VW1" secondAttribute="height" multiplier="53:2" id="HWq-qg-4WM"/>
                                 </constraints>
@@ -1205,7 +1201,7 @@ Are you sure you want to do this?</string>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="ButtonStrip" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="16" y="160" width="345" height="40"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="MUf-xf-A7g" secondAttribute="height" multiplier="43:5" constant="1" id="EIZ-ch-yNv"/>
                                 </constraints>
@@ -1220,7 +1216,14 @@ Are you sure you want to do this?</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yha-I5-61Z" customClass="FLAnimatedImageView">
+                                <rect key="frame" x="63" y="208" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yha-I5-61Z" secondAttribute="height" multiplier="1:1" id="Cmq-kg-w1Z"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="WeV-6P-3fq"/>
                         <color key="backgroundColor" red="0.6705882352941176" green="0.90980392156862744" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Rl1-0y-S1X" firstAttribute="trailing" secondItem="MUf-xf-A7g" secondAttribute="trailing" constant="-1" id="1q5-Ig-9jd"/>
@@ -1228,22 +1231,21 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="bottom" secondItem="XRC-EJ-od9" secondAttribute="bottom" constant="21" id="5XS-t2-JP9"/>
                             <constraint firstItem="kUC-0o-iXh" firstAttribute="leading" secondItem="XRC-EJ-od9" secondAttribute="trailing" constant="93" id="6vw-od-foF"/>
                             <constraint firstItem="MUf-xf-A7g" firstAttribute="top" secondItem="ChG-Aa-Alk" secondAttribute="bottom" constant="14" id="8ig-vP-n7M"/>
+                            <constraint firstItem="yha-I5-61Z" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="63" id="8m8-zk-Fl8"/>
                             <constraint firstItem="ChG-Aa-Alk" firstAttribute="leading" secondItem="XRC-EJ-od9" secondAttribute="leading" constant="-1" id="9jq-DK-kTO"/>
                             <constraint firstItem="ChG-Aa-Alk" firstAttribute="leading" secondItem="MUf-xf-A7g" secondAttribute="leading" constant="-1" id="APh-To-e9L"/>
                             <constraint firstItem="ChG-Aa-Alk" firstAttribute="centerX" secondItem="MUf-xf-A7g" secondAttribute="centerX" constant="-1" id="E9n-FW-tk4"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="bottom" secondItem="kUC-0o-iXh" secondAttribute="bottom" constant="21" id="PaT-PU-4qy"/>
+                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="yha-I5-61Z" secondAttribute="trailing" constant="62" id="Plw-Z3-FzF"/>
                             <constraint firstItem="L4E-f9-VW1" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="55" id="TG7-8C-aor"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="L4E-f9-VW1" secondAttribute="trailing" constant="55" id="TMn-ME-k0U"/>
-                            <constraint firstItem="L4E-f9-VW1" firstAttribute="top" secondItem="hoS-2k-DOC" secondAttribute="bottom" constant="22" id="YJs-6J-xFU"/>
-                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="hoS-2k-DOC" secondAttribute="trailing" constant="63" id="bIw-bc-4HM"/>
                             <constraint firstItem="Rl1-0y-S1X" firstAttribute="top" secondItem="WeV-6P-3fq" secondAttribute="top" constant="15" id="ebl-We-kiw"/>
                             <constraint firstItem="kUC-0o-iXh" firstAttribute="top" secondItem="L4E-f9-VW1" secondAttribute="bottom" constant="31" id="h7K-Ov-ya9"/>
+                            <constraint firstItem="L4E-f9-VW1" firstAttribute="top" secondItem="yha-I5-61Z" secondAttribute="bottom" constant="22" id="lCB-As-HCe"/>
                             <constraint firstItem="XRC-EJ-od9" firstAttribute="leading" secondItem="F2B-n4-oDA" secondAttribute="leadingMargin" id="ppf-7c-ymt"/>
                             <constraint firstItem="MUf-xf-A7g" firstAttribute="leading" secondItem="Rl1-0y-S1X" secondAttribute="leading" id="sdw-5A-dzA"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="Rl1-0y-S1X" secondAttribute="trailing" constant="15" id="u1m-WZ-zSf"/>
-                            <constraint firstItem="hoS-2k-DOC" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="62" id="wvR-2B-kIn"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="WeV-6P-3fq"/>
                     </view>
                     <navigationItem key="navigationItem" id="L4X-RF-b6D">
                         <barButtonItem key="rightBarButtonItem" image="text.badge.plus" catalog="system" id="lm3-DE-Myb">
@@ -1254,9 +1256,9 @@ Are you sure you want to do this?</string>
                     </navigationItem>
                     <connections>
                         <outlet property="addToHuntButton" destination="lm3-DE-Myb" id="8OT-9Z-Ymb"/>
+                        <outlet property="animatedImageView" destination="yha-I5-61Z" id="Pkk-6R-yiq"/>
                         <outlet property="buttonStrip" destination="MUf-xf-A7g" id="H0r-vs-YIc"/>
                         <outlet property="encountersLabel" destination="Rl1-0y-S1X" id="VAG-Yy-h7S"/>
-                        <outlet property="gifImageView" destination="hoS-2k-DOC" id="mPx-8G-s2j"/>
                         <outlet property="gifSeparatorView" destination="L4E-f9-VW1" id="uw1-HD-LH3"/>
                         <outlet property="minusButton" destination="XRC-EJ-od9" id="gJm-Mx-fBR"/>
                         <outlet property="plusButton" destination="kUC-0o-iXh" id="ZQE-L1-U8k"/>
@@ -1293,7 +1295,7 @@ Are you sure you want to do this?</string>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-cp-b8e" customClass="GameSettingsContainer" customModule="ShinyDex" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="45" width="360" height="1395"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                 </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="hqg-ET-7QB"/>
@@ -1328,10 +1330,11 @@ Are you sure you want to do this?</string>
                                     <constraint firstAttribute="width" secondItem="EPF-rV-2Tn" secondAttribute="height" multiplier="325:113" id="pjM-Gy-TQa"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="PokemonGB" family="Pokemon GB" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6jV-0b-jK4"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EPF-rV-2Tn" firstAttribute="centerY" secondItem="Y8K-93-gJA" secondAttribute="centerY" id="KsE-ur-3qQ"/>
@@ -1339,7 +1342,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="EPF-rV-2Tn" firstAttribute="centerX" secondItem="Y8K-93-gJA" secondAttribute="centerX" id="tsG-ns-Euq"/>
                             <constraint firstItem="EPF-rV-2Tn" firstAttribute="leading" secondItem="6jV-0b-jK4" secondAttribute="leading" constant="25" id="xH9-eT-sDe"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6jV-0b-jK4"/>
                     </view>
                     <navigationItem key="navigationItem" id="i14-au-vxq"/>
                     <connections>
@@ -1367,14 +1369,14 @@ Are you sure you want to do this?</string>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pokeballCell" rowHeight="137" id="bI9-WJ-t2B" customClass="PokeballCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="55.5" width="152.5" height="137"/>
+                                        <rect key="frame" x="16" y="73.5" width="150.5" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bI9-WJ-t2B" id="wCW-qx-GQF">
-                                            <rect key="frame" x="0.0" y="0.0" width="152.5" height="137"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150.5" height="137"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokeball" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-A3-TPx">
-                                                    <rect key="frame" x="15" y="0.0" width="253" height="41"/>
+                                                    <rect key="frame" x="16" y="0.0" width="253" height="41"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="P6b-A3-TPx" secondAttribute="height" multiplier="253:41" id="FE9-fL-uJ9"/>
                                                         <constraint firstAttribute="height" constant="41" id="GA5-Hb-SNp"/>
@@ -1384,7 +1386,7 @@ Are you sure you want to do this?</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AJ2-vK-l8a">
-                                                    <rect key="frame" x="104" y="51" width="75" height="75"/>
+                                                    <rect key="frame" x="105" y="51" width="75" height="75"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="AJ2-vK-l8a" secondAttribute="height" multiplier="1:1" id="pcZ-iB-7ww"/>
                                                     </constraints>
@@ -1407,7 +1409,7 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dux-jX-zZu">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dux-jX-zZu">
                                 <rect key="frame" x="31" y="28" width="182.5" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1426,6 +1428,7 @@ Are you sure you want to do this?</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="zqg-r2-dvS"/>
                         <constraints>
                             <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="cUU-Gy-Owh" secondAttribute="trailing" constant="31" id="Cvc-rL-84a"/>
                             <constraint firstItem="Dux-jX-zZu" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31" id="Fgm-Xw-0hQ"/>
@@ -1439,7 +1442,6 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="cUU-Gy-Owh" firstAttribute="top" secondItem="zqg-r2-dvS" secondAttribute="top" constant="224" id="xJR-bB-Xzi"/>
                             <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="RwA-Gy-GqJ" secondAttribute="trailing" constant="31" id="yL7-S0-q3d"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="zqg-r2-dvS"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="Dux-jX-zZu" id="Igv-JM-GhC"/>
@@ -1481,9 +1483,9 @@ Are you sure you want to do this?</string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-6c-gFb">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1d-6c-gFb">
                                         <rect key="frame" x="0.0" y="127" width="141" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="J1d-6c-gFb" secondAttribute="height" multiplier="141:52" id="v7i-fh-1U9"/>
                                         </constraints>
@@ -1492,9 +1494,9 @@ Are you sure you want to do this?</string>
                                             <action selector="cancelPressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="9Ue-fc-9Ix"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-an-eVC">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UL-an-eVC">
                                         <rect key="frame" x="141" y="127" width="146" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9UL-an-eVC" secondAttribute="height" multiplier="11:4" constant="3" id="6WL-uk-J3t"/>
                                         </constraints>
@@ -1505,14 +1507,14 @@ Are you sure you want to do this?</string>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oTn-qn-X0F">
                                         <rect key="frame" x="0.0" y="126" width="287" height="3"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="3" id="zB5-Mi-q7Q"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-hY-4FP">
                                         <rect key="frame" x="141" y="127" width="2" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="xyw-rk-5LZ"/>
                                         </constraints>
@@ -1527,7 +1529,7 @@ Are you sure you want to do this?</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstItem="9UL-an-eVC" firstAttribute="trailing" secondItem="oTn-qn-X0F" secondAttribute="trailing" id="13X-Mf-ICM"/>
                                     <constraint firstItem="sVy-Pf-cGv" firstAttribute="leading" secondItem="xWe-ih-hEC" secondAttribute="leading" constant="10" id="14G-mI-8gF"/>
@@ -1555,12 +1557,12 @@ Are you sure you want to do this?</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XAx-p8-2Pt"/>
                         <constraints>
                             <constraint firstItem="xWe-ih-hEC" firstAttribute="top" secondItem="XAx-p8-2Pt" secondAttribute="top" constant="234" id="CtS-Bv-7cH"/>
                             <constraint firstItem="xWe-ih-hEC" firstAttribute="leading" secondItem="XAx-p8-2Pt" secondAttribute="leading" constant="44" id="NJD-Vn-T7F"/>
                             <constraint firstItem="XAx-p8-2Pt" firstAttribute="trailing" secondItem="xWe-ih-hEC" secondAttribute="trailing" constant="44" id="SBZ-89-stB"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XAx-p8-2Pt"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="J1d-6c-gFb" id="Wcu-TS-TJC"/>
@@ -1590,7 +1592,7 @@ Are you sure you want to do this?</string>
                             <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mv-52-iFa" customClass="SetEncountersView" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="39" y="50" width="296" height="350"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Fhh-s8-7Yp"/>
@@ -1612,8 +1614,8 @@ Are you sure you want to do this?</string>
                     <view key="view" contentMode="scaleToFill" id="D6n-lN-J80">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Igf-1U-Xmc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="fhO-pp-hYa"/>
                 </viewController>
@@ -1668,9 +1670,9 @@ Are you sure you want to do this?</string>
                                             <action selector="incrementChanged:" destination="Od0-22-4ap" eventType="valueChanged" id="HAl-lc-7wh"/>
                                         </connections>
                                     </segmentedControl>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGJ-oa-vaK">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGJ-oa-vaK">
                                         <rect key="frame" x="0.0" y="168" width="141" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wGJ-oa-vaK" secondAttribute="height" multiplier="141:52" id="AcK-pZ-Sfr"/>
                                         </constraints>
@@ -1680,9 +1682,9 @@ Are you sure you want to do this?</string>
                                             <action selector="cancelPressed:" destination="Od0-22-4ap" eventType="touchUpInside" id="yUv-4I-ZVJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1Z-lJ-nZE">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1Z-lJ-nZE">
                                         <rect key="frame" x="141" y="168" width="146" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="M1Z-lJ-nZE" secondAttribute="height" multiplier="11:4" constant="3" id="Hol-Yw-GE2"/>
                                         </constraints>
@@ -1694,20 +1696,20 @@ Are you sure you want to do this?</string>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1j-UH-SSc">
                                         <rect key="frame" x="0.0" y="167" width="287" height="3"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="3" id="Lme-2S-vmK"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AI-6q-dZ9">
                                         <rect key="frame" x="141" y="168" width="2" height="52"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="56A-ve-pfN"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstItem="ya1-HY-9Vb" firstAttribute="leading" secondItem="XnS-NM-SQv" secondAttribute="leading" constant="8" id="3eT-xX-Usi"/>
                                     <constraint firstAttribute="trailing" secondItem="EzJ-L4-4Zj" secondAttribute="trailing" constant="6" id="A8s-mT-W1E"/>
@@ -1735,12 +1737,12 @@ Are you sure you want to do this?</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="9Wm-uI-mqD"/>
                         <constraints>
                             <constraint firstItem="XnS-NM-SQv" firstAttribute="width" secondItem="XnS-NM-SQv" secondAttribute="height" multiplier="287:179" constant="-65.737430167597779" id="UVm-ou-oWT"/>
                             <constraint firstItem="XnS-NM-SQv" firstAttribute="centerX" secondItem="2fL-L1-QuN" secondAttribute="centerX" id="VCS-5t-Suc"/>
                             <constraint firstItem="XnS-NM-SQv" firstAttribute="centerY" secondItem="2fL-L1-QuN" secondAttribute="centerY" constant="20.5" id="WFI-3e-h5f"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="9Wm-uI-mqD"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="wGJ-oa-vaK" id="aht-a3-5xE"/>
@@ -1780,10 +1782,10 @@ Are you sure you want to do this?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mSu-1U-tG2"/>
+        <segue reference="GWK-Tp-YuW"/>
         <segue reference="LJI-fC-w8z"/>
-        <segue reference="DHy-Un-iod"/>
-        <segue reference="m5D-ZB-ild"/>
+        <segue reference="LE8-BB-dtk"/>
+        <segue reference="m7y-w4-r1a"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
@@ -1802,5 +1804,26 @@ Are you sure you want to do this?</string>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="quaternaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>
