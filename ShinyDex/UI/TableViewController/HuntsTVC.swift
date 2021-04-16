@@ -15,8 +15,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
-	var huntSectionsService = HuntSectionsService()
-	var huntSections: HuntSections?
 	var totalEncounters = 0
 	var selectedIndex = 0
 	var selectedSection = 0
@@ -33,7 +31,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         super.viewDidLoad()
 
 		hunts = huntService.getAll()
-		huntSections = huntSectionsService.get()
 		tableView.delegate = self
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
@@ -50,7 +47,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		super.viewWillAppear(animated)
 
-		huntSections = huntSectionsService.get()
 		hunts = huntService.getAll()
 		setColors()
 		setEncounters()
@@ -111,10 +107,10 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		if huntSections!.collapsedSections.contains(section)
-		{
+		if (hunts[section].isCollapsed) {
 			return 0
 		}
+
 		return hunts[section].pokemon.count
     }
 
@@ -172,7 +168,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	{
 		let footerView = UIView()
 		footerView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		if huntSections!.collapsedSections.contains(section)
+		if (hunts[section].isCollapsed)
 		{
 			footerView.backgroundColor = colorService.getPrimaryColor()
 		}
@@ -208,17 +204,17 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 			return indexPaths
 		}
-		if huntSections!.collapsedSections.contains(section)
+		if (hunts[section].isCollapsed)
 		{
-			huntSections!.collapsedSections.remove(section)
+			hunts[section].isCollapsed = false
 			tableView.insertRows(at: indexPathsForSection(), with: .fade)
 		}
 		else
 		{
-			huntSections!.collapsedSections.insert(section)
+			hunts[section].isCollapsed = true
 			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
 		}
-		huntSectionsService.save(huntSections!)
+		huntService.save(hunt: hunts[section])
 		reloadData(duration: 0.2)
 	}
 
@@ -295,7 +291,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 				if currentHunt.pokemon.isEmpty
 				{
-					self.updateHuntPriorities(currentHunt: currentHunt, indexPath: indexPath)
+					self.removeHunt(currentHunt, indexPath.section)
+					self.updateHuntPriorities()
 				}
 				else
 				{
@@ -310,33 +307,19 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			return UISwipeActionsConfiguration(actions: [deleteAction])
 	}
 
-	fileprivate func updateHuntPriorities(currentHunt: Hunt, indexPath: IndexPath)
-	{
-		var newOrder = Set<Int>()
-		if indexPath.row != hunts.count - 1
-		{
-			for section in huntSections!.collapsedSections
-			{
-				var sectionToAdd = section
-				if section > indexPath.row
-				{
-					sectionToAdd = section - 1
-				}
-				newOrder.insert(sectionToAdd)
-			}
-		}
+	fileprivate func removeHunt(_ hunt: Hunt, _ section: Int) {
+		huntService.delete(hunt: hunt)
+		hunts.remove(at: section)
+	}
 
-		for hunt in hunts
-		{
-			if hunt.priority > indexPath.section
-			{
-				hunt.priority -= 1
-				huntService.save(hunt: hunt)
-			}
+	fileprivate func updateHuntPriorities()
+	{
+		var counter = 0
+		for hunt in hunts.sorted(by: { $0.priority < $1.priority}) {
+			hunt.priority = counter
+			huntService.save(hunt: hunt)
+			counter += 1
 		}
-		huntSections?.collapsedSections = newOrder
-		hunts.remove(at: indexPath.section)
-		huntService.delete(hunt: currentHunt)
 		setClearHuntButtonState()
 		setRearrangeButtonState()
 	}
@@ -384,7 +367,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 			}
 		}
 		hunts.removeAll()
-		huntSectionsService.removeAll(huntSections: huntSections!)
 		reloadData()
 		setEncounters()
 	}
@@ -410,7 +392,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	@IBAction func confirmRearrange(_ unwindSegue: UIStoryboardSegue)
 	{
 		hunts = huntService.getAll()
-		huntSections = huntSectionsService.get()
 		reloadData()
 	}
 

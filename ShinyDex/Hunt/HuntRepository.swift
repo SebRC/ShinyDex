@@ -47,6 +47,7 @@ class HuntRepository
 		hunt.huntEntity?.setValue(hunt.name, forKey: "name")
 		hunt.huntEntity?.setValue(hunt.indexes, forKey: "indexes")
 		hunt.huntEntity?.setValue(hunt.priority, forKey: "priority")
+		hunt.huntEntity?.setValue(hunt.isCollapsed, forKey: "isCollapsed")
 
 		save()
 	}

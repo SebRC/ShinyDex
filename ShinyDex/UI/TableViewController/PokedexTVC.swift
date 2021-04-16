@@ -26,7 +26,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
-	var huntSectionsService = HuntSectionsService()
 	
 	override func viewDidLoad()
 	{

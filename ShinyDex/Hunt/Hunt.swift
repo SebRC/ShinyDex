@@ -17,6 +17,7 @@ class Hunt
 	var pokemon: [Pokemon]
 	var totalEncounters: Int
 	var priority: Int
+	var isCollapsed: Bool
 
 	init(huntEntity: NSManagedObject)
 	{
@@ -24,6 +25,7 @@ class Hunt
 		self.name = huntEntity.value(forKey: "name") as! String
 		self.indexes = huntEntity.value(forKey: "indexes") as! [Int]
 		self.priority = huntEntity.value(forKey: "priority") as! Int
+		self.isCollapsed = huntEntity.value(forKey: "isCollapsed") as! Bool
 		self.pokemon = [Pokemon]()
 		self.totalEncounters = 0
 	}
@@ -35,5 +37,6 @@ class Hunt
 		self.priority = priority
 		self.pokemon = pokemon
 		self.totalEncounters = 0
+		self.isCollapsed = false
 	}
 }

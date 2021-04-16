@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H524" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HuntEntity" representedClassName="." syncable="YES">
         <attribute name="indexes" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <attribute name="isCollapsed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
@@ -20,7 +21,7 @@
         <attribute name="useIncrementInHunts" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="HuntEntity" positionX="103.625" positionY="-14.2890625" width="128" height="88"/>
+        <element name="HuntEntity" positionX="103.625" positionY="-14.2890625" width="128" height="103"/>
         <element name="PokemonEntity" positionX="-63" positionY="-18" width="128" height="223"/>
     </elements>
 </model>
