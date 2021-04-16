@@ -8,26 +8,21 @@
 
 import Foundation
 
-class ProbabilityService
-{
-	func getProbability(encounters: Int, shinyOdds: Int) -> Double
-	{
+class ProbabilityService {
+	func getProbability(encounters: Int, shinyOdds: Int) -> Double {
 		return Double.getProbability(encounters: encounters, odds: shinyOdds)
 	}
 
-	func getProbabilityText(encounters: Int, probability: Double, pokemon: Pokemon, methodDecrement: Int) -> String
-	{
-		if pokemon.huntMethod == .Lure && encounters <= 30
+	func getProbabilityText(encounters: Int, probability: Double, pokemon: Pokemon, methodDecrement: Int) -> String {
+		if (pokemon.huntMethod == .Lure && encounters <= 30
 			|| pokemon.generation == 0 && encounters <= 30
 			|| pokemon.huntMethod == .Pokeradar && encounters <= 40
 			|| pokemon.huntMethod == .ChainFishing && encounters <= 20
-			|| pokemon.huntMethod == .SosChaining && encounters <= 30
-		{
+			|| pokemon.huntMethod == .SosChaining && encounters <= 30) {
 			return " Chain \(methodDecrement) to see probability"
 		}
 
-		if pokemon.huntMethod == .DexNav && encounters <= 999
-		{
+		if (pokemon.huntMethod == .DexNav && encounters <= 999) {
 			return " Reach Search level \(methodDecrement) to see probability"
 		}
 

@@ -8,8 +8,7 @@
 
 import UIKit
 
-class IncrementVC: UIViewController
-{
+class IncrementVC: UIViewController {
 	@IBOutlet weak var modalView: UIView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
@@ -25,8 +24,7 @@ class IncrementVC: UIViewController
 	var pokemon: Pokemon!
 	var selectedIncrement = 1
 
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 		selectedIncrement = pokemon.increment
 
@@ -57,28 +55,23 @@ class IncrementVC: UIViewController
 		setDescriptionText(increment: pokemon.increment)
     }
 
-	@IBAction func incrementChanged(_ sender: Any)
-	{
+	@IBAction func incrementChanged(_ sender: Any) {
 		selectedIncrement = incrementSegmentedControl.selectedSegmentIndex + 1
 		setDescriptionText(increment: selectedIncrement)
 	}
 	
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		dismiss(animated: true)
 	}
 
-	@IBAction func confirmPressed(_ sender: Any)
-	{
+	@IBAction func confirmPressed(_ sender: Any) {
 		pokemon.increment = selectedIncrement
 		pokemonService.save(pokemon: pokemon)
 		performSegue(withIdentifier: "unwindFromEditIncrement", sender: self)
 	}
 
-	fileprivate func setDescriptionText(increment: Int)
-	{
-		switch increment
-		{
+	fileprivate func setDescriptionText(increment: Int) {
+		switch increment {
 		case 1:
 			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing"
 		case 2:

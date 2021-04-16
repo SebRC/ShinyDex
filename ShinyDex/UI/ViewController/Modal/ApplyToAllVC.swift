@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ApplyToAllVC: UIViewController
-{
+class ApplyToAllVC: UIViewController {
 	@IBOutlet weak var confirmationView: UIView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var cancelButton: UIButton!
@@ -25,8 +24,7 @@ class ApplyToAllVC: UIViewController
 	var allPokemon = [Pokemon]()
 	var isFromSettings = true
 
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 		allPokemon = pokemonService.getAll()
 		titleLabel.font = fontSettingsService.getExtraSmallFont()
@@ -44,16 +42,13 @@ class ApplyToAllVC: UIViewController
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
-
     }
 
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		dismiss(animated: true)
 	}
 
-	@IBAction func confirmPressed(_ sender: Any)
-	{
+	@IBAction func confirmPressed(_ sender: Any) {
 		pokemonService.applyToAll(pokemon: pokemon, allPokemon: allPokemon)
 		performSegue(withIdentifier: isFromSettings ? "unwindFromSettings" : "unwindFromGameSettings", sender: self)
 	}

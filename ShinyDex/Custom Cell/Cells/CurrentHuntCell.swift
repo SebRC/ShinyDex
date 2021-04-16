@@ -8,8 +8,7 @@
 
 import UIKit
 
-public class CurrentHuntCell: UITableViewCell
-{
+public class CurrentHuntCell: UITableViewCell {
 	
 	var cellDelegate: CurrentHuntCellDelegate?
 	
@@ -20,13 +19,11 @@ public class CurrentHuntCell: UITableViewCell
 	@IBOutlet weak var minusButton: UIButton!
 	@IBOutlet weak var plusButton: UIButton!
 	
-	@IBAction func decrementPressed(_ sender: UIButton)
-	{
+	@IBAction func decrementPressed(_ sender: UIButton) {
 		cellDelegate?.decrementEncounters(sender)
 	}
 	
-	@IBAction func incrementPressed(_ sender: UIButton)
-	{
+	@IBAction func incrementPressed(_ sender: UIButton) {
 		cellDelegate?.incrementEncounters(sender)
 	}
 }

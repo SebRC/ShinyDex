@@ -8,7 +8,6 @@
 
 import Foundation
 
-protocol SegueActivated : class
-{
+protocol SegueActivated : class {
 	func segueActivated()
 }

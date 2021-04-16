@@ -10,8 +10,7 @@ import UIKit
 import Foundation
 
 @IBDesignable
-class ButtonIconRight: UIView
-{
+class ButtonIconRight: UIView {
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var label: UILabel!
 	@IBOutlet weak var button: UIButton!
@@ -26,8 +25,7 @@ class ButtonIconRight: UIView
 	let nibName = "ButtonIconRight"
     var contentView: UIView?
 	
-	required init?(coder aDecoder: NSCoder)
-	{
+	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 
@@ -36,19 +34,16 @@ class ButtonIconRight: UIView
 		layer.cornerRadius = CornerRadius.Standard.rawValue
     }
 	
-    override init(frame: CGRect)
-	{
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initContentView(nibName: nibName, contentView: &contentView)
     }
 
-	func setFont()
-	{
+	func setFont() {
 		label.font = fontSettingsService.getXxSmallFont()
 	}
 	
-	fileprivate func setColors()
-	{
+	fileprivate func setColors() {
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		iconImageView.tintColor = .black
 		iconBackGroundView.backgroundColor = .white

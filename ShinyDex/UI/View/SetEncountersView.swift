@@ -10,8 +10,7 @@ import UIKit
 import Foundation
 
 @IBDesignable
-class SetEncountersView: UIView
-{
+class SetEncountersView: UIView {
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var encountersTextField: UITextField!
 	@IBOutlet weak var nameLabel: UILabel!
@@ -29,8 +28,7 @@ class SetEncountersView: UIView
 	let nibName = "SetEncountersView"
     var contentView:UIView?
 	
-	required init?(coder aDecoder: NSCoder)
-	{
+	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 
@@ -39,14 +37,12 @@ class SetEncountersView: UIView
 		roundCorners()
     }
 	
-    override init(frame: CGRect)
-	{
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initContentView(nibName: nibName, contentView: &contentView)
     }
 	
-	fileprivate func setColors()
-	{
+	fileprivate func setColors() {
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		spriteBackgroundView.backgroundColor = colorService.getPrimaryColor()
 		encountersTextField.backgroundColor = colorService.getPrimaryColor()
@@ -69,8 +65,7 @@ class SetEncountersView: UIView
 		buttonSeparator.backgroundColor = colorService.getSecondaryColor()
 	}
 	
-	fileprivate func setFonts()
-	{
+	fileprivate func setFonts() {
 		titleLabel.font = fontSettingsService.getMediumFont()
 		nameLabel.font = fontSettingsService.getExtraSmallFont()
 		numberLabel.font = fontSettingsService.getExtraSmallFont()
@@ -80,8 +75,7 @@ class SetEncountersView: UIView
 		encountersTextField.font = fontSettingsService.getSmallFont()
 	}
 	
-	fileprivate func roundCorners()
-	{
+	fileprivate func roundCorners() {
 		nameLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		numberLabel.layer.cornerRadius = CornerRadius.Standard.rawValue
 		encountersLabel.layer.cornerRadius = CornerRadius.Standard.rawValue

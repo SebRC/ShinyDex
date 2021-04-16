@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class Pokemon: NSObject
-{
+class Pokemon: NSObject {
 	var pokemonEntity: NSManagedObject
 	var name: String
 	var number: Int
@@ -26,8 +25,7 @@ class Pokemon: NSObject
 	var increment: Int
 	var useIncrementInHunts: Bool
 
-	init(pokemonEntity: NSManagedObject)
-	{
+	init(pokemonEntity: NSManagedObject) {
 		self.pokemonEntity = pokemonEntity
 		self.name = pokemonEntity.value(forKey: "name") as! String
 		self.number = pokemonEntity.value(forKey: "number") as! Int
@@ -43,8 +41,7 @@ class Pokemon: NSObject
 		self.useIncrementInHunts = pokemonEntity.value(forKey: "useIncrementInHunts") as! Bool
 	}
 
-	override init()
-	{
+	override init() {
 		self.pokemonEntity = NSManagedObject()
 		self.name = "Placeholder"
 		self.number = -1

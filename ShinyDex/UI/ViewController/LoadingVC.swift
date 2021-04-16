@@ -8,8 +8,7 @@
 
 import UIKit
 
-class LoadingVC: UIViewController
-{
+class LoadingVC: UIViewController {
 	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
 	var colorService = ColorService()
@@ -18,15 +17,13 @@ class LoadingVC: UIViewController
 	var loadingGifData: Data?
 	var pokeballGifData: Data?
 	
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 
 		resolveUserStatus()
 		hideNavigationBar()
 
-		if isFirstTimeUser
-		{
+		if (isFirstTimeUser) {
 			fontSettingsService.save(fontThemeName: FontThemeName.Retro.description)
 		}
 
@@ -34,35 +31,29 @@ class LoadingVC: UIViewController
 		loadingLabel.textColor = colorService.getTertiaryColor()
 		loadingLabel.font = fontSettingsService.getMediumFont()
 		
-		if isFirstTimeUser
-		{
+		if (isFirstTimeUser) {
 			proceedAsNewUser()
 		}
-		else
-		{
+		else {
 			proceedAsExistingUser()
 		}
     }
 	
-	fileprivate func resolveUserStatus()
-	{
+	fileprivate func resolveUserStatus() {
 		let allPokemon = pokemonService.getAll()
 		isFirstTimeUser = allPokemon.count == 0
 	}
 	
-	fileprivate func hideNavigationBar()
-	{
+	fileprivate func hideNavigationBar() {
 		navigationController?.isNavigationBarHidden = true
 	}
 	
-	fileprivate func proceedAsNewUser()
-	{
+	fileprivate func proceedAsNewUser()	{
 		pokemonService.populateDatabase()
 		performSegue(withIdentifier: "load", sender: self)
 	}
 	
-	fileprivate func proceedAsExistingUser()
-	{
+	fileprivate func proceedAsExistingUser() {
 		performSegue(withIdentifier: "load", sender: self)
 	}
 }

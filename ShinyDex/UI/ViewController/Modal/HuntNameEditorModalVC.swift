@@ -8,8 +8,7 @@
 
 import UIKit
 
-class HuntNameEditorModalVC: UIViewController
-{
+class HuntNameEditorModalVC: UIViewController {
 	var huntService = HuntService()
 	var colorService = ColorService()
 	var fontSettingsService = FontSettingsService()
@@ -24,8 +23,7 @@ class HuntNameEditorModalVC: UIViewController
 	@IBOutlet weak var verticalSeparator: UIView!
 	@IBOutlet weak var horizontalSeparator: UIView!
 	
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 		titleLabel.text = "Changing name of \(hunt.name)"
 		titleLabel.font = fontSettingsService.getExtraSmallFont()
@@ -50,15 +48,13 @@ class HuntNameEditorModalVC: UIViewController
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
     }
 	
-	@IBAction func confirmpressed(_ sender: Any)
-	{
+	@IBAction func confirmpressed(_ sender: Any) {
 		hunt.name = textField.text ?? "New Hunt"
 		huntService.save(hunt: hunt)
 		performSegue(withIdentifier: "unwindFromNameEditor", sender: self)
 	}
 	
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		dismiss(animated: true)
 	}
 }

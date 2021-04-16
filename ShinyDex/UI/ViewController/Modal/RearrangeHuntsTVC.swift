@@ -8,8 +8,7 @@
 
 import UIKit
 
-class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RearrangeCellDelegate
-{
+class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RearrangeCellDelegate {
 	let huntService = HuntService()
 	let colorService = ColorService()
 	let fontSettingsService = FontSettingsService()
@@ -21,9 +20,8 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var titleLabel: UILabel!
 
-    override func viewDidLoad()
-	{
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
@@ -42,15 +40,13 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = .clear
 		hunts = huntService.getAll()
-    }
+	}
 
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-	{
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 125.0
 	}
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return hunts.count
 	}
 
@@ -77,26 +73,21 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
         return cell
     }
 
-	func moveUp(_ sender: UIButton)
-	{
+	func moveUp(_ sender: UIButton) {
 		confirmButton.isEnabled = true
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
-		{
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
 			moveHunt(row: indexPath.row, firstIncrement: -1, secondIncrement: 1)
 		}
 	}
 
-	func moveDown(_ sender: UIButton)
-	{
+	func moveDown(_ sender: UIButton) {
 		confirmButton.isEnabled = true
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
-		{
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
 			moveHunt(row: indexPath.row, firstIncrement: 1, secondIncrement: -1)
 		}
 	}
 
-	fileprivate func moveHunt(row: Int, firstIncrement: Int, secondIncrement: Int)
-	{
+	fileprivate func moveHunt(row: Int, firstIncrement: Int, secondIncrement: Int) {
 		let pressedIndex = row
 		let adjacentIndex = row + firstIncrement
 		let movedHunt = hunts[pressedIndex]
@@ -106,25 +97,21 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		reloadData()
 	}
 
-	fileprivate func reloadData()
-	{
+	fileprivate func reloadData() {
 		hunts = hunts.sorted(by: { $0.priority < $1.priority})
 		UIView.transition(with: tableView, duration: 0.2, options: .transitionCrossDissolve, animations: {
 			self.tableView.reloadData()
 		}, completion: nil)
 	}
 
-	@IBAction func confirmPressed(_ sender: Any)
-	{
-		for hunt in hunts
-		{
+	@IBAction func confirmPressed(_ sender: Any) {
+		for hunt in hunts {
 			huntService.save(hunt: hunt)
 		}
 		performSegue(withIdentifier: "unwindFromRearrange", sender: self)
 	}
 
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		dismiss(animated: true)
 	}
 }

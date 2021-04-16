@@ -10,38 +10,31 @@ import Foundation
 import UIKit
 import CoreData
 
-class HuntRepository
-{
+class HuntRepository {
 	fileprivate var appDelegate: AppDelegate
 	fileprivate var managedContext: NSManagedObjectContext
 	fileprivate var entity: NSEntityDescription
 
-	init()
-	{
+	init() {
 		appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
 		managedContext = appDelegate.persistentContainer.viewContext
 		entity = NSEntityDescription.entity(forEntityName: "HuntEntity", in: managedContext)!
 	}
 
-	func getAll() -> [NSManagedObject]
-	{
+	func getAll() -> [NSManagedObject] {
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
-		do
-		{
+		do {
 			let huntEntities = try managedContext.fetch(fetchRequest)
 			return huntEntities
 		}
-		catch let error as NSError
-		{
+		catch let error as NSError {
 			print("Could not fetch HuntEntity table. \(error.localizedDescription)")
 		}
 		return []
 	}
 
-	func save(hunt: Hunt)
-	{
-		if hunt.huntEntity == nil
-		{
+	func save(hunt: Hunt) {
+		if (hunt.huntEntity == nil) {
 			hunt.huntEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 		}
 		hunt.huntEntity?.setValue(hunt.name, forKey: "name")
@@ -52,35 +45,28 @@ class HuntRepository
 		save()
 	}
 
-	func clear()
-	{
+	func clear(){
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "HuntEntity")
 		let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-		do
-		{
+		do {
 			try managedContext.execute(deleteRequest)
 		}
-		catch let error as NSError
-		{
+		catch let error as NSError {
 			print("Could not clear table. \(error.localizedDescription)")
 		}
 		save()
 	}
 
-	func delete(hunt: Hunt)
-	{
+	func delete(hunt: Hunt) {
 		managedContext.delete(hunt.huntEntity!)
 		save()
 	}
 
-	fileprivate func save()
-	{
-		do
-		{
+	fileprivate func save() {
+		do {
 			try managedContext.save()
 		}
-		catch let error as NSError
-		{
+		catch let error as NSError {
 			print("Could not save. \(error.localizedDescription)")
 		}
 	}

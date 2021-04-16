@@ -8,12 +8,9 @@
 
 import Foundation
 
-class TextResolver
-{
-	func getGenTitle(gen: Int) -> String
-	{
-		switch gen
-		{
+class TextResolver {
+	func getGenTitle(gen: Int) -> String {
+		switch gen {
 		case 1:
 			return "Johto"
 		case 2:
@@ -37,57 +34,46 @@ class TextResolver
 		}
 	}
 
-	func getEncountersLabelText(pokemon: Pokemon, encounters: Int, methodDecrement: Int = 0) -> String
-	{
+	func getEncountersLabelText(pokemon: Pokemon, encounters: Int, methodDecrement: Int = 0) -> String {
 		return getEncountersText(pokemon: pokemon, methodDecrement: methodDecrement, encounters: encounters)
 	}
 
-	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool
-	{
+	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool {
 		var maxChainReached = false
-		if pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining
-		{
+		if (pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining) {
 			maxChainReached = encounters > 30
 		}
-		else if pokemon.huntMethod == .ChainFishing
-		{
+		else if (pokemon.huntMethod == .ChainFishing) {
 			maxChainReached = encounters > 20
 		}
-		else if pokemon.huntMethod == .Pokeradar
-		{
+		else if (pokemon.huntMethod == .Pokeradar) {
 			maxChainReached = encounters > 40
 		}
-		else if pokemon.huntMethod == .DexNav
-		{
+		else if (pokemon.huntMethod == .DexNav) {
 			maxChainReached = encounters > 999
 		}
 		return maxChainReached
 	}
 
-	fileprivate func getEncountersText(pokemon: Pokemon, methodDecrement: Int, encounters: Int) -> String
-	{
+	fileprivate func getEncountersText(pokemon: Pokemon, methodDecrement: Int, encounters: Int) -> String {
 		let maxChainReached = getMaxChainReached(pokemon: pokemon, encounters: encounters)
 		let encountersDecremented = encounters - methodDecrement
 		var methodVerb = "Chain"
 
-		if pokemon.generation == 0
-		{
+		if (pokemon.generation == 0) {
 			return maxChainReached
 				? " Catch Combo: \(methodDecrement) + \(encountersDecremented) seen"
 				: " Catch Combo: \(encounters)"
 		}
-		else if pokemon.huntMethod == .Masuda || pokemon.huntMethod == .Gen2Breeding
-		{
+		else if (pokemon.huntMethod == .Masuda || pokemon.huntMethod == .Gen2Breeding) {
 			return " Eggs: \(encounters)"
 		}
-		else if pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .ChainFishing || pokemon.huntMethod == .Pokeradar
-		{
+		else if (pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .ChainFishing || pokemon.huntMethod == .Pokeradar) {
 			return maxChainReached
 				? " \(methodVerb): \(methodDecrement) + \(encountersDecremented) \(pokemon.huntMethod == .Pokeradar ? "patches" : "seen")"
 				: " \(methodVerb): \(encounters)"
 		}
-		else if pokemon.huntMethod == .DexNav
-		{
+		else if (pokemon.huntMethod == .DexNav) {
 			methodVerb = "Search level"
 			return maxChainReached
 				? " \(methodVerb): \(methodDecrement) + \(encountersDecremented) seen"

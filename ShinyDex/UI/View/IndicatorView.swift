@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-class IndicatorView: UIView
-{
+class IndicatorView: UIView {
 	let nibName = "IndicatorView"
     var contentView: UIView?
 	fileprivate var colorService = ColorService()
@@ -19,8 +18,7 @@ class IndicatorView: UIView
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var pokemonImageView: UIImageView!
 	
-	required init?(coder aDecoder: NSCoder)
-	{
+	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 		titleLabel.textColor = colorService.getTertiaryColor()
@@ -29,8 +27,7 @@ class IndicatorView: UIView
 		titleLabel.font = fontSettingsService.getXxSmallFont()
     }
 	
-    override init(frame: CGRect)
-	{
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initContentView(nibName: nibName, contentView: &contentView)
     }

@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate
-{
+class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate {
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
@@ -25,8 +24,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchBar: UISearchBar!
 
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 		allPokemon = pokemonService.getAll()
 
@@ -53,8 +51,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		setUpSearchController()
     }
 
-	fileprivate func setUpSearchController()
-	{
+	fileprivate func setUpSearchController() {
 		searchBar.placeholder = "Search"
 		let attributes =
 		[
@@ -72,43 +69,36 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		searchBar.barTintColor = colorService.getPrimaryColor()
 	}
 
-	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
-	{
+	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 	   filterContentForSearchText(self.searchBar.text!)
 	}
 
-	func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
-	{
+	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 	   filterContentForSearchText(self.searchBar.text!)
 	}
 
-	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-	{
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 	   filterContentForSearchText(self.searchBar.text!)
 	}
 
-	func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
-	{
+	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 		searchBar.searchTextField.resignFirstResponder()
 	}
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return isFiltering() ? filteredPokemon.count : allPokemon.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "createHuntCell", for: indexPath) as! CreateHuntCell
 		let pokemon = getSelectedPokemon(index: indexPath.row)
-		if pokemon.isBeingHunted
-		{
+		if (pokemon.isBeingHunted) {
 			cell.isUserInteractionEnabled = false
 			cell.nameLabel.isEnabled = false
 			cell.numberLabel.isEnabled = false
 			cell.spriteImageView.alpha = 0.5
 		}
-		else
-		{
+		else {
 			cell.isUserInteractionEnabled = true
 			cell.nameLabel.isEnabled = true
 			cell.numberLabel.isEnabled = true
@@ -124,13 +114,11 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
         return cell
 	}
 
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-	{
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 65.0;
 	}
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-	{
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let pokemon = getSelectedPokemon(index: indexPath.row)
 		pokemon.isBeingHunted = true
 		newHunt.pokemon.append(pokemon)
@@ -140,56 +128,44 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.reloadData()
 	}
 
-	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-	{
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 
-	func filterContentForSearchText(_ searchText: String)
-	{
+	func filterContentForSearchText(_ searchText: String) {
 		filteredPokemon = allPokemon.filter( {(pokemon : Pokemon) -> Bool in
-
-			if searchBarIsEmpty()
-			{
+			if (searchBarIsEmpty()) {
 				return true
 			}
-
 			return pokemon.name.lowercased().contains(searchText.lowercased())
-	})
+		})
 		tableView.reloadData()
 	}
 
-	func isFiltering() -> Bool
-	{
+	func isFiltering() -> Bool {
 		return !searchBarIsEmpty()
 	}
 
-	func searchBarIsEmpty() -> Bool
-	{
+	func searchBarIsEmpty() -> Bool {
 		return searchBar.text?.isEmpty ?? true
 	}
 
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		markSelectedPokemonAsNotHunted()
 	}
 
-	fileprivate func markSelectedPokemonAsNotHunted()
-	{
-		for pokemon in newHunt.pokemon
-		{
+	fileprivate func markSelectedPokemonAsNotHunted() {
+		for pokemon in newHunt.pokemon{
 			pokemon.isBeingHunted = false
 		}
 		dismiss(animated: true)
 	}
 
-	@IBAction func confirmPressed(_ sender: Any)
-	{
+	@IBAction func confirmPressed(_ sender: Any){
 		newHunt.name = getHuntName()
 		newHunt.priority = getPriority()
 		newHunt.pokemon = newHunt.pokemon.sorted(by: { $0.number < $1.number})
-		for pokemon in newHunt.pokemon
-		{
+		for pokemon in newHunt.pokemon {
 			pokemonService.save(pokemon: pokemon)
 			newHunt.totalEncounters += pokemon.encounters
 		}
@@ -197,46 +173,37 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		performSegue(withIdentifier: "unwindFromCreateHunt", sender: self)
 	}
 
-	private func getPriority() -> Int
-	{
+	private func getPriority() -> Int {
 		let hunts = huntService.getAll()
-		if hunts.isEmpty
-		{
+		if (hunts.isEmpty) {
 			return 0
 		}
 		var highestPriority = 0
-		for hunt in hunts
-		{
-			if hunt.priority > highestPriority
-			{
+		for hunt in hunts {
+			if (hunt.priority > highestPriority) {
 				highestPriority = hunt.priority
 			}
 		}
-
 		return highestPriority + 1
 	}
 
-	fileprivate func getSelectedPokemon(index: Int) -> Pokemon
-	{
+	fileprivate func getSelectedPokemon(index: Int) -> Pokemon {
 		return isFiltering()
 			? filteredPokemon[index]
 			: allPokemon[index]
 	}
 
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool
-	{
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
 		newHunt.name = getHuntName()
         return false
     }
 
-	func presentationControllerDidDismiss(_ presentationController: UIPresentationController)
-	{
+	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
 		markSelectedPokemonAsNotHunted()
 	}
 
-	fileprivate func getHuntName() -> String
-	{
+	fileprivate func getHuntName() -> String {
 		return (textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? "\(newHunt.pokemon[0].name)" : textField.text)!
 	}
 }

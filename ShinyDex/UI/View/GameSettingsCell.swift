@@ -8,8 +8,7 @@
 
 import UIKit
 
-class GameSettingsCell: UIView
-{
+class GameSettingsCell: UIView {
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
@@ -22,8 +21,7 @@ class GameSettingsCell: UIView
 	let nibName = "GameSettingsCell"
     var contentView: UIView?
 
-	required init?(coder aDecoder: NSCoder)
-	{
+	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 		separator.layer.cornerRadius = CornerRadius.Standard.rawValue
@@ -31,14 +29,12 @@ class GameSettingsCell: UIView
 		setFonts()
     }
 
-    override init(frame: CGRect)
-	{
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initContentView(nibName: nibName, contentView: &contentView)
     }
 
-	func setUIColors()
-	{
+	func setUIColors() {
 		contentView?.backgroundColor = colorService.getPrimaryColor()
 		separator.backgroundColor = colorService.getSecondaryColor()
 		titleLabel.textColor = colorService.getTertiaryColor()
@@ -47,8 +43,7 @@ class GameSettingsCell: UIView
 		actionSwitch.thumbTintColor = colorService.getPrimaryColor()
 	}
 
-	func setFonts()
-	{
+	func setFonts() {
 		titleLabel.font = fontSettingsService.getMediumFont()
 		descriptionLabel.font = fontSettingsService.getXxSmallFont()
 	}

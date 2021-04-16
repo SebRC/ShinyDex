@@ -8,8 +8,7 @@
 
 import Foundation
 
-class OddsService
-{
+class OddsService {
 	fileprivate let lgpeOddsService = LGPEOddsService()
 	fileprivate let masudaOddsService = MasudaOddsService()
 	fileprivate let gen2BreedingOddsService = Gen2BreedingOddsService()
@@ -19,8 +18,7 @@ class OddsService
 	fileprivate let pokeradarOddsService = PokeradarOddsService()
 	fileprivate let dexNavOddsService = DexNavOddsService()
 
-	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int
-	{
+	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int {
 		switch huntMethod {
 		case .Gen2Breeding:
 			return gen2BreedingOddsService.getOdds()
@@ -37,20 +35,16 @@ class OddsService
 		case .SosChaining:
 			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
 		default:
-			if generation == 2 || generation == 4 || generation == 5 && !isCharmActive
-			{
+			if (generation == 2 || generation == 4 || generation == 5 && !isCharmActive) {
 				return 8192
 			}
-			else if generation == 5
-			{
+			else if (generation == 5) {
 				return 2731
 			}
-			else if generation > 5 && generation <= 8 && !isCharmActive
-			{
+			else if (generation > 5 && generation <= 8 && !isCharmActive) {
 				return 4096
 			}
-			else if generation > 5 && generation <= 8
-			{
+			else if (generation > 5 && generation <= 8) {
 				return 1365
 			}
 			return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
