@@ -17,7 +17,6 @@ class MenuTVC: UITableViewController
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
-	var huntSectionsService = HuntSectionsService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
 	
