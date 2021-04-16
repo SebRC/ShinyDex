@@ -8,8 +8,7 @@
 
 import UIKit
 
-class SettingsVC: UIViewController, SegueActivated
-{
+class SettingsVC: UIViewController, SegueActivated {
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var popupHandler = PopupHandler()
@@ -27,8 +26,7 @@ class SettingsVC: UIViewController, SegueActivated
 	@IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
         scrollView.topAnchor.constraint(equalTo: themeSettingsBackgroundView.topAnchor, constant: 8.0).isActive = true
@@ -43,20 +41,14 @@ class SettingsVC: UIViewController, SegueActivated
 
 
 		setUIColors()
-		
 		setFonts()
-		
 		roundCorners()
-		
 		setFontSettingsControlSelectedSegmentIndex()
-		
 		setEditButtonActions()
-		
 		setEditButtonTexts()
     }
 	
-	fileprivate func setUIColors()
-	{
+	fileprivate func setUIColors() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
@@ -87,8 +79,7 @@ class SettingsVC: UIViewController, SegueActivated
 		themeSettingsBackgroundView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
-	fileprivate func setFonts()
-	{
+	fileprivate func setFonts() {
 		setAttributedFonts()
 		themeLabel.font = fontSettingsService.getExtraLargeFont()
 		fontLabel.font = fontSettingsService.getExtraLargeFont()
@@ -99,8 +90,7 @@ class SettingsVC: UIViewController, SegueActivated
 		gameSettingsContainer.setCellFonts()
 	}
 	
-	fileprivate func setAttributedFonts()
-	{
+	fileprivate func setAttributedFonts() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
@@ -109,107 +99,87 @@ class SettingsVC: UIViewController, SegueActivated
 		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
-	fileprivate func roundCorners()
-	{
+	fileprivate func roundCorners() {
 		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard.rawValue
 		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.Standard.rawValue
 		themeFontSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 	
-	fileprivate func setEditButtonActions()
-	{
+	fileprivate func setEditButtonActions() {
 		primaryEditButton.button.addTarget(self, action: #selector(primaryEditButtonPressed), for: .touchUpInside)
 		secondaryEditButton.button.addTarget(self, action: #selector(secondaryEditButtonPressed), for: .touchUpInside)
 		tertiaryEditButton.button.addTarget(self, action: #selector(tertiaryEditButtonPressed), for: .touchUpInside)
 	}
 	
-	fileprivate func setEditButtonTexts()
-	{
+	fileprivate func setEditButtonTexts() {
 		primaryEditButton.label.text = "Primary"
 		secondaryEditButton.label.text = "Secondary"
 		tertiaryEditButton.label.text = "Tertiary"
 	}
 	
-	fileprivate func setFontSettingsControlSelectedSegmentIndex()
-	{
-		if fontSettingsService.getFontThemeName() == FontThemeName.Modern.description
-		{
+	fileprivate func setFontSettingsControlSelectedSegmentIndex() {
+		if (fontSettingsService.getFontThemeName() == FontThemeName.Modern.description) {
 			fontSegmentedControl.selectedSegmentIndex = 0
 		}
-		else
-		{
+		else {
 			fontSegmentedControl.selectedSegmentIndex = 1
 		}
 	}
 	
-	@IBAction func changeFontPressed(_ sender: Any)
-	{
+	@IBAction func changeFontPressed(_ sender: Any) {
 		let fontThemeName = fontSegmentedControl.selectedSegmentIndex == 0 ? FontThemeName.Modern.description : FontThemeName.Retro.description
 		fontSettingsService.save(fontThemeName: fontThemeName)
 		setFonts()
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
-		if segue.identifier == "applyToAll"
-		{
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if (segue.identifier == "applyToAll") {
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
 			destVC.isFromSettings = true
 		}
-		else
-		{
+		else {
 			let destVC = segue.destination as! ColorPickerVC
 
-			if theme == .Tertiary
-			{
+			if (theme == .Tertiary) {
 				destVC.currentColor = colorService.getTertiaryHex()
 			}
-			else if theme == .Primary
-			{
+			else if (theme == .Primary) {
 				destVC.currentColor = colorService.getPrimaryHex()
 			}
-			else
-			{
+			else {
 				destVC.currentColor = colorService.getSecondaryHex()
 			}
 			destVC.theme = theme
 		}
-
 	}
 	
-	@objc fileprivate func primaryEditButtonPressed()
-	{
+	@objc fileprivate func primaryEditButtonPressed() {
 		theme = .Primary
 		performSegue(withIdentifier: "pickColor", sender: self)
 	}
 	
-	@objc fileprivate func secondaryEditButtonPressed()
-	{
+	@objc fileprivate func secondaryEditButtonPressed() {
 		theme = .Secondary
 		performSegue(withIdentifier: "pickColor", sender: self)
 	}
 	
-	@objc fileprivate func tertiaryEditButtonPressed()
-	{
+	@objc fileprivate func tertiaryEditButtonPressed() {
 		theme = .Tertiary
 		performSegue(withIdentifier: "pickColor", sender: self)
 	}
 	
-	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue)
-	{
+	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue) {
 		setUIColors()
 		gameSettingsContainer.setUIColors()
 		gameSettingsContainer.setCellColors()
 		setFonts()
 	}
 
-	func segueActivated()
-	{
+	func segueActivated() {
 		performSegue(withIdentifier: "applyToAll", sender: self)
 	}
-	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue)
-	{
+	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue) {
 		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
 	}
 }

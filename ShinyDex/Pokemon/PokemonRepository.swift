@@ -10,14 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
-public class PokemonRepository
-{
+public class PokemonRepository {
 	fileprivate var appDelegate: AppDelegate
 	fileprivate var managedContext: NSManagedObjectContext
 	fileprivate var entity: NSEntityDescription
 	
-	init()
-	{
+	init() {
 		appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
 		
 		managedContext = appDelegate.persistentContainer.viewContext
@@ -25,23 +23,19 @@ public class PokemonRepository
 		entity = NSEntityDescription.entity(forEntityName: "PokemonEntity", in: managedContext)!
 	}
 	
-	func getAll() -> [NSManagedObject]
-	{
+	func getAll() -> [NSManagedObject] {
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")
-		do
-		{
+		do {
 			let pokemonEntityList = try managedContext.fetch(fetchRequest)
 			return pokemonEntityList
 		}
-		catch let error as NSError
-		{
+		catch let error as NSError {
 			print("Could not fetch PokemonEntity table. \(error.localizedDescription)")
 		}
 		return []
 	}
 	
-	func save(pokemon: Pokemon)
-	{
+	func save(pokemon: Pokemon) {
 		pokemon.pokemonEntity.setValue(pokemon.name, forKey: "name")
 		pokemon.pokemonEntity.setValue(pokemon.encounters, forKey: "encounters")
 		pokemon.pokemonEntity.setValue(pokemon.caughtDescription, forKey: "caughtDescription")
@@ -55,18 +49,15 @@ public class PokemonRepository
 		pokemon.pokemonEntity.setValue(pokemon.increment, forKey: "increment")
 		pokemon.pokemonEntity.setValue(pokemon.useIncrementInHunts, forKey: "useIncrementInHunts")
 		
-		do
-		{
+		do {
 			try managedContext.save()
 		}
-		catch let error as NSError
-		{
+		catch let error as NSError {
 			print("Could not save \(pokemon.name). \(error.localizedDescription)")
 		}
 	}
 
-	func save(name: String, number: Int)
-	{
+	func save(name: String, number: Int) {
 		let pokemonEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 
 		pokemonEntity.setValue(name, forKey: "name")
@@ -88,17 +79,14 @@ public class PokemonRepository
 		save(pokemon: pokemon)
 	}
 
-	func deleteAll()
-	{
+	func deleteAll() {
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "PokemonEntity")
 		let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
-		do
-		{
+		do {
 			try managedContext.execute(deleteRequest)
 		}
-		catch let error as NSError
-		{
+		catch let error as NSError {
 			print("An error ocurred when deleting all entities: \(error.localizedDescription)")
 		}
 	}

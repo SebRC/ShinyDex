@@ -8,8 +8,7 @@
 
 import UIKit
 
-class PokedexTVC: UITableViewController, PokemonCellDelegate
-{
+class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	let searchController = UISearchController(searchResultsController: nil)
 	
 	var filteredPokemon = [Pokemon]()
@@ -27,8 +26,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 	var colorService = ColorService()
 	var huntService = HuntService()
 	
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 
 		allPokemon = pokemonService.getAll()
@@ -46,8 +44,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		setFonts()
     }
 	
-	override func viewWillAppear(_ animated: Bool)
-	{
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
 		setTitle()
@@ -57,8 +54,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		tableView.reloadData()
 	}
 	
-	fileprivate func setUIColors()
-	{
+	fileprivate func setUIColors() {
 		navigationController?.navigationBar.backgroundColor = colorService.getSecondaryColor()
 
 		tableView.separatorColor = colorService.getSecondaryColor()
@@ -68,14 +64,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		searchController.searchBar.barTintColor = colorService.getSecondaryColor()
 	}
 	
-	fileprivate func setUpScopeBar()
-	{
+	fileprivate func setUpScopeBar() {
 		searchController.searchBar.scopeButtonTitles = generation == 9 ? ["Caught"] : ["Shinydex", "Caught", "Not Caught"]
 		searchController.searchBar.delegate = self
 	}
 	
-	fileprivate func setUpSearchController()
-	{
+	fileprivate func setUpSearchController() {
 		searchController.searchResultsUpdater = self
 		
 		searchController.obscuresBackgroundDuringPresentation = false
@@ -87,8 +81,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		definesPresentationContext = true
 	}
 	
-	fileprivate func setUpBackButton()
-	{
+	fileprivate func setUpBackButton() {
 		let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
 		
 		navigationItem.backBarButtonItem = backButton
@@ -96,8 +89,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
 	}
 	
-	fileprivate func setNavigationBarFont()
-	{
+	fileprivate func setNavigationBarFont() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
@@ -105,8 +97,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
-	fileprivate func setFonts()
-	{
+	fileprivate func setFonts() {
 		let attributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getSmallFont()
@@ -120,15 +111,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont(), NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()], for: .normal)
 	}
 	
-	fileprivate func setTitle()
-	{
+	fileprivate func setTitle() {
 		navigationItem.title = textResolver.getGenTitle(gen: generation)
 	}
 	
-	fileprivate func slicePokemonList() -> [Pokemon]
-	{
-		switch generation
-		{
+	fileprivate func slicePokemonList() -> [Pokemon] {
+		switch generation {
 		case 0:
 			return Array(allPokemon[0..<151])
 		case 1:
@@ -150,15 +138,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		}
 	}
 
-	override func scrollViewWillBeginDragging(_ scrollView: UIScrollView)
-	{
+	override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 		searchController.searchBar.resignFirstResponder()
 	}
 	
-	func changeCaughtButtonPressed(_ sender: UIButton)
-	{
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
-		{
+	func changeCaughtButtonPressed(_ sender: UIButton) {
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
 			selectedPokemon = getSelectedPokemon(index: indexPath.row)
 			
 			tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -167,81 +152,66 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		performSegue(withIdentifier: "pickPokeball", sender: self)
 	}
 	
-	func addToHuntPressed(_ sender: UIButton)
-	{
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
-		{
+	func addToHuntPressed(_ sender: UIButton) {
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
 			selectedPokemon = getSelectedPokemon(index: indexPath.row)
-			if hunts.isEmpty
-			{
+			if (hunts.isEmpty) {
 				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: selectedPokemon!)
 				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to New Hunt.")
 				tableView.reloadData()
 			}
-			else if hunts.count == 1
-			{
+			else if (hunts.count == 1) {
 				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: selectedPokemon!)
 				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(hunts[0].name).")
 				tableView.reloadData()
 			}
-			else
-			{
+			else {
 				performSegue(withIdentifier: "pickHunt", sender: self)
 			}
 		}
 	}
 	
-	fileprivate func getSelectedPokemon(index: Int) -> Pokemon
-	{
-		if isFiltering()
-		{
+	fileprivate func getSelectedPokemon(index: Int) -> Pokemon {
+		if (isFiltering()) {
 			return filteredPokemon[index]
 		}
-		else
-		{
+		else {
 			return slicedPokemon[index]
 		}
 	}
 	
-	func searchBarIsEmpty() -> Bool
-	{
+	func searchBarIsEmpty() -> Bool {
 		return searchController.searchBar.text?.isEmpty ?? true
 	}
 	
-	func filterContentForSearchText(_ searchText: String, scope: String = "Regular")
-	{
+	func filterContentForSearchText(_ searchText: String, scope: String = "Regular") {
 		filteredPokemon = slicedPokemon.filter( {(pokemon : Pokemon) -> Bool in
 			
 			let doesCategoryMatch = (scope == "Shinydex") || (scope == pokemon.caughtDescription)
 			
-			if searchBarIsEmpty()
-			{
+			if (searchBarIsEmpty()) {
 				return doesCategoryMatch
 			}
 			
 			return doesCategoryMatch && pokemon.name.lowercased().contains(searchText.lowercased())
-	})
+		})
 		tableView.reloadData()
 	}
 	
-	func isFiltering() -> Bool
-	{
+	func isFiltering() -> Bool {
 		let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
 		return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
 	}
 	
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return isFiltering() ? filteredPokemon.count : slicedPokemon.count
     }
 	
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-	{
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 65.0;
 	}
 	
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-	{
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell", for: indexPath) as! PokemonCell
 		cell.cellDelegate = self
 		selectedPokemon = getSelectedPokemon(index: indexPath.row)
@@ -250,13 +220,11 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
         return cell
     }
 	
-	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: Pokemon)
-	{
+	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: Pokemon) {
 		pokemonCell.sprite.image = UIImage(named: pokemon.name.lowercased())
 	}
 	
-	fileprivate func setPokemonCellProperties(pokemonCell: PokemonCell, pokemon: Pokemon)
-	{
+	fileprivate func setPokemonCellProperties(pokemonCell: PokemonCell, pokemon: Pokemon) {
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
@@ -268,51 +236,40 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
-	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell, isBeingHunted: Bool)
-	{
+	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell, isBeingHunted: Bool) {
 		pokemonCell.addToCurrentHuntButton.isEnabled = !isBeingHunted
 	}
 
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-	{
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		selectedIndex = indexPath.row
 		performSegue(withIdentifier: "trackShiny", sender: nil)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		let identifier = segue.identifier
-		if identifier == "pickPokeball"
-		{
+		if (identifier == "pickPokeball") {
 			let destVC = segue.destination as? PokeballModalVC
 			destVC?.pokemon = selectedPokemon
 		}
-		else if segue.identifier == "pickHunt"
-		{
+		else if (segue.identifier == "pickHunt") {
 			let destVC = segue.destination as? HuntPickerModalVC
 			destVC?.pokemon = selectedPokemon
 		}
-		else
-		{
+		else {
 			let destVC = segue.destination as? ShinyTrackerVC
 			destVC?.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
 		}
 	}
 	
-	@IBAction func save(_ unwindSegue: UIStoryboardSegue)
-	{
-		if let sourceTVC = unwindSegue.source as? PokeballModalVC
-		{
+	@IBAction func save(_ unwindSegue: UIStoryboardSegue) {
+		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
 			selectedPokemon?.caughtBall = sourceTVC.pokemon.caughtBall
 			pokemonService.save(pokemon: selectedPokemon!)
-			if selectedPokemon?.caughtBall == "none"
-			{
-				if isFiltering() && searchController.searchBar.selectedScopeButtonIndex == 1
-				{
+			if (selectedPokemon?.caughtBall == "none") {
+				if (isFiltering() && searchController.searchBar.selectedScopeButtonIndex == 1) {
 					filteredPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
 				}
-				if generation == 9
-				{
+				if (generation == 9) {
 					slicedPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
 				}
 			}
@@ -320,13 +277,11 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate
 		}
 	}
 	
-	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-	{
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 
-	@IBAction func finish(_ unwindSegue: UIStoryboardSegue)
-	{
+	@IBAction func finish(_ unwindSegue: UIStoryboardSegue) {
 		tableView.reloadData()
 		let source = unwindSegue.source as! HuntPickerModalVC
 		let name = source.pickedHuntName!

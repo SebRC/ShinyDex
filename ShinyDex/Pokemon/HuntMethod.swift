@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum HuntMethod: String
-{
+enum HuntMethod: String {
 	case Encounters = "Encounters"
 	case Gen2Breeding = "Gen 2 Breeding"
     case Masuda = "Masuda"

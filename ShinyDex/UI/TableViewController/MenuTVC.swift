@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MenuTVC: UITableViewController
-{
+class MenuTVC: UITableViewController {
 	var genIndex = 0
 	var hunts = [Hunt]()
 	let textResolver = TextResolver()
@@ -20,8 +19,7 @@ class MenuTVC: UITableViewController
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
 	
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		hideBackButton()
@@ -39,8 +37,7 @@ class MenuTVC: UITableViewController
 		setSettingsIconColor()
 	}
 	
-	override func viewWillAppear(_ animated: Bool)
-	{
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
 		hunts = huntService.getAll()
@@ -58,23 +55,19 @@ class MenuTVC: UITableViewController
 		setSettingsIconColor()
 	}
 	
-	fileprivate func hideBackButton()
-	{
+	fileprivate func hideBackButton() {
 		navigationItem.hidesBackButton = true
 	}
 	
-	fileprivate func showNavigationBar()
-	{
+	fileprivate func showNavigationBar() {
 		navigationController?.isNavigationBarHidden = false
 	}
 	
-	fileprivate func setNavigationControllerColor()
-	{
+	fileprivate func setNavigationControllerColor() {
 		navigationController?.navigationBar.barTintColor = colorService.getSecondaryColor()
 	}
 	
-	fileprivate func setNavigationBarFont()
-	{
+	fileprivate func setNavigationBarFont() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
 			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
@@ -82,18 +75,15 @@ class MenuTVC: UITableViewController
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
-	fileprivate func setSettingsIconColor()
-	{
+	fileprivate func setSettingsIconColor() {
 		settingsButton.tintColor = colorService.getTertiaryColor()
 	}
 	
-	fileprivate func setTableViewBackgroundColor()
-	{
+	fileprivate func setTableViewBackgroundColor() {
 		tableView.backgroundColor = colorService.getSecondaryColor()
 	}
 
-	fileprivate func setUpBackButton()
-	{
+	fileprivate func setUpBackButton() {
 		let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
 		
 		navigationItem.backBarButtonItem = backButton
@@ -101,44 +91,35 @@ class MenuTVC: UITableViewController
 		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
 	}
 	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 10
 	}
 	
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-	{
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 160.0;
 	}
 	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-	{
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		genIndex = indexPath.row
-		if genIndex == 8
-		{
+		if (genIndex == 8) {
 			performSegue(withIdentifier: "toHunts", sender: self)
 		}
-		else
-		{
+		else {
 			performSegue(withIdentifier: "toPokedex", sender: self)
 		}
-		
 	}
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-	{
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
 		let showCurrentHuntImage = indexPath.row == 8 && !hunts.isEmpty
 		
 		cell.generationLabel.textColor = colorService.getTertiaryColor()
 		
-		if showCurrentHuntImage
-		{
+		if (showCurrentHuntImage) {
 			cell.generationImage.image = UIImage(named: hunts[0].pokemon[0].name.lowercased())
 		}
-		else
-		{
+		else {
 			cell.generationImage.image = resolveGenImage(gen: indexPath.row)
 		}
 		
@@ -148,10 +129,8 @@ class MenuTVC: UITableViewController
 		return cell
 	}
 	
-	fileprivate func resolveGenImage(gen : Int) -> UIImage
-	{
-		switch gen
-		{
+	fileprivate func resolveGenImage(gen : Int) -> UIImage {
+		switch gen {
 		case 0:
 			return UIImage(named: "gen1")!
 		case 1:
@@ -177,27 +156,22 @@ class MenuTVC: UITableViewController
 		}
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
-		if segue.identifier == "toSettings"
-		{
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if (segue.identifier == "toSettings") {
 			let destVC = segue.destination as? SettingsVC
 			destVC?.pokemon = Pokemon()
 		}
-		else
-		{
+		else {
 			let destVC = segue.destination as? PokedexTVC
 			destVC?.generation = genIndex
 		}
 	}
 	
-	@IBAction func settingsPressed(_ sender: Any)
-	{
+	@IBAction func settingsPressed(_ sender: Any) {
 		performSegue(withIdentifier: "toSettings", sender: self)
 	}
 	
-	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-	{
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		cell.backgroundColor = colorService.getPrimaryColor()
 	}
 }

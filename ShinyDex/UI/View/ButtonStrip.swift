@@ -9,8 +9,7 @@
 import UIKit
 
 @IBDesignable
-class ButtonStrip: UIView
-{
+class ButtonStrip: UIView {
 	@IBOutlet weak var methodMapSeparator: UIView!
 	@IBOutlet weak var updateEncountersButton: UIButton!
 	@IBOutlet weak var methodButton: UIButton!
@@ -29,8 +28,7 @@ class ButtonStrip: UIView
 	let nibName = "ButtonStrip"
     var contentView:UIView?
 	
-	required init?(coder aDecoder: NSCoder)
-	{
+	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 
@@ -39,14 +37,12 @@ class ButtonStrip: UIView
 		oddsLabel.font = fontSettingsService.getSmallFont()
     }
 	
-    override init(frame: CGRect)
-	{
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initContentView(nibName: nibName, contentView: &contentView)
     }
 	
-	fileprivate func setColors()
-	{
+	fileprivate func setColors() {
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		
 		encountersIncrementSeparator.backgroundColor = colorService.getPrimaryColor()
@@ -60,8 +56,7 @@ class ButtonStrip: UIView
 		oddsLabel.textColor = colorService.getTertiaryColor()
 	}
 	
-	fileprivate func roundCorners()
-	{
+	fileprivate func roundCorners() {
 		encountersIncrementSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		incrementMethodSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
 		methodMapSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue

@@ -8,8 +8,7 @@
 
 import UIKit
 
-class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource
-{
+class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	var hunts = [Hunt]()
 	var pickedHuntName: String?
 	var pokemon: Pokemon!
@@ -18,12 +17,11 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
-
 	@IBOutlet weak var indicatorView: IndicatorView!
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var tableView: UITableView!
-	override func viewDidLoad()
-	{
+
+	override func viewDidLoad() {
         super.viewDidLoad()
 		hunts = huntService.getAll()
 		tableView.delegate = self
@@ -38,13 +36,11 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.layer.cornerRadius = CornerRadius.Standard.rawValue
     }
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int	{
 		return hunts.count
 	}
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-	{
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "huntPickerCell") as! HuntPickerCell
 		cell.nameLabel.text = hunts[indexPath.row].name
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
@@ -53,8 +49,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		return cell
 	}
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-	{
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let hunt = hunts[indexPath.row]
 		hunt.pokemon.append(pokemon)
 		hunt.indexes.append(pokemon.number)
@@ -65,13 +60,11 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		performSegue(withIdentifier: "unwindFromHuntPicker", sender: self)
 	}
 
-	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-	{
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		cell.backgroundColor = colorService.getSecondaryColor()
 	}
 
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		dismiss(animated: true)
 	}
 }

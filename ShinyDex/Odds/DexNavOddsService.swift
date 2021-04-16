@@ -8,10 +8,8 @@
 
 import Foundation
 
-class DexNavOddsService
-{
-	func getOdds(searchLevel: Int, isShinyCharmActive: Bool) -> Int
-	{
+class DexNavOddsService {
+	func getOdds(searchLevel: Int, isShinyCharmActive: Bool) -> Int {
 		let withBonus = calculateDexNavPercentage(randomBonus: true, searchLevel: searchLevel, isShinyCharmActive: isShinyCharmActive)
 		let withoutBonus = calculateDexNavPercentage(randomBonus: false, searchLevel: searchLevel, isShinyCharmActive: isShinyCharmActive)
 
@@ -20,24 +18,20 @@ class DexNavOddsService
 		return odds
 	}
 
-	fileprivate func calculateDexNavPercentage(randomBonus: Bool, searchLevel: Int, isShinyCharmActive: Bool) -> Double
-	{
+	fileprivate func calculateDexNavPercentage(randomBonus: Bool, searchLevel: Int, isShinyCharmActive: Bool) -> Double {
 		var counter = Double(searchLevel)
 		var d0 = 0.0
-		if counter > 200
-		{
+		if (counter > 200) {
 			d0 += counter - 200.0
 			counter = 200
 		}
 
-		if counter > 100
-		{
+		if (counter > 100) {
 			d0 += counter * 2 - 200.0
 			counter = 100
 		}
 
-		if counter > 0
-		{
+		if (counter > 0) {
 			d0 += counter * 6.0
 		}
 

@@ -8,9 +8,7 @@
 
 import UIKit
 
-class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDelegate
-{
-
+class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	@IBOutlet weak var indicatorView: IndicatorView!
 	@IBOutlet weak var pokeballTableView: UITableView!
 	
@@ -23,8 +21,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var colorService = ColorService()
 	var modalPosition: CGRect!
 	
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 		
 		self.pokeballTableView.delegate = self
@@ -42,22 +39,18 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
-	fileprivate func populatePokeballList()
-	{
+	fileprivate func populatePokeballList() {
 		let pokeballList = txtReader.linesFromResourceForced(textFile: "pokeballs")
-		for pokeball in pokeballList
-		{
+		for pokeball in pokeballList {
 			pokeballs.append(Pokeball(ballName: pokeball))
 		}
 	}
 	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-	{
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 140.0
 	}
     
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-	{
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let pokeball = pokeballs[indexPath.row]
 		pokemon.caughtBall = pokeball.name.lowercased()
 		pokemon.caughtDescription = pokeball.name == "None" ? "Not Caught" : "Caught"
@@ -65,18 +58,15 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		performSegue(withIdentifier: "unwindFromPokeball", sender: self)
 	}
 	
-	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-	{
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		cell.backgroundColor = colorService.getSecondaryColor()
 	}
 	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return pokeballs.count
 	}
 	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-	{
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "pokeballCell", for: indexPath) as! PokeballCell
 		
 		let pokeball = pokeballs[indexPath.row]
@@ -86,16 +76,14 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         return cell
 	}
 	
-	fileprivate func setCellProperties(pokeballCell: PokeballCell, pokeball: Pokeball)
-	{
+	fileprivate func setCellProperties(pokeballCell: PokeballCell, pokeball: Pokeball) {
 		pokeballCell.nameLabel.font = fontSettingsService.getLargeFont()
 		pokeballCell.pokeballImageView.image = pokeball.image
 		pokeballCell.nameLabel.text = pokeball.name
 		pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
 	}
 	
-	@IBAction func cancelPressed(_ sender: Any)
-	{
+	@IBAction func cancelPressed(_ sender: Any) {
 		dismiss(animated: true)
 	}
 }

@@ -10,10 +10,8 @@ import Foundation
 import UIKit
 import Gifu
 
-extension PokedexTVC: UISearchResultsUpdating
-{
-	func updateSearchResults(for searchController: UISearchController)
-	{
+extension PokedexTVC: UISearchResultsUpdating {
+	func updateSearchResults(for searchController: UISearchController) {
 		let searchBar = searchController.searchBar
 
 		let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
@@ -21,82 +19,65 @@ extension PokedexTVC: UISearchResultsUpdating
 	}
 }
 
-extension PokedexTVC: UISearchBarDelegate
-{
-	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
-	{
+extension PokedexTVC: UISearchBarDelegate {
+	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
 		filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
 	}
 }
 
-extension CreateHuntModalVC: UISearchResultsUpdating
-{
-	func updateSearchResults(for searchController: UISearchController)
-	{
+extension CreateHuntModalVC: UISearchResultsUpdating {
+	func updateSearchResults(for searchController: UISearchController) {
 		filterContentForSearchText(searchController.searchBar.text!)
 	}
 }
 
-extension CreateHuntModalVC
-{
-	func searchBar(_ searchBar: UISearchBar)
-	{
+extension CreateHuntModalVC {
+	func searchBar(_ searchBar: UISearchBar) {
 		filterContentForSearchText(searchBar.text!)
 	}
 }
 
-extension String
-{
-	func capitalizingFirstLetter() -> String
-	{
+extension String {
+	func capitalizingFirstLetter() -> String {
 		return prefix(1).uppercased() + self.lowercased().dropFirst()
 	}
 
-	mutating func capitalizeFirstLetter()
-	{
+	mutating func capitalizeFirstLetter() {
 		self = self.capitalizingFirstLetter()
 	}
 }
 
-extension UIColor
-{
-	convenience init(red: Int, green: Int, blue: Int)
-	{
+extension UIColor {
+	convenience init(red: Int, green: Int, blue: Int) {
 		assert(red >= 0 && red <= 255, "Invalid red component")
 		assert(green >= 0 && green <= 255, "Invalid green component")
 		assert(blue >= 0 && blue <= 255, "Invalid blue component")
 		self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
 	}
 
-	convenience init(netHex:Int)
-	{
+	convenience init(netHex:Int) {
 		self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
 	}
 
 }
 
-extension UIView
-{
-	func initContentView(nibName: String, contentView: inout UIView?)
-	{
+extension UIView {
+	func initContentView(nibName: String, contentView: inout UIView?) {
         guard let view = loadViewFromNib(nibName: nibName) else { return }
         view.frame = self.bounds
         self.addSubview(view)
         contentView = view
     }
 
-	func loadViewFromNib(nibName: String) -> UIView?
-	{
+	func loadViewFromNib(nibName: String) -> UIView? {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 }
 
-extension Double
-{
-	static func getProbability(encounters: Int, odds: Int) -> Double
-	{
+extension Double {
+	static func getProbability(encounters: Int, odds: Int) -> Double {
 		let cumulativeProbability = pow(Double(odds - 1)/Double(odds), Double(encounters))
 		let decimalProbability = 1 - cumulativeProbability
 

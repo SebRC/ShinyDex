@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-enum CornerRadius : CGFloat
-{
+enum CornerRadius : CGFloat {
 	case Standard = 10
 }

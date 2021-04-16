@@ -9,8 +9,7 @@
 import Foundation
 import CoreData
 
-class Hunt
-{
+class Hunt {
 	var huntEntity: NSManagedObject?
 	var name: String
 	var indexes: [Int]
@@ -19,8 +18,7 @@ class Hunt
 	var priority: Int
 	var isCollapsed: Bool
 
-	init(huntEntity: NSManagedObject)
-	{
+	init(huntEntity: NSManagedObject) {
 		self.huntEntity = huntEntity
 		self.name = huntEntity.value(forKey: "name") as! String
 		self.indexes = huntEntity.value(forKey: "indexes") as! [Int]
@@ -30,8 +28,7 @@ class Hunt
 		self.totalEncounters = 0
 	}
 
-	init(name: String, pokemon: [Pokemon], priority: Int)
-	{
+	init(name: String, pokemon: [Pokemon], priority: Int) {
 		self.name = name
 		self.indexes = [Int]()
 		self.priority = priority

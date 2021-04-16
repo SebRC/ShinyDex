@@ -8,8 +8,7 @@
 
 import UIKit
 
-class RearrangeCell: UITableViewCell
-{
+class RearrangeCell: UITableViewCell {
 	var cellDelegate: RearrangeCellDelegate?
 
 	@IBOutlet weak var nameLabel: UILabel!
@@ -17,13 +16,11 @@ class RearrangeCell: UITableViewCell
 	@IBOutlet weak var moveDownButton: UIButton!
 	@IBOutlet weak var iconImageView: UIImageView!
 	
-	@IBAction func moveUp(_ sender: UIButton)
-	{
+	@IBAction func moveUp(_ sender: UIButton) {
 		cellDelegate?.moveUp(sender)
 	}
 
-	@IBAction func moveDown(_ sender: UIButton)
-	{
+	@IBAction func moveDown(_ sender: UIButton) {
 		cellDelegate?.moveDown(sender)
 	}
 }

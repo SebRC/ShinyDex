@@ -8,8 +8,7 @@
 
 import UIKit
 
-class PokemonCell : UITableViewCell
-{
+class PokemonCell : UITableViewCell {
 	var cellDelegate : PokemonCellDelegate?
 	
 	@IBOutlet weak var caughtButton: UIButton!
@@ -18,13 +17,11 @@ class PokemonCell : UITableViewCell
 	@IBOutlet weak var sprite: UIImageView!
 	@IBOutlet weak var addToCurrentHuntButton: UIButton!
 	
-	@IBAction func changeCaughtPressed(_ sender: UIButton)
-	{
+	@IBAction func changeCaughtPressed(_ sender: UIButton) {
 		cellDelegate?.changeCaughtButtonPressed(sender)
 	}
 	
-	@IBAction func addToCurrentHuntPressed(_ sender: UIButton)
-	{
+	@IBAction func addToCurrentHuntPressed(_ sender: UIButton) {
 		cellDelegate?.addToHuntPressed(sender)
 	}
 }

@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 @IBDesignable
-class ConfirmationPopup: UIView
-{
+class ConfirmationPopup: UIView {
 	let nibName = "ConfirmationPopup"
     var contentView: UIView?
 	
@@ -24,8 +23,7 @@ class ConfirmationPopup: UIView
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var buttonSeparator: UIView!
 	
-	required init?(coder aDecoder: NSCoder)
-	{
+	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 		setConfirmationPopupFonts()
@@ -33,22 +31,19 @@ class ConfirmationPopup: UIView
 		layer.cornerRadius = CornerRadius.Standard.rawValue
     }
 	
-    override init(frame: CGRect)
-	{
+    override init(frame: CGRect) {
         super.init(frame: frame)
 		initContentView(nibName: nibName, contentView: &contentView)
     }
 
-	fileprivate func setConfirmationPopupFonts()
-	{
+	fileprivate func setConfirmationPopupFonts() {
 		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		titleLabel.font = fontSettingsService.getSmallFont()
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 	
-	fileprivate func setColors()
-	{
+	fileprivate func setColors() {
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		titleLabel.textColor = colorService.getTertiaryColor()

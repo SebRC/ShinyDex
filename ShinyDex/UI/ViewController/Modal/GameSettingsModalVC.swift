@@ -8,15 +8,13 @@
 
 import UIKit
 
-class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate, SegueActivated
-{
+class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate, SegueActivated {
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 	@IBOutlet weak var scrollView: UIScrollView!
 	var pokemon: Pokemon!
 	var popupHandler = PopupHandler()
 	
-	override func viewDidLoad()
-	{
+	override func viewDidLoad() {
         super.viewDidLoad()
 		gameSettingsContainer.pokemon = pokemon
 		gameSettingsContainer.setShinyOddsLabelText()
@@ -34,33 +32,27 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 		roundViewCorner()
     }
 	
-	fileprivate func roundViewCorner()
-	{
+	fileprivate func roundViewCorner() {
 		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard.rawValue
 	}
 
-	func presentationControllerWillDismiss(_ presentationController: UIPresentationController)
-	{
+	func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
 		performSegue(withIdentifier: "unwindFromGameSettings", sender: self)
 	}
 
-	func segueActivated()
-	{
+	func segueActivated() {
 		performSegue(withIdentifier: "applyToAll", sender: self)
 	}
 
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-	{
-		if segue.identifier == "applyToAll"
-		{
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if (segue.identifier == "applyToAll") {
 			let destVC = segue.destination as! ApplyToAllVC
 			destVC.pokemon = pokemon
 			destVC.isFromSettings = false
 		}
 	}
 
-	@IBAction func showGameSettingsConfirmation(_ unwindSegue: UIStoryboardSegue)
-	{
+	@IBAction func showGameSettingsConfirmation(_ unwindSegue: UIStoryboardSegue) {
 		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
 	}
 }
