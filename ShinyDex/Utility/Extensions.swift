@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Gifu
 
 extension PokedexTVC: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {

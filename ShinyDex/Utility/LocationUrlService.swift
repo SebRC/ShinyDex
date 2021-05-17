@@ -8,11 +8,12 @@
 
 import Foundation
 
-class LocationUrlService {
+public class LocationUrlService {
 	fileprivate let generationPrefixes = [0: "sm", 1: "gs", 2: "gs", 3: "dp", 4: "dp", 5: "bw", 6: "xy", 7: "sm", 8: "swsh"]
 	fileprivate let generationRanges = [1: 0..<151, 2: 151..<251, 3: 251..<386, 4: 386..<493, 5: 493..<649, 6: 649..<721, 7: 721..<807, 8: 807..<892]
 
-	func getUrl(generation: Int, pokemon: Pokemon) -> String {
+	func getUrl(pokemon: Pokemon) -> String {
+		let generation = pokemon.generation
 		let minimumGeneration = getMinimumGeneration(dexNumber: pokemon.number)
 		let isGeneration8 = generation == 8
 		let numberPrefix = getNumberPrefix(dexNumber: pokemon.number)

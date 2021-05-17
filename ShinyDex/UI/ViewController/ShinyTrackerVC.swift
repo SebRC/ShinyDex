@@ -241,7 +241,6 @@ class ShinyTrackerVC: UIViewController {
 		}
 		else if (identifier == "toLocation") {
 			let destVC = segue.destination as! LocationVC
-			destVC.generation = pokemon!.generation
 			destVC.pokemon = pokemon
 		}
 		else if (identifier == "editIncrement") {

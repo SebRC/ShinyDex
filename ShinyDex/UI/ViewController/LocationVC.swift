@@ -11,7 +11,6 @@ import WebKit
 
 class LocationVC: UIViewController, WKNavigationDelegate {
 	var pokemon: Pokemon!
-	var generation: Int!
 	var webView: WKWebView?
 	fileprivate let locationUrlService = LocationUrlService()
 
@@ -26,7 +25,7 @@ class LocationVC: UIViewController, WKNavigationDelegate {
 			UIBarButtonItem(image: UIImage(systemName: "chevron.left.circle.fill"), style: .plain, target: self, action: #selector(goBack))
 		]
 
-		let url = URL(string: locationUrlService.getUrl(generation: generation, pokemon: pokemon))!
+		let url = URL(string: locationUrlService.getUrl(pokemon: pokemon))!
 		webView!.load(URLRequest(url: url))
     }
 

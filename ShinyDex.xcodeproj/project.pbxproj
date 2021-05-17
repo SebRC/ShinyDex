@@ -11,6 +11,7 @@
 		960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */; };
 		960A5B1524B3A91A00121B2A /* DexNavOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */; };
 		961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */; };
+		961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */; };
 		9622379824B5E28B006BBC43 /* LocationUrlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379724B5E28B006BBC43 /* LocationUrlService.swift */; };
 		9622379A24B5EC29006BBC43 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379924B5EC29006BBC43 /* Theme.swift */; };
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
@@ -98,11 +99,24 @@
 		BD38D34BA343BF3EADE325BC /* Pods_ShinyDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		961B5C512652837E00918D91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96FC079123EF192400459450 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96FC079823EF192400459450;
+			remoteInfo = ShinyDex;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsService.swift; sourceTree = "<group>"; };
 		960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexNavOddsService.swift; sourceTree = "<group>"; };
 		961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsService.swift; sourceTree = "<group>"; };
+		961B5C4C2652837E00918D91 /* ShinyDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShinyDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		961B5C502652837E00918D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlServiceTests.swift; sourceTree = "<group>"; };
 		9622379724B5E28B006BBC43 /* LocationUrlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlService.swift; sourceTree = "<group>"; };
 		9622379924B5EC29006BBC43 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
@@ -194,6 +208,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		961B5C492652837E00918D91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96FC079623EF192400459450 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -221,6 +242,15 @@
 				9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
+			isa = PBXGroup;
+			children = (
+				961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */,
+				961B5C502652837E00918D91 /* Info.plist */,
+			);
+			path = ShinyDexTests;
 			sourceTree = "<group>";
 		};
 		962E58B52411A690001D5E41 /* UI */ = {
@@ -313,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC079B23EF192400459450 /* ShinyDex */,
+				961B5C4D2652837E00918D91 /* ShinyDexTests */,
 				96FC079A23EF192400459450 /* Products */,
 				726198376F1CCC57E5500E10 /* Pods */,
 				348278F4B1C61F8C708F457A /* Frameworks */,
@@ -323,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC079923EF192400459450 /* ShinyDex.app */,
+				961B5C4C2652837E00918D91 /* ShinyDexTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -491,6 +523,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		961B5C4B2652837E00918D91 /* ShinyDexTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 961B5C552652837E00918D91 /* Build configuration list for PBXNativeTarget "ShinyDexTests" */;
+			buildPhases = (
+				961B5C482652837E00918D91 /* Sources */,
+				961B5C492652837E00918D91 /* Frameworks */,
+				961B5C4A2652837E00918D91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				961B5C522652837E00918D91 /* PBXTargetDependency */,
+			);
+			name = ShinyDexTests;
+			productName = ShinyDexTests;
+			productReference = 961B5C4C2652837E00918D91 /* ShinyDexTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		96FC079823EF192400459450 /* ShinyDex */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96FC07B023EF192800459450 /* Build configuration list for PBXNativeTarget "ShinyDex" */;
@@ -519,10 +569,14 @@
 		96FC079123EF192400459450 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Sebastian Christiansen";
 				TargetAttributes = {
+					961B5C4B2652837E00918D91 = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 96FC079823EF192400459450;
+					};
 					96FC079823EF192400459450 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -545,11 +599,19 @@
 			projectRoot = "";
 			targets = (
 				96FC079823EF192400459450 /* ShinyDex */,
+				961B5C4B2652837E00918D91 /* ShinyDexTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		961B5C4A2652837E00918D91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96FC079723EF192400459450 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,6 +678,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		961B5C482652837E00918D91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96FC079523EF192400459450 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -698,6 +768,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		961B5C522652837E00918D91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96FC079823EF192400459450 /* ShinyDex */;
+			targetProxy = 961B5C512652837E00918D91 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		96FC07AA23EF192800459450 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -710,6 +788,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		961B5C532652837E00918D91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SVU6FF2PL3;
+				INFOPLIST_FILE = ShinyDexTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SRC.ShinyDexTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShinyDex.app/ShinyDex";
+			};
+			name = Debug;
+		};
+		961B5C542652837E00918D91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SVU6FF2PL3;
+				INFOPLIST_FILE = ShinyDexTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SRC.ShinyDexTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShinyDex.app/ShinyDex";
+			};
+			name = Release;
+		};
 		96FC07AE23EF192800459450 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -831,6 +955,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SVU6FF2PL3;
 				INFOPLIST_FILE = ShinyDex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -852,6 +977,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SVU6FF2PL3;
 				INFOPLIST_FILE = ShinyDex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -869,6 +995,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		961B5C552652837E00918D91 /* Build configuration list for PBXNativeTarget "ShinyDexTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				961B5C532652837E00918D91 /* Debug */,
+				961B5C542652837E00918D91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		96FC079423EF192400459450 /* Build configuration list for PBXProject "ShinyDex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
