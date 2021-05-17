@@ -34,25 +34,8 @@ class TextResolver {
 		}
 	}
 
-	func getEncountersLabelText(pokemon: Pokemon, encounters: Int, methodDecrement: Int = 0) -> String {
-		return getEncountersText(pokemon: pokemon, methodDecrement: methodDecrement, encounters: encounters)
-	}
-
-	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool {
-		var maxChainReached = false
-		if (pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining) {
-			maxChainReached = encounters > 30
-		}
-		else if (pokemon.huntMethod == .ChainFishing) {
-			maxChainReached = encounters > 20
-		}
-		else if (pokemon.huntMethod == .Pokeradar) {
-			maxChainReached = encounters > 40
-		}
-		else if (pokemon.huntMethod == .DexNav) {
-			maxChainReached = encounters > 999
-		}
-		return maxChainReached
+	func getEncountersLabelText(pokemon: Pokemon, methodDecrement: Int = 0) -> String {
+		return getEncountersText(pokemon: pokemon, methodDecrement: methodDecrement, encounters: pokemon.encounters)
 	}
 
 	fileprivate func getEncountersText(pokemon: Pokemon, methodDecrement: Int, encounters: Int) -> String {
@@ -80,5 +63,22 @@ class TextResolver {
 				: " \(methodVerb): \(encounters)"
 		}
 		return " Encounters: \(encounters)"
+	}
+
+	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool {
+		var maxChainReached = false
+		if (pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining) {
+			maxChainReached = encounters > 30
+		}
+		else if (pokemon.huntMethod == .ChainFishing) {
+			maxChainReached = encounters > 20
+		}
+		else if (pokemon.huntMethod == .Pokeradar) {
+			maxChainReached = encounters > 40
+		}
+		else if (pokemon.huntMethod == .DexNav) {
+			maxChainReached = encounters > 999
+		}
+		return maxChainReached
 	}
 }

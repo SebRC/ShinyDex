@@ -140,7 +140,7 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate func resolveEncounterDetails() {
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
+		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
 		encountersLabel.font = encountersLabel.text!.contains("999 +")
 			? fontSettingsService.getExtraSmallFont()
 			: fontSettingsService.getSmallFont()

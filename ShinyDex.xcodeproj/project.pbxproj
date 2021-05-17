@@ -37,6 +37,7 @@
 		966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966478A92515362100AA50AA /* ApplyToAllVC.swift */; };
 		966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966478AB25153FAD00AA50AA /* SegueActivated.swift */; };
 		9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9669E34923F1DF7D0048C5C5 /* FlexColorPicker */; };
+		966B1ED02653001E00DF1FE0 /* TextResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
@@ -135,6 +136,7 @@
 		9660629D24B4BF3200B2B654 /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		966478A92515362100AA50AA /* ApplyToAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyToAllVC.swift; sourceTree = "<group>"; };
 		966478AB25153FAD00AA50AA /* SegueActivated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueActivated.swift; sourceTree = "<group>"; };
+		966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResolverTests.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */,
 				961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */,
 				961B5C502652837E00918D91 /* Info.plist */,
 			);
@@ -682,6 +685,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				966B1ED02653001E00DF1FE0 /* TextResolverTests.swift in Sources */,
 				961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
