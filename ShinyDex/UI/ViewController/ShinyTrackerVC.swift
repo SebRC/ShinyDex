@@ -156,8 +156,7 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func setProbabilityLabelText() {
-		let encounters = pokemon.encounters
-		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
+		let probabilityLabelText = probabilityService.getProbabilityText(probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
 		probabilityLabel.text = probabilityLabelText
 		probabilityLabel.font = probabilityLabel.text!.contains("Reach")
 		? fontSettingsService.getXxSmallFont()
