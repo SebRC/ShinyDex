@@ -9,29 +9,11 @@
 import Foundation
 
 class TextResolver {
+
+	fileprivate var titles = [0: "Kanto", 1: "Johto", 2: "Hoenn", 3: "Sinnoh", 4: "Unova", 5: "Kalos", 6: "Alola", 7: "Galar", 8: "Hunts", 9: "Collection"]
+
 	func getGenTitle(gen: Int) -> String {
-		switch gen {
-		case 1:
-			return "Johto"
-		case 2:
-			return "Hoenn"
-		case 3:
-			return "Sinnoh"
-		case 4:
-			return "Unova"
-		case 5:
-			return "Kalos"
-		case 6:
-			return "Alola"
-		case 7:
-			return "Galar"
-		case 8:
-			return "Hunts"
-		case 9:
-			return "Collection"
-		default:
-			return "Kanto"
-		}
+		return titles[gen] ?? "Not found"
 	}
 
 	func getEncountersLabelText(pokemon: Pokemon, methodDecrement: Int = 0) -> String {
