@@ -27,9 +27,9 @@ class ColorServiceTests: XCTestCase {
 
 	fileprivate func cleanColors() {
 		let defaults = UserDefaults.standard
-		defaults.removeObject(forKey: "primaryColor")
-		defaults.removeObject(forKey: "secondaryColor")
-		defaults.removeObject(forKey: "tertiaryColor")
+		defaults.removeObject(forKey: Theme.Primary.rawValue)
+		defaults.removeObject(forKey: Theme.Secondary.rawValue)
+		defaults.removeObject(forKey: Theme.Tertiary.rawValue)
 	}
 
     func test_noPrimarySaved_returnsDefault() throws {
@@ -71,7 +71,7 @@ class ColorServiceTests: XCTestCase {
 		let expectedColor = UIColor(netHex: expectedHex)
 
 		// Act
-		colorService.save(hex: expectedHex, name: "primaryColor")
+		colorService.save(hex: expectedHex, name: Theme.Primary.rawValue)
 		let actualHex = colorService.getPrimaryHex()
 		let actualColor = colorService.getPrimaryColor()
 
@@ -86,7 +86,7 @@ class ColorServiceTests: XCTestCase {
 		let expectedColor = UIColor(netHex: expectedHex)
 
 		// Act
-		colorService.save(hex: expectedHex, name: "secondaryColor")
+		colorService.save(hex: expectedHex, name: Theme.Secondary.rawValue)
 		let actualHex = colorService.getSecondaryHex()
 		let actualColor = colorService.getSecondaryColor()
 
@@ -101,7 +101,7 @@ class ColorServiceTests: XCTestCase {
 		let expectedColor = UIColor(netHex: expectedHex)
 
 		// Act
-		colorService.save(hex: expectedHex, name: "tertiaryColor")
+		colorService.save(hex: expectedHex, name: Theme.Tertiary.rawValue)
 		let actualHex = colorService.getTertiaryHex()
 		let actualColor = colorService.getTertiaryColor()
 
