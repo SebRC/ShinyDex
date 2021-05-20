@@ -44,6 +44,8 @@
 		966B1EE02655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EDF2655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift */; };
 		966B1EE42655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EE32655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift */; };
 		966B1EE8265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EE7265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift */; };
+		966B1EEE2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EED2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift */; };
+		966B1EF22656A58400DF1FE0 /* PokeradarOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
@@ -149,6 +151,8 @@
 		966B1EDF2655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen2BreedingOddsServiceTests.swift; sourceTree = "<group>"; };
 		966B1EE32655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsServiceTests.swift; sourceTree = "<group>"; };
 		966B1EE7265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainFishingOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EED2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexNavOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsServiceTests.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */,
+				966B1EED2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift */,
 				966B1EE7265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift */,
 				966B1EE32655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift */,
 				966B1EDF2655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift */,
@@ -706,7 +712,9 @@
 				966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */,
 				966B1ED82654342D00DF1FE0 /* ProbabilityServiceTests.swift in Sources */,
 				966B1ED02653001E00DF1FE0 /* TextResolverTests.swift in Sources */,
+				966B1EF22656A58400DF1FE0 /* PokeradarOddsServiceTests.swift in Sources */,
 				966B1EE42655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift in Sources */,
+				966B1EEE2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift in Sources */,
 				966B1EE02655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift in Sources */,
 				966B1EDC265522BE00DF1FE0 /* MasudaOddsServiceTests.swift in Sources */,
 				966B1EE8265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift in Sources */,

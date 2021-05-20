@@ -10,7 +10,7 @@ import Foundation
 
 class PokeradarOddsService {
 	func getOdds(chain: Int) -> Int {
-		if (chain == 0) {
+		if (chain <= 0) {
 			return 8192
 		}
 		else if (chain >= 40) {
