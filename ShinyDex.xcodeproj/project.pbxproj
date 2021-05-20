@@ -48,6 +48,7 @@
 		966B1EF22656A58400DF1FE0 /* PokeradarOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */; };
 		966B1EF62656A92100DF1FE0 /* SosChainingOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF52656A92100DF1FE0 /* SosChainingOddsServiceTests.swift */; };
 		966B1EFA2656ABC300DF1FE0 /* LGPEOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF92656ABC300DF1FE0 /* LGPEOddsServiceTests.swift */; };
+		966B1EFE2656B29F00DF1FE0 /* ColorServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
@@ -157,6 +158,7 @@
 		966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsServiceTests.swift; sourceTree = "<group>"; };
 		966B1EF52656A92100DF1FE0 /* SosChainingOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SosChainingOddsServiceTests.swift; sourceTree = "<group>"; };
 		966B1EF92656ABC300DF1FE0 /* LGPEOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorServiceTests.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */,
 				966B1EF92656ABC300DF1FE0 /* LGPEOddsServiceTests.swift */,
 				966B1EF52656A92100DF1FE0 /* SosChainingOddsServiceTests.swift */,
 				966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */,
@@ -725,6 +728,7 @@
 				966B1EE02655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift in Sources */,
 				966B1EDC265522BE00DF1FE0 /* MasudaOddsServiceTests.swift in Sources */,
 				966B1EE8265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift in Sources */,
+				966B1EFE2656B29F00DF1FE0 /* ColorServiceTests.swift in Sources */,
 				961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */,
 				966B1EFA2656ABC300DF1FE0 /* LGPEOddsServiceTests.swift in Sources */,
 			);
