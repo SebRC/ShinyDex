@@ -10,7 +10,7 @@ import Foundation
 
 class SosChainingOddsService {
 	func getOdds(isShinyCharmActive: Bool, chain: Int) -> Int {
-		if (chain >= 0 && chain <= 10) {
+		if (chain >= 0 && chain <= 10 || chain < 0) {
 			return isShinyCharmActive ? 1366 : 4096
 		}
 		else if (chain >= 11 && chain <= 20) {

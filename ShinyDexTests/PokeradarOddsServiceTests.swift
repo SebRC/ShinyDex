@@ -23,7 +23,7 @@ class PokeradarOddsServiceTests: XCTestCase {
 		try super.tearDownWithError()
 	}
 
-	func test_differentSearchLevelsCharmInactive_returnsCorrectOdds() throws {
+	func test_differentChains_returnsCorrectOdds() throws {
 		// Arrange
 		let entries = [-1: 8192, 0: 8192, 1: 8192, 5: 7281, 9: 6553, 12: 5957, 21: 4096, 31: 2048, 39: 402, 40: 200, 45: 200]
 

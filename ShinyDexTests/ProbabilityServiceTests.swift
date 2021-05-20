@@ -26,11 +26,10 @@ class ProbabilityServiceTests: XCTestCase {
 		// Arrange
 		let entries = [756: 8.82, 14017: 81.93, 1849: 20.21, 2318: 24.65, 1000000: 100.0]
 
-
 		// Act + Assert
 		for entry in entries {
 			let actualProbability = probabilityService.getProbability(encounters: entry.key, shinyOdds: 8192)
-			XCTAssertEqual(actualProbability, entry.value, accuracy: 0.1)
+			XCTAssertEqual(actualProbability, entry.value, accuracy: 0.01)
 		}
     }
 
@@ -38,7 +37,6 @@ class ProbabilityServiceTests: XCTestCase {
 		// Arrange
 		let entries = [HuntMethod.Lure: 30, HuntMethod.Pokeradar: 40,
 					   HuntMethod.ChainFishing: 20, HuntMethod.SosChaining: 30]
-
 
 		// Act + Assert
 		for entry in entries {
@@ -70,7 +68,6 @@ class ProbabilityServiceTests: XCTestCase {
 		let probability = 88.32
 		let entries = [HuntMethod.Lure: 30, HuntMethod.Pokeradar: 40,
 					   HuntMethod.ChainFishing: 20, HuntMethod.SosChaining: 30]
-
 
 		// Act + Assert
 		for entry in entries {
