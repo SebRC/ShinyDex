@@ -18,7 +18,11 @@ class OddsService {
 	fileprivate let pokeradarOddsService = PokeradarOddsService()
 	fileprivate let dexNavOddsService = DexNavOddsService()
 
-	func getShinyOdds(generation: Int, isCharmActive: Bool, huntMethod: HuntMethod, encounters: Int = 0) -> Int {
+	func getShinyOdds(pokemon: Pokemon) -> Int {
+		let generation = pokemon.generation
+		let encounters = pokemon.encounters
+		let isCharmActive = pokemon.isShinyCharmActive
+		let huntMethod = pokemon.huntMethod
 		switch huntMethod {
 		case .Gen2Breeding:
 			return gen2BreedingOddsService.getOdds()
@@ -47,7 +51,7 @@ class OddsService {
 			else if (generation > 5 && generation <= 8) {
 				return 1365
 			}
-			return lgpeOddsService.getOdds(catchCombo: encounters, isCharmActive: isCharmActive, huntMethod: huntMethod)
+			return lgpeOddsService.getOdds(pokemon: pokemon)
 		}
 	}
 }

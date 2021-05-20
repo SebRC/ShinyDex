@@ -150,7 +150,7 @@ class ShinyTrackerVC: UIViewController {
 	
 	fileprivate func setProbability() {
 		var encounters = pokemon.encounters
-		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod, encounters: encounters)
+		pokemon!.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
 		encounters -= methodDecrement
 		probability = probabilityService.getProbability(encounters: encounters, shinyOdds: pokemon!.shinyOdds)
 	}

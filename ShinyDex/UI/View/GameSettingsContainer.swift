@@ -144,7 +144,7 @@ class GameSettingsContainer: UIView {
 	}
 
 	func setShinyOddsLabelText() {
-		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod)
+		pokemon!.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
 		shinyOddsLabel.text = "Shiny Odds: 1/\(pokemon!.shinyOdds)"
 	}
 
