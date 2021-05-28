@@ -17,6 +17,7 @@
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96283F20255206B600E736A5 /* TableViewHelper.swift */; };
+		962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
 		963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */; };
@@ -136,6 +137,7 @@
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		96283F20255206B600E736A5 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
+		962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsServiceTests.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
 		963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementVC.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */,
 				966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */,
 				966B1F032656BCAA00DF1FE0 /* FontSettingsServiceTests.swift */,
 				966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */,
@@ -739,6 +742,7 @@
 				966B1EFE2656B29F00DF1FE0 /* ColorServiceTests.swift in Sources */,
 				961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */,
 				966B1EFA2656ABC300DF1FE0 /* LGPEOddsServiceTests.swift in Sources */,
+				962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
