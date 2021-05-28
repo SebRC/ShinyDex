@@ -29,7 +29,7 @@ class SetEncountersModalVC: UIViewController {
 	fileprivate func setLabelTexts() {
 		setEncountersView.nameLabel.text = " \(pokemon.name)"
 		setEncountersView.numberLabel.text = " No. \(pokemon.number + 1)"
-		setEncountersView.encountersLabel.text = " \(textResolver.getEncountersLabelText(pokemon: pokemon, encounters: pokemon.encounters, methodDecrement: methodDecrement))"
+		setEncountersView.encountersLabel.text = " \(textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement))"
 	}
 	
 	fileprivate func setButtonActions() {

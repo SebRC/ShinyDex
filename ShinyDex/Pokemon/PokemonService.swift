@@ -27,7 +27,7 @@ class PokemonService {
 
 	func populateDatabase() {
 		let genText = "allGens"
-		let names = txtReader.linesFromResourceForced(textFile: genText)
+		let names = txtReader.readFile(textFile: genText)
 		var count = 0
 
 		for name in names {

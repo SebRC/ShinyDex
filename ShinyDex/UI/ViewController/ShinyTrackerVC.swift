@@ -140,7 +140,7 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate func resolveEncounterDetails() {
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, encounters: pokemon.encounters, methodDecrement: methodDecrement)
+		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
 		encountersLabel.font = encountersLabel.text!.contains("999 +")
 			? fontSettingsService.getExtraSmallFont()
 			: fontSettingsService.getSmallFont()
@@ -150,14 +150,13 @@ class ShinyTrackerVC: UIViewController {
 	
 	fileprivate func setProbability() {
 		var encounters = pokemon.encounters
-		pokemon!.shinyOdds = oddsService.getShinyOdds(generation: pokemon!.generation, isCharmActive: pokemon!.isShinyCharmActive, huntMethod: pokemon!.huntMethod, encounters: encounters)
+		pokemon!.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
 		encounters -= methodDecrement
 		probability = probabilityService.getProbability(encounters: encounters, shinyOdds: pokemon!.shinyOdds)
 	}
 
 	fileprivate func setProbabilityLabelText() {
-		let encounters = pokemon.encounters
-		let probabilityLabelText = probabilityService.getProbabilityText(encounters: encounters, probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
+		let probabilityLabelText = probabilityService.getProbabilityText(probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
 		probabilityLabel.text = probabilityLabelText
 		probabilityLabel.font = probabilityLabel.text!.contains("Reach")
 		? fontSettingsService.getXxSmallFont()
@@ -241,7 +240,6 @@ class ShinyTrackerVC: UIViewController {
 		}
 		else if (identifier == "toLocation") {
 			let destVC = segue.destination as! LocationVC
-			destVC.generation = pokemon!.generation
 			destVC.pokemon = pokemon
 		}
 		else if (identifier == "editIncrement") {

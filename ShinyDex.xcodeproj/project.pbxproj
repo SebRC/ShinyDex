@@ -11,11 +11,13 @@
 		960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */; };
 		960A5B1524B3A91A00121B2A /* DexNavOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */; };
 		961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */; };
+		961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */; };
 		9622379824B5E28B006BBC43 /* LocationUrlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379724B5E28B006BBC43 /* LocationUrlService.swift */; };
 		9622379A24B5EC29006BBC43 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379924B5EC29006BBC43 /* Theme.swift */; };
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96283F20255206B600E736A5 /* TableViewHelper.swift */; };
+		962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
 		962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */; };
 		963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */; };
@@ -36,6 +38,20 @@
 		966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966478A92515362100AA50AA /* ApplyToAllVC.swift */; };
 		966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966478AB25153FAD00AA50AA /* SegueActivated.swift */; };
 		9669E34A23F1DF7D0048C5C5 /* FlexColorPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 9669E34923F1DF7D0048C5C5 /* FlexColorPicker */; };
+		966B1ED02653001E00DF1FE0 /* TextResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */; };
+		966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1ED326542D4000DF1FE0 /* SwitchStateServiceTests.swift */; };
+		966B1ED82654342D00DF1FE0 /* ProbabilityServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1ED72654342D00DF1FE0 /* ProbabilityServiceTests.swift */; };
+		966B1EDC265522BE00DF1FE0 /* MasudaOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EDB265522BE00DF1FE0 /* MasudaOddsServiceTests.swift */; };
+		966B1EE02655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EDF2655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift */; };
+		966B1EE42655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EE32655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift */; };
+		966B1EE8265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EE7265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift */; };
+		966B1EEE2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EED2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift */; };
+		966B1EF22656A58400DF1FE0 /* PokeradarOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */; };
+		966B1EF62656A92100DF1FE0 /* SosChainingOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF52656A92100DF1FE0 /* SosChainingOddsServiceTests.swift */; };
+		966B1EFA2656ABC300DF1FE0 /* LGPEOddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EF92656ABC300DF1FE0 /* LGPEOddsServiceTests.swift */; };
+		966B1EFE2656B29F00DF1FE0 /* ColorServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */; };
+		966B1F042656BCAA00DF1FE0 /* FontSettingsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1F032656BCAA00DF1FE0 /* FontSettingsServiceTests.swift */; };
+		966B1F082656C1B700DF1FE0 /* TxtReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */; };
 		966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C210D241038490019F835 /* FontSettingsRepository.swift */; };
 		966C211424103FE30019F835 /* FontSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211324103FE30019F835 /* FontSettingsService.swift */; };
 		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
@@ -67,6 +83,8 @@
 		96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */; };
 		96A7299F245F15FF00AF3F5F /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
+		96C3CB66266185440090186E /* PokemonServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB65266185440090186E /* PokemonServiceTests.swift */; };
+		96C3CB6A26618B620090186E /* PopupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB6926618B620090186E /* PopupHandlerTests.swift */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
@@ -98,16 +116,30 @@
 		BD38D34BA343BF3EADE325BC /* Pods_ShinyDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		961B5C512652837E00918D91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96FC079123EF192400459450 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96FC079823EF192400459450;
+			remoteInfo = ShinyDex;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsService.swift; sourceTree = "<group>"; };
 		960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexNavOddsService.swift; sourceTree = "<group>"; };
 		961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsService.swift; sourceTree = "<group>"; };
+		961B5C4C2652837E00918D91 /* ShinyDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShinyDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		961B5C502652837E00918D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlServiceTests.swift; sourceTree = "<group>"; };
 		9622379724B5E28B006BBC43 /* LocationUrlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlService.swift; sourceTree = "<group>"; };
 		9622379924B5EC29006BBC43 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		96283F20255206B600E736A5 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
+		962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsServiceTests.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
 		962E58CF2411A6D7001D5E41 /* ButtonIconRight.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonIconRight.xib; sourceTree = "<group>"; };
 		963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementVC.swift; sourceTree = "<group>"; };
@@ -121,6 +153,20 @@
 		9660629D24B4BF3200B2B654 /* LocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		966478A92515362100AA50AA /* ApplyToAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyToAllVC.swift; sourceTree = "<group>"; };
 		966478AB25153FAD00AA50AA /* SegueActivated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueActivated.swift; sourceTree = "<group>"; };
+		966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResolverTests.swift; sourceTree = "<group>"; };
+		966B1ED326542D4000DF1FE0 /* SwitchStateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateServiceTests.swift; sourceTree = "<group>"; };
+		966B1ED72654342D00DF1FE0 /* ProbabilityServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbabilityServiceTests.swift; sourceTree = "<group>"; };
+		966B1EDB265522BE00DF1FE0 /* MasudaOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasudaOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EDF2655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen2BreedingOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EE32655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSafariOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EE7265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainFishingOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EED2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexNavOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EF52656A92100DF1FE0 /* SosChainingOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SosChainingOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EF92656ABC300DF1FE0 /* LGPEOddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LGPEOddsServiceTests.swift; sourceTree = "<group>"; };
+		966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorServiceTests.swift; sourceTree = "<group>"; };
+		966B1F032656BCAA00DF1FE0 /* FontSettingsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsServiceTests.swift; sourceTree = "<group>"; };
+		966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtReaderTests.swift; sourceTree = "<group>"; };
 		966C210D241038490019F835 /* FontSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsRepository.swift; sourceTree = "<group>"; };
 		966C211324103FE30019F835 /* FontSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsService.swift; sourceTree = "<group>"; };
 		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
@@ -152,6 +198,8 @@
 		96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetEncountersView.xib; sourceTree = "<group>"; };
 		96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEncountersView.swift; sourceTree = "<group>"; };
 		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
+		96C3CB65266185440090186E /* PokemonServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonServiceTests.swift; sourceTree = "<group>"; };
+		96C3CB6926618B620090186E /* PopupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandlerTests.swift; sourceTree = "<group>"; };
 		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
 		96C96D472444696000D30186 /* FontThemeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontThemeName.swift; sourceTree = "<group>"; };
 		96FC079923EF192400459450 /* ShinyDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShinyDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +242,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		961B5C492652837E00918D91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96FC079623EF192400459450 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -221,6 +276,32 @@
 				9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
+			isa = PBXGroup;
+			children = (
+				96C3CB6926618B620090186E /* PopupHandlerTests.swift */,
+				96C3CB65266185440090186E /* PokemonServiceTests.swift */,
+				962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */,
+				966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */,
+				966B1F032656BCAA00DF1FE0 /* FontSettingsServiceTests.swift */,
+				966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */,
+				966B1EF92656ABC300DF1FE0 /* LGPEOddsServiceTests.swift */,
+				966B1EF52656A92100DF1FE0 /* SosChainingOddsServiceTests.swift */,
+				966B1EF12656A58400DF1FE0 /* PokeradarOddsServiceTests.swift */,
+				966B1EED2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift */,
+				966B1EE7265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift */,
+				966B1EE32655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift */,
+				966B1EDF2655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift */,
+				966B1EDB265522BE00DF1FE0 /* MasudaOddsServiceTests.swift */,
+				966B1ED72654342D00DF1FE0 /* ProbabilityServiceTests.swift */,
+				966B1ED326542D4000DF1FE0 /* SwitchStateServiceTests.swift */,
+				966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */,
+				961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */,
+				961B5C502652837E00918D91 /* Info.plist */,
+			);
+			path = ShinyDexTests;
 			sourceTree = "<group>";
 		};
 		962E58B52411A690001D5E41 /* UI */ = {
@@ -313,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC079B23EF192400459450 /* ShinyDex */,
+				961B5C4D2652837E00918D91 /* ShinyDexTests */,
 				96FC079A23EF192400459450 /* Products */,
 				726198376F1CCC57E5500E10 /* Pods */,
 				348278F4B1C61F8C708F457A /* Frameworks */,
@@ -323,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC079923EF192400459450 /* ShinyDex.app */,
+				961B5C4C2652837E00918D91 /* ShinyDexTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -491,6 +574,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		961B5C4B2652837E00918D91 /* ShinyDexTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 961B5C552652837E00918D91 /* Build configuration list for PBXNativeTarget "ShinyDexTests" */;
+			buildPhases = (
+				961B5C482652837E00918D91 /* Sources */,
+				961B5C492652837E00918D91 /* Frameworks */,
+				961B5C4A2652837E00918D91 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				961B5C522652837E00918D91 /* PBXTargetDependency */,
+			);
+			name = ShinyDexTests;
+			productName = ShinyDexTests;
+			productReference = 961B5C4C2652837E00918D91 /* ShinyDexTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		96FC079823EF192400459450 /* ShinyDex */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96FC07B023EF192800459450 /* Build configuration list for PBXNativeTarget "ShinyDex" */;
@@ -519,10 +620,14 @@
 		96FC079123EF192400459450 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Sebastian Christiansen";
 				TargetAttributes = {
+					961B5C4B2652837E00918D91 = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 96FC079823EF192400459450;
+					};
 					96FC079823EF192400459450 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -545,11 +650,19 @@
 			projectRoot = "";
 			targets = (
 				96FC079823EF192400459450 /* ShinyDex */,
+				961B5C4B2652837E00918D91 /* ShinyDexTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		961B5C4A2652837E00918D91 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96FC079723EF192400459450 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,6 +729,31 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		961B5C482652837E00918D91 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */,
+				966B1EF62656A92100DF1FE0 /* SosChainingOddsServiceTests.swift in Sources */,
+				966B1F082656C1B700DF1FE0 /* TxtReaderTests.swift in Sources */,
+				966B1ED82654342D00DF1FE0 /* ProbabilityServiceTests.swift in Sources */,
+				966B1ED02653001E00DF1FE0 /* TextResolverTests.swift in Sources */,
+				96C3CB66266185440090186E /* PokemonServiceTests.swift in Sources */,
+				966B1EF22656A58400DF1FE0 /* PokeradarOddsServiceTests.swift in Sources */,
+				966B1F042656BCAA00DF1FE0 /* FontSettingsServiceTests.swift in Sources */,
+				966B1EE42655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift in Sources */,
+				966B1EEE2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift in Sources */,
+				966B1EE02655249B00DF1FE0 /* Gen2BreedingOddsServiceTests.swift in Sources */,
+				966B1EDC265522BE00DF1FE0 /* MasudaOddsServiceTests.swift in Sources */,
+				966B1EE8265526CF00DF1FE0 /* ChainFishingOddsServiceTests.swift in Sources */,
+				96C3CB6A26618B620090186E /* PopupHandlerTests.swift in Sources */,
+				966B1EFE2656B29F00DF1FE0 /* ColorServiceTests.swift in Sources */,
+				961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */,
+				966B1EFA2656ABC300DF1FE0 /* LGPEOddsServiceTests.swift in Sources */,
+				962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		96FC079523EF192400459450 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -698,6 +836,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		961B5C522652837E00918D91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 96FC079823EF192400459450 /* ShinyDex */;
+			targetProxy = 961B5C512652837E00918D91 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		96FC07AA23EF192800459450 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -710,6 +856,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		961B5C532652837E00918D91 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SVU6FF2PL3;
+				INFOPLIST_FILE = ShinyDexTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SRC.ShinyDexTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShinyDex.app/ShinyDex";
+			};
+			name = Debug;
+		};
+		961B5C542652837E00918D91 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SVU6FF2PL3;
+				INFOPLIST_FILE = ShinyDexTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SRC.ShinyDexTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShinyDex.app/ShinyDex";
+			};
+			name = Release;
+		};
 		96FC07AE23EF192800459450 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -831,6 +1023,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SVU6FF2PL3;
 				INFOPLIST_FILE = ShinyDex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -852,6 +1045,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SVU6FF2PL3;
 				INFOPLIST_FILE = ShinyDex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -869,6 +1063,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		961B5C552652837E00918D91 /* Build configuration list for PBXNativeTarget "ShinyDexTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				961B5C532652837E00918D91 /* Debug */,
+				961B5C542652837E00918D91 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		96FC079423EF192400459450 /* Build configuration list for PBXProject "ShinyDex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

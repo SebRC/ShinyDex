@@ -40,7 +40,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
 	
 	fileprivate func populatePokeballList() {
-		let pokeballList = txtReader.linesFromResourceForced(textFile: "pokeballs")
+		let pokeballList = txtReader.readFile(textFile: "pokeballs")
 		for pokeball in pokeballList {
 			pokeballs.append(Pokeball(ballName: pokeball))
 		}

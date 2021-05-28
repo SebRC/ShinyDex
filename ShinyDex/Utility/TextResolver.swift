@@ -9,50 +9,15 @@
 import Foundation
 
 class TextResolver {
+
+	fileprivate var titles = [0: "Kanto", 1: "Johto", 2: "Hoenn", 3: "Sinnoh", 4: "Unova", 5: "Kalos", 6: "Alola", 7: "Galar", 8: "Hunts", 9: "Collection"]
+
 	func getGenTitle(gen: Int) -> String {
-		switch gen {
-		case 1:
-			return "Johto"
-		case 2:
-			return "Hoenn"
-		case 3:
-			return "Sinnoh"
-		case 4:
-			return "Unova"
-		case 5:
-			return "Kalos"
-		case 6:
-			return "Alola"
-		case 7:
-			return "Galar"
-		case 8:
-			return "Hunts"
-		case 9:
-			return "Collection"
-		default:
-			return "Kanto"
-		}
+		return titles[gen] ?? "Not found"
 	}
 
-	func getEncountersLabelText(pokemon: Pokemon, encounters: Int, methodDecrement: Int = 0) -> String {
-		return getEncountersText(pokemon: pokemon, methodDecrement: methodDecrement, encounters: encounters)
-	}
-
-	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool {
-		var maxChainReached = false
-		if (pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining) {
-			maxChainReached = encounters > 30
-		}
-		else if (pokemon.huntMethod == .ChainFishing) {
-			maxChainReached = encounters > 20
-		}
-		else if (pokemon.huntMethod == .Pokeradar) {
-			maxChainReached = encounters > 40
-		}
-		else if (pokemon.huntMethod == .DexNav) {
-			maxChainReached = encounters > 999
-		}
-		return maxChainReached
+	func getEncountersLabelText(pokemon: Pokemon, methodDecrement: Int = 0) -> String {
+		return getEncountersText(pokemon: pokemon, methodDecrement: methodDecrement, encounters: pokemon.encounters)
 	}
 
 	fileprivate func getEncountersText(pokemon: Pokemon, methodDecrement: Int, encounters: Int) -> String {
@@ -80,5 +45,22 @@ class TextResolver {
 				: " \(methodVerb): \(encounters)"
 		}
 		return " Encounters: \(encounters)"
+	}
+
+	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool {
+		var maxChainReached = false
+		if (pokemon.huntMethod == .Lure || pokemon.huntMethod == .SosChaining) {
+			maxChainReached = encounters > 30
+		}
+		else if (pokemon.huntMethod == .ChainFishing) {
+			maxChainReached = encounters > 20
+		}
+		else if (pokemon.huntMethod == .Pokeradar) {
+			maxChainReached = encounters > 40
+		}
+		else if (pokemon.huntMethod == .DexNav) {
+			maxChainReached = encounters > 999
+		}
+		return maxChainReached
 	}
 }
