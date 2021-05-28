@@ -9,7 +9,6 @@
 import UIKit
 
 public class CurrentHuntCell: UITableViewCell {
-	
 	var cellDelegate: CurrentHuntCellDelegate?
 	
 	@IBOutlet weak var sprite: UIImageView!
