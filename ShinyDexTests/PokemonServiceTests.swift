@@ -26,7 +26,7 @@ class PokemonServiceTests: XCTestCase {
 		// Arrange
 		let allPokemon = pokemonService.getAll()
 		let pokemon = allPokemon[0]
-		var oldPokemon = cacheOldValues(pokemon: pokemon)
+		let oldPokemon = cacheOldValues(pokemon: pokemon)
 		pokemon.encounters = 50
 		pokemon.caughtBall = "poke"
 		pokemon.caughtDescription = "Caught"
