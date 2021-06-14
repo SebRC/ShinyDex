@@ -84,7 +84,11 @@ class IncrementVC: UIViewController {
 		let index = incrementSegmentedControl.selectedSegmentIndex
 		return index == 6 && !incrementTextField.isEmpty()
 			? getTextFieldIncrement()
-			: index == 6 && incrementTextField.isEmpty() ? 1 : incrementSegmentedControl.selectedSegmentIndex + 1
+			: getEmptyTextFieldIncrement(index: index)
+	}
+
+	fileprivate func getEmptyTextFieldIncrement(index: Int) -> Int {
+		return index == 6 && incrementTextField.isEmpty() ? 1 : index  + 1
 	}
 
 	fileprivate func getTextFieldIncrement() -> Int {
