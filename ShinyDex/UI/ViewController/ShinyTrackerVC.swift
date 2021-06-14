@@ -285,8 +285,6 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func setIncrementImage() {
-		buttonStrip.incrementButton.setImage(UIImage(systemName: pokemon.increment > 6
-														? "plus.circle.fill"
-														: "\(pokemon!.increment).circle.fill"), for: .normal)
+		buttonStrip.incrementButton.setImage(UIImage(systemName: pokemon.increment > 6 ? "plus.circle.fill" : "\(pokemon!.increment).circle.fill"), for: .normal)
 	}
 }
