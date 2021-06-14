@@ -55,12 +55,13 @@ class IncrementVC: UIViewController {
 		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment > 6
 		? 6
 		: pokemon.increment - 1
-		incrementTextField.isEnabled =  incrementSegmentedControl.selectedSegmentIndex == 6
+		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
+		incrementTextField.text = incrementTextField.isEnabled ? "\(pokemon.increment)" : ""
 		setDescriptionText(increment: pokemon.increment)
     }
 
 	@IBAction func incrementChanged(_ sender: Any) {
-		incrementTextField.isEnabled =  incrementSegmentedControl.selectedSegmentIndex == 6
+		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
 		selectedIncrement = incrementSegmentedControl.selectedSegmentIndex == 6 && incrementTextField.text != ""
 			? getTextFieldIncrement()
 			: incrementSegmentedControl.selectedSegmentIndex + 1

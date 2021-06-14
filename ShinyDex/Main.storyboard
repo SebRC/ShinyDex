@@ -1665,7 +1665,7 @@ Are you sure you want to do this?</string>
                                             <segment title="" image="4.circle.fill" catalog="system"/>
                                             <segment title="" image="5.circle.fill" catalog="system"/>
                                             <segment title="" image="6.circle.fill" catalog="system"/>
-                                            <segment title="" image="pencil.circle.fill" catalog="system"/>
+                                            <segment title="" image="plus.circle.fill" catalog="system"/>
                                         </segments>
                                         <connections>
                                             <action selector="incrementChanged:" destination="Od0-22-4ap" eventType="valueChanged" id="HAl-lc-7wh"/>
@@ -1811,7 +1811,6 @@ Are you sure you want to do this?</string>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>
