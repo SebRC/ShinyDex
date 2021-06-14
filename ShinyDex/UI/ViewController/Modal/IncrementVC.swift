@@ -29,7 +29,7 @@ class IncrementVC: UIViewController {
         super.viewDidLoad()
 		selectedIncrement = pokemon.increment
 
-		titleLabel.font = fontSettingsService.getExtraSmallFont()
+		titleLabel.font = fontSettingsService.getMediumFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
