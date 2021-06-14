@@ -52,7 +52,9 @@ class IncrementVC: UIViewController {
 		incrementSegmentedControl.backgroundColor = colorService.getPrimaryColor()
 		incrementSegmentedControl.tintColor = colorService.getSecondaryColor()
 
-		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment - 1
+		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment > 6
+		? 6
+		: pokemon.increment - 1
 		incrementTextField.isEnabled =  incrementSegmentedControl.selectedSegmentIndex == 6
 		setDescriptionText(increment: pokemon.increment)
     }
