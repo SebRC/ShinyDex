@@ -42,6 +42,9 @@ class IncrementVC: UIViewController {
 		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		incrementTextField.font = fontSettingsService.getMediumFont()
+		incrementTextField.textColor = colorService.getTertiaryColor()
+		incrementTextField.backgroundColor = colorService.getPrimaryColor()
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
 
