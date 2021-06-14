@@ -17,6 +17,7 @@ class IncrementVC: UIViewController {
 	@IBOutlet weak var horizontalSeparator: UIView!
 	@IBOutlet weak var verticalSeparator: UIView!
 	@IBOutlet weak var incrementSegmentedControl: UISegmentedControl!
+	@IBOutlet weak var incrementTextField: UITextField!
 
 	var colorService = ColorService()
 	var fontSettingsService = FontSettingsService()
@@ -28,7 +29,7 @@ class IncrementVC: UIViewController {
         super.viewDidLoad()
 		selectedIncrement = pokemon.increment
 
-		titleLabel.font = fontSettingsService.getExtraSmallFont()
+		titleLabel.font = fontSettingsService.getMediumFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
@@ -41,6 +42,10 @@ class IncrementVC: UIViewController {
 		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+		incrementTextField.font = fontSettingsService.getSmallFont()
+		incrementTextField.textColor = colorService.getTertiaryColor()
+		incrementTextField.placeholder = "Custom increment"
+		incrementTextField.backgroundColor = colorService.getPrimaryColor()
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
 
@@ -51,12 +56,17 @@ class IncrementVC: UIViewController {
 		incrementSegmentedControl.backgroundColor = colorService.getPrimaryColor()
 		incrementSegmentedControl.tintColor = colorService.getSecondaryColor()
 
-		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment - 1
+		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment > 6
+		? 6
+		: pokemon.increment - 1
+		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
+		incrementTextField.text = incrementTextField.isEnabled ? "\(pokemon.increment)" : ""
 		setDescriptionText(increment: pokemon.increment)
     }
 
 	@IBAction func incrementChanged(_ sender: Any) {
-		selectedIncrement = incrementSegmentedControl.selectedSegmentIndex + 1
+		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
+		selectedIncrement = getIncrement()
 		setDescriptionText(increment: selectedIncrement)
 	}
 	
@@ -65,9 +75,28 @@ class IncrementVC: UIViewController {
 	}
 
 	@IBAction func confirmPressed(_ sender: Any) {
-		pokemon.increment = selectedIncrement
+		pokemon.increment = getIncrement()
 		pokemonService.save(pokemon: pokemon)
 		performSegue(withIdentifier: "unwindFromEditIncrement", sender: self)
+	}
+
+	fileprivate func getIncrement() -> Int {
+		let index = incrementSegmentedControl.selectedSegmentIndex
+		return index == 6 && !incrementTextField.isEmpty()
+			? getTextFieldIncrement()
+			: getEmptyTextFieldIncrement(index: index)
+	}
+
+	fileprivate func getEmptyTextFieldIncrement(index: Int) -> Int {
+		return index == 6 && incrementTextField.isEmpty() ? 1 : index  + 1
+	}
+
+	fileprivate func getTextFieldIncrement() -> Int {
+		var increment = Int(incrementTextField.text!)!
+		if (increment == 0 || increment > 100) {
+			increment = 1
+		}
+		return increment
 	}
 
 	fileprivate func setDescriptionText(increment: Int) {
@@ -82,8 +111,10 @@ class IncrementVC: UIViewController {
 			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent"
 		case 5:
 			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset"
-		default:
+		case 6:
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once"
+		default:
+			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100"
 		}
 	}
 }

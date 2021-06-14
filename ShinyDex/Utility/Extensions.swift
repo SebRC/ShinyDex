@@ -75,6 +75,12 @@ extension UIView {
     }
 }
 
+extension UITextField {
+	func isEmpty() -> Bool {
+		return self.text == ""
+	}
+}
+
 extension Double {
 	static func getProbability(encounters: Int, odds: Int) -> Double {
 		let cumulativeProbability = pow(Double(odds - 1)/Double(odds), Double(encounters))
