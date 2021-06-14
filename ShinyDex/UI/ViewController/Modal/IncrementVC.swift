@@ -42,8 +42,9 @@ class IncrementVC: UIViewController {
 		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		incrementTextField.font = fontSettingsService.getMediumFont()
+		incrementTextField.font = fontSettingsService.getSmallFont()
 		incrementTextField.textColor = colorService.getTertiaryColor()
+		incrementTextField.placeholder = "Custom increment"
 		incrementTextField.backgroundColor = colorService.getPrimaryColor()
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
@@ -65,9 +66,7 @@ class IncrementVC: UIViewController {
 
 	@IBAction func incrementChanged(_ sender: Any) {
 		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
-		selectedIncrement = incrementSegmentedControl.selectedSegmentIndex == 6 && incrementTextField.text != ""
-			? getTextFieldIncrement()
-			: incrementSegmentedControl.selectedSegmentIndex + 1
+		selectedIncrement = getIncrement()
 		setDescriptionText(increment: selectedIncrement)
 	}
 	
@@ -76,11 +75,15 @@ class IncrementVC: UIViewController {
 	}
 
 	@IBAction func confirmPressed(_ sender: Any) {
-		pokemon.increment = incrementSegmentedControl.selectedSegmentIndex == 6 && incrementTextField.text != ""
-			? getTextFieldIncrement()
-			: incrementSegmentedControl.selectedSegmentIndex + 1
+		pokemon.increment = getIncrement()
 		pokemonService.save(pokemon: pokemon)
 		performSegue(withIdentifier: "unwindFromEditIncrement", sender: self)
+	}
+
+	fileprivate func getIncrement() -> Int {
+		return incrementSegmentedControl.selectedSegmentIndex == 6 && incrementTextField.text != ""
+			? getTextFieldIncrement()
+			: incrementSegmentedControl.selectedSegmentIndex + 1
 	}
 
 	fileprivate func getTextFieldIncrement() -> Int {
@@ -106,7 +109,7 @@ class IncrementVC: UIViewController {
 		case 6:
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once"
 		default:
-			descriptionLabel.text = "Set your own custom value. The minimum is 1 and the maximum is 100"
+			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100"
 		}
 	}
 }
