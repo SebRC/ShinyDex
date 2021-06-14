@@ -1632,7 +1632,7 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnS-NM-SQv">
-                                <rect key="frame" x="44" y="234" width="287" height="220"/>
+                                <rect key="frame" x="44" y="88" width="287" height="303"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing increment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOP-6d-NxO" userLabel="titleLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="287" height="38"/>
@@ -1645,9 +1645,9 @@ Are you sure you want to do this?</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya1-HY-9Vb" userLabel="descriptionLabel">
-                                        <rect key="frame" x="8" y="82" width="271" height="77"/>
+                                        <rect key="frame" x="8" y="82" width="271" height="103"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="ya1-HY-9Vb" secondAttribute="height" multiplier="267:37" constant="-284.64864864864865" id="QXx-H3-7hg"/>
+                                            <constraint firstAttribute="width" secondItem="ya1-HY-9Vb" secondAttribute="height" multiplier="267:37" constant="-472.2702702702702" id="QXx-H3-7hg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
@@ -1665,13 +1665,14 @@ Are you sure you want to do this?</string>
                                             <segment title="" image="4.circle.fill" catalog="system"/>
                                             <segment title="" image="5.circle.fill" catalog="system"/>
                                             <segment title="" image="6.circle.fill" catalog="system"/>
+                                            <segment title="" image="pencil.circle.fill" catalog="system"/>
                                         </segments>
                                         <connections>
                                             <action selector="incrementChanged:" destination="Od0-22-4ap" eventType="valueChanged" id="HAl-lc-7wh"/>
                                         </connections>
                                     </segmentedControl>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGJ-oa-vaK">
-                                        <rect key="frame" x="0.0" y="168" width="141" height="52"/>
+                                        <rect key="frame" x="0.0" y="251" width="141" height="52"/>
                                         <color key="backgroundColor" systemColor="systemRedColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wGJ-oa-vaK" secondAttribute="height" multiplier="141:52" id="AcK-pZ-Sfr"/>
@@ -1683,7 +1684,7 @@ Are you sure you want to do this?</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1Z-lJ-nZE">
-                                        <rect key="frame" x="141" y="168" width="146" height="52"/>
+                                        <rect key="frame" x="141" y="251" width="146" height="52"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="M1Z-lJ-nZE" secondAttribute="height" multiplier="11:4" constant="3" id="Hol-Yw-GE2"/>
@@ -1695,14 +1696,19 @@ Are you sure you want to do this?</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1j-UH-SSc">
-                                        <rect key="frame" x="0.0" y="167" width="287" height="3"/>
+                                        <rect key="frame" x="0.0" y="251" width="287" height="3"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="3" id="Lme-2S-vmK"/>
                                         </constraints>
                                     </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a custom value" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gny-14-EwW">
+                                        <rect key="frame" x="7" y="193" width="270" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AI-6q-dZ9">
-                                        <rect key="frame" x="141" y="168" width="2" height="52"/>
+                                        <rect key="frame" x="141" y="253" width="2" height="52"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="2" id="56A-ve-pfN"/>
@@ -1717,11 +1723,13 @@ Are you sure you want to do this?</string>
                                     <constraint firstItem="M1Z-lJ-nZE" firstAttribute="leading" secondItem="5AI-6q-dZ9" secondAttribute="trailing" constant="-2" id="C01-1K-qIR"/>
                                     <constraint firstItem="5AI-6q-dZ9" firstAttribute="height" secondItem="wGJ-oa-vaK" secondAttribute="height" id="Km2-eE-Wop"/>
                                     <constraint firstItem="jOP-6d-NxO" firstAttribute="leading" secondItem="XnS-NM-SQv" secondAttribute="leading" id="LYi-0C-dPk"/>
-                                    <constraint firstItem="M1Z-lJ-nZE" firstAttribute="top" secondItem="5AI-6q-dZ9" secondAttribute="top" id="LdX-X7-Wr9"/>
+                                    <constraint firstItem="M1Z-lJ-nZE" firstAttribute="top" secondItem="5AI-6q-dZ9" secondAttribute="top" constant="-2" id="LdX-X7-Wr9"/>
                                     <constraint firstItem="M1Z-lJ-nZE" firstAttribute="trailing" secondItem="S1j-UH-SSc" secondAttribute="trailing" id="P0s-Jt-W88"/>
-                                    <constraint firstItem="S1j-UH-SSc" firstAttribute="top" secondItem="ya1-HY-9Vb" secondAttribute="bottom" constant="8" id="Scy-3k-a5z"/>
+                                    <constraint firstItem="S1j-UH-SSc" firstAttribute="top" secondItem="ya1-HY-9Vb" secondAttribute="bottom" constant="66" id="Scy-3k-a5z"/>
                                     <constraint firstAttribute="trailing" secondItem="M1Z-lJ-nZE" secondAttribute="trailing" id="Tlx-ch-yUK"/>
-                                    <constraint firstAttribute="width" secondItem="XnS-NM-SQv" secondAttribute="height" multiplier="287:179" constant="-65.737430167597779" id="WBX-FO-Bem"/>
+                                    <constraint firstItem="gny-14-EwW" firstAttribute="centerX" secondItem="5AI-6q-dZ9" secondAttribute="centerX" id="Ujl-0F-6wh"/>
+                                    <constraint firstAttribute="width" secondItem="XnS-NM-SQv" secondAttribute="height" multiplier="287:179" constant="-198.81564245810057" id="WBX-FO-Bem"/>
+                                    <constraint firstItem="S1j-UH-SSc" firstAttribute="top" secondItem="gny-14-EwW" secondAttribute="bottom" constant="24" id="aDX-TT-lw7"/>
                                     <constraint firstItem="wGJ-oa-vaK" firstAttribute="leading" secondItem="S1j-UH-SSc" secondAttribute="leading" id="aId-iB-nVg"/>
                                     <constraint firstItem="ya1-HY-9Vb" firstAttribute="top" secondItem="EzJ-L4-4Zj" secondAttribute="bottom" constant="4.5" id="aWo-bx-xSI"/>
                                     <constraint firstItem="M1Z-lJ-nZE" firstAttribute="baseline" secondItem="wGJ-oa-vaK" secondAttribute="firstBaseline" id="dLO-kK-JvR"/>
@@ -1729,6 +1737,7 @@ Are you sure you want to do this?</string>
                                     <constraint firstAttribute="bottom" secondItem="M1Z-lJ-nZE" secondAttribute="bottom" id="hIa-Wh-ykq"/>
                                     <constraint firstAttribute="trailing" secondItem="jOP-6d-NxO" secondAttribute="trailing" id="iPf-WA-mig"/>
                                     <constraint firstItem="EzJ-L4-4Zj" firstAttribute="leading" secondItem="XnS-NM-SQv" secondAttribute="leading" constant="6" id="j0h-lk-H5F"/>
+                                    <constraint firstItem="gny-14-EwW" firstAttribute="leading" secondItem="XnS-NM-SQv" secondAttribute="leading" constant="7" id="lzu-MX-Vs2"/>
                                     <constraint firstItem="S1j-UH-SSc" firstAttribute="width" secondItem="XnS-NM-SQv" secondAttribute="width" id="o63-bF-UmJ"/>
                                     <constraint firstItem="jOP-6d-NxO" firstAttribute="top" secondItem="XnS-NM-SQv" secondAttribute="top" id="oYk-Xe-j6T"/>
                                     <constraint firstAttribute="trailing" secondItem="ya1-HY-9Vb" secondAttribute="trailing" constant="8" id="pud-NH-Fr4"/>
@@ -1739,9 +1748,9 @@ Are you sure you want to do this?</string>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9Wm-uI-mqD"/>
                         <constraints>
-                            <constraint firstItem="XnS-NM-SQv" firstAttribute="width" secondItem="XnS-NM-SQv" secondAttribute="height" multiplier="287:179" constant="-65.737430167597779" id="UVm-ou-oWT"/>
+                            <constraint firstItem="XnS-NM-SQv" firstAttribute="width" secondItem="XnS-NM-SQv" secondAttribute="height" multiplier="287:179" constant="-198.81564245810057" id="UVm-ou-oWT"/>
                             <constraint firstItem="XnS-NM-SQv" firstAttribute="centerX" secondItem="2fL-L1-QuN" secondAttribute="centerX" id="VCS-5t-Suc"/>
-                            <constraint firstItem="XnS-NM-SQv" firstAttribute="centerY" secondItem="2fL-L1-QuN" secondAttribute="centerY" constant="20.5" id="WFI-3e-h5f"/>
+                            <constraint firstItem="XnS-NM-SQv" firstAttribute="centerY" secondItem="2fL-L1-QuN" secondAttribute="centerY" constant="-84" id="WFI-3e-h5f"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1750,6 +1759,7 @@ Are you sure you want to do this?</string>
                         <outlet property="descriptionLabel" destination="ya1-HY-9Vb" id="PPu-Jo-daE"/>
                         <outlet property="horizontalSeparator" destination="S1j-UH-SSc" id="c2a-qd-bVg"/>
                         <outlet property="incrementSegmentedControl" destination="EzJ-L4-4Zj" id="zzs-EE-beW"/>
+                        <outlet property="incrementTextField" destination="gny-14-EwW" id="zV4-zA-eZe"/>
                         <outlet property="modalView" destination="XnS-NM-SQv" id="ANw-tK-pla"/>
                         <outlet property="titleLabel" destination="jOP-6d-NxO" id="3mJ-xb-5s7"/>
                         <outlet property="verticalSeparator" destination="5AI-6q-dZ9" id="I1g-BS-ADO"/>
@@ -1801,6 +1811,7 @@ Are you sure you want to do this?</string>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>
