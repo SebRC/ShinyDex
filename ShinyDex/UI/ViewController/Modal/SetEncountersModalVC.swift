@@ -42,9 +42,9 @@ class SetEncountersModalVC: UIViewController {
 	}
 	
 	@objc fileprivate func confirmPressed() {
-		pokemon.encounters = Int(setEncountersView.encountersTextField.text!) ?? pokemon.encounters
+		let encounters = Int(setEncountersView.encountersTextField.text!) ?? pokemon.encounters
+		pokemon.encounters = encounters > 500000 ? pokemon.encounters : encounters
 		setEncountersView.encountersTextField.resignFirstResponder()
-		setEncountersView.encountersTextField.text = ""
 		performSegue(withIdentifier: "unwindFromEditEncounters", sender: self)
 	}
 }
