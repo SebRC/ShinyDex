@@ -75,9 +75,8 @@
 		969BEF8226B1B50300FDF445 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 969BEF8126B1B50300FDF445 /* moves.json */; };
 		969BEF8A26B1B55200FDF445 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF8926B1B55200FDF445 /* Move.swift */; };
 		969BEF8E26B1B6C500FDF445 /* MoveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF8D26B1B6C500FDF445 /* MoveService.swift */; };
-		969BEF9226B2DEBC00FDF445 /* PPCounterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF9126B2DEBC00FDF445 /* PPCounterVC.swift */; };
-		969BEF9826B2DFB600FDF445 /* MoveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969BEF9726B2DFB600FDF445 /* MoveView.xib */; };
-		969BEF9C26B2DFC400FDF445 /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF9B26B2DFC400FDF445 /* MoveView.swift */; };
+		969BEF9226B2DEBC00FDF445 /* PPCounterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF9126B2DEBC00FDF445 /* PPCounterTVC.swift */; };
+		969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEFA326B2E63B00FDF445 /* MoveCell.swift */; };
 		96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */; };
 		96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */; };
 		96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* ButtonStrip.swift */; };
@@ -197,9 +196,8 @@
 		969BEF8826B1B54300FDF445 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
 		969BEF8926B1B55200FDF445 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		969BEF8D26B1B6C500FDF445 /* MoveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveService.swift; sourceTree = "<group>"; };
-		969BEF9126B2DEBC00FDF445 /* PPCounterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPCounterVC.swift; sourceTree = "<group>"; };
-		969BEF9726B2DFB600FDF445 /* MoveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoveView.xib; sourceTree = "<group>"; };
-		969BEF9B26B2DFC400FDF445 /* MoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveView.swift; sourceTree = "<group>"; };
+		969BEF9126B2DEBC00FDF445 /* PPCounterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPCounterTVC.swift; sourceTree = "<group>"; };
+		969BEFA326B2E63B00FDF445 /* MoveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCell.swift; sourceTree = "<group>"; };
 		96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationPopup.swift; sourceTree = "<group>"; };
 		96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmationPopup.xib; sourceTree = "<group>"; };
 		96A72990245F12C500AF3F5F /* ButtonStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStrip.swift; sourceTree = "<group>"; };
@@ -503,6 +501,7 @@
 				96435D4624561E1C00C45A00 /* CreateHuntCell.swift */,
 				96435D4A24571E8500C45A00 /* HuntPickerCell.swift */,
 				96760A0E256299EF005CAC5E /* RearrangeCell.swift */,
+				969BEFA326B2E63B00FDF445 /* MoveCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -526,6 +525,7 @@
 		96FC082523EF596200459450 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				969BEF9126B2DEBC00FDF445 /* PPCounterTVC.swift */,
 				96FC082723EF598E00459450 /* HuntsTVC.swift */,
 				96FC082623EF598E00459450 /* MenuTVC.swift */,
 				96FC082823EF598E00459450 /* PokedexTVC.swift */,
@@ -542,7 +542,6 @@
 				96FC082E23EF59AA00459450 /* ShinyTrackerVC.swift */,
 				9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */,
 				9660629D24B4BF3200B2B654 /* LocationVC.swift */,
-				969BEF9126B2DEBC00FDF445 /* PPCounterVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -584,8 +583,6 @@
 				967F63012465C66C008F2C4B /* GameSettingsCell.xib */,
 				967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */,
 				967F63052465C927008F2C4B /* GameSettingsContainer.xib */,
-				969BEF9B26B2DFC400FDF445 /* MoveView.swift */,
-				969BEF9726B2DFB600FDF445 /* MoveView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -710,7 +707,6 @@
 				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
 				96FC07A923EF192800459450 /* Assets.xcassets in Resources */,
 				96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */,
-				969BEF9826B2DFB600FDF445 /* MoveView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,7 +793,7 @@
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,
 				966C211424103FE30019F835 /* FontSettingsService.swift in Sources */,
 				9648AE8B24ADCAE300E819CC /* Gen2BreedingOddsService.swift in Sources */,
-				969BEF9226B2DEBC00FDF445 /* PPCounterVC.swift in Sources */,
+				969BEF9226B2DEBC00FDF445 /* PPCounterTVC.swift in Sources */,
 				96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */,
 				96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
@@ -812,6 +808,7 @@
 				967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */,
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
+				969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
 				9622379A24B5EC29006BBC43 /* Theme.swift in Sources */,
@@ -847,7 +844,6 @@
 				9684073124AF6A2A005FE3D3 /* ChainFishingOddsService.swift in Sources */,
 				96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */,
 				96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */,
-				969BEF9C26B2DFC400FDF445 /* MoveView.swift in Sources */,
 				9607F778242A971000263CF6 /* PokemonService.swift in Sources */,
 				9622379824B5E28B006BBC43 /* LocationUrlService.swift in Sources */,
 				96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */,
