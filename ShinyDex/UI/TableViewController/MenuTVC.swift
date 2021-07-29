@@ -92,7 +92,7 @@ class MenuTVC: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return 11
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -103,6 +103,8 @@ class MenuTVC: UITableViewController {
 		genIndex = indexPath.row
 		if (genIndex == 8) {
 			performSegue(withIdentifier: "toHunts", sender: self)
+		} else if (genIndex == 10) {
+			performSegue(withIdentifier: "toPPCounter", sender: self)
 		}
 		else {
 			performSegue(withIdentifier: "toPokedex", sender: self)
@@ -151,6 +153,8 @@ class MenuTVC: UITableViewController {
 			return UIImage(named: "\(HuntMethod.Encounters.rawValue) + Charm")!
 		case 9:
 			return UIImage(named: "collection")!
+		case 10:
+			return UIImage(named: "gen1")!
 		default:
 			return UIImage(named: "gen1")!
 		}

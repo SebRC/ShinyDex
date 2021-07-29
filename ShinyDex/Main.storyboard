@@ -631,6 +631,29 @@ Are you sure you want to do this?</string>
             </objects>
             <point key="canvasLocation" x="2776.8000000000002" y="1061.9190404797603"/>
         </scene>
+        <!--CounterVC-->
+        <scene sceneID="E8w-vr-39B">
+            <objects>
+                <viewController id="sy6-3K-XXf" customClass="PPCounterVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gAh-1G-v2G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PYc-GP-sWx" customClass="MoveView" customModule="ShinyDex" customModuleProvider="target">
+                                <rect key="frame" x="87" y="258" width="200" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="i2R-sy-KKM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6yf-E1-Fpg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uh1-Xm-vGf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1049" y="296"/>
+        </scene>
         <!--Pokédex-->
         <scene sceneID="bDn-A5-ERe">
             <objects>
@@ -1146,6 +1169,7 @@ Are you sure you want to do this?</string>
                         <segue destination="MpZ-nK-Pkl" kind="show" identifier="toPokedex" id="Yty-9N-5ir"/>
                         <segue destination="Rot-p2-nVE" kind="show" identifier="toSettings" id="Zr0-Q8-5YQ"/>
                         <segue destination="UEl-xz-2cG" kind="show" identifier="toHunts" id="W5d-KP-f2g"/>
+                        <segue destination="sy6-3K-XXf" kind="show" identifier="toPPCounter" id="Bco-H9-HWr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0Q-g1-IuQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1793,7 +1817,7 @@ Are you sure you want to do this?</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="GWK-Tp-YuW"/>
-        <segue reference="LJI-fC-w8z"/>
+        <segue reference="7k3-aT-9gU"/>
         <segue reference="LE8-BB-dtk"/>
         <segue reference="m7y-w4-r1a"/>
     </inferredMetricsTieBreakers>
