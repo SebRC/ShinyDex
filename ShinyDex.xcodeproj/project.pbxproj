@@ -17,6 +17,9 @@
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
 		9625741A26B308350056B09C /* initialActiveMoves.json in Resources */ = {isa = PBXBuildFile; fileRef = 9625741926B308350056B09C /* initialActiveMoves.json */; };
+		9625742026B402080056B09C /* MovePickerModalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625741F26B402080056B09C /* MovePickerModalTVC.swift */; };
+		9625742426B4028F0056B09C /* MovePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625742326B4028F0056B09C /* MovePickerCell.swift */; };
+		9625742826B4051B0056B09C /* MoveCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625742726B4051B0056B09C /* MoveCellDelegate.swift */; };
 		96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96283F20255206B600E736A5 /* TableViewHelper.swift */; };
 		962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
@@ -148,6 +151,9 @@
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 		9625741926B308350056B09C /* initialActiveMoves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = initialActiveMoves.json; sourceTree = "<group>"; };
+		9625741F26B402080056B09C /* MovePickerModalTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePickerModalTVC.swift; sourceTree = "<group>"; };
+		9625742326B4028F0056B09C /* MovePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePickerCell.swift; sourceTree = "<group>"; };
+		9625742726B4051B0056B09C /* MoveCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCellDelegate.swift; sourceTree = "<group>"; };
 		96283F20255206B600E736A5 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
 		962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsServiceTests.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
@@ -499,6 +505,7 @@
 				96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */,
 				96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */,
 				96760A1025629C61005CAC5E /* RearrangeCellDelegate.swift */,
+				9625742726B4051B0056B09C /* MoveCellDelegate.swift */,
 			);
 			path = CellDelegates;
 			sourceTree = "<group>";
@@ -514,6 +521,7 @@
 				96435D4A24571E8500C45A00 /* HuntPickerCell.swift */,
 				96760A0E256299EF005CAC5E /* RearrangeCell.swift */,
 				969BEFA326B2E63B00FDF445 /* MoveCell.swift */,
+				9625742326B4028F0056B09C /* MovePickerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -572,6 +580,7 @@
 				966478A92515362100AA50AA /* ApplyToAllVC.swift */,
 				966478AB25153FAD00AA50AA /* SegueActivated.swift */,
 				96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */,
+				9625741F26B402080056B09C /* MovePickerModalTVC.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -813,6 +822,7 @@
 				96C96D482444696000D30186 /* FontThemeName.swift in Sources */,
 				96A7299F245F15FF00AF3F5F /* SetEncountersView.swift in Sources */,
 				96FC082B23EF598E00459450 /* PokedexTVC.swift in Sources */,
+				9625742426B4028F0056B09C /* MovePickerCell.swift in Sources */,
 				964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */,
 				960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */,
 				96FC083A23EF59C000459450 /* SetEncountersModalVC.swift in Sources */,
@@ -827,6 +837,7 @@
 				9622379A24B5EC29006BBC43 /* Theme.swift in Sources */,
 				966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
+				9625742826B4051B0056B09C /* MoveCellDelegate.swift in Sources */,
 				961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */,
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
 				96E2FE4026B2FE6A005E1D46 /* MoveRepository.swift in Sources */,
@@ -839,6 +850,7 @@
 				9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */,
 				969BEF8E26B1B6C500FDF445 /* MoveService.swift in Sources */,
 				966478AC25153FAD00AA50AA /* SegueActivated.swift in Sources */,
+				9625742026B402080056B09C /* MovePickerModalTVC.swift in Sources */,
 				964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */,
 				966C211D24118BC50019F835 /* HuntService.swift in Sources */,
 				96760A1125629C61005CAC5E /* RearrangeCellDelegate.swift in Sources */,

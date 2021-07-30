@@ -10,10 +10,24 @@ import Foundation
 import UIKit
 
 class MoveCell: UITableViewCell {
+	var cellDelegate: MoveCellDelegate?
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var ppLabel: UILabel!
 	@IBOutlet weak var typeLabel: UILabel!
 	@IBOutlet weak var typeImageView: UIImageView!
 	@IBOutlet weak var decrementButton: UIButton!
 	@IBOutlet weak var incrementButton: UIButton!
+	@IBOutlet weak var editButton: UIButton!
+
+	@IBAction func decrementPressed(_ sender: UIButton) {
+		cellDelegate?.decrementPressed(sender)
+	}
+
+	@IBAction func incrementPressed(_ sender: UIButton) {
+		cellDelegate?.incrementPressed(sender)
+	}
+
+	@IBAction func editPressed(_ sender: UIButton) {
+		cellDelegate?.editPressed(sender)
+	}
 }

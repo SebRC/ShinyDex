@@ -8,8 +8,8 @@
 
 import UIKit
 
-class PokemonCell : UITableViewCell {
-	var cellDelegate : PokemonCellDelegate?
+class PokemonCell: UITableViewCell {
+	var cellDelegate: PokemonCellDelegate?
 	
 	@IBOutlet weak var caughtButton: UIButton!
 	@IBOutlet weak var pokemonName: UILabel!

@@ -631,6 +631,79 @@ Are you sure you want to do this?</string>
             </objects>
             <point key="canvasLocation" x="2776.8000000000002" y="1061.9190404797603"/>
         </scene>
+        <!--Move Picker ModalTVC-->
+        <scene sceneID="F3m-f1-1f4">
+            <objects>
+                <viewController id="XvO-FR-yYf" customClass="MovePickerModalTVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U7u-cF-dRV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="95z-Mr-JRH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movePickerCell" rowHeight="155" id="Mcb-B9-cT7" customClass="MovePickerCell" customModule="ShinyDex" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="155"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mcb-B9-cT7" id="XuT-pD-kEc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQC-vL-ucL">
+                                                    <rect key="frame" x="16" y="11" width="201" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eZP-RJ-wfK">
+                                                    <rect key="frame" x="234" y="11" width="125" height="125"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PP label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oB8-6v-ee2">
+                                                    <rect key="frame" x="16" y="54" width="201" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOt-eS-Gwz">
+                                                    <rect key="frame" x="16" y="98" width="201" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="GQC-vL-ucL" id="4wl-du-4oA"/>
+                                            <outlet property="ppLabel" destination="oB8-6v-ee2" id="Km6-uO-QV4"/>
+                                            <outlet property="typeImageView" destination="eZP-RJ-wfK" id="iPi-b1-TXm"/>
+                                            <outlet property="typeLabel" destination="iOt-eS-Gwz" id="WTm-vE-u4T"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mNg-Td-d8b"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="95z-Mr-JRH" firstAttribute="top" secondItem="mNg-Td-d8b" secondAttribute="top" id="8Uk-aB-GVK"/>
+                            <constraint firstItem="95z-Mr-JRH" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" id="Dn7-2T-kBt"/>
+                            <constraint firstItem="95z-Mr-JRH" firstAttribute="trailing" secondItem="mNg-Td-d8b" secondAttribute="trailing" id="Pk9-VU-ZN4"/>
+                            <constraint firstItem="95z-Mr-JRH" firstAttribute="bottom" secondItem="mNg-Td-d8b" secondAttribute="bottom" id="bk9-vD-tn2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="95z-Mr-JRH" id="MvA-D9-f0r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eH9-Zl-Jg5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1049" y="1062"/>
+        </scene>
         <!--CounterTVC-->
         <scene sceneID="E8w-vr-39B">
             <objects>
@@ -651,7 +724,7 @@ Are you sure you want to do this?</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name labe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uu2-C4-MFi">
-                                                    <rect key="frame" x="16" y="11" width="237" height="59"/>
+                                                    <rect key="frame" x="16" y="11" width="211" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -672,7 +745,7 @@ Are you sure you want to do this?</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRA-Ho-3v9">
-                                                    <rect key="frame" x="235" y="11" width="124" height="108"/>
+                                                    <rect key="frame" x="235" y="11" width="125" height="125"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63k-9t-3Dy">
@@ -682,19 +755,35 @@ Are you sure you want to do this?</string>
                                                     <state key="normal" backgroundImage="minus.circle.fill" catalog="system">
                                                         <color key="titleColor" red="0.3921568627" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="decrementPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="QsM-ym-a8w"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba8-5Z-UR4" userLabel="Increment">
-                                                    <rect key="frame" x="259" y="155.5" width="100" height="100"/>
+                                                    <rect key="frame" x="124" y="155.5" width="100" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.99607843139999996" green="0.28627450980000002" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" backgroundImage="plus.circle.fill" catalog="system">
                                                         <color key="titleColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="incrementPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="RTb-dV-Mc9"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvz-HP-gY7">
+                                                    <rect key="frame" x="247" y="157" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" backgroundImage="pencil.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="editPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="rYQ-vb-J6I"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="decrementButton" destination="63k-9t-3Dy" id="ou8-rc-CFa"/>
+                                            <outlet property="editButton" destination="fvz-HP-gY7" id="jZv-E4-PX7"/>
                                             <outlet property="incrementButton" destination="Ba8-5Z-UR4" id="2lP-na-5DG"/>
                                             <outlet property="nameLabel" destination="Uu2-C4-MFi" id="3YV-Ph-1ij"/>
                                             <outlet property="ppLabel" destination="Tad-7a-WVT" id="uFx-hQ-0cF"/>
@@ -717,6 +806,7 @@ Are you sure you want to do this?</string>
                     <navigationItem key="navigationItem" id="6yf-E1-Fpg"/>
                     <connections>
                         <outlet property="tableView" destination="1tv-c1-1Ad" id="yBN-im-gbg"/>
+                        <segue destination="XvO-FR-yYf" kind="presentation" identifier="toMovePicker" id="WOZ-PO-HKp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uh1-Xm-vGf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -882,7 +972,7 @@ Are you sure you want to do this?</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABG-IX-o9S">
-                                                    <rect key="frame" x="80" y="0.0" width="129.5" height="20"/>
+                                                    <rect key="frame" x="80" y="0.0" width="142" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ABG-IX-o9S" secondAttribute="height" multiplier="141:22" id="643-VS-Mg8"/>
                                                     </constraints>
@@ -920,7 +1010,7 @@ Are you sure you want to do this?</string>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cad-sG-qz9">
-                                                    <rect key="frame" x="80" y="22" width="109" height="12"/>
+                                                    <rect key="frame" x="80" y="24" width="91" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Cad-sG-qz9" secondAttribute="height" multiplier="91:10" id="Rw8-4s-Drd"/>
                                                     </constraints>
@@ -1062,7 +1152,7 @@ Are you sure you want to do this?</string>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJH-4k-Tjb">
-                                                    <rect key="frame" x="84" y="36" width="86.5" height="12"/>
+                                                    <rect key="frame" x="84" y="36" width="72" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UJH-4k-Tjb" secondAttribute="height" multiplier="137:19" id="1Ma-RK-1TG"/>
                                                     </constraints>
@@ -1904,6 +1994,7 @@ Are you sure you want to do this?</string>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>

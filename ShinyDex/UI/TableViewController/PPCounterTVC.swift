@@ -8,10 +8,11 @@
 
 import UIKit
 
-class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MoveCellDelegate {
 	@IBOutlet weak var tableView: UITableView!
 
 	var moveService = MoveService()
+	let tableViewHelper = TableViewHelper()
 	var moves = [Move]()
 	var activeMoves = [ActiveMove]()
 
@@ -39,11 +40,24 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath) as! MoveCell
+		cell.cellDelegate = self
 		let move = activeMoves[indexPath.row]
 		cell.nameLabel.text = move.name
 		cell.ppLabel.text = "PP: \(move.maxPP)"
 		cell.typeLabel.text = move.type
 		cell.typeImageView.image = UIImage(named: "dive")
 		return cell
+	}
+
+	func incrementPressed(_ sender: UIButton) {
+
+	}
+
+	func decrementPressed(_ sender: UIButton) {
+
+	}
+
+	func editPressed(_ sender: UIButton) {
+		performSegue(withIdentifier: "toMovePicker", sender: self)
 	}
 }
