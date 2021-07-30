@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H524" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H1323" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ActiveMovesEntity" representedClassName="." syncable="YES">
+        <attribute name="json" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="HuntEntity" representedClassName="." syncable="YES">
         <attribute name="indexes" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
         <attribute name="isCollapsed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -21,6 +24,7 @@
         <attribute name="useIncrementInHunts" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <elements>
+        <element name="ActiveMovesEntity" positionX="18" positionY="72" width="128" height="58"/>
         <element name="HuntEntity" positionX="103.625" positionY="-14.2890625" width="128" height="103"/>
         <element name="PokemonEntity" positionX="-63" positionY="-18" width="128" height="223"/>
     </elements>

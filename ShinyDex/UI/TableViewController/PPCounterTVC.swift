@@ -13,12 +13,14 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 	var moveService = MoveService()
 	var moves = [Move]()
+	var activeMoves = [ActiveMove]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
 		moves = moveService.getMoves()!
+		activeMoves = moveService.getAll()
 
         // Do any additional setup after loading the view.
     }
@@ -37,10 +39,10 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath) as! MoveCell
-		let move = moves[indexPath.row]
-		cell.nameLabel.text = move.identifier
-		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
-		cell.typeLabel.text = "Water"
+		let move = activeMoves[indexPath.row]
+		cell.nameLabel.text = move.name
+		cell.ppLabel.text = "PP: \(move.maxPP)"
+		cell.typeLabel.text = move.type
 		cell.typeImageView.image = UIImage(named: "dive")
 		return cell
 	}

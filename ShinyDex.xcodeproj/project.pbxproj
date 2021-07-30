@@ -16,6 +16,7 @@
 		9622379A24B5EC29006BBC43 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379924B5EC29006BBC43 /* Theme.swift */; };
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9623307223F33C4C00ECB5D5 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */; };
+		9625741A26B308350056B09C /* initialActiveMoves.json in Resources */ = {isa = PBXBuildFile; fileRef = 9625741926B308350056B09C /* initialActiveMoves.json */; };
 		96283F21255206B600E736A5 /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96283F20255206B600E736A5 /* TableViewHelper.swift */; };
 		962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */; };
 		962E58D02411A6D7001D5E41 /* ButtonIconRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */; };
@@ -92,6 +93,9 @@
 		96C3CB6A26618B620090186E /* PopupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB6926618B620090186E /* PopupHandlerTests.swift */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
 		96C96D482444696000D30186 /* FontThemeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D472444696000D30186 /* FontThemeName.swift */; };
+		96E2FE4026B2FE6A005E1D46 /* MoveRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2FE3F26B2FE6A005E1D46 /* MoveRepository.swift */; };
+		96E2FE4426B2FE9F005E1D46 /* ActiveMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2FE4326B2FE9F005E1D46 /* ActiveMove.swift */; };
+		96E2FE4826B30029005E1D46 /* ActiveMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2FE4726B30029005E1D46 /* ActiveMoves.swift */; };
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
 		96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */; };
 		96FC07A923EF192800459450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96FC07A823EF192800459450 /* Assets.xcassets */; };
@@ -143,6 +147,7 @@
 		9622379924B5EC29006BBC43 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9623307123F33C4C00ECB5D5 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
+		9625741926B308350056B09C /* initialActiveMoves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = initialActiveMoves.json; sourceTree = "<group>"; };
 		96283F20255206B600E736A5 /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
 		962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsServiceTests.swift; sourceTree = "<group>"; };
 		962E58CE2411A6D6001D5E41 /* ButtonIconRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonIconRight.swift; sourceTree = "<group>"; };
@@ -213,6 +218,9 @@
 		96C3CB6926618B620090186E /* PopupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandlerTests.swift; sourceTree = "<group>"; };
 		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
 		96C96D472444696000D30186 /* FontThemeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontThemeName.swift; sourceTree = "<group>"; };
+		96E2FE3F26B2FE6A005E1D46 /* MoveRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveRepository.swift; sourceTree = "<group>"; };
+		96E2FE4326B2FE9F005E1D46 /* ActiveMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveMove.swift; sourceTree = "<group>"; };
+		96E2FE4726B30029005E1D46 /* ActiveMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveMoves.swift; sourceTree = "<group>"; };
 		96FC079923EF192400459450 /* ShinyDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShinyDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FC079C23EF192400459450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96FC07A623EF192400459450 /* ShinyDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShinyDex.xcdatamodel; sourceTree = "<group>"; };
@@ -404,9 +412,13 @@
 		969BEF8726B1B52E00FDF445 /* Moves */ = {
 			isa = PBXGroup;
 			children = (
+				9625741926B308350056B09C /* initialActiveMoves.json */,
 				969BEF8826B1B54300FDF445 /* moves.json */,
 				969BEF8926B1B55200FDF445 /* Move.swift */,
 				969BEF8D26B1B6C500FDF445 /* MoveService.swift */,
+				96E2FE3F26B2FE6A005E1D46 /* MoveRepository.swift */,
+				96E2FE4326B2FE9F005E1D46 /* ActiveMove.swift */,
+				96E2FE4726B30029005E1D46 /* ActiveMoves.swift */,
 			);
 			path = Moves;
 			sourceTree = "<group>";
@@ -707,6 +719,7 @@
 				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
 				96FC07A923EF192800459450 /* Assets.xcassets in Resources */,
 				96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */,
+				9625741A26B308350056B09C /* initialActiveMoves.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,7 +829,9 @@
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
 				961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */,
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
+				96E2FE4026B2FE6A005E1D46 /* MoveRepository.swift in Sources */,
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
+				96E2FE4826B30029005E1D46 /* ActiveMoves.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */,
 				96760A0F256299EF005CAC5E /* RearrangeCell.swift in Sources */,
@@ -828,6 +843,7 @@
 				966C211D24118BC50019F835 /* HuntService.swift in Sources */,
 				96760A1125629C61005CAC5E /* RearrangeCellDelegate.swift in Sources */,
 				96FC07E723EF511500459450 /* Extensions.swift in Sources */,
+				96E2FE4426B2FE9F005E1D46 /* ActiveMove.swift in Sources */,
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
 				96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */,

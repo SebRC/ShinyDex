@@ -11,6 +11,7 @@ import UIKit
 class LoadingVC: UIViewController {
 	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
+	var moveService = MoveService()
 	var colorService = ColorService()
 	var fontSettingsService = FontSettingsService()
 	var isFirstTimeUser: Bool!
@@ -20,7 +21,8 @@ class LoadingVC: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		let moveService = MoveService()
-		moveService.getMoves()
+		moveService.deleteAll()
+		moveService.populateDatabase()
 
 		resolveUserStatus()
 		hideNavigationBar()
@@ -52,6 +54,7 @@ class LoadingVC: UIViewController {
 	
 	fileprivate func proceedAsNewUser()	{
 		pokemonService.populateDatabase()
+		moveService.populateDatabase()
 		performSegue(withIdentifier: "load", sender: self)
 	}
 	
