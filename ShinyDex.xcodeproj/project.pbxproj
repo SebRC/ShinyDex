@@ -92,6 +92,7 @@
 		96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */; };
 		96A7299F245F15FF00AF3F5F /* SetEncountersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
+		96BC2CDB26B4309A00353665 /* MoveTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BC2CDA26B4309A00353665 /* MoveTypes.swift */; };
 		96C3CB66266185440090186E /* PokemonServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB65266185440090186E /* PokemonServiceTests.swift */; };
 		96C3CB6A26618B620090186E /* PopupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB6926618B620090186E /* PopupHandlerTests.swift */; };
 		96C96D46244462EF00D30186 /* FontName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C96D45244462EF00D30186 /* FontName.swift */; };
@@ -220,6 +221,7 @@
 		96A7299C245F15FF00AF3F5F /* SetEncountersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetEncountersView.xib; sourceTree = "<group>"; };
 		96A7299D245F15FF00AF3F5F /* SetEncountersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEncountersView.swift; sourceTree = "<group>"; };
 		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
+		96BC2CDA26B4309A00353665 /* MoveTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTypes.swift; sourceTree = "<group>"; };
 		96C3CB65266185440090186E /* PokemonServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonServiceTests.swift; sourceTree = "<group>"; };
 		96C3CB6926618B620090186E /* PopupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandlerTests.swift; sourceTree = "<group>"; };
 		96C96D45244462EF00D30186 /* FontName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontName.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				96FC082C23EF599900459450 /* ViewController */,
 				96FC082523EF596200459450 /* TableViewController */,
 				9622379B24B715DD006BBC43 /* CornerRadius.swift */,
+				96BC2CDA26B4309A00353665 /* MoveTypes.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				96FC082A23EF598E00459450 /* HuntsTVC.swift in Sources */,
 				9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */,
 				966C210E241038490019F835 /* FontSettingsRepository.swift in Sources */,
+				96BC2CDB26B4309A00353665 /* MoveTypes.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
 				9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */,
 				96FC083323EF59AA00459450 /* LoadingVC.swift in Sources */,

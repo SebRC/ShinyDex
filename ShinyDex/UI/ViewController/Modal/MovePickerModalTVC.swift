@@ -98,7 +98,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 		cell.nameLabel.text = cleanName(name: move.identifier)
 		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
-		cell.typeLabel.text = "Water"
+		cell.typeLabel.text = MoveTypes.Types[move.type_id]
 		cell.typeImageView.image = UIImage(named: "dive")
 
 		return cell
@@ -110,7 +110,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedMove = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
-		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: "Water")
+		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: MoveTypes.Types[selectedMove.type_id]!)
 		activeMoves[selectedActiveMoveIndex] = newActiveMove
 		moveService.save(activeMoves: activeMoves)
 		performSegue(withIdentifier: "unwindFromMovePicker", sender: self)
