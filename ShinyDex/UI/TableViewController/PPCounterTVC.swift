@@ -42,18 +42,26 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.cellDelegate = self
 		let move = activeMoves[indexPath.row]
 		cell.nameLabel.text = move.name
-		cell.ppLabel.text = "PP: \(move.maxPP)"
+		cell.ppLabel.text = "PP: \(move.remainingPP)/\(move.maxPP)"
 		cell.typeLabel.text = move.type
 		cell.typeImageView.image = UIImage(named: "dive")
+		cell.incrementButton.isEnabled = move.remainingPP != move.maxPP
+		cell.decrementButton.isEnabled = move.remainingPP != 0
 		return cell
 	}
 
 	func incrementPressed(_ sender: UIButton) {
-
+		let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
+		let move = activeMoves[indexPath!.row]
+		move.remainingPP += 1
+		tableView.reloadData()
 	}
 
 	func decrementPressed(_ sender: UIButton) {
-
+		let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
+		let move = activeMoves[indexPath!.row]
+		move.remainingPP -= 1
+		tableView.reloadData()
 	}
 
 	func editPressed(_ sender: UIButton) {
