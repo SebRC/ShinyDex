@@ -15,6 +15,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	let tableViewHelper = TableViewHelper()
 	var moves = [Move]()
 	var activeMoves = [ActiveMove]()
+	var selectedActiveMoveIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +23,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.dataSource = self
 		moves = moveService.getMoves()!
 		activeMoves = moveService.getAll()
-
-        // Do any additional setup after loading the view.
     }
 
 	func numberOfSections(in tableView: UITableView) -> Int	{
@@ -58,6 +57,19 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 
 	func editPressed(_ sender: UIButton) {
+		selectedActiveMoveIndex = tableViewHelper.getPressedButtonIndexPath(sender, tableView)!.row
 		performSegue(withIdentifier: "toMovePicker", sender: self)
+	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+		let destVC = segue.destination as! MovePickerModalTVC
+		destVC.selectedActiveMoveIndex = selectedActiveMoveIndex
+		destVC.activeMoves = activeMoves
+	}
+
+	@IBAction func confirmMove(_ unwindSegue: UIStoryboardSegue) {
+		activeMoves = moveService.getAll()
+		tableView.reloadData()
 	}
 }

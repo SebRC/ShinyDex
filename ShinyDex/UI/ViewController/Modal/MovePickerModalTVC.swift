@@ -15,6 +15,8 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 	var moveService = MoveService()
 	var allMoves = [Move]()
 	var filteredMoves = [Move]()
+	var selectedActiveMoveIndex: Int!
+	var activeMoves: [ActiveMove]!
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchBar: UISearchBar!
@@ -100,6 +102,14 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		cell.typeImageView.image = UIImage(named: "dive")
 
 		return cell
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let selectedMove = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
+		let newActiveMove = ActiveMove(name: selectedMove.identifier, maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: "Water")
+		activeMoves[selectedActiveMoveIndex] = newActiveMove
+		moveService.save(activeMoves: activeMoves)
+		performSegue(withIdentifier: "unwindFromMovePicker", sender: self)
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

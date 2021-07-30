@@ -706,9 +706,11 @@ Are you sure you want to do this?</string>
                     <connections>
                         <outlet property="searchBar" destination="hZW-3j-DPD" id="vRx-FI-cgp"/>
                         <outlet property="tableView" destination="95z-Mr-JRH" id="MvA-D9-f0r"/>
+                        <segue destination="AWL-Kn-9z6" kind="unwind" identifier="unwindFromMovePicker" unwindAction="confirmMove:" id="sec-sA-eDU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eH9-Zl-Jg5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="AWL-Kn-9z6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1048.8" y="1061.9190404797603"/>
         </scene>
