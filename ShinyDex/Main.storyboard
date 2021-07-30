@@ -640,7 +640,7 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="95z-Mr-JRH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="123" width="375" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="movePickerCell" rowHeight="155" id="Mcb-B9-cT7" customClass="MovePickerCell" customModule="ShinyDex" customModuleProvider="target">
@@ -686,23 +686,31 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="hZW-3j-DPD">
+                                <rect key="frame" x="16" y="43" width="343" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mNg-Td-d8b"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="95z-Mr-JRH" firstAttribute="top" secondItem="mNg-Td-d8b" secondAttribute="top" id="8Uk-aB-GVK"/>
                             <constraint firstItem="95z-Mr-JRH" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" id="Dn7-2T-kBt"/>
+                            <constraint firstItem="95z-Mr-JRH" firstAttribute="top" secondItem="hZW-3j-DPD" secondAttribute="bottom" constant="24" id="F8T-Yh-nxn"/>
                             <constraint firstItem="95z-Mr-JRH" firstAttribute="trailing" secondItem="mNg-Td-d8b" secondAttribute="trailing" id="Pk9-VU-ZN4"/>
+                            <constraint firstItem="hZW-3j-DPD" firstAttribute="top" secondItem="mNg-Td-d8b" secondAttribute="top" constant="43" id="R1J-wF-Rg3"/>
+                            <constraint firstItem="hZW-3j-DPD" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" constant="16" id="aGA-t9-83Q"/>
                             <constraint firstItem="95z-Mr-JRH" firstAttribute="bottom" secondItem="mNg-Td-d8b" secondAttribute="bottom" id="bk9-vD-tn2"/>
+                            <constraint firstItem="mNg-Td-d8b" firstAttribute="trailing" secondItem="hZW-3j-DPD" secondAttribute="trailing" constant="16" id="onV-HO-3JN"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="hZW-3j-DPD" id="vRx-FI-cgp"/>
                         <outlet property="tableView" destination="95z-Mr-JRH" id="MvA-D9-f0r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eH9-Zl-Jg5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1049" y="1062"/>
+            <point key="canvasLocation" x="1048.8" y="1061.9190404797603"/>
         </scene>
         <!--CounterTVC-->
         <scene sceneID="E8w-vr-39B">
