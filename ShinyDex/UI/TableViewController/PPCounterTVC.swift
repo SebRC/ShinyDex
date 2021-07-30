@@ -51,17 +51,19 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 
 	func incrementPressed(_ sender: UIButton) {
-		let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
-		let move = activeMoves[indexPath!.row]
-		move.remainingPP += 1
-		tableView.reloadData()
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
+			activeMoves[indexPath.row].remainingPP += 1
+			tableView.reloadData()
+			moveService.save(activeMoves: activeMoves)
+		}
 	}
 
 	func decrementPressed(_ sender: UIButton) {
-		let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView)
-		let move = activeMoves[indexPath!.row]
-		move.remainingPP -= 1
-		tableView.reloadData()
+		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
+			activeMoves[indexPath.row].remainingPP -= 1
+			tableView.reloadData()
+			moveService.save(activeMoves: activeMoves)
+		}
 	}
 
 	func editPressed(_ sender: UIButton) {
