@@ -27,9 +27,9 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		tableView.delegate = self
 		tableView.dataSource = self
 		searchBar.delegate = self
-
 		allMoves = moveService.getMoves()!
-
+		tableView.separatorColor = colorService.getSecondaryColor()
+		tableView.backgroundColor = colorService.getSecondaryColor()
     }
 
 	fileprivate func setUpSearchController() {
@@ -94,12 +94,25 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "movePickerCell", for: indexPath) as! MovePickerCell
-		let move = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
+		cell.nameLabel.font = fontSettingsService.getSmallFont()
+		cell.ppLabel.font = fontSettingsService.getSmallFont()
+		cell.typeLabel.font = fontSettingsService.getSmallFont()
 
+		cell.backgroundColor = colorService.getPrimaryColor()
+		cell.nameLabel.textColor = colorService.getTertiaryColor()
+		cell.ppLabel.textColor = colorService.getTertiaryColor()
+		cell.typeLabel.textColor = colorService.getTertiaryColor()
+
+		cell.imageBackgroundView.makeCircle()
+
+		let move = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
+		let typeName = MoveTypes.Types[move.type_id]
+		cell.imageBackgroundView.backgroundColor = MoveTypes.colors[typeName!]
 		cell.nameLabel.text = cleanName(name: move.identifier)
 		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
 		cell.typeLabel.text = MoveTypes.Types[move.type_id]
 		cell.typeImageView.image = UIImage(named: MoveTypes.Types[move.type_id]!.lowercased())
+
 
 		return cell
 	}

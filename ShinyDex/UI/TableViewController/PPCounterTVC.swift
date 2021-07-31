@@ -54,10 +54,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.typeLabel.textColor = colorService.getTertiaryColor()
 		cell.incrementButton.tintColor = colorService.getTertiaryColor()
 		cell.decrementButton.tintColor = colorService.getTertiaryColor()
-		cell.editButton.tintColor = colorService.getTertiaryColor()
 
-		cell.imageBackgroundView.layer.cornerRadius = cell.imageBackgroundView.frame.size.width / 2
-		cell.imageBackgroundView.clipsToBounds = true
+		cell.imageBackgroundView.makeCircle()
 
 		let move = activeMoves[indexPath.row]
 		cell.imageBackgroundView.backgroundColor = MoveTypes.colors[move.type]
@@ -68,6 +66,11 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.incrementButton.isEnabled = move.remainingPP != move.maxPP
 		cell.decrementButton.isEnabled = move.remainingPP != 0
 		return cell
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		selectedActiveMoveIndex = indexPath.row
+		performSegue(withIdentifier: "toMovePicker", sender: self)
 	}
 
 	func incrementPressed(_ sender: UIButton) {
@@ -84,11 +87,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 			tableView.reloadData()
 			moveService.save(activeMoves: activeMoves)
 		}
-	}
-
-	func editPressed(_ sender: UIButton) {
-		selectedActiveMoveIndex = tableViewHelper.getPressedButtonIndexPath(sender, tableView)!.row
-		performSegue(withIdentifier: "toMovePicker", sender: self)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -658,10 +658,6 @@ Are you sure you want to do this?</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eZP-RJ-wfK">
-                                                    <rect key="frame" x="234" y="11" width="125" height="125"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PP label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oB8-6v-ee2">
                                                     <rect key="frame" x="16" y="54" width="201" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -676,9 +672,21 @@ Are you sure you want to do this?</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iM-xC-kZe">
+                                                    <rect key="frame" x="234" y="15" width="125" height="125"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eZP-RJ-wfK">
+                                                            <rect key="frame" x="12" y="12" width="100" height="100"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imageBackgroundView" destination="5iM-xC-kZe" id="4Z5-cV-OrU"/>
                                             <outlet property="nameLabel" destination="GQC-vL-ucL" id="4wl-du-4oA"/>
                                             <outlet property="ppLabel" destination="oB8-6v-ee2" id="Km6-uO-QV4"/>
                                             <outlet property="typeImageView" destination="eZP-RJ-wfK" id="iPi-b1-TXm"/>
@@ -766,26 +774,6 @@ Are you sure you want to do this?</string>
                                                         <action selector="decrementPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="QsM-ym-a8w"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba8-5Z-UR4" userLabel="Increment">
-                                                    <rect key="frame" x="124" y="155.5" width="100" height="100"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="tintColor" red="0.99607843139999996" green="0.28627450980000002" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" backgroundImage="plus.circle.fill" catalog="system">
-                                                        <color key="titleColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="incrementPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="RTb-dV-Mc9"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvz-HP-gY7">
-                                                    <rect key="frame" x="247" y="157" width="100" height="100"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="tintColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" backgroundImage="pencil.circle.fill" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="editPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="rYQ-vb-J6I"/>
-                                                    </connections>
-                                                </button>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajX-Ao-rWQ">
                                                     <rect key="frame" x="227" y="11" width="100" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -797,11 +785,21 @@ Are you sure you want to do this?</string>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba8-5Z-UR4" userLabel="Increment">
+                                                    <rect key="frame" x="227" y="156.5" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.99607843139999996" green="0.28627450980000002" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" backgroundImage="plus.circle.fill" catalog="system">
+                                                        <color key="titleColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="incrementPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="RTb-dV-Mc9"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="decrementButton" destination="63k-9t-3Dy" id="ou8-rc-CFa"/>
-                                            <outlet property="editButton" destination="fvz-HP-gY7" id="jZv-E4-PX7"/>
                                             <outlet property="imageBackgroundView" destination="ajX-Ao-rWQ" id="f7u-9x-3tc"/>
                                             <outlet property="incrementButton" destination="Ba8-5Z-UR4" id="2lP-na-5DG"/>
                                             <outlet property="nameLabel" destination="Uu2-C4-MFi" id="3YV-Ph-1ij"/>
@@ -2013,7 +2011,6 @@ Are you sure you want to do this?</string>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="xmark.rectangle.fill" catalog="system" width="128" height="93"/>
