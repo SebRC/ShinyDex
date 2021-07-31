@@ -18,6 +18,7 @@ class MoveCell: UITableViewCell {
 	@IBOutlet weak var decrementButton: UIButton!
 	@IBOutlet weak var incrementButton: UIButton!
 	@IBOutlet weak var editButton: UIButton!
+	@IBOutlet weak var imageBackgroundView: UIView!
 
 	@IBAction func decrementPressed(_ sender: UIButton) {
 		cellDelegate?.decrementPressed(sender)

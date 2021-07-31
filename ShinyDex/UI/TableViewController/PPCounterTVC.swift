@@ -55,12 +55,12 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.incrementButton.tintColor = colorService.getTertiaryColor()
 		cell.decrementButton.tintColor = colorService.getTertiaryColor()
 		cell.editButton.tintColor = colorService.getTertiaryColor()
-		cell.typeImageView.backgroundColor = .red
 
-		cell.typeImageView.layer.cornerRadius = cell.typeImageView.frame.size.width / 2
-		cell.typeImageView.clipsToBounds = true
+		cell.imageBackgroundView.layer.cornerRadius = cell.imageBackgroundView.frame.size.width / 2
+		cell.imageBackgroundView.clipsToBounds = true
 
 		let move = activeMoves[indexPath.row]
+		cell.imageBackgroundView.backgroundColor = MoveTypes.colors[move.type]
 		cell.nameLabel.text = move.name
 		cell.ppLabel.text = "PP: \(move.remainingPP)/\(move.maxPP)"
 		cell.typeLabel.text = move.type

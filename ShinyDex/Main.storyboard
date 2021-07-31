@@ -786,15 +786,23 @@ Are you sure you want to do this?</string>
                                                         <action selector="editPressed:" destination="8XR-In-m7o" eventType="touchUpInside" id="rYQ-vb-J6I"/>
                                                     </connections>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRA-Ho-3v9">
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ajX-Ao-rWQ">
                                                     <rect key="frame" x="227" y="11" width="100" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRA-Ho-3v9">
+                                                            <rect key="frame" x="13" y="12" width="75" height="75"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="decrementButton" destination="63k-9t-3Dy" id="ou8-rc-CFa"/>
                                             <outlet property="editButton" destination="fvz-HP-gY7" id="jZv-E4-PX7"/>
+                                            <outlet property="imageBackgroundView" destination="ajX-Ao-rWQ" id="f7u-9x-3tc"/>
                                             <outlet property="incrementButton" destination="Ba8-5Z-UR4" id="2lP-na-5DG"/>
                                             <outlet property="nameLabel" destination="Uu2-C4-MFi" id="3YV-Ph-1ij"/>
                                             <outlet property="ppLabel" destination="Tad-7a-WVT" id="uFx-hQ-0cF"/>
@@ -2017,6 +2025,9 @@ Are you sure you want to do this?</string>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
