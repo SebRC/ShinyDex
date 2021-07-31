@@ -25,6 +25,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.dataSource = self
 		moves = moveService.getMoves()!
 		activeMoves = moveService.getAll()
+		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = colorService.getSecondaryColor()
     }

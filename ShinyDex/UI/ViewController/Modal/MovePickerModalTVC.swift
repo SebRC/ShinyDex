@@ -28,8 +28,10 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		tableView.dataSource = self
 		searchBar.delegate = self
 		allMoves = moveService.getMoves()!
+		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
-		tableView.backgroundColor = colorService.getSecondaryColor()
+		tableView.backgroundColor = .clear
+		setUpSearchController()
     }
 
 	fileprivate func setUpSearchController() {
