@@ -9,8 +9,6 @@
 import UIKit
 
 class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MoveCellDelegate {
-	@IBOutlet weak var tableView: UITableView!
-
 	var moveService = MoveService()
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
@@ -18,6 +16,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	var moves = [Move]()
 	var activeMoves = [ActiveMove]()
 	var selectedActiveMoveIndex = 0
+
+	@IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = colorService.getSecondaryColor()
+		title = "PP Counter"
     }
 
 	func numberOfSections(in tableView: UITableView) -> Int	{
