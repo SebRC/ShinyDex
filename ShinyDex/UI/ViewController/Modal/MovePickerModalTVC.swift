@@ -99,7 +99,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		cell.nameLabel.text = cleanName(name: move.identifier)
 		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
 		cell.typeLabel.text = MoveTypes.Types[move.type_id]
-		cell.typeImageView.image = UIImage(named: "dive")
+		cell.typeImageView.image = UIImage(named: MoveTypes.Types[move.type_id]!.lowercased())
 
 		return cell
 	}

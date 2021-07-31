@@ -12,6 +12,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	@IBOutlet weak var tableView: UITableView!
 
 	var moveService = MoveService()
+	var fontSettingsService = FontSettingsService()
+	var colorService = ColorService()
 	let tableViewHelper = TableViewHelper()
 	var moves = [Move]()
 	var activeMoves = [ActiveMove]()
@@ -23,6 +25,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.dataSource = self
 		moves = moveService.getMoves()!
 		activeMoves = moveService.getAll()
+		tableView.separatorColor = colorService.getSecondaryColor()
+		tableView.backgroundColor = colorService.getSecondaryColor()
     }
 
 	func numberOfSections(in tableView: UITableView) -> Int	{
@@ -40,11 +44,27 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath) as! MoveCell
 		cell.cellDelegate = self
+		cell.nameLabel.font = fontSettingsService.getSmallFont()
+		cell.ppLabel.font = fontSettingsService.getSmallFont()
+		cell.typeLabel.font = fontSettingsService.getSmallFont()
+
+		cell.backgroundColor = colorService.getPrimaryColor()
+		cell.nameLabel.textColor = colorService.getTertiaryColor()
+		cell.ppLabel.textColor = colorService.getTertiaryColor()
+		cell.typeLabel.textColor = colorService.getTertiaryColor()
+		cell.incrementButton.tintColor = colorService.getTertiaryColor()
+		cell.decrementButton.tintColor = colorService.getTertiaryColor()
+		cell.editButton.tintColor = colorService.getTertiaryColor()
+		cell.typeImageView.backgroundColor = .red
+
+		cell.typeImageView.layer.cornerRadius = cell.typeImageView.frame.size.width / 2
+		cell.typeImageView.clipsToBounds = true
+
 		let move = activeMoves[indexPath.row]
 		cell.nameLabel.text = move.name
 		cell.ppLabel.text = "PP: \(move.remainingPP)/\(move.maxPP)"
 		cell.typeLabel.text = move.type
-		cell.typeImageView.image = UIImage(named: "dive")
+		cell.typeImageView.image = UIImage(named: move.type.lowercased())
 		cell.incrementButton.isEnabled = move.remainingPP != move.maxPP
 		cell.decrementButton.isEnabled = move.remainingPP != 0
 		return cell
