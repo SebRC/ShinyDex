@@ -19,8 +19,6 @@ class LoadingVC: UIViewController {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-        moveService.deleteAll()
-        moveService.populateDatabase()
 
 		resolveUserStatus()
 		hideNavigationBar()
