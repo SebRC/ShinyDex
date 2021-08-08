@@ -27,7 +27,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		tableView.delegate = self
 		tableView.dataSource = self
 		searchBar.delegate = self
-		allMoves = moveService.getMoves()!
+		allMoves = moveService.getMoves()
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear

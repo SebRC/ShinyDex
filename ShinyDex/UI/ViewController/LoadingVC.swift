@@ -16,10 +16,11 @@ class LoadingVC: UIViewController {
 	var fontSettingsService = FontSettingsService()
 	var isFirstTimeUser: Bool!
 	var loadingGifData: Data?
-	var pokeballGifData: Data?
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
+        moveService.deleteAll()
+        moveService.populateDatabase()
 
 		resolveUserStatus()
 		hideNavigationBar()

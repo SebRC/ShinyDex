@@ -13,7 +13,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	let tableViewHelper = TableViewHelper()
-	var moves = [Move]()
 	var activeMoves = [ActiveMove]()
 	var selectedActiveMoveIndex = 0
 
@@ -23,7 +22,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
-		moves = moveService.getMoves()!
 		activeMoves = moveService.getAll()
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()

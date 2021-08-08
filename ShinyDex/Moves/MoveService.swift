@@ -10,7 +10,7 @@ import Foundation
 
 class MoveService {
 	var moveRepository = MoveRepository()
-	func getMoves() -> [Move]? {
+	func getMoves() -> [Move] {
 		if let url = Bundle.main.url(forResource: "moves", withExtension: "json") {
 			do {
 				let data = try Data(contentsOf: url)
@@ -22,7 +22,7 @@ class MoveService {
 				print("error:\(error)")
 			}
 		}
-		return nil
+		return [Move]()
 	}
 
 	func getAll() -> [ActiveMove] {
