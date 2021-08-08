@@ -76,7 +76,6 @@
 		9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72A24084FBC0007AD5D /* SwitchStateService.swift */; };
 		9689C72D240851DD0007AD5D /* OddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C72C240851DD0007AD5D /* OddsService.swift */; };
 		9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C7302409633E0007AD5D /* ProbabilityService.swift */; };
-		969BEF8226B1B50300FDF445 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 969BEF8126B1B50300FDF445 /* moves.json */; };
 		969BEF8A26B1B55200FDF445 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF8926B1B55200FDF445 /* Move.swift */; };
 		969BEF8E26B1B6C500FDF445 /* MoveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF8D26B1B6C500FDF445 /* MoveService.swift */; };
 		969BEF9226B2DEBC00FDF445 /* PPCounterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF9126B2DEBC00FDF445 /* PPCounterTVC.swift */; };
@@ -204,7 +203,6 @@
 		9689C72A24084FBC0007AD5D /* SwitchStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStateService.swift; sourceTree = "<group>"; };
 		9689C72C240851DD0007AD5D /* OddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsService.swift; sourceTree = "<group>"; };
 		9689C7302409633E0007AD5D /* ProbabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProbabilityService.swift; sourceTree = "<group>"; };
-		969BEF8126B1B50300FDF445 /* moves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = moves.json; path = ../../../../Downloads/moves.json; sourceTree = "<group>"; };
 		969BEF8826B1B54300FDF445 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
 		969BEF8926B1B55200FDF445 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		969BEF8D26B1B6C500FDF445 /* MoveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveService.swift; sourceTree = "<group>"; };
@@ -472,7 +470,6 @@
 				96FC07A823EF192800459450 /* Assets.xcassets */,
 				96FC07AA23EF192800459450 /* LaunchScreen.storyboard */,
 				96FC07AD23EF192800459450 /* Info.plist */,
-				969BEF8126B1B50300FDF445 /* moves.json */,
 				96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */,
 				96FC07D823EF437C00459450 /* SceneDelegate.swift */,
 			);
@@ -727,7 +724,6 @@
 				96FC081523EF58E900459450 /* Pokemon-GB.ttf in Resources */,
 				962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */,
 				96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */,
-				969BEF8226B1B50300FDF445 /* moves.json in Resources */,
 				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
 				96FC07A923EF192800459450 /* Assets.xcassets in Resources */,
 				96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */,
