@@ -819,8 +819,14 @@ Are you sure you want to do this?</string>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igt-Qt-zQT">
                                 <rect key="frame" x="16" y="60" width="343" height="47"/>
                                 <subviews>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rJR-bS-qn7">
+                                        <rect key="frame" x="264.5" y="10" width="51" height="26"/>
+                                        <connections>
+                                            <action selector="switchPressed:" destination="sy6-3K-XXf" eventType="valueChanged" id="7S8-v3-aLc"/>
+                                        </connections>
+                                    </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92Z-ni-bK7">
-                                        <rect key="frame" x="8" y="8" width="147" height="31"/>
+                                        <rect key="frame" x="16" y="8" width="147" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="92Z-ni-bK7" secondAttribute="height" multiplier="223:47" id="b7c-v1-H2h"/>
                                         </constraints>
@@ -828,20 +834,14 @@ Are you sure you want to do this?</string>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rJR-bS-qn7">
-                                        <rect key="frame" x="264.5" y="10" width="51" height="26"/>
-                                        <connections>
-                                            <action selector="switchPressed:" destination="sy6-3K-XXf" eventType="valueChanged" id="7S8-v3-aLc"/>
-                                        </connections>
-                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
-                                    <constraint firstItem="92Z-ni-bK7" firstAttribute="leading" secondItem="igt-Qt-zQT" secondAttribute="leading" constant="8" id="74m-GI-wfQ"/>
                                     <constraint firstAttribute="bottom" secondItem="92Z-ni-bK7" secondAttribute="bottom" constant="8" id="AT1-AR-emg"/>
                                     <constraint firstItem="92Z-ni-bK7" firstAttribute="top" secondItem="igt-Qt-zQT" secondAttribute="top" constant="8" id="EWN-gY-CQI"/>
                                     <constraint firstAttribute="trailing" secondItem="rJR-bS-qn7" secondAttribute="trailing" constant="29.5" id="LHC-aT-paH"/>
                                     <constraint firstAttribute="width" secondItem="igt-Qt-zQT" secondAttribute="height" multiplier="343:47" id="bAZ-x4-k46"/>
+                                    <constraint firstItem="92Z-ni-bK7" firstAttribute="leading" secondItem="igt-Qt-zQT" secondAttribute="leading" constant="16" id="jaJ-Fj-Hqf"/>
                                     <constraint firstItem="rJR-bS-qn7" firstAttribute="top" secondItem="igt-Qt-zQT" secondAttribute="top" constant="10" id="sbF-O2-xZ5"/>
                                     <constraint firstAttribute="bottom" secondItem="rJR-bS-qn7" secondAttribute="bottom" constant="11" id="uhV-Gz-WM4"/>
                                 </constraints>
