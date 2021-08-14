@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
 		51818C5B26C0483500B95FF6 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 51818C5A26C0483500B95FF6 /* moves.json */; };
 		9607F778242A971000263CF6 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F777242A971000263CF6 /* PokemonService.swift */; };
 		960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */; };
@@ -140,6 +141,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
 		51818C5A26C0483500B95FF6 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsService.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				966B1ED326542D4000DF1FE0 /* SwitchStateServiceTests.swift */,
 				966B1ECF2653001E00DF1FE0 /* TextResolverTests.swift */,
 				961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */,
+				51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */,
 				961B5C502652837E00918D91 /* Info.plist */,
 			);
 			path = ShinyDexTests;
@@ -789,6 +792,7 @@
 				966B1ED02653001E00DF1FE0 /* TextResolverTests.swift in Sources */,
 				96C3CB66266185440090186E /* PokemonServiceTests.swift in Sources */,
 				966B1EF22656A58400DF1FE0 /* PokeradarOddsServiceTests.swift in Sources */,
+				51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */,
 				966B1F042656BCAA00DF1FE0 /* FontSettingsServiceTests.swift in Sources */,
 				966B1EE42655254B00DF1FE0 /* FriendSafariOddsServiceTests.swift in Sources */,
 				966B1EEE2656A21E00DF1FE0 /* DexNavOddsServiceTests.swift in Sources */,

@@ -27,7 +27,7 @@ class TextResolverTests: XCTestCase {
 	func test_differentGenerations_returnsCorrectTitles() {
 		// Arrange
 		let notFoundText = "Not found"
-		let entries = [0: "Kanto", 1: "Johto", 2: "Hoenn", 3: "Sinnoh", 4: "Unova", 5: "Kalos", 6: "Alola", 7: "Galar", 8: "Hunts", 9: "Collection", 10: notFoundText, 1000: notFoundText, -1: notFoundText]
+        let entries = [0: "Kanto", 1: "Johto", 2: "Hoenn", 3: "Sinnoh", 4: "Unova", 5: "Kalos", 6: "Alola", 7: "Galar", 8: "Hunts", 9: "Collection", 10: "PP Counter", 11: notFoundText, 1000: notFoundText, -1: notFoundText]
 
 		// Act + Assert
 		for entry in entries {
