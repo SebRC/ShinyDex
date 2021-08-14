@@ -35,6 +35,7 @@ public class MoveRepository {
 
 	func save(activeMoves: ActiveMoves) {
 		activeMoves.activeMovesEntity.setValue(activeMoves.json, forKey: "json")
+        activeMoves.activeMovesEntity.setValue(activeMoves.pressureActive, forKey: "pressureActive")
 		do {
 			try managedContext.save()
 		}
@@ -46,6 +47,7 @@ public class MoveRepository {
 	func save(json: String) {
 		let activeMovesEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 		activeMovesEntity.setValue(json, forKey: "json")
+        activeMovesEntity.setValue(false, forKey: "pressureActive")
 		let activeMoves = ActiveMoves(moveEntity: activeMovesEntity)
 		activeMoves.json = json
 		save(activeMoves: activeMoves)

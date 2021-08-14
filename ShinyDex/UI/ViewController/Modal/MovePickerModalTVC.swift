@@ -127,7 +127,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		let selectedMove = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
 		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: MoveTypes.Types[selectedMove.type_id]!)
 		activeMoves[selectedActiveMoveIndex] = newActiveMove
-		moveService.save(activeMoves: activeMoves)
+        moveService.save(activeMoves: activeMoves, pressureActive: moveService.getIsPressureActive())
 		performSegue(withIdentifier: "unwindFromMovePicker", sender: self)
 	}
 

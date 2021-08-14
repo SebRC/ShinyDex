@@ -15,8 +15,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	let tableViewHelper = TableViewHelper()
 	var activeMoves = [ActiveMove]()
 	var selectedActiveMoveIndex = 0
-    @IBOutlet weak var pressureSwitch: UISwitch!
     
+    @IBOutlet weak var pressureSwitch: UISwitch!
 	@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var pressureView: UIView!
@@ -35,6 +35,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         pressureSwitch.thumbTintColor = colorService.getPrimaryColor()
         pressureLabel.font = fontSettingsService.getMediumFont()
         pressureView.layer.cornerRadius = CornerRadius.Standard
+        pressureSwitch.isOn = moveService.getIsPressureActive()
         
 		title = "PP Counter"
     }
@@ -89,20 +90,27 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
 			activeMoves[indexPath.section].remainingPP += 1
 			tableView.reloadData()
-			moveService.save(activeMoves: activeMoves)
+            moveService.save(activeMoves: activeMoves, pressureActive: pressureSwitch.isOn)
 		}
 	}
 
 	func decrementPressed(_ sender: UIButton) {
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			activeMoves[indexPath.section].remainingPP -= 1
+            let activeMove = activeMoves[indexPath.section]
+            let decrement = pressureSwitch.isOn ? 2 : 1
+            if (pressureSwitch.isOn && activeMove.remainingPP - decrement < 0) {
+                activeMove.remainingPP = 0
+            }
+            else {
+                activeMove.remainingPP -= decrement
+            }
+            
 			tableView.reloadData()
-			moveService.save(activeMoves: activeMoves)
+            moveService.save(activeMoves: activeMoves, pressureActive: pressureSwitch.isOn)
 		}
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
 		let destVC = segue.destination as! MovePickerModalTVC
 		destVC.selectedActiveMoveIndex = selectedActiveMoveIndex
 		destVC.activeMoves = activeMoves
@@ -113,5 +121,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.reloadData()
 	}
     @IBAction func switchPressed(_ sender: Any) {
+        moveService.save(activeMoves: activeMoves, pressureActive: pressureSwitch.isOn)
     }
 }

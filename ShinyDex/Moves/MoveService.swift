@@ -38,14 +38,21 @@ class MoveService {
 		}
 		return [ActiveMove]()
 	}
+    
+    func getIsPressureActive() -> Bool {
+        let activeMovesEntity = moveRepository.getAll().first
+        let pressureActive = activeMovesEntity!.value(forKey: "pressureActive") as! Bool
+        return pressureActive
+    }
 
-	func save(activeMoves: [ActiveMove]) {
+    func save(activeMoves: [ActiveMove], pressureActive: Bool) {
 		do {
 			let encoder = JSONEncoder()
 			let json = try encoder.encode(activeMoves)
 			let activeMovesEntity = moveRepository.getAll().first!
 			let activeMoves = ActiveMoves(moveEntity: activeMovesEntity)
 			activeMoves.json = String(data: json, encoding: String.Encoding.utf8)!
+            activeMoves.pressureActive = pressureActive
 			moveRepository.save(activeMoves: activeMoves)
 
 		} catch {
