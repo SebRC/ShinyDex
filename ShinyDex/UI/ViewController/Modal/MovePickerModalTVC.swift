@@ -93,12 +93,12 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		cell.imageBackgroundView.makeCircle()
 
 		let move = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
-		let typeName = MoveTypes.Types[move.type_id]
+		let typeName = MoveTypes.types[move.type_id]
 		cell.imageBackgroundView.backgroundColor = MoveTypes.colors[typeName!]
 		cell.nameLabel.text = cleanName(name: move.identifier)
 		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
-		cell.typeLabel.text = MoveTypes.Types[move.type_id]
-		cell.typeImageView.image = UIImage(named: MoveTypes.Types[move.type_id]!.lowercased())
+		cell.typeLabel.text = MoveTypes.types[move.type_id]
+		cell.typeImageView.image = UIImage(named: MoveTypes.types[move.type_id]!.lowercased())
 
 		return cell
 	}
@@ -109,7 +109,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedMove = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
-		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: MoveTypes.Types[selectedMove.type_id]!)
+		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: MoveTypes.types[selectedMove.type_id]!)
 		activeMoves[selectedActiveMoveIndex] = newActiveMove
         moveService.save(activeMoves: activeMoves, pressureActive: moveService.getIsPressureActive())
 		performSegue(withIdentifier: "unwindFromMovePicker", sender: self)
