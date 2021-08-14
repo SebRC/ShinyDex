@@ -154,7 +154,7 @@ class MenuTVC: UITableViewController {
 		case 9:
 			return UIImage(named: "collection")!
 		case 10:
-			return UIImage(named: "gen1")!
+			return UIImage(named: "journal")!
 		default:
 			return UIImage(named: "gen1")!
 		}
