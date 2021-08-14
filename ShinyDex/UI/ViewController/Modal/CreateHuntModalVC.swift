@@ -48,26 +48,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		textField.backgroundColor = colorService.getPrimaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear
-		setUpSearchController()
+		setUpSearchController(searchBar: searchBar)
     }
-
-	fileprivate func setUpSearchController() {
-		searchBar.placeholder = "Search"
-		let attributes =
-		[
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getMediumFont()
-		]
-		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-		let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
-		searchBarTextField?.textColor = colorService.getTertiaryColor()
-		searchBarTextField?.font = fontSettingsService.getSmallFont()
-		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
-		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
-		searchBar.clipsToBounds = true
-		searchBar.layer.cornerRadius = CornerRadius.Standard
-		searchBar.barTintColor = colorService.getPrimaryColor()
-	}
 
 	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 	   filterContentForSearchText(self.searchBar.text!)
