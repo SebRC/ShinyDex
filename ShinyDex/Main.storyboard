@@ -732,7 +732,7 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="1tv-c1-1Ad">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="136.5" width="375" height="530.5"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="moveCell" rowHeight="165" id="8XR-In-m7o" customClass="MoveCell" customModule="ShinyDex" customModuleProvider="target">
@@ -816,18 +816,54 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igt-Qt-zQT">
+                                <rect key="frame" x="16" y="60" width="343" height="47"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92Z-ni-bK7">
+                                        <rect key="frame" x="8" y="8" width="147" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="92Z-ni-bK7" secondAttribute="height" multiplier="223:47" id="b7c-v1-H2h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rJR-bS-qn7">
+                                        <rect key="frame" x="264.5" y="10" width="51" height="26"/>
+                                        <connections>
+                                            <action selector="switchPressed:" destination="sy6-3K-XXf" eventType="valueChanged" id="7S8-v3-aLc"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstItem="92Z-ni-bK7" firstAttribute="leading" secondItem="igt-Qt-zQT" secondAttribute="leading" constant="8" id="74m-GI-wfQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="92Z-ni-bK7" secondAttribute="bottom" constant="8" id="AT1-AR-emg"/>
+                                    <constraint firstItem="92Z-ni-bK7" firstAttribute="top" secondItem="igt-Qt-zQT" secondAttribute="top" constant="8" id="EWN-gY-CQI"/>
+                                    <constraint firstAttribute="trailing" secondItem="rJR-bS-qn7" secondAttribute="trailing" constant="29.5" id="LHC-aT-paH"/>
+                                    <constraint firstAttribute="width" secondItem="igt-Qt-zQT" secondAttribute="height" multiplier="343:47" id="bAZ-x4-k46"/>
+                                    <constraint firstItem="rJR-bS-qn7" firstAttribute="top" secondItem="igt-Qt-zQT" secondAttribute="top" constant="10" id="sbF-O2-xZ5"/>
+                                    <constraint firstAttribute="bottom" secondItem="rJR-bS-qn7" secondAttribute="bottom" constant="11" id="uhV-Gz-WM4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="i2R-sy-KKM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="igt-Qt-zQT" firstAttribute="top" secondItem="i2R-sy-KKM" secondAttribute="top" constant="16" id="8Zn-Wm-0eR"/>
                             <constraint firstItem="1tv-c1-1Ad" firstAttribute="bottom" secondItem="i2R-sy-KKM" secondAttribute="bottom" id="Bq3-HJ-Dga"/>
+                            <constraint firstItem="1tv-c1-1Ad" firstAttribute="top" secondItem="igt-Qt-zQT" secondAttribute="bottom" constant="29.5" id="Llz-V1-ovw"/>
                             <constraint firstItem="1tv-c1-1Ad" firstAttribute="leading" secondItem="i2R-sy-KKM" secondAttribute="leading" id="Qae-PG-DeS"/>
-                            <constraint firstItem="1tv-c1-1Ad" firstAttribute="top" secondItem="i2R-sy-KKM" secondAttribute="top" id="rW5-Sw-zVt"/>
+                            <constraint firstItem="i2R-sy-KKM" firstAttribute="trailing" secondItem="igt-Qt-zQT" secondAttribute="trailing" constant="16" id="eYK-hj-fTr"/>
+                            <constraint firstItem="igt-Qt-zQT" firstAttribute="leading" secondItem="i2R-sy-KKM" secondAttribute="leading" constant="16" id="oBS-UE-sYc"/>
                             <constraint firstItem="1tv-c1-1Ad" firstAttribute="trailing" secondItem="i2R-sy-KKM" secondAttribute="trailing" id="umk-Yl-v5j"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6yf-E1-Fpg"/>
                     <connections>
+                        <outlet property="pressureLabel" destination="92Z-ni-bK7" id="dfg-IH-U5D"/>
+                        <outlet property="pressureSwitch" destination="rJR-bS-qn7" id="lmd-vj-sIc"/>
+                        <outlet property="pressureView" destination="igt-Qt-zQT" id="fbc-uS-d1x"/>
                         <outlet property="tableView" destination="1tv-c1-1Ad" id="yBN-im-gbg"/>
                         <segue destination="XvO-FR-yYf" kind="presentation" identifier="toMovePicker" id="WOZ-PO-HKp"/>
                     </connections>

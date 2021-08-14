@@ -15,9 +15,12 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	let tableViewHelper = TableViewHelper()
 	var activeMoves = [ActiveMove]()
 	var selectedActiveMoveIndex = 0
-
+    @IBOutlet weak var pressureSwitch: UISwitch!
+    
 	@IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var pressureView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 		tableView.delegate = self
@@ -26,6 +29,13 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = colorService.getSecondaryColor()
+        pressureView.backgroundColor = colorService.getPrimaryColor()
+        pressureLabel.tintColor = colorService.getTertiaryColor()
+        pressureSwitch.onTintColor = colorService.getSecondaryColor()
+        pressureSwitch.thumbTintColor = colorService.getPrimaryColor()
+        pressureLabel.font = fontSettingsService.getMediumFont()
+        pressureView.layer.cornerRadius = CornerRadius.Standard
+        
 		title = "PP Counter"
     }
 
@@ -102,4 +112,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		activeMoves = moveService.getAll()
 		tableView.reloadData()
 	}
+    @IBAction func switchPressed(_ sender: Any) {
+    }
 }
