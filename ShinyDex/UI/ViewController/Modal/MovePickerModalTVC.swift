@@ -96,7 +96,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "movePickerCell", for: indexPath) as! MovePickerCell
-		cell.nameLabel.font = fontSettingsService.getSmallFont()
+		cell.nameLabel.font = fontSettingsService.getMediumFont()
 		cell.ppLabel.font = fontSettingsService.getSmallFont()
 		cell.typeLabel.font = fontSettingsService.getSmallFont()
 
