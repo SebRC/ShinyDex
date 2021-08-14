@@ -57,11 +57,11 @@ class ButtonStrip: UIView {
 	}
 	
 	fileprivate func roundCorners() {
-		encountersIncrementSeparator.layer.cornerRadius = CornerRadius.Standard
-		incrementMethodSeparator.layer.cornerRadius = CornerRadius.Standard
-		methodMapSeparator.layer.cornerRadius = CornerRadius.Standard
-		mapBallSeparator.layer.cornerRadius = CornerRadius.Standard
-		ballOddsSeparator.layer.cornerRadius = CornerRadius.Standard
-		layer.cornerRadius = CornerRadius.Standard
+		encountersIncrementSeparator.layer.cornerRadius = CornerRadius.standard
+		incrementMethodSeparator.layer.cornerRadius = CornerRadius.standard
+		methodMapSeparator.layer.cornerRadius = CornerRadius.standard
+		mapBallSeparator.layer.cornerRadius = CornerRadius.standard
+		ballOddsSeparator.layer.cornerRadius = CornerRadius.standard
+		layer.cornerRadius = CornerRadius.standard
 	}
 }

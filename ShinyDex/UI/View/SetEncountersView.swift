@@ -76,10 +76,10 @@ class SetEncountersView: UIView {
 	}
 	
 	fileprivate func roundCorners() {
-		nameLabel.layer.cornerRadius = CornerRadius.Standard
-		numberLabel.layer.cornerRadius = CornerRadius.Standard
-		encountersLabel.layer.cornerRadius = CornerRadius.Standard
-		spriteBackgroundView.layer.cornerRadius = CornerRadius.Standard
-		layer.cornerRadius = CornerRadius.Standard
+		nameLabel.layer.cornerRadius = CornerRadius.standard
+		numberLabel.layer.cornerRadius = CornerRadius.standard
+		encountersLabel.layer.cornerRadius = CornerRadius.standard
+		spriteBackgroundView.layer.cornerRadius = CornerRadius.standard
+		layer.cornerRadius = CornerRadius.standard
 	}
 }

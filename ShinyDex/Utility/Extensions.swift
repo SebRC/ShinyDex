@@ -112,7 +112,7 @@ extension UIViewController {
         let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
         searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
         searchBar.clipsToBounds = true
-        searchBar.layer.cornerRadius = CornerRadius.Standard
+        searchBar.layer.cornerRadius = CornerRadius.standard
         searchBar.barTintColor = colorService.getPrimaryColor()
     }
 }

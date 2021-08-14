@@ -10,6 +10,6 @@ import Foundation
 import UIKit
 
 class CornerRadius {
-    static var Standard: CGFloat = 10
-    static var Soft: CGFloat = 2.5
+    static var standard: CGFloat = 10
+    static var soft: CGFloat = 2.5
 }

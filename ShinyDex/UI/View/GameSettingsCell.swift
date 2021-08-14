@@ -24,7 +24,7 @@ class GameSettingsCell: UIView {
 	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
-		separator.layer.cornerRadius = CornerRadius.Standard
+		separator.layer.cornerRadius = CornerRadius.standard
 		setUIColors()
 		setFonts()
     }

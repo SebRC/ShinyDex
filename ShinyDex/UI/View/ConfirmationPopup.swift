@@ -28,7 +28,7 @@ class ConfirmationPopup: UIView {
         initContentView(nibName: nibName, contentView: &contentView)
 		setConfirmationPopupFonts()
 		setColors()
-		layer.cornerRadius = CornerRadius.Standard
+		layer.cornerRadius = CornerRadius.standard
     }
 	
     override init(frame: CGRect) {

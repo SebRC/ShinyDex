@@ -37,12 +37,12 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.layer.cornerRadius = CornerRadius.Standard
+		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.layer.cornerRadius = CornerRadius.Standard
+		confirmButton.layer.cornerRadius = CornerRadius.standard
 		textField.font = fontSettingsService.getMediumFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()

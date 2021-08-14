@@ -34,7 +34,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         pressureSwitch.onTintColor = colorService.getSecondaryColor()
         pressureSwitch.thumbTintColor = colorService.getPrimaryColor()
         pressureLabel.font = fontSettingsService.getMediumFont()
-        pressureView.layer.cornerRadius = CornerRadius.Standard
+        pressureView.layer.cornerRadius = CornerRadius.standard
         pressureSwitch.isOn = moveService.getIsPressureActive()
         
 		title = "PP Counter"
@@ -58,7 +58,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.nameLabel.font = fontSettingsService.getMediumFont()
 		cell.ppLabel.font = fontSettingsService.getSmallFont()
 		cell.typeLabel.font = fontSettingsService.getSmallFont()
-        cell.separator.layer.cornerRadius = CornerRadius.Soft
+        cell.separator.layer.cornerRadius = CornerRadius.soft
 
 		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.nameLabel.textColor = colorService.getTertiaryColor()

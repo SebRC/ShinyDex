@@ -32,7 +32,7 @@ class ApplyToAllVC: UIViewController {
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
-		confirmationView.layer.cornerRadius = CornerRadius.Standard
+		confirmationView.layer.cornerRadius = CornerRadius.standard
 		confirmationView.backgroundColor = colorService.getSecondaryColor()
 		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()

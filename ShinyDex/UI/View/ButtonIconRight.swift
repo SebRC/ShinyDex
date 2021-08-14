@@ -31,7 +31,7 @@ class ButtonIconRight: UIView {
 
 		setColors()
 		setFont()
-		layer.cornerRadius = CornerRadius.Standard
+		layer.cornerRadius = CornerRadius.standard
     }
 	
     override init(frame: CGRect) {
