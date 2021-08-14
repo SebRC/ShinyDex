@@ -30,11 +30,11 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
 
 	func numberOfSections(in tableView: UITableView) -> Int	{
-		return 1
+		return 4
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 4
+		return 1
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -57,7 +57,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 		cell.imageBackgroundView.makeCircle()
 
-		let move = activeMoves[indexPath.row]
+		let move = activeMoves[indexPath.section]
 		cell.imageBackgroundView.backgroundColor = MoveTypes.colors[move.type]
 		cell.nameLabel.text = move.name
 		cell.ppLabel.text = "PP: \(move.remainingPP)/\(move.maxPP)"
@@ -69,13 +69,13 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		selectedActiveMoveIndex = indexPath.row
+		selectedActiveMoveIndex = indexPath.section
 		performSegue(withIdentifier: "toMovePicker", sender: self)
 	}
 
 	func incrementPressed(_ sender: UIButton) {
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			activeMoves[indexPath.row].remainingPP += 1
+			activeMoves[indexPath.section].remainingPP += 1
 			tableView.reloadData()
 			moveService.save(activeMoves: activeMoves)
 		}
@@ -83,7 +83,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 	func decrementPressed(_ sender: UIButton) {
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			activeMoves[indexPath.row].remainingPP -= 1
+			activeMoves[indexPath.section].remainingPP -= 1
 			tableView.reloadData()
 			moveService.save(activeMoves: activeMoves)
 		}
