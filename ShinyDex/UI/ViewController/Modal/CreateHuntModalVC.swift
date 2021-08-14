@@ -37,37 +37,19 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		confirmButton.layer.cornerRadius = CornerRadius.standard
 		textField.font = fontSettingsService.getMediumFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear
-		setUpSearchController()
+		setUpSearchController(searchBar: searchBar)
     }
-
-	fileprivate func setUpSearchController() {
-		searchBar.placeholder = "Search"
-		let attributes =
-		[
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getMediumFont()
-		]
-		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-		let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
-		searchBarTextField?.textColor = colorService.getTertiaryColor()
-		searchBarTextField?.font = fontSettingsService.getSmallFont()
-		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
-		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
-		searchBar.clipsToBounds = true
-		searchBar.layer.cornerRadius = CornerRadius.Standard.rawValue
-		searchBar.barTintColor = colorService.getPrimaryColor()
-	}
 
 	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
 	   filterContentForSearchText(self.searchBar.text!)

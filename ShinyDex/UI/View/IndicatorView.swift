@@ -22,7 +22,7 @@ class IndicatorView: UIView {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 		titleLabel.textColor = colorService.getTertiaryColor()
-		layer.cornerRadius = CornerRadius.Standard.rawValue
+		layer.cornerRadius = CornerRadius.standard
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		titleLabel.font = fontSettingsService.getXxSmallFont()
     }

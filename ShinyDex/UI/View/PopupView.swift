@@ -36,6 +36,6 @@ class PopupView: UIView {
 		actionLabel.textColor = colorService.getTertiaryColor()
 		iconImageView.tintColor = colorService.getTertiaryColor()
 		actionLabel.font = fontSettingsService.getSmallFont()
-		contentView?.layer.cornerRadius = CornerRadius.Standard.rawValue
+		contentView?.layer.cornerRadius = CornerRadius.standard
 	}
 }

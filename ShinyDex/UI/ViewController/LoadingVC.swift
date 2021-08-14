@@ -11,11 +11,11 @@ import UIKit
 class LoadingVC: UIViewController {
 	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
+	var moveService = MoveService()
 	var colorService = ColorService()
 	var fontSettingsService = FontSettingsService()
 	var isFirstTimeUser: Bool!
 	var loadingGifData: Data?
-	var pokeballGifData: Data?
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +50,7 @@ class LoadingVC: UIViewController {
 	
 	fileprivate func proceedAsNewUser()	{
 		pokemonService.populateDatabase()
+		moveService.populateDatabase()
 		performSegue(withIdentifier: "load", sender: self)
 	}
 	

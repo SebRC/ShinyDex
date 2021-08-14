@@ -73,6 +73,11 @@ extension UIView {
         let nib = UINib(nibName: nibName, bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
+
+	func makeCircle() {
+		self.layer.cornerRadius = self.frame.size.width / 2
+		self.clipsToBounds = true
+	}
 }
 
 extension UITextField {
@@ -88,4 +93,26 @@ extension Double {
 
 		return Double(truncating: decimalProbability * 100 as NSNumber)
 	}
+}
+
+extension UIViewController {
+    func setUpSearchController(searchBar: UISearchBar) {
+        let colorService = ColorService()
+        let fontSettingsService = FontSettingsService()
+        searchBar.placeholder = "Search"
+        let attributes =
+        [
+            NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
+            NSAttributedString.Key.font: fontSettingsService.getMediumFont()
+        ]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+        let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
+        searchBarTextField?.textColor = colorService.getTertiaryColor()
+        searchBarTextField?.font = fontSettingsService.getSmallFont()
+        let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
+        searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
+        searchBar.clipsToBounds = true
+        searchBar.layer.cornerRadius = CornerRadius.standard
+        searchBar.barTintColor = colorService.getPrimaryColor()
+    }
 }

@@ -30,12 +30,12 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
 		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		confirmButton.layer.cornerRadius = CornerRadius.standard
 		titleLabel.font = fontSettingsService.getExtraLargeFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = .clear
@@ -65,10 +65,10 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.moveUpButton.tintColor = colorService.getTertiaryColor()
 		cell.moveUpButton.backgroundColor = colorService.getSecondaryColor()
-		cell.moveUpButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cell.moveUpButton.layer.cornerRadius = CornerRadius.standard
 		cell.moveDownButton.tintColor = colorService.getTertiaryColor()
 		cell.moveDownButton.backgroundColor = colorService.getSecondaryColor()
-		cell.moveDownButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cell.moveDownButton.layer.cornerRadius = CornerRadius.standard
 
         return cell
     }

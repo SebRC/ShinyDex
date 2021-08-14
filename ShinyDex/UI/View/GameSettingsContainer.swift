@@ -45,9 +45,9 @@ class GameSettingsContainer: UIView {
 
 		gameSettingsCells = [useIncrementCell,genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
 
-		explanationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
-		applyToAllButton.layer.cornerRadius = CornerRadius.Standard.rawValue
-		generationSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		explanationSeparator.layer.cornerRadius = CornerRadius.standard
+		applyToAllButton.layer.cornerRadius = CornerRadius.standard
+		generationSeparator.layer.cornerRadius = CornerRadius.standard
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
 		useIncrementCell.titleLabel.text = "Use increment in Hunts"
 		useIncrementCell.descriptionLabel.text = "Enable the encounter increment to be active when hunting from the Hunts menu"
