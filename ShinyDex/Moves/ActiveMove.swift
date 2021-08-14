@@ -11,7 +11,6 @@ import UIKit
 import CoreData
 
 class ActiveMove: Encodable, Decodable {
-
 	var name: String
 	var maxPP: Int
 	var remainingPP: Int

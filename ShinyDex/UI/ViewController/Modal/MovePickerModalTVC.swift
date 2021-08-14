@@ -9,7 +9,6 @@
 import UIKit
 
 class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-
 	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var moveService = MoveService()
@@ -118,7 +117,6 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
 		cell.typeLabel.text = MoveTypes.Types[move.type_id]
 		cell.typeImageView.image = UIImage(named: MoveTypes.Types[move.type_id]!.lowercased())
-
 
 		return cell
 	}

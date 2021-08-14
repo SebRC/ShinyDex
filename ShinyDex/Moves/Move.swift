@@ -9,6 +9,22 @@
 import Foundation
 
 class Move: Decodable {
+    var id: Int
+    var identifier: String
+    var generation_id: Int
+    var type_id: Int
+    var power: Int?
+    var pp: Int?
+    var accuracy: Int?
+    var priority: Int
+    var target_id: Int
+    var damage_class_id: Int
+    var effect_id: Int?
+    var effect_chance: Int?
+    var contest_type_id: Int?
+    var contest_effect_id: Int?
+    var super_contest_effect_id: Int?
+    
 	init(id: Int, identifier: String, generation_id: Int, type_id: Int, power: Int, pp: Int, accuracy: Int, priority: Int, target_id: Int, damage_class_id: Int, effect_id: Int, effect_chance: Int, contest_type_id: Int, contest_effect_id: Int, super_contest_effect_id: Int) {
 		self.id = id
 		self.identifier = identifier
@@ -26,20 +42,4 @@ class Move: Decodable {
 		self.contest_effect_id = contest_effect_id
 		self.super_contest_effect_id = super_contest_effect_id
 	}
-
-	var id: Int
-	var identifier: String
-	var generation_id: Int
-	var type_id: Int
-	var power: Int?
-	var pp: Int?
-	var accuracy: Int?
-	var priority: Int
-	var target_id: Int
-	var damage_class_id: Int
-	var effect_id: Int?
-	var effect_chance: Int?
-	var contest_type_id: Int?
-	var contest_effect_id: Int?
-	var super_contest_effect_id: Int?
 }

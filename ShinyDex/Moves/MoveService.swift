@@ -10,6 +10,7 @@ import Foundation
 
 class MoveService {
 	var moveRepository = MoveRepository()
+    
 	func getMoves() -> [Move] {
 		if let url = Bundle.main.url(forResource: "moves", withExtension: "json") {
 			do {
