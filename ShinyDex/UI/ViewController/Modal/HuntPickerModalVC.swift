@@ -29,11 +29,11 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.backgroundColor = .clear
 		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cancelButton.layer.cornerRadius = CornerRadius.Standard
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
 		indicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to"
 		tableView.separatorColor = colorService.getPrimaryColor()
-		tableView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		tableView.layer.cornerRadius = CornerRadius.Standard
     }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int	{

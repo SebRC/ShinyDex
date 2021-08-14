@@ -30,8 +30,8 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		populatePokeballList()
 		
-		cancelButton.layer.cornerRadius = CornerRadius.Standard.rawValue
-		pokeballTableView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		cancelButton.layer.cornerRadius = CornerRadius.Standard
+		pokeballTableView.layer.cornerRadius = CornerRadius.Standard
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		pokeballTableView.separatorColor = colorService.getPrimaryColor()
 		pokeballTableView.backgroundColor = .clear

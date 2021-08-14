@@ -36,7 +36,7 @@ class HuntNameEditorModalVC: UIViewController {
 		textField.font = fontSettingsService.getSmallFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
-		editorView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		editorView.layer.cornerRadius = CornerRadius.Standard
 		editorView.backgroundColor = colorService.getSecondaryColor()
 		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()

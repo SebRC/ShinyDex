@@ -38,15 +38,16 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 260.0
+        return 165.0
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath) as! MoveCell
 		cell.cellDelegate = self
-		cell.nameLabel.font = fontSettingsService.getSmallFont()
+		cell.nameLabel.font = fontSettingsService.getMediumFont()
 		cell.ppLabel.font = fontSettingsService.getSmallFont()
 		cell.typeLabel.font = fontSettingsService.getSmallFont()
+        cell.separator.layer.cornerRadius = CornerRadius.Soft
 
 		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
@@ -54,6 +55,7 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.typeLabel.textColor = colorService.getTertiaryColor()
 		cell.incrementButton.tintColor = colorService.getTertiaryColor()
 		cell.decrementButton.tintColor = colorService.getTertiaryColor()
+        cell.separator.backgroundColor = colorService.getSecondaryColor()
 
 		cell.imageBackgroundView.makeCircle()
 

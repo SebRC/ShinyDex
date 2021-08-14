@@ -34,7 +34,7 @@ class IncrementVC: UIViewController {
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
-		modalView.layer.cornerRadius = CornerRadius.Standard.rawValue
+		modalView.layer.cornerRadius = CornerRadius.Standard
 		modalView.backgroundColor = colorService.getSecondaryColor()
 		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()

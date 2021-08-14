@@ -48,7 +48,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
 		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
 		searchBar.clipsToBounds = true
-		searchBar.layer.cornerRadius = CornerRadius.Standard.rawValue
+		searchBar.layer.cornerRadius = CornerRadius.Standard
 		searchBar.barTintColor = colorService.getPrimaryColor()
 	}
 

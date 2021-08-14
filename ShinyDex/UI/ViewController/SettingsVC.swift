@@ -100,9 +100,9 @@ class SettingsVC: UIViewController, SegueActivated {
 	}
 	
 	fileprivate func roundCorners() {
-		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard.rawValue
-		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.Standard.rawValue
-		themeFontSeparator.layer.cornerRadius = CornerRadius.Standard.rawValue
+		gameSettingsContainer.layer.cornerRadius = CornerRadius.Standard
+		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.Standard
+		themeFontSeparator.layer.cornerRadius = CornerRadius.Standard
 	}
 	
 	fileprivate func setEditButtonActions() {
