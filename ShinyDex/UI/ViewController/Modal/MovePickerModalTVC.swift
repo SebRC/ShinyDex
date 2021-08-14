@@ -20,7 +20,8 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchBar: UISearchBar!
-
+    @IBOutlet weak var titleLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +32,9 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear
+        titleLabel.font = fontSettingsService.getLargeFont()
+        titleLabel.tintColor = colorService.getTertiaryColor()
+        titleLabel.text = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
 		setUpSearchController()
     }
 
