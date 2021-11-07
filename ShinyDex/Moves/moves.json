@@ -10558,7 +10558,7 @@
  },
  {
    "id": 622,
-   "identifier": "breakneck-blitz--physical",
+   "identifier": "breakneck-blitz-physical",
    "generation_id": 7,
    "type_id": 1,
    "power": null,
@@ -10575,7 +10575,7 @@
  },
  {
    "id": 623,
-   "identifier": "breakneck-blitz--special",
+   "identifier": "breakneck-blitz-special",
    "generation_id": 7,
    "type_id": 1,
    "power": null,
@@ -10592,7 +10592,7 @@
  },
  {
    "id": 624,
-   "identifier": "all-out-pummeling--physical",
+   "identifier": "all-out-pummeling-physical",
    "generation_id": 7,
    "type_id": 2,
    "power": null,
@@ -10609,7 +10609,7 @@
  },
  {
    "id": 625,
-   "identifier": "all-out-pummeling--special",
+   "identifier": "all-out-pummeling-special",
    "generation_id": 7,
    "type_id": 2,
    "power": null,
@@ -10626,7 +10626,7 @@
  },
  {
    "id": 626,
-   "identifier": "supersonic-skystrike--physical",
+   "identifier": "supersonic-skystrike-physical",
    "generation_id": 7,
    "type_id": 3,
    "power": null,
@@ -10643,7 +10643,7 @@
  },
  {
    "id": 627,
-   "identifier": "supersonic-skystrike--special",
+   "identifier": "supersonic-skystrike-special",
    "generation_id": 7,
    "type_id": 3,
    "power": null,
@@ -10660,7 +10660,7 @@
  },
  {
    "id": 628,
-   "identifier": "acid-downpour--physical",
+   "identifier": "acid-downpour-physical",
    "generation_id": 7,
    "type_id": 4,
    "power": null,
@@ -10677,7 +10677,7 @@
  },
  {
    "id": 629,
-   "identifier": "acid-downpour--special",
+   "identifier": "acid-downpour-special",
    "generation_id": 7,
    "type_id": 4,
    "power": null,
@@ -10694,7 +10694,7 @@
  },
  {
    "id": 630,
-   "identifier": "tectonic-rage--physical",
+   "identifier": "tectonic-rage-physical",
    "generation_id": 7,
    "type_id": 5,
    "power": null,
@@ -10711,7 +10711,7 @@
  },
  {
    "id": 631,
-   "identifier": "tectonic-rage--special",
+   "identifier": "tectonic-rage-special",
    "generation_id": 7,
    "type_id": 5,
    "power": null,
@@ -10728,7 +10728,7 @@
  },
  {
    "id": 632,
-   "identifier": "continental-crush--physical",
+   "identifier": "continental-crush-physical",
    "generation_id": 7,
    "type_id": 6,
    "power": null,
@@ -10745,7 +10745,7 @@
  },
  {
    "id": 633,
-   "identifier": "continental-crush--special",
+   "identifier": "continental-crush-special",
    "generation_id": 7,
    "type_id": 6,
    "power": null,
@@ -10762,7 +10762,7 @@
  },
  {
    "id": 634,
-   "identifier": "savage-spin-out--physical",
+   "identifier": "savage-spin-out-physical",
    "generation_id": 7,
    "type_id": 7,
    "power": null,
@@ -10779,7 +10779,7 @@
  },
  {
    "id": 635,
-   "identifier": "savage-spin-out--special",
+   "identifier": "savage-spin-out-special",
    "generation_id": 7,
    "type_id": 7,
    "power": null,
@@ -10796,7 +10796,7 @@
  },
  {
    "id": 636,
-   "identifier": "never-ending-nightmare--physical",
+   "identifier": "never-ending-nightmare-physical",
    "generation_id": 7,
    "type_id": 8,
    "power": null,
@@ -10813,7 +10813,7 @@
  },
  {
    "id": 637,
-   "identifier": "never-ending-nightmare--special",
+   "identifier": "never-ending-nightmare-special",
    "generation_id": 7,
    "type_id": 8,
    "power": null,
@@ -10830,7 +10830,7 @@
  },
  {
    "id": 638,
-   "identifier": "corkscrew-crash--physical",
+   "identifier": "corkscrew-crash-physical",
    "generation_id": 7,
    "type_id": 9,
    "power": null,
@@ -10847,7 +10847,7 @@
  },
  {
    "id": 639,
-   "identifier": "corkscrew-crash--special",
+   "identifier": "corkscrew-crash-special",
    "generation_id": 7,
    "type_id": 9,
    "power": null,
@@ -10864,7 +10864,7 @@
  },
  {
    "id": 640,
-   "identifier": "inferno-overdrive--physical",
+   "identifier": "inferno-overdrive-physical",
    "generation_id": 7,
    "type_id": 10,
    "power": null,
@@ -10881,7 +10881,7 @@
  },
  {
    "id": 641,
-   "identifier": "inferno-overdrive--special",
+   "identifier": "inferno-overdrive-special",
    "generation_id": 7,
    "type_id": 10,
    "power": null,
@@ -10898,7 +10898,7 @@
  },
  {
    "id": 642,
-   "identifier": "hydro-vortex--physical",
+   "identifier": "hydro-vortex-physical",
    "generation_id": 7,
    "type_id": 11,
    "power": null,
@@ -10915,7 +10915,7 @@
  },
  {
    "id": 643,
-   "identifier": "hydro-vortex--special",
+   "identifier": "hydro-vortex-special",
    "generation_id": 7,
    "type_id": 11,
    "power": null,
@@ -10932,7 +10932,7 @@
  },
  {
    "id": 644,
-   "identifier": "bloom-doom--physical",
+   "identifier": "bloom-doom-physical",
    "generation_id": 7,
    "type_id": 12,
    "power": null,
@@ -10949,7 +10949,7 @@
  },
  {
    "id": 645,
-   "identifier": "bloom-doom--special",
+   "identifier": "bloom-doom-special",
    "generation_id": 7,
    "type_id": 12,
    "power": null,
@@ -10966,7 +10966,7 @@
  },
  {
    "id": 646,
-   "identifier": "gigavolt-havoc--physical",
+   "identifier": "gigavolt-havoc-physical",
    "generation_id": 7,
    "type_id": 13,
    "power": null,
@@ -10983,7 +10983,7 @@
  },
  {
    "id": 647,
-   "identifier": "gigavolt-havoc--special",
+   "identifier": "gigavolt-havoc-special",
    "generation_id": 7,
    "type_id": 13,
    "power": null,
@@ -11000,7 +11000,7 @@
  },
  {
    "id": 648,
-   "identifier": "shattered-psyche--physical",
+   "identifier": "shattered-psyche-physical",
    "generation_id": 7,
    "type_id": 14,
    "power": null,
@@ -11017,7 +11017,7 @@
  },
  {
    "id": 649,
-   "identifier": "shattered-psyche--special",
+   "identifier": "shattered-psyche-special",
    "generation_id": 7,
    "type_id": 14,
    "power": null,
@@ -11034,7 +11034,7 @@
  },
  {
    "id": 650,
-   "identifier": "subzero-slammer--physical",
+   "identifier": "subzero-slammer-physical",
    "generation_id": 7,
    "type_id": 15,
    "power": null,
@@ -11051,7 +11051,7 @@
  },
  {
    "id": 651,
-   "identifier": "subzero-slammer--special",
+   "identifier": "subzero-slammer-special",
    "generation_id": 7,
    "type_id": 15,
    "power": null,
@@ -11068,7 +11068,7 @@
  },
  {
    "id": 652,
-   "identifier": "devastating-drake--physical",
+   "identifier": "devastating-drake-physical",
    "generation_id": 7,
    "type_id": 16,
    "power": null,
@@ -11085,7 +11085,7 @@
  },
  {
    "id": 653,
-   "identifier": "devastating-drake--special",
+   "identifier": "devastating-drake-special",
    "generation_id": 7,
    "type_id": 16,
    "power": null,
@@ -11102,7 +11102,7 @@
  },
  {
    "id": 654,
-   "identifier": "black-hole-eclipse--physical",
+   "identifier": "black-hole-eclipse-physical",
    "generation_id": 7,
    "type_id": 17,
    "power": null,
@@ -11119,7 +11119,7 @@
  },
  {
    "id": 655,
-   "identifier": "black-hole-eclipse--special",
+   "identifier": "black-hole-eclipse-special",
    "generation_id": 7,
    "type_id": 17,
    "power": null,
@@ -11136,7 +11136,7 @@
  },
  {
    "id": 656,
-   "identifier": "twinkle-tackle--physical",
+   "identifier": "twinkle-tackle-physical",
    "generation_id": 7,
    "type_id": 18,
    "power": null,
@@ -11153,7 +11153,7 @@
  },
  {
    "id": 657,
-   "identifier": "twinkle-tackle--special",
+   "identifier": "twinkle-tackle-special",
    "generation_id": 7,
    "type_id": 18,
    "power": null,
