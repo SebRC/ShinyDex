@@ -1688,17 +1688,16 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cUU-Gy-Owh">
-                                <rect key="frame" x="31" y="224" width="182.5" height="362"/>
+                                <rect key="frame" x="31.5" y="224" width="312" height="403"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="362" id="0oB-hP-09f"/>
-                                    <constraint firstAttribute="width" secondItem="cUU-Gy-Owh" secondAttribute="height" multiplier="326:377" id="Tz8-pW-tDO"/>
+                                    <constraint firstAttribute="height" constant="403" id="0oB-hP-09f"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pokeballCell" rowHeight="137" id="bI9-WJ-t2B" customClass="PokeballCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="49.5" width="150.5" height="137"/>
+                                        <rect key="frame" x="16" y="49.5" width="280" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bI9-WJ-t2B" id="wCW-qx-GQF">
-                                            <rect key="frame" x="0.0" y="0.0" width="150.5" height="137"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="137"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokeball" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6b-A3-TPx">
@@ -1736,10 +1735,10 @@ Are you sure you want to do this?</string>
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dux-jX-zZu">
-                                <rect key="frame" x="31" y="28" width="182.5" height="30"/>
+                                <rect key="frame" x="31" y="28" width="312" height="46"/>
                                 <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Dux-jX-zZu" secondAttribute="height" multiplier="163:25" constant="-13" id="LI6-Tc-7MS"/>
+                                    <constraint firstAttribute="width" secondItem="Dux-jX-zZu" secondAttribute="height" multiplier="156:23" id="dqT-pb-1kQ"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -1747,26 +1746,25 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RwA-Gy-GqJ" customClass="IndicatorView" customModule="ShinyDex" customModuleProvider="target">
-                                <rect key="frame" x="31" y="74" width="182.5" height="56"/>
+                                <rect key="frame" x="31" y="90" width="312" height="100"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="RwA-Gy-GqJ" secondAttribute="height" multiplier="163:50" id="0EH-x9-A8h"/>
+                                    <constraint firstAttribute="width" secondItem="RwA-Gy-GqJ" secondAttribute="height" multiplier="78:25" id="FcE-0m-dae"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zqg-r2-dvS"/>
                         <constraints>
-                            <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="cUU-Gy-Owh" secondAttribute="trailing" constant="31" id="Cvc-rL-84a"/>
-                            <constraint firstItem="Dux-jX-zZu" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31" id="Fgm-Xw-0hQ"/>
-                            <constraint firstItem="cUU-Gy-Owh" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31" id="KAS-x7-8G0"/>
-                            <constraint firstItem="zqg-r2-dvS" firstAttribute="bottom" secondItem="cUU-Gy-Owh" secondAttribute="bottom" constant="61" id="OsF-px-dKf"/>
+                            <constraint firstItem="cUU-Gy-Owh" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31.5" id="A5P-aC-Ufw"/>
+                            <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="Dux-jX-zZu" secondAttribute="trailing" constant="32" id="Bmb-cK-Yz1"/>
+                            <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="RwA-Gy-GqJ" secondAttribute="trailing" constant="32" id="DSt-jF-PaX"/>
+                            <constraint firstItem="Dux-jX-zZu" firstAttribute="top" secondItem="zqg-r2-dvS" secondAttribute="top" constant="28" id="ODB-Ve-r0h"/>
                             <constraint firstItem="cUU-Gy-Owh" firstAttribute="centerX" secondItem="HTx-fH-Huf" secondAttribute="centerX" id="Osh-HL-jIK"/>
                             <constraint firstItem="RwA-Gy-GqJ" firstAttribute="top" secondItem="Dux-jX-zZu" secondAttribute="bottom" constant="16" id="Tkx-09-Fqa"/>
-                            <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="Dux-jX-zZu" secondAttribute="trailing" constant="31" id="lnb-QE-dCa"/>
-                            <constraint firstItem="Dux-jX-zZu" firstAttribute="top" secondItem="zqg-r2-dvS" secondAttribute="top" constant="28" id="ntZ-Ej-1WO"/>
-                            <constraint firstItem="RwA-Gy-GqJ" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31" id="pY5-Dy-VMb"/>
-                            <constraint firstItem="cUU-Gy-Owh" firstAttribute="top" secondItem="zqg-r2-dvS" secondAttribute="top" constant="224" id="xJR-bB-Xzi"/>
-                            <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="RwA-Gy-GqJ" secondAttribute="trailing" constant="31" id="yL7-S0-q3d"/>
+                            <constraint firstItem="RwA-Gy-GqJ" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31" id="WDV-5y-0yw"/>
+                            <constraint firstItem="Dux-jX-zZu" firstAttribute="leading" secondItem="zqg-r2-dvS" secondAttribute="leading" constant="31" id="bLk-9o-Pyd"/>
+                            <constraint firstItem="zqg-r2-dvS" firstAttribute="trailing" secondItem="cUU-Gy-Owh" secondAttribute="trailing" constant="31.5" id="eV0-uT-cgP"/>
+                            <constraint firstItem="cUU-Gy-Owh" firstAttribute="top" secondItem="RwA-Gy-GqJ" secondAttribute="bottom" constant="34" id="tIF-qp-sa1"/>
                         </constraints>
                     </view>
                     <connections>

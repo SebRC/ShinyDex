@@ -102,19 +102,19 @@ class IncrementVC: UIViewController {
 	fileprivate func setDescriptionText(increment: Int) {
 		switch increment {
 		case 1:
-			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing"
+			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing."
 		case 2:
-			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems"
+			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems."
 		case 3:
-			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent"
+			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent."
 		case 4:
-			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent"
+			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent."
 		case 5:
-			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset"
+			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset."
 		case 6:
-			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once"
+			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once."
 		default:
-			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100"
+			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100."
 		}
 	}
 }

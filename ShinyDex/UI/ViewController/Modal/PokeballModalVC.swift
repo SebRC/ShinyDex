@@ -35,7 +35,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		pokeballTableView.separatorColor = colorService.getPrimaryColor()
 		pokeballTableView.backgroundColor = .clear
-		indicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball"
+		indicatorView.titleLabel.text = "Changing \(pokemon.name) caught ball."
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
