@@ -17,7 +17,7 @@ class MoveService {
 				let data = try Data(contentsOf: url)
 				let decoder = JSONDecoder()
 				let jsonData = try decoder.decode([Move].self, from: data)
-				return jsonData
+                return jsonData.sorted{ $0.identifier < $1.identifier}
 			
 			} catch {
 				print("error:\(error)")
