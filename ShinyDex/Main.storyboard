@@ -1459,7 +1459,7 @@ Are you sure you want to do this?</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Menu" id="NOl-aa-BNa">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis.circle.fill" catalog="system" id="YAX-wR-KFN">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="gearshape.fill" catalog="system" id="YAX-wR-KFN">
                             <connections>
                                 <action selector="settingsPressed:" destination="Ffe-gu-68j" id="W4U-sv-B07"/>
                             </connections>
@@ -2132,7 +2132,7 @@ Are you sure you want to do this?</string>
         <image name="arrow.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="arrow.up.arrow.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="arrow.up.square.fill" catalog="system" width="128" height="114"/>
-        <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="none" width="32" height="32"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
