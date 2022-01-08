@@ -183,11 +183,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		}
 		if (hunts[section].isCollapsed) {
 			hunts[section].isCollapsed = false
-			tableView.insertRows(at: indexPathsForSection(), with: .fade)
+            tableView.insertRows(at: indexPathsForSection(), with: .automatic)
 		}
 		else {
 			hunts[section].isCollapsed = true
-			tableView.deleteRows(at: indexPathsForSection(), with: .fade)
+			tableView.deleteRows(at: indexPathsForSection(), with: .automatic)
 		}
 		huntService.save(hunt: hunts[section])
 		reloadData(duration: 0.2)
