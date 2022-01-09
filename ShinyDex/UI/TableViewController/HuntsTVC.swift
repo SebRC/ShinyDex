@@ -122,30 +122,31 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     }
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let sectionView = UIView()
-		sectionView.backgroundColor = .clear
+        let sectionView = UIView()
+        sectionView.clipsToBounds = true
 		let collapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width / 1.5, height: 60))
 		collapseButton.tag = section
 		collapseButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
+        let longGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(editSectionHeader(sender:)))
+        longGestureRecognizer.name = String(section)
+        collapseButton.addGestureRecognizer(longGestureRecognizer)
 		collapseButton.setTitle("\(hunts[section].name): \(hunts[section].totalEncounters)", for: .normal)
 		collapseButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		collapseButton.backgroundColor = .clear
 		collapseButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
 		collapseButton.imageView?.tintColor = colorService.getTertiaryColor()
 		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
 		collapseButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		let editButton = UIButton(frame: CGRect(x: collapseButton.frame.width, y: 0, width: tableView.frame.width - collapseButton.frame.width, height: 60))
-		editButton.addTarget(self, action: #selector(editSectionHeader(sender:)), for: .touchUpInside)
-		editButton.tag = section
-		editButton.backgroundColor = .clear
-		editButton.setImage(UIImage(systemName: "pencil.and.ellipsis.rectangle"), for: .normal)
-		editButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 30)
-		editButton.imageView?.tintColor = colorService.getTertiaryColor()
-		editButton.contentHorizontalAlignment = .right
+        let incrementAllButton = UIButton(frame: CGRect(x: collapseButton.frame.width + 20, y: 0, width: 60, height: 60))
+        incrementAllButton.addTarget(self, action: #selector(incrementAllInHunt(sender:)), for: .touchUpInside)
+        incrementAllButton.tag = section
+        incrementAllButton.setImage(UIImage(systemName: "rectangle.stack.fill.badge.plus"), for: .normal)
+        incrementAllButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 0)
+        incrementAllButton.imageView?.tintColor = colorService.getTertiaryColor()
+        incrementAllButton.contentHorizontalAlignment = .right
 		sectionView.addSubview(collapseButton)
-		sectionView.addSubview(editButton)
+        sectionView.addSubview(incrementAllButton)
 		return sectionView
 	}
 
@@ -192,10 +193,26 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		huntService.save(hunt: hunts[section])
 		reloadData(duration: 0.2)
 	}
+    
+    @objc
+    private func incrementAllInHunt(sender: UIButton) {
+        let section = sender.tag
+        let hunt = hunts[section]
+        var totalIncremented = 0
+        for pokemon in hunt.pokemon {
+            pokemon.encounters += pokemon.increment
+            totalIncremented += pokemon.increment
+            pokemonService.save(pokemon: pokemon)
+        }
+        totalEncounters += totalIncremented
+        navigationItem.title = String(totalEncounters)
+        hunt.totalEncounters += totalIncremented
+        reloadData(duration: 0.2)
+    }
 
 	@objc
-	private func editSectionHeader(sender: UIButton) {
-		selectedSection = sender.tag
+	private func editSectionHeader(sender: UILongPressGestureRecognizer) {
+        selectedSection = Int(truncating: NumberFormatter().number(from: sender.name!)!)
 		performSegue(withIdentifier: "editName", sender: self)
 	}
 	
