@@ -141,7 +141,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         let incrementAllButton = UIButton(frame: CGRect(x: collapseButton.frame.width + 20, y: 0, width: 60, height: 60))
         incrementAllButton.addTarget(self, action: #selector(incrementAllInHunt(sender:)), for: .touchUpInside)
         incrementAllButton.tag = section
-        incrementAllButton.setImage(UIImage(systemName: "rectangle.stack.fill.badge.plus"), for: .normal)
+        incrementAllButton.setImage(UIImage(systemName: "plus.square.fill.on.square.fill"), for: .normal)
         incrementAllButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 0)
         incrementAllButton.imageView?.tintColor = colorService.getTertiaryColor()
         incrementAllButton.contentHorizontalAlignment = .right
