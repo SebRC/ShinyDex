@@ -195,6 +195,12 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	}
     
     @objc
+    private func editSectionHeader(sender: UILongPressGestureRecognizer) {
+        selectedSection = Int(truncating: NumberFormatter().number(from: sender.name!)!)
+        performSegue(withIdentifier: "editName", sender: self)
+    }
+    
+    @objc
     private func incrementAllInHunt(sender: UIButton) {
         let section = sender.tag
         let hunt = hunts[section]
@@ -209,12 +215,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         hunt.totalEncounters += totalIncremented
         reloadData(duration: 0.2)
     }
-
-	@objc
-	private func editSectionHeader(sender: UILongPressGestureRecognizer) {
-        selectedSection = Int(truncating: NumberFormatter().number(from: sender.name!)!)
-		performSegue(withIdentifier: "editName", sender: self)
-	}
 	
 	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon) {
 		currentHuntCell.sprite.image = UIImage(named: pokemon.name.lowercased())
