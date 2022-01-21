@@ -104,7 +104,6 @@
 		96FC079D23EF192400459450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC079C23EF192400459450 /* AppDelegate.swift */; };
 		96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */; };
 		96FC07A923EF192800459450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96FC07A823EF192800459450 /* Assets.xcassets */; };
-		96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96FC07AA23EF192800459450 /* LaunchScreen.storyboard */; };
 		96FC07D923EF437C00459450 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07D823EF437C00459450 /* SceneDelegate.swift */; };
 		96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07DA23EF455A00459450 /* PokemonRepository.swift */; };
 		96FC07DF23EF50C700459450 /* TextResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC07DE23EF50C700459450 /* TextResolver.swift */; };
@@ -234,7 +233,6 @@
 		96FC079C23EF192400459450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96FC07A623EF192400459450 /* ShinyDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShinyDex.xcdatamodel; sourceTree = "<group>"; };
 		96FC07A823EF192800459450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96FC07AB23EF192800459450 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96FC07AD23EF192800459450 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96FC07D823EF437C00459450 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		96FC07DA23EF455A00459450 /* PokemonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonRepository.swift; sourceTree = "<group>"; };
@@ -459,6 +457,7 @@
 			children = (
 				96FC07FE23EF57D400459450 /* Main.storyboard */,
 				96FC079C23EF192400459450 /* AppDelegate.swift */,
+				96FC07D823EF437C00459450 /* SceneDelegate.swift */,
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				969BEF8726B1B52E00FDF445 /* Moves */,
 				96FC081623EF58F200459450 /* Pokeball */,
@@ -472,10 +471,8 @@
 				96FC080923EF584300459450 /* Utility */,
 				96FC085723EF59F400459450 /* TextFile */,
 				96FC07A823EF192800459450 /* Assets.xcassets */,
-				96FC07AA23EF192800459450 /* LaunchScreen.storyboard */,
 				96FC07AD23EF192800459450 /* Info.plist */,
 				96FC07A523EF192400459450 /* ShinyDex.xcdatamodeld */,
-				96FC07D823EF437C00459450 /* SceneDelegate.swift */,
 			);
 			path = ShinyDex;
 			sourceTree = "<group>";
@@ -728,7 +725,6 @@
 				96FC081523EF58E900459450 /* Pokemon-GB.ttf in Resources */,
 				962E58D12411A6D7001D5E41 /* ButtonIconRight.xib in Resources */,
 				96A7299E245F15FF00AF3F5F /* SetEncountersView.xib in Resources */,
-				96FC07AC23EF192800459450 /* LaunchScreen.storyboard in Resources */,
 				51818C5B26C0483500B95FF6 /* moves.json in Resources */,
 				96FC07A923EF192800459450 /* Assets.xcassets in Resources */,
 				96A7298F245F110B00AF3F5F /* ConfirmationPopup.xib in Resources */,
@@ -907,17 +903,6 @@
 			targetProxy = 961B5C512652837E00918D91 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		96FC07AA23EF192800459450 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				96FC07AB23EF192800459450 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		961B5C532652837E00918D91 /* Debug */ = {
