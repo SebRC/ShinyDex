@@ -1,11 +1,3 @@
-//
-//  HuntNameEditorModalVC.swift
-//  ShinyDex
-//
-//  Created by Sebastian Christiansen on 01/05/2020.
-//  Copyright © 2020 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class HuntNameEditorModalVC: UIViewController {

@@ -1,11 +1,3 @@
-//
-//  PokeballModalVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 08/11/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDelegate {

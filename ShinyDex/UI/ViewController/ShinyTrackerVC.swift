@@ -1,11 +1,3 @@
-//
-//  ShinyTrackerVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 20/05/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 import FLAnimatedImage
 

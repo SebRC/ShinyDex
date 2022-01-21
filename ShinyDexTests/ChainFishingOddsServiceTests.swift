@@ -1,11 +1,3 @@
-//
-//  FriendSafariOddsServiceTests.swift
-//  ShinyDexTests
-//
-//  Created by Sebastian Christiansen on 19/05/2021.
-//  Copyright © 2021 Sebastian Christiansen. All rights reserved.
-//
-
 import XCTest
 @testable import ShinyDex
 

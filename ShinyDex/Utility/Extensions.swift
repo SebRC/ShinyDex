@@ -1,11 +1,3 @@
-//
-//  Extensions.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 26/03/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -78,6 +70,13 @@ extension UIView {
 		self.layer.cornerRadius = self.frame.size.width / 2
 		self.clipsToBounds = true
 	}
+    
+    func addShadow() {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 1, height: 1)
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 0.2
+    }
 }
 
 extension UITextField {

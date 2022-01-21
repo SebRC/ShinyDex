@@ -1,11 +1,3 @@
-//
-//  SettingsVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 21/09/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class SettingsVC: UIViewController, SegueActivated {

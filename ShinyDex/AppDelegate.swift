@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  ShinyDex
-//
-//  Created by Sebastian Christiansen on 08/02/2020.
-//  Copyright © 2020 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 import CoreData
 

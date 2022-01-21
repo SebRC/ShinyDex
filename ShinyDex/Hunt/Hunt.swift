@@ -1,11 +1,3 @@
-//
-//  Hunt.swift
-//  ShinyDex
-//
-//  Created by Sebastian Christiansen on 22/04/2020.
-//  Copyright © 2020 Sebastian Christiansen. All rights reserved.
-//
-
 import Foundation
 import CoreData
 
