@@ -1,5 +1,5 @@
 import Foundation
 
-protocol SegueActivated : class {
+protocol SegueActivated : AnyObject {
 	func segueActivated()
 }
