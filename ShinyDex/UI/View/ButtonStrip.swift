@@ -35,13 +35,13 @@ class ButtonStrip: UIView {
     }
 	
 	fileprivate func setColors() {
-		contentView?.backgroundColor = colorService.getSecondaryColor()
+		contentView?.backgroundColor = colorService.getPrimaryColor()
 		
-		encountersIncrementSeparator.backgroundColor = colorService.getPrimaryColor()
-		incrementMethodSeparator.backgroundColor = colorService.getPrimaryColor()
-		methodMapSeparator.backgroundColor = colorService.getPrimaryColor()
-		mapBallSeparator.backgroundColor = colorService.getPrimaryColor()
-		ballOddsSeparator.backgroundColor = colorService.getPrimaryColor()
+		encountersIncrementSeparator.backgroundColor = colorService.getSecondaryColor()
+		incrementMethodSeparator.backgroundColor = colorService.getSecondaryColor()
+		methodMapSeparator.backgroundColor = colorService.getSecondaryColor()
+		mapBallSeparator.backgroundColor = colorService.getSecondaryColor()
+		ballOddsSeparator.backgroundColor = colorService.getSecondaryColor()
 		updateEncountersButton.tintColor = colorService.getTertiaryColor()
 		incrementButton.tintColor = colorService.getTertiaryColor()
 		methodButton.tintColor = colorService.getTertiaryColor()
