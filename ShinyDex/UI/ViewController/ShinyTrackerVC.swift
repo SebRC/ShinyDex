@@ -1,11 +1,3 @@
-//
-//  ShinyTrackerVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 20/05/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 import FLAnimatedImage
 
@@ -68,7 +60,6 @@ class ShinyTrackerVC: UIViewController {
 			methodDecrement = 0
 		}
 	}
-
 	
 	fileprivate func setPokeballButtonImage() {
 		buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
@@ -92,15 +83,15 @@ class ShinyTrackerVC: UIViewController {
 	}
 	
 	fileprivate func setUIColors() {
-		view.backgroundColor = colorService.getPrimaryColor()
+		view.backgroundColor = colorService.getSecondaryColor()
 		
-		encountersLabel.backgroundColor = colorService.getSecondaryColor()
+		encountersLabel.backgroundColor = colorService.getPrimaryColor()
 		encountersLabel.textColor = colorService.getTertiaryColor()
 		
-		probabilityLabel.backgroundColor = colorService.getSecondaryColor()
+		probabilityLabel.backgroundColor = colorService.getPrimaryColor()
 		probabilityLabel.textColor = colorService.getTertiaryColor()
 		
-		gifSeparatorView.backgroundColor = colorService.getSecondaryColor()
+		gifSeparatorView.backgroundColor = colorService.getPrimaryColor()
 		
 		plusButton.tintColor = colorService.getTertiaryColor()
 		minusButton.tintColor = colorService.getTertiaryColor()
@@ -122,11 +113,9 @@ class ShinyTrackerVC: UIViewController {
 	}
 	
 	fileprivate func setGif() {
-		if let shinyGifAsset = NSDataAsset(name: "\(pokemon.name)") {
-			let data = shinyGifAsset.data
-			animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: data)
+		if let gifAsset = NSDataAsset(name: "\(pokemon.name)") {
+            animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: gifAsset.data)
 		}
-
 	}
 	
 	fileprivate func setButtonActions() {

@@ -1,11 +1,3 @@
-//
-//  ColorRepository.swift
-//  ShinyDex
-//
-//  Created by Sebastian Christiansen on 05/03/2020.
-//  Copyright © 2020 Sebastian Christiansen. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

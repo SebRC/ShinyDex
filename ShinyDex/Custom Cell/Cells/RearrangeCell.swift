@@ -1,11 +1,3 @@
-//
-//  RearrangeCell.swift
-//  ShinyDex
-//
-//  Created by Sebastian Christiansen on 16/11/2020.
-//  Copyright © 2020 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class RearrangeCell: UITableViewCell {

@@ -1,11 +1,3 @@
-//
-//  SetEncountersModalVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 13/12/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class SetEncountersModalVC: UIViewController {

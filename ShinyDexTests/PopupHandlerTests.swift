@@ -1,11 +1,3 @@
-//
-//  PopupHandlerTests.swift
-//  ShinyDexTests
-//
-//  Created by Sebastian Christiansen on 28/05/2021.
-//  Copyright © 2021 Sebastian Christiansen. All rights reserved.
-//
-
 import XCTest
 @testable import ShinyDex
 

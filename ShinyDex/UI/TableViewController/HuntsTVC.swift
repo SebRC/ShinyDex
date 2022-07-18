@@ -1,11 +1,3 @@
-//
-//  HuntsTVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 02/07/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CurrentHuntCellDelegate {
@@ -138,11 +130,11 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
 		collapseButton.titleLabel?.font = fontSettingsService.getSmallFont()
-        let incrementAllButton = UIButton(frame: CGRect(x: collapseButton.frame.width + 20, y: 0, width: 60, height: 60))
+        let incrementAllButton = UIButton(frame: CGRect(x: collapseButton.frame.width + 20, y: 0, width: 80, height: 60))
         incrementAllButton.addTarget(self, action: #selector(incrementAllInHunt(sender:)), for: .touchUpInside)
         incrementAllButton.tag = section
         incrementAllButton.setImage(UIImage(systemName: "plus.square.fill.on.square.fill"), for: .normal)
-        incrementAllButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 0)
+        incrementAllButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 20)
         incrementAllButton.imageView?.tintColor = colorService.getTertiaryColor()
         incrementAllButton.contentHorizontalAlignment = .right
 		sectionView.addSubview(collapseButton)

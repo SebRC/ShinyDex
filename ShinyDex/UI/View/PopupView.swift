@@ -1,11 +1,3 @@
-//
-//  PopupView.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 09/11/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -37,5 +29,6 @@ class PopupView: UIView {
 		iconImageView.tintColor = colorService.getTertiaryColor()
 		actionLabel.font = fontSettingsService.getSmallFont()
 		contentView?.layer.cornerRadius = CornerRadius.standard
+        contentView?.addShadow()
 	}
 }

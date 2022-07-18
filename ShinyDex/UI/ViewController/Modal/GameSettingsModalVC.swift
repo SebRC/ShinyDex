@@ -1,11 +1,3 @@
-//
-//  GameSettingsModalVC.swift
-//  ShinyDexPrototype
-//
-//  Created by Sebastian Christiansen on 05/12/2019.
-//  Copyright © 2019 Sebastian Christiansen. All rights reserved.
-//
-
 import UIKit
 
 class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate, SegueActivated {
