@@ -13,7 +13,6 @@ class GameSettingsContainer: UIView {
 	let nibName = "GameSettingsContainer"
     var contentView: UIView?
 	@IBOutlet weak var generationLabel: UILabel!
-	@IBOutlet weak var generationSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var shinyCharmCell: GameSettingsCell!
 	@IBOutlet weak var lureCell: GameSettingsCell!
 	@IBOutlet weak var masudaCell: GameSettingsCell!
@@ -29,7 +28,8 @@ class GameSettingsContainer: UIView {
 	@IBOutlet weak var useIncrementCell: GameSettingsCell!
 	@IBOutlet weak var applyToAllButton: UIButton!
 	@IBOutlet weak var explanationLabel: UILabel!
-
+    @IBOutlet weak var gameButton: UIButton!
+    
 
 	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -88,7 +88,7 @@ class GameSettingsContainer: UIView {
 		sosChainCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		pokeradarCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
+        //gameButton.addTarget(self, action: #selector(changeGamePressed), for: .touchUpInside)
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
@@ -100,8 +100,6 @@ class GameSettingsContainer: UIView {
     }
 
 	func resolveUIObjectsState() {
-		generationSegmentedControl.selectedSegmentIndex = resolveSelectedSegment()
-
 		genTwoBreedingCell.actionSwitch.isOn = pokemon!.huntMethod == .Gen2Breeding
 		masudaCell.actionSwitch.isOn = pokemon!.huntMethod == .Masuda
 		shinyCharmCell.actionSwitch.isOn = pokemon!.isShinyCharmActive
@@ -160,11 +158,7 @@ class GameSettingsContainer: UIView {
 		generationLabel.textColor = colorService.getTertiaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		generationLabel.textColor = colorService.getTertiaryColor()
-		generationSegmentedControl.backgroundColor = colorService.getPrimaryColor()
-		generationSegmentedControl.tintColor = colorService.getSecondaryColor()
 		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
 	}
 
@@ -180,7 +174,6 @@ class GameSettingsContainer: UIView {
 		applyToAllButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
-		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 
@@ -263,20 +256,20 @@ class GameSettingsContainer: UIView {
 		saveIfReal()
 	}
 
-	@objc fileprivate func changeGenerationPressed(_ sender: Any) {
-		if (generationSegmentedControl.selectedSegmentIndex != 6) {
-			pokemon!.generation = Int(generationSegmentedControl.titleForSegment(at: generationSegmentedControl.selectedSegmentIndex)!)!
-		}
-		else {
-			pokemon!.generation = 0
-		}
-
-		if (pokemon?.huntMethod != .Masuda || pokemon?.generation == 2 || pokemon?.generation == 0) {
-			pokemon?.huntMethod = .Encounters
-		}
-		resolveSwitchStates()
-		setAllImageViewAlphas()
-		setShinyOddsLabelText()
+	@objc fileprivate func changeGamePressed(_ sender: Any) {
+//		if (generationSegmentedControl.selectedSegmentIndex != 6) {
+//			pokemon!.generation = Int(generationSegmentedControl.titleForSegment(at: generationSegmentedControl.selectedSegmentIndex)!)!
+//		}
+//		else {
+//			pokemon!.generation = 0
+//		}
+//
+//		if (pokemon?.huntMethod != .Masuda || pokemon?.generation == 2 || pokemon?.generation == 0) {
+//			pokemon?.huntMethod = .Encounters
+//		}
+//		resolveSwitchStates()
+//		setAllImageViewAlphas()
+//		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
