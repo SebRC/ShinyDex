@@ -18,6 +18,7 @@
                 <outlet property="explanationSeparator" destination="hrj-zV-AHL" id="tJ1-Qs-LSz"/>
                 <outlet property="friendSafariCell" destination="QPc-xD-xqC" id="ADD-Ou-8a5"/>
                 <outlet property="gameButton" destination="SgH-aa-9ke" id="6MM-Zn-WsU"/>
+                <outlet property="gameTitle" destination="JnD-g9-V6b" id="CBY-3S-FVi"/>
                 <outlet property="genTwoBreedingCell" destination="SgS-ck-aw2" id="TtB-G1-xB2"/>
                 <outlet property="generationLabel" destination="VGq-bT-bQa" id="vdA-AT-6cl"/>
                 <outlet property="generationSeparator" destination="ejs-cE-SWk" id="Q8R-C5-U4J"/>
@@ -104,6 +105,11 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-gc-e5S" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                    <rect key="frame" x="5" y="332" width="350" height="90"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkg-0l-t4Y">
                     <rect key="frame" x="10" y="148" width="340" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -120,17 +126,19 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnD-g9-V6b">
+                    <rect key="frame" x="16" y="257" width="245" height="51"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-aa-9ke">
-                    <rect key="frame" x="152" y="258" width="50" height="50"/>
+                    <rect key="frame" x="294" y="248" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Title"/>
+                    <buttonConfiguration key="configuration" style="plain" image="charizard" title=""/>
                 </button>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-gc-e5S" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="332" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemIndigoColor"/>
@@ -139,6 +147,7 @@
         </view>
     </objects>
     <resources>
+        <image name="charizard" width="68" height="56"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

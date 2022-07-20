@@ -29,6 +29,7 @@ class GameSettingsContainer: UIView {
 	@IBOutlet weak var applyToAllButton: UIButton!
 	@IBOutlet weak var explanationLabel: UILabel!
     @IBOutlet weak var gameButton: UIButton!
+    @IBOutlet weak var gameTitle: UILabel!
     
 
 	required init?(coder aDecoder: NSCoder) {
@@ -91,6 +92,7 @@ class GameSettingsContainer: UIView {
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
+        gameButton.setTitle("", for: .normal)
     }
 
     override init(frame: CGRect) {
@@ -135,10 +137,10 @@ class GameSettingsContainer: UIView {
 		applyToAllButton.backgroundColor = colorService.getSecondaryColor()
 		explanationSeparator.backgroundColor = colorService.getSecondaryColor()
 		generationSeparator.backgroundColor = colorService.getSecondaryColor()
-		generationLabel.textColor = colorService.getTertiaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 		generationLabel.textColor = colorService.getTertiaryColor()
+        gameTitle.textColor = colorService.getTertiaryColor()
 		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
 	}
 
@@ -153,6 +155,7 @@ class GameSettingsContainer: UIView {
 		explanationLabel.font = fontSettingsService.getSmallFont()
 		applyToAllButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
+        gameTitle.font = fontSettingsService.getLargeFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
