@@ -15,11 +15,12 @@ class SwitchStateServiceTests: XCTestCase {
 		try super.tearDownWithError()
     }
 
-    func test_gen2BreedingOn_switchIsEnabled() throws {
+    func test_gameHasGen2Breeding_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
+        pokemon.game = .Crystal
 		pokemon.generation = 2
-		pokemon.huntMethod = .Gen2Breeding
+        pokemon.huntMethod = .Gen2Breeding
 		let gen2BreedingSwitch = UISwitch()
 		gen2BreedingSwitch.isOn = false
 
@@ -31,10 +32,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(gen2BreedingSwitch.isEnabled)
     }
 
-	func test_generationIsNot2_switchIsDisabled() throws {
+	func test_gameDoesNotHaveGen2Breeding_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 4
+        pokemon.game = .SoulSilver
 		let gen2BreedingSwitch = UISwitch()
 		gen2BreedingSwitch.isOn = true
 
@@ -42,15 +44,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveGen2BreddingSwitchState(pokemon: pokemon, gen2BreedingSwitch: gen2BreedingSwitch)
 
 		// Assert
-		XCTAssertTrue(!gen2BreedingSwitch.isOn)
-		XCTAssertTrue(!gen2BreedingSwitch.isEnabled)
+		XCTAssertFalse(gen2BreedingSwitch.isOn)
+		XCTAssertFalse(gen2BreedingSwitch.isEnabled)
 	}
 
-	func test_generationHasShinyCharm_switchIsEnabled() throws {
+	func test_gameHasShinyCharm_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 5
-		pokemon.isShinyCharmActive = true
+        pokemon.game = .Black2
+        pokemon.isShinyCharmActive = true
 		let shinyCharmSwitch = UISwitch()
 		shinyCharmSwitch.isOn = false
 
@@ -62,10 +65,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(shinyCharmSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveShinyCharm_switchIsDisabled() throws {
+	func test_gameDoesNotHaveShinyCharm_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 2
+        pokemon.game = .Gold
 		let shinyCharmSwitch = UISwitch()
 		shinyCharmSwitch.isOn = true
 
@@ -73,15 +77,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon, shinyCharmSwitch: shinyCharmSwitch)
 
 		// Assert
-		XCTAssertTrue(!shinyCharmSwitch.isOn)
-		XCTAssertTrue(!shinyCharmSwitch.isEnabled)
+		XCTAssertFalse(shinyCharmSwitch.isOn)
+		XCTAssertFalse(shinyCharmSwitch.isEnabled)
 	}
 
-	func test_generationHasFriendSafari_switchIsEnabled() throws {
+	func test_gameHasFriendSafari_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 6
-		pokemon.huntMethod = .FriendSafari
+        pokemon.game = .X
+        pokemon.huntMethod = .FriendSafari
 		let friendSafariSwitch = UISwitch()
 		friendSafariSwitch.isOn = false
 
@@ -93,10 +98,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(friendSafariSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveFriendSafari_switchIsDisabled() throws {
+	func test_gameDoesNotHaveFriendSafari_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 2
+        pokemon.game = .Silver
 		let friendSafariSwitch = UISwitch()
 		friendSafariSwitch.isOn = true
 
@@ -104,15 +110,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveFriendSafariSwitchState(pokemon: pokemon, friendSafariSwitch: friendSafariSwitch)
 
 		// Assert
-		XCTAssertTrue(!friendSafariSwitch.isOn)
-		XCTAssertTrue(!friendSafariSwitch.isEnabled)
+		XCTAssertFalse(friendSafariSwitch.isOn)
+		XCTAssertFalse(friendSafariSwitch.isEnabled)
 	}
 
-	func test_generationHasLures_switchIsEnabled() throws {
+	func test_gameHasLures_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 0
-		pokemon.huntMethod = .Lure
+		pokemon.generation = 7
+        pokemon.game = .LetsGoPikachu
+        pokemon.huntMethod = .Lure
 		let lureSwitch = UISwitch()
 		lureSwitch.isOn = false
 
@@ -124,10 +131,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(lureSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveLures_switchIsDisabled() throws {
+	func test_gameDoesNotHaveLures_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 2
+        pokemon.game = .Gold
 		let lureSwitch = UISwitch()
 		lureSwitch.isOn = true
 
@@ -135,15 +143,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveLureSwitchState(pokemon: pokemon, lureSwitch: lureSwitch)
 
 		// Assert
-		XCTAssertTrue(!lureSwitch.isOn)
-		XCTAssertTrue(!lureSwitch.isEnabled)
+		XCTAssertFalse(lureSwitch.isOn)
+		XCTAssertFalse(lureSwitch.isEnabled)
 	}
 
-	func test_generationHasMasuda_switchIsEnabled() throws {
+	func test_gameHasMasuda_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 4
-		pokemon.huntMethod = .Masuda
+        pokemon.game = .Platinum
+        pokemon.huntMethod = .Masuda
 		let masudaSwitch = UISwitch()
 		masudaSwitch.isOn = false
 
@@ -155,10 +164,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(masudaSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveMasuda_switchIsDisabled() throws {
+	func test_gameDoesNotHaveMasuda_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 2
+        pokemon.game = .Crystal
 		let masudaSwitch = UISwitch()
 		masudaSwitch.isOn = true
 
@@ -166,15 +176,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveMasudaSwitchState(pokemon: pokemon, masudaSwitch: masudaSwitch)
 
 		// Assert
-		XCTAssertTrue(!masudaSwitch.isOn)
-		XCTAssertTrue(!masudaSwitch.isEnabled)
+		XCTAssertFalse(masudaSwitch.isOn)
+		XCTAssertFalse(masudaSwitch.isEnabled)
 	}
 
-	func test_generationHasChainFishing_switchIsEnabled() throws {
+	func test_gameHasChainFishing_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 6
-		pokemon.huntMethod = .ChainFishing
+        pokemon.game = .OmegaRuby
+        pokemon.huntMethod = .ChainFishing
 		let chainFishingSwitch = UISwitch()
 		chainFishingSwitch.isOn = false
 
@@ -186,10 +197,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(chainFishingSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveChainFishing_switchIsDisabled() throws {
+	func test_gameDoesNotHaveChainFishing_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 2
+		pokemon.generation = 8
+        pokemon.game = .Sword
 		let chainFishingSwitch = UISwitch()
 		chainFishingSwitch.isOn = true
 
@@ -197,15 +209,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveChainFishingSwitchState(pokemon: pokemon, chainFishingSwitch: chainFishingSwitch)
 
 		// Assert
-		XCTAssertTrue(!chainFishingSwitch.isOn)
-		XCTAssertTrue(!chainFishingSwitch.isEnabled)
+		XCTAssertFalse(chainFishingSwitch.isOn)
+		XCTAssertFalse(chainFishingSwitch.isEnabled)
 	}
 
-	func test_generationHasSosChaining_switchIsEnabled() throws {
+	func test_gameHasSosChaining_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 7
-		pokemon.huntMethod = .SosChaining
+        pokemon.game = .UltraSun
+        pokemon.huntMethod = .SosChaining
 		let sosChainingSwitch = UISwitch()
 		sosChainingSwitch.isOn = false
 
@@ -217,10 +230,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(sosChainingSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveSosChaining_switchIsDisabled() throws {
+	func test_gameDoesNotHaveSosChaining_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 2
+		pokemon.generation = 6
+        pokemon.game = .AlphaSapphire
 		let sosChainingSwitch = UISwitch()
 		sosChainingSwitch.isOn = true
 
@@ -228,15 +242,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveSosChainingSwitchState(pokemon: pokemon, sosChainingSwitch: sosChainingSwitch)
 
 		// Assert
-		XCTAssertTrue(!sosChainingSwitch.isOn)
-		XCTAssertTrue(!sosChainingSwitch.isEnabled)
+		XCTAssertFalse(sosChainingSwitch.isOn)
+		XCTAssertFalse(sosChainingSwitch.isEnabled)
 	}
 
-	func test_generationHasPokeradar_switchIsEnabled() throws {
+	func test_gameHasPokeradar_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 4
-		pokemon.huntMethod = .Pokeradar
+        pokemon.game = .Pearl
+        pokemon.huntMethod = .Pokeradar
 		let pokeradarSwitch = UISwitch()
 		pokeradarSwitch.isOn = false
 
@@ -248,10 +263,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(pokeradarSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHavePokeradar_switchIsDisabled() throws {
+	func test_gameDoesNotHavePokeradar_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 2
+		pokemon.generation = 5
+        pokemon.game = .Black2
 		let pokeradarSwitch = UISwitch()
 		pokeradarSwitch.isOn = true
 
@@ -259,15 +275,16 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolvePokeradarSwitchState(pokemon: pokemon, pokeradarSwitch: pokeradarSwitch)
 
 		// Assert
-		XCTAssertTrue(!pokeradarSwitch.isOn)
-		XCTAssertTrue(!pokeradarSwitch.isEnabled)
+		XCTAssertFalse(pokeradarSwitch.isOn)
+		XCTAssertFalse(pokeradarSwitch.isEnabled)
 	}
 
-	func test_generationHasDexNav_switchIsEnabled() throws {
+	func test_gameHasDexNav_switchIsEnabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 6
-		pokemon.huntMethod = .DexNav
+        pokemon.game = .AlphaSapphire
+        pokemon.huntMethod = .DexNav
 		let dexNavSwitch = UISwitch()
 		dexNavSwitch.isOn = false
 
@@ -279,10 +296,11 @@ class SwitchStateServiceTests: XCTestCase {
 		XCTAssertTrue(dexNavSwitch.isEnabled)
 	}
 
-	func test_generationDoesNotHaveDexNav_switchIsDisabled() throws {
+	func test_gameDoesNotHaveDexNav_switchIsDisabled() throws {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 2
+		pokemon.generation = 7
+        pokemon.game = .Sun
 		let dexNavSwitch = UISwitch()
 		dexNavSwitch.isOn = true
 
@@ -290,7 +308,7 @@ class SwitchStateServiceTests: XCTestCase {
 		switchStateService.resolveDexNavSwitchState(pokemon: pokemon, dexNavSwitch: dexNavSwitch)
 
 		// Assert
-		XCTAssertTrue(!dexNavSwitch.isOn)
-		XCTAssertTrue(!dexNavSwitch.isEnabled)
+		XCTAssertFalse(dexNavSwitch.isOn)
+		XCTAssertFalse(dexNavSwitch.isEnabled)
 	}
 }

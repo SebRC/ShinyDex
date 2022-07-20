@@ -27,6 +27,7 @@ class PokemonServiceTests: XCTestCase {
 		pokemon.increment = 4
 		pokemon.isBeingHunted = true
 		pokemon.isShinyCharmActive = true
+        pokemon.game = Games.SoulSilver
 
 		// Act
 		pokemonService.save(pokemon: pokemon)
@@ -41,6 +42,7 @@ class PokemonServiceTests: XCTestCase {
 		XCTAssertEqual(updatedPokemon.increment, 4)
 		XCTAssertTrue(updatedPokemon.isBeingHunted)
 		XCTAssertTrue(updatedPokemon.isShinyCharmActive)
+        XCTAssertEqual(updatedPokemon.game, Games.SoulSilver)
 		restoreValues(oldPokemon: oldPokemon, pokemonToUpdate: updatedPokemon)
     }
 
@@ -54,6 +56,7 @@ class PokemonServiceTests: XCTestCase {
 		cachedPokemon.increment = pokemon.increment
 		cachedPokemon.isBeingHunted = pokemon.isBeingHunted
 		cachedPokemon.isShinyCharmActive = pokemon.isShinyCharmActive
+        cachedPokemon.game = pokemon.game
 		return cachedPokemon
 	}
 
@@ -66,6 +69,7 @@ class PokemonServiceTests: XCTestCase {
 		pokemonToUpdate.increment = oldPokemon.increment
 		pokemonToUpdate.isBeingHunted = oldPokemon.isBeingHunted
 		pokemonToUpdate.isShinyCharmActive = oldPokemon.isShinyCharmActive
+        pokemonToUpdate.game = oldPokemon.game
 		pokemonService.save(pokemon: pokemonToUpdate)
 	}
 }

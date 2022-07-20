@@ -2,9 +2,11 @@ import Foundation
 import UIKit
 
 class SwitchStateService {
+    
 	func resolveGen2BreddingSwitchState(pokemon: Pokemon, gen2BreedingSwitch: UISwitch)
 	{
-		if (pokemon.generation == 2) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.Gen2Breeding) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: gen2BreedingSwitch)
 			gen2BreedingSwitch.isOn = pokemon.huntMethod == .Gen2Breeding
 		}
@@ -14,7 +16,8 @@ class SwitchStateService {
 	}
 	
 	func resolveShinyCharmSwitchState(pokemon: Pokemon, shinyCharmSwitch: UISwitch) {
-		if (pokemon.generation > 4 || pokemon.generation == 0) {
+        let switchEnabled = GamesList.games[pokemon.game]?.isShinyCharmAvailable ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: shinyCharmSwitch)
 			shinyCharmSwitch.isOn = pokemon.isShinyCharmActive
 		}
@@ -25,7 +28,8 @@ class SwitchStateService {
 	}
 
 	func resolveFriendSafariSwitchState(pokemon: Pokemon, friendSafariSwitch: UISwitch) {
-		if (pokemon.generation == 6) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.FriendSafari) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: friendSafariSwitch)
 			friendSafariSwitch.isOn = pokemon.huntMethod == .FriendSafari
 		}
@@ -35,7 +39,8 @@ class SwitchStateService {
 	}
 
 	func resolveLureSwitchState(pokemon: Pokemon, lureSwitch: UISwitch) {
-		if (pokemon.generation == 0) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.Lure) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: lureSwitch)
 			lureSwitch.isOn = pokemon.huntMethod == .Lure
 		}
@@ -45,17 +50,19 @@ class SwitchStateService {
 	}
 
 	func resolveMasudaSwitchState(pokemon: Pokemon, masudaSwitch: UISwitch) {
-		if (pokemon.generation < 4) {
-			disableSwitch(uiSwitch: masudaSwitch)
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.Masuda) ?? false
+		if (switchEnabled) {
+            enableSwitch(uiSwitch: masudaSwitch)
+            masudaSwitch.isOn = pokemon.huntMethod == .Masuda
 		}
 		else {
-			enableSwitch(uiSwitch: masudaSwitch)
-			masudaSwitch.isOn = pokemon.huntMethod == .Masuda
+            disableSwitch(uiSwitch: masudaSwitch)
 		}
 	}
 
 	func resolveChainFishingSwitchState(pokemon: Pokemon, chainFishingSwitch: UISwitch) {
-		if (pokemon.generation == 6) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.ChainFishing) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: chainFishingSwitch)
 			chainFishingSwitch.isOn = pokemon.huntMethod == .ChainFishing
 		}
@@ -65,7 +72,8 @@ class SwitchStateService {
 	}
 
 	func resolveSosChainingSwitchState(pokemon: Pokemon, sosChainingSwitch: UISwitch) {
-		if (pokemon.generation == 7) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.SosChaining) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: sosChainingSwitch)
 			sosChainingSwitch.isOn = pokemon.huntMethod == .SosChaining
 		}
@@ -75,7 +83,8 @@ class SwitchStateService {
 	}
 
 	func resolvePokeradarSwitchState(pokemon: Pokemon, pokeradarSwitch: UISwitch) {
-		if (pokemon.generation == 4 || pokemon.generation == 6) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.Pokeradar) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: pokeradarSwitch)
 			pokeradarSwitch.isOn = pokemon.huntMethod == .Pokeradar
 		}
@@ -85,7 +94,8 @@ class SwitchStateService {
 	}
 
 	func resolveDexNavSwitchState(pokemon: Pokemon, dexNavSwitch: UISwitch) {
-		if (pokemon.generation == 6) {
+        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(HuntMethod.DexNav) ?? false
+		if (switchEnabled) {
 			enableSwitch(uiSwitch: dexNavSwitch)
 			dexNavSwitch.isOn = pokemon.huntMethod == .DexNav
 		}

@@ -64,6 +64,9 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
     @IBAction func gameSelectedInGameSettings(_ unwindSegue: UIStoryboardSegue) {
         let source = unwindSegue.source as! GameSelectorTVC
         let selectedGame = source.selectedGame!
+        pokemon = source.pokemon
+        gameSettingsContainer.pokemon = pokemon
         gameSettingsContainer.gameButton.setImage(UIImage(named: selectedGame.coverPokemon), for: .normal)
+        gameSettingsContainer.resolveUIObjectsState()
     }
 }
