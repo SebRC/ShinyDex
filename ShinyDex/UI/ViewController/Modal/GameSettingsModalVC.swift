@@ -64,6 +64,10 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
     @IBAction func gameSelectedInGameSettings(_ unwindSegue: UIStoryboardSegue) {
         let source = unwindSegue.source as! GameSelectorTVC
         let selectedGame = source.selectedGame!
+        let shouldMethodBeReset = !selectedGame.availableMethods.contains(pokemon.huntMethod)
+        pokemon.huntMethod = shouldMethodBeReset ? .Encounters : pokemon.huntMethod
+        let shouldShinyCharmBeEnabled = selectedGame.isShinyCharmAvailable
+        pokemon.isShinyCharmActive = shouldShinyCharmBeEnabled ? pokemon.isShinyCharmActive : false
         pokemon = source.pokemon
         gameSettingsContainer.pokemon = pokemon
         gameSettingsContainer.gameButton.setImage(UIImage(named: selectedGame.coverPokemon), for: .normal)

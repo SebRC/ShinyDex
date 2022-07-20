@@ -43,7 +43,7 @@ class Pokemon: NSObject {
 		self.encounters = -1
 		self.isBeingHunted = false
 		self.caughtBall = "Placeholder"
-		self.generation = 2
+		self.generation = 1
 		self.isShinyCharmActive = false
 		self.shinyOdds = 8192
 		self.huntMethod = HuntMethod.Encounters
