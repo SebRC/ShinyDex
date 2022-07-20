@@ -91,7 +91,6 @@ class GameSettingsContainer: UIView {
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
-        gameButton.setTitle("", for: .normal)
     }
 
     override init(frame: CGRect) {

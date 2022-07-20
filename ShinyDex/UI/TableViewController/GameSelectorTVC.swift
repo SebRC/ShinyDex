@@ -22,7 +22,23 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                  GamesList.games[Games.Pearl],
                  GamesList.games[Games.Platinum],
                  GamesList.games[Games.Heartgold],
-                 GamesList.games[Games.SoulSilver]]
+                 GamesList.games[Games.SoulSilver],
+                 GamesList.games[Games.Black],
+                 GamesList.games[Games.White],
+                 GamesList.games[Games.Black2],
+                 GamesList.games[Games.White2],
+                 GamesList.games[Games.X],
+                 GamesList.games[Games.Y],
+                 GamesList.games[Games.OmegaRuby],
+                 GamesList.games[Games.AlphaSapphire],
+                 GamesList.games[Games.Sun],
+                 GamesList.games[Games.Moon],
+                 GamesList.games[Games.UltraSun],
+                 GamesList.games[Games.UltraMoon],
+                 GamesList.games[Games.LetsGoPikachu],
+                 GamesList.games[Games.LetsGoEevee],
+                 GamesList.games[Games.Sword],
+                 GamesList.games[Games.Shield]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
