@@ -65,7 +65,7 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let game = games[indexPath.row]!
         cell.gameImage.image = UIImage(named: game.coverPokemon)
         cell.gameTitle.text = game.title
-        cell.gameTitle.font = fontSettingsService.getSmallFont()
+        cell.gameTitle.font = fontSettingsService.getMediumFont()
         cell.gameTitle.textColor = colorService.getTertiaryColor()
         return cell
     }
@@ -85,6 +85,6 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 101
+        return 140
     }
 }
