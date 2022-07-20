@@ -4,6 +4,8 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var gameTableView: UITableView!
     
     var pokemonService = PokemonService()
+    var fontSettingsService = FontSettingsService()
+    var colorService = ColorService()
     var pokemon: Pokemon!
     var selectedGame: Game!
     
@@ -44,10 +46,18 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         gameTableView.delegate = self
         gameTableView.dataSource = self
+        
+        view.backgroundColor = .clear
+        gameTableView.separatorColor = colorService.getSecondaryColor()
+        gameTableView.backgroundColor = .clear
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return GamesList.games.count
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = colorService.getPrimaryColor()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,6 +65,8 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let game = games[indexPath.row]!
         cell.gameImage.image = UIImage(named: game.coverPokemon)
         cell.gameTitle.text = game.title
+        cell.gameTitle.font = fontSettingsService.getSmallFont()
+        cell.gameTitle.textColor = colorService.getTertiaryColor()
         return cell
     }
     
