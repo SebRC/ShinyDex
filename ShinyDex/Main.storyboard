@@ -1471,6 +1471,7 @@ Are you sure you want to do this?</string>
                     <connections>
                         <outlet property="gameTableView" destination="pUD-S6-teP" id="Rkg-3Q-EzM"/>
                         <segue destination="ZEt-y8-ZD7" kind="unwind" identifier="unwindFromGameSelector" unwindAction="gameSelected:" id="hzd-d9-3Cf"/>
+                        <segue destination="ZEt-y8-ZD7" kind="unwind" identifier="unwindFromGameSelectorToGameSettings" unwindAction="gameSelectedInGameSettings:" id="4ZU-yK-owu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ns9-35-OMS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1708,6 +1709,7 @@ Are you sure you want to do this?</string>
                         <outlet property="scrollView" destination="4w6-lJ-1OO" id="03W-OU-Dby"/>
                         <segue destination="TwF-WD-934" kind="unwind" identifier="unwindFromGameSettings" unwindAction="dismissModal:" id="fL3-zu-1LC"/>
                         <segue destination="Kuf-5k-0pa" kind="presentation" identifier="applyToAll" id="m5D-ZB-ild"/>
+                        <segue destination="7vF-Xa-NcQ" kind="presentation" identifier="fromGameSettingsToGameSelector" id="ND6-7t-Ayg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIa-Z0-vHF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2191,8 +2193,9 @@ Are you sure you want to do this?</string>
     <inferredMetricsTieBreakers>
         <segue reference="GWK-Tp-YuW"/>
         <segue reference="7k3-aT-9gU"/>
+        <segue reference="ND6-7t-Ayg"/>
         <segue reference="LE8-BB-dtk"/>
-        <segue reference="m7y-w4-r1a"/>
+        <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

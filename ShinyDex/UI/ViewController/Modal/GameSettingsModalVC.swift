@@ -22,6 +22,9 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
         scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
 		
 		roundViewCorner()
+        
+        gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
+        gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[pokemon.game]?.coverPokemon ?? "charizard"), for: .normal)
     }
 	
 	fileprivate func roundViewCorner() {
@@ -42,9 +45,24 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
 			destVC.pokemon = pokemon
 			destVC.isFromSettings = false
 		}
+        else if (segue.identifier == "fromGameSettingsToGameSelector") {
+            let destVC = segue.destination as! GameSelectorTVC
+            destVC.pokemon = pokemon
+            destVC.selectedGame = GamesList.games[pokemon.game]
+        }
 	}
 
 	@IBAction func showGameSettingsConfirmation(_ unwindSegue: UIStoryboardSegue) {
 		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
 	}
+    
+    @objc fileprivate func gameButtonPressed() {
+        performSegue(withIdentifier: "fromGameSettingsToGameSelector", sender: self)
+    }
+    
+    @IBAction func gameSelectedInGameSettings(_ unwindSegue: UIStoryboardSegue) {
+        let source = unwindSegue.source as! GameSelectorTVC
+        let selectedGame = source.selectedGame!
+        gameSettingsContainer.gameButton.setImage(UIImage(named: selectedGame.coverPokemon), for: .normal)
+    }
 }

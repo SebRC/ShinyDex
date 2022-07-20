@@ -91,7 +91,6 @@ class GameSettingsContainer: UIView {
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
-        gameButton.setImage(UIImage(named: GamesList.games[Games.Red]?.coverPokemon ?? "charizard"), for: .normal)
         gameButton.setTitle("", for: .normal)
     }
 
@@ -254,23 +253,6 @@ class GameSettingsContainer: UIView {
 	@objc fileprivate func changeUseIncrementInHunts(_ sender: Any) {
 		pokemon?.useIncrementInHunts = useIncrementCell.actionSwitch.isOn
 		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: pokemon!.useIncrementInHunts)
-		saveIfReal()
-	}
-
-	@objc fileprivate func changeGamePressed(_ sender: Any) {
-//		if (generationSegmentedControl.selectedSegmentIndex != 6) {
-//			pokemon!.generation = Int(generationSegmentedControl.titleForSegment(at: generationSegmentedControl.selectedSegmentIndex)!)!
-//		}
-//		else {
-//			pokemon!.generation = 0
-//		}
-//
-//		if (pokemon?.huntMethod != .Masuda || pokemon?.generation == 2 || pokemon?.generation == 0) {
-//			pokemon?.huntMethod = .Encounters
-//		}
-//		resolveSwitchStates()
-//		setAllImageViewAlphas()
-//		setShinyOddsLabelText()
 		saveIfReal()
 	}
 

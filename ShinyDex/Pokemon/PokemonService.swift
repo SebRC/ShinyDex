@@ -35,6 +35,7 @@ class PokemonService {
 			pokemonEntity.shinyOdds = pokemon.shinyOdds
 			pokemonEntity.huntMethod = pokemon.huntMethod
 			pokemonEntity.useIncrementInHunts = pokemon.useIncrementInHunts
+            pokemonEntity.game = pokemon.game
 			save(pokemon: pokemonEntity)
 		}
 	}

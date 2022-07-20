@@ -27,8 +27,6 @@ class PokemonServiceTests: XCTestCase {
 		pokemon.increment = 4
 		pokemon.isBeingHunted = true
 		pokemon.isShinyCharmActive = true
-		print(oldPokemon.encounters)
-		print(oldPokemon.isBeingHunted)
 
 		// Act
 		pokemonService.save(pokemon: pokemon)

@@ -50,9 +50,10 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         if(pokemon.name != "Placeholder") {
             pokemonService.save(pokemon: pokemon)
+            performSegue(withIdentifier: "unwindFromGameSelectorToGameSettings", sender: self)
+        } else {
+            performSegue(withIdentifier: "unwindFromGameSelector", sender: self)
         }
-        
-        performSegue(withIdentifier: "unwindFromGameSelector", sender: self)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

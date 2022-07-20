@@ -40,6 +40,7 @@ public class PokemonRepository {
 		pokemon.pokemonEntity.setValue(pokemon.huntMethod.rawValue, forKey: "huntMethod")
 		pokemon.pokemonEntity.setValue(pokemon.increment, forKey: "increment")
 		pokemon.pokemonEntity.setValue(pokemon.useIncrementInHunts, forKey: "useIncrementInHunts")
+        pokemon.pokemonEntity.setValue(pokemon.game.rawValue, forKey: "game")
 		
 		do {
 			try managedContext.save()
@@ -65,6 +66,7 @@ public class PokemonRepository {
 		pokemonEntity.setValue(HuntMethod.Encounters.rawValue, forKey: "huntMethod")
 		pokemonEntity.setValue(1, forKey: "increment")
 		pokemonEntity.setValue(false, forKey: "useIncrementInHunts")
+        pokemonEntity.setValue(Games.Red.rawValue, forKey: "game")
 
 		let pokemon = Pokemon(pokemonEntity: pokemonEntity)
 
