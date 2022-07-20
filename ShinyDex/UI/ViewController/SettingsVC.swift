@@ -188,6 +188,6 @@ class SettingsVC: UIViewController, SegueActivated {
     @IBAction func gameSelected(_ unwindSegue: UIStoryboardSegue) {
         let source = unwindSegue.source as! GameSelectorTVC
         let selectedGame = source.selectedGame!
-        gameSettingsContainer.gameButton.imageView?.image = UIImage(named: selectedGame.coverPokemon)
+        gameSettingsContainer.gameButton.setImage(UIImage(named: selectedGame.coverPokemon), for: .normal)
     }
 }

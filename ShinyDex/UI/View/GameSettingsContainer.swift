@@ -88,10 +88,11 @@ class GameSettingsContainer: UIView {
 		sosChainCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		pokeradarCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-        //gameButton.addTarget(self, action: #selector(changeGamePressed), for: .touchUpInside)
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
+        gameButton.setImage(UIImage(named: GamesList.games[Games.Red]?.coverPokemon ?? "charizard"), for: .normal)
+        gameButton.setTitle("", for: .normal)
     }
 
     override init(frame: CGRect) {
