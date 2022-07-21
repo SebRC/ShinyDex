@@ -30,20 +30,19 @@ class OddsService {
 			return dexNavOddsService.getOdds(searchLevel: encounters, isShinyCharmActive: isCharmActive)
 		case .SosChaining:
 			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
+        case .Lure:
+            return lgpeOddsService.getOdds(pokemon: pokemon)
 		default:
-			if (generation == 2 || generation == 4 || generation == 5 && !isCharmActive) {
+            if(pokemon.game == .LetsGoPikachu || pokemon.game == .LetsGoEevee) {
+                return lgpeOddsService.getOdds(pokemon: pokemon)
+            }
+			if (generation < 5) {
 				return 8192
 			}
 			else if (generation == 5) {
-				return 2731
+                return isCharmActive ? 2731 : 8192
 			}
-			else if (generation > 5 && generation <= 8 && !isCharmActive) {
-				return 4096
-			}
-			else if (generation > 5 && generation <= 8) {
-				return 1365
-			}
-			return lgpeOddsService.getOdds(pokemon: pokemon)
+            return isCharmActive ? 1365 : 4096
 		}
 	}
 }
