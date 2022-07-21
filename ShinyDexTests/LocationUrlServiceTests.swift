@@ -47,7 +47,7 @@ class LocationUrlServiceTests: XCTestCase {
 		XCTAssertEqual(actual, expected)
 	}
 
-	func test_generationIs8_pokemonNameIsPartoFUrl() {
+	func test_generationIs8_pokemonNameIsPartOfUrl() {
 		// Arrange
 		let expected = "https://serebii.net/pokedex-swsh/charmander"
 		let pokemon = Pokemon()
