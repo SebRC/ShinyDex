@@ -155,7 +155,7 @@ class GameSettingsContainer: UIView {
 		explanationLabel.font = fontSettingsService.getSmallFont()
 		applyToAllButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		generationLabel.font = fontSettingsService.getExtraLargeFont()
-        gameTitle.font = fontSettingsService.getLargeFont()
+        gameTitle.font = fontSettingsService.getMediumFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}

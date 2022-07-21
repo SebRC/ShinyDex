@@ -36,114 +36,182 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="1395"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGq-bT-bQa">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGq-bT-bQa">
                     <rect key="frame" x="10" y="221" width="334" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="VGq-bT-bQa" secondAttribute="height" multiplier="167:24" id="R7V-Sf-VVa"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ejs-cE-SWk" userLabel="generationIncrementSeparator">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejs-cE-SWk" userLabel="generationIncrementSeparator">
                     <rect key="frame" x="10" y="316" width="340" height="2"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrj-zV-AHL" userLabel="ExplanationSeparator">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrj-zV-AHL" userLabel="ExplanationSeparator">
                     <rect key="frame" x="10" y="221" width="340" height="2"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="hrj-zV-AHL" secondAttribute="height" multiplier="170:1" id="45Y-vM-90g"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srX-hI-uq3" userLabel="Shiny Charm" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srX-hI-uq3" userLabel="Shiny Charm" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="724" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgS-ck-aw2" userLabel="Gen 2 breeding" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SgS-ck-aw2" userLabel="Gen 2 breeding" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="430" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ru-dN-Iwb" userLabel="Masuda" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ru-dN-Iwb" userLabel="Masuda" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="528" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xJq-3c-mBq" userLabel="Pokeradar" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJq-3c-mBq" userLabel="Pokeradar" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="626" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shiny Odds: 1/8192" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9o-xC-X7G">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shiny Odds: 1/8192" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9o-xC-X7G">
                     <rect key="frame" x="16" y="1310" width="328" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="1RA-el-naG"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qF-eT-lIM" userLabel="Chain fishing" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qF-eT-lIM" userLabel="Chain fishing" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="822" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEA-0H-49b" userLabel="Dexnav" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cEA-0H-49b" userLabel="Dexnav" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="920" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPc-xD-xqC" userLabel="FriendSafari" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QPc-xD-xqC" userLabel="FriendSafari" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="1018" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qWU-9P-vQC" userLabel="Lure" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qWU-9P-vQC" userLabel="Lure" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="1214" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8kC-36-6OH" userLabel="SOS chaining" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kC-36-6OH" userLabel="SOS chaining" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="1116" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-gc-e5S" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-gc-e5S" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
                     <rect key="frame" x="5" y="332" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkg-0l-t4Y">
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkg-0l-t4Y">
                     <rect key="frame" x="10" y="148" width="340" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fkg-0l-t4Y" secondAttribute="height" multiplier="68:13" id="uCH-Tv-6xI"/>
+                    </constraints>
                     <state key="normal" title="Apply to all Pokémon"/>
                     <connections>
                         <action selector="applyToAllPressed:" destination="-1" eventType="touchUpInside" id="zx3-FF-6LX"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Explanation text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-CS-vmt">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explanation text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-CS-vmt">
                     <rect key="frame" x="16" y="15" width="328" height="112"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="uwd-CS-vmt" secondAttribute="height" multiplier="41:14" id="tAe-Cj-Gst"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnD-g9-V6b">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnD-g9-V6b">
                     <rect key="frame" x="16" y="257" width="245" height="51"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="JnD-g9-V6b" secondAttribute="height" multiplier="245:51" id="SHA-eR-YRq"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-aa-9ke">
-                    <rect key="frame" x="294" y="248" width="50" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-aa-9ke">
+                    <rect key="frame" x="252" y="248" width="92" height="70"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="charizard" title=""/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemIndigoColor"/>
+            <constraints>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="top" secondItem="VGq-bT-bQa" secondAttribute="bottom" constant="47" id="0CQ-gK-yYu"/>
+                <constraint firstAttribute="bottom" secondItem="5GK-gc-e5S" secondAttribute="bottom" constant="973" id="0DG-cn-Bba"/>
+                <constraint firstItem="6ru-dN-Iwb" firstAttribute="top" secondItem="SgS-ck-aw2" secondAttribute="bottom" constant="8" symbolic="YES" id="0IF-xK-uva"/>
+                <constraint firstItem="cEA-0H-49b" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="920" id="1sx-go-ylm"/>
+                <constraint firstItem="hrj-zV-AHL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="2e6-h8-vQn"/>
+                <constraint firstItem="8kC-36-6OH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1116" id="31z-FO-QjM"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="6ru-dN-Iwb" secondAttribute="centerX" id="3UR-Tn-4Wx"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="4C9-xO-aSD"/>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="top" secondItem="JnD-g9-V6b" secondAttribute="bottom" constant="8" symbolic="YES" id="5Ap-q7-Hgp"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="QPc-xD-xqC" secondAttribute="centerX" id="5h2-JS-ghX"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="trailing" secondItem="q9o-xC-X7G" secondAttribute="trailing" id="6At-OZ-svE"/>
+                <constraint firstAttribute="bottom" secondItem="q9o-xC-X7G" secondAttribute="bottom" constant="20" id="6Rd-GH-Qcg"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="qWU-9P-vQC" secondAttribute="centerX" id="6eY-T4-h9V"/>
+                <constraint firstItem="SgH-aa-9ke" firstAttribute="top" secondItem="hrj-zV-AHL" secondAttribute="bottom" constant="25" id="7S5-5H-yju"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="SgS-ck-aw2" secondAttribute="centerX" id="84e-AU-lXS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uwd-CS-vmt" secondAttribute="trailing" constant="16" id="AnH-HD-jhY"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="5GK-gc-e5S" secondAttribute="leading" id="BHX-PE-JhQ"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="xJq-3c-mBq" secondAttribute="leading" id="BfP-KW-1eK"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="top" secondItem="8kC-36-6OH" secondAttribute="bottom" constant="8" symbolic="YES" id="BxN-f5-iYa"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="xJq-3c-mBq" secondAttribute="centerX" id="Cmp-JO-4cs"/>
+                <constraint firstAttribute="bottom" secondItem="SgS-ck-aw2" secondAttribute="bottom" constant="875" id="EQL-Ht-KDb"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="cEA-0H-49b" secondAttribute="centerX" id="Hf8-B3-x2b"/>
+                <constraint firstAttribute="bottom" secondItem="xJq-3c-mBq" secondAttribute="bottom" constant="679" id="IN8-4w-wsR"/>
+                <constraint firstAttribute="bottom" secondItem="srX-hI-uq3" secondAttribute="bottom" constant="581" id="JTx-sp-nxS"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="4qF-eT-lIM" secondAttribute="leading" id="L4K-Pk-LMP"/>
+                <constraint firstItem="cEA-0H-49b" firstAttribute="top" secondItem="4qF-eT-lIM" secondAttribute="bottom" constant="8" symbolic="YES" id="LOX-b9-qSc"/>
+                <constraint firstAttribute="bottom" secondItem="cEA-0H-49b" secondAttribute="bottom" constant="385" id="NF6-Ls-67m"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="leading" secondItem="uwd-CS-vmt" secondAttribute="leading" id="RpN-eN-26T"/>
+                <constraint firstItem="SgS-ck-aw2" firstAttribute="top" secondItem="5GK-gc-e5S" secondAttribute="bottom" constant="8" symbolic="YES" id="S4F-wC-RDK"/>
+                <constraint firstAttribute="trailing" secondItem="hrj-zV-AHL" secondAttribute="trailing" constant="10" id="U8C-Vs-QtL"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="ejs-cE-SWk" secondAttribute="centerX" id="ZSM-mO-qOC"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="leading" secondItem="hrj-zV-AHL" secondAttribute="leading" id="aDT-pI-ZVg"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="srX-hI-uq3" secondAttribute="leading" id="aNh-op-uGK"/>
+                <constraint firstItem="8kC-36-6OH" firstAttribute="top" secondItem="QPc-xD-xqC" secondAttribute="bottom" constant="8" symbolic="YES" id="adm-OQ-XTa"/>
+                <constraint firstAttribute="bottom" secondItem="ejs-cE-SWk" secondAttribute="bottom" constant="1077" id="bHA-4w-YD1"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="QPc-xD-xqC" secondAttribute="leading" id="bz4-PG-J7V"/>
+                <constraint firstItem="JnD-g9-V6b" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="cId-6o-bLi"/>
+                <constraint firstAttribute="bottom" secondItem="6ru-dN-Iwb" secondAttribute="bottom" constant="777" id="e8h-Gl-cPu"/>
+                <constraint firstItem="fkg-0l-t4Y" firstAttribute="top" secondItem="uwd-CS-vmt" secondAttribute="bottom" constant="21" id="eJo-Oi-zlc"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="top" secondItem="fkg-0l-t4Y" secondAttribute="bottom" constant="8" symbolic="YES" id="eKN-Gp-oAE"/>
+                <constraint firstItem="srX-hI-uq3" firstAttribute="top" secondItem="xJq-3c-mBq" secondAttribute="bottom" constant="8" symbolic="YES" id="eZR-Ii-1L1"/>
+                <constraint firstItem="JnD-g9-V6b" firstAttribute="top" secondItem="VGq-bT-bQa" secondAttribute="bottom" constant="-12" id="efM-M3-Oxl"/>
+                <constraint firstItem="uwd-CS-vmt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="f8Q-KT-1rZ"/>
+                <constraint firstItem="4qF-eT-lIM" firstAttribute="top" secondItem="srX-hI-uq3" secondAttribute="bottom" constant="8" symbolic="YES" id="fEG-ru-9cQ"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="trailing" secondItem="uwd-CS-vmt" secondAttribute="trailing" id="fow-Km-hD4"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="cEA-0H-49b" secondAttribute="leading" id="gLf-MD-V9h"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="8kC-36-6OH" secondAttribute="leading" id="gqm-sU-Q3B"/>
+                <constraint firstItem="5GK-gc-e5S" firstAttribute="top" secondItem="ejs-cE-SWk" secondAttribute="bottom" constant="14" id="hjg-6l-G8a"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="leading" secondItem="ejs-cE-SWk" secondAttribute="leading" id="hko-xi-9Cb"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="4qF-eT-lIM" secondAttribute="centerX" id="iUv-4J-tVw"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="8kC-36-6OH" secondAttribute="centerX" id="jCI-Xo-jCd"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="5GK-gc-e5S" secondAttribute="centerX" id="jI3-aV-apx"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="top" secondItem="qWU-9P-vQC" secondAttribute="bottom" constant="6" id="jMW-pq-L6L"/>
+                <constraint firstItem="8kC-36-6OH" firstAttribute="top" secondItem="QPc-xD-xqC" secondAttribute="bottom" constant="8" id="ngR-g5-s9m"/>
+                <constraint firstItem="fkg-0l-t4Y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="rQQ-Ff-Knn"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="SgS-ck-aw2" secondAttribute="leading" id="rpb-A5-qs3"/>
+                <constraint firstItem="QPc-xD-xqC" firstAttribute="top" secondItem="cEA-0H-49b" secondAttribute="bottom" constant="8" symbolic="YES" id="sgC-7S-OWa"/>
+                <constraint firstItem="xJq-3c-mBq" firstAttribute="top" secondItem="6ru-dN-Iwb" secondAttribute="bottom" constant="8" symbolic="YES" id="tot-ie-rpY"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="trailing" secondItem="SgH-aa-9ke" secondAttribute="trailing" id="uOE-Nk-ck3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fkg-0l-t4Y" secondAttribute="trailing" constant="10" id="uQe-GD-9pR"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="srX-hI-uq3" secondAttribute="centerX" id="uls-tI-d5p"/>
+                <constraint firstItem="uwd-CS-vmt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="urJ-7l-MK0"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1214" id="vmP-jl-eRp"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="top" secondItem="8kC-36-6OH" secondAttribute="bottom" constant="8" id="wCB-Vc-7Zj"/>
+                <constraint firstItem="qWU-9P-vQC" firstAttribute="leading" secondItem="6ru-dN-Iwb" secondAttribute="leading" id="ybe-fW-D0A"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="top" secondItem="hrj-zV-AHL" secondAttribute="top" id="zYt-QG-OV1"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="131.8840579710145" y="261.49553571428572"/>
+            <point key="canvasLocation" x="207" y="330"/>
         </view>
     </objects>
     <resources>
