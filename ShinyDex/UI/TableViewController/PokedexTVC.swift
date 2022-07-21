@@ -21,10 +21,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	override func viewDidLoad() {
         super.viewDidLoad()
 
-		allPokemon = pokemonService.getAll()
-		hunts = huntService.getAll()
-		slicedPokemon = slicePokemonList()
-
 		setUIColors()
 
 		setUpScopeBar()
@@ -38,10 +34,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        
+        setTitle()
 		
-		setTitle()
-
-		hunts = huntService.getAll()
+        allPokemon = pokemonService.getAll()
+        hunts = huntService.getAll()
+        slicedPokemon = slicePokemonList()
 
 		tableView.reloadData()
 	}
