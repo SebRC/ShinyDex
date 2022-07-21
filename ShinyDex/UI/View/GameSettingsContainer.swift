@@ -12,7 +12,7 @@ class GameSettingsContainer: UIView {
 
 	let nibName = "GameSettingsContainer"
     var contentView: UIView?
-	@IBOutlet weak var generationLabel: UILabel!
+	@IBOutlet weak var gameLabel: UILabel!
 	@IBOutlet weak var shinyCharmCell: GameSettingsCell!
 	@IBOutlet weak var lureCell: GameSettingsCell!
 	@IBOutlet weak var masudaCell: GameSettingsCell!
@@ -40,6 +40,7 @@ class GameSettingsContainer: UIView {
 
 		explanationSeparator.layer.cornerRadius = CornerRadius.standard
 		applyToAllButton.layer.cornerRadius = CornerRadius.standard
+        gameButton.layer.cornerRadius = CornerRadius.standard
 		generationSeparator.layer.cornerRadius = CornerRadius.standard
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
 		useIncrementCell.titleLabel.text = "Use increment in Hunts"
@@ -138,9 +139,9 @@ class GameSettingsContainer: UIView {
 		explanationSeparator.backgroundColor = colorService.getSecondaryColor()
 		generationSeparator.backgroundColor = colorService.getSecondaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-		generationLabel.textColor = colorService.getTertiaryColor()
+		gameLabel.textColor = colorService.getTertiaryColor()
         gameTitle.textColor = colorService.getTertiaryColor()
+        gameButton.backgroundColor = colorService.getSecondaryColor()
 		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
 	}
 
@@ -154,7 +155,7 @@ class GameSettingsContainer: UIView {
 	func setFonts() {
 		explanationLabel.font = fontSettingsService.getSmallFont()
 		applyToAllButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		generationLabel.font = fontSettingsService.getExtraLargeFont()
+		gameLabel.font = fontSettingsService.getExtraLargeFont()
         gameTitle.font = fontSettingsService.getMediumFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
 		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
@@ -247,18 +248,6 @@ class GameSettingsContainer: UIView {
 
 	fileprivate func setAllImageViewAlphas() {
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
-//		if (pokemon?.generation == 2) {
-//			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Gen2Breeding)
-//		}
-//		else {
-//			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: false)
-//		}
-//		if (pokemon?.generation == 0) {
-//			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Lure)
-//		}
-//		else {
-//			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: false)
-//		}
         setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Gen2Breeding)
 		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Masuda)
 		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Pokeradar)
