@@ -277,14 +277,14 @@ class GameSettingsContainer: UIView {
 
 	fileprivate func resolveSwitchStates() {
 		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon, shinyCharmSwitch: shinyCharmCell.actionSwitch)
-		switchStateService.resolveLureSwitchState(pokemon: pokemon, lureSwitch: lureCell.actionSwitch)
-		switchStateService.resolveMasudaSwitchState(pokemon: pokemon, masudaSwitch: masudaCell.actionSwitch)
-		switchStateService.resolveGen2BreddingSwitchState(pokemon: pokemon, gen2BreedingSwitch: genTwoBreedingCell.actionSwitch)
-		switchStateService.resolveFriendSafariSwitchState(pokemon: pokemon, friendSafariSwitch: friendSafariCell.actionSwitch)
-		switchStateService.resolveSosChainingSwitchState(pokemon: pokemon, sosChainingSwitch: sosChainCell.actionSwitch)
-		switchStateService.resolveChainFishingSwitchState(pokemon: pokemon, chainFishingSwitch: chainFishingCell.actionSwitch)
-		switchStateService.resolvePokeradarSwitchState(pokemon: pokemon, pokeradarSwitch: pokeradarCell.actionSwitch)
-		switchStateService.resolveDexNavSwitchState(pokemon: pokemon, dexNavSwitch: dexNavCell.actionSwitch)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: lureCell.actionSwitch, huntMethod: .Lure)
+		switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: masudaCell.actionSwitch, huntMethod: .Masuda)
+		switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: genTwoBreedingCell.actionSwitch, huntMethod: .Gen2Breeding)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: friendSafariCell.actionSwitch, huntMethod: .FriendSafari)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: sosChainCell.actionSwitch, huntMethod: .SosChaining)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: chainFishingCell.actionSwitch, huntMethod: .ChainFishing)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: pokeradarCell.actionSwitch, huntMethod: .Pokeradar)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: dexNavCell.actionSwitch, huntMethod: .DexNav)
 	}
 
 	@IBAction func applyToAllPressed(_ sender: Any) {
