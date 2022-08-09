@@ -74,6 +74,11 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let game = games[indexPath.row]!
         pokemon.game = Games(rawValue: game.title) ?? Games.Red
         pokemon.generation = game.generation
+        let shouldMethodBeReset = !game.availableMethods.contains(pokemon.huntMethod)
+        pokemon.huntMethod = shouldMethodBeReset ? .Encounters : pokemon.huntMethod
+        if(!game.isShinyCharmAvailable) {
+            pokemon.isShinyCharmActive = false
+        }
         selectedGame = game
         
         if(pokemon.name != "Placeholder") {
