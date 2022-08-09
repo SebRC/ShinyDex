@@ -1,14 +1,14 @@
 import Foundation
 
 class Game {
-    var title: String
-    var coverPokemon: String
-    var generation: Int
-    var availableMethods: [HuntMethod]
-    var isShinyCharmAvailable: Bool
+    private(set) var title: String
+    private(set) var coverPokemon: String
+    private(set) var generation: Int
+    private(set) var availableMethods: [HuntMethod]
+    private(set) var isShinyCharmAvailable: Bool
     
-    init(title: String, coverPokemon: String, generation: Int, availableMethods: [HuntMethod], isShinyCharmAvailable: Bool) {
-        self.title = title
+    init(game: Games, coverPokemon: String, generation: Int, availableMethods: [HuntMethod], isShinyCharmAvailable: Bool) {
+        self.title = game.rawValue
         self.coverPokemon = coverPokemon
         self.generation = generation
         self.availableMethods = availableMethods

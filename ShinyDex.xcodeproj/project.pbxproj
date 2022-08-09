@@ -611,8 +611,8 @@
 			children = (
 				96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */,
 				96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */,
-				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				96A72991245F12C500AF3F5F /* ButtonStrip.xib */,
+				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				96A72994245F13A200AF3F5F /* IndicatorView.swift */,
 				96A72995245F13A200AF3F5F /* IndicatorView.xib */,
 				96A72998245F14DF00AF3F5F /* PopupView.swift */,
