@@ -22,10 +22,10 @@ class TextResolver {
 				? " Catch Combo: \(methodDecrement) + \(encountersDecremented) seen"
 				: " Catch Combo: \(encounters)"
 		}
-		if (pokemon.huntMethod == .Masuda || pokemon.huntMethod == .Gen2Breeding) {
+        if (isBreedingMethod(huntMethod: pokemon.huntMethod)) {
 			return " Eggs: \(encounters)"
 		}
-		if (pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .ChainFishing || pokemon.huntMethod == .Pokeradar) {
+        if (isChainingMethod(huntMethod: pokemon.huntMethod)) {
 			return maxChainReached
 				? " \(methodVerb): \(methodDecrement) + \(encountersDecremented) \(pokemon.huntMethod == .Pokeradar ? "patches" : "seen")"
 				: " \(methodVerb): \(encounters)"
@@ -38,6 +38,14 @@ class TextResolver {
 		}
 		return " Encounters: \(encounters)"
 	}
+    
+    fileprivate func isChainingMethod(huntMethod: HuntMethod) -> Bool {
+        return huntMethod == .SosChaining || huntMethod == .ChainFishing || huntMethod == .Pokeradar
+    }
+    
+    fileprivate func isBreedingMethod(huntMethod: HuntMethod) -> Bool {
+        return huntMethod == .Masuda || huntMethod == .Gen2Breeding
+    }
 
 	fileprivate func getMaxChainReached(pokemon: Pokemon, encounters: Int) -> Bool {
 		var maxChainReached = false
