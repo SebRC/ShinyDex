@@ -74,5 +74,6 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
         gameSettingsContainer.gameButton.setImage(UIImage(named: selectedGame.coverPokemon), for: .normal)
         gameSettingsContainer.gameTitle.text = pokemon.game.rawValue
         gameSettingsContainer.resolveUIObjectsState()
+        gameSettingsContainer.setShinyOddsLabelText()
     }
 }
