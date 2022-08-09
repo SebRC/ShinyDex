@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oQL-iv-Vn4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oQL-iv-Vn4">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -228,6 +228,7 @@ Are you sure you want to do this?</string>
                         <outlet property="themeSettingsBackgroundView" destination="801-Gx-HtI" id="A0D-jB-lyd"/>
                         <segue destination="dyA-ui-Ncu" kind="presentation" identifier="pickColor" id="SZg-GS-Keg"/>
                         <segue destination="Kuf-5k-0pa" kind="presentation" identifier="applyToAll" id="m7y-w4-r1a"/>
+                        <segue destination="7vF-Xa-NcQ" kind="presentation" identifier="toGameSelector" id="zLc-5D-GZe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOr-6u-MBY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1354,7 +1355,7 @@ Are you sure you want to do this?</string>
                                     <constraint firstAttribute="width" secondItem="TXa-GF-GTi" secondAttribute="height" multiplier="325:34" constant="-77.588235294117624" id="9rC-9R-NwV"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjQ-Ze-7Ja">
                                 <rect key="frame" x="16" y="547" width="150" height="80"/>
@@ -1404,6 +1405,80 @@ Are you sure you want to do this?</string>
                 <exit id="LV8-DJ-DxX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4392.8000000000002" y="-475.41229385307349"/>
+        </scene>
+        <!--Game SelectorTVC-->
+        <scene sceneID="rbY-xx-DTO">
+            <objects>
+                <viewController id="7vF-Xa-NcQ" customClass="GameSelectorTVC" customModule="ShinyDex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IAP-EQ-uvt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pUD-S6-teP">
+                                <rect key="frame" x="16" y="10" width="343" height="627"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pUD-S6-teP" secondAttribute="height" multiplier="343:627" id="Y2E-cS-388"/>
+                                </constraints>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameSelectorCell" rowHeight="140" id="zns-dE-fms" customClass="GameSelectorCell" customModule="ShinyDex" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="49.5" width="311" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zns-dE-fms" id="VB2-dV-nfa">
+                                            <rect key="frame" x="0.0" y="0.0" width="311" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEe-tf-Fvl">
+                                                    <rect key="frame" x="0.0" y="18" width="311" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="xEe-tf-Fvl" secondAttribute="height" multiplier="311:18" constant="-51.833333333333371" id="QaF-Cv-rYN"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dah-sY-2Zi">
+                                                    <rect key="frame" x="118" y="47" width="75" height="75"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Dah-sY-2Zi" secondAttribute="height" multiplier="1:1" id="BbD-JX-0hY"/>
+                                                        <constraint firstAttribute="height" constant="75" id="Dgo-AL-JCf"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Dah-sY-2Zi" firstAttribute="centerX" secondItem="VB2-dV-nfa" secondAttribute="centerX" id="KQD-bZ-0wl"/>
+                                                <constraint firstItem="Dah-sY-2Zi" firstAttribute="centerX" secondItem="xEe-tf-Fvl" secondAttribute="centerX" id="dkE-a5-nOe"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Dah-sY-2Zi" secondAttribute="bottom" constant="7" id="r1k-yR-6us"/>
+                                                <constraint firstItem="Dah-sY-2Zi" firstAttribute="top" secondItem="xEe-tf-Fvl" secondAttribute="bottom" constant="8" id="s0Z-wR-bHa"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="gameImage" destination="Dah-sY-2Zi" id="1QZ-Jd-uGv"/>
+                                            <outlet property="gameTitle" destination="xEe-tf-Fvl" id="ioC-OD-wsP"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="nZc-0O-AC2"/>
+                        <constraints>
+                            <constraint firstItem="pUD-S6-teP" firstAttribute="trailing" secondItem="IAP-EQ-uvt" secondAttribute="trailingMargin" id="63D-OR-Ath"/>
+                            <constraint firstItem="pUD-S6-teP" firstAttribute="centerY" secondItem="IAP-EQ-uvt" secondAttribute="centerY" id="85U-dU-iGY"/>
+                            <constraint firstItem="pUD-S6-teP" firstAttribute="leading" secondItem="IAP-EQ-uvt" secondAttribute="leadingMargin" id="GeA-c7-LKW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5Ef-Aq-Pmj"/>
+                    <connections>
+                        <outlet property="gameTableView" destination="pUD-S6-teP" id="Rkg-3Q-EzM"/>
+                        <segue destination="ZEt-y8-ZD7" kind="unwind" identifier="unwindFromGameSelector" unwindAction="gameSelected:" id="hzd-d9-3Cf"/>
+                        <segue destination="ZEt-y8-ZD7" kind="unwind" identifier="unwindFromGameSelectorToGameSettings" unwindAction="gameSelectedInGameSettings:" id="4ZU-yK-owu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ns9-35-OMS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="ZEt-y8-ZD7" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1932" y="-486.20689655172418"/>
         </scene>
         <!--Menu-->
         <scene sceneID="bgN-Xx-JmU">
@@ -1635,6 +1710,7 @@ Are you sure you want to do this?</string>
                         <outlet property="scrollView" destination="4w6-lJ-1OO" id="03W-OU-Dby"/>
                         <segue destination="TwF-WD-934" kind="unwind" identifier="unwindFromGameSettings" unwindAction="dismissModal:" id="fL3-zu-1LC"/>
                         <segue destination="Kuf-5k-0pa" kind="presentation" identifier="applyToAll" id="m5D-ZB-ild"/>
+                        <segue destination="7vF-Xa-NcQ" kind="presentation" identifier="fromGameSettingsToGameSelector" id="ND6-7t-Ayg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIa-Z0-vHF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2118,8 +2194,9 @@ Are you sure you want to do this?</string>
     <inferredMetricsTieBreakers>
         <segue reference="GWK-Tp-YuW"/>
         <segue reference="7k3-aT-9gU"/>
+        <segue reference="ND6-7t-Ayg"/>
         <segue reference="LE8-BB-dtk"/>
-        <segue reference="m7y-w4-r1a"/>
+        <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

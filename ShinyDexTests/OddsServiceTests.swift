@@ -20,7 +20,7 @@ class OddsServiceTests: XCTestCase {
 		pokemon.generation = 4
 		pokemon.encounters = 0
 		let entries = [HuntMethod.Gen2Breeding: 64, HuntMethod.Masuda: 1638, HuntMethod.Pokeradar: 8192,
-					   HuntMethod.FriendSafari: 819, HuntMethod.ChainFishing: 4096, HuntMethod.DexNav: 4096, HuntMethod.SosChaining: 4096]
+                       HuntMethod.FriendSafari: 819, HuntMethod.ChainFishing: 4096, HuntMethod.DexNav: 4096, HuntMethod.SosChaining: 4096, HuntMethod.Lure: 2048]
 
 		// Act + Assert
 		for entry in entries {
@@ -89,7 +89,8 @@ class OddsServiceTests: XCTestCase {
 		// Arrange
 		let pokemon = Pokemon()
 		pokemon.isShinyCharmActive = false
-		pokemon.generation = 0
+        pokemon.game = .LetsGoEevee
+		pokemon.generation = 7
 
 		// Act
 		let actualOdds = oddsService.getShinyOdds(pokemon: pokemon)

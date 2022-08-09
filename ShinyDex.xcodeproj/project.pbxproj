@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
 		51818C5B26C0483500B95FF6 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 51818C5A26C0483500B95FF6 /* moves.json */; };
+		51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */; };
+		51FC43E328872F87004EA69C /* GameSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E228872F87004EA69C /* GameSelectorCell.swift */; };
+		51FC43E628873621004EA69C /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E528873621004EA69C /* Games.swift */; };
+		51FC43E82887371F004EA69C /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E72887371F004EA69C /* Game.swift */; };
 		9607F778242A971000263CF6 /* PokemonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F777242A971000263CF6 /* PokemonService.swift */; };
 		960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */; };
 		960A5B1524B3A91A00121B2A /* DexNavOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */; };
@@ -142,6 +146,10 @@
 /* Begin PBXFileReference section */
 		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
 		51818C5A26C0483500B95FF6 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
+		51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectorTVC.swift; sourceTree = "<group>"; };
+		51FC43E228872F87004EA69C /* GameSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectorCell.swift; sourceTree = "<group>"; };
+		51FC43E528873621004EA69C /* Games.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
+		51FC43E72887371F004EA69C /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		9607F777242A971000263CF6 /* PokemonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonService.swift; sourceTree = "<group>"; };
 		960A5B1224B224AD00121B2A /* PokeradarOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeradarOddsService.swift; sourceTree = "<group>"; };
 		960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexNavOddsService.swift; sourceTree = "<group>"; };
@@ -293,6 +301,15 @@
 				BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		51FC43E428873609004EA69C /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				51FC43E528873621004EA69C /* Games.swift */,
+				51FC43E72887371F004EA69C /* Game.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		726198376F1CCC57E5500E10 /* Pods */ = {
@@ -458,6 +475,7 @@
 				96FC07FE23EF57D400459450 /* Main.storyboard */,
 				96FC079C23EF192400459450 /* AppDelegate.swift */,
 				96FC07D823EF437C00459450 /* SceneDelegate.swift */,
+				51FC43E428873609004EA69C /* Game */,
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				969BEF8726B1B52E00FDF445 /* Moves */,
 				96FC081623EF58F200459450 /* Pokeball */,
@@ -523,6 +541,7 @@
 				96760A0E256299EF005CAC5E /* RearrangeCell.swift */,
 				969BEFA326B2E63B00FDF445 /* MoveCell.swift */,
 				9625742326B4028F0056B09C /* MovePickerCell.swift */,
+				51FC43E228872F87004EA69C /* GameSelectorCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -550,6 +569,7 @@
 				96FC082723EF598E00459450 /* HuntsTVC.swift */,
 				96FC082623EF598E00459450 /* MenuTVC.swift */,
 				96FC082823EF598E00459450 /* PokedexTVC.swift */,
+				51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */,
 			);
 			path = TableViewController;
 			sourceTree = "<group>";
@@ -577,8 +597,8 @@
 				96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */,
 				96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */,
 				96829249245C9DF600F60BE2 /* HuntNameEditorModalVC.swift */,
-				963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */,
 				966478A92515362100AA50AA /* ApplyToAllVC.swift */,
+				963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */,
 				966478AB25153FAD00AA50AA /* SegueActivated.swift */,
 				96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */,
 				9625741F26B402080056B09C /* MovePickerModalTVC.swift */,
@@ -591,8 +611,8 @@
 			children = (
 				96A7298C245F0F9600AF3F5F /* ConfirmationPopup.swift */,
 				96A7298E245F110B00AF3F5F /* ConfirmationPopup.xib */,
-				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				96A72991245F12C500AF3F5F /* ButtonStrip.xib */,
+				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				96A72994245F13A200AF3F5F /* IndicatorView.swift */,
 				96A72995245F13A200AF3F5F /* IndicatorView.xib */,
 				96A72998245F14DF00AF3F5F /* PopupView.swift */,
@@ -811,6 +831,7 @@
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
 				96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */,
 				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
+				51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */,
 				9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */,
 				96FC07E923EF511500459450 /* TxtReader.swift in Sources */,
 				964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */,
@@ -830,8 +851,10 @@
 				966C2118241173D90019F835 /* ColorRepository.swift in Sources */,
 				9689C72D240851DD0007AD5D /* OddsService.swift in Sources */,
 				967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */,
+				51FC43E628873621004EA69C /* Games.swift in Sources */,
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
+				51FC43E328872F87004EA69C /* GameSelectorCell.swift in Sources */,
 				969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
@@ -843,6 +866,7 @@
 				96FC07EA23EF511500459450 /* PopupHandler.swift in Sources */,
 				96E2FE4026B2FE6A005E1D46 /* MoveRepository.swift in Sources */,
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
+				51FC43E82887371F004EA69C /* Game.swift in Sources */,
 				96E2FE4826B30029005E1D46 /* ActiveMoves.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */,

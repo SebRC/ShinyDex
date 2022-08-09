@@ -12,8 +12,7 @@ class GameSettingsContainer: UIView {
 
 	let nibName = "GameSettingsContainer"
     var contentView: UIView?
-	@IBOutlet weak var generationLabel: UILabel!
-	@IBOutlet weak var generationSegmentedControl: UISegmentedControl!
+	@IBOutlet weak var gameLabel: UILabel!
 	@IBOutlet weak var shinyCharmCell: GameSettingsCell!
 	@IBOutlet weak var lureCell: GameSettingsCell!
 	@IBOutlet weak var masudaCell: GameSettingsCell!
@@ -29,7 +28,9 @@ class GameSettingsContainer: UIView {
 	@IBOutlet weak var useIncrementCell: GameSettingsCell!
 	@IBOutlet weak var applyToAllButton: UIButton!
 	@IBOutlet weak var explanationLabel: UILabel!
-
+    @IBOutlet weak var gameButton: UIButton!
+    @IBOutlet weak var gameTitle: UILabel!
+    
 
 	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -39,6 +40,7 @@ class GameSettingsContainer: UIView {
 
 		explanationSeparator.layer.cornerRadius = CornerRadius.standard
 		applyToAllButton.layer.cornerRadius = CornerRadius.standard
+        gameButton.layer.cornerRadius = CornerRadius.standard
 		generationSeparator.layer.cornerRadius = CornerRadius.standard
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
 		useIncrementCell.titleLabel.text = "Use increment in Hunts"
@@ -88,10 +90,10 @@ class GameSettingsContainer: UIView {
 		sosChainCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		pokeradarCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		generationSegmentedControl.addTarget(self, action: #selector(changeGenerationPressed), for: .valueChanged)
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
 		setFonts()
+        gameButton.setTitle("", for: .normal)
     }
 
     override init(frame: CGRect) {
@@ -100,39 +102,18 @@ class GameSettingsContainer: UIView {
     }
 
 	func resolveUIObjectsState() {
-		generationSegmentedControl.selectedSegmentIndex = resolveSelectedSegment()
-
-		genTwoBreedingCell.actionSwitch.isOn = pokemon!.huntMethod == .Gen2Breeding
-		masudaCell.actionSwitch.isOn = pokemon!.huntMethod == .Masuda
-		shinyCharmCell.actionSwitch.isOn = pokemon!.isShinyCharmActive
-		friendSafariCell.actionSwitch.isOn = pokemon!.huntMethod == .FriendSafari
-		chainFishingCell.actionSwitch.isOn = pokemon!.huntMethod == .ChainFishing
-		sosChainCell.actionSwitch.isOn = pokemon!.huntMethod == .SosChaining
-		dexNavCell.actionSwitch.isOn = pokemon!.huntMethod == .DexNav
-		lureCell.actionSwitch.isOn = pokemon!.huntMethod == .Lure
-		useIncrementCell.actionSwitch.isOn = pokemon!.useIncrementInHunts
+		genTwoBreedingCell.actionSwitch.isOn = pokemon.huntMethod == .Gen2Breeding
+		masudaCell.actionSwitch.isOn = pokemon.huntMethod == .Masuda
+		shinyCharmCell.actionSwitch.isOn = pokemon.isShinyCharmActive
+		friendSafariCell.actionSwitch.isOn = pokemon.huntMethod == .FriendSafari
+		chainFishingCell.actionSwitch.isOn = pokemon.huntMethod == .ChainFishing
+		sosChainCell.actionSwitch.isOn = pokemon.huntMethod == .SosChaining
+		dexNavCell.actionSwitch.isOn = pokemon.huntMethod == .DexNav
+		lureCell.actionSwitch.isOn = pokemon.huntMethod == .Lure
+		useIncrementCell.actionSwitch.isOn = pokemon.useIncrementInHunts
 
 		setAllImageViewAlphas()
 		resolveSwitchStates()
-	}
-
-	func resolveSelectedSegment() -> Int {
-		switch pokemon!.generation {
-		case 2:
-			return 0
-		case 4:
-			return 1
-		case 5:
-			return 2
-		case 6:
-			return 3
-		case 7:
-			return 4
-		case 8:
-			return 5
-		default:
-			return 6
-		}
 	}
 
 	func setShinyOddsLabelText() {
@@ -145,6 +126,14 @@ class GameSettingsContainer: UIView {
 		? "From here you can apply game settings to all Pokémon. Editing the settings will not be applied to any Pokémon, unless the button below is pressed."
 		: "Editing the game settings from here will immediately apply them to \(pokemon.name).\nTo apply the selected settings to all Pokémon, press the button below."
 	}
+    
+    func updateUI(updatedPokemon: Pokemon, coverPokemon: String) {
+        pokemon = updatedPokemon
+        gameButton.setImage(UIImage(named: coverPokemon), for: .normal)
+        gameTitle.text = pokemon.game.rawValue
+        resolveUIObjectsState()
+        setShinyOddsLabelText()
+    }
 
 	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool) {
 		imageView.alpha = isSwitchOn ? 1.0 : 0.5
@@ -157,14 +146,10 @@ class GameSettingsContainer: UIView {
 		applyToAllButton.backgroundColor = colorService.getSecondaryColor()
 		explanationSeparator.backgroundColor = colorService.getSecondaryColor()
 		generationSeparator.backgroundColor = colorService.getSecondaryColor()
-		generationLabel.textColor = colorService.getTertiaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-		generationSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		generationLabel.textColor = colorService.getTertiaryColor()
-		generationSegmentedControl.backgroundColor = colorService.getPrimaryColor()
-		generationSegmentedControl.tintColor = colorService.getSecondaryColor()
+		gameLabel.textColor = colorService.getTertiaryColor()
+        gameTitle.textColor = colorService.getTertiaryColor()
+        gameButton.backgroundColor = colorService.getSecondaryColor()
 		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
 	}
 
@@ -178,9 +163,9 @@ class GameSettingsContainer: UIView {
 	func setFonts() {
 		explanationLabel.font = fontSettingsService.getSmallFont()
 		applyToAllButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		generationLabel.font = fontSettingsService.getExtraLargeFont()
+		gameLabel.font = fontSettingsService.getExtraLargeFont()
+        gameTitle.font = fontSettingsService.getMediumFont()
 		shinyOddsLabel.font = fontSettingsService.getMediumFont()
-		generationSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey( fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 
@@ -263,23 +248,6 @@ class GameSettingsContainer: UIView {
 		saveIfReal()
 	}
 
-	@objc fileprivate func changeGenerationPressed(_ sender: Any) {
-		if (generationSegmentedControl.selectedSegmentIndex != 6) {
-			pokemon!.generation = Int(generationSegmentedControl.titleForSegment(at: generationSegmentedControl.selectedSegmentIndex)!)!
-		}
-		else {
-			pokemon!.generation = 0
-		}
-
-		if (pokemon?.huntMethod != .Masuda || pokemon?.generation == 2 || pokemon?.generation == 0) {
-			pokemon?.huntMethod = .Encounters
-		}
-		resolveSwitchStates()
-		setAllImageViewAlphas()
-		setShinyOddsLabelText()
-		saveIfReal()
-	}
-
 	fileprivate func saveIfReal() {
 		if (pokemon.name != "Placeholder") {
 			pokemonService.save(pokemon: pokemon)
@@ -288,26 +256,16 @@ class GameSettingsContainer: UIView {
 
 	fileprivate func setAllImageViewAlphas() {
 		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
-		if (pokemon?.generation == 2) {
-			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Gen2Breeding)
-		}
-		else {
-			setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: false)
-		}
-		if (pokemon?.generation == 0) {
-			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Lure)
-		}
-		else {
-			setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: false)
-		}
-		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Masuda)
-		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .Pokeradar)
-		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .ChainFishing)
-		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .DexNav)
-		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .FriendSafari)
-		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .DexNav)
-		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: pokemon!.huntMethod == .SosChaining)
-		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: pokemon!.useIncrementInHunts)
+        setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Gen2Breeding)
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Masuda)
+		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Pokeradar)
+		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: pokemon.huntMethod == .ChainFishing)
+		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon.huntMethod == .DexNav)
+		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: pokemon.huntMethod == .FriendSafari)
+		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon.huntMethod == .DexNav)
+		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: pokemon.huntMethod == .SosChaining)
+        setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Lure)
+		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: pokemon.useIncrementInHunts)
 	}
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod) {
@@ -326,15 +284,15 @@ class GameSettingsContainer: UIView {
 	}
 
 	fileprivate func resolveSwitchStates() {
-		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon!, shinyCharmSwitch: shinyCharmCell.actionSwitch)
-		switchStateService.resolveLureSwitchState(pokemon: pokemon!, lureSwitch: lureCell.actionSwitch)
-		switchStateService.resolveMasudaSwitchState(pokemon: pokemon!, masudaSwitch: masudaCell.actionSwitch)
-		switchStateService.resolveGen2BreddingSwitchState(pokemon: pokemon!, gen2BreedingSwitch: genTwoBreedingCell.actionSwitch)
-		switchStateService.resolveFriendSafariSwitchState(pokemon: pokemon!, friendSafariSwitch: friendSafariCell.actionSwitch)
-		switchStateService.resolveSosChainingSwitchState(pokemon: pokemon!, sosChainingSwitch: sosChainCell.actionSwitch)
-		switchStateService.resolveChainFishingSwitchState(pokemon: pokemon!, chainFishingSwitch: chainFishingCell.actionSwitch)
-		switchStateService.resolvePokeradarSwitchState(pokemon: pokemon!, pokeradarSwitch: pokeradarCell.actionSwitch)
-		switchStateService.resolveDexNavSwitchState(pokemon: pokemon!, dexNavSwitch: dexNavCell.actionSwitch)
+		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon, shinyCharmSwitch: shinyCharmCell.actionSwitch)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: lureCell.actionSwitch, huntMethod: .Lure)
+		switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: masudaCell.actionSwitch, huntMethod: .Masuda)
+		switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: genTwoBreedingCell.actionSwitch, huntMethod: .Gen2Breeding)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: friendSafariCell.actionSwitch, huntMethod: .FriendSafari)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: sosChainCell.actionSwitch, huntMethod: .SosChaining)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: chainFishingCell.actionSwitch, huntMethod: .ChainFishing)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: pokeradarCell.actionSwitch, huntMethod: .Pokeradar)
+        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: dexNavCell.actionSwitch, huntMethod: .DexNav)
 	}
 
 	@IBAction func applyToAllPressed(_ sender: Any) {

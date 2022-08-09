@@ -30,6 +30,9 @@ class SettingsVC: UIViewController, SegueActivated {
 		gameSettingsContainer.resolveUIObjectsState()
 		gameSettingsContainer.setExplanationLabelText()
 		gameSettingsContainer.delegate = self
+        gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
+        gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[Games.Red]!.coverPokemon), for: .normal)
+        gameSettingsContainer.gameTitle.text = pokemon.game.rawValue
 
 
 		setUIColors()
@@ -130,6 +133,11 @@ class SettingsVC: UIViewController, SegueActivated {
 			destVC.pokemon = pokemon
 			destVC.isFromSettings = true
 		}
+        else if (segue.identifier == "toGameSelector") {
+            let destVC = segue.destination as! GameSelectorTVC
+            destVC.pokemon = pokemon
+            destVC.selectedGame = GamesList.games[pokemon.game]
+        }
 		else {
 			let destVC = segue.destination as! ColorPickerVC
 
@@ -160,6 +168,10 @@ class SettingsVC: UIViewController, SegueActivated {
 		theme = .Tertiary
 		performSegue(withIdentifier: "pickColor", sender: self)
 	}
+    
+    @objc fileprivate func gameButtonPressed() {
+        performSegue(withIdentifier: "toGameSelector", sender: self)
+    }
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue) {
 		setUIColors()
@@ -174,4 +186,10 @@ class SettingsVC: UIViewController, SegueActivated {
 	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue) {
 		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
 	}
+    
+    @IBAction func gameSelected(_ unwindSegue: UIStoryboardSegue) {
+        let source = unwindSegue.source as! GameSelectorTVC
+        let selectedGame = source.selectedGame!
+        gameSettingsContainer.updateUI(updatedPokemon: source.pokemon, coverPokemon: selectedGame.coverPokemon)
+    }
 }

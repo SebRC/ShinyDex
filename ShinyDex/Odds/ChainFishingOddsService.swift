@@ -5,9 +5,7 @@ class ChainFishingOddsService {
 		if (chain >= 20) {
 			return isShinyCharmActive ? 96 : 100
 		}
-		else {
-			return calculateOdds(isCharmActive: isShinyCharmActive, chain: chain)
-		}
+        return calculateOdds(isCharmActive: isShinyCharmActive, chain: chain)
 	}
 
 	fileprivate func calculateOdds(isCharmActive: Bool, chain: Int) -> Int {

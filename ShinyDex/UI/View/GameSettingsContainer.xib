@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,9 +17,10 @@
                 <outlet property="explanationLabel" destination="uwd-CS-vmt" id="Uh9-QD-txo"/>
                 <outlet property="explanationSeparator" destination="hrj-zV-AHL" id="tJ1-Qs-LSz"/>
                 <outlet property="friendSafariCell" destination="QPc-xD-xqC" id="ADD-Ou-8a5"/>
+                <outlet property="gameButton" destination="SgH-aa-9ke" id="6MM-Zn-WsU"/>
+                <outlet property="gameLabel" destination="VGq-bT-bQa" id="vdA-AT-6cl"/>
+                <outlet property="gameTitle" destination="JnD-g9-V6b" id="CBY-3S-FVi"/>
                 <outlet property="genTwoBreedingCell" destination="SgS-ck-aw2" id="TtB-G1-xB2"/>
-                <outlet property="generationLabel" destination="VGq-bT-bQa" id="vdA-AT-6cl"/>
-                <outlet property="generationSegmentedControl" destination="IbN-7n-Ii0" id="wMI-bX-k7A"/>
                 <outlet property="generationSeparator" destination="ejs-cE-SWk" id="Q8R-C5-U4J"/>
                 <outlet property="lureCell" destination="qWU-9P-vQC" id="pN8-se-OzY"/>
                 <outlet property="masudaCell" destination="6ru-dN-Iwb" id="Mf6-Go-oFX"/>
@@ -33,114 +36,166 @@
             <rect key="frame" x="0.0" y="0.0" width="360" height="1395"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Generation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGq-bT-bQa">
-                    <rect key="frame" x="10" y="221" width="334" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IbN-7n-Ii0">
-                    <rect key="frame" x="13" y="277" width="328" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <segments>
-                        <segment title="2"/>
-                        <segment title="4"/>
-                        <segment title="5"/>
-                        <segment title="6"/>
-                        <segment title="7"/>
-                        <segment title="8"/>
-                        <segment title="LGPE"/>
-                    </segments>
-                </segmentedControl>
-                <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ejs-cE-SWk" userLabel="generationIncrementSeparator">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejs-cE-SWk" userLabel="generationIncrementSeparator">
                     <rect key="frame" x="10" y="316" width="340" height="2"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrj-zV-AHL" userLabel="ExplanationSeparator">
-                    <rect key="frame" x="10" y="221" width="340" height="2"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrj-zV-AHL" userLabel="ExplanationSeparator">
+                    <rect key="frame" x="10" y="196" width="340" height="2"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srX-hI-uq3" userLabel="Shiny Charm" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="724" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SgS-ck-aw2" userLabel="Gen 2 breeding" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="430" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ru-dN-Iwb" userLabel="Masuda" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="528" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xJq-3c-mBq" userLabel="Pokeradar" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="626" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shiny Odds: 1/8192" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9o-xC-X7G">
-                    <rect key="frame" x="16" y="1310" width="328" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shiny Odds: 1/8192" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9o-xC-X7G">
+                    <rect key="frame" x="16" y="1330" width="328" height="51"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="51" id="fWM-g2-Jcq"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qF-eT-lIM" userLabel="Chain fishing" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="822" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEA-0H-49b" userLabel="Dexnav" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="920" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPc-xD-xqC" userLabel="FriendSafari" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="1018" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qWU-9P-vQC" userLabel="Lure" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="1214" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8kC-36-6OH" userLabel="SOS chaining" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="1116" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-gc-e5S" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
-                    <rect key="frame" x="5" y="326" width="350" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                </view>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkg-0l-t4Y">
-                    <rect key="frame" x="10" y="148" width="340" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkg-0l-t4Y">
+                    <rect key="frame" x="10" y="138" width="340" height="50"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fkg-0l-t4Y" secondAttribute="height" multiplier="34:3" constant="-226.66666666666674" id="ctd-bf-OdH"/>
+                    </constraints>
                     <state key="normal" title="Apply to all Pokémon"/>
                     <connections>
                         <action selector="applyToAllPressed:" destination="-1" eventType="touchUpInside" id="zx3-FF-6LX"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Explanation text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-CS-vmt">
-                    <rect key="frame" x="16" y="15" width="328" height="112"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explanation text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwd-CS-vmt">
+                    <rect key="frame" x="16" y="15" width="328" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="uwd-CS-vmt" secondAttribute="height" multiplier="82:25" id="JMD-u5-RFt"/>
+                        <constraint firstAttribute="height" constant="100" id="rRL-NJ-MJd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-aa-9ke">
+                    <rect key="frame" x="10" y="244" width="340" height="64"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="lugia-game-icon" imagePadding="0.0">
+                        <directionalEdgeInsets key="contentInsets" top="0.0" leading="272" bottom="8" trailing="0.0"/>
+                    </buttonConfiguration>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnD-g9-V6b">
+                    <rect key="frame" x="25" y="251" width="254" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="Grk-5t-wwN">
+                    <rect key="frame" x="5" y="326" width="350" height="981"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-gc-e5S" userLabel="Hunt Increment" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srX-hI-uq3" userLabel="Shiny Charm" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="99" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SgS-ck-aw2" userLabel="Gen 2 breeding" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="198" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ru-dN-Iwb" userLabel="Masuda" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="297" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJq-3c-mBq" userLabel="Pokeradar" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="396" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qF-eT-lIM" userLabel="Chain fishing" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="495" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QPc-xD-xqC" userLabel="FriendSafari" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="594" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cEA-0H-49b" userLabel="Dexnav" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="693" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kC-36-6OH" userLabel="SOS chaining" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="792" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qWU-9P-vQC" userLabel="Lure" customClass="GameSettingsCell" customModule="ShinyDex" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="891" width="350" height="90"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="xJq-3c-mBq" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="396" id="5X9-G3-vdH"/>
+                        <constraint firstItem="cEA-0H-49b" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="693" id="8Ge-9Q-eMk"/>
+                        <constraint firstItem="6ru-dN-Iwb" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="297" id="KWq-A2-FNv"/>
+                        <constraint firstItem="srX-hI-uq3" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="99" id="N9x-OH-6hj"/>
+                        <constraint firstItem="SgS-ck-aw2" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="198" id="V0d-vH-6gI"/>
+                        <constraint firstItem="4qF-eT-lIM" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="495" id="X7M-1N-0xf"/>
+                        <constraint firstItem="QPc-xD-xqC" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="594" id="sOf-xl-thc"/>
+                        <constraint firstItem="8kC-36-6OH" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="792" id="xLA-FM-fRR"/>
+                        <constraint firstItem="qWU-9P-vQC" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="top" constant="891" id="ypq-ex-2ud"/>
+                    </constraints>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGq-bT-bQa">
+                    <rect key="frame" x="16" y="214" width="334" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="1kz-Uk-hqr"/>
+                        <constraint firstAttribute="width" secondItem="VGq-bT-bQa" secondAttribute="height" multiplier="167:11" id="uFW-H5-qJ1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="131.8840579710145" y="261.49553571428572"/>
+            <color key="backgroundColor" systemColor="systemIndigoColor"/>
+            <constraints>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="leading" secondItem="SgH-aa-9ke" secondAttribute="leading" id="4iT-NR-vix"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="top" secondItem="hrj-zV-AHL" secondAttribute="bottom" constant="16" id="5d3-vB-LG1"/>
+                <constraint firstItem="Grk-5t-wwN" firstAttribute="top" secondItem="ejs-cE-SWk" secondAttribute="bottom" constant="8" id="7Gg-Mb-0vM"/>
+                <constraint firstItem="uwd-CS-vmt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="Dab-Bo-bwk"/>
+                <constraint firstItem="VGq-bT-bQa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="EOm-Yg-1sb"/>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="centerX" secondItem="Grk-5t-wwN" secondAttribute="centerX" id="Ec2-fJ-0ER"/>
+                <constraint firstItem="uwd-CS-vmt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="Ghz-QM-E2Z"/>
+                <constraint firstAttribute="bottom" secondItem="q9o-xC-X7G" secondAttribute="bottom" constant="14" id="MLT-ty-8SK"/>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="316" id="MW8-cD-01R"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="ejs-cE-SWk" secondAttribute="centerX" id="Oh5-eX-0pW"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="P0j-q7-fHg"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="fkg-0l-t4Y" secondAttribute="centerX" id="QRa-bp-gFZ"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="Grk-5t-wwN" secondAttribute="centerX" id="Sc2-Yc-Alt"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="hrj-zV-AHL" secondAttribute="centerX" id="ScF-fC-hHl"/>
+                <constraint firstItem="uwd-CS-vmt" firstAttribute="leading" secondItem="q9o-xC-X7G" secondAttribute="leading" id="U5B-9E-u1E"/>
+                <constraint firstAttribute="bottom" secondItem="ejs-cE-SWk" secondAttribute="bottom" constant="1077" id="URF-FM-Rgz"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="centerX" secondItem="SgH-aa-9ke" secondAttribute="centerX" id="XW9-rB-04R"/>
+                <constraint firstItem="SgH-aa-9ke" firstAttribute="top" secondItem="VGq-bT-bQa" secondAttribute="bottom" constant="8" id="eEy-JI-CTK"/>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="top" secondItem="SgH-aa-9ke" secondAttribute="bottom" constant="8" id="epY-AB-CzD"/>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="leading" secondItem="hrj-zV-AHL" secondAttribute="leading" id="foi-Cq-im1"/>
+                <constraint firstItem="ejs-cE-SWk" firstAttribute="leading" secondItem="fkg-0l-t4Y" secondAttribute="leading" id="huw-Qf-mAU"/>
+                <constraint firstItem="fkg-0l-t4Y" firstAttribute="top" secondItem="uwd-CS-vmt" secondAttribute="bottom" constant="23" id="mzY-wF-bQ0"/>
+                <constraint firstItem="Grk-5t-wwN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="oMt-ru-8nL"/>
+                <constraint firstItem="q9o-xC-X7G" firstAttribute="top" secondItem="Grk-5t-wwN" secondAttribute="bottom" constant="23" id="xBv-ai-6uI"/>
+                <constraint firstItem="hrj-zV-AHL" firstAttribute="top" secondItem="fkg-0l-t4Y" secondAttribute="bottom" constant="8" id="yUM-es-JvY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="205.79710144927537" y="329.79910714285711"/>
         </view>
     </objects>
+    <resources>
+        <image name="lugia-game-icon" width="68" height="56"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

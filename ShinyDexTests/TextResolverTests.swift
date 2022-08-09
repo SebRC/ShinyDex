@@ -31,7 +31,8 @@ class TextResolverTests: XCTestCase {
 	func test_withLgpeMaxChainNotReached_onlyShowsMethodVerb() {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 0
+		pokemon.generation = 7
+        pokemon.game = .LetsGoEevee
 		pokemon.encounters = 20
 		let expectedResult = " Catch Combo: \(pokemon.encounters)"
 
@@ -45,7 +46,8 @@ class TextResolverTests: XCTestCase {
 	func test_withLgpeMaxChainReached_textIncludesSeen() {
 		// Arrange
 		let pokemon = Pokemon()
-		pokemon.generation = 0
+		pokemon.generation = 7
+        pokemon.game = .LetsGoEevee
 		pokemon.encounters = 35
 		let methodDecrement = 5
 		pokemon.huntMethod = .Lure
