@@ -31,11 +31,11 @@ You can keep track of which Pokemon you've found as shinies and which pokeballs 
 When catching legendaries it can be a good idea to keep track of which moves they've used and how many times they've used them. The PP counter can be used for this.
 
 
+![pp-counter](https://github.com/SebRC/ShinyDex/assets/31308148/abc4a938-f4f0-4337-b67f-ad91bd043015)
+
+
 ### Location lookup
 If you want to know where you can find a specific Pokemon then you can press the map button. This will take you to the serebii.net page for the Pokemon. From here you can find out how to obtain the Pokemon.
 
 
 ![location](https://github.com/SebRC/ShinyDex/assets/31308148/8ff509ec-822a-475b-887f-19cc96e21a18)
-
-
-![pp-counter](https://github.com/SebRC/ShinyDex/assets/31308148/abc4a938-f4f0-4337-b67f-ad91bd043015)
