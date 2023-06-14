@@ -4,7 +4,6 @@ import FlexColorPicker
 class ColorPickerVC: CustomColorPickerViewController {
 	var currentColor: Int!
 	var theme: Theme!
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
 	@IBOutlet weak var saveButton: UIButton!
@@ -25,12 +24,6 @@ class ColorPickerVC: CustomColorPickerViewController {
 		
 		titleLabel.textColor = .black
 		
-		titleLabel.font = fontSettingsService.getMediumFont()
-		
-		saveButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
-		
-		cancelButton.titleLabel?.font = fontSettingsService.getExtraSmallFont()
-
 		switch theme {
 		case .Primary:
 			titleLabel.text = "Primary Color"

@@ -3,7 +3,6 @@ import UIKit
 class HuntNameEditorModalVC: UIViewController {
 	var huntService = HuntService()
 	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
 	var hunt: Hunt!
 
 	@IBOutlet weak var editorView: UIView!
@@ -18,22 +17,17 @@ class HuntNameEditorModalVC: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		titleLabel.text = "Changing name of \(hunt.name)."
-		titleLabel.font = fontSettingsService.getExtraSmallFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.text = "Enter a new name"
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
 		textField.text = hunt.name
-		textField.font = fontSettingsService.getSmallFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
 		editorView.layer.cornerRadius = CornerRadius.standard
 		editorView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()

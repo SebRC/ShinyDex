@@ -5,7 +5,6 @@ import UIKit
 class PopupView: UIView {
 	let nibName = "PopupView"
     var contentView: UIView?
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
 	@IBOutlet weak var actionLabel: UILabel!
@@ -27,7 +26,6 @@ class PopupView: UIView {
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		actionLabel.textColor = colorService.getTertiaryColor()
 		iconImageView.tintColor = colorService.getTertiaryColor()
-		actionLabel.font = fontSettingsService.getSmallFont()
 		contentView?.layer.cornerRadius = CornerRadius.standard
         contentView?.addShadow()
 	}

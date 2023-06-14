@@ -12,7 +12,6 @@ class ButtonIconRight: UIView {
 	@IBOutlet weak var iconBackGroundView: UIView!
 	@IBOutlet weak var backgroundView: UIView!
 
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
 	let nibName = "ButtonIconRight"
@@ -23,7 +22,6 @@ class ButtonIconRight: UIView {
         initContentView(nibName: nibName, contentView: &contentView)
 
 		setColors()
-		setFont()
 		layer.cornerRadius = CornerRadius.standard
     }
 	
@@ -32,10 +30,6 @@ class ButtonIconRight: UIView {
         initContentView(nibName: nibName, contentView: &contentView)
     }
 
-	func setFont() {
-		label.font = fontSettingsService.getXxSmallFont()
-	}
-	
 	fileprivate func setColors() {
 		contentView?.backgroundColor = colorService.getSecondaryColor()
 		iconImageView.tintColor = .black

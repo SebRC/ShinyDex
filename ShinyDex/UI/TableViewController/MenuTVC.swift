@@ -5,7 +5,6 @@ class MenuTVC: UITableViewController {
 	var hunts = [Hunt]()
 	let textResolver = TextResolver()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
 
@@ -27,6 +26,9 @@ class MenuTVC: UITableViewController {
 		setNavigationBarFont()
 		
 		setSettingsIconColor()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +64,6 @@ class MenuTVC: UITableViewController {
 	fileprivate func setNavigationBarFont() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
@@ -118,7 +119,6 @@ class MenuTVC: UITableViewController {
 		}
 		
 		cell.generationLabel.text = textResolver.getGenTitle(gen: indexPath.row)
-		cell.generationLabel.font = fontSettingsService.getXxLargeFont()
 		
 		return cell
 	}

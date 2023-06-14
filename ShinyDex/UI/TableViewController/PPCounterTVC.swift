@@ -2,7 +2,6 @@ import UIKit
 
 class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MoveCellDelegate {
 	var moveService = MoveService()
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	let tableViewHelper = TableViewHelper()
 	var activeMoves = [ActiveMove]()
@@ -25,7 +24,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         pressureLabel.tintColor = colorService.getTertiaryColor()
         pressureSwitch.onTintColor = colorService.getSecondaryColor()
         pressureSwitch.thumbTintColor = colorService.getPrimaryColor()
-        pressureLabel.font = fontSettingsService.getMediumFont()
         pressureView.layer.cornerRadius = CornerRadius.standard
         pressureSwitch.isOn = moveService.getIsPressureActive()
         
@@ -47,9 +45,6 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath) as! MoveCell
 		cell.cellDelegate = self
-		cell.nameLabel.font = fontSettingsService.getMediumFont()
-		cell.ppLabel.font = fontSettingsService.getSmallFont()
-		cell.typeLabel.font = fontSettingsService.getSmallFont()
         cell.separator.layer.cornerRadius = CornerRadius.soft
 
 		cell.backgroundColor = colorService.getPrimaryColor()

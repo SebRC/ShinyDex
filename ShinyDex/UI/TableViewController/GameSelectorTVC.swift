@@ -4,7 +4,6 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var gameTableView: UITableView!
     
     var pokemonService = PokemonService()
-    var fontSettingsService = FontSettingsService()
     var colorService = ColorService()
     var pokemon: Pokemon!
     var selectedGame: Game!
@@ -65,7 +64,6 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let game = games[indexPath.row]!
         cell.gameImage.image = UIImage(named: game.coverPokemon)
         cell.gameTitle.text = game.title
-        cell.gameTitle.font = fontSettingsService.getMediumFont()
         cell.gameTitle.textColor = colorService.getTertiaryColor()
         return cell
     }

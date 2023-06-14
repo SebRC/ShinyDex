@@ -5,7 +5,6 @@ class IndicatorView: UIView {
 	let nibName = "IndicatorView"
     var contentView: UIView?
 	fileprivate var colorService = ColorService()
-	fileprivate var fontSettingsService = FontSettingsService()
 
     @IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var pokemonImageView: UIImageView!
@@ -16,7 +15,6 @@ class IndicatorView: UIView {
 		titleLabel.textColor = colorService.getTertiaryColor()
 		layer.cornerRadius = CornerRadius.standard
 		contentView?.backgroundColor = colorService.getSecondaryColor()
-		titleLabel.font = fontSettingsService.getSmallFont()
     }
 	
     override init(frame: CGRect) {

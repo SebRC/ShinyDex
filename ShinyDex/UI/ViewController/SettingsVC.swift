@@ -1,7 +1,6 @@
 import UIKit
 
 class SettingsVC: UIViewController, SegueActivated {
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var popupHandler = PopupHandler()
 	var theme = Theme.Primary
@@ -38,7 +37,6 @@ class SettingsVC: UIViewController, SegueActivated {
 		setUIColors()
 		setFonts()
 		roundCorners()
-		setFontSettingsControlSelectedSegmentIndex()
 		setEditButtonActions()
 		setEditButtonTexts()
     }
@@ -46,7 +44,6 @@ class SettingsVC: UIViewController, SegueActivated {
 	fileprivate func setUIColors() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		
 		navigationController?.navigationBar.barTintColor = colorService.getPrimaryColor()
@@ -76,22 +73,13 @@ class SettingsVC: UIViewController, SegueActivated {
 	
 	fileprivate func setFonts() {
 		setAttributedFonts()
-		themeLabel.font = fontSettingsService.getExtraLargeFont()
-		fontLabel.font = fontSettingsService.getExtraLargeFont()
-		primaryEditButton.setFont()
-		secondaryEditButton.setFont()
-		tertiaryEditButton.setFont()
-		gameSettingsContainer.setFonts()
-		gameSettingsContainer.setCellFonts()
 	}
 	
 	fileprivate func setAttributedFonts() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		fontSegmentedControl.setTitleTextAttributes(fontSettingsService.getFontAsNSAttibutedStringKey(fontSize: fontSettingsService.getExtraSmallFont().pointSize) as? [NSAttributedString.Key : Any], for: .normal)
 	}
 	
 	fileprivate func roundCorners() {
@@ -112,19 +100,7 @@ class SettingsVC: UIViewController, SegueActivated {
 		tertiaryEditButton.label.text = "Tertiary"
 	}
 	
-	fileprivate func setFontSettingsControlSelectedSegmentIndex() {
-		if (fontSettingsService.getFontThemeName() == FontThemeName.Modern.description) {
-			fontSegmentedControl.selectedSegmentIndex = 0
-		}
-		else {
-			fontSegmentedControl.selectedSegmentIndex = 1
-		}
-	}
-	
 	@IBAction func changeFontPressed(_ sender: Any) {
-		let fontThemeName = fontSegmentedControl.selectedSegmentIndex == 0 ? FontThemeName.Modern.description : FontThemeName.Retro.description
-		fontSettingsService.save(fontThemeName: fontThemeName)
-		setFonts()
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

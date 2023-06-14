@@ -1,7 +1,6 @@
 import UIKit
 
 class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var moveService = MoveService()
 	var allMoves = [Move]()
@@ -23,7 +22,6 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear
-        titleLabel.font = fontSettingsService.getLargeFont()
         titleLabel.tintColor = colorService.getTertiaryColor()
         titleLabel.text = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
 		setUpSearchController(searchBar: searchBar)
@@ -73,9 +71,6 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "movePickerCell", for: indexPath) as! MovePickerCell
-		cell.nameLabel.font = fontSettingsService.getMediumFont()
-		cell.ppLabel.font = fontSettingsService.getSmallFont()
-		cell.typeLabel.font = fontSettingsService.getSmallFont()
 
 		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.nameLabel.textColor = colorService.getTertiaryColor()

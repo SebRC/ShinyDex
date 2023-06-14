@@ -14,7 +14,6 @@ class SetEncountersView: UIView {
 	@IBOutlet weak var buttonSeparator: UIView!
 	@IBOutlet weak var spriteBackgroundView: UIView!
 
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	
 	let nibName = "SetEncountersView"
@@ -25,7 +24,6 @@ class SetEncountersView: UIView {
         initContentView(nibName: nibName, contentView: &contentView)
 
 		setColors()
-		setFonts()
 		roundCorners()
     }
 	
@@ -55,16 +53,6 @@ class SetEncountersView: UIView {
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		buttonSeparator.backgroundColor = colorService.getSecondaryColor()
-	}
-	
-	fileprivate func setFonts() {
-		titleLabel.font = fontSettingsService.getMediumFont()
-		nameLabel.font = fontSettingsService.getExtraSmallFont()
-		numberLabel.font = fontSettingsService.getExtraSmallFont()
-		encountersLabel.font = fontSettingsService.getExtraSmallFont()
-		cancelButton.titleLabel!.font = fontSettingsService.getExtraSmallFont()
-		confirmButton.titleLabel!.font = fontSettingsService.getExtraSmallFont()
-		encountersTextField.font = fontSettingsService.getSmallFont()
 	}
 	
 	fileprivate func roundCorners() {

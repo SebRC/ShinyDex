@@ -15,7 +15,6 @@ class ButtonStrip: UIView {
 	@IBOutlet weak var incrementMethodSeparator: UIView!
 
 	fileprivate var colorService = ColorService()
-	fileprivate var fontSettingsService = FontSettingsService()
 	
 	let nibName = "ButtonStrip"
     var contentView:UIView?
@@ -26,7 +25,6 @@ class ButtonStrip: UIView {
 
 		setColors()
 		roundCorners()
-		oddsLabel.font = fontSettingsService.getSmallFont()
     }
 	
     override init(frame: CGRect) {

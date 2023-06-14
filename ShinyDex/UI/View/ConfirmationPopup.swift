@@ -7,7 +7,6 @@ class ConfirmationPopup: UIView {
     var contentView: UIView?
 	
 	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
 	
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -18,7 +17,6 @@ class ConfirmationPopup: UIView {
 	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
-		setConfirmationPopupFonts()
 		setColors()
 		layer.cornerRadius = CornerRadius.standard
     }
@@ -27,13 +25,6 @@ class ConfirmationPopup: UIView {
         super.init(frame: frame)
 		initContentView(nibName: nibName, contentView: &contentView)
     }
-
-	fileprivate func setConfirmationPopupFonts() {
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		titleLabel.font = fontSettingsService.getSmallFont()
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
-	}
 	
 	fileprivate func setColors() {
 		cancelButton.backgroundColor = colorService.getPrimaryColor()

@@ -14,7 +14,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	var popupHandler = PopupHandler()
 	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
 	
@@ -82,7 +81,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	fileprivate func setNavigationBarFont() {
 		let navigationBarTitleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
@@ -90,15 +88,11 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	fileprivate func setFonts() {
 		let attributes = [
 			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getSmallFont()
 		]
 		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
 		let searchBarTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField
 		searchBarTextField?.textColor = colorService.getTertiaryColor()
-		searchBarTextField?.font = fontSettingsService.getSmallFont()
 		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
-		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont(), NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()], for: .normal)
 	}
 	
 	fileprivate func setTitle() {
@@ -218,8 +212,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
-		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
-		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
 		pokemonCell.pokemonName.textColor = colorService.getTertiaryColor()
 		pokemonCell.pokemonNumber.textColor = colorService.getTertiaryColor()
 		pokemonCell.addToCurrentHuntButton.tintColor = colorService.getTertiaryColor()

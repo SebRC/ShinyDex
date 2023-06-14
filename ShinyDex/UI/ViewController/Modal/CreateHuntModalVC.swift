@@ -1,7 +1,6 @@
 import UIKit
 
 class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate {
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
 	var pokemonService = PokemonService()
@@ -26,16 +25,13 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.dataSource = self
 		textField.delegate = self
 		view.backgroundColor = colorService.getSecondaryColor()
-		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
-		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.layer.cornerRadius = CornerRadius.standard
-		textField.font = fontSettingsService.getMediumFont()
 		textField.textColor = colorService.getTertiaryColor()
 		textField.backgroundColor = colorService.getPrimaryColor()
 		tableView.separatorColor = colorService.getSecondaryColor()
@@ -81,8 +77,6 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.spriteImageView.image = UIImage(named: pokemon.name.lowercased())
 		cell.nameLabel.text = pokemon.name
 		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
-		cell.nameLabel.font = fontSettingsService.getSmallFont()
-		cell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
 		cell.numberLabel.textColor = colorService.getTertiaryColor()
         return cell

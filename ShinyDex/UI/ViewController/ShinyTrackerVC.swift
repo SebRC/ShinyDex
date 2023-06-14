@@ -19,7 +19,6 @@ class ShinyTrackerVC: UIViewController {
 	var methodDecrement = 0
 	let popupHandler = PopupHandler()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
 	var textResolver = TextResolver()
@@ -30,7 +29,6 @@ class ShinyTrackerVC: UIViewController {
 		hunts = huntService.getAll()
 		setUIColors()
 		roundCorners()
-		setFonts()
 		setTitle()
 		setGif()
 		setMethodDecrement()
@@ -103,11 +101,6 @@ class ShinyTrackerVC: UIViewController {
 		gifSeparatorView.layer.cornerRadius = CornerRadius.standard
 	}
 	
-	fileprivate func setFonts() {
-		encountersLabel.font = fontSettingsService.getSmallFont()
-		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
-	}
-	
 	fileprivate func setTitle() {
 		title = pokemon.name
 	}
@@ -130,9 +123,6 @@ class ShinyTrackerVC: UIViewController {
 		setProbability()
 		setProbabilityLabelText()
 		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
-		encountersLabel.font = encountersLabel.text!.contains("999 +")
-			? fontSettingsService.getExtraSmallFont()
-			: fontSettingsService.getSmallFont()
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
@@ -147,9 +137,6 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate func setProbabilityLabelText() {
 		let probabilityLabelText = probabilityService.getProbabilityText(probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
 		probabilityLabel.text = probabilityLabelText
-		probabilityLabel.font = probabilityLabel.text!.contains("Reach")
-		? fontSettingsService.getXxSmallFont()
-		: fontSettingsService.getExtraSmallFont()
 	}
 
 	fileprivate func setOddsLabelText() {

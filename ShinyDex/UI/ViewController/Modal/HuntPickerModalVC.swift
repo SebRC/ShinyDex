@@ -6,7 +6,6 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	var pokemon: Pokemon!
 	var pokemonService = PokemonService()
 	var huntService = HuntService()
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
 	@IBOutlet weak var indicatorView: IndicatorView!
@@ -19,7 +18,6 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.backgroundColor = .clear
-		cancelButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
@@ -36,7 +34,6 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		let cell = tableView.dequeueReusableCell(withIdentifier: "huntPickerCell") as! HuntPickerCell
 		cell.nameLabel.text = hunts[indexPath.row].name
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.nameLabel.font = fontSettingsService.getMediumFont()
 		cell.iconImageView.image = UIImage(named: hunts[indexPath.row].pokemon[0].name.lowercased())
 		return cell
 	}

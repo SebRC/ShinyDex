@@ -1,7 +1,6 @@
 import UIKit
 
 class GameSettingsContainer: UIView {
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var pokemonService = PokemonService()
 	var oddsService = OddsService()
@@ -92,7 +91,6 @@ class GameSettingsContainer: UIView {
 		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
-		setFonts()
         gameButton.setTitle("", for: .normal)
     }
 
@@ -158,22 +156,6 @@ class GameSettingsContainer: UIView {
 		for cell in gameSettingsCells! {
 			cell.setUIColors()
 		}
-	}
-
-	func setFonts() {
-		explanationLabel.font = fontSettingsService.getSmallFont()
-		applyToAllButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		gameLabel.font = fontSettingsService.getExtraLargeFont()
-        gameTitle.font = fontSettingsService.getMediumFont()
-		shinyOddsLabel.font = fontSettingsService.getMediumFont()
-		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
-	}
-
-	func setCellFonts() {
-		for cell in gameSettingsCells! {
-			cell.setFonts()
-		}
-		useIncrementCell.titleLabel.font = fontSettingsService.getExtraSmallFont()
 	}
 
 	@objc fileprivate func switchPressed(_ sender: UISwitch) {

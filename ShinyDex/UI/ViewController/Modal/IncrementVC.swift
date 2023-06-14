@@ -12,7 +12,6 @@ class IncrementVC: UIViewController {
 	@IBOutlet weak var incrementTextField: UITextField!
 
 	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
 	var pokemonService = PokemonService()
 	var pokemon: Pokemon!
 	var selectedIncrement = 1
@@ -21,20 +20,15 @@ class IncrementVC: UIViewController {
         super.viewDidLoad()
 		selectedIncrement = pokemon.increment
 
-		titleLabel.font = fontSettingsService.getMediumFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
 		modalView.layer.cornerRadius = CornerRadius.standard
 		modalView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		incrementTextField.font = fontSettingsService.getSmallFont()
 		incrementTextField.textColor = colorService.getTertiaryColor()
 		incrementTextField.placeholder = "Custom increment"
 		incrementTextField.backgroundColor = colorService.getPrimaryColor()

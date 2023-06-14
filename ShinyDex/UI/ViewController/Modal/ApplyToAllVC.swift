@@ -9,7 +9,6 @@ class ApplyToAllVC: UIViewController {
 	@IBOutlet weak var verticalSeparator: UIView!
 	@IBOutlet weak var descriptionLabel: UILabel!
 
-	let fontSettingsService = FontSettingsService()
 	let colorService = ColorService()
 	let pokemonService = PokemonService()
 	var pokemon: Pokemon!
@@ -19,17 +18,13 @@ class ApplyToAllVC: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		allPokemon = pokemonService.getAll()
-		titleLabel.font = fontSettingsService.getExtraSmallFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
 		descriptionLabel.textColor = colorService.getTertiaryColor()
 		confirmationView.layer.cornerRadius = CornerRadius.standard
 		confirmationView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()

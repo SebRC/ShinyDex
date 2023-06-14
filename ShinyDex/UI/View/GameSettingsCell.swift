@@ -1,7 +1,6 @@
 import UIKit
 
 class GameSettingsCell: UIView {
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 
 	@IBOutlet weak var iconImageView: UIImageView!
@@ -18,7 +17,6 @@ class GameSettingsCell: UIView {
         initContentView(nibName: nibName, contentView: &contentView)
 		separator.layer.cornerRadius = CornerRadius.standard
 		setUIColors()
-		setFonts()
     }
 
     override init(frame: CGRect) {
@@ -33,10 +31,5 @@ class GameSettingsCell: UIView {
 		descriptionLabel.textColor = colorService.getTertiaryColor()
 		actionSwitch.onTintColor = colorService.getSecondaryColor()
 		actionSwitch.thumbTintColor = colorService.getPrimaryColor()
-	}
-
-	func setFonts() {
-		titleLabel.font = fontSettingsService.getMediumFont()
-		descriptionLabel.font = fontSettingsService.getXxSmallFont()
 	}
 }

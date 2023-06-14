@@ -4,7 +4,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
 	var colorService = ColorService()
 	var huntService = HuntService()
 	var totalEncounters = 0
@@ -26,7 +25,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		tableView.dataSource = self
 		view.backgroundColor = colorService.getSecondaryColor()
 		createHuntButton.layer.cornerRadius = CornerRadius.standard
-		createHuntButton.titleLabel?.font = fontSettingsService.getLargeFont()
 		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.standard
 		rearrangeHuntsButton.isEnabled = hunts.count > 1
 		setRearrangeButtonState()
@@ -129,7 +127,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
-		collapseButton.titleLabel?.font = fontSettingsService.getSmallFont()
         let incrementAllButton = UIButton(frame: CGRect(x: collapseButton.frame.width + 20, y: 0, width: 80, height: 60))
         incrementAllButton.addTarget(self, action: #selector(incrementAllInHunt(sender:)), for: .touchUpInside)
         incrementAllButton.tag = section
@@ -213,15 +210,12 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		
 		currentHuntCell.nameLabel.text = pokemon.name
 		currentHuntCell.nameLabel.textColor = colorService.getTertiaryColor()
-		currentHuntCell.nameLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.numberLabel.text = "No. \(String(pokemon.number + 1))"
 		currentHuntCell.numberLabel.textColor = colorService.getTertiaryColor()
-		currentHuntCell.numberLabel.font = fontSettingsService.getExtraSmallFont()
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
 		currentHuntCell.encountersLabel.textColor = colorService.getTertiaryColor()
-		currentHuntCell.encountersLabel.font = fontSettingsService.getMediumFont()
 		
 		currentHuntCell.plusButton.tintColor = colorService.getTertiaryColor()
 		currentHuntCell.minusButton.tintColor = colorService.getTertiaryColor()

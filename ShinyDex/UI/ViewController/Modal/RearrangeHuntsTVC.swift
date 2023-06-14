@@ -3,7 +3,6 @@ import UIKit
 class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RearrangeCellDelegate {
 	let huntService = HuntService()
 	let colorService = ColorService()
-	let fontSettingsService = FontSettingsService()
 	let tableViewHelper = TableViewHelper()
 	var hunts = [Hunt]()
 
@@ -19,16 +18,13 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		view.backgroundColor = colorService.getSecondaryColor()
 		tableView.backgroundColor = .clear
 		tableView.separatorColor = colorService.getSecondaryColor()
-		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		cancelButton.backgroundColor = colorService.getPrimaryColor()
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
-		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
 		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
 		confirmButton.backgroundColor = colorService.getPrimaryColor()
 		confirmButton.layer.cornerRadius = CornerRadius.standard
-		titleLabel.font = fontSettingsService.getExtraLargeFont()
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = .clear
 		hunts = huntService.getAll()
@@ -52,7 +48,6 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
 
 		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.nameLabel.font = fontSettingsService.getMediumFont()
 
 		cell.backgroundColor = colorService.getPrimaryColor()
 		cell.moveUpButton.tintColor = colorService.getTertiaryColor()
