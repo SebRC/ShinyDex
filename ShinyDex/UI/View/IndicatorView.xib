@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,30 +19,31 @@
             <rect key="frame" x="0.0" y="0.0" width="312" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pKb-tJ-ule">
-                    <rect key="frame" x="222" y="-9" width="86" height="86"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="pKb-tJ-ule" secondAttribute="height" multiplier="1:1" id="2BE-bR-XIj"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing caught ball" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGB-9G-tVe">
-                    <rect key="frame" x="16" y="5" width="183.5" height="85"/>
+                    <rect key="frame" x="6" y="5" width="218" height="89"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="LGB-9G-tVe" secondAttribute="height" multiplier="54:25" id="GF2-N3-EI1"/>
+                        <constraint firstAttribute="width" secondItem="LGB-9G-tVe" secondAttribute="height" multiplier="218:89" id="2ra-8X-g8d"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pKb-tJ-ule">
+                    <rect key="frame" x="232" y="0.0" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="pKb-tJ-ule" secondAttribute="height" multiplier="1:1" id="C3V-SB-RHt"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="2:1" id="4Hw-GT-ElL"/>
-                <constraint firstItem="LGB-9G-tVe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="TJi-UP-7kL"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="pKb-tJ-ule" secondAttribute="trailing" constant="4" id="VgA-iA-TZT"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pKb-tJ-ule" secondAttribute="bottom" constant="23" id="Zsq-Gv-OQZ"/>
-                <constraint firstItem="LGB-9G-tVe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="m9w-OW-QEP"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="LGB-9G-tVe" secondAttribute="bottom" constant="10" id="pDd-Nh-5HX"/>
+                <constraint firstAttribute="bottom" secondItem="pKb-tJ-ule" secondAttribute="bottom" constant="20" symbolic="YES" id="8iV-xM-I2e"/>
+                <constraint firstItem="pKb-tJ-ule" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="G7y-SB-IDR"/>
+                <constraint firstItem="pKb-tJ-ule" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="I61-Uu-zJv"/>
+                <constraint firstItem="pKb-tJ-ule" firstAttribute="leading" secondItem="LGB-9G-tVe" secondAttribute="trailing" constant="8" symbolic="YES" id="a8c-Le-MC5"/>
+                <constraint firstAttribute="bottom" secondItem="LGB-9G-tVe" secondAttribute="bottom" constant="6" id="nCt-S2-ne7"/>
+                <constraint firstItem="LGB-9G-tVe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="6" id="ncg-Iw-2Lr"/>
+                <constraint firstItem="LGB-9G-tVe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="nrl-4a-P2V"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="79.710144927536234" y="293.97321428571428"/>
