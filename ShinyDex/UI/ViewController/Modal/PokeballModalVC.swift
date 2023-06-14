@@ -70,7 +70,20 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	fileprivate func setCellProperties(pokeballCell: PokeballCell, pokeball: Pokeball) {
 		pokeballCell.pokeballImageView.image = pokeball.image
         pokeballCell.nameLabel.text = pokeball.name
-		pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
+        pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
+        
+        if(pokeball.name.lowercased() == pokemon.caughtBall && pokeball.name.lowercased() != "none") {
+            print(pokeball.name)
+            print("caught ball \(pokemon.caughtBall)")
+            pokeballCell.pokeballImageView.makeCircle()
+            pokeballCell.pokeballImageView.backgroundColor = colorService.getPrimaryColor()
+            pokeballCell.pokeballImageView.layer.borderWidth = 2
+            pokeballCell.pokeballImageView.layer.borderColor = UIColor.systemOrange.cgColor
+        } else {
+            pokeballCell.pokeballImageView.backgroundColor = .none
+            pokeballCell.pokeballImageView.layer.borderWidth = 0
+            pokeballCell.pokeballImageView.layer.borderColor = UIColor.clear.cgColor
+        }
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any) {
