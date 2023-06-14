@@ -1103,7 +1103,7 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Gp5-an-fuG">
-                                <rect key="frame" x="0.0" y="164" width="375" height="503"/>
+                                <rect key="frame" x="0.0" y="198" width="375" height="469"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -1231,6 +1231,7 @@ Are you sure you want to do this?</string>
                         <constraints>
                             <constraint firstItem="TMl-ov-RlV" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="GEN-Yv-KyL"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="O4M-gS-mT0"/>
+                            <constraint firstItem="Gp5-an-fuG" firstAttribute="top" secondItem="pZm-OQ-P6f" secondAttribute="bottom" constant="66" id="XZx-Jq-lLY"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="centerX" secondItem="Gp5-an-fuG" secondAttribute="centerX" constant="-36" id="bT4-yn-dJi"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="leading" secondItem="gI3-iF-ULM" secondAttribute="leadingMargin" id="dgk-zo-ehx"/>
                             <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="17" id="e8Q-hx-N2P"/>
@@ -1615,7 +1616,7 @@ Are you sure you want to do this?</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Masuda" translatesAutoresizingMaskIntoConstraints="NO" id="zcj-pa-Hps">
-                                        <rect key="frame" x="8" y="11" width="45" height="45"/>
+                                        <rect key="frame" x="8" y="11" width="45" height="45.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="zcj-pa-Hps" secondAttribute="height" multiplier="14:13" constant="-4" id="eVD-mQ-5LW"/>
                                         </constraints>
@@ -2237,7 +2238,7 @@ Are you sure you want to do this?</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="GWK-Tp-YuW"/>
-        <segue reference="LJI-fC-w8z"/>
+        <segue reference="7k3-aT-9gU"/>
         <segue reference="ND6-7t-Ayg"/>
         <segue reference="LE8-BB-dtk"/>
         <segue reference="m7y-w4-r1a"/>
