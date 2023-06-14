@@ -43,6 +43,8 @@ class ShinyTrackerVC: UIViewController {
 		setButtonActions()
 		setOddsLabelText()
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+        
+        encountersImageView.image = getMethodImage()
         encountersImageView.makeCircle()
         encountersImageView.backgroundColor = colorService.getSecondaryColor()
         encountersImageView.layer.borderWidth = 2
@@ -77,7 +79,9 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func setMethodImage() {
-		buttonStrip.methodButton.setImage(getMethodImage(), for: .normal)
+        let image = getMethodImage();
+        encountersImageView.image = image
+        buttonStrip.methodButton.setImage(image, for: .normal)
 	}
 
 	fileprivate func getMethodImage() -> UIImage {
