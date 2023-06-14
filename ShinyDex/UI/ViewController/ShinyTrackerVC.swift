@@ -43,6 +43,15 @@ class ShinyTrackerVC: UIViewController {
 		setButtonActions()
 		setOddsLabelText()
 		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+        encountersImageView.makeCircle()
+        encountersImageView.backgroundColor = colorService.getSecondaryColor()
+        encountersImageView.layer.borderWidth = 2
+        encountersImageView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        percentageImageView.makeCircle()
+        percentageImageView.backgroundColor = colorService.getSecondaryColor()
+        percentageImageView.layer.borderWidth = 2
+        percentageImageView.layer.borderColor = UIColor.lightGray.cgColor
 	}
 
 	fileprivate func setMethodDecrement() {
