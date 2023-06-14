@@ -1218,10 +1218,10 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMl-ov-RlV">
-                                <rect key="frame" x="305.5" y="80" width="52.5" height="54.5"/>
+                                <rect key="frame" x="307" y="80" width="52" height="52"/>
                                 <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="TMl-ov-RlV" secondAttribute="height" multiplier="26:27" id="7ly-59-7ug"/>
+                                    <constraint firstAttribute="width" secondItem="TMl-ov-RlV" secondAttribute="height" multiplier="26:27" constant="1.9259259259259309" id="7ly-59-7ug"/>
                                 </constraints>
                                 <state key="normal">
                                     <imageReference key="image" image="arrow.up.arrow.down.square.fill" catalog="system" symbolScale="large"/>
@@ -1238,8 +1238,8 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="Gp5-an-fuG" firstAttribute="top" secondItem="pZm-OQ-P6f" secondAttribute="bottom" constant="66" id="XZx-Jq-lLY"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="centerX" secondItem="Gp5-an-fuG" secondAttribute="centerX" constant="-36" id="bT4-yn-dJi"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="leading" secondItem="gI3-iF-ULM" secondAttribute="leadingMargin" id="dgk-zo-ehx"/>
-                            <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="17" id="e8Q-hx-N2P"/>
-                            <constraint firstItem="TMl-ov-RlV" firstAttribute="leading" secondItem="pZm-OQ-P6f" secondAttribute="trailing" constant="18.5" id="uno-mf-Tl0"/>
+                            <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="16" id="e8Q-hx-N2P"/>
+                            <constraint firstItem="TMl-ov-RlV" firstAttribute="leading" secondItem="pZm-OQ-P6f" secondAttribute="trailing" constant="20" id="uno-mf-Tl0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Hdn-YF-tBQ">
