@@ -11,6 +11,7 @@ class ShinyTrackerVC: UIViewController {
 	@IBOutlet weak var gifSeparatorView: UIView!
 	@IBOutlet weak var animatedImageView: FLAnimatedImageView!
     @IBOutlet weak var encountersView: UIView!
+    @IBOutlet weak var probabilityView: UIView!
     
 	var pokemon: Pokemon!
 	var hunts = [Hunt]()
@@ -89,9 +90,8 @@ class ShinyTrackerVC: UIViewController {
         encountersView.backgroundColor = colorService.getPrimaryColor()
 		encountersLabel.textColor = colorService.getTertiaryColor()
 		
-		probabilityLabel.backgroundColor = colorService.getPrimaryColor()
+		probabilityView.backgroundColor = colorService.getPrimaryColor()
 		probabilityLabel.textColor = colorService.getTertiaryColor()
-        percentageImageView.backgroundColor = colorService.getPrimaryColor()
 		
 		gifSeparatorView.backgroundColor = colorService.getPrimaryColor()
 		
@@ -104,7 +104,7 @@ class ShinyTrackerVC: UIViewController {
 		probabilityLabel.layer.cornerRadius = CornerRadius.standard
 		gifSeparatorView.layer.cornerRadius = CornerRadius.standard
         encountersView.layer.cornerRadius = CornerRadius.standard
-        percentageImageView.layer.cornerRadius = CornerRadius.standard
+        probabilityView.layer.cornerRadius = CornerRadius.standard
 	}
 	
 	fileprivate func setTitle() {
