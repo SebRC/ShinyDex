@@ -1010,7 +1010,9 @@ Are you sure you want to do this?</string>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="YSA-zs-XH6" secondAttribute="height" multiplier="1:1" id="ncq-Gj-BLm"/>
                                             </constraints>
-                                            <state key="normal" image="text.badge.plus" catalog="system"/>
+                                            <state key="normal">
+                                                <imageReference key="image" image="text.badge.plus" catalog="system" symbolScale="large"/>
+                                            </state>
                                             <connections>
                                                 <action selector="addToCurrentHuntPressed:" destination="jVU-gD-WqB" eventType="touchUpInside" id="Dp2-UD-WVl"/>
                                             </connections>
@@ -2268,10 +2270,10 @@ Are you sure you want to do this?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GWK-Tp-YuW"/>
-        <segue reference="7k3-aT-9gU"/>
+        <segue reference="mSu-1U-tG2"/>
+        <segue reference="LJI-fC-w8z"/>
         <segue reference="ND6-7t-Ayg"/>
-        <segue reference="LE8-BB-dtk"/>
+        <segue reference="DHy-Un-iod"/>
         <segue reference="m7y-w4-r1a"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
