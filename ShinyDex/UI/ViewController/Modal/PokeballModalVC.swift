@@ -26,7 +26,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		pokeballTableView.separatorColor = colorService.getPrimaryColor()
         view.backgroundColor = colorService.getPrimaryColor()
 		pokeballTableView.backgroundColor = .clear
-		indicatorView.titleLabel.text = "Select the ball \(pokemon.name) is caught in."
+		indicatorView.titleLabel.text = "Select a new ball for \(pokemon.name)"
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
