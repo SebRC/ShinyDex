@@ -562,25 +562,38 @@ Are you sure you want to do this?</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="huntPickerCell" rowHeight="80" id="Bnv-Qu-02n" customClass="HuntPickerCell" customModule="ShinyDex" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="55.5" width="279" height="80"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="huntPickerCell" rowHeight="100" id="Bnv-Qu-02n" customClass="HuntPickerCell" customModule="ShinyDex" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="55.5" width="279" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bnv-Qu-02n" id="dKx-F3-6Bk">
-                                            <rect key="frame" x="0.0" y="0.0" width="279" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="279" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
-                                                    <rect key="frame" x="-56.5" y="0.0" width="41.5" height="80"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-UJ-huP">
+                                                    <rect key="frame" x="16" y="24" width="151" height="52"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="UUc-UJ-huP" secondAttribute="height" multiplier="183:52" id="R04-mu-sro"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7bW-Or-Y3N">
-                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7bW-Or-Y3N">
+                                                    <rect key="frame" x="183" y="10" width="80" height="80"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="7bW-Or-Y3N" secondAttribute="height" multiplier="1:1" id="aby-QS-Dav"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7bW-Or-Y3N" firstAttribute="top" secondItem="dKx-F3-6Bk" secondAttribute="top" constant="10" id="Aev-DG-4m1"/>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="top" secondItem="dKx-F3-6Bk" secondAttribute="top" constant="24" id="G7C-bM-fbo"/>
+                                                <constraint firstAttribute="bottom" secondItem="7bW-Or-Y3N" secondAttribute="bottom" constant="10" id="R6g-8i-wcl"/>
+                                                <constraint firstAttribute="bottom" secondItem="UUc-UJ-huP" secondAttribute="bottom" constant="24" id="cbP-Mp-Cw4"/>
+                                                <constraint firstItem="7bW-Or-Y3N" firstAttribute="leading" secondItem="UUc-UJ-huP" secondAttribute="trailing" constant="16" id="fgR-30-ncu"/>
+                                                <constraint firstAttribute="trailing" secondItem="7bW-Or-Y3N" secondAttribute="trailing" constant="16" id="nUD-Mx-oyp"/>
+                                                <constraint firstItem="UUc-UJ-huP" firstAttribute="leading" secondItem="dKx-F3-6Bk" secondAttribute="leading" constant="16" id="uZ8-EL-yaD"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="iconImageView" destination="7bW-Or-Y3N" id="KPR-8A-dxj"/>

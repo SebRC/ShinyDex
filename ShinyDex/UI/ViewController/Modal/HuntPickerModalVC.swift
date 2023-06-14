@@ -24,11 +24,16 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		indicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to."
 		tableView.separatorColor = colorService.getPrimaryColor()
 		tableView.layer.cornerRadius = CornerRadius.standard
+        view.backgroundColor = colorService.getPrimaryColor()
     }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int	{
 		return hunts.count
 	}
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "huntPickerCell") as! HuntPickerCell
