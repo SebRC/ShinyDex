@@ -24,10 +24,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		setUpScopeBar()
 		
 		setUpSearchController()
-		
-		setUpBackButton()
-		
-		setFonts()
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -67,31 +63,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		navigationItem.searchController = searchController
 		
 		definesPresentationContext = true
-	}
-	
-	fileprivate func setUpBackButton() {
-		let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
-		
-		navigationItem.backBarButtonItem = backButton
-		
-		navigationController?.navigationBar.tintColor = Color.Grey900
-	}
-	
-	fileprivate func setNavigationBarFont() {
-		let navigationBarTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: Color.Orange500,
-		]
-		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-	}
-	
-	fileprivate func setFonts() {
-		//let attributes = [
-		//	NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-		//]
-		//UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-		let searchBarTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        searchBarTextField?.textColor = Color.Grey200
-		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
 	}
 	
 	fileprivate func setTitle() {
