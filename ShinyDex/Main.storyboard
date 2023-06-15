@@ -469,7 +469,7 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rearrange Hunts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dP-nh-Uk5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rearrange hunts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9dP-nh-Uk5">
                                 <rect key="frame" x="29" y="0.0" width="317" height="47"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9dP-nh-Uk5" secondAttribute="height" multiplier="317:48" constant="6.6041666666666288" id="CXh-Oe-ML4"/>
@@ -606,7 +606,7 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adding to hunt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Io-TR-lWQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to hunt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Io-TR-lWQ">
                                 <rect key="frame" x="16" y="20" width="343" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6Io-TR-lWQ" secondAttribute="height" multiplier="343:48" id="jYF-q2-irB"/>
@@ -1392,7 +1392,7 @@ Are you sure you want to do this?</string>
                                     <action selector="cancelPressed:" destination="zDt-dV-FrH" eventType="touchUpInside" id="4Mi-Ez-vCo"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating new hunt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-KL-paq">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create hunt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcp-KL-paq">
                                 <rect key="frame" x="16" y="12" width="343" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Dcp-KL-paq" secondAttribute="height" multiplier="343:48" id="yml-Li-hvf"/>
@@ -1900,7 +1900,7 @@ Are you sure you want to do this?</string>
                                     <action selector="cancelPressed:" destination="DaS-ul-zkm" eventType="touchUpInside" id="QKr-sH-UPx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing caught ball" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LI8-uC-EPp">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change caught ball" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LI8-uC-EPp">
                                 <rect key="frame" x="16" y="20" width="343" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="LI8-uC-EPp" secondAttribute="height" multiplier="35:6" constant="63" id="45g-sc-uT5"/>
