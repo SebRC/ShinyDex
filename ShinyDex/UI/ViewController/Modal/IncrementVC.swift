@@ -35,9 +35,9 @@ class IncrementVC: UIViewController {
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
 
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
+		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getSecondaryColor()]
 
-		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
+		//incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
 		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
 		incrementSegmentedControl.backgroundColor = colorService.getPrimaryColor()
 		incrementSegmentedControl.tintColor = colorService.getSecondaryColor()
