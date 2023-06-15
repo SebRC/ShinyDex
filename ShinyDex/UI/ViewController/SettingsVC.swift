@@ -6,13 +6,10 @@ class SettingsVC: UIViewController, SegueActivated {
 	var theme = Theme.Primary
 	var pokemon: Pokemon!
 
-	@IBOutlet weak var fontSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var themeLabel: UILabel!
-	@IBOutlet weak var fontLabel: UILabel!
 	@IBOutlet weak var primaryEditButton: ButtonIconRight!
 	@IBOutlet weak var secondaryEditButton: ButtonIconRight!
 	@IBOutlet weak var tertiaryEditButton: ButtonIconRight!
-	@IBOutlet weak var themeFontSeparator: UIView!
 	@IBOutlet weak var themeSettingsBackgroundView: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
@@ -62,12 +59,6 @@ class SettingsVC: UIViewController, SegueActivated {
 		
 		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
 		
-		fontLabel.textColor = colorService.getTertiaryColor()
-		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-		fontSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		fontSegmentedControl.backgroundColor = colorService.getPrimaryColor()
-		fontSegmentedControl.tintColor = colorService.getSecondaryColor()
-		themeFontSeparator.backgroundColor = colorService.getSecondaryColor()
 		themeSettingsBackgroundView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
@@ -85,7 +76,6 @@ class SettingsVC: UIViewController, SegueActivated {
 	fileprivate func roundCorners() {
 		gameSettingsContainer.layer.cornerRadius = CornerRadius.standard
 		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.standard
-		themeFontSeparator.layer.cornerRadius = CornerRadius.standard
 	}
 	
 	fileprivate func setEditButtonActions() {
