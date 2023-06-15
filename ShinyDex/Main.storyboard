@@ -1212,10 +1212,10 @@ Are you sure you want to do this?</string>
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZm-OQ-P6f">
-                                <rect key="frame" x="16" y="132" width="271" height="0.0"/>
+                                <rect key="frame" x="16" y="132" width="271" height="52"/>
                                 <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="pZm-OQ-P6f" secondAttribute="height" multiplier="343:52" constant="271" id="c1v-aC-Elm"/>
+                                    <constraint firstAttribute="width" secondItem="pZm-OQ-P6f" secondAttribute="height" multiplier="271:52" id="pET-vo-bi9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <inset key="imageEdgeInsets" minX="245" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1245,7 +1245,6 @@ Are you sure you want to do this?</string>
                         <constraints>
                             <constraint firstItem="TMl-ov-RlV" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="GEN-Yv-KyL"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="top" secondItem="dOl-BP-Ow0" secondAttribute="top" constant="16" id="O4M-gS-mT0"/>
-                            <constraint firstItem="Gp5-an-fuG" firstAttribute="top" secondItem="pZm-OQ-P6f" secondAttribute="bottom" constant="66" id="XZx-Jq-lLY"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="centerX" secondItem="Gp5-an-fuG" secondAttribute="centerX" constant="-36" id="bT4-yn-dJi"/>
                             <constraint firstItem="pZm-OQ-P6f" firstAttribute="leading" secondItem="gI3-iF-ULM" secondAttribute="leadingMargin" id="dgk-zo-ehx"/>
                             <constraint firstItem="dOl-BP-Ow0" firstAttribute="trailing" secondItem="TMl-ov-RlV" secondAttribute="trailing" constant="16" id="e8Q-hx-N2P"/>
