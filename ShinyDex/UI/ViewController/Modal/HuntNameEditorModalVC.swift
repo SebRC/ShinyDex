@@ -16,7 +16,7 @@ class HuntNameEditorModalVC: UIViewController {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		titleLabel.text = "Changing name of \(hunt.name)."
+		titleLabel.text = "Change name of \(hunt.name)"
 		titleLabel.textColor = colorService.getTertiaryColor()
 		titleLabel.backgroundColor = colorService.getPrimaryColor()
 		descriptionLabel.text = "Enter a new name"

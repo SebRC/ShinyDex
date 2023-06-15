@@ -32,7 +32,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="a6c-3c-xox" secondAttribute="height" multiplier="89:10" constant="-51.199999999999989" id="1Ck-Zo-mY7"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -42,6 +42,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="mMm-5P-xpk" secondAttribute="height" multiplier="141:52" id="f1t-8l-ag5"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="cancelPressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="VHS-Ng-deh"/>
@@ -54,6 +55,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9OJ-ug-dha" secondAttribute="height" multiplier="11:4" constant="3" id="1Fg-B7-gg5"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Confirm"/>
                                         <connections>
                                             <action selector="confirmPressed:" destination="Kuf-5k-0pa" eventType="touchUpInside" id="Bfq-8y-Vdc"/>
@@ -74,14 +76,14 @@
                                             <constraint firstAttribute="width" constant="2" id="IF0-hQ-o0l"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="via-uC-dki">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="via-uC-dki">
                                         <rect key="frame" x="10" y="46" width="267" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="via-uC-dki" secondAttribute="height" multiplier="267:16" constant="-934.5" id="9jL-Gg-uFe"/>
                                         </constraints>
                                         <string key="text">This will apply the selected settings to all Pokémon.
 Are you sure you want to do this?</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1957,16 +1959,16 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9e2-G6-Ddu" secondAttribute="height" multiplier="267:34" id="j8h-7z-dlq"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Changing name of Hunt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMb-2x-0tS">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change hunt name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMb-2x-0tS">
                                         <rect key="frame" x="0.0" y="0.0" width="287" height="38"/>
                                         <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="lMb-2x-0tS" secondAttribute="height" multiplier="89:10" constant="-51.199999999999989" id="fJb-Yi-pLo"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1976,6 +1978,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="J1d-6c-gFb" secondAttribute="height" multiplier="141:52" id="v7i-fh-1U9"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="cancelPressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="9Ue-fc-9Ix"/>
@@ -1987,6 +1990,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9UL-an-eVC" secondAttribute="height" multiplier="11:4" constant="3" id="6WL-uk-J3t"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Confirm"/>
                                         <connections>
                                             <action selector="confirmpressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="hTr-7y-TVE"/>
@@ -2011,7 +2015,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="sVy-Pf-cGv" secondAttribute="height" multiplier="267:16" id="hTH-FH-ndY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
