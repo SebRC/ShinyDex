@@ -2139,7 +2139,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="jOP-6d-NxO" secondAttribute="height" multiplier="89:10" constant="-51.199999999999989" id="CBa-Ja-Gbr"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2148,7 +2148,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ya1-HY-9Vb" secondAttribute="height" multiplier="267:37" constant="-472.2702702702702" id="QXx-H3-7hg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2176,6 +2176,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wGJ-oa-vaK" secondAttribute="height" multiplier="141:52" id="AcK-pZ-Sfr"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
                                             <action selector="cancelPressed:" destination="ePh-sW-OTy" eventType="touchUpInside" id="Fmm-K8-dqc"/>
@@ -2188,6 +2189,7 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="M1Z-lJ-nZE" secondAttribute="height" multiplier="11:4" constant="3" id="Hol-Yw-GE2"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Confirm"/>
                                         <connections>
                                             <action selector="confirmPressed:" destination="Od0-22-4ap" eventType="touchUpInside" id="Ba5-ua-ToF"/>
@@ -2203,7 +2205,7 @@ Are you sure you want to do this?</string>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gny-14-EwW">
                                         <rect key="frame" x="7" y="193" width="270" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AI-6q-dZ9">

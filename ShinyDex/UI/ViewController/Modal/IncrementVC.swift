@@ -47,13 +47,13 @@ class IncrementVC: UIViewController {
 		: pokemon.increment - 1
 		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
 		incrementTextField.text = incrementTextField.isEnabled ? "\(pokemon.increment)" : ""
-		setDescriptionText(increment: pokemon.increment)
+        setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
     }
 
 	@IBAction func incrementChanged(_ sender: Any) {
 		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
 		selectedIncrement = getIncrement()
-		setDescriptionText(increment: selectedIncrement)
+        setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any) {
@@ -87,17 +87,17 @@ class IncrementVC: UIViewController {
 
 	fileprivate func setDescriptionText(increment: Int) {
 		switch increment {
-		case 1:
+		case 0:
 			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing."
-		case 2:
+		case 1:
 			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems."
-		case 3:
+		case 2:
 			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent."
-		case 4:
+		case 3:
 			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent."
-		case 5:
+		case 4:
 			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset."
-		case 6:
+		case 5:
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once."
 		default:
 			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100."
