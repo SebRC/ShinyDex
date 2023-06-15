@@ -5,7 +5,6 @@ public class CurrentHuntCell: UITableViewCell {
 	
 	@IBOutlet weak var sprite: UIImageView!
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var numberLabel: UILabel!
 	@IBOutlet weak var encountersLabel: UILabel!
 	@IBOutlet weak var minusButton: UIButton!
 	@IBOutlet weak var plusButton: UIButton!

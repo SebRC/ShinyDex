@@ -92,7 +92,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     }
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 100.0
+		return 140.0
 	}
 	
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -210,9 +210,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		
 		currentHuntCell.nameLabel.text = pokemon.name
 		currentHuntCell.nameLabel.textColor = colorService.getTertiaryColor()
-		
-		currentHuntCell.numberLabel.text = "No. \(String(pokemon.number + 1))"
-		currentHuntCell.numberLabel.textColor = colorService.getTertiaryColor()
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
 		currentHuntCell.encountersLabel.textColor = colorService.getTertiaryColor()
