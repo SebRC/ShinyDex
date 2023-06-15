@@ -14,8 +14,6 @@ class ButtonStrip: UIView {
 	@IBOutlet weak var incrementButton: UIButton!
 	@IBOutlet weak var incrementMethodSeparator: UIView!
 
-	fileprivate var colorService = ColorService()
-	
 	let nibName = "ButtonStrip"
     var contentView:UIView?
 	
@@ -33,17 +31,17 @@ class ButtonStrip: UIView {
     }
 	
 	fileprivate func setColors() {
-		contentView?.backgroundColor = colorService.getPrimaryColor()
+        contentView?.backgroundColor = Color.Grey800
 		
-		encountersIncrementSeparator.backgroundColor = colorService.getSecondaryColor()
-		incrementMethodSeparator.backgroundColor = colorService.getSecondaryColor()
-		methodMapSeparator.backgroundColor = colorService.getSecondaryColor()
-		mapBallSeparator.backgroundColor = colorService.getSecondaryColor()
-		ballOddsSeparator.backgroundColor = colorService.getSecondaryColor()
-		updateEncountersButton.tintColor = colorService.getTertiaryColor()
-		incrementButton.tintColor = colorService.getTertiaryColor()
-		methodButton.tintColor = colorService.getTertiaryColor()
-		oddsLabel.textColor = colorService.getTertiaryColor()
+		encountersIncrementSeparator.backgroundColor = Color.Grey900
+		incrementMethodSeparator.backgroundColor = Color.Grey900
+		methodMapSeparator.backgroundColor = Color.Grey900
+		mapBallSeparator.backgroundColor = Color.Grey900
+		ballOddsSeparator.backgroundColor = Color.Grey900
+		updateEncountersButton.tintColor = Color.Grey200
+		incrementButton.tintColor = Color.Grey200
+		methodButton.tintColor = Color.Grey200
+		oddsLabel.textColor = Color.Grey200
 	}
 	
 	fileprivate func roundCorners() {

@@ -21,7 +21,6 @@ class ShinyTrackerVC: UIViewController {
 	var methodDecrement = 0
 	let popupHandler = PopupHandler()
 	var pokemonService = PokemonService()
-	var colorService = ColorService()
 	var huntService = HuntService()
 	var textResolver = TextResolver()
     @IBOutlet weak var encountersImageView: UIImageView!
@@ -46,14 +45,14 @@ class ShinyTrackerVC: UIViewController {
         
         encountersImageView.image = getMethodImage()
         encountersImageView.makeCircle()
-        encountersImageView.backgroundColor = colorService.getSecondaryColor()
+        encountersImageView.backgroundColor = Color.Grey800
         encountersImageView.layer.borderWidth = 2
-        encountersImageView.layer.borderColor = UIColor.lightGray.cgColor
+        encountersImageView.layer.borderColor = Color.Orange500.cgColor
         
         percentageImageView.makeCircle()
-        percentageImageView.backgroundColor = colorService.getSecondaryColor()
+        percentageImageView.backgroundColor = Color.Grey800
         percentageImageView.layer.borderWidth = 2
-        percentageImageView.layer.borderColor = UIColor.lightGray.cgColor
+        percentageImageView.layer.borderColor = Color.Orange500.cgColor
 	}
 
 	fileprivate func setMethodDecrement() {
@@ -98,19 +97,19 @@ class ShinyTrackerVC: UIViewController {
 	}
 	
 	fileprivate func setUIColors() {
-		view.backgroundColor = colorService.getSecondaryColor()
+        view.backgroundColor = Color.Grey900
 		
-        encountersView.backgroundColor = colorService.getPrimaryColor()
-		encountersLabel.textColor = colorService.getTertiaryColor()
+        encountersView.backgroundColor = Color.Grey800
+        encountersLabel.textColor = Color.Grey200
 		
-		probabilityView.backgroundColor = colorService.getPrimaryColor()
-		probabilityLabel.textColor = colorService.getTertiaryColor()
+		probabilityView.backgroundColor = Color.Grey800
+		probabilityLabel.textColor = Color.Grey200
 		
-		gifSeparatorView.backgroundColor = colorService.getPrimaryColor()
+		gifSeparatorView.backgroundColor = Color.Grey800
 		
-		plusButton.tintColor = colorService.getTertiaryColor()
-		minusButton.tintColor = colorService.getTertiaryColor()
-	}
+        plusButton.tintColor = Color.Orange500
+        minusButton.tintColor = Color.Orange500
+    }
 	
 	fileprivate func roundCorners() {
 		encountersLabel.layer.cornerRadius = CornerRadius.standard
