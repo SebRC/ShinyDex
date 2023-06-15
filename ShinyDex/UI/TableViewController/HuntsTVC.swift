@@ -121,6 +121,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         longGestureRecognizer.name = String(section)
         collapseButton.addGestureRecognizer(longGestureRecognizer)
 		collapseButton.setTitle("\(hunts[section].name): \(hunts[section].totalEncounters)", for: .normal)
+        collapseButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
 		collapseButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		collapseButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
 		collapseButton.imageView?.tintColor = colorService.getTertiaryColor()
