@@ -11,7 +11,6 @@ class IncrementVC: UIViewController {
 	@IBOutlet weak var incrementSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var incrementTextField: UITextField!
 
-	var colorService = ColorService()
 	var pokemonService = PokemonService()
 	var pokemon: Pokemon!
 	var selectedIncrement = 1
@@ -20,27 +19,24 @@ class IncrementVC: UIViewController {
         super.viewDidLoad()
 		selectedIncrement = pokemon.increment
 
-		titleLabel.textColor = colorService.getTertiaryColor()
-		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
+		titleLabel.textColor = Color.Grey200
+		titleLabel.backgroundColor = Color.Grey800
+		descriptionLabel.textColor = Color.Grey200
 		modalView.layer.cornerRadius = CornerRadius.standard
-		modalView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		incrementTextField.textColor = colorService.getTertiaryColor()
+		modalView.backgroundColor = Color.Grey900
+		confirmButton.backgroundColor = Color.Grey800
+		confirmButton.setTitleColor(Color.Grey200, for: .normal)
+		cancelButton.backgroundColor = Color.Grey800
+		cancelButton.setTitleColor(Color.Grey200, for: .normal)
+		incrementTextField.textColor = Color.Grey200
 		incrementTextField.placeholder = "Custom increment"
-		incrementTextField.backgroundColor = colorService.getPrimaryColor()
-		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
-		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
+		incrementTextField.backgroundColor = Color.Grey800
+		horizontalSeparator.backgroundColor = Color.Grey900
+		verticalSeparator.backgroundColor = Color.Grey900
 
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getSecondaryColor()]
-
-		//incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		incrementSegmentedControl.backgroundColor = colorService.getPrimaryColor()
-		incrementSegmentedControl.tintColor = colorService.getSecondaryColor()
+		incrementSegmentedControl.backgroundColor = Color.Grey800
+		incrementSegmentedControl.tintColor = Color.Grey200
+        incrementSegmentedControl.selectedSegmentTintColor = Color.Orange500
 
 		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment > 6
 		? 6
