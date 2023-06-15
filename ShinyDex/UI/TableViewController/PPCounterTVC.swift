@@ -17,13 +17,13 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.delegate = self
 		tableView.dataSource = self
 		activeMoves = moveService.getAll()
-		view.backgroundColor = colorService.getSecondaryColor()
-		tableView.separatorColor = colorService.getSecondaryColor()
-		tableView.backgroundColor = colorService.getSecondaryColor()
-        pressureView.backgroundColor = colorService.getPrimaryColor()
-        pressureLabel.tintColor = colorService.getTertiaryColor()
-        pressureSwitch.onTintColor = colorService.getSecondaryColor()
-        pressureSwitch.thumbTintColor = colorService.getPrimaryColor()
+        view.backgroundColor = Color.Grey900
+        tableView.separatorColor = Color.Grey900
+        tableView.backgroundColor = Color.Grey900
+        pressureView.backgroundColor = Color.Grey800
+        pressureLabel.tintColor = Color.Grey500
+        pressureSwitch.onTintColor = Color.Orange500
+        pressureSwitch.thumbTintColor = Color.Grey500
         pressureView.layer.cornerRadius = CornerRadius.standard
         pressureSwitch.isOn = moveService.getIsPressureActive()
         
@@ -47,13 +47,13 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		cell.cellDelegate = self
         cell.separator.layer.cornerRadius = CornerRadius.soft
 
-		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.ppLabel.textColor = colorService.getTertiaryColor()
-		cell.typeLabel.textColor = colorService.getTertiaryColor()
-		cell.incrementButton.tintColor = colorService.getTertiaryColor()
-		cell.decrementButton.tintColor = colorService.getTertiaryColor()
-        cell.separator.backgroundColor = colorService.getSecondaryColor()
+        cell.backgroundColor = Color.Grey800
+        cell.nameLabel.textColor = Color.Grey200
+		cell.ppLabel.textColor = Color.Grey200
+		cell.typeLabel.textColor = Color.Grey200
+        cell.incrementButton.tintColor = Color.Grey500
+        cell.decrementButton.tintColor = Color.Grey500
+        cell.separator.backgroundColor = Color.Grey900
 
 		cell.imageBackgroundView.makeCircle()
 

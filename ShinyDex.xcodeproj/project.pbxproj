@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
+		515C856D2A3B468300AC439D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515C856C2A3B468300AC439D /* Color.swift */; };
 		51818C5B26C0483500B95FF6 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 51818C5A26C0483500B95FF6 /* moves.json */; };
 		51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */; };
 		51FC43E328872F87004EA69C /* GameSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E228872F87004EA69C /* GameSelectorCell.swift */; };
@@ -140,6 +141,7 @@
 
 /* Begin PBXFileReference section */
 		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
+		515C856C2A3B468300AC439D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		51818C5A26C0483500B95FF6 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
 		51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectorTVC.swift; sourceTree = "<group>"; };
 		51FC43E228872F87004EA69C /* GameSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectorCell.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				966C2117241173D90019F835 /* ColorRepository.swift */,
 				966C2119241174690019F835 /* ColorService.swift */,
 				9622379924B5EC29006BBC43 /* Theme.swift */,
+				515C856C2A3B468300AC439D /* Color.swift */,
 			);
 			path = Color;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				96A7298D245F0F9600AF3F5F /* ConfirmationPopup.swift in Sources */,
 				51FC43E82887371F004EA69C /* Game.swift in Sources */,
 				96E2FE4826B30029005E1D46 /* ActiveMoves.swift in Sources */,
+				515C856D2A3B468300AC439D /* Color.swift in Sources */,
 				96FC082923EF598E00459450 /* MenuTVC.swift in Sources */,
 				96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */,
 				96760A0F256299EF005CAC5E /* RearrangeCell.swift in Sources */,
