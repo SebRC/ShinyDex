@@ -41,7 +41,8 @@ class ShinyTrackerVC: UIViewController {
 		setIncrementImage()
 		setButtonActions()
 		setOddsLabelText()
-		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+        addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+        addToHuntButton.tintColor = Color.Grey200
         
         encountersImageView.image = getMethodImage()
         encountersImageView.makeCircle()
