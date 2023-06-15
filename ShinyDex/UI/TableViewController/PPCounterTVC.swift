@@ -2,7 +2,6 @@ import UIKit
 
 class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MoveCellDelegate {
 	var moveService = MoveService()
-	var colorService = ColorService()
 	let tableViewHelper = TableViewHelper()
 	var activeMoves = [ActiveMove]()
 	var selectedActiveMoveIndex = 0

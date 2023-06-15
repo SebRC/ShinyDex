@@ -5,7 +5,6 @@ class MenuTVC: UITableViewController {
 	var hunts = [Hunt]()
 	let textResolver = TextResolver()
 	var pokemonService = PokemonService()
-	var colorService = ColorService()
 	var huntService = HuntService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
