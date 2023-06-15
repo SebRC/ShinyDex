@@ -675,30 +675,30 @@ Are you sure you want to do this?</string>
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="155"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQC-vL-ucL">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQC-vL-ucL">
                                                     <rect key="frame" x="16" y="11" width="311" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="GQC-vL-ucL" secondAttribute="height" multiplier="94:19" constant="137.84210526315789" id="jDI-Th-SLA"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PP label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oB8-6v-ee2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PP label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oB8-6v-ee2">
                                                     <rect key="frame" x="16" y="54" width="188" height="38"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="oB8-6v-ee2" secondAttribute="height" multiplier="94:19" id="w52-R5-qQb"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOt-eS-Gwz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOt-eS-Gwz">
                                                     <rect key="frame" x="16" y="98" width="109" height="38"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="iOt-eS-Gwz" secondAttribute="height" multiplier="94:19" constant="-79" id="cit-k4-DOl"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -725,7 +725,6 @@ Are you sure you want to do this?</string>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="iOt-eS-Gwz" secondAttribute="bottom" constant="8" id="3z4-Dy-Xro"/>
                                                 <constraint firstItem="GQC-vL-ucL" firstAttribute="top" secondItem="XuT-pD-kEc" secondAttribute="topMargin" id="4Tg-9u-zUQ"/>
-                                                <constraint firstItem="oB8-6v-ee2" firstAttribute="leading" secondItem="XuT-pD-kEc" secondAttribute="leading" constant="16" id="9U4-IH-UrF"/>
                                                 <constraint firstItem="5iM-xC-kZe" firstAttribute="top" secondItem="XuT-pD-kEc" secondAttribute="top" constant="104" id="ONf-EW-N2X"/>
                                                 <constraint firstItem="iOt-eS-Gwz" firstAttribute="top" secondItem="oB8-6v-ee2" secondAttribute="bottom" constant="6" id="QTT-S5-3oW"/>
                                                 <constraint firstItem="5iM-xC-kZe" firstAttribute="leading" secondItem="iOt-eS-Gwz" secondAttribute="trailing" constant="8" id="QjS-TR-E23"/>
@@ -735,6 +734,7 @@ Are you sure you want to do this?</string>
                                                 <constraint firstAttribute="bottom" secondItem="GQC-vL-ucL" secondAttribute="bottom" constant="109" id="cXX-Mj-uh0"/>
                                                 <constraint firstItem="GQC-vL-ucL" firstAttribute="leading" secondItem="XuT-pD-kEc" secondAttribute="leadingMargin" id="dNf-Jf-LvY"/>
                                                 <constraint firstAttribute="bottom" secondItem="oB8-6v-ee2" secondAttribute="bottom" constant="63" id="oIP-Z1-3ff"/>
+                                                <constraint firstItem="oB8-6v-ee2" firstAttribute="leading" secondItem="XuT-pD-kEc" secondAttribute="leadingMargin" id="uTf-3f-Zmo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -751,13 +751,13 @@ Are you sure you want to do this?</string>
                                 <rect key="frame" x="16" y="67" width="343" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9N-cj-G60">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9N-cj-G60">
                                 <rect key="frame" x="16" y="20" width="343" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="J9N-cj-G60" secondAttribute="height" multiplier="343:37" id="xxF-ZS-UbL"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -812,7 +812,7 @@ Are you sure you want to do this?</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Uu2-C4-MFi" secondAttribute="height" multiplier="197:53" id="6NV-u7-BYG"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -821,7 +821,7 @@ Are you sure you want to do this?</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="Tad-7a-WVT" secondAttribute="height" multiplier="197:41" id="M4B-uI-RL5"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -830,7 +830,7 @@ Are you sure you want to do this?</string>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="UDe-Vc-ara" secondAttribute="height" multiplier="109:30" constant="-3.6333333333333258" id="um3-Ku-Wmm"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -938,8 +938,8 @@ Are you sure you want to do this?</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="92Z-ni-bK7" secondAttribute="height" multiplier="223:47" id="b7c-v1-H2h"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
