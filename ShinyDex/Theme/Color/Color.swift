@@ -21,5 +21,7 @@ class Color {
     static var Grey700 = UIColor(netHex: 0x393C40)
     static var Grey800 = UIColor(netHex: 0x292E33)
     static var Grey900 = UIColor(netHex: 0x131C26)
-    static var Danger500 = UIColor(netHex: 0xD90303);
+    static var Danger100 = UIColor(netHex: 0xFFCCCC)
+    static var Danger200 = UIColor(netHex: 0xE5A1A1)
+    static var Danger500 = UIColor(netHex: 0xD90303)
 }

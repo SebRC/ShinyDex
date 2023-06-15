@@ -1912,6 +1912,7 @@ Are you sure you want to do this?</string>
                         <outlet property="cancelButton" destination="Dux-jX-zZu" id="Igv-JM-GhC"/>
                         <outlet property="indicatorView" destination="RwA-Gy-GqJ" id="MEK-U5-V17"/>
                         <outlet property="pokeballTableView" destination="cUU-Gy-Owh" id="uH8-He-Zfa"/>
+                        <outlet property="titleLabel" destination="LI8-uC-EPp" id="4Py-wn-hkk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="unU-c7-hES" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
