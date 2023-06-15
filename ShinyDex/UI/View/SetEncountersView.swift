@@ -9,8 +9,6 @@ class SetEncountersView: UIView {
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var buttonSeparator: UIView!
 
-	var colorService = ColorService()
-	
 	let nibName = "SetEncountersView"
     var contentView:UIView?
 	
@@ -28,17 +26,17 @@ class SetEncountersView: UIView {
     }
 	
 	fileprivate func setColors() {
-		contentView?.backgroundColor = colorService.getSecondaryColor()
-		encountersTextField.backgroundColor = colorService.getPrimaryColor()
-		encountersTextField.textColor = colorService.getTertiaryColor()
+        contentView?.backgroundColor = Color.Grey900
+        encountersTextField.backgroundColor = Color.Grey800
+		encountersTextField.textColor = Color.Grey200
 		
-		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		buttonSeparator.backgroundColor = colorService.getSecondaryColor()
+		titleLabel.backgroundColor = Color.Grey800
+		titleLabel.textColor = Color.Grey200
+		cancelButton.backgroundColor = Color.Grey800
+		cancelButton.setTitleColor(Color.Grey200, for: .normal)
+		confirmButton.backgroundColor = Color.Grey800
+		confirmButton.setTitleColor(Color.Grey200, for: .normal)
+		buttonSeparator.backgroundColor = Color.Grey900
 	}
 	
 	fileprivate func roundCorners() {
