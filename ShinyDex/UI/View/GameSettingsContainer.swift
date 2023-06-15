@@ -23,7 +23,6 @@ class GameSettingsContainer: UIView {
 	@IBOutlet weak var chainFishingCell: GameSettingsCell!
 	@IBOutlet weak var dexNavCell: GameSettingsCell!
 	@IBOutlet weak var friendSafariCell: GameSettingsCell!
-	@IBOutlet weak var explanationSeparator: UIView!
 	@IBOutlet weak var useIncrementCell: GameSettingsCell!
 	@IBOutlet weak var applyToAllButton: UIButton!
 	@IBOutlet weak var explanationLabel: UILabel!
@@ -37,7 +36,6 @@ class GameSettingsContainer: UIView {
 
 		gameSettingsCells = [useIncrementCell,genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
 
-		explanationSeparator.layer.cornerRadius = CornerRadius.standard
 		applyToAllButton.layer.cornerRadius = CornerRadius.standard
         gameButton.layer.cornerRadius = CornerRadius.standard
 		generationSeparator.layer.cornerRadius = CornerRadius.standard
@@ -142,7 +140,6 @@ class GameSettingsContainer: UIView {
 		explanationLabel.textColor = colorService.getTertiaryColor()
 		applyToAllButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		applyToAllButton.backgroundColor = colorService.getSecondaryColor()
-		explanationSeparator.backgroundColor = colorService.getSecondaryColor()
 		generationSeparator.backgroundColor = colorService.getSecondaryColor()
 		shinyOddsLabel.textColor = colorService.getTertiaryColor()
 		gameLabel.textColor = colorService.getTertiaryColor()
