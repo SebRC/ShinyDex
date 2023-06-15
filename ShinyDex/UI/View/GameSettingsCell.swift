@@ -6,9 +6,9 @@ class GameSettingsCell: UIView {
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
-	@IBOutlet weak var actionSwitch: UISwitch!
 	@IBOutlet weak var separator: UIView!
-
+    @IBOutlet weak var actionSwitch: UISwitch!
+    
 	let nibName = "GameSettingsCell"
     var contentView: UIView?
 

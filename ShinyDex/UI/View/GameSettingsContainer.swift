@@ -42,7 +42,7 @@ class GameSettingsContainer: UIView {
         gameButton.layer.cornerRadius = CornerRadius.standard
 		generationSeparator.layer.cornerRadius = CornerRadius.standard
 		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
-		useIncrementCell.titleLabel.text = "Use increment in Hunts"
+		useIncrementCell.titleLabel.text = "Increment in hunts"
 		useIncrementCell.descriptionLabel.text = "Enable the encounter increment to be active when hunting from the Hunts menu."
 		genTwoBreedingCell.actionSwitch.tag = 0
 		genTwoBreedingCell.iconImageView.image = UIImage(named: HuntMethod.Gen2Breeding.rawValue)
