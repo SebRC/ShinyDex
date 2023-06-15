@@ -2081,17 +2081,17 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8mv-52-iFa" customClass="SetEncountersView" customModule="ShinyDex" customModuleProvider="target">
-                                <rect key="frame" x="39" y="234" width="296" height="220"/>
+                                <rect key="frame" x="39" y="234" width="296" height="112"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="8mv-52-iFa" secondAttribute="height" multiplier="148:89" constant="-69.842696629213492" id="Ce0-O8-l8T"/>
+                                    <constraint firstAttribute="width" secondItem="8mv-52-iFa" secondAttribute="height" multiplier="148:89" constant="109.75280898876403" id="Ce0-O8-l8T"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Fhh-s8-7Yp"/>
                         <constraints>
                             <constraint firstItem="8mv-52-iFa" firstAttribute="leading" secondItem="Fhh-s8-7Yp" secondAttribute="leading" constant="39" id="AEO-e3-qCS"/>
-                            <constraint firstItem="Fhh-s8-7Yp" firstAttribute="bottom" secondItem="8mv-52-iFa" secondAttribute="bottom" constant="193" id="FpL-bx-tJ8"/>
+                            <constraint firstItem="Fhh-s8-7Yp" firstAttribute="bottom" secondItem="8mv-52-iFa" secondAttribute="bottom" constant="301" id="FpL-bx-tJ8"/>
                             <constraint firstItem="Fhh-s8-7Yp" firstAttribute="trailing" secondItem="8mv-52-iFa" secondAttribute="trailing" constant="40" id="UWO-yg-rbV"/>
                             <constraint firstItem="8mv-52-iFa" firstAttribute="top" secondItem="Fhh-s8-7Yp" secondAttribute="top" constant="234" id="q6l-8E-412"/>
                         </constraints>
