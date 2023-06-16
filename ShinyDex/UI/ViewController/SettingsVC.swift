@@ -3,21 +3,15 @@ import UIKit
 class SettingsVC: UIViewController, SegueActivated {
 	var colorService = ColorService()
 	var popupHandler = PopupHandler()
-	var theme = Theme.Primary
 	var pokemon: Pokemon!
 
-	@IBOutlet weak var themeLabel: UILabel!
-	@IBOutlet weak var primaryEditButton: ButtonIconRight!
-	@IBOutlet weak var secondaryEditButton: ButtonIconRight!
-	@IBOutlet weak var tertiaryEditButton: ButtonIconRight!
-	@IBOutlet weak var themeSettingsBackgroundView: UIView!
 	@IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
 
 	override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: themeSettingsBackgroundView.topAnchor, constant: 8.0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8.0).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
 
@@ -30,12 +24,9 @@ class SettingsVC: UIViewController, SegueActivated {
         gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[Games.Red]!.coverPokemon), for: .normal)
         gameSettingsContainer.gameTitle.text = pokemon.game.rawValue
 
-
 		setUIColors()
 		setFonts()
 		roundCorners()
-		setEditButtonActions()
-		setEditButtonTexts()
     }
 	
 	fileprivate func setUIColors() {
@@ -48,18 +39,6 @@ class SettingsVC: UIViewController, SegueActivated {
 		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
 		
 		view.backgroundColor = colorService.getSecondaryColor()
-		
-		themeLabel.textColor = colorService.getTertiaryColor()
-		
-		primaryEditButton.contentView?.backgroundColor = colorService.getPrimaryColor()
-		
-		secondaryEditButton.contentView?.backgroundColor = colorService.getSecondaryColor()
-		
-		tertiaryEditButton.contentView?.backgroundColor = colorService.getTertiaryColor()
-		
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-		
-		themeSettingsBackgroundView.backgroundColor = colorService.getPrimaryColor()
 	}
 	
 	fileprivate func setFonts() {
@@ -75,22 +54,6 @@ class SettingsVC: UIViewController, SegueActivated {
 	
 	fileprivate func roundCorners() {
 		gameSettingsContainer.layer.cornerRadius = CornerRadius.standard
-		themeSettingsBackgroundView.layer.cornerRadius = CornerRadius.standard
-	}
-	
-	fileprivate func setEditButtonActions() {
-		primaryEditButton.button.addTarget(self, action: #selector(primaryEditButtonPressed), for: .touchUpInside)
-		secondaryEditButton.button.addTarget(self, action: #selector(secondaryEditButtonPressed), for: .touchUpInside)
-		tertiaryEditButton.button.addTarget(self, action: #selector(tertiaryEditButtonPressed), for: .touchUpInside)
-	}
-	
-	fileprivate func setEditButtonTexts() {
-		primaryEditButton.label.text = "Primary"
-		secondaryEditButton.label.text = "Secondary"
-		tertiaryEditButton.label.text = "Tertiary"
-	}
-	
-	@IBAction func changeFontPressed(_ sender: Any) {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -104,37 +67,8 @@ class SettingsVC: UIViewController, SegueActivated {
             destVC.pokemon = pokemon
             destVC.selectedGame = GamesList.games[pokemon.game]
         }
-		else {
-			let destVC = segue.destination as! ColorPickerVC
-
-			if (theme == .Tertiary) {
-				destVC.currentColor = colorService.getTertiaryHex()
-			}
-			else if (theme == .Primary) {
-				destVC.currentColor = colorService.getPrimaryHex()
-			}
-			else {
-				destVC.currentColor = colorService.getSecondaryHex()
-			}
-			destVC.theme = theme
-		}
 	}
 	
-	@objc fileprivate func primaryEditButtonPressed() {
-		theme = .Primary
-		performSegue(withIdentifier: "pickColor", sender: self)
-	}
-	
-	@objc fileprivate func secondaryEditButtonPressed() {
-		theme = .Secondary
-		performSegue(withIdentifier: "pickColor", sender: self)
-	}
-	
-	@objc fileprivate func tertiaryEditButtonPressed() {
-		theme = .Tertiary
-		performSegue(withIdentifier: "pickColor", sender: self)
-	}
-    
     @objc fileprivate func gameButtonPressed() {
         performSegue(withIdentifier: "toGameSelector", sender: self)
     }
