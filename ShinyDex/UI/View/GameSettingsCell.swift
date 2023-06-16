@@ -1,8 +1,6 @@
 import UIKit
 
 class GameSettingsCell: UIView {
-	var colorService = ColorService()
-
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
@@ -25,11 +23,11 @@ class GameSettingsCell: UIView {
     }
 
 	func setUIColors() {
-		contentView?.backgroundColor = colorService.getPrimaryColor()
-		separator.backgroundColor = colorService.getSecondaryColor()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
-		actionSwitch.onTintColor = colorService.getSecondaryColor()
-		actionSwitch.thumbTintColor = colorService.getPrimaryColor()
+        contentView?.backgroundColor = Color.Grey800
+		separator.backgroundColor = Color.Grey900
+		titleLabel.textColor = Color.Grey200
+		descriptionLabel.textColor = Color.Grey200
+        actionSwitch.onTintColor = Color.Orange500
+        actionSwitch.thumbTintColor = Color.Grey900
 	}
 }
