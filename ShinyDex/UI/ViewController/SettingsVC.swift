@@ -1,7 +1,6 @@
 import UIKit
 
 class SettingsVC: UIViewController, SegueActivated {
-	var colorService = ColorService()
 	var popupHandler = PopupHandler()
 	var pokemon: Pokemon!
 
@@ -25,31 +24,15 @@ class SettingsVC: UIViewController, SegueActivated {
         gameSettingsContainer.gameTitle.text = pokemon.game.rawValue
 
 		setUIColors()
-		setFonts()
 		roundCorners()
     }
 	
 	fileprivate func setUIColors() {
 		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-		]
-		
-		navigationController?.navigationBar.barTintColor = colorService.getPrimaryColor()
-		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
-		
-		view.backgroundColor = colorService.getSecondaryColor()
-	}
-	
-	fileprivate func setFonts() {
-		setAttributedFonts()
-	}
-	
-	fileprivate func setAttributedFonts() {
-		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
+            NSAttributedString.Key.foregroundColor: Color.Orange500,
 		]
 		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
+        view.backgroundColor = Color.Grey900
 	}
 	
 	fileprivate func roundCorners() {
@@ -73,13 +56,6 @@ class SettingsVC: UIViewController, SegueActivated {
         performSegue(withIdentifier: "toGameSelector", sender: self)
     }
 	
-	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue) {
-		setUIColors()
-		gameSettingsContainer.setUIColors()
-		gameSettingsContainer.setCellColors()
-		setFonts()
-	}
-
 	func segueActivated() {
 		performSegue(withIdentifier: "applyToAll", sender: self)
 	}
