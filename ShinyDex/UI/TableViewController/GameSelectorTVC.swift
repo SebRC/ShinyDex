@@ -2,6 +2,8 @@ import UIKit
 
 class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var gameTableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var pokemonService = PokemonService()
     var pokemon: Pokemon!
@@ -48,6 +50,10 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         view.backgroundColor = Color.Grey900
         gameTableView.separatorColor = Color.Grey900
         gameTableView.backgroundColor = Color.Grey900
+        titleLabel.textColor = Color.Orange500
+        cancelButton.backgroundColor = Color.Danger500
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        cancelButton.layer.cornerRadius = CornerRadius.standard
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,5 +94,9 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    @IBAction func cancelPressed(_ sender: Any) {
+        dismiss(animated: true)
     }
 }

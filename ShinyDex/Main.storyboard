@@ -1259,11 +1259,8 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pUD-S6-teP">
-                                <rect key="frame" x="16" y="10" width="343" height="627"/>
+                                <rect key="frame" x="16" y="56" width="343" height="521"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="pUD-S6-teP" secondAttribute="height" multiplier="343:627" id="Y2E-cS-388"/>
-                                </constraints>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="gameSelectorCell" rowHeight="140" id="zns-dE-fms" customClass="GameSelectorCell" customModule="ShinyDex" customModuleProvider="target">
@@ -1306,17 +1303,49 @@ Are you sure you want to do this?</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWn-kd-TdP">
+                                <rect key="frame" x="16" y="12" width="343" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="xWn-kd-TdP" secondAttribute="height" multiplier="343:36" id="Kj3-Wk-PKi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePz-Sd-fQW">
+                                <rect key="frame" x="16" y="592" width="343" height="46"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ePz-Sd-fQW" secondAttribute="height" multiplier="343:46" id="bB7-Pb-aof"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="25"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="7vF-Xa-NcQ" eventType="touchUpInside" id="MFb-5m-HLS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nZc-0O-AC2"/>
                         <constraints>
                             <constraint firstItem="pUD-S6-teP" firstAttribute="trailing" secondItem="IAP-EQ-uvt" secondAttribute="trailingMargin" id="63D-OR-Ath"/>
-                            <constraint firstItem="pUD-S6-teP" firstAttribute="centerY" secondItem="IAP-EQ-uvt" secondAttribute="centerY" id="85U-dU-iGY"/>
+                            <constraint firstItem="nZc-0O-AC2" firstAttribute="trailing" secondItem="ePz-Sd-fQW" secondAttribute="trailing" constant="16" id="8Jw-mZ-zNl"/>
+                            <constraint firstItem="pUD-S6-teP" firstAttribute="top" secondItem="xWn-kd-TdP" secondAttribute="bottom" constant="8" symbolic="YES" id="Abe-kc-nei"/>
                             <constraint firstItem="pUD-S6-teP" firstAttribute="leading" secondItem="IAP-EQ-uvt" secondAttribute="leadingMargin" id="GeA-c7-LKW"/>
+                            <constraint firstItem="nZc-0O-AC2" firstAttribute="trailing" secondItem="xWn-kd-TdP" secondAttribute="trailing" constant="16" id="HyS-qI-gGh"/>
+                            <constraint firstItem="ePz-Sd-fQW" firstAttribute="leading" secondItem="nZc-0O-AC2" secondAttribute="leading" constant="16" id="Jty-6w-oNz"/>
+                            <constraint firstItem="xWn-kd-TdP" firstAttribute="leading" secondItem="nZc-0O-AC2" secondAttribute="leading" constant="16" id="OeD-nB-E9E"/>
+                            <constraint firstItem="nZc-0O-AC2" firstAttribute="bottom" secondItem="ePz-Sd-fQW" secondAttribute="bottom" constant="9" id="XCm-qc-mhw"/>
+                            <constraint firstItem="xWn-kd-TdP" firstAttribute="top" secondItem="nZc-0O-AC2" secondAttribute="top" constant="12" id="rak-ZH-GVF"/>
+                            <constraint firstItem="ePz-Sd-fQW" firstAttribute="top" secondItem="pUD-S6-teP" secondAttribute="bottom" constant="15" id="vhZ-ar-ZgG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5Ef-Aq-Pmj"/>
                     <connections>
+                        <outlet property="cancelButton" destination="ePz-Sd-fQW" id="5P4-pB-wZ4"/>
                         <outlet property="gameTableView" destination="pUD-S6-teP" id="Rkg-3Q-EzM"/>
+                        <outlet property="titleLabel" destination="xWn-kd-TdP" id="24b-JA-pGo"/>
                         <segue destination="ZEt-y8-ZD7" kind="unwind" identifier="unwindFromGameSelector" unwindAction="gameSelected:" id="hzd-d9-3Cf"/>
                         <segue destination="ZEt-y8-ZD7" kind="unwind" identifier="unwindFromGameSelectorToGameSettings" unwindAction="gameSelectedInGameSettings:" id="4ZU-yK-owu"/>
                     </connections>
