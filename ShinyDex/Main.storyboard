@@ -621,6 +621,7 @@ Are you sure you want to do this?</string>
                         <outlet property="cancelButton" destination="3Uq-hk-8tF" id="LDx-GV-92g"/>
                         <outlet property="indicatorView" destination="WJd-ng-lQy" id="csg-aM-DjJ"/>
                         <outlet property="tableView" destination="nMq-Ry-9gE" id="SNq-3F-Bth"/>
+                        <outlet property="titleLabel" destination="6Io-TR-lWQ" id="NcL-I4-xmD"/>
                         <segue destination="XxU-MB-axV" kind="unwind" identifier="unwindFromHuntPicker" unwindAction="finish:" id="A8u-MX-dUn"/>
                     </connections>
                 </viewController>
