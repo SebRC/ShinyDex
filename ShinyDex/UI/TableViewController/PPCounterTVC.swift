@@ -20,9 +20,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         tableView.separatorColor = Color.Grey900
         tableView.backgroundColor = Color.Grey900
         pressureView.backgroundColor = Color.Grey800
-        pressureLabel.tintColor = Color.Grey500
         pressureSwitch.onTintColor = Color.Orange500
-        pressureSwitch.thumbTintColor = Color.Grey500
+        pressureSwitch.thumbTintColor = Color.Grey900
         pressureView.layer.cornerRadius = CornerRadius.standard
         pressureSwitch.isOn = moveService.getIsPressureActive()
         
