@@ -9,7 +9,6 @@ class ApplyToAllVC: UIViewController {
 	@IBOutlet weak var verticalSeparator: UIView!
 	@IBOutlet weak var descriptionLabel: UILabel!
 
-	let colorService = ColorService()
 	let pokemonService = PokemonService()
 	var pokemon: Pokemon!
 	var allPokemon = [Pokemon]()
@@ -18,17 +17,17 @@ class ApplyToAllVC: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		allPokemon = pokemonService.getAll()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
+        titleLabel.textColor = Color.Grey200
+        titleLabel.backgroundColor = Color.Grey800
+		descriptionLabel.textColor = Color.Grey200
 		confirmationView.layer.cornerRadius = CornerRadius.standard
-		confirmationView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
-		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
+		confirmationView.backgroundColor = Color.Grey900
+		confirmButton.backgroundColor = Color.Grey800
+		confirmButton.setTitleColor(Color.Grey200, for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
+		cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        horizontalSeparator.backgroundColor = Color.Grey900
+		verticalSeparator.backgroundColor = Color.Grey900
     }
 
 	@IBAction func cancelPressed(_ sender: Any) {
