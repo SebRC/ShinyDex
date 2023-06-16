@@ -13,14 +13,11 @@ class ProbabilityService {
 			|| pokemon.huntMethod == .Pokeradar && maxChainNotReached
 			|| pokemon.huntMethod == .ChainFishing && maxChainNotReached
 			|| pokemon.huntMethod == .SosChaining && maxChainNotReached) {
-			return " Chain \(methodDecrement) to see probability"
+			return "Chain \(methodDecrement) to see probability"
 		}
-
 		if (pokemon.huntMethod == .DexNav && maxChainNotReached) {
-			return " Reach Search level \(methodDecrement) to see probability"
+			return "Reach Search level \(methodDecrement) to see probability"
 		}
-
-		let formattedProbability = String(format: "%.2f", probability)
-		return " Probability is \(formattedProbability)%"
+		return String(format: "%.2f", probability)
 	}
 }

@@ -19,24 +19,24 @@ class TextResolver {
 
         if (pokemon.game == .LetsGoPikachu || pokemon.game == .LetsGoEevee) {
 			return maxChainReached
-				? " Catch Combo: \(methodDecrement) + \(encountersDecremented) seen"
-				: " Catch Combo: \(encounters)"
+				? "Catch Combo: \(methodDecrement)\nEncounters: \(encountersDecremented)"
+				: "Catch Combo: \(encounters)"
 		}
         if (isBreedingMethod(huntMethod: pokemon.huntMethod)) {
-			return " Eggs: \(encounters)"
+			return "Eggs: \(encounters)"
 		}
         if (isChainingMethod(huntMethod: pokemon.huntMethod)) {
 			return maxChainReached
-				? " \(methodVerb): \(methodDecrement) + \(encountersDecremented) \(pokemon.huntMethod == .Pokeradar ? "patches" : "seen")"
-				: " \(methodVerb): \(encounters)"
+				? "\(methodVerb): \(methodDecrement)\n\(pokemon.huntMethod == .Pokeradar ? "Patches:" : "Encounters:") \(encountersDecremented)"
+				: "\(methodVerb): \(encounters)"
 		}
 		if (pokemon.huntMethod == .DexNav) {
 			methodVerb = "Search level"
 			return maxChainReached
-				? " \(methodVerb): \(methodDecrement) + \(encountersDecremented) seen"
-				: " \(methodVerb): \(encounters)"
+				? "\(methodVerb): \(methodDecrement)\nEncounters: \(encountersDecremented)"
+				: "\(methodVerb): \(encounters)"
 		}
-		return " Encounters: \(encounters)"
+		return "\(encounters)"
 	}
     
     fileprivate func isChainingMethod(huntMethod: HuntMethod) -> Bool {
