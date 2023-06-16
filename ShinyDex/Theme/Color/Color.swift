@@ -25,4 +25,7 @@ class Color {
     static var Danger100 = UIColor(netHex: 0xFFCCCC)
     static var Danger200 = UIColor(netHex: 0xE5A1A1)
     static var Danger500 = UIColor(netHex: 0xD90303)
+    static var Success100 = UIColor(netHex: 0xDBF2DA)
+    static var Success300 = UIColor(netHex: 0x74E372)
+    static var Success500 = UIColor(netHex: 0x3BB239)
 }

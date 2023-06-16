@@ -111,12 +111,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 			selectedPokemon = getSelectedPokemon(index: indexPath.row)
 			if (hunts.isEmpty) {
 				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: selectedPokemon!)
-				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to New Hunt.")
+				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to New Hunt")
 				tableView.reloadData()
 			}
 			else if (hunts.count == 1) {
 				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: selectedPokemon!)
-				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(hunts[0].name).")
+				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(hunts[0].name)")
 				tableView.reloadData()
 			}
 			else {
