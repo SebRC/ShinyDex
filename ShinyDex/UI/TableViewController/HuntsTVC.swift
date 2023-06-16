@@ -4,7 +4,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 
 	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
-	var colorService = ColorService()
 	var huntService = HuntService()
 	var totalEncounters = 0
 	var selectedIndex = 0
@@ -23,7 +22,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		hunts = huntService.getAll()
 		tableView.delegate = self
 		tableView.dataSource = self
-		view.backgroundColor = colorService.getSecondaryColor()
+        view.backgroundColor = Color.Grey900
 		createHuntButton.layer.cornerRadius = CornerRadius.standard
 		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.standard
 		rearrangeHuntsButton.isEnabled = hunts.count > 1
@@ -55,12 +54,12 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	}
 	
 	fileprivate func setColors() {
-		tableView.backgroundColor = colorService.getSecondaryColor()
-		tableView.separatorColor = colorService.getSecondaryColor()
-		createHuntButton.backgroundColor = colorService.getPrimaryColor()
-		createHuntButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		rearrangeHuntsButton.backgroundColor = colorService.getPrimaryColor()
-		rearrangeHuntsButton.tintColor = colorService.getTertiaryColor()
+        tableView.backgroundColor = Color.Grey900
+        tableView.separatorColor = Color.Grey900
+        createHuntButton.backgroundColor = Color.Grey800
+        createHuntButton.setTitleColor(Color.Grey200, for: .normal)
+        rearrangeHuntsButton.backgroundColor = Color.Grey800
+        rearrangeHuntsButton.tintColor = Color.Grey200
 	}
 	
 	fileprivate func setEncounters() {
@@ -122,9 +121,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         collapseButton.addGestureRecognizer(longGestureRecognizer)
 		collapseButton.setTitle("\(hunts[section].name): \(hunts[section].totalEncounters)", for: .normal)
         collapseButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-		collapseButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+        collapseButton.setTitleColor(Color.Grey200, for: .normal)
 		collapseButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
-		collapseButton.imageView?.tintColor = colorService.getTertiaryColor()
+        collapseButton.imageView?.tintColor = Color.Grey200
 		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
 		collapseButton.contentHorizontalAlignment = .left
 		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
@@ -133,7 +132,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         incrementAllButton.tag = section
         incrementAllButton.setImage(UIImage(systemName: "plus.square.fill.on.square.fill"), for: .normal)
         incrementAllButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 20)
-        incrementAllButton.imageView?.tintColor = colorService.getTertiaryColor()
+        incrementAllButton.imageView?.tintColor = Color.Grey200
         incrementAllButton.contentHorizontalAlignment = .right
 		sectionView.addSubview(collapseButton)
         sectionView.addSubview(incrementAllButton)
@@ -144,7 +143,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		let footerView = UIView()
 		footerView.layer.cornerRadius = CornerRadius.standard
 		if (hunts[section].isCollapsed) {
-			footerView.backgroundColor = colorService.getPrimaryColor()
+            footerView.backgroundColor = Color.Grey800
 		}
 		else {
 			footerView.backgroundColor = .clear
@@ -210,13 +209,13 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		currentHuntCell.sprite.image = UIImage(named: pokemon.name.lowercased())
 		
 		currentHuntCell.nameLabel.text = pokemon.name
-		currentHuntCell.nameLabel.textColor = colorService.getTertiaryColor()
+        currentHuntCell.nameLabel.textColor = Color.Grey200
 		
 		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
-		currentHuntCell.encountersLabel.textColor = colorService.getTertiaryColor()
+        currentHuntCell.encountersLabel.textColor = Color.Grey200
 		
-		currentHuntCell.plusButton.tintColor = colorService.getTertiaryColor()
-		currentHuntCell.minusButton.tintColor = colorService.getTertiaryColor()
+        currentHuntCell.plusButton.tintColor = Color.Grey200
+        currentHuntCell.minusButton.tintColor = Color.Grey200
 	}
 
 	func decrementEncounters(_ sender: UIButton) {
@@ -312,7 +311,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = colorService.getPrimaryColor()
+        cell.backgroundColor = Color.Grey800
 	}
 	
 	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue) {
