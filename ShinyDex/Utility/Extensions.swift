@@ -77,6 +77,14 @@ extension UIView {
         self.layer.shadowRadius = 5
         self.layer.shadowOpacity = 0.5
     }
+    
+    func addBlur() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.insertSubview(blurEffectView, at: 0)
+    }
 }
 
 extension UITextField {

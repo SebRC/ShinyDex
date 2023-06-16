@@ -28,6 +28,7 @@ class ApplyToAllVC: UIViewController {
 		cancelButton.setTitleColor(Color.Danger100, for: .normal)
         horizontalSeparator.backgroundColor = Color.Grey900
 		verticalSeparator.backgroundColor = Color.Grey900
+        view.addBlur()
     }
 
 	@IBAction func cancelPressed(_ sender: Any) {
