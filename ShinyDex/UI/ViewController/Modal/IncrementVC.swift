@@ -44,6 +44,7 @@ class IncrementVC: UIViewController {
 		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
 		incrementTextField.text = incrementTextField.isEnabled ? "\(pokemon.increment)" : ""
         setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
+        view.addBlur()
     }
 
 	@IBAction func incrementChanged(_ sender: Any) {

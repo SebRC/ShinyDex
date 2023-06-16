@@ -9,6 +9,7 @@ class ConfirmationModalVC: UIViewController {
         super.viewDidLoad()
         confirmationPopup.cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         confirmationPopup.confirmButton.addTarget(self, action: #selector(confirmAction), for: .touchUpInside)
+        view.addBlur()
     }
 	
 	@objc func cancelAction(sender: UIButton!) {

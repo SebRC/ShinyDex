@@ -32,6 +32,7 @@ class HuntNameEditorModalVC: UIViewController {
 		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
 		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
 		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
+        view.addBlur()
     }
 	
 	@IBAction func confirmpressed(_ sender: Any) {

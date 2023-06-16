@@ -10,6 +10,7 @@ class SetEncountersModalVC: UIViewController {
         super.viewDidLoad()
 		setButtonActions()
         setEncountersView.encountersTextField.text = "\(pokemon.encounters)"
+        view.addBlur()
     }
 	
 	fileprivate func setButtonActions() {
