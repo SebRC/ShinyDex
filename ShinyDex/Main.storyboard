@@ -639,7 +639,7 @@ Are you sure you want to do this?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="95z-Mr-JRH">
-                                <rect key="frame" x="0.0" y="123" width="375" height="524"/>
+                                <rect key="frame" x="0.0" y="123" width="375" height="443"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
@@ -735,23 +735,41 @@ Are you sure you want to do this?</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6Z-5X-MQq">
+                                <rect key="frame" x="16" y="592" width="343" height="46"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="i6Z-5X-MQq" secondAttribute="height" multiplier="343:46" id="0gL-Cs-IRR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="25"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="cancelPressed:" destination="XvO-FR-yYf" eventType="touchUpInside" id="4Sw-0Z-6RJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mNg-Td-d8b"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mNg-Td-d8b" firstAttribute="trailing" secondItem="i6Z-5X-MQq" secondAttribute="trailing" constant="16" id="3XQ-03-iMX"/>
                             <constraint firstItem="hZW-3j-DPD" firstAttribute="top" secondItem="J9N-cj-G60" secondAttribute="bottom" constant="10" id="4mO-pX-Dq0"/>
                             <constraint firstItem="J9N-cj-G60" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" constant="16" id="7c5-JZ-EYE"/>
                             <constraint firstItem="J9N-cj-G60" firstAttribute="top" secondItem="mNg-Td-d8b" secondAttribute="top" constant="20" id="9ih-sB-lFM"/>
                             <constraint firstItem="mNg-Td-d8b" firstAttribute="trailing" secondItem="J9N-cj-G60" secondAttribute="trailing" constant="16" id="AjL-jP-D1m"/>
                             <constraint firstItem="95z-Mr-JRH" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" id="Dn7-2T-kBt"/>
                             <constraint firstItem="95z-Mr-JRH" firstAttribute="top" secondItem="hZW-3j-DPD" secondAttribute="bottom" id="F8T-Yh-nxn"/>
+                            <constraint firstItem="mNg-Td-d8b" firstAttribute="bottom" secondItem="i6Z-5X-MQq" secondAttribute="bottom" constant="9" id="ME5-1G-qHt"/>
                             <constraint firstItem="95z-Mr-JRH" firstAttribute="trailing" secondItem="mNg-Td-d8b" secondAttribute="trailing" id="Pk9-VU-ZN4"/>
+                            <constraint firstItem="i6Z-5X-MQq" firstAttribute="top" secondItem="95z-Mr-JRH" secondAttribute="bottom" constant="26" id="RDa-rD-zKG"/>
                             <constraint firstItem="hZW-3j-DPD" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" constant="16" id="aGA-t9-83Q"/>
-                            <constraint firstItem="95z-Mr-JRH" firstAttribute="bottom" secondItem="mNg-Td-d8b" secondAttribute="bottom" id="bk9-vD-tn2"/>
+                            <constraint firstItem="i6Z-5X-MQq" firstAttribute="leading" secondItem="mNg-Td-d8b" secondAttribute="leading" constant="16" id="mlt-4Q-Q3R"/>
                             <constraint firstItem="mNg-Td-d8b" firstAttribute="trailing" secondItem="hZW-3j-DPD" secondAttribute="trailing" constant="16" id="onV-HO-3JN"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="i6Z-5X-MQq" id="Qck-Yp-eoT"/>
                         <outlet property="searchBar" destination="hZW-3j-DPD" id="vRx-FI-cgp"/>
                         <outlet property="tableView" destination="95z-Mr-JRH" id="MvA-D9-f0r"/>
                         <outlet property="titleLabel" destination="J9N-cj-G60" id="JDj-G7-pS0"/>

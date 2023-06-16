@@ -10,6 +10,7 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,9 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
         titleLabel.textColor = Color.Orange500
         titleLabel.text = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
 		setUpSearchController(searchBar: searchBar)
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
+        cancelButton.layer.cornerRadius = CornerRadius.standard
     }
 
 	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -104,4 +108,8 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 155.0
 	}
+    
+    @IBAction func cancelPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }
