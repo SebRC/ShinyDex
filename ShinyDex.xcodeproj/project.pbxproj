@@ -20,7 +20,6 @@
 		961652D324AF41D100829DE4 /* FriendSafariOddsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */; };
 		961B5C59265283CC00918D91 /* LocationUrlServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */; };
 		9622379824B5E28B006BBC43 /* LocationUrlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379724B5E28B006BBC43 /* LocationUrlService.swift */; };
-		9622379A24B5EC29006BBC43 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379924B5EC29006BBC43 /* Theme.swift */; };
 		9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622379B24B715DD006BBC43 /* CornerRadius.swift */; };
 		9625741A26B308350056B09C /* initialActiveMoves.json in Resources */ = {isa = PBXBuildFile; fileRef = 9625741926B308350056B09C /* initialActiveMoves.json */; };
 		9625742026B402080056B09C /* MovePickerModalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625741F26B402080056B09C /* MovePickerModalTVC.swift */; };
@@ -59,8 +58,6 @@
 		966B1EFE2656B29F00DF1FE0 /* ColorServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */; };
 		966B1F042656BCAA00DF1FE0 /* FontSettingsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1F032656BCAA00DF1FE0 /* FontSettingsServiceTests.swift */; };
 		966B1F082656C1B700DF1FE0 /* TxtReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */; };
-		966C2118241173D90019F835 /* ColorRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2117241173D90019F835 /* ColorRepository.swift */; };
-		966C211A241174690019F835 /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C2119241174690019F835 /* ColorService.swift */; };
 		966C211D24118BC50019F835 /* HuntService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C211C24118BC50019F835 /* HuntService.swift */; };
 		96760A0D25629883005CAC5E /* RearrangeHuntsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */; };
 		96760A0F256299EF005CAC5E /* RearrangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96760A0E256299EF005CAC5E /* RearrangeCell.swift */; };
@@ -151,7 +148,6 @@
 		961B5C502652837E00918D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		961B5C58265283CC00918D91 /* LocationUrlServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlServiceTests.swift; sourceTree = "<group>"; };
 		9622379724B5E28B006BBC43 /* LocationUrlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUrlService.swift; sourceTree = "<group>"; };
-		9622379924B5EC29006BBC43 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9622379B24B715DD006BBC43 /* CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		9625741926B308350056B09C /* initialActiveMoves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = initialActiveMoves.json; sourceTree = "<group>"; };
 		9625741F26B402080056B09C /* MovePickerModalTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePickerModalTVC.swift; sourceTree = "<group>"; };
@@ -184,8 +180,6 @@
 		966B1EFD2656B29F00DF1FE0 /* ColorServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorServiceTests.swift; sourceTree = "<group>"; };
 		966B1F032656BCAA00DF1FE0 /* FontSettingsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsServiceTests.swift; sourceTree = "<group>"; };
 		966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtReaderTests.swift; sourceTree = "<group>"; };
-		966C2117241173D90019F835 /* ColorRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepository.swift; sourceTree = "<group>"; };
-		966C2119241174690019F835 /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
 		966C211C24118BC50019F835 /* HuntService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntService.swift; sourceTree = "<group>"; };
 		96760A0C25629883005CAC5E /* RearrangeHuntsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RearrangeHuntsTVC.swift; sourceTree = "<group>"; };
 		96760A0E256299EF005CAC5E /* RearrangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RearrangeCell.swift; sourceTree = "<group>"; };
@@ -366,9 +360,6 @@
 		966C2116241173C80019F835 /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				966C2117241173D90019F835 /* ColorRepository.swift */,
-				966C2119241174690019F835 /* ColorService.swift */,
-				9622379924B5EC29006BBC43 /* Theme.swift */,
 				515C856C2A3B468300AC439D /* Color.swift */,
 			);
 			path = Color;
@@ -802,7 +793,6 @@
 				964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */,
 				960A5B1324B224AD00121B2A /* PokeradarOddsService.swift in Sources */,
 				96FC083A23EF59C000459450 /* SetEncountersModalVC.swift in Sources */,
-				966C2118241173D90019F835 /* ColorRepository.swift in Sources */,
 				9689C72D240851DD0007AD5D /* OddsService.swift in Sources */,
 				967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */,
 				51FC43E628873621004EA69C /* Games.swift in Sources */,
@@ -812,7 +802,6 @@
 				969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
-				9622379A24B5EC29006BBC43 /* Theme.swift in Sources */,
 				966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
 				9625742826B4051B0056B09C /* MoveCellDelegate.swift in Sources */,
@@ -864,7 +853,6 @@
 				96760A0D25629883005CAC5E /* RearrangeHuntsTVC.swift in Sources */,
 				9648AE8D24AE110500E819CC /* HuntMethod.swift in Sources */,
 				964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */,
-				966C211A241174690019F835 /* ColorService.swift in Sources */,
 				9684072F24AF5AAD005FE3D3 /* SosChainingOddsService.swift in Sources */,
 				967F63002465C608008F2C4B /* GameSettingsCell.swift in Sources */,
 			);

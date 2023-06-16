@@ -4,7 +4,6 @@ class LoadingVC: UIViewController {
 	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
 	var moveService = MoveService()
-	var colorService = ColorService()
 	var isFirstTimeUser: Bool!
 	var loadingGifData: Data?
 	
@@ -15,8 +14,8 @@ class LoadingVC: UIViewController {
 		hideNavigationBar()
 
 
-		view.backgroundColor = colorService.getSecondaryColor()
-		loadingLabel.textColor = colorService.getTertiaryColor()
+        view.backgroundColor = Color.Grey900
+        loadingLabel.textColor = Color.Orange500
 		
 		if (isFirstTimeUser) {
 			proceedAsNewUser()
