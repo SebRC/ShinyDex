@@ -2,7 +2,6 @@ import UIKit
 
 class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RearrangeCellDelegate {
 	let huntService = HuntService()
-	let colorService = ColorService()
 	let tableViewHelper = TableViewHelper()
 	var hunts = [Hunt]()
 
@@ -15,17 +14,17 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
-		view.backgroundColor = colorService.getSecondaryColor()
+        view.backgroundColor = Color.Grey900
 		tableView.backgroundColor = .clear
-		tableView.separatorColor = colorService.getSecondaryColor()
-		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
+        tableView.separatorColor = Color.Grey900
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
-		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
+        confirmButton.setTitleColor(Color.Grey200, for: .normal)
+        confirmButton.backgroundColor = Color.Grey800
 		confirmButton.layer.cornerRadius = CornerRadius.standard
-		titleLabel.textColor = colorService.getTertiaryColor()
+        titleLabel.textColor = Color.Orange500
 		titleLabel.backgroundColor = .clear
 		hunts = huntService.getAll()
 	}
@@ -47,14 +46,14 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.nameLabel.text = hunt.name
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
 
-		cell.nameLabel.textColor = colorService.getTertiaryColor()
+        cell.nameLabel.textColor = Color.Grey200
 
-		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.moveUpButton.tintColor = colorService.getTertiaryColor()
-		cell.moveUpButton.backgroundColor = colorService.getSecondaryColor()
+        cell.backgroundColor = Color.Grey800
+		cell.moveUpButton.tintColor = Color.Grey200
+        cell.moveUpButton.backgroundColor = Color.Grey900
 		cell.moveUpButton.layer.cornerRadius = CornerRadius.standard
-		cell.moveDownButton.tintColor = colorService.getTertiaryColor()
-		cell.moveDownButton.backgroundColor = colorService.getSecondaryColor()
+		cell.moveDownButton.tintColor = Color.Grey200
+        cell.moveDownButton.backgroundColor = Color.Grey900
 		cell.moveDownButton.layer.cornerRadius = CornerRadius.standard
 
         return cell
