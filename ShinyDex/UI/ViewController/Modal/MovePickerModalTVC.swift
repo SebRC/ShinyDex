@@ -1,7 +1,6 @@
 import UIKit
 
 class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-	var colorService = ColorService()
 	var moveService = MoveService()
 	var allMoves = [Move]()
 	var filteredMoves = [Move]()
@@ -19,10 +18,10 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 		tableView.dataSource = self
 		searchBar.delegate = self
 		allMoves = moveService.getMoves()
-		view.backgroundColor = colorService.getSecondaryColor()
-		tableView.separatorColor = colorService.getSecondaryColor()
+        view.backgroundColor = Color.Grey900
+        tableView.separatorColor = Color.Grey900
 		tableView.backgroundColor = .clear
-        titleLabel.tintColor = colorService.getTertiaryColor()
+        titleLabel.textColor = Color.Orange500
         titleLabel.text = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
 		setUpSearchController(searchBar: searchBar)
     }
@@ -72,10 +71,10 @@ class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDe
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "movePickerCell", for: indexPath) as! MovePickerCell
 
-		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.ppLabel.textColor = colorService.getTertiaryColor()
-		cell.typeLabel.textColor = colorService.getTertiaryColor()
+        cell.backgroundColor = Color.Grey800
+        cell.nameLabel.textColor = Color.Grey200
+		cell.ppLabel.textColor = Color.Grey200
+		cell.typeLabel.textColor = Color.Grey200
 
 		cell.imageBackgroundView.makeCircle()
 

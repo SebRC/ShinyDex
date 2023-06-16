@@ -96,18 +96,17 @@ extension Double {
 
 extension UIViewController {
     func setUpSearchController(searchBar: UISearchBar) {
-        let colorService = ColorService()
         searchBar.placeholder = "Search"
         let attributes =
         [
-            NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
+            NSAttributedString.Key.foregroundColor: Color.Grey200,
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
-        searchBarTextField?.textColor = colorService.getTertiaryColor()
+        searchBarTextField?.textColor = Color.Grey200
         let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
         searchBar.clipsToBounds = true
         searchBar.layer.cornerRadius = CornerRadius.standard
-        searchBar.barTintColor = colorService.getPrimaryColor()
+        searchBar.barTintColor = Color.Grey800
     }
 }
