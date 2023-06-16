@@ -91,9 +91,7 @@ class ShinyTrackerVC: UIViewController {
 			return UIImage(named: "\(huntMethod.rawValue) + Charm")!
 		}
 		else {
-			return huntMethod != .Encounters
-			? UIImage(named: huntMethod.rawValue)!
-			: UIImage(systemName: "info.circle.fill")!
+			return UIImage(named: huntMethod.rawValue)!
 		}
 	}
 	
