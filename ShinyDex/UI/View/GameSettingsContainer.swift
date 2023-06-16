@@ -54,7 +54,7 @@ class GameSettingsContainer: UIView {
 		pokeradarCell.titleLabel.text = "Pokéradar"
 		pokeradarCell.descriptionLabel.text = "The Pokéradar is only available in the generation 4 games Diamond, Pearl and Platinum and the genration 6 games X and Y."
 		shinyCharmCell.actionSwitch.tag = 3
-		shinyCharmCell.iconImageView.image = UIImage(named: "\(HuntMethod.Encounters.rawValue) + Charm")
+		shinyCharmCell.iconImageView.image = UIImage(named: "Charm")
 		shinyCharmCell.titleLabel.text = "Shiny Charm"
 		shinyCharmCell.descriptionLabel.text = "The shiny charm is only available from generation 5 and onwards."
 		chainFishingCell.actionSwitch.tag = 4
