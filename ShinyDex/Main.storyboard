@@ -1348,7 +1348,7 @@ Are you sure you want to do this?</string>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TXa-GF-GTi" secondAttribute="height" multiplier="325:34" constant="-77.588235294117624" id="9rC-9R-NwV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjQ-Ze-7Ja">
@@ -1401,6 +1401,7 @@ Are you sure you want to do this?</string>
                         <outlet property="searchBar" destination="50k-1o-2Cg" id="5o6-1z-Ytm"/>
                         <outlet property="tableView" destination="wVL-uN-frE" id="E2i-ns-74t"/>
                         <outlet property="textField" destination="TXa-GF-GTi" id="o1L-5E-y0i"/>
+                        <outlet property="titleLabel" destination="Dcp-KL-paq" id="Beu-Ca-hQE"/>
                         <segue destination="LV8-DJ-DxX" kind="unwind" identifier="unwindFromCreateHunt" unwindAction="createHuntConfirm:" id="gXn-RJ-hXw"/>
                     </connections>
                 </viewController>

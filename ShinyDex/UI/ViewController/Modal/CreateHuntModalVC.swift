@@ -1,7 +1,6 @@
 import UIKit
 
 class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataSource,  UITextFieldDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate {
-	var colorService = ColorService()
 	var huntService = HuntService()
 	var pokemonService = PokemonService()
 	var popupHandler = PopupHandler()
@@ -14,7 +13,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var textField: UITextField!
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var searchBar: UISearchBar!
-
+    @IBOutlet weak var titleLabel: UILabel!
+    
 	override func viewDidLoad() {
         super.viewDidLoad()
 		allPokemon = pokemonService.getAll()
@@ -24,18 +24,19 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.delegate = self
 		tableView.dataSource = self
 		textField.delegate = self
-		view.backgroundColor = colorService.getSecondaryColor()
-		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
+        view.backgroundColor = Color.Grey900
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
-		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
+        confirmButton.setTitleColor(Color.Grey200, for: .normal)
+        confirmButton.backgroundColor = Color.Grey800
 		confirmButton.layer.cornerRadius = CornerRadius.standard
-		textField.textColor = colorService.getTertiaryColor()
-		textField.backgroundColor = colorService.getPrimaryColor()
-		tableView.separatorColor = colorService.getSecondaryColor()
+        textField.textColor = Color.Grey200
+        textField.backgroundColor = Color.Grey800
+        tableView.separatorColor = Color.Grey900
 		tableView.backgroundColor = .clear
+        titleLabel.textColor = Color.Orange500
 		setUpSearchController(searchBar: searchBar)
     }
 
@@ -77,8 +78,8 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.spriteImageView.image = UIImage(named: pokemon.name.lowercased())
 		cell.nameLabel.text = pokemon.name
 		cell.numberLabel.text = "No. \(String(pokemon.number + 1))"
-		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.numberLabel.textColor = colorService.getTertiaryColor()
+        cell.nameLabel.textColor = Color.Grey200
+        cell.numberLabel.textColor = Color.Grey200
         return cell
 	}
 
@@ -97,7 +98,7 @@ class CreateHuntModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	}
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = colorService.getPrimaryColor()
+        cell.backgroundColor = Color.Grey800
 	}
 
 	func filterContentForSearchText(_ searchText: String) {

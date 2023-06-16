@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class Color {
+    static var Orange200 = UIColor(netHex: 0xFFE9B2)
     static var Orange500 = UIColor(netHex: 0xFFB800)
     static var Orange800 = UIColor(netHex: 0x664900)
     static var Orange900 = UIColor(netHex: 0x261B00)
