@@ -1029,7 +1029,7 @@ Are you sure you want to do this?</string>
                                     <constraint firstAttribute="width" secondItem="pZm-OQ-P6f" secondAttribute="height" multiplier="271:52" id="pET-vo-bi9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <inset key="imageEdgeInsets" minX="245" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="235" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Create Hunt">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <imageReference key="image" image="plus.app.fill" catalog="system" symbolScale="large"/>
