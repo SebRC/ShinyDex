@@ -1,7 +1,6 @@
 import UIKit
 
 class GameSettingsContainer: UIView {
-	var colorService = ColorService()
 	var pokemonService = PokemonService()
 	var oddsService = OddsService()
 	var switchStateService = SwitchStateService()
@@ -136,20 +135,20 @@ class GameSettingsContainer: UIView {
 	}
 
 	func setUIColors() {
-		contentView?.backgroundColor = colorService.getPrimaryColor()
-		explanationLabel.textColor = colorService.getTertiaryColor()
-		applyToAllButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		applyToAllButton.backgroundColor = colorService.getSecondaryColor()
-		generationSeparator.backgroundColor = colorService.getSecondaryColor()
-		shinyOddsLabel.textColor = colorService.getTertiaryColor()
-		gameLabel.textColor = colorService.getTertiaryColor()
-        gameTitle.textColor = colorService.getTertiaryColor()
-        gameButton.backgroundColor = colorService.getSecondaryColor()
-		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
+        contentView?.backgroundColor = Color.Grey800
+        explanationLabel.textColor = Color.Grey200
+		applyToAllButton.setTitleColor(Color.Grey200, for: .normal)
+		applyToAllButton.backgroundColor = Color.Grey900
+		generationSeparator.backgroundColor = Color.Grey900
+		shinyOddsLabel.textColor = Color.Grey200
+		gameLabel.textColor = Color.Grey200
+        gameTitle.textColor = Color.Grey200
+        gameButton.backgroundColor = Color.Grey900
+		useIncrementCell.iconImageView.tintColor = Color.Grey200
 	}
 
 	func setCellColors() {
-		useIncrementCell.iconImageView.tintColor = colorService.getTertiaryColor()
+		useIncrementCell.iconImageView.tintColor = Color.Grey200
 		for cell in gameSettingsCells! {
 			cell.setUIColors()
 		}
