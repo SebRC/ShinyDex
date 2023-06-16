@@ -24,6 +24,10 @@ class MenuTVC: UITableViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.barTintColor = Color.Grey900
+        let navigationBarTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: Color.Orange500,
+        ]
+        navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

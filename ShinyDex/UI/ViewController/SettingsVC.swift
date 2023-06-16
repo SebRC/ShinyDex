@@ -28,10 +28,6 @@ class SettingsVC: UIViewController, SegueActivated {
     }
 	
 	fileprivate func setUIColors() {
-		let navigationBarTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: Color.Orange500,
-		]
-		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
         view.backgroundColor = Color.Grey900
 	}
 	
