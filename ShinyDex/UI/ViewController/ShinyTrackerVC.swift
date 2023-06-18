@@ -11,7 +11,7 @@ class ShinyTrackerVC: UIViewController {
 	@IBOutlet weak var gifSeparatorView: UIView!
 	@IBOutlet weak var animatedImageView: FLAnimatedImageView!
     @IBOutlet weak var encountersView: UIView!
-    @IBOutlet weak var textSeparatorView: UIView!
+    @IBOutlet weak var probabilityView: UIView!
     
 	var pokemon: Pokemon!
 	var hunts = [Hunt]()
@@ -46,16 +46,16 @@ class ShinyTrackerVC: UIViewController {
         
         encountersImageView.image = getMethodImage()
         encountersImageView.makeCircle()
-        encountersImageView.backgroundColor = Color.Grey800
+        encountersImageView.backgroundColor = Color.Grey900
         encountersImageView.layer.borderWidth = 2
         encountersImageView.layer.borderColor = Color.Orange500.cgColor
         
         percentageImageView.makeCircle()
-        percentageImageView.backgroundColor = Color.Grey800
+        percentageImageView.backgroundColor = Color.Grey900
         percentageImageView.layer.borderWidth = 2
         percentageImageView.layer.borderColor = Color.Orange500.cgColor
-        textSeparatorView.backgroundColor = Color.Grey900
-        textSeparatorView.layer.cornerRadius = CornerRadius.standard
+        probabilityView.backgroundColor = Color.Grey800
+        probabilityView.layer.cornerRadius = CornerRadius.standard
 	}
 
 	fileprivate func setMethodDecrement() {
