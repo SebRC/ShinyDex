@@ -1447,10 +1447,10 @@ Are you sure you want to do this?</string>
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4E-f9-VW1">
-                                <rect key="frame" x="54" y="503" width="265" height="10"/>
+                                <rect key="frame" x="16" y="503" width="341" height="5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="L4E-f9-VW1" secondAttribute="height" multiplier="53:2" id="HWq-qg-4WM"/>
+                                    <constraint firstAttribute="width" secondItem="L4E-f9-VW1" secondAttribute="height" multiplier="53:2" constant="208.5" id="HWq-qg-4WM"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRC-EJ-od9">
@@ -1551,13 +1551,13 @@ Are you sure you want to do this?</string>
                             <constraint firstItem="NXr-AB-Emm" firstAttribute="top" secondItem="rOg-Xo-UT0" secondAttribute="bottom" constant="8" symbolic="YES" id="EQ9-i2-CZZ"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="bottom" secondItem="kUC-0o-iXh" secondAttribute="bottom" constant="21" id="PaT-PU-4qy"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="yha-I5-61Z" secondAttribute="trailing" constant="64" id="Plw-Z3-FzF"/>
-                            <constraint firstItem="L4E-f9-VW1" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="54" id="TG7-8C-aor"/>
-                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="L4E-f9-VW1" secondAttribute="trailing" constant="56" id="TMn-ME-k0U"/>
+                            <constraint firstItem="L4E-f9-VW1" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="16" id="TG7-8C-aor"/>
+                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="L4E-f9-VW1" secondAttribute="trailing" constant="18" id="TMn-ME-k0U"/>
                             <constraint firstItem="rOg-Xo-UT0" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="16" id="Upk-fh-myL"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="NXr-AB-Emm" secondAttribute="trailing" constant="16" id="YDc-9B-vje"/>
                             <constraint firstItem="NXr-AB-Emm" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="16" id="cyq-LR-2SE"/>
                             <constraint firstItem="rOg-Xo-UT0" firstAttribute="top" secondItem="WeV-6P-3fq" secondAttribute="top" id="gB1-Lb-Hcq"/>
-                            <constraint firstItem="kUC-0o-iXh" firstAttribute="top" secondItem="L4E-f9-VW1" secondAttribute="bottom" constant="8" id="h7K-Ov-ya9"/>
+                            <constraint firstItem="kUC-0o-iXh" firstAttribute="top" secondItem="L4E-f9-VW1" secondAttribute="bottom" constant="13" id="h7K-Ov-ya9"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="rOg-Xo-UT0" secondAttribute="trailing" constant="16" id="hbx-iB-j38"/>
                             <constraint firstItem="L4E-f9-VW1" firstAttribute="top" secondItem="yha-I5-61Z" secondAttribute="bottom" constant="8" id="lCB-As-HCe"/>
                             <constraint firstItem="XRC-EJ-od9" firstAttribute="leading" secondItem="F2B-n4-oDA" secondAttribute="leadingMargin" id="ppf-7c-ymt"/>

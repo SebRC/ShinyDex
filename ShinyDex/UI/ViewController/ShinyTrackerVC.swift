@@ -112,7 +112,7 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate func roundCorners() {
 		encountersLabel.layer.cornerRadius = CornerRadius.standard
 		probabilityLabel.layer.cornerRadius = CornerRadius.standard
-		gifSeparatorView.layer.cornerRadius = CornerRadius.standard
+		gifSeparatorView.layer.cornerRadius = CornerRadius.soft
         encountersView.layer.cornerRadius = CornerRadius.standard
 	}
 	
