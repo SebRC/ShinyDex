@@ -42,7 +42,7 @@ class ShinyTrackerVC: UIViewController {
 		setButtonActions()
 		setOddsLabelText()
         addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-        addToHuntButton.tintColor = Color.Grey200
+        addToHuntButton.tintColor = Color.Orange500
         
         encountersImageView.image = getMethodImage()
         encountersImageView.makeCircle()
@@ -104,10 +104,9 @@ class ShinyTrackerVC: UIViewController {
         encountersLabel.textColor = Color.Grey200
         probabilityLabel.textColor = Color.Grey200
 		
-		gifSeparatorView.backgroundColor = Color.Grey800
-		
-        plusButton.tintColor = Color.Orange500
-        minusButton.tintColor = Color.Orange500
+		gifSeparatorView.backgroundColor = Color.Grey200
+        plusButton.tintColor = Color.Grey200
+        minusButton.tintColor = Color.Grey200
     }
 	
 	fileprivate func roundCorners() {

@@ -1473,8 +1473,8 @@ Are you sure you want to do this?</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOg-Xo-UT0">
                                 <rect key="frame" x="16" y="116" width="343" height="77"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chain: 40 + 1000 patches seen" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rl1-0y-S1X">
-                                        <rect key="frame" x="48" y="7" width="285" height="55.5"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Chain: 40 + 1000 patches seen" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rl1-0y-S1X">
+                                        <rect key="frame" x="48" y="7" width="285" height="62"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Rl1-0y-S1X" secondAttribute="height" multiplier="289:54" constant="-12.703703703703695" id="srf-iQ-axa"/>
                                         </constraints>
@@ -1495,14 +1495,15 @@ Are you sure you want to do this?</string>
                                     <constraint firstAttribute="width" secondItem="rOg-Xo-UT0" secondAttribute="height" multiplier="115:37" constant="103.67567567567571" id="DNH-f5-SFV"/>
                                     <constraint firstItem="Rl1-0y-S1X" firstAttribute="leading" secondItem="zcj-pa-Hps" secondAttribute="trailing" constant="8" symbolic="YES" id="NCb-0F-Bum"/>
                                     <constraint firstItem="Rl1-0y-S1X" firstAttribute="top" secondItem="rOg-Xo-UT0" secondAttribute="top" constant="7" id="Oad-uK-efl"/>
+                                    <constraint firstAttribute="bottom" secondItem="zcj-pa-Hps" secondAttribute="bottom" constant="27" id="Yj7-5B-zPI"/>
                                     <constraint firstItem="zcj-pa-Hps" firstAttribute="top" secondItem="rOg-Xo-UT0" secondAttribute="top" constant="18" id="cjG-7N-ZFb"/>
                                 </constraints>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="ButtonStrip" customModule="ShinyDex" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUf-xf-A7g" customClass="ButtonStrip" customModule="ShinyDex" customModuleProvider="target">
                                 <rect key="frame" x="14" y="280" width="343" height="43"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="MUf-xf-A7g" secondAttribute="height" multiplier="69:8" constant="-25.875" id="wvy-90-CkW"/>
+                                    <constraint firstAttribute="width" secondItem="MUf-xf-A7g" secondAttribute="height" multiplier="69:8" constant="-27.875" id="wvy-90-CkW"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXr-AB-Emm">
@@ -1543,7 +1544,7 @@ Are you sure you want to do this?</string>
                         <viewLayoutGuide key="safeArea" id="WeV-6P-3fq"/>
                         <color key="backgroundColor" red="0.6705882352941176" green="0.90980392156862744" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="MUf-xf-A7g" secondAttribute="trailing" constant="16" id="2nv-M7-Gms"/>
+                            <constraint firstItem="WeV-6P-3fq" firstAttribute="trailing" secondItem="MUf-xf-A7g" secondAttribute="trailing" constant="18" id="2nv-M7-Gms"/>
                             <constraint firstItem="WeV-6P-3fq" firstAttribute="bottom" secondItem="XRC-EJ-od9" secondAttribute="bottom" constant="21" id="5XS-t2-JP9"/>
                             <constraint firstItem="kUC-0o-iXh" firstAttribute="leading" secondItem="XRC-EJ-od9" secondAttribute="trailing" constant="93" id="6vw-od-foF"/>
                             <constraint firstItem="yha-I5-61Z" firstAttribute="leading" secondItem="WeV-6P-3fq" secondAttribute="leading" constant="61" id="8m8-zk-Fl8"/>
@@ -2139,10 +2140,10 @@ Are you sure you want to do this?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mSu-1U-tG2"/>
+        <segue reference="GWK-Tp-YuW"/>
         <segue reference="LJI-fC-w8z"/>
         <segue reference="zLc-5D-GZe"/>
-        <segue reference="DHy-Un-iod"/>
+        <segue reference="LE8-BB-dtk"/>
         <segue reference="m7y-w4-r1a"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
