@@ -1473,10 +1473,10 @@ Are you sure you want to do this?</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rOg-Xo-UT0">
                                 <rect key="frame" x="16" y="116" width="343" height="77"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Chain: 40 + 1000 patches seen" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rl1-0y-S1X">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chain: 40 + 1000 patches seen" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rl1-0y-S1X">
                                         <rect key="frame" x="48" y="7" width="285" height="62"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Rl1-0y-S1X" secondAttribute="height" multiplier="289:54" constant="-12.703703703703695" id="srf-iQ-axa"/>
+                                            <constraint firstAttribute="width" secondItem="Rl1-0y-S1X" secondAttribute="height" multiplier="289:54" constant="-46.814814814814838" id="srf-iQ-axa"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="highlightedColor"/>
@@ -1510,9 +1510,9 @@ Are you sure you want to do this?</string>
                                 <rect key="frame" x="16" y="201" width="343" height="70"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ChG-Aa-Alk">
-                                        <rect key="frame" x="44" y="8" width="291" height="54"/>
+                                        <rect key="frame" x="48" y="8" width="287" height="54"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="ChG-Aa-Alk" secondAttribute="height" multiplier="97:18" id="y00-Lv-Pci"/>
+                                            <constraint firstAttribute="width" secondItem="ChG-Aa-Alk" secondAttribute="height" multiplier="97:18" constant="-4" id="y00-Lv-Pci"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1530,9 +1530,9 @@ Are you sure you want to do this?</string>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="ChG-Aa-Alk" firstAttribute="top" secondItem="NXr-AB-Emm" secondAttribute="top" constant="8" id="8Gi-TO-06J"/>
-                                    <constraint firstAttribute="trailing" secondItem="AHV-e1-Nub" secondAttribute="trailing" constant="303" id="Fe2-Uk-Aa5"/>
                                     <constraint firstAttribute="trailing" secondItem="ChG-Aa-Alk" secondAttribute="trailing" constant="8" id="H46-sh-cNX"/>
                                     <constraint firstItem="AHV-e1-Nub" firstAttribute="leading" secondItem="NXr-AB-Emm" secondAttribute="leading" constant="8" id="HvG-z2-DtH"/>
+                                    <constraint firstItem="ChG-Aa-Alk" firstAttribute="leading" secondItem="AHV-e1-Nub" secondAttribute="trailing" constant="8" id="IZz-yt-yde"/>
                                     <constraint firstAttribute="bottom" secondItem="ChG-Aa-Alk" secondAttribute="bottom" constant="8" id="WGq-em-St1"/>
                                     <constraint firstAttribute="width" secondItem="AHV-e1-Nub" secondAttribute="height" multiplier="343:37" id="bBa-Zg-7Wg"/>
                                     <constraint firstAttribute="bottom" secondItem="AHV-e1-Nub" secondAttribute="bottom" constant="17" id="bnA-fr-APr"/>
