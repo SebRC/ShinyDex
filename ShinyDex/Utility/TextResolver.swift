@@ -36,7 +36,7 @@ class TextResolver {
 				? "\(methodVerb): \(methodDecrement)\nEncounters: \(encountersDecremented)"
 				: "\(methodVerb): \(encounters)"
 		}
-		return "\(encounters)"
+		return "Encounters: \(encounters)"
 	}
     
     fileprivate func isChainingMethod(huntMethod: HuntMethod) -> Bool {
