@@ -17,8 +17,7 @@ class ProbabilityService {
 		}
 		if (pokemon.huntMethod == .DexNav && maxChainNotReached) {
 			return "Reach Search level \(methodDecrement) to see probability"
-            return "Reach search"
 		}
-		return String(format: "%.2f", probability)
+		return "Probability: \(String(format: "%.2f", probability))"
 	}
 }
