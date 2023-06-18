@@ -49,8 +49,8 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         cell.nameLabel.textColor = Color.Grey200
 		cell.ppLabel.textColor = Color.Grey200
 		cell.typeLabel.textColor = Color.Grey200
-        cell.incrementButton.tintColor = Color.Grey500
-        cell.decrementButton.tintColor = Color.Grey500
+        cell.incrementButton.tintColor = Color.Grey200
+        cell.decrementButton.tintColor = Color.Grey200
         cell.separator.backgroundColor = Color.Grey900
 
 		cell.imageBackgroundView.makeCircle()
