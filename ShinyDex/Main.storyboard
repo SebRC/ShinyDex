@@ -813,9 +813,9 @@ Are you sure you want to do this?</string>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZe-3F-Hva">
-                                            <rect key="frame" x="85" y="7" width="130" height="22"/>
+                                            <rect key="frame" x="85" y="7" width="130" height="29"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="zZe-3F-Hva" secondAttribute="height" multiplier="65:11" id="E7e-F4-EDU"/>
+                                                <constraint firstAttribute="width" secondItem="zZe-3F-Hva" secondAttribute="height" multiplier="65:11" constant="-41.363636363636374" id="E7e-F4-EDU"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
@@ -845,9 +845,9 @@ Are you sure you want to do this?</string>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOE-yN-swf">
-                                            <rect key="frame" x="85" y="44" width="75" height="10"/>
+                                            <rect key="frame" x="85" y="44" width="75" height="18"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="mOE-yN-swf" secondAttribute="height" multiplier="37:5" constant="1" id="egu-1q-gf4"/>
+                                                <constraint firstAttribute="width" secondItem="mOE-yN-swf" secondAttribute="height" multiplier="37:5" constant="-58.200000000000017" id="egu-1q-gf4"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
@@ -863,7 +863,7 @@ Are you sure you want to do this?</string>
                                         <constraint firstItem="zZe-3F-Hva" firstAttribute="leading" secondItem="hYB-XM-jUb" secondAttribute="trailing" constant="5" id="Jwh-V5-gEQ"/>
                                         <constraint firstItem="g2W-y0-GL6" firstAttribute="centerY" secondItem="QgK-AP-wcn" secondAttribute="centerY" id="LCb-zs-fzS"/>
                                         <constraint firstItem="zZe-3F-Hva" firstAttribute="top" secondItem="QgK-AP-wcn" secondAttribute="topMargin" constant="-4" id="MGa-jG-Rql"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="zZe-3F-Hva" secondAttribute="bottom" constant="25" id="MPM-eP-TUP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="zZe-3F-Hva" secondAttribute="bottom" constant="18" id="MPM-eP-TUP"/>
                                         <constraint firstItem="zZe-3F-Hva" firstAttribute="leading" secondItem="QgK-AP-wcn" secondAttribute="leading" constant="85" id="bfe-yQ-vrP"/>
                                         <constraint firstItem="g2W-y0-GL6" firstAttribute="top" secondItem="QgK-AP-wcn" secondAttribute="topMargin" constant="-8" id="dnz-bn-jmo"/>
                                         <constraint firstItem="hYB-XM-jUb" firstAttribute="bottom" secondItem="g2W-y0-GL6" secondAttribute="bottom" id="fWl-LI-wJz"/>
@@ -2139,10 +2139,10 @@ Are you sure you want to do this?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GWK-Tp-YuW"/>
-        <segue reference="7k3-aT-9gU"/>
+        <segue reference="mSu-1U-tG2"/>
+        <segue reference="LJI-fC-w8z"/>
         <segue reference="zLc-5D-GZe"/>
-        <segue reference="LE8-BB-dtk"/>
+        <segue reference="DHy-Un-iod"/>
         <segue reference="m7y-w4-r1a"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
