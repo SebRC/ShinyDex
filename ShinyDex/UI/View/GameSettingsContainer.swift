@@ -10,6 +10,7 @@ class GameSettingsContainer: UIView {
 
 	let nibName = "GameSettingsContainer"
     var contentView: UIView?
+    
 	@IBOutlet weak var gameLabel: UILabel!
 	@IBOutlet weak var shinyCharmCell: GameSettingsCell!
 	@IBOutlet weak var lureCell: GameSettingsCell!

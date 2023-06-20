@@ -137,11 +137,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shiny Odds: 1/8192" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9o-xC-X7G">
-                    <rect key="frame" x="16" y="1241" width="328" height="50"/>
+                    <rect key="frame" x="16" y="1241" width="328" height="120"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="q9o-xC-X7G" secondAttribute="height" multiplier="164:25" id="roY-Re-lxJ"/>
+                        <constraint firstAttribute="width" secondItem="q9o-xC-X7G" secondAttribute="height" multiplier="164:25" constant="-459.19999999999993" id="roY-Re-lxJ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>

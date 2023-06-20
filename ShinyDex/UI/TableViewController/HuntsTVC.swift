@@ -234,7 +234,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	func incrementEncounters(_ sender: UIButton) {
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
 			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-			let increment = pokemon.useIncrementInHunts ? pokemon.increment : 1
+			let increment = pokemon.increment
 			hunts[indexPath.section].totalEncounters += increment
 			pokemon.encounters += increment
 			totalEncounters += increment
