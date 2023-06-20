@@ -41,7 +41,7 @@ class ShinyTrackerVC: UIViewController {
         addToHuntButton.tintColor = Color.Orange500
         
         encountersView.imageView.image = getMethodImage()
-        probabilityView.imageView.image = UIImage.init(systemName: "percent")
+        probabilityView.imageView.image = UIImage.init(systemName: "percent")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small))
         probabilityView.layer.cornerRadius = CornerRadius.standard
         encountersView.layer.cornerRadius = CornerRadius.standard
 	}

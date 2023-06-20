@@ -4,6 +4,7 @@ import UIKit
 class IconTextView: UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var imageBackgroundView: UIView!
     
     let nibName = "IconTextView"
     var contentView: UIView?
@@ -15,10 +16,10 @@ class IconTextView: UIView {
         contentView?.backgroundColor = Color.Grey800
         label.textColor = Color.Grey200
         label.backgroundColor = .clear
-        imageView.makeCircle()
-        imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = Color.Orange500.cgColor
-        imageView.backgroundColor = Color.Grey900
+        imageBackgroundView.makeCircle()
+        imageBackgroundView.layer.borderWidth = 2
+        imageBackgroundView.layer.borderColor = Color.Orange500.cgColor
+        imageBackgroundView.backgroundColor = Color.Grey900
         imageView.tintColor = Color.Grey200
     }
 
