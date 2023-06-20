@@ -1,31 +1,54 @@
-//
-//  Color.swift
-//  ShinyDex
-//
-//  Created by Sebastian Christiansen on 15/06/2023.
-//  Copyright © 2023 Sebastian Christiansen. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 class Color {
+    static var Orange100 = UIColor(netHex: 0xFFF8E5)
     static var Orange200 = UIColor(netHex: 0xFFE9B2)
+    static var Orange300 = UIColor(netHex: 0xFFDB80)
+    static var Orange400 = UIColor(netHex: 0xFFCC4C)
     static var Orange500 = UIColor(netHex: 0xFFB800)
+    static var Orange600 = UIColor(netHex: 0xCC9200)
+    static var Orange700 = UIColor(netHex: 0x996E00)
     static var Orange800 = UIColor(netHex: 0x664900)
     static var Orange900 = UIColor(netHex: 0x261B00)
+    
     static var Grey100 = UIColor(netHex: 0xFAFDFF)
     static var Grey200 = UIColor(netHex: 0xEDF0F2)
+    static var Grey300 = UIColor(netHex: 0xD4D7D9)
     static var Grey400 = UIColor(netHex: 0xACB6BF)
     static var Grey500 = UIColor(netHex: 0x767E85)
     static var Grey600 = UIColor(netHex: 0x4F5459)
     static var Grey700 = UIColor(netHex: 0x393C40)
     static var Grey800 = UIColor(netHex: 0x292E33)
     static var Grey900 = UIColor(netHex: 0x131C26)
+    
     static var Danger100 = UIColor(netHex: 0xFFCCCC)
     static var Danger200 = UIColor(netHex: 0xE5A1A1)
+    static var Danger300 = UIColor(netHex: 0xCC6666)
+    static var Danger400 = UIColor(netHex: 0xD94141)
     static var Danger500 = UIColor(netHex: 0xD90303)
+    static var Danger600 = UIColor(netHex: 0xB20202)
+    static var Danger700 = UIColor(netHex: 0x990202)
+    static var Danger800 = UIColor(netHex: 0x730101)
+    static var Danger900 = UIColor(netHex: 0x4D0101)
+    
     static var Success100 = UIColor(netHex: 0xDBF2DA)
+    static var Success200 = UIColor(netHex: 0xB7E3B6)
     static var Success300 = UIColor(netHex: 0x74E372)
+    static var Success400 = UIColor(netHex: 0x5ACC58)
     static var Success500 = UIColor(netHex: 0x3BB239)
+    static var Success600 = UIColor(netHex: 0x329930)
+    static var Success700 = UIColor(netHex: 0x216620)
+    static var Success800 = UIColor(netHex: 0x194D18)
+    static var Success900 = UIColor(netHex: 0x113310)
+    
+    static var Info100 = UIColor(netHex: 0xC4E7F5)
+    static var Info200 = UIColor(netHex: 0xA0DCF5)
+    static var Info300 = UIColor(netHex: 0x6ECDF5)
+    static var Info400 = UIColor(netHex: 0x3DBEF5)
+    static var Info500 = UIColor(netHex: 0x12B1F5)
+    static var Info600 = UIColor(netHex: 0x0F93CC)
+    static var Info700 = UIColor(netHex: 0x0B658C)
+    static var Info800 = UIColor(netHex: 0x084A66)
+    static var Info900 = UIColor(netHex: 0x06374D)
 }
