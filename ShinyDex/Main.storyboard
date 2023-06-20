@@ -229,12 +229,6 @@ Are you sure you want to do this?</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
-                                                    <rect key="frame" x="16" y="25" width="140" height="140"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zfx-EK-zPe">
                                                     <rect key="frame" x="251" y="4" width="76" height="157"/>
                                                     <subviews>
@@ -272,9 +266,15 @@ Are you sure you want to do this?</string>
                                                         <constraint firstAttribute="width" secondItem="0mZ-Yg-AHd" secondAttribute="height" multiplier="3:151" id="EE9-Vh-vRS"/>
                                                     </constraints>
                                                 </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
+                                                    <rect key="frame" x="0.0" y="21" width="140" height="140"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leading" constant="16" id="9g4-cq-jng"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leading" id="9g4-cq-jng"/>
                                                 <constraint firstAttribute="bottom" secondItem="0mZ-Yg-AHd" secondAttribute="bottom" constant="7" id="Cg9-H5-dk0"/>
                                                 <constraint firstItem="iRO-yu-5pG" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leadingMargin" id="FQJ-8w-ftw"/>
                                                 <constraint firstAttribute="trailing" secondItem="zfx-EK-zPe" secondAttribute="trailing" constant="16" id="NEp-91-aD5"/>
@@ -283,8 +283,8 @@ Are you sure you want to do this?</string>
                                                 <constraint firstItem="zfx-EK-zPe" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="top" constant="4" id="cTH-oF-nNz"/>
                                                 <constraint firstItem="0mZ-Yg-AHd" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="top" constant="7" id="fV6-bb-qQU"/>
                                                 <constraint firstItem="iRO-yu-5pG" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" id="jT7-jq-EDQ"/>
-                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="-13" id="k8J-0g-fjQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="Yh3-5o-wGz" secondAttribute="bottom" id="o6G-hy-lxT"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="-17" id="k8J-0g-fjQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Yh3-5o-wGz" secondAttribute="bottom" constant="4" id="o6G-hy-lxT"/>
                                                 <constraint firstAttribute="bottom" secondItem="zfx-EK-zPe" secondAttribute="bottom" constant="4" id="qy7-pM-0xC"/>
                                             </constraints>
                                         </tableViewCellContentView>
