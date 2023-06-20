@@ -112,7 +112,6 @@ extension UIViewController {
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
         searchBarTextField?.textColor = Color.Grey200
-        let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
         searchBar.clipsToBounds = true
         searchBar.layer.cornerRadius = CornerRadius.standard
         searchBar.barTintColor = Color.Grey800
