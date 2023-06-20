@@ -9,7 +9,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var titleLabel: UILabel!
-
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.delegate = self
@@ -30,7 +30,7 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 125.0
+		return 165.0
 	}
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,8 +44,8 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rearrangeCell", for: indexPath) as! RearrangeCell
 		let hunt = hunts[indexPath.section]
-		cell.moveUpButton.isHidden = hunt.priority == 0
-		cell.moveDownButton.isHidden = hunt.priority == hunts.count - 1
+		cell.moveUpButton.isEnabled = hunt.priority != 0
+		cell.moveDownButton.isEnabled = hunt.priority != hunts.count - 1
 		cell.cellDelegate = self
 		cell.nameLabel.text = hunt.name
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
@@ -59,6 +59,8 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		cell.moveDownButton.tintColor = Color.Grey200
         cell.moveDownButton.backgroundColor = .clear
 		cell.moveDownButton.layer.cornerRadius = CornerRadius.standard
+        cell.separator.backgroundColor = Color.Grey900
+        cell.separator.layer.cornerRadius = CornerRadius.soft
 
         return cell
     }
