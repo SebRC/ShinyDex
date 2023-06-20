@@ -23,6 +23,7 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
         titleLabel.textColor = Color.Orange500
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
 		indicatorView.titleLabel.text = "Select a hunt to add \(pokemon.name) to it"
+        tableView.separatorColor = Color.Grey900
 		tableView.layer.cornerRadius = CornerRadius.standard
         view.backgroundColor = Color.Grey900
     }
