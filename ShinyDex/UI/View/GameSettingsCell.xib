@@ -32,10 +32,10 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a long text about whether or not a feature is available in a certain generation" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuC-Kb-dAm">
-                    <rect key="frame" x="16" y="46" width="303" height="38"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Increased shiny odds from breeding shinies are only available in Gold, Silver and Crystal" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuC-Kb-dAm">
+                    <rect key="frame" x="16" y="46" width="303" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="CuC-Kb-dAm" secondAttribute="height" multiplier="303:28" constant="-108.21428571428572" id="Ut3-Dp-gnh"/>
+                        <constraint firstAttribute="width" secondItem="CuC-Kb-dAm" secondAttribute="height" multiplier="303:28" constant="-129.85714285714283" id="Ut3-Dp-gnh"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
@@ -71,7 +71,7 @@
                 <constraint firstItem="AzP-qn-He4" firstAttribute="leading" secondItem="S5J-RI-8Tz" secondAttribute="trailing" constant="8" symbolic="YES" id="NuE-Lw-mCH"/>
                 <constraint firstItem="CuC-Kb-dAm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="WZs-oo-LhO"/>
                 <constraint firstItem="I5o-6F-cVj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="eWR-FH-IrX"/>
-                <constraint firstAttribute="bottom" secondItem="CuC-Kb-dAm" secondAttribute="bottom" constant="6" id="et6-wn-4hO"/>
+                <constraint firstAttribute="bottom" secondItem="CuC-Kb-dAm" secondAttribute="bottom" constant="4" id="et6-wn-4hO"/>
                 <constraint firstItem="b0Y-cZ-Emy" firstAttribute="leading" secondItem="AzP-qn-He4" secondAttribute="trailing" constant="2" id="g3R-Tc-Kwf"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CuC-Kb-dAm" secondAttribute="trailing" constant="31" id="g7S-lV-tT6"/>
                 <constraint firstItem="CuC-Kb-dAm" firstAttribute="top" secondItem="S5J-RI-8Tz" secondAttribute="bottom" id="gl2-UR-adg"/>
