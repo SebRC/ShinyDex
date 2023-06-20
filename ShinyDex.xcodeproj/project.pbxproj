@@ -10,6 +10,8 @@
 		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
 		515C856D2A3B468300AC439D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515C856C2A3B468300AC439D /* Color.swift */; };
 		51818C5B26C0483500B95FF6 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 51818C5A26C0483500B95FF6 /* moves.json */; };
+		51E81AD82A418AE100CECF5D /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51E81AD72A418AE100CECF5D /* IconTextView.xib */; };
+		51E81ADA2A418B0B00CECF5D /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E81AD92A418B0B00CECF5D /* IconTextView.swift */; };
 		51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */; };
 		51FC43E328872F87004EA69C /* GameSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E228872F87004EA69C /* GameSelectorCell.swift */; };
 		51FC43E628873621004EA69C /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FC43E528873621004EA69C /* Games.swift */; };
@@ -136,6 +138,8 @@
 		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
 		515C856C2A3B468300AC439D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		51818C5A26C0483500B95FF6 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
+		51E81AD72A418AE100CECF5D /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
+		51E81AD92A418B0B00CECF5D /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
 		51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectorTVC.swift; sourceTree = "<group>"; };
 		51FC43E228872F87004EA69C /* GameSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSelectorCell.swift; sourceTree = "<group>"; };
 		51FC43E528873621004EA69C /* Games.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
@@ -577,6 +581,8 @@
 				967F63012465C66C008F2C4B /* GameSettingsCell.xib */,
 				967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */,
 				967F63052465C927008F2C4B /* GameSettingsContainer.xib */,
+				51E81AD92A418B0B00CECF5D /* IconTextView.swift */,
+				51E81AD72A418AE100CECF5D /* IconTextView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -684,6 +690,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51E81AD82A418AE100CECF5D /* IconTextView.xib in Resources */,
 				967F63022465C66C008F2C4B /* GameSettingsCell.xib in Resources */,
 				967F63062465C927008F2C4B /* GameSettingsContainer.xib in Resources */,
 				96A72997245F13A200AF3F5F /* IndicatorView.xib in Resources */,
@@ -796,6 +803,7 @@
 				9689C72D240851DD0007AD5D /* OddsService.swift in Sources */,
 				967F63082465E419008F2C4B /* MasudaOddsService.swift in Sources */,
 				51FC43E628873621004EA69C /* Games.swift in Sources */,
+				51E81ADA2A418B0B00CECF5D /* IconTextView.swift in Sources */,
 				96FC081923EF590500459450 /* Pokeball.swift in Sources */,
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
 				51FC43E328872F87004EA69C /* GameSelectorCell.swift in Sources */,

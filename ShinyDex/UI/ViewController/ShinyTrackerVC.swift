@@ -2,18 +2,16 @@ import UIKit
 import FLAnimatedImage
 
 class ShinyTrackerVC: UIViewController {
-	@IBOutlet weak var encountersLabel: UILabel!
 	@IBOutlet weak var plusButton: UIButton!
 	@IBOutlet weak var minusButton: UIButton!
-	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
 	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var gifSeparatorView: UIView!
 	@IBOutlet weak var animatedImageView: FLAnimatedImageView!
-    @IBOutlet weak var encountersView: UIView!
-    @IBOutlet weak var probabilityView: UIView!
+    @IBOutlet weak var probabilityView: IconTextView!
+    @IBOutlet weak var encountersView: IconTextView!
     
-	var pokemon: Pokemon!
+    var pokemon: Pokemon!
 	var hunts = [Hunt]()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
@@ -23,8 +21,6 @@ class ShinyTrackerVC: UIViewController {
 	var pokemonService = PokemonService()
 	var huntService = HuntService()
 	var textResolver = TextResolver()
-    @IBOutlet weak var encountersImageView: UIImageView!
-    @IBOutlet weak var percentageImageView: UIImageView!
     
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,18 +40,10 @@ class ShinyTrackerVC: UIViewController {
         addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
         addToHuntButton.tintColor = Color.Orange500
         
-        encountersImageView.image = getMethodImage()
-        encountersImageView.makeCircle()
-        encountersImageView.backgroundColor = Color.Grey900
-        encountersImageView.layer.borderWidth = 2
-        encountersImageView.layer.borderColor = Color.Orange500.cgColor
-        
-        percentageImageView.makeCircle()
-        percentageImageView.backgroundColor = Color.Grey900
-        percentageImageView.layer.borderWidth = 2
-        percentageImageView.layer.borderColor = Color.Orange500.cgColor
-        probabilityView.backgroundColor = Color.Grey800
+        encountersView.imageView.image = getMethodImage()
+        probabilityView.imageView.image = UIImage.init(systemName: "percent")
         probabilityView.layer.cornerRadius = CornerRadius.standard
+        encountersView.layer.cornerRadius = CornerRadius.standard
 	}
 
 	fileprivate func setMethodDecrement() {
@@ -82,7 +70,7 @@ class ShinyTrackerVC: UIViewController {
 
 	fileprivate func setMethodImage() {
         let image = getMethodImage();
-        encountersImageView.image = image
+        encountersView.imageView.image = image
         buttonStrip.methodButton.setImage(image, for: .normal)
 	}
 
@@ -99,21 +87,14 @@ class ShinyTrackerVC: UIViewController {
 	
 	fileprivate func setUIColors() {
         view.backgroundColor = Color.Grey900
-		
         encountersView.backgroundColor = Color.Grey800
-        encountersLabel.textColor = Color.Grey200
-        probabilityLabel.textColor = Color.Grey200
-		
 		gifSeparatorView.backgroundColor = Color.Grey400
         plusButton.tintColor = Color.Grey400
         minusButton.tintColor = Color.Grey400
     }
 	
 	fileprivate func roundCorners() {
-		encountersLabel.layer.cornerRadius = CornerRadius.standard
-		probabilityLabel.layer.cornerRadius = CornerRadius.standard
 		gifSeparatorView.layer.cornerRadius = CornerRadius.soft
-        encountersView.layer.cornerRadius = CornerRadius.standard
 	}
 	
 	fileprivate func setTitle() {
@@ -137,7 +118,7 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate func resolveEncounterDetails() {
 		setProbability()
 		setProbabilityLabelText()
-        encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
+        encountersView.label.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
@@ -151,7 +132,7 @@ class ShinyTrackerVC: UIViewController {
 
 	fileprivate func setProbabilityLabelText() {
 		let probabilityLabelText = probabilityService.getProbabilityText(probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
-        probabilityLabel.text = probabilityLabelText
+        probabilityView.label.text = probabilityLabelText
 	}
 
 	fileprivate func setOddsLabelText() {
