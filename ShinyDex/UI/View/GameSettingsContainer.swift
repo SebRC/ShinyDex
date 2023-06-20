@@ -22,7 +22,6 @@ class GameSettingsContainer: UIView {
 	@IBOutlet weak var chainFishingCell: GameSettingsCell!
 	@IBOutlet weak var dexNavCell: GameSettingsCell!
 	@IBOutlet weak var friendSafariCell: GameSettingsCell!
-	@IBOutlet weak var useIncrementCell: GameSettingsCell!
 	@IBOutlet weak var applyToAllButton: UIButton!
 	@IBOutlet weak var explanationLabel: UILabel!
     @IBOutlet weak var gameButton: UIButton!
@@ -33,14 +32,11 @@ class GameSettingsContainer: UIView {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
 
-		gameSettingsCells = [useIncrementCell,genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
+		gameSettingsCells = [genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
 
 		applyToAllButton.layer.cornerRadius = CornerRadius.standard
         gameButton.layer.cornerRadius = CornerRadius.standard
 		generationSeparator.layer.cornerRadius = CornerRadius.standard
-		useIncrementCell.iconImageView.image = UIImage(systemName: "goforward.plus")
-		useIncrementCell.titleLabel.text = "Increment in hunts"
-		useIncrementCell.descriptionLabel.text = "Enable the encounter increment to be active when hunting from the Hunts menu."
 		genTwoBreedingCell.actionSwitch.tag = 0
 		genTwoBreedingCell.iconImageView.image = UIImage(named: HuntMethod.Gen2Breeding.rawValue)
 		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
@@ -86,7 +82,6 @@ class GameSettingsContainer: UIView {
 		sosChainCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		pokeradarCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		useIncrementCell.actionSwitch.addTarget(self, action: #selector(changeUseIncrementInHunts), for: .valueChanged)
 		setUIColors()
         gameButton.setTitle("", for: .normal)
     }
@@ -105,7 +100,6 @@ class GameSettingsContainer: UIView {
 		sosChainCell.actionSwitch.isOn = pokemon.huntMethod == .SosChaining
 		dexNavCell.actionSwitch.isOn = pokemon.huntMethod == .DexNav
 		lureCell.actionSwitch.isOn = pokemon.huntMethod == .Lure
-		useIncrementCell.actionSwitch.isOn = pokemon.useIncrementInHunts
 
 		setAllImageViewAlphas()
 		resolveSwitchStates()
@@ -144,11 +138,9 @@ class GameSettingsContainer: UIView {
 		gameLabel.textColor = Color.Grey200
         gameTitle.textColor = Color.Grey200
         gameButton.backgroundColor = Color.Grey900
-		useIncrementCell.iconImageView.tintColor = Color.Grey200
 	}
 
 	func setCellColors() {
-		useIncrementCell.iconImageView.tintColor = Color.Grey200
 		for cell in gameSettingsCells! {
 			cell.setUIColors()
 		}
@@ -220,12 +212,6 @@ class GameSettingsContainer: UIView {
 		saveIfReal()
 	}
 
-	@objc fileprivate func changeUseIncrementInHunts(_ sender: Any) {
-		pokemon?.useIncrementInHunts = useIncrementCell.actionSwitch.isOn
-		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: pokemon!.useIncrementInHunts)
-		saveIfReal()
-	}
-
 	fileprivate func saveIfReal() {
 		if (pokemon.name != "Placeholder") {
 			pokemonService.save(pokemon: pokemon)
@@ -243,11 +229,10 @@ class GameSettingsContainer: UIView {
 		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon.huntMethod == .DexNav)
 		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: pokemon.huntMethod == .SosChaining)
         setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Lure)
-		setImageViewAlpha(imageView: useIncrementCell.iconImageView, isSwitchOn: pokemon.useIncrementInHunts)
 	}
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod) {
-		gameSettingsCells!.removeAll{$0 == enabledCell || $0 == shinyCharmCell || $0 == useIncrementCell}
+		gameSettingsCells!.removeAll{$0 == enabledCell || $0 == shinyCharmCell}
 		for cell in gameSettingsCells! {
 			setImageViewAlpha(imageView: cell.iconImageView, isSwitchOn: false)
 			cell.actionSwitch.isOn = false
@@ -256,7 +241,6 @@ class GameSettingsContainer: UIView {
 		setImageViewAlpha(imageView: enabledCell.iconImageView, isSwitchOn: enabledCell.actionSwitch.isOn)
 		gameSettingsCells!.append(enabledCell)
 		gameSettingsCells!.append(shinyCharmCell)
-		gameSettingsCells!.append(useIncrementCell)
 		setShinyOddsLabelText()
 		saveIfReal()
 	}
