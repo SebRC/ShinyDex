@@ -26,8 +26,8 @@ class IncrementVC: UIViewController {
 		modalView.backgroundColor = Color.Grey900
 		confirmButton.backgroundColor = Color.Grey800
 		confirmButton.setTitleColor(Color.Grey200, for: .normal)
-		cancelButton.backgroundColor = Color.Grey800
-		cancelButton.setTitleColor(Color.Grey200, for: .normal)
+		cancelButton.backgroundColor = Color.Danger500
+		cancelButton.setTitleColor(Color.Danger100, for: .normal)
 		incrementTextField.textColor = Color.Grey200
 		incrementTextField.placeholder = "Custom increment"
 		incrementTextField.backgroundColor = Color.Grey800

@@ -32,8 +32,8 @@ class SetEncountersView: UIView {
 		
 		titleLabel.backgroundColor = Color.Grey800
 		titleLabel.textColor = Color.Grey200
-		cancelButton.backgroundColor = Color.Grey800
-		cancelButton.setTitleColor(Color.Grey200, for: .normal)
+		cancelButton.backgroundColor = Color.Danger500
+		cancelButton.setTitleColor(Color.Danger100, for: .normal)
 		confirmButton.backgroundColor = Color.Grey800
 		confirmButton.setTitleColor(Color.Grey200, for: .normal)
 		buttonSeparator.backgroundColor = Color.Grey900

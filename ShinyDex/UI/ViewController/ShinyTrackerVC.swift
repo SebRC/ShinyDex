@@ -104,9 +104,9 @@ class ShinyTrackerVC: UIViewController {
         encountersLabel.textColor = Color.Grey200
         probabilityLabel.textColor = Color.Grey200
 		
-		gifSeparatorView.backgroundColor = Color.Grey200
-        plusButton.tintColor = Color.Grey200
-        minusButton.tintColor = Color.Grey200
+		gifSeparatorView.backgroundColor = Color.Grey400
+        plusButton.tintColor = Color.Grey400
+        minusButton.tintColor = Color.Grey400
     }
 	
 	fileprivate func roundCorners() {
