@@ -19,6 +19,7 @@ class IconTextView: UIView {
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = Color.Orange500.cgColor
         imageView.backgroundColor = Color.Grey900
+        imageView.tintColor = Color.Grey200
     }
 
     override init(frame: CGRect) {
