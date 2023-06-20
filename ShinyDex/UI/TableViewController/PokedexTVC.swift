@@ -14,8 +14,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	var popupHandler = PopupHandler()
 	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
-	var colorService = ColorService()
 	var huntService = HuntService()
 	
 	override func viewDidLoad() {
@@ -26,10 +24,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		setUpScopeBar()
 		
 		setUpSearchController()
-		
-		setUpBackButton()
-		
-		setFonts()
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -45,13 +39,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	}
 	
 	fileprivate func setUIColors() {
-		navigationController?.navigationBar.backgroundColor = colorService.getSecondaryColor()
+        navigationController?.navigationBar.backgroundColor = Color.Grey900
 
-		tableView.separatorColor = colorService.getSecondaryColor()
-		tableView.backgroundColor = colorService.getSecondaryColor()
+        tableView.separatorColor = Color.Grey900
+        tableView.backgroundColor = Color.Grey900
 		
-		searchController.searchBar.backgroundColor = colorService.getSecondaryColor()
-		searchController.searchBar.barTintColor = colorService.getSecondaryColor()
+        searchController.searchBar.backgroundColor = Color.Grey900
+		searchController.searchBar.barTintColor = Color.Grey800
 	}
 	
 	fileprivate func setUpScopeBar() {
@@ -69,36 +63,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		navigationItem.searchController = searchController
 		
 		definesPresentationContext = true
-	}
-	
-	fileprivate func setUpBackButton() {
-		let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
-		
-		navigationItem.backBarButtonItem = backButton
-		
-		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
-	}
-	
-	fileprivate func setNavigationBarFont() {
-		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
-		]
-		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-	}
-	
-	fileprivate func setFonts() {
-		let attributes = [
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getSmallFont()
-		]
-		UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-		let searchBarTextField = searchController.searchBar.value(forKey: "searchField") as? UITextField
-		searchBarTextField?.textColor = colorService.getTertiaryColor()
-		searchBarTextField?.font = fontSettingsService.getSmallFont()
-		let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
-		searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSAttributedString.Key.font: fontSettingsService.getXxSmallFont(), NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()], for: .normal)
 	}
 	
 	fileprivate func setTitle() {
@@ -147,12 +111,12 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 			selectedPokemon = getSelectedPokemon(index: indexPath.row)
 			if (hunts.isEmpty) {
 				huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: selectedPokemon!)
-				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to New Hunt.")
+				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to New Hunt")
 				tableView.reloadData()
 			}
 			else if (hunts.count == 1) {
 				huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: selectedPokemon!)
-				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(hunts[0].name).")
+				popupHandler.showPopup(text: "\(selectedPokemon!.name) was added to \(hunts[0].name)")
 				tableView.reloadData()
 			}
 			else {
@@ -218,11 +182,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
-		pokemonCell.pokemonName.font = fontSettingsService.getSmallFont()
-		pokemonCell.pokemonNumber.font = fontSettingsService.getExtraSmallFont()
-		pokemonCell.pokemonName.textColor = colorService.getTertiaryColor()
-		pokemonCell.pokemonNumber.textColor = colorService.getTertiaryColor()
-		pokemonCell.addToCurrentHuntButton.tintColor = colorService.getTertiaryColor()
+        pokemonCell.pokemonName.textColor = Color.Grey200
+		pokemonCell.pokemonNumber.textColor = Color.Grey200
+		pokemonCell.addToCurrentHuntButton.tintColor = Color.Grey200
 		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
@@ -268,7 +230,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = colorService.getPrimaryColor()
+        cell.backgroundColor = Color.Grey800
 	}
 
 	@IBAction func finish(_ unwindSegue: UIStoryboardSegue) {

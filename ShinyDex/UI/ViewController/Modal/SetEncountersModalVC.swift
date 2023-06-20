@@ -5,24 +5,13 @@ class SetEncountersModalVC: UIViewController {
 	
 	var pokemon: Pokemon!
 	var methodDecrement: Int!
-	var textResolver = TextResolver()
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		setSpriteImageView()
-		setLabelTexts()
 		setButtonActions()
+        setEncountersView.encountersTextField.text = "\(pokemon.encounters)"
+        view.addBlur()
     }
-	
-	fileprivate func setSpriteImageView() {
-		setEncountersView.spriteImageView.image = UIImage(named: pokemon.name.lowercased())
-	}
-	
-	fileprivate func setLabelTexts() {
-		setEncountersView.nameLabel.text = " \(pokemon.name)"
-		setEncountersView.numberLabel.text = " No. \(pokemon.number + 1)"
-		setEncountersView.encountersLabel.text = " \(textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement))"
-	}
 	
 	fileprivate func setButtonActions() {
 		setEncountersView.cancelButton.addTarget(self, action: #selector(cancelPressed), for: .touchUpInside)

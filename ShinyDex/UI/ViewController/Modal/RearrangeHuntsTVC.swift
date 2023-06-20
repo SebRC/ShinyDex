@@ -2,8 +2,6 @@ import UIKit
 
 class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataSource, RearrangeCellDelegate {
 	let huntService = HuntService()
-	let colorService = ColorService()
-	let fontSettingsService = FontSettingsService()
 	let tableViewHelper = TableViewHelper()
 	var hunts = [Hunt]()
 
@@ -11,56 +9,58 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	@IBOutlet weak var cancelButton: UIButton!
 	@IBOutlet weak var confirmButton: UIButton!
 	@IBOutlet weak var titleLabel: UILabel!
-
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.delegate = self
 		tableView.dataSource = self
-		view.backgroundColor = colorService.getSecondaryColor()
+        view.backgroundColor = Color.Grey900
 		tableView.backgroundColor = .clear
-		tableView.separatorColor = colorService.getSecondaryColor()
-		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		cancelButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
+        tableView.separatorColor = Color.Grey900
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		confirmButton.isEnabled = false
-		confirmButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		confirmButton.titleLabel?.textColor = colorService.getTertiaryColor()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
+        confirmButton.setTitleColor(Color.Grey200, for: .normal)
+        confirmButton.backgroundColor = Color.Grey800
 		confirmButton.layer.cornerRadius = CornerRadius.standard
-		titleLabel.font = fontSettingsService.getExtraLargeFont()
-		titleLabel.textColor = colorService.getTertiaryColor()
+        titleLabel.textColor = Color.Orange500
 		titleLabel.backgroundColor = .clear
 		hunts = huntService.getAll()
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 125.0
+		return 165.0
 	}
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return hunts.count
+    }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return hunts.count
+		return 1
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rearrangeCell", for: indexPath) as! RearrangeCell
-		let hunt = hunts[indexPath.row]
-		cell.moveUpButton.isHidden = hunt.priority == 0
-		cell.moveDownButton.isHidden = hunt.priority == hunts.count - 1
+		let hunt = hunts[indexPath.section]
+		cell.moveUpButton.isEnabled = hunt.priority != 0
+		cell.moveDownButton.isEnabled = hunt.priority != hunts.count - 1
 		cell.cellDelegate = self
 		cell.nameLabel.text = hunt.name
 		cell.iconImageView.image = UIImage(named: hunt.pokemon.first!.name.lowercased())
 
-		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.nameLabel.font = fontSettingsService.getMediumFont()
+        cell.nameLabel.textColor = Color.Grey200
 
-		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.moveUpButton.tintColor = colorService.getTertiaryColor()
-		cell.moveUpButton.backgroundColor = colorService.getSecondaryColor()
+        cell.backgroundColor = Color.Grey800
+		cell.moveUpButton.tintColor = Color.Grey200
+        cell.moveUpButton.backgroundColor = .clear
 		cell.moveUpButton.layer.cornerRadius = CornerRadius.standard
-		cell.moveDownButton.tintColor = colorService.getTertiaryColor()
-		cell.moveDownButton.backgroundColor = colorService.getSecondaryColor()
+		cell.moveDownButton.tintColor = Color.Grey200
+        cell.moveDownButton.backgroundColor = .clear
 		cell.moveDownButton.layer.cornerRadius = CornerRadius.standard
+        cell.separator.backgroundColor = Color.Grey900
+        cell.separator.layer.cornerRadius = CornerRadius.soft
 
         return cell
     }
@@ -68,14 +68,14 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func moveUp(_ sender: UIButton) {
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			moveHunt(row: indexPath.row, firstIncrement: -1, secondIncrement: 1)
+			moveHunt(row: indexPath.section, firstIncrement: -1, secondIncrement: 1)
 		}
 	}
 
 	func moveDown(_ sender: UIButton) {
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			moveHunt(row: indexPath.row, firstIncrement: 1, secondIncrement: -1)
+			moveHunt(row: indexPath.section, firstIncrement: 1, secondIncrement: -1)
 		}
 	}
 

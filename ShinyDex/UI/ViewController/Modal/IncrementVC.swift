@@ -11,8 +11,6 @@ class IncrementVC: UIViewController {
 	@IBOutlet weak var incrementSegmentedControl: UISegmentedControl!
 	@IBOutlet weak var incrementTextField: UITextField!
 
-	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
 	var pokemonService = PokemonService()
 	var pokemon: Pokemon!
 	var selectedIncrement = 1
@@ -21,45 +19,38 @@ class IncrementVC: UIViewController {
         super.viewDidLoad()
 		selectedIncrement = pokemon.increment
 
-		titleLabel.font = fontSettingsService.getMediumFont()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
+		titleLabel.textColor = Color.Grey200
+		titleLabel.backgroundColor = Color.Grey800
+		descriptionLabel.textColor = Color.Grey200
 		modalView.layer.cornerRadius = CornerRadius.standard
-		modalView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		incrementTextField.font = fontSettingsService.getSmallFont()
-		incrementTextField.textColor = colorService.getTertiaryColor()
+		modalView.backgroundColor = Color.Grey900
+		confirmButton.backgroundColor = Color.Grey800
+		confirmButton.setTitleColor(Color.Grey200, for: .normal)
+		cancelButton.backgroundColor = Color.Danger500
+		cancelButton.setTitleColor(Color.Danger100, for: .normal)
+		incrementTextField.textColor = Color.Grey200
 		incrementTextField.placeholder = "Custom increment"
-		incrementTextField.backgroundColor = colorService.getPrimaryColor()
-		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
-		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
+		incrementTextField.backgroundColor = Color.Grey800
+		horizontalSeparator.backgroundColor = Color.Grey900
+		verticalSeparator.backgroundColor = Color.Grey900
 
-		let segmentedControlTitleTextAttributes = [NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor()]
-
-		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .selected)
-		incrementSegmentedControl.setTitleTextAttributes(segmentedControlTitleTextAttributes, for: .normal)
-		incrementSegmentedControl.backgroundColor = colorService.getPrimaryColor()
-		incrementSegmentedControl.tintColor = colorService.getSecondaryColor()
+		incrementSegmentedControl.backgroundColor = Color.Grey800
+		incrementSegmentedControl.tintColor = Color.Grey200
+        incrementSegmentedControl.selectedSegmentTintColor = Color.Orange500
 
 		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment > 6
 		? 6
 		: pokemon.increment - 1
 		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
 		incrementTextField.text = incrementTextField.isEnabled ? "\(pokemon.increment)" : ""
-		setDescriptionText(increment: pokemon.increment)
+        setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
+        view.addBlur()
     }
 
 	@IBAction func incrementChanged(_ sender: Any) {
 		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
 		selectedIncrement = getIncrement()
-		setDescriptionText(increment: selectedIncrement)
+        setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any) {
@@ -93,17 +84,17 @@ class IncrementVC: UIViewController {
 
 	fileprivate func setDescriptionText(increment: Int) {
 		switch increment {
-		case 1:
+		case 0:
 			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing."
-		case 2:
+		case 1:
 			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems."
-		case 3:
+		case 2:
 			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent."
-		case 4:
+		case 3:
 			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent."
-		case 5:
+		case 4:
 			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset."
-		case 6:
+		case 5:
 			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once."
 		default:
 			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100."

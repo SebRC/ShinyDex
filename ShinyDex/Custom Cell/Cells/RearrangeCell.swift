@@ -7,7 +7,8 @@ class RearrangeCell: UITableViewCell {
 	@IBOutlet weak var moveUpButton: UIButton!
 	@IBOutlet weak var moveDownButton: UIButton!
 	@IBOutlet weak var iconImageView: UIImageView!
-	
+    @IBOutlet weak var separator: UIView!
+    
 	@IBAction func moveUp(_ sender: UIButton) {
 		cellDelegate?.moveUp(sender)
 	}

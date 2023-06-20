@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90s-f8-Lug" userLabel="encountersButton">
-                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="6" height="6"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="90s-f8-Lug" secondAttribute="height" multiplier="1:1" id="9Io-g2-7ly"/>
                     </constraints>
@@ -36,51 +38,51 @@
                     <state key="normal" image="pencil.circle.fill" catalog="system"/>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLl-ng-qB0" userLabel="encountersIncrementSeparator">
-                    <rect key="frame" x="41" y="3" width="1" height="34"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="7" y="3" width="1" height="34"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="RLl-ng-qB0" secondAttribute="height" multiplier="1:34" id="Dfv-By-v10"/>
                     </constraints>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zu5-c5-gbk" userLabel="mapBallSeparator">
-                    <rect key="frame" x="176" y="3" width="1" height="34"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="40" y="3" width="1" height="34"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Zu5-c5-gbk" secondAttribute="height" multiplier="1:34" id="FT6-83-iDp"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKC-fT-CE9" userLabel="locationButton">
-                    <rect key="frame" x="134" y="0.0" width="40" height="40"/>
+                    <rect key="frame" x="32" y="0.0" width="6" height="6"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="vKC-fT-CE9" secondAttribute="height" multiplier="1:1" id="NOM-Sq-oQb"/>
                     </constraints>
                     <state key="normal" image="town-map"/>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXl-GP-xHe" userLabel="methodMapSeparator">
-                    <rect key="frame" x="131" y="3" width="1" height="34"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="29" y="3" width="1" height="34"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="bXl-GP-xHe" secondAttribute="height" multiplier="1:34" id="mZj-vR-FZp"/>
                     </constraints>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oot-4W-Xwi" userLabel="ballOddsSeparator">
-                    <rect key="frame" x="219" y="3" width="1" height="34"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="49" y="3" width="1" height="34"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="oot-4W-Xwi" secondAttribute="height" multiplier="1:34" id="rv4-DF-9x8"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOT-hh-Iy1" userLabel="oddsLabel">
-                    <rect key="frame" x="223" y="3" width="117" height="34"/>
+                    <rect key="frame" x="53" y="3" width="0.0" height="0.0"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="GOT-hh-Iy1" secondAttribute="height" multiplier="117:34" id="dcD-BR-djf"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7a-6x-2v3" userLabel="methodButton">
-                    <rect key="frame" x="88" y="0.0" width="40" height="40"/>
+                    <rect key="frame" x="20" y="0.0" width="6" height="6"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="C7a-6x-2v3" secondAttribute="height" multiplier="1:1" id="KqC-lu-Ckb"/>
                     </constraints>
@@ -88,7 +90,7 @@
                     <state key="normal" image="info.circle.fill" catalog="system"/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbX-A3-ndK" userLabel="incrementButton">
-                    <rect key="frame" x="43" y="0.0" width="40" height="40"/>
+                    <rect key="frame" x="9" y="0.0" width="6" height="6"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="SbX-A3-ndK" secondAttribute="height" multiplier="1:1" id="MFl-sf-ncP"/>
                     </constraints>
@@ -96,20 +98,21 @@
                     <state key="normal" image="1.circle.fill" catalog="system"/>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9Z-8w-8XA" userLabel="incrementMethodSeparator">
-                    <rect key="frame" x="85" y="3" width="1" height="34"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="17" y="3" width="1" height="34"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="g9Z-8w-8XA" secondAttribute="height" multiplier="1:34" id="1va-bQ-Meq"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOI-Yy-y1I" userLabel="ballButton">
-                    <rect key="frame" x="178" y="0.0" width="40" height="40"/>
+                    <rect key="frame" x="42" y="0.0" width="6" height="6"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="yOI-Yy-y1I" secondAttribute="height" multiplier="1:1" id="lJg-hP-UTt"/>
                     </constraints>
                     <state key="normal" image="poke"/>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="0.6705882353" green="0.90980392160000001" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="GOT-hh-Iy1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="2pu-OC-6CZ"/>
@@ -149,15 +152,17 @@
                 <constraint firstAttribute="bottom" secondItem="Zu5-c5-gbk" secondAttribute="bottom" constant="3" id="x6W-qu-mjf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="130.43478260869566" y="91.741071428571431"/>
         </view>
     </objects>
     <resources>
-        <image name="1.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="1.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
         <image name="poke" width="32" height="32"/>
         <image name="town-map" width="32" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

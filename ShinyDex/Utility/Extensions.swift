@@ -75,7 +75,15 @@ extension UIView {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
         self.layer.shadowRadius = 5
-        self.layer.shadowOpacity = 0.2
+        self.layer.shadowOpacity = 0.5
+    }
+    
+    func addBlur() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.insertSubview(blurEffectView, at: 0)
     }
 }
 
@@ -96,22 +104,16 @@ extension Double {
 
 extension UIViewController {
     func setUpSearchController(searchBar: UISearchBar) {
-        let colorService = ColorService()
-        let fontSettingsService = FontSettingsService()
         searchBar.placeholder = "Search"
         let attributes =
         [
-            NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-            NSAttributedString.Key.font: fontSettingsService.getMediumFont()
+            NSAttributedString.Key.foregroundColor: Color.Grey200,
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
-        searchBarTextField?.textColor = colorService.getTertiaryColor()
-        searchBarTextField?.font = fontSettingsService.getSmallFont()
-        let searchBarPlaceHolderLabel = searchBarTextField!.value(forKey: "placeholderLabel") as? UILabel
-        searchBarPlaceHolderLabel?.font = fontSettingsService.getSmallFont()
+        searchBarTextField?.textColor = Color.Grey200
         searchBar.clipsToBounds = true
         searchBar.layer.cornerRadius = CornerRadius.standard
-        searchBar.barTintColor = colorService.getPrimaryColor()
+        searchBar.barTintColor = Color.Grey800
     }
 }

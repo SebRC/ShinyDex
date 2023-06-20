@@ -2,8 +2,6 @@ import UIKit
 
 class HuntNameEditorModalVC: UIViewController {
 	var huntService = HuntService()
-	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
 	var hunt: Hunt!
 
 	@IBOutlet weak var editorView: UIView!
@@ -17,27 +15,23 @@ class HuntNameEditorModalVC: UIViewController {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		titleLabel.text = "Changing name of \(hunt.name)."
-		titleLabel.font = fontSettingsService.getExtraSmallFont()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		titleLabel.backgroundColor = colorService.getPrimaryColor()
+		titleLabel.text = "Change name of \(hunt.name)"
+        titleLabel.textColor = Color.Grey200
+		titleLabel.backgroundColor = Color.Grey800
 		descriptionLabel.text = "Enter a new name"
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
+		descriptionLabel.textColor = Color.Grey200
 		textField.text = hunt.name
-		textField.font = fontSettingsService.getSmallFont()
-		textField.textColor = colorService.getTertiaryColor()
-		textField.backgroundColor = colorService.getPrimaryColor()
+		textField.textColor = Color.Grey200
+		textField.backgroundColor = Color.Grey800
 		editorView.layer.cornerRadius = CornerRadius.standard
-		editorView.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		horizontalSeparator.backgroundColor = colorService.getSecondaryColor()
-		verticalSeparator.backgroundColor = colorService.getSecondaryColor()
+		editorView.backgroundColor = Color.Grey900
+		confirmButton.backgroundColor = Color.Grey800
+		confirmButton.setTitleColor(Color.Grey200, for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+		horizontalSeparator.backgroundColor = Color.Grey900
+		verticalSeparator.backgroundColor = Color.Grey900
+        view.addBlur()
     }
 	
 	@IBAction func confirmpressed(_ sender: Any) {

@@ -2,8 +2,6 @@ import UIKit
 
 class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, MoveCellDelegate {
 	var moveService = MoveService()
-	var fontSettingsService = FontSettingsService()
-	var colorService = ColorService()
 	let tableViewHelper = TableViewHelper()
 	var activeMoves = [ActiveMove]()
 	var selectedActiveMoveIndex = 0
@@ -18,14 +16,12 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 		tableView.delegate = self
 		tableView.dataSource = self
 		activeMoves = moveService.getAll()
-		view.backgroundColor = colorService.getSecondaryColor()
-		tableView.separatorColor = colorService.getSecondaryColor()
-		tableView.backgroundColor = colorService.getSecondaryColor()
-        pressureView.backgroundColor = colorService.getPrimaryColor()
-        pressureLabel.tintColor = colorService.getTertiaryColor()
-        pressureSwitch.onTintColor = colorService.getSecondaryColor()
-        pressureSwitch.thumbTintColor = colorService.getPrimaryColor()
-        pressureLabel.font = fontSettingsService.getMediumFont()
+        view.backgroundColor = Color.Grey900
+        tableView.separatorColor = Color.Grey900
+        tableView.backgroundColor = Color.Grey900
+        pressureView.backgroundColor = Color.Grey800
+        pressureSwitch.onTintColor = Color.Orange500
+        pressureSwitch.thumbTintColor = Color.Grey900
         pressureView.layer.cornerRadius = CornerRadius.standard
         pressureSwitch.isOn = moveService.getIsPressureActive()
         
@@ -47,18 +43,15 @@ class PPCounterTVC: UIViewController, UITableViewDataSource, UITableViewDelegate
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath) as! MoveCell
 		cell.cellDelegate = self
-		cell.nameLabel.font = fontSettingsService.getMediumFont()
-		cell.ppLabel.font = fontSettingsService.getSmallFont()
-		cell.typeLabel.font = fontSettingsService.getSmallFont()
         cell.separator.layer.cornerRadius = CornerRadius.soft
 
-		cell.backgroundColor = colorService.getPrimaryColor()
-		cell.nameLabel.textColor = colorService.getTertiaryColor()
-		cell.ppLabel.textColor = colorService.getTertiaryColor()
-		cell.typeLabel.textColor = colorService.getTertiaryColor()
-		cell.incrementButton.tintColor = colorService.getTertiaryColor()
-		cell.decrementButton.tintColor = colorService.getTertiaryColor()
-        cell.separator.backgroundColor = colorService.getSecondaryColor()
+        cell.backgroundColor = Color.Grey800
+        cell.nameLabel.textColor = Color.Grey200
+		cell.ppLabel.textColor = Color.Grey200
+		cell.typeLabel.textColor = Color.Grey200
+        cell.incrementButton.tintColor = Color.Grey200
+        cell.decrementButton.tintColor = Color.Grey200
+        cell.separator.backgroundColor = Color.Grey900
 
 		cell.imageBackgroundView.makeCircle()
 

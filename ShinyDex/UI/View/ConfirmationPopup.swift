@@ -6,9 +6,6 @@ class ConfirmationPopup: UIView {
 	let nibName = "ConfirmationPopup"
     var contentView: UIView?
 	
-	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
-	
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var confirmButton: UIButton!
@@ -18,7 +15,6 @@ class ConfirmationPopup: UIView {
 	required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initContentView(nibName: nibName, contentView: &contentView)
-		setConfirmationPopupFonts()
 		setColors()
 		layer.cornerRadius = CornerRadius.standard
     }
@@ -27,23 +23,16 @@ class ConfirmationPopup: UIView {
         super.init(frame: frame)
 		initContentView(nibName: nibName, contentView: &contentView)
     }
-
-	fileprivate func setConfirmationPopupFonts() {
-		cancelButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		confirmButton.titleLabel?.font = fontSettingsService.getSmallFont()
-		titleLabel.font = fontSettingsService.getSmallFont()
-		descriptionLabel.font = fontSettingsService.getExtraSmallFont()
-	}
 	
 	fileprivate func setColors() {
-		cancelButton.backgroundColor = colorService.getPrimaryColor()
-		titleLabel.backgroundColor = colorService.getPrimaryColor()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
-		contentView?.backgroundColor = colorService.getSecondaryColor()
-		buttonSeparator.backgroundColor = colorService.getSecondaryColor()
-		confirmButton.backgroundColor = colorService.getPrimaryColor()
-		confirmButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
-		cancelButton.setTitleColor(colorService.getTertiaryColor(), for: .normal)
+        cancelButton.backgroundColor = Color.Danger500
+        titleLabel.backgroundColor = Color.Grey800
+        titleLabel.textColor = Color.Grey200
+		descriptionLabel.textColor = Color.Grey200
+		contentView?.backgroundColor = Color.Grey900
+		buttonSeparator.backgroundColor = Color.Grey900
+		confirmButton.backgroundColor = Color.Grey800
+		confirmButton.setTitleColor(Color.Grey200, for: .normal)
+		cancelButton.setTitleColor(Color.Grey200, for: .normal)
 	}
 }

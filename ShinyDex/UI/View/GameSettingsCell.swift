@@ -1,15 +1,12 @@
 import UIKit
 
 class GameSettingsCell: UIView {
-	var fontSettingsService = FontSettingsService()
-	var colorService = ColorService()
-
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
-	@IBOutlet weak var actionSwitch: UISwitch!
 	@IBOutlet weak var separator: UIView!
-
+    @IBOutlet weak var actionSwitch: UISwitch!
+    
 	let nibName = "GameSettingsCell"
     var contentView: UIView?
 
@@ -18,7 +15,6 @@ class GameSettingsCell: UIView {
         initContentView(nibName: nibName, contentView: &contentView)
 		separator.layer.cornerRadius = CornerRadius.standard
 		setUIColors()
-		setFonts()
     }
 
     override init(frame: CGRect) {
@@ -27,16 +23,11 @@ class GameSettingsCell: UIView {
     }
 
 	func setUIColors() {
-		contentView?.backgroundColor = colorService.getPrimaryColor()
-		separator.backgroundColor = colorService.getSecondaryColor()
-		titleLabel.textColor = colorService.getTertiaryColor()
-		descriptionLabel.textColor = colorService.getTertiaryColor()
-		actionSwitch.onTintColor = colorService.getSecondaryColor()
-		actionSwitch.thumbTintColor = colorService.getPrimaryColor()
-	}
-
-	func setFonts() {
-		titleLabel.font = fontSettingsService.getMediumFont()
-		descriptionLabel.font = fontSettingsService.getXxSmallFont()
+        contentView?.backgroundColor = Color.Grey800
+		separator.backgroundColor = Color.Grey900
+		titleLabel.textColor = Color.Grey200
+		descriptionLabel.textColor = Color.Grey200
+        actionSwitch.onTintColor = Color.Orange500
+        actionSwitch.thumbTintColor = Color.Grey900
 	}
 }

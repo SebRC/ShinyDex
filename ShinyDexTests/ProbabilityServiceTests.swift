@@ -36,7 +36,7 @@ class ProbabilityServiceTests: XCTestCase {
 			pokemon.huntMethod = entry.key
 			pokemon.encounters = 0
 			let actualText = probabilityService.getProbabilityText(probability: 0.0, pokemon: pokemon, methodDecrement: entry.value)
-			XCTAssertEqual(actualText, " Chain \(entry.value) to see probability")
+			XCTAssertEqual(actualText, "Chain \(entry.value) to see probability")
 		}
 	}
 
@@ -52,7 +52,7 @@ class ProbabilityServiceTests: XCTestCase {
 		let actualText = probabilityService.getProbabilityText(probability: 0.0, pokemon: pokemon, methodDecrement: methodDecrement)
 
 		// Assert
-		XCTAssertEqual(actualText, " Chain \(methodDecrement) to see probability")
+		XCTAssertEqual(actualText, "Chain \(methodDecrement) to see probability")
 	}
 
 	func test_differentMethodsAboveDecrement_returnsProbabilityText() {
@@ -67,7 +67,7 @@ class ProbabilityServiceTests: XCTestCase {
 			pokemon.huntMethod = entry.key
 			pokemon.encounters = 50
 			let actualText = probabilityService.getProbabilityText(probability: probability, pokemon: pokemon, methodDecrement: entry.value)
-			XCTAssertEqual(actualText, " Probability is \(probability)%")
+			XCTAssertEqual(actualText, "Probability: \(probability)")
 		}
 	}
 
@@ -81,6 +81,6 @@ class ProbabilityServiceTests: XCTestCase {
 		let actualText = probabilityService.getProbabilityText(probability: 0.00, pokemon: pokemon, methodDecrement: 999)
 
 		// Assert
-		XCTAssertEqual(actualText, " Reach Search level 999 to see probability")
+		XCTAssertEqual(actualText, "Reach Search level 999 to see probability")
 	}
 }

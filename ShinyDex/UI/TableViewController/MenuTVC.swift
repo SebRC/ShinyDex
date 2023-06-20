@@ -5,8 +5,6 @@ class MenuTVC: UITableViewController {
 	var hunts = [Hunt]()
 	let textResolver = TextResolver()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
-	var colorService = ColorService()
 	var huntService = HuntService()
 
 	@IBOutlet weak var settingsButton: UIBarButtonItem!
@@ -16,17 +14,20 @@ class MenuTVC: UITableViewController {
 		
 		hideBackButton()
 
-		tableView.separatorColor = colorService.getSecondaryColor()
+        tableView.separatorColor = Color.Grey900
 
 		hunts = huntService.getAll()
 		
 		showNavigationBar()
-
-		setNavigationControllerColor()
-		
-		setNavigationBarFont()
 		
 		setSettingsIconColor()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.barTintColor = Color.Grey900
+        let navigationBarTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: Color.Orange500,
+        ]
+        navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -36,13 +37,11 @@ class MenuTVC: UITableViewController {
 		
 		setTableViewBackgroundColor()
 
-		tableView.separatorColor = colorService.getSecondaryColor()
+		tableView.separatorColor = Color.Grey900
 		
 		tableView.reloadData()
 		
 		setUpBackButton()
-		
-		setNavigationBarFont()
 		
 		setSettingsIconColor()
 	}
@@ -55,24 +54,12 @@ class MenuTVC: UITableViewController {
 		navigationController?.isNavigationBarHidden = false
 	}
 	
-	fileprivate func setNavigationControllerColor() {
-		navigationController?.navigationBar.barTintColor = colorService.getSecondaryColor()
-	}
-	
-	fileprivate func setNavigationBarFont() {
-		let navigationBarTitleTextAttributes = [
-			NSAttributedString.Key.foregroundColor: colorService.getTertiaryColor(),
-			NSAttributedString.Key.font: fontSettingsService.getXxLargeFont()
-		]
-		navigationController?.navigationBar.titleTextAttributes = navigationBarTitleTextAttributes
-	}
-	
 	fileprivate func setSettingsIconColor() {
-		settingsButton.tintColor = colorService.getTertiaryColor()
+        settingsButton.tintColor = Color.Orange500
 	}
 	
 	fileprivate func setTableViewBackgroundColor() {
-		tableView.backgroundColor = colorService.getSecondaryColor()
+        tableView.backgroundColor = Color.Grey900
 	}
 
 	fileprivate func setUpBackButton() {
@@ -80,7 +67,7 @@ class MenuTVC: UITableViewController {
 		
 		navigationItem.backBarButtonItem = backButton
 		
-		navigationController?.navigationBar.tintColor = colorService.getTertiaryColor()
+        navigationController?.navigationBar.tintColor = Color.Orange500
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,7 +95,7 @@ class MenuTVC: UITableViewController {
 		
 		let showCurrentHuntImage = indexPath.row == 8 && !hunts.isEmpty
 		
-		cell.generationLabel.textColor = colorService.getTertiaryColor()
+        cell.generationLabel.textColor = Color.Grey200
 		
 		if (showCurrentHuntImage) {
 			cell.generationImage.image = UIImage(named: hunts[0].pokemon[0].name.lowercased())
@@ -118,7 +105,6 @@ class MenuTVC: UITableViewController {
 		}
 		
 		cell.generationLabel.text = textResolver.getGenTitle(gen: indexPath.row)
-		cell.generationLabel.font = fontSettingsService.getXxLargeFont()
 		
 		return cell
 	}
@@ -168,6 +154,6 @@ class MenuTVC: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = colorService.getPrimaryColor()
+        cell.backgroundColor = Color.Grey800
 	}
 }

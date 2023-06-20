@@ -15,7 +15,6 @@ class Pokemon: NSObject {
 	var shinyOdds: Int
 	var huntMethod: HuntMethod
 	var increment: Int
-	var useIncrementInHunts: Bool
     var game: Games
 
 	init(pokemonEntity: NSManagedObject) {
@@ -31,7 +30,6 @@ class Pokemon: NSObject {
 		self.shinyOdds = pokemonEntity.value(forKey: "shinyOdds") as! Int
 		self.huntMethod = HuntMethod(rawValue: pokemonEntity.value(forKey: "huntMethod") as! String)!
 		self.increment = pokemonEntity.value(forKey: "increment") as! Int
-		self.useIncrementInHunts = pokemonEntity.value(forKey: "useIncrementInHunts") as! Bool
         self.game = Games(rawValue: pokemonEntity.value(forKey: "game") as? String ?? Games.Red.rawValue) ?? Games.Red
 	}
 
@@ -48,7 +46,6 @@ class Pokemon: NSObject {
 		self.shinyOdds = 8192
 		self.huntMethod = HuntMethod.Encounters
 		self.increment = 1
-		self.useIncrementInHunts = false
         self.game = Games.Red
 	}
 }

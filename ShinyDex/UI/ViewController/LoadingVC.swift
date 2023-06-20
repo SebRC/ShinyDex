@@ -4,8 +4,6 @@ class LoadingVC: UIViewController {
 	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
 	var moveService = MoveService()
-	var colorService = ColorService()
-	var fontSettingsService = FontSettingsService()
 	var isFirstTimeUser: Bool!
 	var loadingGifData: Data?
 	
@@ -15,13 +13,9 @@ class LoadingVC: UIViewController {
 		resolveUserStatus()
 		hideNavigationBar()
 
-		if (isFirstTimeUser) {
-			fontSettingsService.save(fontThemeName: FontThemeName.Retro.description)
-		}
 
-		view.backgroundColor = colorService.getSecondaryColor()
-		loadingLabel.textColor = colorService.getTertiaryColor()
-		loadingLabel.font = fontSettingsService.getMediumFont()
+        view.backgroundColor = Color.Grey900
+        loadingLabel.textColor = Color.Orange500
 		
 		if (isFirstTimeUser) {
 			proceedAsNewUser()

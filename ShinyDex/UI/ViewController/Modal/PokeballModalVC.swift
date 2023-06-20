@@ -3,14 +3,13 @@ import UIKit
 class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	@IBOutlet weak var indicatorView: IndicatorView!
 	@IBOutlet weak var pokeballTableView: UITableView!
-	
+    @IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var cancelButton: UIButton!
+    
 	var pokeballs = [Pokeball]()
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
-	var colorService = ColorService()
 	var modalPosition: CGRect!
 	
 	override func viewDidLoad() {
@@ -24,10 +23,13 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 		
 		cancelButton.layer.cornerRadius = CornerRadius.standard
 		pokeballTableView.layer.cornerRadius = CornerRadius.standard
-		cancelButton.titleLabel?.font = fontSettingsService.getMediumFont()
-		pokeballTableView.separatorColor = colorService.getPrimaryColor()
+        pokeballTableView.separatorColor = Color.Grey900
+        view.backgroundColor = Color.Grey900
+        titleLabel.textColor = Color.Orange500
+        cancelButton.backgroundColor = Color.Danger500
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
 		pokeballTableView.backgroundColor = .clear
-		indicatorView.titleLabel.text = "Select the ball \(pokemon.name) is caught in."
+		indicatorView.titleLabel.text = "Select a new ball for \(pokemon.name)"
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
@@ -39,7 +41,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 140.0
+		return 100.0
 	}
     
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -51,7 +53,7 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = colorService.getSecondaryColor()
+        cell.backgroundColor = Color.Grey800
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,10 +71,22 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	}
 	
 	fileprivate func setCellProperties(pokeballCell: PokeballCell, pokeball: Pokeball) {
-		pokeballCell.nameLabel.font = fontSettingsService.getLargeFont()
 		pokeballCell.pokeballImageView.image = pokeball.image
-		pokeballCell.nameLabel.text = pokeball.name
-		pokeballCell.nameLabel.textColor = colorService.getTertiaryColor()
+        pokeballCell.nameLabel.text = pokeball.name
+        pokeballCell.nameLabel.textColor = Color.Grey200
+        
+        if(pokeball.name.lowercased() == pokemon.caughtBall && pokeball.name.lowercased() != "none") {
+            print(pokeball.name)
+            print("caught ball \(pokemon.caughtBall)")
+            pokeballCell.pokeballImageView.makeCircle()
+            pokeballCell.pokeballImageView.backgroundColor = Color.Grey900
+            pokeballCell.pokeballImageView.layer.borderWidth = 2
+            pokeballCell.pokeballImageView.layer.borderColor = Color.Orange500.cgColor
+        } else {
+            pokeballCell.pokeballImageView.backgroundColor = .none
+            pokeballCell.pokeballImageView.layer.borderWidth = 0
+            pokeballCell.pokeballImageView.layer.borderColor = UIColor.clear.cgColor
+        }
 	}
 	
 	@IBAction func cancelPressed(_ sender: Any) {

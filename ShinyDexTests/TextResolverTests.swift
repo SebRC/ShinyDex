@@ -34,7 +34,7 @@ class TextResolverTests: XCTestCase {
 		pokemon.generation = 7
         pokemon.game = .LetsGoEevee
 		pokemon.encounters = 20
-		let expectedResult = " Catch Combo: \(pokemon.encounters)"
+		let expectedResult = "Catch Combo: \(pokemon.encounters)"
 
 		// Act
 		let actual = textResolver.getEncountersLabelText(pokemon: pokemon)
@@ -51,7 +51,7 @@ class TextResolverTests: XCTestCase {
 		pokemon.encounters = 35
 		let methodDecrement = 5
 		pokemon.huntMethod = .Lure
-		let expectedResult = " Catch Combo: \(methodDecrement) + \(pokemon.encounters - methodDecrement) seen"
+		let expectedResult = "Catch Combo: \(methodDecrement)\nEncounters: \(pokemon.encounters - methodDecrement)"
 
 		// Act
 		let actual = textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement)
@@ -72,7 +72,7 @@ class TextResolverTests: XCTestCase {
 		masudaPokemon.generation = 4
 		masudaPokemon.encounters = encounters
 		masudaPokemon.huntMethod = .Masuda
-		let expectedResult = " Eggs: \(encounters)"
+		let expectedResult = "Eggs: \(encounters)"
 
 		// Act
 		let gen2BreedingActual = textResolver.getEncountersLabelText(pokemon: gen2BreddingPokemon)
@@ -95,7 +95,7 @@ class TextResolverTests: XCTestCase {
 		chainFishPokemon.generation = 6
 		chainFishPokemon.encounters = encounters
 		chainFishPokemon.huntMethod = .ChainFishing
-		let expectedResult = " Chain: \(encounters)"
+		let expectedResult = "Chain: \(encounters)"
 
 		// Act
 		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon)
@@ -119,7 +119,7 @@ class TextResolverTests: XCTestCase {
 		chainFishPokemon.generation = 6
 		chainFishPokemon.encounters = encounters
 		chainFishPokemon.huntMethod = .ChainFishing
-		let expectedResult = " Chain: \(methodDecrement) + \(encounters - methodDecrement) seen"
+		let expectedResult = "Chain: \(methodDecrement)\nEncounters: \(encounters - methodDecrement)"
 
 		// Act
 		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon, methodDecrement: methodDecrement)
@@ -139,7 +139,7 @@ class TextResolverTests: XCTestCase {
 		pokeradarPokemon.generation = 6
 		pokeradarPokemon.encounters = encounters
 		pokeradarPokemon.huntMethod = .Pokeradar
-		let expectedResult = " Chain: \(methodDecrement) + \(encounters - methodDecrement) patches"
+		let expectedResult = "Chain: \(methodDecrement)\nPatches: \(encounters - methodDecrement)"
 
 		// Act
 		let pokeradarActual = textResolver.getEncountersLabelText(pokemon: pokeradarPokemon, methodDecrement: methodDecrement)
@@ -154,7 +154,7 @@ class TextResolverTests: XCTestCase {
 		dexNavPokemon.generation = 6
 		dexNavPokemon.encounters = 50
 		dexNavPokemon.huntMethod = .DexNav
-		let expectedResult = " Search level: \(dexNavPokemon.encounters)"
+		let expectedResult = "Search level: \(dexNavPokemon.encounters)"
 
 		// Act
 		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon)
@@ -170,7 +170,7 @@ class TextResolverTests: XCTestCase {
 		dexNavPokemon.generation = 6
 		dexNavPokemon.encounters = 1000
 		dexNavPokemon.huntMethod = .DexNav
-		let expectedResult = " Search level: \(methodDecrement) + \(dexNavPokemon.encounters - methodDecrement) seen"
+		let expectedResult = "Search level: \(methodDecrement)\nEncounters: \(dexNavPokemon.encounters - methodDecrement)"
 
 		// Act
 		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon, methodDecrement: methodDecrement)
@@ -186,7 +186,7 @@ class TextResolverTests: XCTestCase {
 		pokemon.generation = 6
 		pokemon.encounters = 1000
 		pokemon.huntMethod = .Encounters
-		let expectedResult = " Encounters: \(pokemon.encounters)"
+		let expectedResult = "Encounters: \(pokemon.encounters)"
 
 		// Act
 		let actual = textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement)

@@ -2,10 +2,10 @@ import UIKit
 
 class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var gameTableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var pokemonService = PokemonService()
-    var fontSettingsService = FontSettingsService()
-    var colorService = ColorService()
     var pokemon: Pokemon!
     var selectedGame: Game!
     
@@ -47,9 +47,13 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         gameTableView.delegate = self
         gameTableView.dataSource = self
         
-        view.backgroundColor = .clear
-        gameTableView.separatorColor = colorService.getSecondaryColor()
-        gameTableView.backgroundColor = .clear
+        view.backgroundColor = Color.Grey900
+        gameTableView.separatorColor = Color.Grey900
+        gameTableView.backgroundColor = Color.Grey900
+        titleLabel.textColor = Color.Orange500
+        cancelButton.backgroundColor = Color.Danger500
+        cancelButton.setTitleColor(Color.Danger100, for: .normal)
+        cancelButton.layer.cornerRadius = CornerRadius.standard
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,7 +61,7 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = colorService.getPrimaryColor()
+        cell.backgroundColor = Color.Grey800
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,8 +69,7 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let game = games[indexPath.row]!
         cell.gameImage.image = UIImage(named: game.coverPokemon)
         cell.gameTitle.text = game.title
-        cell.gameTitle.font = fontSettingsService.getMediumFont()
-        cell.gameTitle.textColor = colorService.getTertiaryColor()
+        cell.gameTitle.textColor = Color.Grey200
         return cell
     }
     
@@ -91,5 +94,9 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    @IBAction func cancelPressed(_ sender: Any) {
+        dismiss(animated: true)
     }
 }

@@ -2,16 +2,16 @@ import UIKit
 import FLAnimatedImage
 
 class ShinyTrackerVC: UIViewController {
-	@IBOutlet weak var encountersLabel: UILabel!
 	@IBOutlet weak var plusButton: UIButton!
 	@IBOutlet weak var minusButton: UIButton!
-	@IBOutlet weak var probabilityLabel: UILabel!
 	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
 	@IBOutlet weak var buttonStrip: ButtonStrip!
 	@IBOutlet weak var gifSeparatorView: UIView!
 	@IBOutlet weak var animatedImageView: FLAnimatedImageView!
-
-	var pokemon: Pokemon!
+    @IBOutlet weak var probabilityView: IconTextView!
+    @IBOutlet weak var encountersView: IconTextView!
+    
+    var pokemon: Pokemon!
 	var hunts = [Hunt]()
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
@@ -19,18 +19,15 @@ class ShinyTrackerVC: UIViewController {
 	var methodDecrement = 0
 	let popupHandler = PopupHandler()
 	var pokemonService = PokemonService()
-	var fontSettingsService = FontSettingsService()
-	var colorService = ColorService()
 	var huntService = HuntService()
 	var textResolver = TextResolver()
-	
+    
 	override func viewDidLoad() {
         super.viewDidLoad()
 
 		hunts = huntService.getAll()
 		setUIColors()
 		roundCorners()
-		setFonts()
 		setTitle()
 		setGif()
 		setMethodDecrement()
@@ -40,7 +37,13 @@ class ShinyTrackerVC: UIViewController {
 		setIncrementImage()
 		setButtonActions()
 		setOddsLabelText()
-		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+        addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+        addToHuntButton.tintColor = Color.Orange500
+        
+        encountersView.imageView.image = getMethodImage()
+        probabilityView.imageView.image = UIImage.init(systemName: "percent")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small))
+        probabilityView.layer.cornerRadius = CornerRadius.standard
+        encountersView.layer.cornerRadius = CornerRadius.standard
 	}
 
 	fileprivate func setMethodDecrement() {
@@ -66,7 +69,9 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func setMethodImage() {
-		buttonStrip.methodButton.setImage(getMethodImage(), for: .normal)
+        let image = getMethodImage();
+        encountersView.imageView.image = image
+        buttonStrip.methodButton.setImage(image, for: .normal)
 	}
 
 	fileprivate func getMethodImage() -> UIImage {
@@ -76,36 +81,20 @@ class ShinyTrackerVC: UIViewController {
 			return UIImage(named: "\(huntMethod.rawValue) + Charm")!
 		}
 		else {
-			return huntMethod != .Encounters
-			? UIImage(named: huntMethod.rawValue)!
-			: UIImage(systemName: "info.circle.fill")!
+			return UIImage(named: huntMethod.rawValue)!
 		}
 	}
 	
 	fileprivate func setUIColors() {
-		view.backgroundColor = colorService.getSecondaryColor()
-		
-		encountersLabel.backgroundColor = colorService.getPrimaryColor()
-		encountersLabel.textColor = colorService.getTertiaryColor()
-		
-		probabilityLabel.backgroundColor = colorService.getPrimaryColor()
-		probabilityLabel.textColor = colorService.getTertiaryColor()
-		
-		gifSeparatorView.backgroundColor = colorService.getPrimaryColor()
-		
-		plusButton.tintColor = colorService.getTertiaryColor()
-		minusButton.tintColor = colorService.getTertiaryColor()
-	}
+        view.backgroundColor = Color.Grey900
+        encountersView.backgroundColor = Color.Grey800
+		gifSeparatorView.backgroundColor = Color.Grey400
+        plusButton.tintColor = Color.Grey400
+        minusButton.tintColor = Color.Grey400
+    }
 	
 	fileprivate func roundCorners() {
-		encountersLabel.layer.cornerRadius = CornerRadius.standard
-		probabilityLabel.layer.cornerRadius = CornerRadius.standard
-		gifSeparatorView.layer.cornerRadius = CornerRadius.standard
-	}
-	
-	fileprivate func setFonts() {
-		encountersLabel.font = fontSettingsService.getSmallFont()
-		probabilityLabel.font = fontSettingsService.getExtraSmallFont()
+		gifSeparatorView.layer.cornerRadius = CornerRadius.soft
 	}
 	
 	fileprivate func setTitle() {
@@ -129,10 +118,7 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate func resolveEncounterDetails() {
 		setProbability()
 		setProbabilityLabelText()
-		encountersLabel.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
-		encountersLabel.font = encountersLabel.text!.contains("999 +")
-			? fontSettingsService.getExtraSmallFont()
-			: fontSettingsService.getSmallFont()
+        encountersView.label.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
@@ -146,10 +132,7 @@ class ShinyTrackerVC: UIViewController {
 
 	fileprivate func setProbabilityLabelText() {
 		let probabilityLabelText = probabilityService.getProbabilityText(probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
-		probabilityLabel.text = probabilityLabelText
-		probabilityLabel.font = probabilityLabel.text!.contains("Reach")
-		? fontSettingsService.getXxSmallFont()
-		: fontSettingsService.getExtraSmallFont()
+        probabilityView.label.text = probabilityLabelText
 	}
 
 	fileprivate func setOddsLabelText() {
