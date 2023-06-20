@@ -32,14 +32,18 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 125.0
 	}
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return hunts.count
+    }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return hunts.count
+		return 1
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "rearrangeCell", for: indexPath) as! RearrangeCell
-		let hunt = hunts[indexPath.row]
+		let hunt = hunts[indexPath.section]
 		cell.moveUpButton.isHidden = hunt.priority == 0
 		cell.moveDownButton.isHidden = hunt.priority == hunts.count - 1
 		cell.cellDelegate = self
@@ -50,10 +54,10 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
         cell.backgroundColor = Color.Grey800
 		cell.moveUpButton.tintColor = Color.Grey200
-        cell.moveUpButton.backgroundColor = Color.Grey900
+        cell.moveUpButton.backgroundColor = .clear
 		cell.moveUpButton.layer.cornerRadius = CornerRadius.standard
 		cell.moveDownButton.tintColor = Color.Grey200
-        cell.moveDownButton.backgroundColor = Color.Grey900
+        cell.moveDownButton.backgroundColor = .clear
 		cell.moveDownButton.layer.cornerRadius = CornerRadius.standard
 
         return cell
@@ -62,14 +66,14 @@ class RearrangeHuntsTVC: UIViewController, UITableViewDelegate, UITableViewDataS
 	func moveUp(_ sender: UIButton) {
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			moveHunt(row: indexPath.row, firstIncrement: -1, secondIncrement: 1)
+			moveHunt(row: indexPath.section, firstIncrement: -1, secondIncrement: 1)
 		}
 	}
 
 	func moveDown(_ sender: UIButton) {
 		confirmButton.isEnabled = true
 		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			moveHunt(row: indexPath.row, firstIncrement: 1, secondIncrement: -1)
+			moveHunt(row: indexPath.section, firstIncrement: 1, secondIncrement: -1)
 		}
 	}
 

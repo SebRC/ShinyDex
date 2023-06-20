@@ -221,33 +221,23 @@ Are you sure you want to do this?</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbP-oD-Fnn">
-                                                    <rect key="frame" x="277" y="37" width="50" height="50"/>
+                                                    <rect key="frame" x="252" y="37.5" width="75" height="76.5"/>
                                                     <color key="backgroundColor" red="1" green="0.19215686269999999" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="bbP-oD-Fnn" secondAttribute="height" multiplier="1:1" id="jjW-ct-a48"/>
+                                                        <constraint firstAttribute="width" secondItem="bbP-oD-Fnn" secondAttribute="height" multiplier="1:1" constant="-2.5" id="jjW-ct-a48"/>
                                                     </constraints>
-                                                    <state key="normal">
-                                                        <imageReference key="image" image="arrow.up.square.fill" catalog="system" symbolScale="large"/>
-                                                    </state>
+                                                    <state key="normal" backgroundImage="arrow.up.circle.fill" catalog="system"/>
                                                     <connections>
                                                         <action selector="moveUp:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="S7S-gz-vRb"/>
                                                     </connections>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
-                                                    <rect key="frame" x="15" y="43.5" width="78.5" height="78.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jON-OZ-Itl">
-                                                    <rect key="frame" x="195" y="37" width="50" height="50"/>
+                                                    <rect key="frame" x="160" y="37.5" width="75" height="76.5"/>
                                                     <color key="backgroundColor" systemColor="systemTealColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="jON-OZ-Itl" secondAttribute="height" multiplier="1:1" id="jaO-t6-LGR"/>
+                                                        <constraint firstAttribute="width" secondItem="jON-OZ-Itl" secondAttribute="height" multiplier="1:1" constant="-2.5" id="jaO-t6-LGR"/>
                                                     </constraints>
-                                                    <state key="normal">
-                                                        <imageReference key="image" image="arrow.down.square.fill" catalog="system" symbolScale="large"/>
-                                                    </state>
+                                                    <state key="normal" backgroundImage="arrow.down.circle.fill" catalog="system"/>
                                                     <connections>
                                                         <action selector="moveDown:" destination="Zkd-xc-OpX" eventType="touchUpInside" id="vCx-oU-8FK"/>
                                                     </connections>
@@ -261,20 +251,26 @@ Are you sure you want to do this?</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yh3-5o-wGz">
+                                                    <rect key="frame" x="16" y="25" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Yh3-5o-wGz" secondAttribute="height" multiplier="1:1" id="OnL-Eb-DWl"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bbP-oD-Fnn" firstAttribute="trailing" secondItem="mh0-nk-ZHr" secondAttribute="trailingMargin" id="4ua-ID-tzX"/>
-                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leading" constant="15" id="9g4-cq-jng"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leading" constant="16" id="9g4-cq-jng"/>
                                                 <constraint firstItem="iRO-yu-5pG" firstAttribute="leading" secondItem="mh0-nk-ZHr" secondAttribute="leadingMargin" id="FQJ-8w-ftw"/>
-                                                <constraint firstItem="bbP-oD-Fnn" firstAttribute="leading" secondItem="jON-OZ-Itl" secondAttribute="trailing" constant="32" id="S8g-VO-knF"/>
+                                                <constraint firstItem="bbP-oD-Fnn" firstAttribute="leading" secondItem="jON-OZ-Itl" secondAttribute="trailing" constant="17" id="S8g-VO-knF"/>
                                                 <constraint firstItem="jON-OZ-Itl" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="top" constant="37" id="TqG-bZ-Akp"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="bbP-oD-Fnn" secondAttribute="bottom" constant="27" id="UDv-Lo-mMf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bbP-oD-Fnn" secondAttribute="bottom" constant="-0.5" id="UDv-Lo-mMf"/>
                                                 <constraint firstAttribute="trailing" secondItem="iRO-yu-5pG" secondAttribute="trailing" constant="37" id="Xyi-qt-9nC"/>
                                                 <constraint firstItem="iRO-yu-5pG" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" id="jT7-jq-EDQ"/>
-                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="5.5" id="k8J-0g-fjQ"/>
-                                                <constraint firstAttribute="bottom" secondItem="Yh3-5o-wGz" secondAttribute="bottom" constant="3" id="o6G-hy-lxT"/>
+                                                <constraint firstItem="Yh3-5o-wGz" firstAttribute="top" secondItem="iRO-yu-5pG" secondAttribute="bottom" constant="-13" id="k8J-0g-fjQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Yh3-5o-wGz" secondAttribute="bottom" id="o6G-hy-lxT"/>
                                                 <constraint firstItem="bbP-oD-Fnn" firstAttribute="top" secondItem="mh0-nk-ZHr" secondAttribute="topMargin" constant="26" id="yzv-3R-2tz"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="jON-OZ-Itl" secondAttribute="bottom" constant="27" id="zv2-ob-WyT"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="jON-OZ-Itl" secondAttribute="bottom" constant="-0.5" id="zv2-ob-WyT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2138,10 +2134,10 @@ Are you sure you want to do this?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mSu-1U-tG2"/>
+        <segue reference="GWK-Tp-YuW"/>
         <segue reference="LJI-fC-w8z"/>
         <segue reference="ND6-7t-Ayg"/>
-        <segue reference="DHy-Un-iod"/>
+        <segue reference="LE8-BB-dtk"/>
         <segue reference="m5D-ZB-ild"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2153,9 +2149,9 @@ Are you sure you want to do this?</string>
         <image name="5.circle.fill" catalog="system" width="128" height="123"/>
         <image name="6.circle.fill" catalog="system" width="128" height="123"/>
         <image name="Masuda" width="32" height="32"/>
-        <image name="arrow.down.square.fill" catalog="system" width="128" height="114"/>
+        <image name="arrow.down.circle.fill" catalog="system" width="128" height="123"/>
         <image name="arrow.up.arrow.down.square.fill" catalog="system" width="128" height="114"/>
-        <image name="arrow.up.square.fill" catalog="system" width="128" height="114"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="128" height="123"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="minus.circle.fill" catalog="system" width="128" height="123"/>
         <image name="none" width="32" height="32"/>
