@@ -14,17 +14,12 @@ class PopupHandler {
 		popup.alpha = 1.0
 		UIView.animate(withDuration: 0.5, animations: {
             popup.frame.origin.y = 50
-            
-			//popup.alpha = 1.0
-			//popup.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 		})
 		DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { self.removeAnimate(popupView: popup) }
 	}
 
 	fileprivate func removeAnimate(popupView: UIView) {
 		UIView.animate(withDuration: 0.5, animations: {
-			//popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-			//popupView.alpha = 0.0
             popupView.frame.origin.y = -100
 		})
         
@@ -32,7 +27,6 @@ class PopupHandler {
 	
 	fileprivate func centerPopupView(popupView: UIView) {
 		let window = UIApplication.shared.windows.filter{$0.isKeyWindow}.first
-		//popupView.center = window!.center
 		window!.addSubview(popupView)
 	}
 }
