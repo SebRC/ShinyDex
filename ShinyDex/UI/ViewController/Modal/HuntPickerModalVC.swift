@@ -26,13 +26,9 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 		tableView.layer.cornerRadius = CornerRadius.standard
         view.backgroundColor = Color.Grey900
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return hunts.count
-    }
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int	{
-		return 1
+		return hunts.count
 	}
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -41,14 +37,14 @@ class HuntPickerModalVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "huntPickerCell") as! HuntPickerCell
-		cell.nameLabel.text = hunts[indexPath.section].name
+		cell.nameLabel.text = hunts[indexPath.row].name
         cell.nameLabel.textColor = Color.Grey200
-		cell.iconImageView.image = UIImage(named: hunts[indexPath.section].pokemon[0].name.lowercased())
+		cell.iconImageView.image = UIImage(named: hunts[indexPath.row].pokemon[0].name.lowercased())
 		return cell
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let hunt = hunts[indexPath.section]
+		let hunt = hunts[indexPath.row]
 		hunt.pokemon.append(pokemon)
 		hunt.indexes.append(pokemon.number)
 		pokemon.isBeingHunted = true
