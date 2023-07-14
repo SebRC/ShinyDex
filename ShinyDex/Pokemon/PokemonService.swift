@@ -35,9 +35,6 @@ class PokemonService {
         let difference = allNames.count - allPokemon.count
         var startIndex = allNames.count - difference
         let names = Array(allNames[startIndex..<allNames.count])
-        print("DIFF: \(difference)")
-        print("START INDEX: \(startIndex)")
-        print("NAMES: \(names)")
         for name in names {
             pokemonRepository.save(name: name, number: startIndex)
             startIndex += 1

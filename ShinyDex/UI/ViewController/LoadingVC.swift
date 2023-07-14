@@ -9,16 +9,13 @@ class LoadingVC: UIViewController {
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-        //pokemonService.deleteAll()
 
 		hideNavigationBar()
 
         view.backgroundColor = Color.Grey900
         loadingLabel.textColor = Color.Orange500
         let allPokemon = pokemonService.getAll()
-        print("BEFORE IF")
 		if (isFirstTimeUser(allPokemon: allPokemon)) {
-            print("FIRST TIME USER")
 			proceedAsNewUser()
 		}
         else if(needsMigration(allPokemon: allPokemon))
@@ -27,7 +24,6 @@ class LoadingVC: UIViewController {
             proceedAsExistingUser()
         }
 		else {
-            print("EXISTING USER")
 			proceedAsExistingUser()
 		}
     }
