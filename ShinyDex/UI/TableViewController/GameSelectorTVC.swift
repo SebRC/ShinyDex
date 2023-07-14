@@ -40,7 +40,10 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                  GamesList.games[Games.LetsGoPikachu],
                  GamesList.games[Games.LetsGoEevee],
                  GamesList.games[Games.Sword],
-                 GamesList.games[Games.Shield]]
+                 GamesList.games[Games.Shield],
+                 GamesList.games[Games.LegendsArceus],
+                 GamesList.games[Games.Scarlet],
+                 GamesList.games[Games.Violet]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
