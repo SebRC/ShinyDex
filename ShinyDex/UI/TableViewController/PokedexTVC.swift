@@ -86,7 +86,9 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		case 6:
 			return Array(allPokemon[721..<807])
 		case 7:
-			return Array(allPokemon[807..<900])
+			return Array(allPokemon[807..<898])
+        case 8:
+            return Array(allPokemon[898..<905])
 		default:
 			return allPokemon.filter({$0.caughtBall != "none"})
 		}
