@@ -42,6 +42,8 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                  GamesList.games[Games.Sword],
                  GamesList.games[Games.Shield],
                  GamesList.games[Games.LegendsArceus],
+                 GamesList.games[Games.BrilliantDiamond],
+                 GamesList.games[Games.ShiningPearl],
                  GamesList.games[Games.Scarlet],
                  GamesList.games[Games.Violet]]
     

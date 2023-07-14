@@ -34,6 +34,8 @@ enum Games: String {
     case Sword = "Sword"
     case Shield = "Shield"
     case LegendsArceus = "Legends: Arceus"
+    case BrilliantDiamond = "Brilliant Diamond"
+    case ShiningPearl = "Shining Pearl"
     case Scarlet = "Scarlet"
     case Violet = "Violet"
 }
@@ -72,6 +74,8 @@ enum Games: String {
                          .Sword: Game(game: Games.Sword, coverPokemon: "zacian-game-icon", generation: 8, availableMethods: [.Encounters, .Masuda], isShinyCharmAvailable: true),
                          .Shield: Game(game: Games.Shield, coverPokemon: "zamazenta-game-icon", generation: 8, availableMethods: [.Encounters, .Masuda], isShinyCharmAvailable: true),
                          .LegendsArceus: Game(game: Games.LegendsArceus, coverPokemon: "arceus-game-icon", generation: 8, availableMethods: [.Encounters], isShinyCharmAvailable: true),
+                         .BrilliantDiamond: Game(game: Games.BrilliantDiamond, coverPokemon: "dialga-game-icon", generation: 8, availableMethods: [.Encounters, .Pokeradar, .Masuda], isShinyCharmAvailable: true),
+                         .ShiningPearl: Game(game: Games.ShiningPearl, coverPokemon: "palkia-game-icon", generation: 8, availableMethods: [.Encounters, .Pokeradar, .Masuda], isShinyCharmAvailable: true),
                          .Scarlet: Game(game: Games.Scarlet, coverPokemon: "koraidon-game-icon", generation: 9, availableMethods: [.Encounters, .Masuda], isShinyCharmAvailable: true),
                          .Violet: Game(game: Games.Violet, coverPokemon: "miraidon-game-icon", generation: 9, availableMethods: [.Encounters, .Masuda], isShinyCharmAvailable: true),]
 }
