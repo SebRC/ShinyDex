@@ -21,7 +21,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 
 		setUIColors()
 
-		setUpScopeBar()
+        searchController.searchBar.delegate = self
 		
 		setUpSearchController()
     }
@@ -46,11 +46,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		
         searchController.searchBar.backgroundColor = Color.Grey900
 		searchController.searchBar.barTintColor = Color.Grey800
-	}
-	
-	fileprivate func setUpScopeBar() {
-		searchController.searchBar.scopeButtonTitles = generation == 9 ? ["Caught"] : ["Shinydex", "Caught", "Not Caught"]
-		searchController.searchBar.delegate = self
 	}
 	
 	fileprivate func setUpSearchController() {
@@ -142,23 +137,15 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		return searchController.searchBar.text?.isEmpty ?? true
 	}
 	
-	func filterContentForSearchText(_ searchText: String, scope: String = "Regular") {
+	func filterContentForSearchText(_ searchText: String) {
 		filteredPokemon = slicedPokemon.filter( {(pokemon : Pokemon) -> Bool in
-			
-			let doesCategoryMatch = (scope == "Shinydex") || (scope == pokemon.caughtDescription)
-			
-			if (searchBarIsEmpty()) {
-				return doesCategoryMatch
-			}
-			
-			return doesCategoryMatch && pokemon.name.lowercased().contains(searchText.lowercased())
+			return pokemon.name.lowercased().contains(searchText.lowercased())
 		})
 		tableView.reloadData()
 	}
 	
 	func isFiltering() -> Bool {
-		let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-		return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+		return searchController.isActive && !searchBarIsEmpty()
 	}
 	
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -221,13 +208,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
 			selectedPokemon?.caughtBall = sourceTVC.pokemon.caughtBall
 			pokemonService.save(pokemon: selectedPokemon!)
-			if (selectedPokemon?.caughtBall == "none") {
-				if (isFiltering() && searchController.searchBar.selectedScopeButtonIndex == 1) {
-					filteredPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
-				}
-				if (generation == 9) {
-					slicedPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
-				}
+			if (selectedPokemon?.caughtBall == "none" && generation == 11) {
+                slicedPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
 			}
 			tableView.reloadData()
 		}
