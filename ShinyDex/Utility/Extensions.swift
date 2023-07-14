@@ -3,16 +3,13 @@ import UIKit
 
 extension PokedexTVC: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
-		let searchBar = searchController.searchBar
-
-		let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-		filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+		filterContentForSearchText(searchController.searchBar.text ?? "")
 	}
 }
 
 extension PokedexTVC: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-		filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+		filterContentForSearchText(searchBar.text!)
 	}
 }
 
