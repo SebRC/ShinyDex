@@ -71,7 +71,7 @@ class MenuTVC: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 12
+		return 13
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -80,9 +80,9 @@ class MenuTVC: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		genIndex = indexPath.row
-		if (genIndex == 9) {
+		if (genIndex == 10) {
 			performSegue(withIdentifier: "toHunts", sender: self)
-		} else if (genIndex == 11) {
+		} else if (genIndex == 12) {
 			performSegue(withIdentifier: "toPPCounter", sender: self)
 		}
 		else {
@@ -93,7 +93,7 @@ class MenuTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell 	{
 		let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath) as! MenuCell
 		
-		let showCurrentHuntImage = indexPath.row == 8 && !hunts.isEmpty
+		let showCurrentHuntImage = indexPath.row == 10 && !hunts.isEmpty
 		
         cell.generationLabel.textColor = Color.Grey200
 		
@@ -129,11 +129,13 @@ class MenuTVC: UITableViewController {
 			return UIImage(named: "gen8")!
         case 8:
             return UIImage(named: "gen8")!
-		case 9:
-			return UIImage(named: "\(HuntMethod.Encounters.rawValue) + Charm")!
+        case 9:
+            return UIImage(named: "gen8")!
 		case 10:
-			return UIImage(named: "collection")!
+			return UIImage(named: "\(HuntMethod.Encounters.rawValue) + Charm")!
 		case 11:
+			return UIImage(named: "collection")!
+		case 12:
 			return UIImage(named: "journal")!
 		default:
 			return UIImage(named: "gen1")!
