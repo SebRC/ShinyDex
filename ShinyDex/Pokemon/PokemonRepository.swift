@@ -70,7 +70,7 @@ public class PokemonRepository {
 
 		save(pokemon: pokemon)
 	}
-
+    
 	func deleteAll() {
 		let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "PokemonEntity")
 		let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)

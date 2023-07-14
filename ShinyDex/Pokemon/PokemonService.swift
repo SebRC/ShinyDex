@@ -27,6 +27,23 @@ class PokemonService {
 			count += 1
 		}
 	}
+    
+    func migrate() {
+        let allPokemon = getAll()
+        let genText = "allGens"
+        let allNames = txtReader.readFile(textFile: genText)
+        let difference = allNames.count - allPokemon.count
+        var startIndex = allNames.count - difference
+        let names = Array(allNames[startIndex..<allNames.count])
+        print("DIFF: \(difference)")
+        print("START INDEX: \(startIndex)")
+        print("NAMES: \(names)")
+        for name in names {
+            pokemonRepository.save(name: name, number: startIndex)
+            startIndex += 1
+        }
+        
+    }
 
 	func applyToAll(pokemon: Pokemon, allPokemon: [Pokemon]) {
 		for pokemonEntity in allPokemon {
