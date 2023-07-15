@@ -7,13 +7,13 @@ public class LocationUrlService {
 	func getUrl(pokemon: Pokemon) -> String {
 		let generation = pokemon.generation
 		let minimumGeneration = getMinimumGeneration(dexNumber: pokemon.number)
-		let addSHTML = generation > 7
+		let isPostGen7 = generation > 7
 		let numberPrefix = getNumberPrefix(dexNumber: pokemon.number)
 		let generationIdentifier = generation < minimumGeneration
 			? generationPrefixes[minimumGeneration]!
 			: generationPrefixes[generation]!
 
-        return "https://serebii.net/pokedex\(generationIdentifier)/\(addSHTML ? pokemon.name.lowercased() : numberPrefix)\(addSHTML ? "" : ".shtml")"
+        return "https://serebii.net/pokedex\(generationIdentifier)/\(isPostGen7 ? pokemon.name.lowercased() : numberPrefix)\(isPostGen7 ? "" : ".shtml")"
 	}
 
 	fileprivate func getMinimumGeneration(dexNumber: Int) -> Int {
