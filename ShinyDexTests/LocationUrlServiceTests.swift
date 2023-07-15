@@ -64,9 +64,9 @@ class LocationUrlServiceTests: XCTestCase {
 
 	func test_invalidDexNumber_returnsDefaultGeneration() {
 		// Arrange
-		let expected = "https://serebii.net/pokedex-sm/1001.shtml"
+		let expected = "https://serebii.net/pokedex-sm/2001.shtml"
 		let pokemon = Pokemon()
-		pokemon.number = 1000
+		pokemon.number = 2000
 		pokemon.name = "Charmander"
 		pokemon.generation = 5
 
