@@ -132,7 +132,7 @@ class MenuTVC: UITableViewController {
         case 9:
             return UIImage(named: "gen9")!
 		case 10:
-			return UIImage(named: "\(HuntMethod.Encounters.rawValue) + Charm")!
+			return UIImage(named: HuntMethod.Encounters.rawValue)!
 		case 11:
 			return UIImage(named: "collection")!
 		case 12:
