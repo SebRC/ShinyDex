@@ -249,9 +249,9 @@
 		96FC083723EF59C000459450 /* GameSettingsModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsModalVC.swift; sourceTree = "<group>"; };
 		96FC083823EF59C000459450 /* PokeballModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballModalVC.swift; sourceTree = "<group>"; };
 		96FC083923EF59C000459450 /* ConfirmationModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationModalVC.swift; sourceTree = "<group>"; };
-		9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.release.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.release.xcconfig"; sourceTree = "<group>"; };
 		BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShinyDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.debug.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.debug.xcconfig"; sourceTree = "<group>"; };
+		BE841783A7BB327A8DFAA533 /* Pods-ShinyDex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.debug.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.debug.xcconfig"; sourceTree = "<group>"; };
+		DA82B1852561C52CE50F03F4 /* Pods-ShinyDex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.release.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,8 +293,8 @@
 		726198376F1CCC57E5500E10 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */,
-				9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */,
+				BE841783A7BB327A8DFAA533 /* Pods-ShinyDex.debug.xcconfig */,
+				DA82B1852561C52CE50F03F4 /* Pods-ShinyDex.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -626,8 +626,6 @@
 			dependencies = (
 			);
 			name = ShinyDex;
-			packageProductDependencies = (
-			);
 			productName = ShinyDex;
 			productReference = 96FC079923EF192400459450 /* ShinyDex.app */;
 			productType = "com.apple.product-type.application";
@@ -660,8 +658,6 @@
 				Base,
 			);
 			mainGroup = 96FC079023EF192400459450;
-			packageReferences = (
-			);
 			productRefGroup = 96FC079A23EF192400459450 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -871,7 +867,6 @@
 /* Begin XCBuildConfiguration section */
 		961B5C532652837E00918D91 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -894,7 +889,6 @@
 		};
 		961B5C542652837E00918D91 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -1033,7 +1027,7 @@
 		};
 		96FC07B123EF192800459450 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1C8EC52A232EE5BEBE5AD7A /* Pods-ShinyDex.debug.xcconfig */;
+			baseConfigurationReference = BE841783A7BB327A8DFAA533 /* Pods-ShinyDex.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1055,7 +1049,7 @@
 		};
 		96FC07B223EF192800459450 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A180C98E7EF7B47D2230A0A /* Pods-ShinyDex.release.xcconfig */;
+			baseConfigurationReference = DA82B1852561C52CE50F03F4 /* Pods-ShinyDex.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
