@@ -205,7 +205,10 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any) {
-		performSegue(withIdentifier: "pickPokeball", sender: self)
+		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] _ in
+			self?.setPokeballButtonImage()
+		}
+		present(picker, animated: true)
 	}
 
 	@objc fileprivate func locationButtonPressed(_ sender: Any) {
@@ -234,17 +237,6 @@ class ShinyTrackerVC: UIViewController {
 		else if (identifier == "editIncrement") {
 			let destVC = segue.destination as! IncrementVC
 			destVC.pokemon = pokemon
-		}
-		else {
-			let destVC = segue.destination as! PokeballModalVC
-			destVC.pokemon = pokemon
-		}
-	}
-	
-	@IBAction func save(_ unwindSegue: UIStoryboardSegue) {
-		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
-			pokemon.caughtBall = sourceTVC.pokemon.caughtBall
-			buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		}
 	}
 	

@@ -100,13 +100,40 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	}
 	
 	func changeCaughtButtonPressed(_ sender: UIButton) {
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			selectedPokemon = getSelectedPokemon(index: indexPath.row)
-			
-			tableView.reloadRows(at: [indexPath], with: .automatic)
+		guard let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) else {
+			return
 		}
-		
-		performSegue(withIdentifier: "pickPokeball", sender: self)
+		let pokemon = getSelectedPokemon(index: indexPath.row)
+		selectedPokemon = pokemon
+		tableView.reloadRows(at: [indexPath], with: .automatic)
+		presentPokeballPicker(pokemon: pokemon)
+	}
+
+	fileprivate func presentPokeballPicker(pokemon: Pokemon) {
+		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] result in
+			self?.pokeballPicked(pokemon: pokemon, result: result)
+		}
+		present(picker, animated: true)
+	}
+
+	fileprivate func pokeballPicked(pokemon: Pokemon, result: PokeballPickerResult) {
+		catchCounts = catchService.getCountsByNumber()
+		showCatchPopup(pokemon: pokemon, result: result)
+		if (pokemon.caughtBall == CatchRules.noBall && generation == 11) {
+			slicedPokemon.removeAll(where: { $0.name == pokemon.name })
+		}
+		tableView.reloadData()
+	}
+
+	fileprivate func showCatchPopup(pokemon: Pokemon, result: PokeballPickerResult) {
+		switch result {
+		case .loggedCatch:
+			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(catchCounts[pokemon.number] ?? 0).")
+		case .removedLatestCatch:
+			popupHandler.showPopup(text: "Removed the latest \(pokemon.name) catch.")
+		case .nothingToRemove:
+			break
+		}
 	}
 	
 	func addToHuntPressed(_ sender: UIButton) {
@@ -223,11 +250,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		let identifier = segue.identifier
-		if (identifier == "pickPokeball") {
-			let destVC = segue.destination as? PokeballModalVC
-			destVC?.pokemon = selectedPokemon
-		}
-		else if (segue.identifier == "pickHunt") {
+		if (identifier == "pickHunt") {
 			let destVC = segue.destination as? HuntPickerModalVC
 			destVC?.pokemon = selectedPokemon
 		}
@@ -237,28 +260,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		}
 	}
 	
-	@IBAction func save(_ unwindSegue: UIStoryboardSegue) {
-		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
-			selectedPokemon?.caughtBall = sourceTVC.pokemon.caughtBall
-			catchCounts = catchService.getCountsByNumber()
-			showCatchPopup(pokemon: selectedPokemon!, didRemoveCatch: sourceTVC.didRemoveCatch)
-			if (selectedPokemon?.caughtBall == "none" && generation == 11) {
-                slicedPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
-			}
-			tableView.reloadData()
-		}
-	}
-	
-	fileprivate func showCatchPopup(pokemon: Pokemon, didRemoveCatch: Bool) {
-		let count = catchCounts[pokemon.number] ?? 0
-		if (didRemoveCatch) {
-			popupHandler.showPopup(text: "Removed the latest \(pokemon.name) catch.")
-		}
-		else if (count > 0) {
-			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(count).")
-		}
-	}
-
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = Color.Grey800
 	}
