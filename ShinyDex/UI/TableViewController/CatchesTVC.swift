@@ -5,12 +5,6 @@ class CatchesTVC: UITableViewController {
 	fileprivate let catchService = CatchService()
 	fileprivate var catches = [Catch]()
 	fileprivate let cellIdentifier = "catchCell"
-	fileprivate let dateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateStyle = .medium
-		formatter.timeStyle = .none
-		return formatter
-	}()
 
 	init(pokemon: Pokemon) {
 		self.pokemon = pokemon
@@ -62,17 +56,17 @@ class CatchesTVC: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
 		let caught = catches[indexPath.row]
 		cell.imageView?.image = UIImage(named: caught.caughtBall)
-		cell.textLabel?.text = "\(caught.caughtBall.capitalizingFirstLetter()) Ball · \(caught.game.rawValue)"
+		cell.textLabel?.text = "\(caught.ballName) · \(caught.game.rawValue)"
 		cell.textLabel?.textColor = Color.Grey200
-		cell.detailTextLabel?.text = detailText(caught: caught)
+		cell.detailTextLabel?.text = "\(caught.encounters) encounters · \(caught.huntMethod.rawValue) · \(caught.caughtDateText)"
 		cell.detailTextLabel?.textColor = Color.Grey400
-		cell.selectionStyle = .none
+		cell.accessoryType = .disclosureIndicator
 		return cell
 	}
 
-	fileprivate func detailText(caught: Catch) -> String {
-		let date = caught.caughtDate.map { dateFormatter.string(from: $0) } ?? "Logged before catch history"
-		return "\(caught.encounters) encounters · \(caught.huntMethod.rawValue) · \(date)"
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		navigationController?.pushViewController(CatchDetailTVC(caught: catches[indexPath.row], pokemon: pokemon), animated: true)
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

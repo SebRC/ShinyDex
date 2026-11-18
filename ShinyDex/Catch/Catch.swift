@@ -45,3 +45,20 @@ class Catch {
 				  caughtDate: caughtDate)
 	}
 }
+
+extension Catch {
+	fileprivate static let dateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .medium
+		formatter.timeStyle = .none
+		return formatter
+	}()
+
+	var ballName: String {
+		return "\(caughtBall.capitalizingFirstLetter()) Ball"
+	}
+
+	var caughtDateText: String {
+		return caughtDate.map { Catch.dateFormatter.string(from: $0) } ?? "Logged before catch history"
+	}
+}

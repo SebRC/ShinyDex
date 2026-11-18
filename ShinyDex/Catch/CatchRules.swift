@@ -18,6 +18,15 @@ enum CatchRules {
 		}.map { $0.element }
 	}
 
+	static func sortedForCollection(_ catches: [Catch]) -> [Catch] {
+		return sortedOldestFirst(catches).enumerated().sorted { lhs, rhs in
+			if (lhs.element.number == rhs.element.number) {
+				return lhs.offset < rhs.offset
+			}
+			return lhs.element.number < rhs.element.number
+		}.map { $0.element }
+	}
+
 	static func latestBall(of catches: [Catch]) -> String {
 		return sortedOldestFirst(catches).last?.caughtBall ?? noBall
 	}

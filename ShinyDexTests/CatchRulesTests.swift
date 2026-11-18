@@ -16,6 +16,17 @@ class CatchRulesTests: XCTestCase {
 		XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "great", "ultra"])
 	}
 
+	func test_sortedForCollection_groupsBySpecies_thenOldestFirst() {
+		let pikachuNewer = makeCatch(number: 24, ball: "ultra", date: Date(timeIntervalSince1970: 200))
+		let bulbasaur = makeCatch(number: 0, ball: "poke", date: Date(timeIntervalSince1970: 300))
+		let pikachuOlder = makeCatch(number: 24, ball: "great", date: Date(timeIntervalSince1970: 100))
+		let pikachuUndated = makeCatch(number: 24, ball: "master", date: nil)
+
+		let sorted = CatchRules.sortedForCollection([pikachuNewer, bulbasaur, pikachuOlder, pikachuUndated])
+
+		XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "master", "great", "ultra"])
+	}
+
 	func test_latestBall_isNoneWithoutCatches() {
 		XCTAssertEqual(CatchRules.latestBall(of: []), CatchRules.noBall)
 	}

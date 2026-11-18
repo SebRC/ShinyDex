@@ -119,9 +119,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	fileprivate func pokeballPicked(pokemon: Pokemon, result: PokeballPickerResult) {
 		catchCounts = catchService.getCountsByNumber()
 		showCatchPopup(pokemon: pokemon, result: result)
-		if (pokemon.caughtBall == CatchRules.noBall && generation == 11) {
-			slicedPokemon.removeAll(where: { $0.name == pokemon.name })
-		}
 		tableView.reloadData()
 	}
 

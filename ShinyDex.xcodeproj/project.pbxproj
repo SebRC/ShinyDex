@@ -12,6 +12,8 @@
 		FE60CEA635BB8F79333C2987 /* CatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */; };
 		6D1D7196AD08ED1A3142B8D3 /* CatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7E6E9E81947B0687C53C09 /* CatchService.swift */; };
 		B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F71281B079D457FDB64CE /* CatchesTVC.swift */; };
+		CF124A47CDAB6B64BD56CC7C /* CatchDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */; };
+		5614D70EB8938E96B8BB390E /* CollectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCCCF3B9CA4B91D4BE0506A /* CollectionTVC.swift */; };
 		3E36A1E39062B67E59018BAE /* CatchRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */; };
 		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
 		515C856D2A3B468300AC439D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515C856C2A3B468300AC439D /* Color.swift */; };
@@ -144,6 +146,8 @@
 		BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRepository.swift; sourceTree = "<group>"; };
 		ED7E6E9E81947B0687C53C09 /* CatchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchService.swift; sourceTree = "<group>"; };
 		CE7F71281B079D457FDB64CE /* CatchesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchesTVC.swift; sourceTree = "<group>"; };
+		70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchDetailTVC.swift; sourceTree = "<group>"; };
+		BBCCCF3B9CA4B91D4BE0506A /* CollectionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTVC.swift; sourceTree = "<group>"; };
 		8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRulesTests.swift; sourceTree = "<group>"; };
 		C3BB611DFF9311D4337B042A /* ShinyDex 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 2.xcdatamodel"; sourceTree = "<group>"; };
 		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
@@ -550,6 +554,8 @@
 				96FC082823EF598E00459450 /* PokedexTVC.swift */,
 				51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */,
 				CE7F71281B079D457FDB64CE /* CatchesTVC.swift */,
+				70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */,
+				BBCCCF3B9CA4B91D4BE0506A /* CollectionTVC.swift */,
 			);
 			path = TableViewController;
 			sourceTree = "<group>";
@@ -804,6 +810,8 @@
 				FE60CEA635BB8F79333C2987 /* CatchRepository.swift in Sources */,
 				6D1D7196AD08ED1A3142B8D3 /* CatchService.swift in Sources */,
 				B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */,
+				CF124A47CDAB6B64BD56CC7C /* CatchDetailTVC.swift in Sources */,
+				5614D70EB8938E96B8BB390E /* CollectionTVC.swift in Sources */,
 				96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */,
 				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
 				51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */,
