@@ -58,7 +58,11 @@ extension Catch {
 		return "\(caughtBall.capitalizingFirstLetter()) Ball"
 	}
 
+	var formattedCaughtDate: String? {
+		return caughtDate.map { Catch.dateFormatter.string(from: $0) }
+	}
+
 	var caughtDateText: String {
-		return caughtDate.map { Catch.dateFormatter.string(from: $0) } ?? "Logged before catch history"
+		return formattedCaughtDate ?? "Logged before catch history"
 	}
 }

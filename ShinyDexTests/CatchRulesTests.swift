@@ -27,6 +27,14 @@ class CatchRulesTests: XCTestCase {
 		XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "master", "great", "ultra"])
 	}
 
+	func test_encounters_acceptsWholeNonNegativeNumbers() {
+		XCTAssertEqual(CatchRules.encounters(from: " 1234 "), 1234)
+		XCTAssertEqual(CatchRules.encounters(from: "0"), 0)
+		XCTAssertNil(CatchRules.encounters(from: "-5"))
+		XCTAssertNil(CatchRules.encounters(from: "12a"))
+		XCTAssertNil(CatchRules.encounters(from: ""))
+	}
+
 	func test_latestBall_isNoneWithoutCatches() {
 		XCTAssertEqual(CatchRules.latestBall(of: []), CatchRules.noBall)
 	}

@@ -37,6 +37,13 @@ enum CatchRules {
 		}
 	}
 
+	static func encounters(from text: String) -> Int? {
+		guard let encounters = Int(text.trimmingCharacters(in: .whitespaces)), encounters >= 0 else {
+			return nil
+		}
+		return encounters
+	}
+
 	static func isCaught(caughtBall: String) -> Bool {
 		return !caughtBall.isEmpty && caughtBall != noBall
 	}

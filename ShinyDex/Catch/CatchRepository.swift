@@ -23,15 +23,25 @@ class CatchRepository {
 
 	func insert(catchToInsert: Catch) {
 		let catchEntity = NSManagedObject(entity: entity, insertInto: managedContext)
-		catchEntity.setValue(catchToInsert.id, forKey: "id")
-		catchEntity.setValue(catchToInsert.number, forKey: "number")
-		catchEntity.setValue(catchToInsert.caughtBall, forKey: "caughtBall")
-		catchEntity.setValue(catchToInsert.game.rawValue, forKey: "game")
-		catchEntity.setValue(catchToInsert.huntMethod.rawValue, forKey: "huntMethod")
-		catchEntity.setValue(catchToInsert.encounters, forKey: "encounters")
-		catchEntity.setValue(catchToInsert.isShinyCharmActive, forKey: "isShinyCharmActive")
-		catchEntity.setValue(catchToInsert.caughtDate, forKey: "caughtDate")
+		write(caught: catchToInsert, to: catchEntity)
 		catchToInsert.catchEntity = catchEntity
+	}
+
+	func update(catchToUpdate: Catch) {
+		if let catchEntity = catchToUpdate.catchEntity {
+			write(caught: catchToUpdate, to: catchEntity)
+		}
+	}
+
+	fileprivate func write(caught: Catch, to catchEntity: NSManagedObject) {
+		catchEntity.setValue(caught.id, forKey: "id")
+		catchEntity.setValue(caught.number, forKey: "number")
+		catchEntity.setValue(caught.caughtBall, forKey: "caughtBall")
+		catchEntity.setValue(caught.game.rawValue, forKey: "game")
+		catchEntity.setValue(caught.huntMethod.rawValue, forKey: "huntMethod")
+		catchEntity.setValue(caught.encounters, forKey: "encounters")
+		catchEntity.setValue(caught.isShinyCharmActive, forKey: "isShinyCharmActive")
+		catchEntity.setValue(caught.caughtDate, forKey: "caughtDate")
 	}
 
 	func delete(catchToDelete: Catch) {

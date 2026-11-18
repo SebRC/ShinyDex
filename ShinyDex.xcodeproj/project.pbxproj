@@ -48,6 +48,7 @@
 		964A0B0E23EF5DFB00BC87B2 /* CurrentHuntCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */; };
 		964A0B0F23EF5DFE00BC87B2 /* PokemonCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */; };
 		964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC080F23EF58A500459450 /* PokeballCell.swift */; };
+		624822DF4A039220FAB63383 /* CatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649C86ADE1B0C9417F5BF7C9 /* CatchCell.swift */; };
 		964A0B1123EF5E0600BC87B2 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081023EF58A500459450 /* PokemonCell.swift */; };
 		964A0B1223EF5E0700BC87B2 /* CurrentHuntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081123EF58A500459450 /* CurrentHuntCell.swift */; };
 		964A0B1323EF5E0900BC87B2 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC081223EF58A500459450 /* MenuCell.swift */; };
@@ -91,6 +92,7 @@
 		96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* ButtonStrip.swift */; };
 		96A72993245F12C600AF3F5F /* ButtonStrip.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72991245F12C500AF3F5F /* ButtonStrip.xib */; };
 		96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72994245F13A200AF3F5F /* IndicatorView.swift */; };
+		62F363C955B2DDDB65600427 /* CatchCountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712A0DAF663389D3B13C9352 /* CatchCountBadge.swift */; };
 		96A72997245F13A200AF3F5F /* IndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72995245F13A200AF3F5F /* IndicatorView.xib */; };
 		96A7299A245F14DF00AF3F5F /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72998245F14DF00AF3F5F /* PopupView.swift */; };
 		96A7299B245F14DF00AF3F5F /* PopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A72999245F14DF00AF3F5F /* PopupView.xib */; };
@@ -126,6 +128,7 @@
 		96FC083A23EF59C000459450 /* SetEncountersModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083623EF59BF00459450 /* SetEncountersModalVC.swift */; };
 		96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083723EF59C000459450 /* GameSettingsModalVC.swift */; };
 		96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083823EF59C000459450 /* PokeballModalVC.swift */; };
+		319C22CC05AA3A928CE6E0DF /* CatchDatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F519D744D07E15E42A48BC /* CatchDatePickerVC.swift */; };
 		96FC083D23EF59C000459450 /* ConfirmationModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083923EF59C000459450 /* ConfirmationModalVC.swift */; };
 		BD38D34BA343BF3EADE325BC /* Pods_ShinyDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */; };
 /* End PBXBuildFile section */
@@ -222,6 +225,7 @@
 		96A72990245F12C500AF3F5F /* ButtonStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStrip.swift; sourceTree = "<group>"; };
 		96A72991245F12C500AF3F5F /* ButtonStrip.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonStrip.xib; sourceTree = "<group>"; };
 		96A72994245F13A200AF3F5F /* IndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		712A0DAF663389D3B13C9352 /* CatchCountBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchCountBadge.swift; sourceTree = "<group>"; };
 		96A72995245F13A200AF3F5F /* IndicatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndicatorView.xib; sourceTree = "<group>"; };
 		96A72998245F14DF00AF3F5F /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		96A72999245F14DF00AF3F5F /* PopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupView.xib; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 		96FC080C23EF58A500459450 /* CurrentHuntCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentHuntCellDelegate.swift; sourceTree = "<group>"; };
 		96FC080D23EF58A500459450 /* PokemonCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCellDelegate.swift; sourceTree = "<group>"; };
 		96FC080F23EF58A500459450 /* PokeballCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeballCell.swift; sourceTree = "<group>"; };
+		649C86ADE1B0C9417F5BF7C9 /* CatchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchCell.swift; sourceTree = "<group>"; };
 		96FC081023EF58A500459450 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
 		96FC081123EF58A500459450 /* CurrentHuntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentHuntCell.swift; sourceTree = "<group>"; };
 		96FC081223EF58A500459450 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -265,6 +270,7 @@
 		96FC083623EF59BF00459450 /* SetEncountersModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetEncountersModalVC.swift; sourceTree = "<group>"; };
 		96FC083723EF59C000459450 /* GameSettingsModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsModalVC.swift; sourceTree = "<group>"; };
 		96FC083823EF59C000459450 /* PokeballModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeballModalVC.swift; sourceTree = "<group>"; };
+		A4F519D744D07E15E42A48BC /* CatchDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchDatePickerVC.swift; sourceTree = "<group>"; };
 		96FC083923EF59C000459450 /* ConfirmationModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationModalVC.swift; sourceTree = "<group>"; };
 		BD0A004577056EC091FC7525 /* Pods_ShinyDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShinyDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE841783A7BB327A8DFAA533 /* Pods-ShinyDex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.debug.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.debug.xcconfig"; sourceTree = "<group>"; };
@@ -524,6 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				96FC080F23EF58A500459450 /* PokeballCell.swift */,
+				649C86ADE1B0C9417F5BF7C9 /* CatchCell.swift */,
 				96FC081023EF58A500459450 /* PokemonCell.swift */,
 				96FC081123EF58A500459450 /* CurrentHuntCell.swift */,
 				96FC081223EF58A500459450 /* MenuCell.swift */,
@@ -578,6 +585,7 @@
 				96FC083923EF59C000459450 /* ConfirmationModalVC.swift */,
 				96FC083723EF59C000459450 /* GameSettingsModalVC.swift */,
 				96FC083823EF59C000459450 /* PokeballModalVC.swift */,
+				A4F519D744D07E15E42A48BC /* CatchDatePickerVC.swift */,
 				96FC083623EF59BF00459450 /* SetEncountersModalVC.swift */,
 				96435D442455C31A00C45A00 /* CreateHuntModalVC.swift */,
 				96435D4824571D0A00C45A00 /* HuntPickerModalVC.swift */,
@@ -599,6 +607,7 @@
 				96A72991245F12C500AF3F5F /* ButtonStrip.xib */,
 				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				96A72994245F13A200AF3F5F /* IndicatorView.swift */,
+				712A0DAF663389D3B13C9352 /* CatchCountBadge.swift */,
 				96A72995245F13A200AF3F5F /* IndicatorView.xib */,
 				96A72998245F14DF00AF3F5F /* PopupView.swift */,
 				96A72999245F14DF00AF3F5F /* PopupView.xib */,
@@ -813,6 +822,7 @@
 				CF124A47CDAB6B64BD56CC7C /* CatchDetailTVC.swift in Sources */,
 				5614D70EB8938E96B8BB390E /* CollectionTVC.swift in Sources */,
 				96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */,
+				62F363C955B2DDDB65600427 /* CatchCountBadge.swift in Sources */,
 				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
 				51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */,
 				9689C72B24084FBC0007AD5D /* SwitchStateService.swift in Sources */,
@@ -839,6 +849,7 @@
 				969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
+				624822DF4A039220FAB63383 /* CatchCell.swift in Sources */,
 				966478AA2515362100AA50AA /* ApplyToAllVC.swift in Sources */,
 				96FC083B23EF59C000459450 /* GameSettingsModalVC.swift in Sources */,
 				9625742826B4051B0056B09C /* MoveCellDelegate.swift in Sources */,
@@ -872,6 +883,7 @@
 				96FC083223EF59AA00459450 /* ShinyTrackerVC.swift in Sources */,
 				963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */,
 				96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */,
+				319C22CC05AA3A928CE6E0DF /* CatchDatePickerVC.swift in Sources */,
 				967F63042465C8FB008F2C4B /* GameSettingsContainer.swift in Sources */,
 				9684073124AF6A2A005FE3D3 /* ChainFishingOddsService.swift in Sources */,
 				96435D4B24571E8500C45A00 /* HuntPickerCell.swift in Sources */,

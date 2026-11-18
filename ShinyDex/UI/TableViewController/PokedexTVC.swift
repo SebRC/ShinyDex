@@ -17,7 +17,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	var huntService = HuntService()
 	var catchService = CatchService()
 	var catchCounts = [Int: Int]()
-	fileprivate let catchCountBadgeTag = 7161
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -201,41 +200,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
-		setCatchCountBadge(pokemonCell: pokemonCell, count: catchCounts[pokemon.number] ?? 0)
+		CatchCountBadge.attached(to: pokemonCell.caughtButton).show(count: catchCounts[pokemon.number] ?? 0)
         pokemonCell.pokemonName.textColor = Color.Grey200
 		pokemonCell.pokemonNumber.textColor = Color.Grey200
 		pokemonCell.addToCurrentHuntButton.tintColor = Color.Grey200
 		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
-	fileprivate func setCatchCountBadge(pokemonCell: PokemonCell, count: Int) {
-		let caughtButton = pokemonCell.caughtButton!
-		var badge = caughtButton.viewWithTag(catchCountBadgeTag) as? UILabel
-		if (badge == nil) {
-			let newBadge = UILabel()
-			newBadge.tag = catchCountBadgeTag
-			newBadge.font = UIFont.boldSystemFont(ofSize: 11)
-			newBadge.textAlignment = .center
-			newBadge.textColor = Color.Grey900
-			newBadge.backgroundColor = Color.Orange500
-			newBadge.layer.cornerRadius = 8
-			newBadge.clipsToBounds = true
-			newBadge.isUserInteractionEnabled = false
-			newBadge.translatesAutoresizingMaskIntoConstraints = false
-			caughtButton.clipsToBounds = false
-			caughtButton.addSubview(newBadge)
-			NSLayoutConstraint.activate([
-				newBadge.heightAnchor.constraint(equalToConstant: 16),
-				newBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 16),
-				newBadge.topAnchor.constraint(equalTo: caughtButton.topAnchor, constant: -4),
-				newBadge.trailingAnchor.constraint(equalTo: caughtButton.trailingAnchor, constant: 6)
-			])
-			badge = newBadge
-		}
-		badge?.text = " ×\(count) "
-		badge?.isHidden = count < 2
-	}
-
 	fileprivate func setAddToHuntButtonState(pokemonCell: PokemonCell, isBeingHunted: Bool) {
 		pokemonCell.addToCurrentHuntButton.isEnabled = !isBeingHunted
 	}

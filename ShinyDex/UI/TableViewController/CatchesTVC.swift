@@ -4,11 +4,10 @@ class CatchesTVC: UITableViewController {
 	fileprivate let pokemon: Pokemon
 	fileprivate let catchService = CatchService()
 	fileprivate var catches = [Catch]()
-	fileprivate let cellIdentifier = "catchCell"
 
 	init(pokemon: Pokemon) {
 		self.pokemon = pokemon
-		super.init(style: .plain)
+		super.init(style: .insetGrouped)
 	}
 
 	required init?(coder: NSCoder) {
@@ -20,7 +19,11 @@ class CatchesTVC: UITableViewController {
 		title = "\(pokemon.name) catches"
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey900
-		tableView.tableFooterView = UIView()
+		tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		reloadCatches()
 	}
 
@@ -49,28 +52,22 @@ class CatchesTVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 65.0
+		return CatchCell.height
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
-		cell.imageView?.image = UIImage(named: caught.caughtBall)
-		cell.textLabel?.text = "\(caught.ballName) · \(caught.game.rawValue)"
-		cell.textLabel?.textColor = Color.Grey200
-		cell.detailTextLabel?.text = "\(caught.encounters) encounters · \(caught.huntMethod.rawValue) · \(caught.caughtDateText)"
-		cell.detailTextLabel?.textColor = Color.Grey400
-		cell.accessoryType = .disclosureIndicator
+		cell.configure(pokemon: pokemon,
+					   title: "\(caught.ballName) · \(caught.game.rawValue)",
+					   subtitle: ["\(caught.encounters) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
+					   ball: caught.caughtBall)
 		return cell
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		navigationController?.pushViewController(CatchDetailTVC(caught: catches[indexPath.row], pokemon: pokemon), animated: true)
-	}
-
-	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = Color.Grey800
 	}
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

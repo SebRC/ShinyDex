@@ -1,10 +1,16 @@
 import UIKit
 
 class CatchDetailTVC: UITableViewController {
+	fileprivate enum EditableField {
+		case encounters
+		case caughtDate
+	}
+
 	fileprivate struct Row {
 		let title: String
 		let value: String
 		var image: UIImage? = nil
+		var editableField: EditableField? = nil
 	}
 
 	fileprivate let caught: Catch
@@ -29,7 +35,6 @@ class CatchDetailTVC: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .never
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey900
-		tableView.allowsSelection = false
 		tableView.tableHeaderView = makeHeaderView()
 		rows = makeRows()
 	}
@@ -72,9 +77,9 @@ class CatchDetailTVC: UITableViewController {
 			Row(title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
 			Row(title: "Game", value: caught.game.rawValue),
 			Row(title: "Method", value: caught.huntMethod.rawValue),
-			Row(title: "Encounters", value: "\(caught.encounters)"),
+			Row(title: "Encounters", value: "\(caught.encounters)", editableField: .encounters),
 			Row(title: "Shiny Charm", value: caught.isShinyCharmActive ? "Yes" : "No"),
-			Row(title: "Caught", value: caught.caughtDateText)
+			Row(title: "Caught", value: caught.caughtDateText, editableField: .caughtDate)
 		]
 		let speciesCatches = catchService.getCatches(for: pokemon)
 		if speciesCatches.count > 1, let position = speciesCatches.firstIndex(where: { $0.id == caught.id }) {
@@ -95,8 +100,53 @@ class CatchDetailTVC: UITableViewController {
 		cell.detailTextLabel?.text = row.value
 		cell.detailTextLabel?.textColor = Color.Grey200
 		cell.accessoryView = row.image.map { makeAccessoryImageView(image: $0) }
+		cell.accessoryType = row.editableField == nil ? .none : .disclosureIndicator
+		cell.selectionStyle = row.editableField == nil ? .none : .default
 		cell.backgroundColor = Color.Grey800
 		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+		return rows[indexPath.row].editableField != nil
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		switch rows[indexPath.row].editableField {
+		case .encounters:
+			presentEncountersEditor()
+		case .caughtDate:
+			present(CatchDatePickerVC.inNavigationController(initialDate: caught.caughtDate) { [weak self] date in
+				self?.save(encounters: nil, caughtDate: date)
+			}, animated: true)
+		case nil:
+			break
+		}
+	}
+
+	fileprivate func presentEncountersEditor() {
+		let alert = UIAlertController(title: "Encounters", message: "How many encounters did it take?", preferredStyle: .alert)
+		alert.addTextField { [caught] textField in
+			textField.text = "\(caught.encounters)"
+			textField.keyboardType = .numberPad
+		}
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+		alert.addAction(UIAlertAction(title: "Save", style: .default) { [weak self, weak alert] _ in
+			guard let text = alert?.textFields?.first?.text, let encounters = CatchRules.encounters(from: text) else {
+				return
+			}
+			self?.save(encounters: encounters, caughtDate: nil)
+		})
+		present(alert, animated: true)
+	}
+
+	fileprivate func save(encounters: Int?, caughtDate: Date?) {
+		catchService.update(caught: caught,
+							pokemon: pokemon,
+							encounters: encounters ?? caught.encounters,
+							caughtDate: caughtDate ?? caught.caughtDate)
+		rows = makeRows()
+		tableView.reloadData()
 	}
 
 	fileprivate func makeAccessoryImageView(image: UIImage) -> UIImageView {
