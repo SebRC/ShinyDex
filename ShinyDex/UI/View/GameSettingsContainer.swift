@@ -120,7 +120,7 @@ class GameSettingsContainer: UIView {
     func updateUI(updatedPokemon: Pokemon, coverPokemon: String) {
         pokemon = updatedPokemon
         gameButton.setImage(UIImage(named: coverPokemon), for: .normal)
-        gameTitle.text = pokemon.game.rawValue
+        gameTitle.text = pokemon.game.displayName
         resolveUIObjectsState()
         setShinyOddsLabelText()
     }

@@ -83,7 +83,7 @@ class CatchDetailTVC: UITableViewController {
 	fileprivate func reloadRows() {
 		rows = [
 			Row(field: .ball, title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
-			Row(field: .game, title: "Game", value: caught.game.rawValue),
+			Row(field: .game, title: "Game", value: caught.game.displayName),
 			Row(field: .method, title: "Method", value: caught.huntMethod.rawValue),
 			Row(field: .encounters, title: "Encounters", value: "\(caught.encounters)"),
 			Row(field: .caughtDate, title: "Caught", value: caught.caughtDateText)
@@ -177,7 +177,7 @@ class CatchDetailTVC: UITableViewController {
 
 	fileprivate func showGamePicker() {
 		let games = Games.allCases
-		let options = games.map { PickerOption(title: $0.rawValue, image: GamesList.games[$0].flatMap { UIImage(named: $0.coverPokemon) }) }
+		let options = games.map { PickerOption(title: $0.displayName, image: GamesList.games[$0].flatMap { UIImage(named: $0.coverPokemon) }) }
 		showPicker(title: "Game", options: options, selectedIndex: games.firstIndex(of: caught.game)) { [weak self] index in
 			self?.save { $0.game = games[index] }
 		}
@@ -188,7 +188,7 @@ class CatchDetailTVC: UITableViewController {
 		if !methods.contains(caught.huntMethod) {
 			methods.append(caught.huntMethod)
 		}
-		let options = methods.map { PickerOption(title: $0.rawValue) }
+		let options = methods.map { PickerOption(title: $0.rawValue, image: UIImage(named: $0.rawValue)) }
 		showPicker(title: "Method", options: options, selectedIndex: methods.firstIndex(of: caught.huntMethod)) { [weak self] index in
 			self?.save { $0.huntMethod = methods[index] }
 		}

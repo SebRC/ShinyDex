@@ -21,7 +21,7 @@ class SettingsVC: UIViewController, SegueActivated {
 		gameSettingsContainer.delegate = self
         gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
         gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[Games.Red]!.coverPokemon), for: .normal)
-        gameSettingsContainer.gameTitle.text = pokemon.game.rawValue
+        gameSettingsContainer.gameTitle.text = pokemon.game.displayName
 
 		setUIColors()
 		roundCorners()

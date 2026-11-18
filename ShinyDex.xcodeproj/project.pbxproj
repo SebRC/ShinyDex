@@ -16,6 +16,7 @@
 		3D26B65B2CF8E68E44629B26 /* OptionPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E091AF640B0CEAEC2D5105 /* OptionPickerTVC.swift */; };
 		5614D70EB8938E96B8BB390E /* CollectionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCCCF3B9CA4B91D4BE0506A /* CollectionTVC.swift */; };
 		3E36A1E39062B67E59018BAE /* CatchRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */; };
+		B2D8EC9476D9C3F4A4A241A1 /* GamesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3538AD3592B4469FBE09F1C6 /* GamesTests.swift */; };
 		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
 		515C856D2A3B468300AC439D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515C856C2A3B468300AC439D /* Color.swift */; };
 		51818C5B26C0483500B95FF6 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 51818C5A26C0483500B95FF6 /* moves.json */; };
@@ -154,6 +155,7 @@
 		53E091AF640B0CEAEC2D5105 /* OptionPickerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionPickerTVC.swift; sourceTree = "<group>"; };
 		BBCCCF3B9CA4B91D4BE0506A /* CollectionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTVC.swift; sourceTree = "<group>"; };
 		8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRulesTests.swift; sourceTree = "<group>"; };
+		3538AD3592B4469FBE09F1C6 /* GamesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesTests.swift; sourceTree = "<group>"; };
 		C3BB611DFF9311D4337B042A /* ShinyDex 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 2.xcdatamodel"; sourceTree = "<group>"; };
 		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
 		515C856C2A3B468300AC439D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			children = (
 				96C3CB6926618B620090186E /* PopupHandlerTests.swift */,
 				8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */,
+				3538AD3592B4469FBE09F1C6 /* GamesTests.swift */,
 				96C3CB65266185440090186E /* PokemonServiceTests.swift */,
 				962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */,
 				966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */,
@@ -793,6 +796,7 @@
 			files = (
 				966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */,
 				3E36A1E39062B67E59018BAE /* CatchRulesTests.swift in Sources */,
+				B2D8EC9476D9C3F4A4A241A1 /* GamesTests.swift in Sources */,
 				966B1EF62656A92100DF1FE0 /* SosChainingOddsServiceTests.swift in Sources */,
 				966B1F082656C1B700DF1FE0 /* TxtReaderTests.swift in Sources */,
 				966B1ED82654342D00DF1FE0 /* ProbabilityServiceTests.swift in Sources */,
