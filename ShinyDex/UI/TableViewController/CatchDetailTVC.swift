@@ -1,16 +1,25 @@
 import UIKit
 
 class CatchDetailTVC: UITableViewController {
-	fileprivate enum EditableField {
+	fileprivate enum Field {
+		case ball
+		case game
+		case method
 		case encounters
+		case shinyCharm
 		case caughtDate
+		case position
 	}
 
 	fileprivate struct Row {
+		let field: Field
 		let title: String
 		let value: String
 		var image: UIImage? = nil
-		var editableField: EditableField? = nil
+
+		var isEditable: Bool {
+			return field != .position
+		}
 	}
 
 	fileprivate let caught: Catch
@@ -36,7 +45,7 @@ class CatchDetailTVC: UITableViewController {
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey900
 		tableView.tableHeaderView = makeHeaderView()
-		rows = makeRows()
+		reloadRows()
 	}
 
 	fileprivate func makeHeaderView() -> UIView {
@@ -72,20 +81,25 @@ class CatchDetailTVC: UITableViewController {
 		return header
 	}
 
-	fileprivate func makeRows() -> [Row] {
-		var rows = [
-			Row(title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
-			Row(title: "Game", value: caught.game.rawValue),
-			Row(title: "Method", value: caught.huntMethod.rawValue),
-			Row(title: "Encounters", value: "\(caught.encounters)", editableField: .encounters),
-			Row(title: "Shiny Charm", value: caught.isShinyCharmActive ? "Yes" : "No"),
-			Row(title: "Caught", value: caught.caughtDateText, editableField: .caughtDate)
+	fileprivate func reloadRows() {
+		rows = [
+			Row(field: .ball, title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
+			Row(field: .game, title: "Game", value: caught.game.rawValue),
+			Row(field: .method, title: "Method", value: caught.huntMethod.rawValue),
+			Row(field: .encounters, title: "Encounters", value: "\(caught.encounters)"),
+			Row(field: .shinyCharm, title: "Shiny Charm", value: ""),
+			Row(field: .caughtDate, title: "Caught", value: caught.caughtDateText)
 		]
 		let speciesCatches = catchService.getCatches(for: pokemon)
 		if speciesCatches.count > 1, let position = speciesCatches.firstIndex(where: { $0.id == caught.id }) {
-			rows.append(Row(title: "Catch", value: "\(position + 1) of \(speciesCatches.count)"))
+			rows.append(Row(field: .position, title: "Catch", value: "\(position + 1) of \(speciesCatches.count)"))
 		}
-		return rows
+		tableView.reloadData()
+	}
+
+	fileprivate func save(_ changes: (Catch) -> Void) {
+		catchService.update(caught: caught, pokemon: pokemon, applying: changes)
+		reloadRows()
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,32 +113,108 @@ class CatchDetailTVC: UITableViewController {
 		cell.textLabel?.textColor = Color.Grey400
 		cell.detailTextLabel?.text = row.value
 		cell.detailTextLabel?.textColor = Color.Grey200
-		cell.accessoryView = row.image.map { makeAccessoryImageView(image: $0) }
-		cell.accessoryType = row.editableField == nil ? .none : .disclosureIndicator
-		cell.selectionStyle = row.editableField == nil ? .none : .default
 		cell.backgroundColor = Color.Grey800
+		cell.selectionStyle = row.isEditable && row.field != .shinyCharm ? .default : .none
+		cell.accessoryView = row.field == .shinyCharm ? makeShinyCharmSwitch() : makeAccessory(image: row.image, showsChevron: row.isEditable)
 		return cell
 	}
 
+	fileprivate func makeShinyCharmSwitch() -> UISwitch {
+		let shinyCharmSwitch = UISwitch()
+		shinyCharmSwitch.isOn = caught.isShinyCharmActive
+		shinyCharmSwitch.onTintColor = Color.Orange500
+		shinyCharmSwitch.isEnabled = caught.isShinyCharmActive || GamesList.games[caught.game]?.isShinyCharmAvailable == true
+		shinyCharmSwitch.addTarget(self, action: #selector(shinyCharmChanged), for: .valueChanged)
+		return shinyCharmSwitch
+	}
+
+	@objc fileprivate func shinyCharmChanged(_ sender: UISwitch) {
+		save { $0.isShinyCharmActive = sender.isOn }
+	}
+
+	fileprivate func makeAccessory(image: UIImage?, showsChevron: Bool) -> UIView? {
+		var views = [UIView]()
+		if let image = image {
+			let imageView = UIImageView(image: image)
+			imageView.contentMode = .scaleAspectFit
+			imageView.widthAnchor.constraint(equalToConstant: 28).isActive = true
+			imageView.heightAnchor.constraint(equalToConstant: 28).isActive = true
+			views.append(imageView)
+		}
+		if showsChevron {
+			let chevron = UIImageView(image: UIImage(systemName: "chevron.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)))
+			chevron.tintColor = Color.Grey400
+			chevron.contentMode = .center
+			views.append(chevron)
+		}
+		guard !views.isEmpty else {
+			return nil
+		}
+		let stack = UIStackView(arrangedSubviews: views)
+		stack.spacing = 8
+		stack.alignment = .center
+		stack.frame.size = stack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+		return stack
+	}
+
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		return rows[indexPath.row].editableField != nil
+		let row = rows[indexPath.row]
+		return row.isEditable && row.field != .shinyCharm
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		switch rows[indexPath.row].editableField {
+		switch rows[indexPath.row].field {
+		case .ball:
+			showBallPicker()
+		case .game:
+			showGamePicker()
+		case .method:
+			showMethodPicker()
 		case .encounters:
-			presentEncountersEditor()
+			showEncountersEditor()
 		case .caughtDate:
 			present(CatchDatePickerVC.inNavigationController(initialDate: caught.caughtDate) { [weak self] date in
-				self?.save(encounters: nil, caughtDate: date)
+				self?.save { $0.caughtDate = date }
 			}, animated: true)
-		case nil:
+		case .shinyCharm, .position:
 			break
 		}
 	}
 
-	fileprivate func presentEncountersEditor() {
+	fileprivate func showBallPicker() {
+		let balls = TxtReader().readFile(textFile: "pokeballs").map { Pokeball(ballName: $0) }.filter { $0.name.lowercased() != CatchRules.noBall }
+		let options = balls.map { PickerOption(title: "\($0.name) Ball", image: $0.image) }
+		let selectedIndex = balls.firstIndex { $0.name.lowercased() == caught.caughtBall }
+		showPicker(title: "Ball", options: options, selectedIndex: selectedIndex) { [weak self] index in
+			self?.save { $0.caughtBall = balls[index].name.lowercased() }
+		}
+	}
+
+	fileprivate func showGamePicker() {
+		let games = Games.allCases
+		let options = games.map { PickerOption(title: $0.rawValue, image: GamesList.games[$0].flatMap { UIImage(named: $0.coverPokemon) }) }
+		showPicker(title: "Game", options: options, selectedIndex: games.firstIndex(of: caught.game)) { [weak self] index in
+			self?.save { $0.game = games[index] }
+		}
+	}
+
+	fileprivate func showMethodPicker() {
+		var methods = GamesList.games[caught.game]?.availableMethods ?? [.Encounters]
+		if !methods.contains(caught.huntMethod) {
+			methods.append(caught.huntMethod)
+		}
+		let options = methods.map { PickerOption(title: $0.rawValue) }
+		showPicker(title: "Method", options: options, selectedIndex: methods.firstIndex(of: caught.huntMethod)) { [weak self] index in
+			self?.save { $0.huntMethod = methods[index] }
+		}
+	}
+
+	fileprivate func showPicker(title: String, options: [PickerOption], selectedIndex: Int?, onPick: @escaping (Int) -> Void) {
+		navigationController?.pushViewController(OptionPickerTVC(title: title, options: options, selectedIndex: selectedIndex, onPick: onPick), animated: true)
+	}
+
+	fileprivate func showEncountersEditor() {
 		let alert = UIAlertController(title: "Encounters", message: "How many encounters did it take?", preferredStyle: .alert)
 		alert.addTextField { [caught] textField in
 			textField.text = "\(caught.encounters)"
@@ -135,24 +225,8 @@ class CatchDetailTVC: UITableViewController {
 			guard let text = alert?.textFields?.first?.text, let encounters = CatchRules.encounters(from: text) else {
 				return
 			}
-			self?.save(encounters: encounters, caughtDate: nil)
+			self?.save { $0.encounters = encounters }
 		})
 		present(alert, animated: true)
-	}
-
-	fileprivate func save(encounters: Int?, caughtDate: Date?) {
-		catchService.update(caught: caught,
-							pokemon: pokemon,
-							encounters: encounters ?? caught.encounters,
-							caughtDate: caughtDate ?? caught.caughtDate)
-		rows = makeRows()
-		tableView.reloadData()
-	}
-
-	fileprivate func makeAccessoryImageView(image: UIImage) -> UIImageView {
-		let imageView = UIImageView(image: image)
-		imageView.contentMode = .scaleAspectFit
-		imageView.frame = CGRect(x: 0, y: 0, width: 28, height: 28)
-		return imageView
 	}
 }

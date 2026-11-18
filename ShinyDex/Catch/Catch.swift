@@ -35,6 +35,19 @@ class Catch {
 		self.caughtDate = caughtDate
 	}
 
+	func revertToSaved() {
+		guard let catchEntity = catchEntity else {
+			return
+		}
+		let saved = Catch(catchEntity: catchEntity)
+		caughtBall = saved.caughtBall
+		game = saved.game
+		huntMethod = saved.huntMethod
+		encounters = saved.encounters
+		isShinyCharmActive = saved.isShinyCharmActive
+		caughtDate = saved.caughtDate
+	}
+
 	convenience init(pokemon: Pokemon, caughtBall: String, caughtDate: Date?) {
 		self.init(number: pokemon.number,
 				  caughtBall: caughtBall,

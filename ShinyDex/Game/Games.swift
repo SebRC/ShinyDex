@@ -1,6 +1,6 @@
 import Foundation
 
-enum Games: String {
+enum Games: String, CaseIterable {
     case Red = "Red"
     case Blue = "Blue"
     case Yellow = "Yellow"

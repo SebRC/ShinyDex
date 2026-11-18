@@ -30,12 +30,14 @@ class CatchService {
 		}
 	}
 
-	func update(caught: Catch, pokemon: Pokemon, encounters: Int, caughtDate: Date?) {
-		caught.encounters = encounters
-		caught.caughtDate = caughtDate
+	func update(caught: Catch, pokemon: Pokemon, applying changes: (Catch) -> Void) {
+		changes(caught)
 		catchRepository.update(catchToUpdate: caught)
 		if catchRepository.save() {
 			syncCaughtBall(pokemon: pokemon)
+		}
+		else {
+			caught.revertToSaved()
 		}
 	}
 
