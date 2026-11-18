@@ -73,7 +73,7 @@ class GameSelectorTVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "gameSelectorCell", for: indexPath) as! GameSelectorCell
         let game = games[indexPath.row]!
         cell.gameImage.image = UIImage(named: game.coverPokemon)
-        cell.gameTitle.text = game.title
+        cell.gameTitle.text = game.displayTitle
         cell.gameTitle.textColor = Color.Grey200
         return cell
     }

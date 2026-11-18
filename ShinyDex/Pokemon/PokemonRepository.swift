@@ -17,6 +17,7 @@ public class PokemonRepository {
 	
 	func getAll() -> [NSManagedObject] {
 		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "number", ascending: true)]
 		do {
 			let pokemonEntityList = try managedContext.fetch(fetchRequest)
 			return pokemonEntityList

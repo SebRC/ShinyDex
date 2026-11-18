@@ -15,6 +15,8 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	let tableViewHelper = TableViewHelper()
 	var pokemonService = PokemonService()
 	var huntService = HuntService()
+	var catchService = CatchService()
+	var catchCounts = [Int: Int]()
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		
         allPokemon = pokemonService.getAll()
         hunts = huntService.getAll()
+        catchCounts = catchService.getCountsByNumber()
         slicedPokemon = slicePokemonList()
 
 		tableView.reloadData()
@@ -96,13 +99,37 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	}
 	
 	func changeCaughtButtonPressed(_ sender: UIButton) {
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			selectedPokemon = getSelectedPokemon(index: indexPath.row)
-			
-			tableView.reloadRows(at: [indexPath], with: .automatic)
+		guard let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) else {
+			return
 		}
-		
-		performSegue(withIdentifier: "pickPokeball", sender: self)
+		let pokemon = getSelectedPokemon(index: indexPath.row)
+		selectedPokemon = pokemon
+		tableView.reloadRows(at: [indexPath], with: .automatic)
+		presentPokeballPicker(pokemon: pokemon)
+	}
+
+	fileprivate func presentPokeballPicker(pokemon: Pokemon) {
+		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] result in
+			self?.pokeballPicked(pokemon: pokemon, result: result)
+		}
+		present(picker, animated: true)
+	}
+
+	fileprivate func pokeballPicked(pokemon: Pokemon, result: PokeballPickerResult) {
+		catchCounts = catchService.getCountsByNumber()
+		showCatchPopup(pokemon: pokemon, result: result)
+		tableView.reloadData()
+	}
+
+	fileprivate func showCatchPopup(pokemon: Pokemon, result: PokeballPickerResult) {
+		switch result {
+		case .loggedCatch:
+			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(catchCounts[pokemon.number] ?? 0).")
+		case .removedLatestCatch:
+			popupHandler.showPopup(text: "Removed the latest \(pokemon.name) catch.")
+		case .nothingToRemove:
+			break
+		}
 	}
 	
 	func addToHuntPressed(_ sender: UIButton) {
@@ -173,6 +200,7 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		pokemonCell.pokemonName?.text = pokemon.name
 		pokemonCell.pokemonNumber.text = "No. \(String(pokemon.number + 1))"
 		pokemonCell.caughtButton.setBackgroundImage(UIImage(named: pokemon.caughtBall), for: .normal)
+		CatchCountBadge.attached(to: pokemonCell.caughtButton).show(count: catchCounts[pokemon.number] ?? 0)
         pokemonCell.pokemonName.textColor = Color.Grey200
 		pokemonCell.pokemonNumber.textColor = Color.Grey200
 		pokemonCell.addToCurrentHuntButton.tintColor = Color.Grey200
@@ -190,28 +218,13 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		let identifier = segue.identifier
-		if (identifier == "pickPokeball") {
-			let destVC = segue.destination as? PokeballModalVC
-			destVC?.pokemon = selectedPokemon
-		}
-		else if (segue.identifier == "pickHunt") {
+		if (identifier == "pickHunt") {
 			let destVC = segue.destination as? HuntPickerModalVC
 			destVC?.pokemon = selectedPokemon
 		}
 		else {
 			let destVC = segue.destination as? ShinyTrackerVC
 			destVC?.pokemon = isFiltering() ? filteredPokemon[selectedIndex] : slicedPokemon[selectedIndex]
-		}
-	}
-	
-	@IBAction func save(_ unwindSegue: UIStoryboardSegue) {
-		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
-			selectedPokemon?.caughtBall = sourceTVC.pokemon.caughtBall
-			pokemonService.save(pokemon: selectedPokemon!)
-			if (selectedPokemon?.caughtBall == "none" && generation == 11) {
-                slicedPokemon.removeAll(where: {$0.name == selectedPokemon?.name})
-			}
-			tableView.reloadData()
 		}
 	}
 	

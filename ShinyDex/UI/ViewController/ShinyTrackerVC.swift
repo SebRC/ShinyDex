@@ -39,11 +39,28 @@ class ShinyTrackerVC: UIViewController {
 		setOddsLabelText()
         addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
         addToHuntButton.tintColor = Color.Orange500
+        addCatchesButton()
         
         encountersView.imageView.image = getMethodImage()
         probabilityView.imageView.image = UIImage.init(systemName: "percent")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small))
         probabilityView.layer.cornerRadius = CornerRadius.standard
         encountersView.layer.cornerRadius = CornerRadius.standard
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setPokeballButtonImage()
+	}
+
+	fileprivate func addCatchesButton() {
+		let catchesButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(catchesButtonPressed))
+		catchesButton.tintColor = Color.Orange500
+		catchesButton.accessibilityLabel = "Catches"
+		navigationItem.rightBarButtonItems = (navigationItem.rightBarButtonItems ?? []) + [catchesButton]
+	}
+
+	@objc fileprivate func catchesButtonPressed(_ sender: Any) {
+		navigationController?.pushViewController(CatchesTVC(pokemon: pokemon), animated: true)
 	}
 
 	fileprivate func setMethodDecrement() {
@@ -188,7 +205,10 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any) {
-		performSegue(withIdentifier: "pickPokeball", sender: self)
+		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] _ in
+			self?.setPokeballButtonImage()
+		}
+		present(picker, animated: true)
 	}
 
 	@objc fileprivate func locationButtonPressed(_ sender: Any) {
@@ -217,17 +237,6 @@ class ShinyTrackerVC: UIViewController {
 		else if (identifier == "editIncrement") {
 			let destVC = segue.destination as! IncrementVC
 			destVC.pokemon = pokemon
-		}
-		else {
-			let destVC = segue.destination as! PokeballModalVC
-			destVC.pokemon = pokemon
-		}
-	}
-	
-	@IBAction func save(_ unwindSegue: UIStoryboardSegue) {
-		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
-			pokemon.caughtBall = sourceTVC.pokemon.caughtBall
-			buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
 		}
 	}
 	

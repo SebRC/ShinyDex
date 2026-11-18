@@ -7,6 +7,10 @@ class Game {
     private(set) var availableMethods: [HuntMethod]
     private(set) var isShinyCharmAvailable: Bool
     
+    var displayTitle: String {
+        return Games(rawValue: title)?.displayName ?? title
+    }
+
     init(game: Games, coverPokemon: String, generation: Int, availableMethods: [HuntMethod], isShinyCharmAvailable: Bool) {
         self.title = game.rawValue
         self.coverPokemon = coverPokemon

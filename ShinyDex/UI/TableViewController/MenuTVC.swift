@@ -82,6 +82,8 @@ class MenuTVC: UITableViewController {
 		genIndex = indexPath.row
 		if (genIndex == 10) {
 			performSegue(withIdentifier: "toHunts", sender: self)
+		} else if (genIndex == 11) {
+			navigationController?.pushViewController(CollectionTVC(), animated: true)
 		} else if (genIndex == 12) {
 			performSegue(withIdentifier: "toPPCounter", sender: self)
 		}

@@ -25,7 +25,7 @@ class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDel
         
         gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
         gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[pokemon.game]?.coverPokemon ?? "charizard"), for: .normal)
-        gameSettingsContainer.gameTitle.text = pokemon.game.rawValue
+        gameSettingsContainer.gameTitle.text = pokemon.game.displayName
     }
 	
 	fileprivate func roundViewCorner() {

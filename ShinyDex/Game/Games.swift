@@ -1,6 +1,6 @@
 import Foundation
 
-enum Games: String {
+enum Games: String, CaseIterable {
     case Red = "Red"
     case Blue = "Blue"
     case Yellow = "Yellow"
@@ -38,6 +38,11 @@ enum Games: String {
     case ShiningPearl = "Shining Pearl"
     case Scarlet = "Scarlet"
     case Violet = "Violet"
+
+    // Raw values are stored, so a misspelled one like "pearl" is fixed here rather than in the raw value.
+    var displayName: String {
+        return rawValue.prefix(1).uppercased() + rawValue.dropFirst()
+    }
 }
 
  class GamesList {
