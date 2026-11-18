@@ -6,7 +6,6 @@ class CatchDetailTVC: UITableViewController {
 		case game
 		case method
 		case encounters
-		case shinyCharm
 		case caughtDate
 		case position
 	}
@@ -87,7 +86,6 @@ class CatchDetailTVC: UITableViewController {
 			Row(field: .game, title: "Game", value: caught.game.rawValue),
 			Row(field: .method, title: "Method", value: caught.huntMethod.rawValue),
 			Row(field: .encounters, title: "Encounters", value: "\(caught.encounters)"),
-			Row(field: .shinyCharm, title: "Shiny Charm", value: ""),
 			Row(field: .caughtDate, title: "Caught", value: caught.caughtDateText)
 		]
 		let speciesCatches = catchService.getCatches(for: pokemon)
@@ -114,22 +112,9 @@ class CatchDetailTVC: UITableViewController {
 		cell.detailTextLabel?.text = row.value
 		cell.detailTextLabel?.textColor = Color.Grey200
 		cell.backgroundColor = Color.Grey800
-		cell.selectionStyle = row.isEditable && row.field != .shinyCharm ? .default : .none
-		cell.accessoryView = row.field == .shinyCharm ? makeShinyCharmSwitch() : makeAccessory(image: row.image, showsChevron: row.isEditable)
+		cell.selectionStyle = row.isEditable ? .default : .none
+		cell.accessoryView = makeAccessory(image: row.image, showsChevron: row.isEditable)
 		return cell
-	}
-
-	fileprivate func makeShinyCharmSwitch() -> UISwitch {
-		let shinyCharmSwitch = UISwitch()
-		shinyCharmSwitch.isOn = caught.isShinyCharmActive
-		shinyCharmSwitch.onTintColor = Color.Orange500
-		shinyCharmSwitch.isEnabled = caught.isShinyCharmActive || GamesList.games[caught.game]?.isShinyCharmAvailable == true
-		shinyCharmSwitch.addTarget(self, action: #selector(shinyCharmChanged), for: .valueChanged)
-		return shinyCharmSwitch
-	}
-
-	@objc fileprivate func shinyCharmChanged(_ sender: UISwitch) {
-		save { $0.isShinyCharmActive = sender.isOn }
 	}
 
 	fileprivate func makeAccessory(image: UIImage?, showsChevron: Bool) -> UIView? {
@@ -158,8 +143,7 @@ class CatchDetailTVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-		let row = rows[indexPath.row]
-		return row.isEditable && row.field != .shinyCharm
+		return rows[indexPath.row].isEditable
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -177,7 +161,7 @@ class CatchDetailTVC: UITableViewController {
 			present(CatchDatePickerVC.inNavigationController(initialDate: caught.caughtDate) { [weak self] date in
 				self?.save { $0.caughtDate = date }
 			}, animated: true)
-		case .shinyCharm, .position:
+		case .position:
 			break
 		}
 	}

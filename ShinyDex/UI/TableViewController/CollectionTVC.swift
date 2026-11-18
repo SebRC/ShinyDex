@@ -92,7 +92,7 @@ class CollectionTVC: UITableViewController, UISearchResultsUpdating {
 		let entry = visibleEntries[indexPath.row]
 		cell.configure(pokemon: entry.pokemon,
 					   title: entry.pokemon.name,
-					   subtitle: ["No. \(entry.pokemon.number + 1)", entry.caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
+					   subtitle: entry.caught.formattedCaughtDate ?? "Before catch history",
 					   ball: entry.caught.caughtBall)
 		return cell
 	}
