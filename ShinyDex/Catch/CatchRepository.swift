@@ -21,7 +21,6 @@ class CatchRepository {
 		return fetch(predicate: NSPredicate(format: "number == %d", number))
 	}
 
-	// Inserts into the context. Call save() to persist.
 	func insert(catchToInsert: Catch) {
 		let catchEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 		catchEntity.setValue(catchToInsert.id, forKey: "id")
@@ -35,7 +34,6 @@ class CatchRepository {
 		catchToInsert.catchEntity = catchEntity
 	}
 
-	// Removes from the context. Call save() to persist.
 	func delete(catchToDelete: Catch) {
 		if let catchEntity = catchToDelete.catchEntity {
 			managedContext.delete(catchEntity)

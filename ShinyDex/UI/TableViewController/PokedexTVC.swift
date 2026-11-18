@@ -184,7 +184,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 		setAddToHuntButtonState(pokemonCell: pokemonCell, isBeingHunted: pokemon.isBeingHunted)
 	}
 	
-	// Shows "×N" on the ball when a species has been caught more than once.
 	fileprivate func setCatchCountBadge(pokemonCell: PokemonCell, count: Int) {
 		let caughtButton = pokemonCell.caughtButton!
 		var badge = caughtButton.viewWithTag(catchCountBadgeTag) as? UILabel
@@ -240,7 +239,6 @@ class PokedexTVC: UITableViewController, PokemonCellDelegate {
 	
 	@IBAction func save(_ unwindSegue: UIStoryboardSegue) {
 		if let sourceTVC = unwindSegue.source as? PokeballModalVC {
-			// The picker has already saved the catch and updated the Pokémon.
 			selectedPokemon?.caughtBall = sourceTVC.pokemon.caughtBall
 			catchCounts = catchService.getCountsByNumber()
 			showCatchPopup(pokemon: selectedPokemon!, didRemoveCatch: sourceTVC.didRemoveCatch)

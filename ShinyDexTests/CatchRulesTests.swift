@@ -6,12 +6,12 @@ class CatchRulesTests: XCTestCase {
 		return Catch(number: number, caughtBall: ball, game: .Red, huntMethod: .Encounters, encounters: 0, isShinyCharmActive: false, caughtDate: date)
 	}
 
-	func test_sorted_undatedCatchesComeFirst_thenByDate() {
+	func test_sortedOldestFirst_undatedCatchesComeFirst_thenByDate() {
 		let newer = makeCatch(ball: "ultra", date: Date(timeIntervalSince1970: 200))
 		let older = makeCatch(ball: "great", date: Date(timeIntervalSince1970: 100))
 		let undated = makeCatch(ball: "poke", date: nil)
 
-		let sorted = CatchRules.sorted([newer, undated, older])
+		let sorted = CatchRules.sortedOldestFirst([newer, undated, older])
 
 		XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "great", "ultra"])
 	}

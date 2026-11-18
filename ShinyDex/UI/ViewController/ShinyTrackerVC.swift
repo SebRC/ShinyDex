@@ -49,7 +49,6 @@ class ShinyTrackerVC: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		// A catch may have been deleted on the catches screen.
 		setPokeballButtonImage()
 	}
 

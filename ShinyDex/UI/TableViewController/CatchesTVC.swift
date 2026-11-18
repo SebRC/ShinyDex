@@ -1,6 +1,5 @@
 import UIKit
 
-// Lists every logged catch of one species, newest first. Swipe to delete.
 class CatchesTVC: UITableViewController {
 	fileprivate let pokemon: Pokemon
 	fileprivate let catchService = CatchService()

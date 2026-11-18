@@ -15,9 +15,8 @@ class CatchService {
 		return catchRepository.getAll().map { Catch(catchEntity: $0) }
 	}
 
-	// Oldest first.
 	func getCatches(for pokemon: Pokemon) -> [Catch] {
-		return CatchRules.sorted(catchRepository.getAll(number: pokemon.number).map { Catch(catchEntity: $0) })
+		return CatchRules.sortedOldestFirst(catchRepository.getAll(number: pokemon.number).map { Catch(catchEntity: $0) })
 	}
 
 	func getCountsByNumber() -> [Int: Int] {
@@ -47,8 +46,6 @@ class CatchService {
 		return true
 	}
 
-	// Copies each species marked as caught in the old single-catch data into one catch.
-	// Only adds rows; the existing Pokémon data is left as it is.
 	func backfillIfNeeded() {
 		if userDefaults.bool(forKey: CatchService.backfillCompletedKey) {
 			return

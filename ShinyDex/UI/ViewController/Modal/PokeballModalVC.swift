@@ -11,7 +11,6 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokemon: Pokemon!
 	var catchService = CatchService()
 	var hasCatches = false
-	// Set when a row is picked, so the presenting screen can confirm what happened.
 	var didRemoveCatch = false
 	var modalPosition: CGRect!
 	

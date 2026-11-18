@@ -10,7 +10,6 @@ class Catch {
 	var huntMethod: HuntMethod
 	var encounters: Int
 	var isShinyCharmActive: Bool
-	// nil for catches copied over from data logged before catch history existed.
 	var caughtDate: Date?
 
 	init(catchEntity: NSManagedObject) {

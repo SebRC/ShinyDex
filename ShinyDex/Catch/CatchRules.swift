@@ -1,11 +1,9 @@
 import Foundation
 
-// Pure rules for catches, kept free of Core Data so they can be unit tested.
 enum CatchRules {
 	static let noBall = "none"
 
-	// Oldest first. Catches without a date were logged before catch history existed, so they come first.
-	static func sorted(_ catches: [Catch]) -> [Catch] {
+	static func sortedOldestFirst(_ catches: [Catch]) -> [Catch] {
 		return catches.enumerated().sorted { lhs, rhs in
 			switch (lhs.element.caughtDate, rhs.element.caughtDate) {
 			case let (left?, right?):
@@ -21,7 +19,7 @@ enum CatchRules {
 	}
 
 	static func latestBall(of catches: [Catch]) -> String {
-		return sorted(catches).last?.caughtBall ?? noBall
+		return sortedOldestFirst(catches).last?.caughtBall ?? noBall
 	}
 
 	static func countsByNumber(_ catches: [Catch]) -> [Int: Int] {
@@ -34,8 +32,6 @@ enum CatchRules {
 		return !caughtBall.isEmpty && caughtBall != noBall
 	}
 
-	// Species marked as caught in the old single-catch data that have no catch history yet.
-	// Skipping species that already have catches makes the copy safe to run more than once.
 	static func pokemonToBackfill(from allPokemon: [Pokemon], existingCounts: [Int: Int]) -> [Pokemon] {
 		return allPokemon.filter { isCaught(caughtBall: $0.caughtBall) && existingCounts[$0.number] == nil }
 	}
