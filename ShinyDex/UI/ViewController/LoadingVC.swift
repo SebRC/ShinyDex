@@ -4,6 +4,7 @@ class LoadingVC: UIViewController {
 	@IBOutlet weak var loadingLabel: UILabel!
 	var pokemonService = PokemonService()
 	var moveService = MoveService()
+	var catchService = CatchService()
     var txtReader = TxtReader()
 	var loadingGifData: Data?
 	
@@ -49,6 +50,7 @@ class LoadingVC: UIViewController {
 	}
 	
 	fileprivate func proceedAsExistingUser() {
+		catchService.backfillIfNeeded()
 		performSegue(withIdentifier: "load", sender: self)
 	}
 }

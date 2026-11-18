@@ -9,7 +9,10 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	var pokeballs = [Pokeball]()
 	let txtReader = TxtReader()
 	var pokemon: Pokemon!
-	var pokemonService = PokemonService()
+	var catchService = CatchService()
+	var hasCatches = false
+	// Set when a row is picked, so the presenting screen can confirm what happened.
+	var didRemoveCatch = false
 	var modalPosition: CGRect!
 	
 	override func viewDidLoad() {
@@ -29,7 +32,8 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         cancelButton.backgroundColor = Color.Danger500
         cancelButton.setTitleColor(Color.Danger100, for: .normal)
 		pokeballTableView.backgroundColor = .clear
-		indicatorView.titleLabel.text = "Select a new ball for \(pokemon.name)"
+		hasCatches = !catchService.getCatches(for: pokemon).isEmpty
+		indicatorView.titleLabel.text = "Which ball did you catch \(pokemon.name) in?"
 		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
     }
 	
@@ -45,10 +49,13 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	}
     
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let pokeball = pokeballs[indexPath.row]
-		pokemon.caughtBall = pokeball.name.lowercased()
-		pokemon.caughtDescription = pokeball.name == "None" ? "Not Caught" : "Caught"
-		pokemonService.save(pokemon: pokemon)
+		let caughtBall = pokeballs[indexPath.row].name.lowercased()
+		if (caughtBall == CatchRules.noBall) {
+			didRemoveCatch = catchService.removeLatestCatch(pokemon: pokemon)
+		}
+		else {
+			catchService.logCatch(pokemon: pokemon, caughtBall: caughtBall)
+		}
 		performSegue(withIdentifier: "unwindFromPokeball", sender: self)
 	}
 	
@@ -72,7 +79,8 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 	
 	fileprivate func setCellProperties(pokeballCell: PokeballCell, pokeball: Pokeball) {
 		pokeballCell.pokeballImageView.image = pokeball.image
-        pokeballCell.nameLabel.text = pokeball.name
+        let isNoneRow = pokeball.name.lowercased() == CatchRules.noBall
+        pokeballCell.nameLabel.text = isNoneRow && hasCatches ? "Remove latest catch" : pokeball.name
         pokeballCell.nameLabel.textColor = Color.Grey200
         
         if(pokeball.name.lowercased() == pokemon.caughtBall && pokeball.name.lowercased() != "none") {

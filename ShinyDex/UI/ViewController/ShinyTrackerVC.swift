@@ -39,11 +39,29 @@ class ShinyTrackerVC: UIViewController {
 		setOddsLabelText()
         addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
         addToHuntButton.tintColor = Color.Orange500
+        addCatchesButton()
         
         encountersView.imageView.image = getMethodImage()
         probabilityView.imageView.image = UIImage.init(systemName: "percent")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small))
         probabilityView.layer.cornerRadius = CornerRadius.standard
         encountersView.layer.cornerRadius = CornerRadius.standard
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		// A catch may have been deleted on the catches screen.
+		setPokeballButtonImage()
+	}
+
+	fileprivate func addCatchesButton() {
+		let catchesButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(catchesButtonPressed))
+		catchesButton.tintColor = Color.Orange500
+		catchesButton.accessibilityLabel = "Catches"
+		navigationItem.rightBarButtonItems = (navigationItem.rightBarButtonItems ?? []) + [catchesButton]
+	}
+
+	@objc fileprivate func catchesButtonPressed(_ sender: Any) {
+		navigationController?.pushViewController(CatchesTVC(pokemon: pokemon), animated: true)
 	}
 
 	fileprivate func setMethodDecrement() {

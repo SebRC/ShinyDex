@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74C3CC04D71A5395765FCEAA /* Catch.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594DBE85E0BFF481E280A78 /* Catch.swift */; };
+		EAEFB0DF1012A6F6F13764B0 /* CatchRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832943F8492A89E3B3A4977E /* CatchRules.swift */; };
+		FE60CEA635BB8F79333C2987 /* CatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */; };
+		6D1D7196AD08ED1A3142B8D3 /* CatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7E6E9E81947B0687C53C09 /* CatchService.swift */; };
+		B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F71281B079D457FDB64CE /* CatchesTVC.swift */; };
+		3E36A1E39062B67E59018BAE /* CatchRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */; };
 		51216CED26C85FAC003DD07B /* MoveServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */; };
 		515C856D2A3B468300AC439D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515C856C2A3B468300AC439D /* Color.swift */; };
 		51818C5B26C0483500B95FF6 /* moves.json in Resources */ = {isa = PBXBuildFile; fileRef = 51818C5A26C0483500B95FF6 /* moves.json */; };
@@ -133,6 +139,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B594DBE85E0BFF481E280A78 /* Catch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catch.swift; sourceTree = "<group>"; };
+		832943F8492A89E3B3A4977E /* CatchRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRules.swift; sourceTree = "<group>"; };
+		BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRepository.swift; sourceTree = "<group>"; };
+		ED7E6E9E81947B0687C53C09 /* CatchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchService.swift; sourceTree = "<group>"; };
+		CE7F71281B079D457FDB64CE /* CatchesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchesTVC.swift; sourceTree = "<group>"; };
+		8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRulesTests.swift; sourceTree = "<group>"; };
+		C3BB611DFF9311D4337B042A /* ShinyDex 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 2.xcdatamodel"; sourceTree = "<group>"; };
 		51216CEC26C85FAC003DD07B /* MoveServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveServiceTests.swift; sourceTree = "<group>"; };
 		515C856C2A3B468300AC439D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		51818C5A26C0483500B95FF6 /* moves.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = moves.json; sourceTree = "<group>"; };
@@ -273,6 +286,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		64D3E4E2DCF763E6C6C89870 /* Catch */ = {
+			isa = PBXGroup;
+			children = (
+				B594DBE85E0BFF481E280A78 /* Catch.swift */,
+				832943F8492A89E3B3A4977E /* CatchRules.swift */,
+				BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */,
+				ED7E6E9E81947B0687C53C09 /* CatchService.swift */,
+			);
+			path = Catch;
+			sourceTree = "<group>";
+		};
 		348278F4B1C61F8C708F457A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				96C3CB6926618B620090186E /* PopupHandlerTests.swift */,
+				8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */,
 				96C3CB65266185440090186E /* PokemonServiceTests.swift */,
 				962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */,
 				966B1F072656C1B700DF1FE0 /* TxtReaderTests.swift */,
@@ -441,6 +466,7 @@
 				964A0B1423EF5E7300BC87B2 /* Pokemon */,
 				969BEF8726B1B52E00FDF445 /* Moves */,
 				96FC081623EF58F200459450 /* Pokeball */,
+				64D3E4E2DCF763E6C6C89870 /* Catch */,
 				966C211B24118BA40019F835 /* Hunt */,
 				9689C7352409AD0A0007AD5D /* Odds */,
 				9689C7342409ACFD0007AD5D /* Probability */,
@@ -523,6 +549,7 @@
 				96FC082623EF598E00459450 /* MenuTVC.swift */,
 				96FC082823EF598E00459450 /* PokedexTVC.swift */,
 				51FC43E028872E8B004EA69C /* GameSelectorTVC.swift */,
+				CE7F71281B079D457FDB64CE /* CatchesTVC.swift */,
 			);
 			path = TableViewController;
 			sourceTree = "<group>";
@@ -747,6 +774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */,
+				3E36A1E39062B67E59018BAE /* CatchRulesTests.swift in Sources */,
 				966B1EF62656A92100DF1FE0 /* SosChainingOddsServiceTests.swift in Sources */,
 				966B1F082656C1B700DF1FE0 /* TxtReaderTests.swift in Sources */,
 				966B1ED82654342D00DF1FE0 /* ProbabilityServiceTests.swift in Sources */,
@@ -771,6 +799,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
+				74C3CC04D71A5395765FCEAA /* Catch.swift in Sources */,
+				EAEFB0DF1012A6F6F13764B0 /* CatchRules.swift in Sources */,
+				FE60CEA635BB8F79333C2987 /* CatchRepository.swift in Sources */,
+				6D1D7196AD08ED1A3142B8D3 /* CatchService.swift in Sources */,
+				B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */,
 				96A72996245F13A200AF3F5F /* IndicatorView.swift in Sources */,
 				96435D4724561E1C00C45A00 /* CreateHuntCell.swift in Sources */,
 				51FC43E128872E8B004EA69C /* GameSelectorTVC.swift in Sources */,
@@ -1106,8 +1139,9 @@
 			isa = XCVersionGroup;
 			children = (
 				96FC07A623EF192400459450 /* ShinyDex.xcdatamodel */,
+				C3BB611DFF9311D4337B042A /* ShinyDex 2.xcdatamodel */,
 			);
-			currentVersion = 96FC07A623EF192400459450 /* ShinyDex.xcdatamodel */;
+			currentVersion = C3BB611DFF9311D4337B042A /* ShinyDex 2.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
