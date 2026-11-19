@@ -1,21 +1,17 @@
 import UIKit
 
-/// A full-width row under the grid, like "Shiny got away" or "Remove latest catch".
 struct IconGridAction {
 	let title: String
 	let symbol: String
 	var isDestructive = false
 }
 
-/// One tile in an `IconGridView`.
 struct IconGridItem {
 	let title: String
 	let image: UIImage?
 	var accessibilityLabel: String? = nil
 }
 
-/// The grid used everywhere something with an icon is chosen: balls, games and hunt methods.
-/// The current choice gets an orange outline; optional full-width action rows sit under the grid.
 class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
 	fileprivate enum Section: Int, CaseIterable {
 		case items
@@ -37,7 +33,6 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 		didSet { collectionView.reloadData() }
 	}
 	var onSelect: ((Int) -> Void)?
-	/// Called with the index into `actions`.
 	var onAction: ((Int) -> Void)?
 
 	fileprivate let columns: Int
@@ -63,7 +58,6 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	/// Brings the current choice into view, for when it's further down the grid.
 	func scrollToCurrentItem() {
 		guard let index = currentIndex, index < items.count else { return }
 		collectionView.layoutIfNeeded()
@@ -132,7 +126,6 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 	}
 }
 
-/// The balls you can log, shared by every ball grid.
 enum BallGrid {
 	/// "None" is left out: it isn't a ball, and removing a catch is its own action.
 	static let ballNames = TxtReader().readFile(textFile: "pokeballs").filter { $0 != CatchRules.noBall }
@@ -149,7 +142,6 @@ enum BallGrid {
 	}
 }
 
-/// A pushed screen for choosing one option from an icon grid. Picking an option saves it and goes back.
 class GridPickerVC: UIViewController {
 	let gridView: IconGridView
 	fileprivate let onPick: (Int) -> Void
@@ -193,7 +185,6 @@ class GridPickerVC: UIViewController {
 	}
 }
 
-/// Small uppercase caption above the grid, matching grouped table headers.
 fileprivate class GridHeaderView: UICollectionReusableView {
 	static let reuseIdentifier = "gridHeader"
 	let label = UILabel(fontSize: 13, color: Color.Grey400)
@@ -212,7 +203,6 @@ fileprivate class GridHeaderView: UICollectionReusableView {
 	}
 }
 
-/// A full-width action row under the grid; destructive actions are red.
 fileprivate class ActionCell: UICollectionViewCell {
 	static let reuseIdentifier = "gridActionCell"
 

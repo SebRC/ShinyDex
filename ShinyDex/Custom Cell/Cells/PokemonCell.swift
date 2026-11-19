@@ -1,7 +1,5 @@
 import UIKit
 
-/// A Pokémon in a Pokédex list: sprite, name, dex number and a status line (caught / in a hunt),
-/// with round buttons to log a catch (orange sparkles) and add it to a hunt (grey plus).
 /// The ball it was caught in is shown in the status line as information, never as a button.
 class PokemonCell: UITableViewCell {
 	static let reuseIdentifier = "pokemonCell"
@@ -85,8 +83,7 @@ class PokemonCell: UITableViewCell {
 		return button
 	}
 
-	/// Caught wins over "in a hunt", since the hunt is over once it's caught; with neither, the line is hidden.
-	/// When caught, the line leads with the ball of the latest catch.
+	/// Caught wins over "in a hunt", since the hunt is over once it's caught.
 	func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool) {
 		if (catchCount > 0) {
 			statusIcon.image = UIImage(named: caughtBall)

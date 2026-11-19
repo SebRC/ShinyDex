@@ -1,7 +1,5 @@
 import UIKit
 
-/// A tile in an icon grid (balls, games, methods): the image on a rounded tile with its name underneath.
-/// The current choice gets an orange outline.
 class PokeballCell: UICollectionViewCell {
 	static let reuseIdentifier = "pokeballCell"
 

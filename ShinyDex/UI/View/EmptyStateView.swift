@@ -1,6 +1,5 @@
 import UIKit
 
-/// Shown as a table's background view when there's nothing to list: an icon, what's missing, and how to fix it.
 class EmptyStateView: UIView {
 	init(symbolName: String, title: String, message: String) {
 		super.init(frame: .zero)

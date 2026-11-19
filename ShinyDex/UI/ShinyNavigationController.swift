@@ -1,6 +1,5 @@
 import UIKit
 
-/// The app's navigation controller: dark bars, orange titles and tint, large titles, and title-less back buttons.
 /// Used both for the main stack and for every modal sheet so they all look the same.
 class ShinyNavigationController: UINavigationController {
 	override init(rootViewController: UIViewController) {
@@ -43,8 +42,6 @@ class ShinyNavigationController: UINavigationController {
 }
 
 extension UIViewController {
-	/// Wraps the controller in a styled navigation controller for presenting as a sheet.
-	/// Sheets use a navigation bar with Cancel on the left and the confirming action on the right.
 	func inSheet() -> ShinyNavigationController {
 		let navigationController = ShinyNavigationController(rootViewController: self)
 		navigationController.navigationBar.prefersLargeTitles = false
@@ -63,14 +60,12 @@ extension UIViewController {
 }
 
 extension UIImage {
-	/// SF Symbol sized for large tap targets like the +/− counters.
 	static func symbol(_ name: String, pointSize: CGFloat, weight: UIImage.SymbolWeight = .regular) -> UIImage? {
 		return UIImage(systemName: name, withConfiguration: UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight))
 	}
 }
 
 extension UIButton {
-	/// A button showing an SF Symbol at the given size, tinted with the app's light grey.
 	static func symbolButton(_ name: String, pointSize: CGFloat, accessibilityLabel: String? = nil) -> UIButton {
 		let button = UIButton(type: .system)
 		button.setImage(UIImage.symbol(name, pointSize: pointSize), for: .normal)
@@ -81,14 +76,12 @@ extension UIButton {
 }
 
 extension UITableView {
-	/// The index path of the row containing `view`, used by buttons inside cells.
 	func indexPath(containing view: UIView) -> IndexPath? {
 		return indexPathForRow(at: view.convert(CGPoint(x: view.bounds.midX, y: view.bounds.midY), to: self))
 	}
 }
 
 extension UIView {
-	/// Adds subviews with Auto Layout enabled.
 	func addAutoLayoutSubviews(_ views: UIView...) {
 		for view in views {
 			view.translatesAutoresizingMaskIntoConstraints = false

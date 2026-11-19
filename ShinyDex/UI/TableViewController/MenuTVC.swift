@@ -117,7 +117,6 @@ class MenuTVC: UITableViewController {
 		return cell
 	}
 
-	/// A live summary under each title, so the menu shows where things stand without opening anything.
 	fileprivate func subtitle(for index: Int) -> String {
 		switch index {
 		case 10:

@@ -103,7 +103,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		updateSummary()
 	}
 
-	/// Total encounters across every hunt, shown above the list instead of as a bare number in the title.
 	fileprivate func updateSummary() {
 		guard !hunts.isEmpty else {
 			tableView.tableHeaderView = nil
@@ -372,7 +371,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		}, completion: nil)
 	}
 
-	/// Refreshes one row and its hunt header without reloading (and flashing) the whole list.
+	/// Avoids reloading (and flashing) the whole list.
 	fileprivate func reloadSectionKeepingHeader(_ indexPath: IndexPath) {
 		UIView.performWithoutAnimation {
 			tableView.reloadRows(at: [indexPath], with: .none)

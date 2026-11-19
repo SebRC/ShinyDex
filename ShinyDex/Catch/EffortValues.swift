@@ -1,6 +1,6 @@
 import Foundation
 
-/// A caught Pokémon's effort values: one per stat, at most 252 each and 510 in total, as in the games since generation 6.
+/// Limits as in the games since generation 6.
 struct EffortValues: Equatable {
 	enum Stat: Int, CaseIterable {
 		case hp, attack, defense, specialAttack, specialDefense, speed
@@ -37,7 +37,6 @@ struct EffortValues: Equatable {
 		values = Array(repeating: 0, count: Stat.allCases.count)
 	}
 
-	/// Reads the stored "hp,atk,def,spa,spd,spe" form; anything malformed is treated as untrained.
 	init(encoded: String?) {
 		self.init()
 		guard let parts = encoded?.split(separator: ",").map({ Int($0) }), parts.count == values.count, !parts.contains(nil) else { return }
@@ -67,7 +66,6 @@ struct EffortValues: Equatable {
 		return values[stat.rawValue]
 	}
 
-	/// Adds (or with a negative amount, removes) EVs, stopping at 0, at 252 for the stat, and at 510 overall.
 	func adding(_ amount: Int, to stat: Stat) -> EffortValues {
 		var copy = self
 		let current = values[stat.rawValue]
@@ -76,18 +74,15 @@ struct EffortValues: Equatable {
 		return copy
 	}
 
-	/// Sets a stat to an exact value, within the same limits as `adding`.
 	func setting(_ value: Int, for stat: Stat) -> EffortValues {
 		return adding(value - values[stat.rawValue], to: stat)
 	}
 
-	/// The trained stats, biggest first, like "252 Atk / 252 Spe / 4 HP".
 	var summary: String {
 		let trained = Stat.allCases.filter { values[$0.rawValue] > 0 }.sorted { values[$0.rawValue] > values[$1.rawValue] }
 		return trained.isEmpty ? "Not trained" : trained.map { "\(values[$0.rawValue]) \($0.shortName)" }.joined(separator: " / ")
 	}
 
-	/// Brings stored values back within the limits, trimming from the last stat first if the total is too high.
 	fileprivate static func clamped(_ values: [Int]) -> [Int] {
 		var result = values.map { min(max($0, 0), maximumPerStat) }
 		var excess = result.reduce(0, +) - maximumTotal

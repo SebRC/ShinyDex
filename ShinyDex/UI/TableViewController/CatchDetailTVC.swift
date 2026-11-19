@@ -1,8 +1,6 @@
 import UIKit
 import FLAnimatedImage
 
-/// One catch: a hero with the animated shiny sprite, stat tiles for encounters and odds, how lucky the hunt was,
-/// EV training and evolving (for caught shinies), and the editable details underneath.
 class CatchDetailTVC: UITableViewController {
 	fileprivate enum Section: Int, CaseIterable {
 		case hero
@@ -11,7 +9,6 @@ class CatchDetailTVC: UITableViewController {
 		case details
 	}
 
-	/// The rows in the training section; a shiny that got away has none, and Evolve needs a species that evolves.
 	fileprivate enum TrainingRow {
 		case evs
 		case evolve
@@ -30,12 +27,10 @@ class CatchDetailTVC: UITableViewController {
 		let title: String
 		let value: String
 		let image: UIImage?
-		/// Symbols are tinted orange; sprites and ball images keep their own colours.
 		var isSymbol = false
 	}
 
 	fileprivate let caught: Catch
-	/// Changes when the catch is evolved into another species.
 	fileprivate var pokemon: Pokemon
 	fileprivate var trainingRows = [TrainingRow]()
 	fileprivate let catchService = CatchService()
@@ -83,7 +78,6 @@ class CatchDetailTVC: UITableViewController {
 			Row(field: .encounters, title: "Encounters", value: caught.encounters.grouped, image: UIImage.symbol("number", pointSize: 18, weight: .medium), isSymbol: true),
 			Row(field: .caughtDate, title: caught.isFailed ? "Found" : "Caught", value: caught.formattedCaughtDate ?? "Unknown", image: UIImage.symbol("calendar", pointSize: 18, weight: .medium), isSymbol: true)
 		]
-		// A shiny that got away has no ball, and isn't numbered among the catches.
 		if (caught.isFailed) {
 			rows.removeAll { $0.field == .ball }
 		}
@@ -109,7 +103,7 @@ class CatchDetailTVC: UITableViewController {
 
 	// MARK: Odds and luck
 
-	/// The odds the catch was hunted at. Chain methods change odds as the chain grows, so there's no single number for them.
+	/// Chain methods change odds as the chain grows, so there's no single number for them.
 	fileprivate var huntOdds: Int? {
 		let game = GamesList.games[caught.game]
 		let generation = game?.generation ?? 0
@@ -133,7 +127,6 @@ class CatchDetailTVC: UITableViewController {
 		}
 	}
 
-	/// How the encounter count compares with everyone hunting at the same odds.
 	fileprivate var luckText: String? {
 		guard let odds = huntOdds, caught.encounters > 0 else { return nil }
 		let chance = Double.getProbability(encounters: caught.encounters, odds: odds)
@@ -285,7 +278,6 @@ class CatchDetailTVC: UITableViewController {
 
 	// MARK: Evolve
 
-	/// The rest of the evolution line as a grid of sprites; picking one asks to confirm, then moves the catch over.
 	fileprivate func showEvolvePicker() {
 		let targets = Evolutions.shared.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0] }
 		let items = targets.map { IconGridItem(title: $0.name, image: UIImage(named: $0.name.lowercased())) }
@@ -315,7 +307,6 @@ class CatchDetailTVC: UITableViewController {
 		PopupHandler().showPopup(text: "\(previousName) evolved into \(target.name)!")
 	}
 
-	// Ball, game and method all use the same icon grid as logging a catch, so choosing looks the same everywhere.
 
 	fileprivate func showBallPicker() {
 		showPicker(title: "Ball", caption: "Caught in", items: BallGrid.items, columns: 4, currentIndex: BallGrid.index(of: caught.caughtBall)) { [weak self] index in
@@ -365,7 +356,6 @@ class CatchDetailTVC: UITableViewController {
 }
 
 extension UIImage {
-	/// Draws the image into a fixed square so table cell image views line up whatever the source size.
 	func resized(to size: CGSize) -> UIImage {
 		let format = UIGraphicsImageRendererFormat.default()
 		let renderer = UIGraphicsImageRenderer(size: size, format: format)
@@ -379,7 +369,6 @@ extension UIImage {
 }
 
 extension UIImage {
-	/// Centres a symbol in a larger square without scaling it, as a template so it still takes the tint colour.
 	func padded(to size: CGSize) -> UIImage {
 		let renderer = UIGraphicsImageRenderer(size: size)
 		let padded = renderer.image { _ in
@@ -389,8 +378,6 @@ extension UIImage {
 	}
 }
 
-/// The animated shiny sprite on a soft orange glow, with a Shiny badge, the name, when it was caught,
-/// and which catch of the species this is.
 fileprivate class CatchHeroCell: UITableViewCell {
 	static let reuseIdentifier = "catchHeroCell"
 
@@ -468,7 +455,6 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		glowLayer.frame = glowView.bounds
 	}
 
-	/// A shiny that got away gets a grey "Got away" badge and no glow, so it's clearly not a catch.
 	func configure(pokemon: Pokemon, dateText: String, positionText: String?, isFailed: Bool) {
 		badge.backgroundColor = isFailed ? Color.Grey600 : Color.Orange500
 		badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
@@ -490,7 +476,6 @@ fileprivate class CatchHeroCell: UITableViewCell {
 	}
 }
 
-/// Encounters and odds side by side, with a line underneath saying how lucky the hunt was.
 fileprivate class CatchStatsCell: UITableViewCell {
 	static let reuseIdentifier = "catchStatsCell"
 

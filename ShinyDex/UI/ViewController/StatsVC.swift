@@ -1,7 +1,5 @@
 import UIKit
 
-/// Stats across every catch: an overview, average encounters per year, the balls, games and methods used most,
-/// and the fastest and longest hunts.
 class StatsVC: UIViewController {
 	fileprivate let scrollView = UIScrollView()
 	fileprivate let stack = UIStackView()
@@ -38,7 +36,7 @@ class StatsVC: UIViewController {
 		}
 		pokemonByNumber = Dictionary(pokemonService.getAll().map { ($0.number, $0) }, uniquingKeysWith: { first, _ in first })
 		let stats = CatchStats(catches: catchService.getAllIncludingFailed())
-		guard stats.totalShinies > 0 else {
+		guard stats.foundCount > 0 else {
 			let empty = EmptyStateView(symbolName: "chart.bar.fill",
 									   title: "No stats yet",
 									   message: "Log your first shiny and your stats will show up here.")
@@ -85,9 +83,9 @@ class StatsVC: UIViewController {
 	fileprivate func addOverview(_ stats: CatchStats) {
 		let average = stats.averageEncounters.map { $0.grouped } ?? "–"
 		let grid = UIStackView(arrangedSubviews: [
-			row(StatsVC.makeTile(caption: "Shinies found", value: stats.totalShinies.grouped, highlighted: true),
-				StatsVC.makeTile(caption: "Species caught", value: stats.speciesCount.grouped)),
-			row(StatsVC.makeTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRate.map { "\($0)% catch rate" }) { [weak self] in
+			row(StatsVC.makeTile(caption: "Shinies found", value: stats.foundCount.grouped, highlighted: true),
+				StatsVC.makeTile(caption: "Species caught", value: stats.caughtSpeciesCount.grouped)),
+			row(StatsVC.makeTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRatePercent.map { "\($0)% catch rate" }) { [weak self] in
 					self?.navigationController?.pushViewController(CollectionTVC(), animated: true)
 				},
 				StatsVC.makeTile(caption: "Got away", value: stats.failedCount.grouped) { [weak self] in
@@ -98,7 +96,7 @@ class StatsVC: UIViewController {
 		])
 		grid.axis = .vertical
 		grid.spacing = 10
-		let footnote = stats.catchesWithEncounters < stats.totalShinies
+		let footnote = stats.catchesWithEncounters < stats.foundCount
 			? "Averages use the \(stats.catchesWithEncounters) catches with encounters logged."
 			: nil
 		addSection("Overview", grid, footnote: footnote)
@@ -161,7 +159,6 @@ class StatsVC: UIViewController {
 		addSection(title, card, footnote: "Tap a row to see those catches.")
 	}
 
-	/// With `onTap`, the tile is a button with a chevron in the corner, opening the matching list.
 	fileprivate static func makeTile(caption: String, value: String, highlighted: Bool = false, detail: String? = nil, onTap: (() -> Void)? = nil) -> UIView {
 		let tile: UIView = onTap.map { TappableTile(onTap: $0) } ?? UIView()
 		tile.backgroundColor = Color.Grey800
@@ -202,7 +199,6 @@ class StatsVC: UIViewController {
 	}
 }
 
-/// A stats tile that opens a list when tapped.
 fileprivate class TappableTile: UIControl {
 	fileprivate let onTap: () -> Void
 
@@ -227,8 +223,6 @@ fileprivate class TappableTile: UIControl {
 	}
 }
 
-/// Bars for each year's average encounters per shiny, with the year and how many shinies underneath.
-/// Scrolls sideways once there are more years than fit.
 fileprivate class YearChartView: UIView {
 	fileprivate static let barAreaHeight: CGFloat = 140
 
@@ -291,7 +285,7 @@ fileprivate class YearChartView: UIView {
 		yearLabel.text = String(year.year)
 		yearLabel.textAlignment = .center
 		let countLabel = UILabel(fontSize: 11, color: Color.Grey400)
-		countLabel.text = year.shinies == 1 ? "1 shiny" : "\(year.shinies) shinies"
+		countLabel.text = year.foundCount == 1 ? "1 shiny" : "\(year.foundCount) shinies"
 		countLabel.textAlignment = .center
 
 		let column = UIStackView(arrangedSubviews: [valueLabel, barArea, yearLabel, countLabel])
@@ -311,8 +305,6 @@ fileprivate struct UsageRow {
 	let filter: CollectionFilter
 }
 
-/// An icon, a name, a bar sized against the most used entry, and the count with its share of all catches.
-/// Tapping it opens the collection filtered to those catches.
 fileprivate class UsageRowView: UIControl {
 	var onTap: (() -> Void)?
 
@@ -383,7 +375,6 @@ fileprivate class UsageRowView: UIControl {
 	}
 }
 
-/// A record (fastest shiny, longest hunt): the Pokémon, how many encounters it took, and when. Tapping opens the catch.
 fileprivate class RecordCard: UIControl {
 	var onTap: (() -> Void)?
 

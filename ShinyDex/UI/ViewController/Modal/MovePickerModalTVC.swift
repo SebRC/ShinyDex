@@ -1,6 +1,5 @@
 import UIKit
 
-/// Sheet for replacing one of the active moves in the PP counter. Present it with `inSheet()`.
 class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 	fileprivate let moveService = MoveService()
 	fileprivate let searchController = UISearchController(searchResultsController: nil)
@@ -49,7 +48,6 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 		let searchText = searchController.searchBar.text?.lowercased() ?? ""
 		// Move identifiers use dashes ("thunder-punch"), so match what people type with spaces too.
 		let query = searchText.replacingOccurrences(of: " ", with: "-")
-		// Typing a type name ("fire") lists that type's moves too.
 		filteredMoves = allMoves.filter {
 			$0.identifier.lowercased().contains(query) || (MoveTypes.types[$0.type_id]?.lowercased() == searchText)
 		}

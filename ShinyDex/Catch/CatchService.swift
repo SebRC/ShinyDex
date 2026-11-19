@@ -11,12 +11,10 @@ class CatchService {
 		self.userDefaults = userDefaults
 	}
 
-	/// Shinies that were caught. Everything that means "caught" (collection, Pokédex, ball, counts) goes through this.
 	func getAll() -> [Catch] {
 		return getAllIncludingFailed().filter { !$0.isFailed }
 	}
 
-	/// Caught shinies plus the ones that got away, for stats.
 	func getAllIncludingFailed() -> [Catch] {
 		return catchRepository.getAll().map { Catch(catchEntity: $0) }
 	}
@@ -25,7 +23,6 @@ class CatchService {
 		return getCatchesIncludingFailed(for: pokemon).filter { !$0.isFailed }
 	}
 
-	/// Oldest first, caught and got away mixed, for a Pokémon's catches list.
 	func getCatchesIncludingFailed(for pokemon: Pokemon) -> [Catch] {
 		return CatchRules.sortedOldestFirst(catchRepository.getAll(number: pokemon.number).map { Catch(catchEntity: $0) })
 	}
@@ -41,7 +38,6 @@ class CatchService {
 		}
 	}
 
-	/// Records a shiny that was found but got away. It has no ball, and the Pokémon's caught state doesn't change.
 	func logFailed(pokemon: Pokemon, date: Date = Date()) {
 		catchRepository.insert(catchToInsert: Catch(pokemon: pokemon, caughtBall: CatchRules.noBall, caughtDate: date, isFailed: true))
 		catchRepository.save()
@@ -58,8 +54,6 @@ class CatchService {
 		}
 	}
 
-	/// Moves a catch to another species in its evolution line, keeping everything else about it (ball, game,
-	/// encounters, date, EVs). The species it was first caught as is remembered. Both species' caught state is updated.
 	@discardableResult
 	func evolve(caught: Catch, from pokemon: Pokemon, into target: Pokemon) -> Bool {
 		let originalNumber = caught.evolvedFrom ?? caught.number

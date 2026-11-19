@@ -1,7 +1,6 @@
 import UIKit
 
-/// Sheet for adding a Pokémon to a hunt: start a new hunt with it, or pick one of the existing hunts.
-/// It's shown every time, even with zero or one hunt, so adding never happens silently. Present it with `inSheet()`.
+/// Shown every time, even with zero or one hunt, so adding never happens silently.
 class HuntPickerModalVC: UITableViewController {
 	fileprivate enum Section: Int, CaseIterable {
 		case newHunt

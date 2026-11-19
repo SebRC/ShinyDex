@@ -24,11 +24,11 @@ class CatchStatsTests: XCTestCase {
 			makeCatch(number: 24, ball: CatchRules.noBall, encounters: 400, year: 2023, isFailed: true)
 		], calendar: calendar)
 
-		XCTAssertEqual(stats.totalShinies, 4)
+		XCTAssertEqual(stats.foundCount, 4)
 		XCTAssertEqual(stats.caughtCount, 3)
 		XCTAssertEqual(stats.failedCount, 1)
-		XCTAssertEqual(stats.catchRate, 75)
-		XCTAssertEqual(stats.speciesCount, 1, "A species that only got away hasn't been caught")
+		XCTAssertEqual(stats.catchRatePercent, 75)
+		XCTAssertEqual(stats.caughtSpeciesCount, 1, "A species that only got away hasn't been caught")
 	}
 
 	func test_failedShinies_countTowardsEncounters_averages_years_andRecords() {
@@ -37,7 +37,7 @@ class CatchStatsTests: XCTestCase {
 
 		XCTAssertEqual(stats.totalEncounters, 1000)
 		XCTAssertEqual(stats.averageEncounters, 500)
-		XCTAssertEqual(stats.years, [CatchStats.YearStat(year: 2024, shinies: 2, averageEncounters: 500)])
+		XCTAssertEqual(stats.years, [CatchStats.YearStat(year: 2024, foundCount: 2, averageEncounters: 500)])
 		XCTAssertTrue(stats.longestCatch === failed)
 	}
 
@@ -53,7 +53,7 @@ class CatchStatsTests: XCTestCase {
 	}
 
 	func test_catchRate_isNilWithoutShinies() {
-		XCTAssertNil(CatchStats(catches: [], calendar: calendar).catchRate)
+		XCTAssertNil(CatchStats(catches: [], calendar: calendar).catchRatePercent)
 	}
 
 	func test_totals_countEveryCatch() {
@@ -63,8 +63,8 @@ class CatchStatsTests: XCTestCase {
 			makeCatch(number: 24, encounters: 0, year: nil)
 		], calendar: calendar)
 
-		XCTAssertEqual(stats.totalShinies, 3)
-		XCTAssertEqual(stats.speciesCount, 2)
+		XCTAssertEqual(stats.foundCount, 3)
+		XCTAssertEqual(stats.caughtSpeciesCount, 2)
 		XCTAssertEqual(stats.totalEncounters, 400)
 	}
 
@@ -97,8 +97,8 @@ class CatchStatsTests: XCTestCase {
 		], calendar: calendar)
 
 		XCTAssertEqual(stats.years, [
-			CatchStats.YearStat(year: 2022, shinies: 2, averageEncounters: 200),
-			CatchStats.YearStat(year: 2024, shinies: 2, averageEncounters: 400)
+			CatchStats.YearStat(year: 2022, foundCount: 2, averageEncounters: 200),
+			CatchStats.YearStat(year: 2024, foundCount: 2, averageEncounters: 400)
 		])
 		XCTAssertEqual(stats.undatedCount, 1)
 	}

@@ -1,6 +1,5 @@
 import UIKit
 
-/// One action in the tracker's action bar: an icon with a short caption underneath, tappable as a whole.
 class ActionButton: UIControl {
 	static let iconSize: CGFloat = 28
 
@@ -53,7 +52,6 @@ class ActionButton: UIControl {
 	}
 }
 
-/// The tracker's action bar: set encounters, encounters per tap, game and method, location, and log a catch.
 /// Every action has a caption, so the row reads without having to learn what each icon means.
 class ButtonStrip: UIView {
 	/// Point size for the SF Symbol icons, chosen to sit at the same visual weight as the image icons beside them.

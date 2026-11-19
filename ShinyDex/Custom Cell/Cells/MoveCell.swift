@@ -1,6 +1,5 @@
 import UIKit
 
-/// An active move in the PP counter: name, type, remaining PP with a bar, and buttons to use or restore PP.
 class MoveCell: UITableViewCell {
 	static let moveReuseIdentifier = "moveCell"
 	fileprivate static let buttonSize: CGFloat = 50
@@ -80,7 +79,6 @@ class MoveCell: UITableViewCell {
 
 		let fraction = move.maxPP > 0 ? min(1, Float(move.remainingPP) / Float(move.maxPP)) : 0
 		ppBar.progress = fraction
-		// Warn as the move runs low, and turn red once it's out.
 		let stateColor: UIColor = move.remainingPP == 0 ? Color.Danger400 : (fraction <= 0.25 ? Color.Orange500 : Color.Grey200)
 		ppLabel.textColor = stateColor
 		ppBar.progressTintColor = move.remainingPP == 0 ? Color.Danger400 : (fraction <= 0.25 ? Color.Orange500 : Color.Success500)

@@ -316,7 +316,6 @@ class ShinyTrackerVC: UIViewController {
 		pokemonService.save(pokemon: pokemon)
 	}
 
-	/// Always lets the user choose: an existing hunt, or a new one created on the spot.
 	@objc fileprivate func addToHuntPressed() {
 		let picker = HuntPickerModalVC(pokemon: pokemon) { [weak self] huntName in
 			guard let self = self else { return }
@@ -381,7 +380,6 @@ class ShinyTrackerVC: UIViewController {
 	}
 }
 
-/// A small card with a caption and a value, used for the odds and the chance so far.
 fileprivate class StatTileView: UIView {
 	fileprivate let captionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
 	fileprivate let valueLabel = UILabel(fontSize: 22, weight: .semibold, lines: 2)

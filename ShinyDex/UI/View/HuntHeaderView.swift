@@ -1,7 +1,5 @@
 import UIKit
 
-/// Section header for a hunt. Tapping the header collapses or expands the hunt, the trailing button counts
-/// an encounter for every Pokémon in it, and long-pressing shows a context menu with the rest of the actions.
 class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDelegate {
 	static let reuseIdentifier = "huntHeader"
 

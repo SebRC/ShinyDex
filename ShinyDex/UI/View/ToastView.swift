@@ -1,6 +1,5 @@
 import UIKit
 
-/// A short confirmation message shown at the top of the screen, below the status bar / Dynamic Island.
 class ToastView: UIView {
 	fileprivate let iconImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
 	fileprivate let messageLabel = UILabel()

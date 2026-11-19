@@ -29,7 +29,6 @@ struct Evolutions {
 		return evolvesFrom[number]
 	}
 
-	/// The first species in the line.
 	func root(of number: Int) -> Int {
 		var current = number
 		var seen = Set<Int>()
@@ -40,7 +39,6 @@ struct Evolutions {
 		return current
 	}
 
-	/// 0 for the first species in a line, 1 for its evolutions, and so on.
 	func stage(of number: Int) -> Int {
 		var stage = 0
 		var current = number
@@ -51,14 +49,12 @@ struct Evolutions {
 		return stage
 	}
 
-	/// Every species in the line, earliest stage first, then in dex order.
 	func line(of number: Int) -> [Int] {
 		let root = self.root(of: number)
 		let members = evolvesFrom.indices.filter { $0 == root || self.root(of: $0) == root }
 		return members.sorted { stage(of: $0) != stage(of: $1) ? stage(of: $0) < stage(of: $1) : $0 < $1 }
 	}
 
-	/// Species the given one can change into: the rest of its line. Empty for species that don't evolve.
 	func evolutionTargets(of number: Int) -> [Int] {
 		return line(of: number).filter { $0 != number }
 	}

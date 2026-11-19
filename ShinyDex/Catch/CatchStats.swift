@@ -1,6 +1,5 @@
 import Foundation
 
-/// Totals, averages, breakdowns and records across a set of catches, for the stats screen.
 /// Shinies that got away count as found: they're in the totals, averages, years and records, since the encounters
 /// were spent all the same. The ball, game and method breakdowns only count caught shinies, matching the collection.
 /// Catches logged before catch history (no date, 0 encounters) count towards totals and breakdowns,
@@ -8,9 +7,7 @@ import Foundation
 struct CatchStats {
 	struct YearStat: Equatable {
 		let year: Int
-		/// Shinies found that year, caught or not.
-		let shinies: Int
-		/// Average over that year's catches with encounters logged; nil if none had any.
+		let foundCount: Int
 		let averageEncounters: Int?
 	}
 
@@ -19,36 +16,29 @@ struct CatchStats {
 		let count: Int
 	}
 
-	/// Every shiny found, caught or not.
-	let totalShinies: Int
+	let foundCount: Int
 	let caughtCount: Int
 	let failedCount: Int
-	/// Share of found shinies that were caught, as a whole percentage; nil with none found.
-	let catchRate: Int?
-	/// Species caught at least once.
-	let speciesCount: Int
+	let catchRatePercent: Int?
+	let caughtSpeciesCount: Int
 	let totalEncounters: Int
-	/// How many catches have encounters logged, which is what averages and records are based on.
 	let catchesWithEncounters: Int
 	let averageEncounters: Int?
-	/// Oldest year first. Undated catches aren't in any year; see `undatedCount`.
 	let years: [YearStat]
 	let undatedCount: Int
-	/// Most used first; ties are broken alphabetically so the order is stable.
 	let ballUsage: [Usage<String>]
 	let gameUsage: [Usage<Games>]
 	let methodUsage: [Usage<HuntMethod>]
-	/// The catch with the fewest encounters (above zero) and the one with the most.
 	let fastestCatch: Catch?
 	let longestCatch: Catch?
 
 	init(catches: [Catch], calendar: Calendar = .current) {
 		let caught = catches.filter { !$0.isFailed }
-		totalShinies = catches.count
+		foundCount = catches.count
 		caughtCount = caught.count
 		failedCount = catches.count - caught.count
-		catchRate = catches.isEmpty ? nil : Int((Double(caught.count) / Double(catches.count) * 100).rounded())
-		speciesCount = Set(caught.map { $0.number }).count
+		catchRatePercent = catches.isEmpty ? nil : Int((Double(caught.count) / Double(catches.count) * 100).rounded())
+		caughtSpeciesCount = Set(caught.map { $0.number }).count
 		totalEncounters = catches.reduce(0) { $0 + $1.encounters }
 
 		let withEncounters = catches.filter { $0.encounters > 0 }
@@ -61,7 +51,7 @@ struct CatchStats {
 		years = byYear.keys.sorted().map { year in
 			let yearCatches = byYear[year]!
 			return YearStat(year: year,
-							shinies: yearCatches.count,
+							foundCount: yearCatches.count,
 							averageEncounters: CatchStats.average(of: yearCatches.filter { $0.encounters > 0 }))
 		}
 

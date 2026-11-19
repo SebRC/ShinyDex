@@ -1,7 +1,5 @@
 import UIKit
 
-/// A main menu row: artwork on the left, a title with a live subtitle (hunt totals, catches, region progress),
-/// an optional progress bar for regions, and a chevron.
 class MenuCell: UITableViewCell {
 	static let reuseIdentifier = "menuCell"
 
@@ -57,7 +55,6 @@ class MenuCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	/// Tracking tools show a square icon; regions show their wide group artwork with a progress bar.
 	func configure(title: String, subtitle: String, image: UIImage?, progress: Float?) {
 		generationLabel.text = title
 		subtitleLabel.text = subtitle

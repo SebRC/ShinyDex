@@ -1,6 +1,5 @@
 import UIKit
 
-/// A move type's icon on a circle in the type's colour.
 class TypeIconView: UIView {
 	fileprivate let imageView = UIImageView()
 
@@ -30,7 +29,6 @@ class TypeIconView: UIView {
 	}
 }
 
-/// A row in the move picker: type icon, name, and type with max PP underneath.
 class MovePickerCell: UITableViewCell {
 	static let reuseIdentifier = "movePickerCell"
 

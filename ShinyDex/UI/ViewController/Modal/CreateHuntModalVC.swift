@@ -1,6 +1,5 @@
 import UIKit
 
-/// Sheet for naming a new hunt and picking the Pokémon in it. Present it with `inSheet()`.
 class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchResultsUpdating, UIAdaptivePresentationControllerDelegate {
 	fileprivate let huntService = HuntService()
 	fileprivate let pokemonService = PokemonService()
@@ -9,7 +8,6 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 	fileprivate let textField = UITextField()
 	fileprivate var filteredPokemon = [Pokemon]()
 	fileprivate var allPokemon = [Pokemon]()
-	/// Picks in the order they were made. Nothing is saved until Create is pressed.
 	fileprivate var selected = [Pokemon]()
 	fileprivate var createButton: UIBarButtonItem!
 	fileprivate let selectedCell = SelectedPokemonCell()
@@ -155,7 +153,6 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 		toggle(getSelectedPokemon(index: indexPath.row))
 	}
 
-	/// Tapping a Pokémon adds it to the hunt, tapping it again (or its sprite in the strip) takes it out.
 	fileprivate func toggle(_ pokemon: Pokemon) {
 		Haptics.tap()
 		if let index = selected.firstIndex(where: { $0 === pokemon }) {
@@ -242,7 +239,6 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 	}
 }
 
-/// The Pokémon picked so far as a row of sprites. Tapping one takes it back out of the hunt.
 fileprivate class SelectedPokemonCell: UITableViewCell {
 	var onRemove: ((Pokemon) -> Void)?
 

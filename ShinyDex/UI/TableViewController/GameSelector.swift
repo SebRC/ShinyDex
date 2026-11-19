@@ -1,7 +1,5 @@
 import UIKit
 
-/// Choosing the game to hunt in, pushed from the game settings. Uses the same icon grid as every other picker.
-/// Picking a game updates the Pokémon (dropping a method or charm the game doesn't have) and goes back.
 enum GameSelector {
 	fileprivate static let games = [GamesList.games[Games.Red],
 		GamesList.games[Games.Blue],

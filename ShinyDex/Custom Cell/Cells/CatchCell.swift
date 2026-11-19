@@ -1,6 +1,5 @@
 import UIKit
 
-/// A catch in a Pokémon's catches list: sprite, a title and subtitle, and the ball on the right.
 class CatchCell: UITableViewCell {
 	static let reuseIdentifier = "catchCell"
 	static let height: CGFloat = 72
@@ -45,7 +44,6 @@ class CatchCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	/// A shiny that got away shows a grey "wind" symbol where the ball would be, and a dimmed sprite.
 	func configure(pokemon: Pokemon, title: String, subtitle: String, ball: String, isFailed: Bool = false) {
 		sprite.image = UIImage(named: pokemon.name.lowercased())
 		sprite.alpha = isFailed ? 0.55 : 1

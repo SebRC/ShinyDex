@@ -31,7 +31,6 @@ class HuntService {
 		huntRepository.delete(hunt: hunt)
 	}
 
-	/// Creates a hunt containing `pokemon`, placed after every existing hunt.
 	@discardableResult
 	func createHunt(named name: String, with pokemon: Pokemon) -> Hunt {
 		let priority = (getAll().map { $0.priority }.max() ?? -1) + 1

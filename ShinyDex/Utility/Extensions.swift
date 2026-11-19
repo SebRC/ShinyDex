@@ -68,14 +68,12 @@ extension Int {
 		return formatter
 	}()
 
-	/// The number with locale-aware thousands separators, e.g. 12,345.
 	var grouped: String {
 		return Int.groupingFormatter.string(from: NSNumber(value: self)) ?? String(self)
 	}
 }
 
 extension Array {
-	/// The element at `index`, or nil when it's out of range.
 	subscript(safe index: Int) -> Element? {
 		return indices.contains(index) ? self[index] : nil
 	}

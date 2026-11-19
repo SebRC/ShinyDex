@@ -101,7 +101,6 @@ class PokedexTVC: UITableViewController {
 		return allPokemon.filter({$0.caughtBall != "none"})
 	}
 
-	/// "12 of 151 caught" with a bar, above the list, so progress through the region is always visible.
 	fileprivate func updateProgressHeader() {
 		guard PokedexTVC.pokemonRange(for: generation) != nil, !slicedPokemon.isEmpty else {
 			tableView.tableHeaderView = nil
@@ -150,7 +149,6 @@ class PokedexTVC: UITableViewController {
 		}
 	}
 	
-	/// Always lets the user choose: an existing hunt, or a new one created on the spot.
 	fileprivate func addToHuntPressed(pokemon: Pokemon) {
 		selectedPokemon = pokemon
 		let picker = HuntPickerModalVC(pokemon: pokemon) { [weak self] huntName in
@@ -245,7 +243,6 @@ class PokedexTVC: UITableViewController {
 		navigationController?.pushViewController(ShinyTrackerVC(pokemon: getSelectedPokemon(index: indexPath.row)), animated: true)
 	}
 	
-	// Swipe right to log a catch, long-press for both actions spelled out, alongside the round buttons in the row.
 
 	override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		let pokemon = getSelectedPokemon(index: indexPath.row)
@@ -281,7 +278,6 @@ class PokedexTVC: UITableViewController {
 	}
 }
 
-/// Progress through a region: "12 of 151 caught" and a bar, shown above the Pokédex list.
 class DexProgressView: UIView {
 	fileprivate let titleLabel = UILabel(fontSize: 15, weight: .semibold)
 	fileprivate let percentLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Orange500)

@@ -1,6 +1,5 @@
 import UIKit
 
-/// A Pokémon in a hunt: sprite, name and encounter count, with − and + to count encounters without opening the tracker.
 /// + is the primary action, so it's larger and orange; − is smaller and grey.
 class CurrentHuntCell: UITableViewCell {
 	static let reuseIdentifier = "currentHuntCell"

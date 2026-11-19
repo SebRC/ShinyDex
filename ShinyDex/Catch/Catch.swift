@@ -11,11 +11,9 @@ class Catch {
 	var encounters: Int
 	var isShinyCharmActive: Bool
 	var caughtDate: Date?
-	/// A shiny that was found but got away (fled, fainted, …). These count towards stats,
-	/// but never towards the collection, the Pokédex or the ball shown for a Pokémon.
+	/// Got-away shinies count towards stats, but never towards the collection, the Pokédex or the ball shown for a Pokémon.
 	var isFailed: Bool
 	var evs: EffortValues
-	/// The species this catch was caught as, if it has since been evolved; nil if it's still that species.
 	var evolvedFrom: Int?
 
 	init(catchEntity: NSManagedObject) {

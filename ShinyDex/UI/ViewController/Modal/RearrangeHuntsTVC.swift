@@ -1,6 +1,5 @@
 import UIKit
 
-/// Sheet for reordering hunts by dragging, using the standard table reorder controls. Present it with `inSheet()`.
 class RearrangeHuntsTVC: UITableViewController {
 	fileprivate let huntService = HuntService()
 	fileprivate let onSave: () -> Void

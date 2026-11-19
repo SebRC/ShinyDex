@@ -6,7 +6,6 @@ class GameSettingsContainer: UIView {
 	var switchStateService = SwitchStateService()
 	var pokemon: Pokemon!
 	var gameSettingsCells: [GameSettingsCell]?
-	/// Called when "Apply to all Pokémon" is pressed.
 	var onApplyToAll: (() -> Void)?
 
 	let shinyCharmCell = GameSettingsCell(title: "Shiny Charm", description: "Available from generation 5 and onwards", icon: UIImage(named: "Charm"), tag: 3)
@@ -26,7 +25,6 @@ class GameSettingsContainer: UIView {
 		explanationLabel.pinEdges(to: wrapper, insets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14))
 		return wrapper
 	}()
-	/// The game row. Tapping it opens the game grid.
 	let gameButton = UIControl()
 	let gameTitle = UILabel(fontSize: 17, weight: .semibold)
 
@@ -38,7 +36,6 @@ class GameSettingsContainer: UIView {
 	fileprivate let unavailableHeader = GameSettingsContainer.makeSectionHeader("")
 	fileprivate let unavailableCard = GameSettingsContainer.makeCardStack()
 	fileprivate let noMethodsLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
-	/// Fixed display order for the method rows, whichever card they land in.
 	fileprivate var methodCells: [GameSettingsCell] {
 		return [genTwoBreedingCell, masudaCell, pokeradarCell, chainFishingCell, friendSafariCell, dexNavCell, sosChainCell, lureCell]
 	}
@@ -108,7 +105,6 @@ class GameSettingsContainer: UIView {
 		return label
 	}
 
-	/// The current odds, front and centre, with what they're made of underneath. Updates as switches change.
 	fileprivate func makeOddsCard() -> UIView {
 		let card = UIView()
 		card.backgroundColor = Color.Grey800
@@ -179,7 +175,6 @@ class GameSettingsContainer: UIView {
 		UIView.animate(withDuration: 0.2) { self.gameButton.backgroundColor = .clear }
 	}
 
-	/// Puts each method in the card for available methods or the dimmed "not available" card, keeping a fixed order.
 	fileprivate func layOutMethodRows() {
 		for card in [methodsCard, unavailableCard] {
 			for view in card.stack.arrangedSubviews {
@@ -233,7 +228,6 @@ class GameSettingsContainer: UIView {
 
 	// MARK: State
 
-	/// Shows the selected game's title and cover Pokémon on the game row.
 	func setGame(coverPokemon: String) {
 		gameImageView.image = UIImage(named: coverPokemon)
 		gameTitle.text = pokemon.game.displayName
@@ -413,7 +407,6 @@ class GameSettingsContainer: UIView {
 	}
 }
 
-/// A rounded card whose rows are separated by inset hairlines, like a grouped table section.
 /// A plain view holds the stack because stack views only draw backgrounds from iOS 14.
 fileprivate class SettingsCard: UIView {
 	let stack = UIStackView()
@@ -433,7 +426,6 @@ fileprivate class SettingsCard: UIView {
 	}
 }
 
-/// Small uppercase caption above a card, indented to line up with the card's contents.
 fileprivate class SectionHeaderLabel: UILabel {
 	fileprivate let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
 

@@ -7,9 +7,7 @@ enum PokeballPickerResult {
 	case nothingToRemove
 }
 
-/// Sheet for logging a catch: pick the date, then tap the ball it was caught in. Present it with `inSheet()`.
-/// The balls are a grid so they can all be scanned at once; removing the latest catch is a separate red action below them.
-/// A Caught / Got away toggle at the top switches to logging a shiny that fled or fainted, which has no ball.
+/// The balls are a grid so they can all be scanned at once.
 class PokeballModalVC: UIViewController {
 	fileprivate let pokemon: Pokemon
 	fileprivate let onFinish: (PokeballPickerResult) -> Void
@@ -68,7 +66,6 @@ class PokeballModalVC: UIViewController {
 
 	// MARK: Summary
 
-	/// The Pokémon being logged and the date it was caught. Catches default to today and can't be in the future.
 	fileprivate func setUpSummaryView() {
 		summaryView.backgroundColor = Color.Grey800
 		summaryView.layer.cornerRadius = CornerRadius.standard
@@ -140,7 +137,6 @@ class PokeballModalVC: UIViewController {
 		gridView.caption = "WHICH BALL?"
 		gridView.items = BallGrid.items
 		gridView.currentIndex = hasCatches ? BallGrid.index(of: pokemon.caughtBall) : nil
-		// Found it but it fled or fainted: logged with the date, without a ball. Removing is only offered once there's a catch.
 		if (hasCatches) {
 			gridView.actions = [IconGridAction(title: "Remove latest catch", symbol: "arrow.uturn.left", isDestructive: true)]
 		}
@@ -167,7 +163,6 @@ class PokeballModalVC: UIViewController {
 		outcomeControl.addTarget(self, action: #selector(outcomeChanged), for: .valueChanged)
 	}
 
-	/// What "got away" means and how it's counted, with the button that logs it.
 	fileprivate func setUpFailedView() {
 		failedView.isHidden = true
 		let icon = UIImageView(image: UIImage.symbol("wind", pointSize: 34, weight: .medium))

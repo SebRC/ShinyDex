@@ -1,8 +1,5 @@
 import UIKit
 
-/// EV training for one caught Pokémon: the total out of 510, and a row per stat with a bar out of 252 and − / + buttons.
-/// The step picker covers the usual gains: 1–3 per knockout, 8 with a Power item, 10 per vitamin.
-/// Tapping a stat's number lets you type an exact value. Every change is saved straight away.
 class EVTrainingVC: UIViewController {
 	fileprivate static let steps = [1, 2, 3, 4, 8, 10]
 
@@ -185,7 +182,6 @@ class EVTrainingVC: UIViewController {
 	}
 }
 
-/// One stat: its name and value, a bar out of 252 that turns orange when maxed, and − / + buttons.
 fileprivate class EVStatRow: UIView {
 	let stat: EffortValues.Stat
 	var onChange: ((Int) -> Void)?

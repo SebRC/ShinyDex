@@ -1,7 +1,5 @@
 import UIKit
 
-/// A hunt row: the first Pokémon's sprite, the hunt's name, and a summary line underneath.
-/// Used by the hunt picker and the rearrange sheet.
 class HuntPickerCell: UITableViewCell {
 	static let reuseIdentifier = "huntPickerCell"
 

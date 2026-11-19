@@ -1,7 +1,5 @@
 import UIKit
 
-/// A Pokémon in the create hunt list: sprite, name and dex number, with a selection circle on the right.
-/// Pokémon already in another hunt are dimmed and say so instead of showing the circle.
 class CreateHuntCell: UITableViewCell {
 	static let reuseIdentifier = "createHuntCell"
 

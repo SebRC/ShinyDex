@@ -1,8 +1,5 @@
 import UIKit
 
-/// Sheet for choosing how many encounters one tap on + counts. Present it with `inSheet()`.
-/// Presets are big number tiles with a short label; Custom reveals − / + buttons and a field for 1–100.
-/// A card underneath explains when the selected option is used, and a line previews what a tap will add.
 class IncrementVC: UIViewController, UITextFieldDelegate {
 	fileprivate struct Preset {
 		let value: Int
@@ -34,8 +31,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 	fileprivate let descriptionLabel = UILabel(fontSize: 15, color: Color.Grey300, lines: 0)
 	fileprivate let previewLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Orange500, lines: 0)
 
-	/// The preset index, or nil when Custom is selected.
-	fileprivate var selectedPreset: Int?
+	fileprivate var selectedPresetIndex: Int?
 	fileprivate var customValue = 7
 
 	init(pokemon: Pokemon, onSave: @escaping () -> Void) {
@@ -57,10 +53,10 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 		navigationItem.rightBarButtonItem = saveButton
 
 		if let index = IncrementVC.presets.firstIndex(where: { $0.value == pokemon.increment }) {
-			selectedPreset = index
+			selectedPresetIndex = index
 		}
 		else {
-			selectedPreset = nil
+			selectedPresetIndex = nil
 			customValue = min(max(pokemon.increment, 1), IncrementVC.maximumIncrement)
 		}
 		layOutViews()
@@ -123,7 +119,6 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 		])
 	}
 
-	/// − / + for nudging the value, and a field for typing it. Only shown while Custom is selected.
 	fileprivate func setUpCustomCard() {
 		customCard.backgroundColor = Color.Grey800
 		customCard.layer.cornerRadius = CornerRadius.standard
@@ -163,23 +158,23 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 
 	@objc fileprivate func presetPressed(_ sender: IncrementTile) {
 		Haptics.tap()
-		selectedPreset = sender.tag
+		selectedPresetIndex = sender.tag
 		view.endEditing(true)
 		updateSelection()
 	}
 
 	@objc fileprivate func customPressed() {
 		Haptics.tap()
-		selectedPreset = nil
+		selectedPresetIndex = nil
 		updateSelection()
 	}
 
 	@objc fileprivate func customMinusPressed() {
-		setCustomValue((currentCustomValue ?? customValue) - 1)
+		setCustomValue((validCustomValue ?? customValue) - 1)
 	}
 
 	@objc fileprivate func customPlusPressed() {
-		setCustomValue((currentCustomValue ?? customValue) + 1)
+		setCustomValue((validCustomValue ?? customValue) + 1)
 	}
 
 	fileprivate func setCustomValue(_ value: Int) {
@@ -190,40 +185,39 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 	}
 
 	@objc fileprivate func customFieldChanged() {
-		if let value = currentCustomValue {
+		if let value = validCustomValue {
 			customValue = value
 		}
 		updateSelection()
 	}
 
-	/// The typed custom value, or nil while it's empty or out of range.
-	fileprivate var currentCustomValue: Int? {
+	fileprivate var validCustomValue: Int? {
 		guard let value = Int(customField.text ?? ""), (1...IncrementVC.maximumIncrement).contains(value) else { return nil }
 		return value
 	}
 
 	fileprivate func getIncrement() -> Int? {
-		if let index = selectedPreset {
+		if let index = selectedPresetIndex {
 			return IncrementVC.presets[index].value
 		}
-		return currentCustomValue
+		return validCustomValue
 	}
 
 	fileprivate func updateSelection() {
 		for (index, tile) in presetTiles.enumerated() {
-			tile.isChosen = index == selectedPreset
+			tile.isChosen = index == selectedPresetIndex
 		}
-		let isCustom = selectedPreset == nil
+		let isCustom = selectedPresetIndex == nil
 		customTile.isChosen = isCustom
 
 		if (isCustom && customField.text?.isEmpty != false) {
 			customField.text = "\(customValue)"
 		}
 		customCard.isHidden = !isCustom
-		customMinus.isEnabled = (currentCustomValue ?? customValue) > 1
-		customPlus.isEnabled = (currentCustomValue ?? customValue) < IncrementVC.maximumIncrement
+		customMinus.isEnabled = (validCustomValue ?? customValue) > 1
+		customPlus.isEnabled = (validCustomValue ?? customValue) < IncrementVC.maximumIncrement
 
-		descriptionLabel.text = selectedPreset.map { IncrementVC.presets[$0].description }
+		descriptionLabel.text = selectedPresetIndex.map { IncrementVC.presets[$0].description }
 			?? "Set your own number of encounters per tap, from 1 to \(IncrementVC.maximumIncrement)."
 		if let increment = getIncrement() {
 			previewLabel.text = increment == 1 ? "Each tap on + adds 1 encounter" : "Each tap on + adds \(increment) encounters"
@@ -253,7 +247,6 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 	}
 }
 
-/// A preset or Custom tile: a big number with a short label, outlined in orange when chosen.
 fileprivate class IncrementTile: UIControl {
 	fileprivate let valueLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
 	fileprivate let captionLabel = UILabel(fontSize: 13, weight: .medium, color: Color.Grey400)

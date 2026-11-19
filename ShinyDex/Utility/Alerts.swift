@@ -1,7 +1,5 @@
 import UIKit
 
-/// Standard system alerts. These follow platform conventions (a neutral Cancel and a red destructive action),
-/// work with VoiceOver and Dynamic Type out of the box, and replace the bespoke blurred storyboard modals.
 extension UIViewController {
 	func presentDestructiveConfirmation(title: String,
 										message: String,
@@ -75,8 +73,6 @@ fileprivate class TextFieldValidator: NSObject {
 }
 
 extension UIButton {
-	/// Secondary, non-destructive style for Cancel buttons in the legacy custom modals.
-	/// Red is reserved for actions that destroy data.
 	func applyCancelStyle() {
 		backgroundColor = Color.Grey700
 		setTitleColor(Color.Grey200, for: .normal)

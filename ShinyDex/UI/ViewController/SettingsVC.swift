@@ -1,6 +1,5 @@
 import UIKit
 
-/// Shows the game settings container in a scroll view and handles picking a game and applying settings to all Pokémon.
 /// `SettingsVC` uses it for the global settings and `GameSettingsModalVC` for a single Pokémon.
 class GameSettingsHostVC: UIViewController {
 	let scrollView = UIScrollView()

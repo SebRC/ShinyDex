@@ -1,14 +1,11 @@
 import UIKit
 
-/// Narrows the collection to catches in one ball, game or hunt method, or switches it to the shinies that got away.
-/// Opened from Stats.
 enum CollectionFilter {
 	case ball(String)
 	case game(Games)
 	case method(HuntMethod)
 	case gotAway
 
-	/// The only filter that shows shinies that got away; every other view of the collection is caught shinies only.
 	var showsFailed: Bool {
 		if case .gotAway = self { return true }
 		return false
@@ -33,8 +30,6 @@ enum CollectionFilter {
 	}
 }
 
-/// Every shiny caught, as a trophy case: totals at the top, a Dex / Recent sort, and a grid of catch cards.
-/// With a filter it shows just the catches in that ball, game or method, with totals for those.
 class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
 	fileprivate struct Entry {
 		let caught: Catch
@@ -124,7 +119,6 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 		applySearch()
 	}
 
-	/// Dex keeps the collection order; Recent puts the newest catches first and undated ones last.
 	fileprivate func applySearch() {
 		let searchText = searchController.searchBar.text?.lowercased() ?? ""
 		var shown = searchText.isEmpty ? entries : entries.filter { $0.pokemon.name.lowercased().contains(searchText) }
@@ -202,7 +196,6 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 	}
 }
 
-/// Totals for the whole collection and the sort control.
 fileprivate class CollectionHeader: UICollectionReusableView {
 	static let reuseIdentifier = "collectionHeader"
 
@@ -263,7 +256,6 @@ fileprivate class CollectionHeader: UICollectionReusableView {
 	}
 
 	func configure(shiniesCaption: String, shinies: Int, species: Int, encounters: Int, sortIndex: Int) {
-		// The first tile's caption sits above its value in the same stack.
 		(shiniesValue.superview as? UIStackView)?.arrangedSubviews.compactMap { $0 as? UILabel }.first?.text = shiniesCaption
 		shiniesValue.superview?.superview?.accessibilityLabel = shiniesCaption.capitalized
 		shiniesValue.text = shinies.grouped
@@ -280,7 +272,6 @@ fileprivate class CollectionHeader: UICollectionReusableView {
 	}
 }
 
-/// One catch in the grid: the sprite on a soft orange glow, the ball in the corner, the name and the date.
 fileprivate class CollectionCard: UICollectionViewCell {
 	static let reuseIdentifier = "collectionCard"
 
@@ -350,7 +341,6 @@ fileprivate class CollectionCard: UICollectionViewCell {
 		}
 	}
 
-	/// A shiny that got away has no glow, a dimmed sprite and a wind symbol where the ball would be.
 	func configure(pokemon: Pokemon, caught: Catch) {
 		spriteView.image = UIImage(named: pokemon.name.lowercased())
 		spriteView.alpha = caught.isFailed ? 0.55 : 1
@@ -365,7 +355,7 @@ fileprivate class CollectionCard: UICollectionViewCell {
 	}
 }
 
-/// A soft radial orange glow. The view's own layer is the gradient, so it always fills the view's bounds.
+/// The view's own layer is the gradient, so it always fills the view's bounds.
 fileprivate class GlowView: UIView {
 	override class var layerClass: AnyClass {
 		return CAGradientLayer.self

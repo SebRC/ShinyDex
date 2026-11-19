@@ -1,6 +1,5 @@
 import UIKit
 
-/// One row in the game settings: icon, title with a description of where it's available, and an on/off switch.
 /// Rows sit inside grouped cards, so the row itself has no background; the card draws it.
 class GameSettingsCell: UIView {
 	let iconImageView = UIImageView()
