@@ -13,16 +13,6 @@ extension PokedexTVC: UISearchBarDelegate {
 	}
 }
 
-extension String {
-	func capitalizingFirstLetter() -> String {
-		return prefix(1).uppercased() + self.lowercased().dropFirst()
-	}
-
-	mutating func capitalizeFirstLetter() {
-		self = self.capitalizingFirstLetter()
-	}
-}
-
 extension UIColor {
 	convenience init(red: Int, green: Int, blue: Int) {
 		assert(red >= 0 && red <= 255, "Invalid red component")
@@ -52,15 +42,6 @@ extension UITextField {
 	}
 }
 
-extension Double {
-	static func getProbability(encounters: Int, odds: Int) -> Double {
-		let cumulativeProbability = pow(Double(odds - 1)/Double(odds), Double(encounters))
-		let decimalProbability = 1 - cumulativeProbability
-
-		return Double(truncating: decimalProbability * 100 as NSNumber)
-	}
-}
-
 extension Int {
 	fileprivate static let groupingFormatter: NumberFormatter = {
 		let formatter = NumberFormatter()
@@ -70,11 +51,5 @@ extension Int {
 
 	var grouped: String {
 		return Int.groupingFormatter.string(from: NSNumber(value: self)) ?? String(self)
-	}
-}
-
-extension Array {
-	subscript(safe index: Int) -> Element? {
-		return indices.contains(index) ? self[index] : nil
 	}
 }
