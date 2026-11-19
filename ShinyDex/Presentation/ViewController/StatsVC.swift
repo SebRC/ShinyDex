@@ -52,6 +52,8 @@ class StatsVC: UIViewController {
 		}
 		addOverview(stats)
 		addYears(stats)
+		addLuckiestPeriods(stats)
+		addLuckiestDates(stats)
 		addRecords(stats)
 		addUsage(title: "Balls", rows: stats.ballUsage.prefix(8).map { usage in
 			UsageRow(title: "\(BallGrid.displayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
@@ -125,6 +127,55 @@ class StatsVC: UIViewController {
 			? "\(stats.undatedCount) \(stats.undatedCount == 1 ? "catch was" : "catches were") logged before catch history and \(stats.undatedCount == 1 ? "has" : "have") no year."
 			: nil
 		addSection("Average encounters by year", chart, footnote: footnote)
+	}
+
+	fileprivate func addLuckiestPeriods(_ stats: CatchStatistics) {
+		guard stats.months.contains(where: { $0.foundCount > 0 }) else { return }
+		let calendar = Calendar.current
+		let monthBars = stats.months.map {
+			PeriodChartView.Bar(label: calendar.veryShortMonthSymbols[$0.period - 1], name: calendar.monthSymbols[$0.period - 1], foundCount: $0.foundCount)
+		}
+		addPeriodChart(title: "Luckiest months", bars: monthBars)
+
+		let weekdaysByNumber = Dictionary(uniqueKeysWithValues: stats.weekdays.map { ($0.period, $0.foundCount) })
+		let weekdayBars = (0..<7).map { offset -> PeriodChartView.Bar in
+			let weekday = (calendar.firstWeekday - 1 + offset) % 7 + 1
+			return PeriodChartView.Bar(label: calendar.shortWeekdaySymbols[weekday - 1], name: calendar.weekdaySymbols[weekday - 1], foundCount: weekdaysByNumber[weekday] ?? 0)
+		}
+		addPeriodChart(title: "Luckiest weekdays", bars: weekdayBars)
+	}
+
+	fileprivate func addPeriodChart(title: String, bars: [PeriodChartView.Bar]) {
+		let chart = PeriodChartView(bars: bars)
+		let luckiest = chart.luckiestBars
+		let names = ListFormatter.localizedString(byJoining: luckiest.map { $0.name })
+		let count = luckiest.first?.foundCount ?? 0
+		addSection(title, chart, footnote: "Luckiest: \(names), with \(StatsVC.shinies(count)).")
+	}
+
+	fileprivate func addLuckiestDates(_ stats: CatchStatistics) {
+		guard !stats.luckiestDates.isEmpty else { return }
+		let formatter = DateFormatter()
+		formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+		let card = UIView()
+		card.backgroundColor = Color.Grey800
+		card.layer.cornerRadius = CornerRadius.standard
+		let list = UIStackView()
+		list.axis = .vertical
+		let anyLeapYear = 2024
+		for (index, luckyDate) in stats.luckiestDates.prefix(5).enumerated() {
+			let date = Calendar.current.date(from: DateComponents(year: anyLeapYear, month: luckyDate.month, day: luckyDate.day))
+			list.addArrangedSubview(LuckyDateRow(rank: index + 1,
+												 title: date.map { formatter.string(from: $0) } ?? "\(luckyDate.day)/\(luckyDate.month)",
+												 count: luckyDate.foundCount))
+		}
+		card.addAutoLayoutSubviews(list)
+		list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+		addSection("Luckiest dates", card, footnote: "Dates you've found more than one shiny on, across all years.")
+	}
+
+	fileprivate static func shinies(_ count: Int) -> String {
+		return count == 1 ? "1 shiny" : "\(count.grouped) shinies"
 	}
 
 	fileprivate func addRecords(_ stats: CatchStatistics) {
@@ -303,6 +354,103 @@ fileprivate class YearChartView: UIView {
 		column.isAccessibilityElement = true
 		column.accessibilityLabel = "\(year.year): \(countLabel.text ?? ""), " + (year.averageEncounters.map { "average \($0) encounters" } ?? "no encounters logged")
 		return column
+	}
+}
+
+fileprivate class PeriodChartView: UIView {
+	struct Bar {
+		let label: String
+		let name: String
+		let foundCount: Int
+	}
+
+	fileprivate static let barAreaHeight: CGFloat = 90
+	let luckiestBars: [Bar]
+
+	init(bars: [Bar]) {
+		let maxCount = bars.map { $0.foundCount }.max() ?? 0
+		luckiestBars = maxCount > 0 ? bars.filter { $0.foundCount == maxCount } : []
+		super.init(frame: .zero)
+		backgroundColor = Color.Grey800
+		layer.cornerRadius = CornerRadius.standard
+
+		let columns = UIStackView(arrangedSubviews: bars.map { PeriodChartView.makeColumn($0, maxCount: max(1, maxCount)) })
+		columns.alignment = .bottom
+		columns.distribution = .fillEqually
+		columns.spacing = 4
+		addAutoLayoutSubviews(columns)
+		columns.pinEdges(to: self, insets: UIEdgeInsets(top: 12, left: 10, bottom: 10, right: 10))
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	fileprivate static func makeColumn(_ bar: Bar, maxCount: Int) -> UIView {
+		let isLuckiest = bar.foundCount == maxCount
+		let countLabel = UILabel(fontSize: 11, weight: .semibold, color: isLuckiest ? Color.Grey100 : Color.Grey400)
+		countLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 11, weight: .semibold)
+		countLabel.text = bar.foundCount > 0 ? String(bar.foundCount) : " "
+		countLabel.textAlignment = .center
+		countLabel.adjustsFontSizeToFitWidth = true
+		countLabel.minimumScaleFactor = 0.6
+
+		let barView = UIView()
+		barView.backgroundColor = bar.foundCount == 0 ? Color.Grey700 : isLuckiest ? Color.Orange500 : Color.Orange800
+		barView.layer.cornerRadius = 4
+		barView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+		let barArea = UIView()
+		barArea.addAutoLayoutSubviews(barView)
+		let fraction = CGFloat(bar.foundCount) / CGFloat(maxCount)
+		NSLayoutConstraint.activate([
+			barArea.heightAnchor.constraint(equalToConstant: barAreaHeight),
+			barView.bottomAnchor.constraint(equalTo: barArea.bottomAnchor),
+			barView.centerXAnchor.constraint(equalTo: barArea.centerXAnchor),
+			barView.widthAnchor.constraint(equalTo: barArea.widthAnchor, multiplier: 0.7),
+			barView.heightAnchor.constraint(equalToConstant: max(3, barAreaHeight * fraction))
+		])
+
+		let label = UILabel(fontSize: 11, weight: .semibold, color: isLuckiest ? Color.Orange500 : Color.Grey400)
+		label.text = bar.label
+		label.textAlignment = .center
+		label.adjustsFontSizeToFitWidth = true
+		label.minimumScaleFactor = 0.7
+
+		let column = UIStackView(arrangedSubviews: [countLabel, barArea, label])
+		column.axis = .vertical
+		column.spacing = 4
+		column.isAccessibilityElement = true
+		column.accessibilityLabel = "\(bar.name): \(bar.foundCount == 1 ? "1 shiny" : "\(bar.foundCount) shinies")"
+		return column
+	}
+}
+
+fileprivate class LuckyDateRow: UIView {
+	init(rank: Int, title: String, count: Int) {
+		super.init(frame: .zero)
+		let rankLabel = UILabel(fontSize: 13, weight: .bold, color: rank == 1 ? Color.Orange500 : Color.Grey500)
+		rankLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .bold)
+		rankLabel.text = "#\(rank)"
+		rankLabel.setContentHuggingPriority(.required, for: .horizontal)
+		let titleLabel = UILabel(fontSize: 15, weight: .medium)
+		titleLabel.text = title
+		let countLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey300)
+		countLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+		countLabel.text = "\(count) shinies"
+		countLabel.setContentHuggingPriority(.required, for: .horizontal)
+		countLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		let layout = UIStackView(arrangedSubviews: [rankLabel, titleLabel, countLabel])
+		layout.alignment = .center
+		layout.spacing = 10
+		addAutoLayoutSubviews(layout)
+		layout.pinEdges(to: self, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14))
+		rankLabel.widthAnchor.constraint(equalToConstant: 28).isActive = true
+		isAccessibilityElement = true
+		accessibilityLabel = "Number \(rank): \(title), \(count) shinies"
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 }
 

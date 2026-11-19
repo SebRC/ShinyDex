@@ -9,6 +9,17 @@ struct CatchStatistics: Equatable {
         let averageEncounters: Int?
     }
 
+    struct Period: Equatable {
+        let period: Int
+        let foundCount: Int
+    }
+
+    struct LuckyDate: Equatable {
+        let month: Int
+        let day: Int
+        let foundCount: Int
+    }
+
     struct Usage<Key: Hashable>: Equatable {
         let key: Key
         let count: Int
@@ -24,6 +35,9 @@ struct CatchStatistics: Equatable {
     let averageEncounters: Int?
     let years: [Year]
     let undatedCount: Int
+    let months: [Period]
+    let weekdays: [Period]
+    let luckiestDates: [LuckyDate]
     let ballUsage: [Usage<String>]
     let gameUsage: [Usage<Games>]
     let methodUsage: [Usage<HuntMethod>]
@@ -56,6 +70,9 @@ final class GetCatchStatisticsHandler {
             averageEncounters: stats.averageEncounters,
             years: stats.years.map { CatchStatistics.Year(year: $0.year, foundCount: $0.foundCount, averageEncounters: $0.averageEncounters) },
             undatedCount: stats.undatedCount,
+            months: stats.months.map { CatchStatistics.Period(period: $0.period, foundCount: $0.foundCount) },
+            weekdays: stats.weekdays.map { CatchStatistics.Period(period: $0.period, foundCount: $0.foundCount) },
+            luckiestDates: stats.luckiestDates.map { CatchStatistics.LuckyDate(month: $0.month, day: $0.day, foundCount: $0.foundCount) },
             ballUsage: stats.ballUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             gameUsage: stats.gameUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             methodUsage: stats.methodUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },

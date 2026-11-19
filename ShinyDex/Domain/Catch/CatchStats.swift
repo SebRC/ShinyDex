@@ -7,6 +7,17 @@ struct CatchStats {
 		let averageEncounters: Int?
 	}
 
+	struct PeriodStat: Equatable {
+		let period: Int
+		let foundCount: Int
+	}
+
+	struct DateStat: Equatable {
+		let month: Int
+		let day: Int
+		let foundCount: Int
+	}
+
 	struct Usage<Key: Hashable>: Equatable {
 		let key: Key
 		let count: Int
@@ -22,6 +33,9 @@ struct CatchStats {
 	let averageEncounters: Int?
 	let years: [YearStat]
 	let undatedCount: Int
+	let months: [PeriodStat]
+	let weekdays: [PeriodStat]
+	let luckiestDates: [DateStat]
 	let ballUsage: [Usage<String>]
 	let gameUsage: [Usage<Games>]
 	let methodUsage: [Usage<HuntMethod>]
@@ -51,6 +65,11 @@ struct CatchStats {
 							averageEncounters: CatchStats.average(of: yearCatches.filter { $0.encounters > 0 }))
 		}
 
+		let dates = dated.map { $0.caughtDate! }
+		months = CatchStats.periodCounts(of: dates, component: .month, periods: 1...12, calendar: calendar)
+		weekdays = CatchStats.periodCounts(of: dates, component: .weekday, periods: 1...7, calendar: calendar)
+		luckiestDates = CatchStats.datesWithMoreThanOneShiny(in: dates, calendar: calendar)
+
 		ballUsage = CatchStats.usage(of: caught.map { $0.caughtBall }.filter { $0 != CatchRules.noBall }, name: { $0 })
 		gameUsage = CatchStats.usage(of: caught.map { $0.game }, name: { $0.displayName })
 		methodUsage = CatchStats.usage(of: caught.map { $0.huntMethod }, name: { $0.rawValue })
@@ -63,6 +82,22 @@ struct CatchStats {
 		guard !catches.isEmpty else { return nil }
 		let total = catches.reduce(0) { $0 + $1.encounters }
 		return Int((Double(total) / Double(catches.count)).rounded())
+	}
+
+	fileprivate static func periodCounts(of dates: [Date], component: Calendar.Component, periods: ClosedRange<Int>, calendar: Calendar) -> [PeriodStat] {
+		let counts = Dictionary(dates.map { (calendar.component(component, from: $0), 1) }, uniquingKeysWith: +)
+		return periods.map { PeriodStat(period: $0, foundCount: counts[$0] ?? 0) }
+	}
+
+	fileprivate static func datesWithMoreThanOneShiny(in dates: [Date], calendar: Calendar) -> [DateStat] {
+		let counts = Dictionary(dates.map { (calendar.dateComponents([.month, .day], from: $0), 1) }, uniquingKeysWith: +)
+		return counts
+			.filter { $0.value > 1 }
+			.map { DateStat(month: $0.key.month!, day: $0.key.day!, foundCount: $0.value) }
+			.sorted {
+				if $0.foundCount != $1.foundCount { return $0.foundCount > $1.foundCount }
+				return ($0.month, $0.day) < ($1.month, $1.day)
+			}
 	}
 
 	fileprivate static func usage<Key: Hashable>(of keys: [Key], name: (Key) -> String) -> [Usage<Key>] {
