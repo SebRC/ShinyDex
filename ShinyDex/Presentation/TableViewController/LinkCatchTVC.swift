@@ -57,9 +57,9 @@ class LinkCatchTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
-		let title = caught.number == entry.number ? "\(caught.ballName) · \(caught.game.displayName)" : "\(caught.pokemonName) · \(caught.ballName)"
+		let title = [caught.nickname] + (caught.number == entry.number ? [caught.ballName, caught.game.displayName] : [caught.pokemonName, caught.ballName])
 		cell.configure(pokemonName: caught.pokemonName,
-					   title: title,
+					   title: title.compactMap { $0 }.joined(separator: " · "),
 					   subtitle: ["\(caught.encounters.grouped) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
 					   ball: caught.caughtBall)
 		cell.accessoryType = caught.id == entry.linkedCatch?.id ? .checkmark : .none

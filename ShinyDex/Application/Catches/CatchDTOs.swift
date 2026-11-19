@@ -13,6 +13,10 @@ struct CatchSummary: Equatable {
     let isFailed: Bool
     let evs: EffortValues
     let evolvedFrom: Int?
+    let nickname: String?
+    let gender: Gender?
+    let nature: Nature?
+    let ivs: IndividualValues
 }
 
 struct NamedPokemon: Equatable {
@@ -51,6 +55,10 @@ struct CatchSummaryMapper {
             caughtDate: caught.caughtDate,
             isFailed: caught.isFailed,
             evs: caught.evs,
-            evolvedFrom: caught.evolvedFrom)
+            evolvedFrom: caught.evolvedFrom,
+            nickname: caught.nickname,
+            gender: caught.gender,
+            nature: caught.nature,
+            ivs: caught.ivs)
     }
 }

@@ -31,8 +31,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 5")
     }
 
-    func test_reopeningVersion6_keepsAllData() throws {
+    func test_upgradeFromVersion6_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 6")
+    }
+
+    func test_reopeningVersion7_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 7")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -85,6 +89,7 @@ final class StoreMigrationTests: XCTestCase {
             "id": catchId, "number": 279, "caughtBall": "dream", "caughtDate": caughtDate, "encounters": 4321,
             "game": Games.Scarlet.rawValue, "huntMethod": HuntMethod.Masuda.rawValue, "isShinyCharmActive": true,
             "isFailed": true, "evs": "0,0,0,252,4,252", "evolvedFrom": 280,
+            "nickname": "Kirlia fan", "gender": Gender.female.rawValue, "nature": Nature.modest.rawValue, "ivs": "31,0,31,31,31,",
         ])
         insert("JourneyEntity", into: context, values: [
             "id": journeyId, "name": "Hoenn favourites", "createdDate": journeyCreatedDate, "priority": 1,
@@ -174,6 +179,17 @@ final class StoreMigrationTests: XCTestCase {
         } else {
             XCTAssertTrue(caught.evs.isEmpty, file: file, line: line)
             XCTAssertNil(caught.evolvedFrom, file: file, line: line)
+        }
+        if oldAttributes["nickname"] != nil {
+            XCTAssertEqual(caught.nickname, "Kirlia fan", file: file, line: line)
+            XCTAssertEqual(caught.gender, .female, file: file, line: line)
+            XCTAssertEqual(caught.nature, .modest, file: file, line: line)
+            XCTAssertEqual(caught.ivs, IndividualValues(encoded: "31,0,31,31,31,"), file: file, line: line)
+        } else {
+            XCTAssertNil(caught.nickname, file: file, line: line)
+            XCTAssertNil(caught.gender, file: file, line: line)
+            XCTAssertNil(caught.nature, file: file, line: line)
+            XCTAssertTrue(caught.ivs.isEmpty, file: file, line: line)
         }
     }
 

@@ -24,6 +24,10 @@ final class PersistenceRoundTripTests: XCTestCase {
         let original = Catch(number: 25, caughtBall: "ultra", game: .Scarlet, huntMethod: .Masuda, encounters: 1234, isShinyCharmActive: true, caughtDate: date(4), isFailed: true)
         original.evs = EffortValues(encoded: "4,252,0,0,0,252")
         original.evolvedFrom = 171
+        original.nickname = "Sparky"
+        original.gender = .female
+        original.nature = .timid
+        original.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         let repository = CoreDataCatchRepository(managedContext: store.context)
         repository.insert(original)
         XCTAssertTrue(repository.save())
@@ -44,6 +48,10 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertTrue(caught.isFailed)
         XCTAssertEqual(caught.evs, original.evs)
         XCTAssertEqual(caught.evolvedFrom, 171)
+        XCTAssertEqual(caught.nickname, "Sparky")
+        XCTAssertEqual(caught.gender, .female)
+        XCTAssertEqual(caught.nature, .timid)
+        XCTAssertEqual(caught.ivs, original.ivs)
     }
 
     func test_catch_withOptionalFieldsEmpty_survivesSaveAndReload() throws {
@@ -58,10 +66,18 @@ final class PersistenceRoundTripTests: XCTestCase {
 
         XCTAssertNil(entity.value(forKey: "evs"), "Empty EVs are stored as nil")
         XCTAssertEqual(entity.value(forKey: "evolvedFrom") as? Int, -1, "No pre-evolution is stored as -1")
+        XCTAssertNil(entity.value(forKey: "ivs"), "Unknown IVs are stored as nil")
+        XCTAssertNil(entity.value(forKey: "nickname"))
+        XCTAssertNil(entity.value(forKey: "gender"))
+        XCTAssertNil(entity.value(forKey: "nature"))
         XCTAssertNil(caught.caughtDate)
         XCTAssertTrue(caught.evs.isEmpty)
         XCTAssertNil(caught.evolvedFrom)
         XCTAssertFalse(caught.isFailed)
+        XCTAssertNil(caught.nickname)
+        XCTAssertNil(caught.gender)
+        XCTAssertNil(caught.nature)
+        XCTAssertTrue(caught.ivs.isEmpty)
     }
 
     func test_catch_update_andDelete_arePersisted() throws {
