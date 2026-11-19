@@ -1,8 +1,8 @@
 import Foundation
 
 class PokemonService {
-	fileprivate let txtReader = TxtReader()
-	fileprivate let pokemonRepository: PokemonRepository = CoreDataPokemonRepository()
+	fileprivate let resourceLoader: ResourceLoader = AppContainer.shared.resourceLoader
+	fileprivate let pokemonRepository: PokemonRepository = AppContainer.shared.pokemonRepository
 
 	func save(pokemon: Pokemon) {
 		pokemonRepository.save(pokemon)
@@ -14,7 +14,7 @@ class PokemonService {
 
 	func populateDatabase() {
 		let genText = "allGens"
-		let names = txtReader.readFile(textFile: genText)
+		let names = resourceLoader.lines(ofTextResource: genText)
 		var count = 0
 
 		for name in names {
@@ -26,7 +26,7 @@ class PokemonService {
     func migrate() {
         let allPokemon = getAll()
         let genText = "allGens"
-        let allNames = txtReader.readFile(textFile: genText)
+        let allNames = resourceLoader.lines(ofTextResource: genText)
         let difference = allNames.count - allPokemon.count
         var startIndex = allNames.count - difference
         let names = Array(allNames[startIndex..<allNames.count])

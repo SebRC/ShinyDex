@@ -1,16 +1,16 @@
 import XCTest
 @testable import ShinyDex
 
-class TxtReaderTests: XCTestCase {
-	var txtReader: TxtReader!
+class BundleResourceLoaderTests: XCTestCase {
+	var resourceLoader: BundleResourceLoader!
 
     override func setUpWithError() throws {
 		try super.setUpWithError()
-		txtReader = TxtReader()
+		resourceLoader = BundleResourceLoader(bundle: Bundle(for: AppDelegate.self))
     }
 
     override func tearDownWithError() throws {
-        txtReader = nil
+        resourceLoader = nil
 		try super.tearDownWithError()
     }
 
@@ -21,7 +21,7 @@ class TxtReaderTests: XCTestCase {
 		"premier", "quick", "repeat", "safari", "sport", "timer", "ultra"]
 
 		// Act
-		let actualList = txtReader.readFile(textFile: "pokeballs")
+		let actualList = resourceLoader.lines(ofTextResource: "pokeballs")
 
 		// Assert
 		XCTAssertEqual(actualList, expectedList)

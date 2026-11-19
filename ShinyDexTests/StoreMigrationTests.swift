@@ -44,8 +44,8 @@ final class StoreMigrationTests: XCTestCase {
         let oldModel = TestStore.model(version: version)
 
         try seedStore(at: url, model: oldModel)
-        let container = try TestStore.openContainer(at: url)
-        let context = container.viewContext
+        let stack = try TestStore.openStack(at: url)
+        let context = stack.viewContext
 
         assertPokemon(in: context, file: file, line: line)
         assertHunts(in: context, oldModel: oldModel, file: file, line: line)
@@ -57,9 +57,7 @@ final class StoreMigrationTests: XCTestCase {
             assertJourney(in: context, file: file, line: line)
         }
 
-        for store in container.persistentStoreCoordinator.persistentStores {
-            try container.persistentStoreCoordinator.remove(store)
-        }
+        try stack.close()
     }
 
     // MARK: Seeding with the old model

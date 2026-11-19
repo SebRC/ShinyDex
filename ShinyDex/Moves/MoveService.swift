@@ -1,7 +1,7 @@
 import Foundation
 
 class MoveService {
-	fileprivate let moveRepository: MoveRepository = CoreDataMoveRepository()
+	fileprivate let moveRepository: MoveRepository = AppContainer.shared.moveRepository
     
 	func getMoves() -> [Move] {
 		if let url = Bundle.main.url(forResource: "moves", withExtension: "json") {

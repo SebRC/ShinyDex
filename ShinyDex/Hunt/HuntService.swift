@@ -2,7 +2,7 @@ import Foundation
 
 class HuntService {
 	fileprivate var pokemonService = PokemonService()
-	fileprivate let huntRepository: HuntRepository = CoreDataHuntRepository()
+	fileprivate let huntRepository: HuntRepository = AppContainer.shared.huntRepository
 	
 	func getAll() -> [Hunt] {
 		let pokemon = pokemonService.getAll()

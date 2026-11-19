@@ -1,7 +1,7 @@
 import Foundation
 
 class JourneyService {
-	fileprivate let journeyRepository: JourneyRepository = CoreDataJourneyRepository()
+	fileprivate let journeyRepository: JourneyRepository = AppContainer.shared.journeyRepository
 	fileprivate let catchService = CatchService()
 
 	func getAll() -> [Journey] {
@@ -51,7 +51,7 @@ class JourneyService {
 	}
 
 	func linkableCatches(for entry: JourneyEntry, in journey: Journey) -> [Catch] {
-		let line = Set(Evolutions.shared.line(of: entry.number)).union([entry.number])
+		let line = Set(AppContainer.shared.evolutions.line(of: entry.number)).union([entry.number])
 		return catchService.getAll()
 			.filter { line.contains($0.number) && (!journey.isLinked($0) || $0.id == entry.catchId) }
 			.sorted { ($0.number == entry.number ? 0 : 1, $0.caughtDate ?? .distantPast) < ($1.number == entry.number ? 0 : 1, $1.caughtDate ?? .distantPast) }

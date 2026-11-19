@@ -81,7 +81,7 @@ class CatchDetailTVC: UITableViewController {
 			rows.removeAll { $0.field == .ball }
 		}
 		trainingRows = caught.isFailed ? [] : [.evs]
-		if (!caught.isFailed && !Evolutions.shared.evolutionTargets(of: pokemon.number).isEmpty) {
+		if (!caught.isFailed && !AppContainer.shared.evolutions.evolutionTargets(of: pokemon.number).isEmpty) {
 			trainingRows.append(.evolve)
 		}
 		title = caught.isFailed ? "\(pokemon.name) (got away)" : pokemon.name
@@ -212,7 +212,7 @@ class CatchDetailTVC: UITableViewController {
 			cell.imageView?.image = UIImage.symbol("bolt.fill", pointSize: 18, weight: .medium)?.padded(to: iconSize)
 		case .evolve:
 			cell.textLabel?.text = "Evolve"
-			let names = Evolutions.shared.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0]?.name }
+			let names = AppContainer.shared.evolutions.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0]?.name }
 			let origin = caught.evolvedFrom.flatMap { allPokemon[safe: $0]?.name }.map { "Caught as \($0) · " } ?? ""
 			cell.detailTextLabel?.text = origin + names.joined(separator: ", ")
 			cell.imageView?.image = UIImage.symbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: iconSize)
@@ -277,7 +277,7 @@ class CatchDetailTVC: UITableViewController {
 	// MARK: Evolve
 
 	fileprivate func showEvolvePicker() {
-		let targets = Evolutions.shared.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0] }
+		let targets = AppContainer.shared.evolutions.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0] }
 		let items = targets.map { IconGridItem(title: $0.name, image: UIImage(named: $0.name.lowercased())) }
 		showPicker(title: "Evolve", caption: "Evolve \(pokemon.name) into", items: items, columns: 3, currentIndex: nil) { [weak self] index in
 			self?.confirmEvolve(into: targets[index])

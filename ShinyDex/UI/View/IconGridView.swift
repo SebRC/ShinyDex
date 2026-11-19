@@ -126,7 +126,7 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 }
 
 enum BallGrid {
-	static let ballNames = TxtReader().readFile(textFile: "pokeballs").filter { $0 != CatchRules.noBall }
+	static let ballNames = AppContainer.shared.resourceLoader.lines(ofTextResource: "pokeballs").filter { $0 != CatchRules.noBall }
 
 	static var items: [IconGridItem] {
 		return ballNames.map { name in

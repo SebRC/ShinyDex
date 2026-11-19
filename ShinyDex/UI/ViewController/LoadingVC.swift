@@ -6,7 +6,6 @@ class LoadingVC: UIViewController {
 	var pokemonService = PokemonService()
 	var moveService = MoveService()
 	var catchService = CatchService()
-	var txtReader = TxtReader()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -52,7 +51,7 @@ class LoadingVC: UIViewController {
 	}
 
 	fileprivate func needsMigration(allPokemon: [Pokemon]) -> Bool {
-		let names = txtReader.readFile(textFile: "allGens")
+		let names = AppContainer.shared.resourceLoader.lines(ofTextResource: "allGens")
 		return allPokemon.count != names.count
 	}
 

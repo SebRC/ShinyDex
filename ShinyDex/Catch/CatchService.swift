@@ -3,13 +3,9 @@ import Foundation
 class CatchService {
 	static let backfillCompletedKey = "didBackfillCatches_v1"
 
-	fileprivate let catchRepository: CatchRepository = CoreDataCatchRepository()
+	fileprivate let catchRepository: CatchRepository = AppContainer.shared.catchRepository
 	fileprivate let pokemonService = PokemonService()
-	fileprivate let userDefaults: UserDefaults
-
-	init(userDefaults: UserDefaults = .standard) {
-		self.userDefaults = userDefaults
-	}
+	fileprivate let keyValueStore: KeyValueStore = AppContainer.shared.keyValueStore
 
 	func getAll() -> [Catch] {
 		return getAllIncludingFailed().filter { !$0.isFailed }
@@ -86,7 +82,7 @@ class CatchService {
 	}
 
 	func backfillIfNeeded() {
-		if userDefaults.bool(forKey: CatchService.backfillCompletedKey) {
+		if keyValueStore.bool(forKey: CatchService.backfillCompletedKey) {
 			return
 		}
 		let pokemonToBackfill = CatchRules.pokemonToBackfill(from: pokemonService.getAll(), existingCounts: getCountsByNumber())
@@ -94,7 +90,7 @@ class CatchService {
 			catchRepository.insert(Catch(pokemon: pokemon, caughtBall: pokemon.caughtBall, caughtDate: nil))
 		}
 		if pokemonToBackfill.isEmpty || catchRepository.save() {
-			userDefaults.set(true, forKey: CatchService.backfillCompletedKey)
+			keyValueStore.set(true, forKey: CatchService.backfillCompletedKey)
 		}
 	}
 

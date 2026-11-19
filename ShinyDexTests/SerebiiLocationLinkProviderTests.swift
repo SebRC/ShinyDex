@@ -1,13 +1,13 @@
 import XCTest
 @testable import ShinyDex
 
-class LocationUrlServiceTests: XCTestCase {
+class SerebiiLocationLinkProviderTests: XCTestCase {
 
-	var locationUrlService: LocationUrlService!
+	var locationUrlService: SerebiiLocationLinkProvider!
 
     override func setUpWithError() throws {
 		try super.setUpWithError()
-        locationUrlService = LocationUrlService()
+        locationUrlService = SerebiiLocationLinkProvider()
 
     }
 
@@ -20,13 +20,10 @@ class LocationUrlServiceTests: XCTestCase {
     func test_validGeneration_returns() {
         // Arrange
 		let expected = "https://serebii.net/pokedex-dp/093.shtml"
-		let pokemon = Pokemon()
-		pokemon.number = 92
-		pokemon.name = "Gastly"
-		pokemon.generation = 4
+		let (name, number, generation) = ("Gastly", 92, 4)
 
 		// Act
-		let actual = locationUrlService.getUrl(pokemon: pokemon)
+		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)
@@ -35,13 +32,10 @@ class LocationUrlServiceTests: XCTestCase {
 	func test_pokemonNotInGeneration_returnsEarliestPossibleGeneration() {
 		// Arrange
 		let expected = "https://serebii.net/pokedex-bw/496.shtml"
-		let pokemon = Pokemon()
-		pokemon.number = 495
-		pokemon.name = "Snivy"
-		pokemon.generation = 1
+		let (name, number, generation) = ("Snivy", 495, 1)
 
 		// Act
-		let actual = locationUrlService.getUrl(pokemon: pokemon)
+		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)
@@ -50,13 +44,10 @@ class LocationUrlServiceTests: XCTestCase {
 	func test_generationIs8_pokemonNameIsPartOfUrl() {
 		// Arrange
 		let expected = "https://serebii.net/pokedex-swsh/charmander"
-		let pokemon = Pokemon()
-		pokemon.number = 5
-		pokemon.name = "Charmander"
-		pokemon.generation = 8
+		let (name, number, generation) = ("Charmander", 5, 8)
 
 		// Act
-		let actual = locationUrlService.getUrl(pokemon: pokemon)
+		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)
@@ -65,13 +56,10 @@ class LocationUrlServiceTests: XCTestCase {
 	func test_invalidDexNumber_returnsDefaultGeneration() {
 		// Arrange
 		let expected = "https://serebii.net/pokedex-sm/2001.shtml"
-		let pokemon = Pokemon()
-		pokemon.number = 2000
-		pokemon.name = "Charmander"
-		pokemon.generation = 5
+		let (name, number, generation) = ("Charmander", 2000, 5)
 
 		// Act
-		let actual = locationUrlService.getUrl(pokemon: pokemon)
+		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)

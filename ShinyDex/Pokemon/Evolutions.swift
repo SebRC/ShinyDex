@@ -3,22 +3,8 @@ import Foundation
 struct Evolutions {
 	let evolvesFrom: [Int]
 
-	static let shared = Evolutions.loadBundled()
-
 	init(evolvesFrom: [Int]) {
 		self.evolvesFrom = evolvesFrom
-	}
-
-	fileprivate static func loadBundled() -> Evolutions {
-		struct File: Decodable {
-			let evolvesFrom: [Int]
-		}
-		guard let url = Bundle.main.url(forResource: "evolutions", withExtension: "json"),
-			  let data = try? Data(contentsOf: url),
-			  let file = try? JSONDecoder().decode(File.self, from: data) else {
-			return Evolutions(evolvesFrom: [])
-		}
-		return Evolutions(evolvesFrom: file.evolvesFrom)
 	}
 
 	func parent(of number: Int) -> Int? {

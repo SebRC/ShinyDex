@@ -1,4 +1,3 @@
-import UIKit
 import CoreData
 
 final class CoreDataCatchRepository: CatchRepository {
@@ -7,7 +6,7 @@ final class CoreDataCatchRepository: CatchRepository {
     private let managedContext: NSManagedObjectContext
     private let entity: NSEntityDescription
 
-    init(managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext) {
+    init(managedContext: NSManagedObjectContext) {
         self.managedContext = managedContext
         entity = NSEntityDescription.entity(forEntityName: "CatchEntity", in: managedContext)!
     }
