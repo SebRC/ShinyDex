@@ -9,7 +9,7 @@ class EvolutionsTests: XCTestCase {
 	fileprivate let primeape = 56, annihilape = 978
 
 	fileprivate var evolutions: Evolutions {
-		return Evolutions.shared
+		return EvolutionsLoader.load(from: BundleResourceLoader(bundle: Bundle(for: AppDelegate.self)))
 	}
 
 	func test_bundledData_coversEveryPokemon() {

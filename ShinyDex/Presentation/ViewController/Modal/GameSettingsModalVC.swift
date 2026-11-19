@@ -1,0 +1,31 @@
+import UIKit
+
+class GameSettingsModalVC: GameSettingsHostVC, UIAdaptivePresentationControllerDelegate {
+	fileprivate let onDismiss: () -> Void
+
+	init(container: AppContainer, pokemon: PokemonDetails, onDismiss: @escaping () -> Void) {
+		self.onDismiss = onDismiss
+		super.init(container: container, pokemon: pokemon)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "Game settings"
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
+		navigationController?.presentationController?.delegate = self
+	}
+
+	@objc fileprivate func donePressed() {
+		dismissSheet { [onDismiss] in
+			onDismiss()
+		}
+	}
+
+	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+		onDismiss()
+	}
+}
