@@ -17,6 +17,7 @@
 		B10C0A000000000000003106 /* CoreDataMoveRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003107 /* CoreDataMoveRepository.swift */; };
 		B10C0A000000000000003108 /* CoreDataPokemonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003109 /* CoreDataPokemonRepository.swift */; };
 		B10C0A00000000000000310A /* ManagedObjectIdentityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A00000000000000310B /* ManagedObjectIdentityMap.swift */; };
+		B10C0A000000000000004002 /* StoreMaintenance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000004003 /* StoreMaintenance.swift */; };
 		B10C0A000000000000000F07 /* JourneysTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F08 /* JourneysTVC.swift */; };
 		B10C0A000000000000000F09 /* JourneyDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0A /* JourneyDetailTVC.swift */; };
 		B10C0A000000000000000F0B /* LinkCatchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0C /* LinkCatchTVC.swift */; };
@@ -161,6 +162,7 @@
 		B10C0A000000000000003107 /* CoreDataMoveRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataMoveRepository.swift"; sourceTree = "<group>"; };
 		B10C0A000000000000003109 /* CoreDataPokemonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPokemonRepository.swift"; sourceTree = "<group>"; };
 		B10C0A00000000000000310B /* ManagedObjectIdentityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedObjectIdentityMap.swift"; sourceTree = "<group>"; };
+		B10C0A000000000000004003 /* StoreMaintenance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreMaintenance.swift"; sourceTree = "<group>"; };
 		B10C0A000000000000000F08 /* JourneysTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneysTVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F0A /* JourneyDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDetailTVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F0C /* LinkCatchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCatchTVC.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		B10C0A000000000000002001 /* PersistenceRoundTripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceRoundTripTests.swift; sourceTree = "<group>"; };
 		B10C0A000000000000002002 /* StoreMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMigrationTests.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F10 /* ShinyDex 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 5.xcdatamodel"; sourceTree = "<group>"; };
+		B10C0A000000000000004001 /* ShinyDex 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 6.xcdatamodel"; sourceTree = "<group>"; };
 		B10C0A0000000000000000EC /* EvolutionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolutionsTests.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000EA /* EffortValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffortValuesTests.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E8 /* evolutions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = evolutions.json; sourceTree = "<group>"; };
@@ -322,6 +325,7 @@
 				B10C0A000000000000003107 /* CoreDataMoveRepository.swift */,
 				B10C0A000000000000003109 /* CoreDataPokemonRepository.swift */,
 				B10C0A00000000000000310B /* ManagedObjectIdentityMap.swift */,
+				B10C0A000000000000004003 /* StoreMaintenance.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -860,6 +864,7 @@
 				B10C0A000000000000003106 /* CoreDataMoveRepository.swift in Sources */,
 				B10C0A000000000000003108 /* CoreDataPokemonRepository.swift in Sources */,
 				B10C0A00000000000000310A /* ManagedObjectIdentityMap.swift in Sources */,
+				B10C0A000000000000004002 /* StoreMaintenance.swift in Sources */,
 				B10C0A000000000000000F07 /* JourneysTVC.swift in Sources */,
 				B10C0A000000000000000F09 /* JourneyDetailTVC.swift in Sources */,
 				B10C0A000000000000000F0B /* LinkCatchTVC.swift in Sources */,
@@ -1202,8 +1207,9 @@
 				B10C0A0000000000000000D1 /* ShinyDex 3.xcdatamodel */,
 				B10C0A0000000000000000D2 /* ShinyDex 4.xcdatamodel */,
 				B10C0A000000000000000F10 /* ShinyDex 5.xcdatamodel */,
+				B10C0A000000000000004001 /* ShinyDex 6.xcdatamodel */,
 			);
-			currentVersion = B10C0A000000000000000F10 /* ShinyDex 5.xcdatamodel */;
+			currentVersion = B10C0A000000000000004001 /* ShinyDex 6.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

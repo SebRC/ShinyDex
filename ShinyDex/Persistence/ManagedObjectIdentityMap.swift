@@ -1,7 +1,7 @@
 import CoreData
 
-// Remembers which stored row a domain object was loaded from. Hunts have no stored id yet, and older rows may lack one,
-// so without this a domain object handed to another repository instance could not be matched back to its row.
+// Remembers which stored row a domain object was loaded from, so a row without a stored id can still be matched
+// when the object is saved through another repository instance.
 final class ManagedObjectIdentityMap<Key: Hashable> {
     private var objectIDsByKey = [Key: NSManagedObjectID]()
     private var keysByObjectID = [NSManagedObjectID: Key]()

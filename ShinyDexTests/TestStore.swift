@@ -41,7 +41,8 @@ final class TestStore {
         }
     }
 
-    // Mirrors the app's container: default store description options, which migrate automatically with an inferred mapping model.
+    // Mirrors the app's container: default store description options, which migrate automatically with an inferred mapping model,
+    // followed by the same launch maintenance.
     static func openContainer(at url: URL) throws -> NSPersistentContainer {
         let container = NSPersistentContainer(name: "ShinyDex", managedObjectModel: currentModel)
         container.persistentStoreDescriptions = [NSPersistentStoreDescription(url: url)]
@@ -52,6 +53,7 @@ final class TestStore {
         if let loadError = loadError {
             throw loadError
         }
+        StoreMaintenance.run(in: container.viewContext)
         return container
     }
 }

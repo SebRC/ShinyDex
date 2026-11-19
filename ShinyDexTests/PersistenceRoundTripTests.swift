@@ -115,6 +115,42 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertTrue(stored.isCollapsed)
     }
 
+    func test_hunt_keepsItsIdAcrossReloads() throws {
+        let hunt = Hunt(name: "Starters", pokemon: [], priority: 0)
+        CoreDataHuntRepository(managedContext: store.context).save(hunt)
+
+        try store.reopen()
+        let reloaded = try XCTUnwrap(CoreDataHuntRepository(managedContext: store.context).getAll().first)
+        XCTAssertEqual(reloaded.id, hunt.id)
+
+        reloaded.name = "Renamed"
+        try store.reopen()
+        CoreDataHuntRepository(managedContext: store.context).save(reloaded)
+        try store.reopen()
+        XCTAssertEqual(CoreDataHuntRepository(managedContext: store.context).getAll().map { $0.name }, ["Renamed"], "A hunt from an earlier session updates its own row")
+    }
+
+    func test_assignMissingHuntIds_onlyFillsGapsAndIsStable() throws {
+        let entity = NSEntityDescription.entity(forEntityName: "HuntEntity", in: store.context)!
+        let withId = NSManagedObject(entity: entity, insertInto: store.context)
+        let existingId = UUID()
+        withId.setValue(existingId, forKey: "id")
+        for name in ["Without id A", "Without id B"] {
+            let row = NSManagedObject(entity: entity, insertInto: store.context)
+            row.setValue(name, forKey: "name")
+        }
+        try store.context.save()
+
+        CoreDataHuntRepository.assignMissingIds(in: store.context)
+        let firstPass = Dictionary(uniqueKeysWithValues: rawRows("HuntEntity").map { ($0.objectID, $0.value(forKey: "id") as? UUID) })
+        CoreDataHuntRepository.assignMissingIds(in: store.context)
+        let secondPass = Dictionary(uniqueKeysWithValues: rawRows("HuntEntity").map { ($0.objectID, $0.value(forKey: "id") as? UUID) })
+
+        XCTAssertEqual(withId.value(forKey: "id") as? UUID, existingId)
+        XCTAssertEqual(Set(firstPass.values.compactMap { $0 }).count, 3)
+        XCTAssertEqual(firstPass, secondPass)
+    }
+
     func test_hunt_update_andDelete_arePersisted() throws {
         let kept = Hunt(name: "Kept", pokemon: [], priority: 0)
         let removed = Hunt(name: "Removed", pokemon: [], priority: 1)

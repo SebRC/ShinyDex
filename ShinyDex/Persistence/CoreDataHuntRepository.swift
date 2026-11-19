@@ -2,7 +2,6 @@ import UIKit
 import CoreData
 
 final class CoreDataHuntRepository: HuntRepository {
-    // HuntEntity has no id attribute yet, so hunts are matched to their rows only through this map.
     private static let identities = ManagedObjectIdentityMap<UUID>()
 
     private let managedContext: NSManagedObjectContext
@@ -25,7 +24,8 @@ final class CoreDataHuntRepository: HuntRepository {
     }
 
     func save(_ hunt: Hunt) {
-        let huntEntity = Self.identities.object(for: hunt.id, in: managedContext) ?? insertEntity(for: hunt)
+        let huntEntity = object(for: hunt.id) ?? insertEntity(for: hunt)
+        huntEntity.setValue(hunt.id, forKey: "id")
         huntEntity.setValue(hunt.name, forKey: "name")
         huntEntity.setValue(hunt.indexes, forKey: "indexes")
         huntEntity.setValue(hunt.priority, forKey: "priority")
@@ -34,7 +34,7 @@ final class CoreDataHuntRepository: HuntRepository {
     }
 
     func delete(_ hunt: Hunt) {
-        guard let huntEntity = Self.identities.object(for: hunt.id, in: managedContext) else { return }
+        guard let huntEntity = object(for: hunt.id) else { return }
         managedContext.delete(huntEntity)
         save()
     }
@@ -51,6 +51,32 @@ final class CoreDataHuntRepository: HuntRepository {
         save()
     }
 
+    // Gives every stored hunt a unique id. Run once the store has loaded, before anything reads hunts.
+    static func assignMissingIds(in context: NSManagedObjectContext) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
+        fetchRequest.predicate = NSPredicate(format: "id == nil")
+        guard let huntsWithoutId = try? context.fetch(fetchRequest), !huntsWithoutId.isEmpty else { return }
+        for huntEntity in huntsWithoutId {
+            huntEntity.setValue(UUID(), forKey: "id")
+        }
+        do {
+            try context.save()
+        }
+        catch let error as NSError {
+            print("Could not assign hunt ids. \(error.localizedDescription)")
+            context.rollback()
+        }
+    }
+
+    private func object(for id: UUID) -> NSManagedObject? {
+        if let known = Self.identities.object(for: id, in: managedContext) {
+            return known
+        }
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        return (try? managedContext.fetch(fetchRequest))?.first
+    }
+
     private func insertEntity(for hunt: Hunt) -> NSManagedObject {
         let huntEntity = managedContext.insertWithPermanentID(entity: entity)
         Self.identities.record(hunt.id, for: huntEntity.objectID)
@@ -58,7 +84,7 @@ final class CoreDataHuntRepository: HuntRepository {
     }
 
     private func makeHunt(from huntEntity: NSManagedObject) -> Hunt {
-        let id = Self.identities.key(for: huntEntity.objectID) ?? UUID()
+        let id = huntEntity.value(forKey: "id") as? UUID ?? Self.identities.key(for: huntEntity.objectID) ?? UUID()
         Self.identities.record(id, for: huntEntity.objectID)
         return Hunt(
             id: id,
