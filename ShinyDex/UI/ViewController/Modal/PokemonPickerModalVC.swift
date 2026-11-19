@@ -19,18 +19,19 @@ struct PokemonPickerConfiguration {
 }
 
 class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearchResultsUpdating, UIAdaptivePresentationControllerDelegate {
-	fileprivate let pokemonService = PokemonService()
+	fileprivate let container: AppContainer
 	fileprivate let configuration: PokemonPickerConfiguration
-	fileprivate let onConfirm: (_ name: String, _ picked: [Pokemon]) -> Void
+	fileprivate let onConfirm: (_ name: String, _ picked: [PokemonSummary]) -> Void
 	fileprivate let searchController = UISearchController(searchResultsController: nil)
 	fileprivate let textField = UITextField()
-	fileprivate var filteredPokemon = [Pokemon]()
-	fileprivate var allPokemon = [Pokemon]()
-	fileprivate var selected = [Pokemon]()
+	fileprivate var filteredPokemon = [PokemonSummary]()
+	fileprivate var allPokemon = [PokemonSummary]()
+	fileprivate var selected = [PokemonSummary]()
 	fileprivate var createButton: UIBarButtonItem!
 	fileprivate let selectedCell = SelectedPokemonCell()
 
-	init(configuration: PokemonPickerConfiguration, onConfirm: @escaping (_ name: String, _ picked: [Pokemon]) -> Void) {
+	init(container: AppContainer, configuration: PokemonPickerConfiguration, onConfirm: @escaping (_ name: String, _ picked: [PokemonSummary]) -> Void) {
+		self.container = container
 		self.configuration = configuration
 		self.onConfirm = onConfirm
 		super.init(style: .insetGrouped)
@@ -43,7 +44,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = configuration.title
-		allPokemon = pokemonService.getAll()
+		allPokemon = container.getAllPokemon.handle(GetAllPokemonQuery())
 		navigationController?.presentationController?.delegate = self
 
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
@@ -128,11 +129,11 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 		return isInOtherHunt(getSelectedPokemon(index: indexPath.row)) ? nil : indexPath
 	}
 
-	fileprivate func isSelected(_ pokemon: Pokemon) -> Bool {
-		return selected.contains { $0 === pokemon }
+	fileprivate func isSelected(_ pokemon: PokemonSummary) -> Bool {
+		return selected.contains { $0.number == pokemon.number }
 	}
 
-	fileprivate func isInOtherHunt(_ pokemon: Pokemon) -> Bool {
+	fileprivate func isInOtherHunt(_ pokemon: PokemonSummary) -> Bool {
 		return configuration.excludesHuntedPokemon && pokemon.isBeingHunted && !isSelected(pokemon)
 	}
 
@@ -146,7 +147,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 		return !(searchController.searchBar.text?.isEmpty ?? true)
 	}
 
-	fileprivate func getSelectedPokemon(index: Int) -> Pokemon {
+	fileprivate func getSelectedPokemon(index: Int) -> PokemonSummary {
 		return isFiltering() ? filteredPokemon[index] : allPokemon[index]
 	}
 
@@ -178,9 +179,9 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 		toggle(getSelectedPokemon(index: indexPath.row))
 	}
 
-	fileprivate func toggle(_ pokemon: Pokemon) {
+	fileprivate func toggle(_ pokemon: PokemonSummary) {
 		Haptics.tap()
-		if let index = selected.firstIndex(where: { $0 === pokemon }) {
+		if let index = selected.firstIndex(where: { $0.number == pokemon.number }) {
 			selected.remove(at: index)
 		}
 		else {
@@ -255,12 +256,12 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 }
 
 fileprivate class SelectedPokemonCell: UITableViewCell {
-	var onRemove: ((Pokemon) -> Void)?
+	var onRemove: ((PokemonSummary) -> Void)?
 
 	fileprivate let scrollView = UIScrollView()
 	fileprivate let stack = UIStackView()
 	fileprivate let emptyLabel = UILabel(fontSize: 15, color: Color.Grey500)
-	fileprivate var pokemon = [Pokemon]()
+	fileprivate var pokemon = [PokemonSummary]()
 
 	init() {
 		super.init(style: .default, reuseIdentifier: nil)
@@ -288,7 +289,7 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func setPokemon(_ pokemon: [Pokemon]) {
+	func setPokemon(_ pokemon: [PokemonSummary]) {
 		let added = pokemon.count > self.pokemon.count
 		self.pokemon = pokemon
 		for view in stack.arrangedSubviews {
@@ -306,7 +307,7 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
 		}
 	}
 
-	fileprivate func makeChip(for pokemon: Pokemon, tag: Int) -> UIView {
+	fileprivate func makeChip(for pokemon: PokemonSummary, tag: Int) -> UIView {
 		let chip = UIButton(type: .custom)
 		chip.tag = tag
 		chip.backgroundColor = Color.Grey900

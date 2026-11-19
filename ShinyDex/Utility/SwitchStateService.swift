@@ -3,26 +3,25 @@ import UIKit
 
 class SwitchStateService {
     
-    func resolveHuntMethodSwitchState(pokemon: Pokemon, huntMethodSwitch: UISwitch, huntMethod: HuntMethod) {
-        let switchEnabled = GamesList.games[pokemon.game]?.availableMethods.contains(huntMethod) ?? false
+    func resolveHuntMethodSwitchState(settings: HuntSettings, huntMethodSwitch: UISwitch, huntMethod: HuntMethod) {
+        let switchEnabled = GamesList.games[settings.game]?.availableMethods.contains(huntMethod) ?? false
         if (switchEnabled) {
             enableSwitch(uiSwitch: huntMethodSwitch)
-            huntMethodSwitch.isOn = pokemon.huntMethod == huntMethod
+            huntMethodSwitch.isOn = settings.huntMethod == huntMethod
         }
         else {
             disableSwitch(uiSwitch: huntMethodSwitch)
         }
     }
 	
-	func resolveShinyCharmSwitchState(pokemon: Pokemon, shinyCharmSwitch: UISwitch) {
-        let switchEnabled = GamesList.games[pokemon.game]?.isShinyCharmAvailable ?? false
+	func resolveShinyCharmSwitchState(settings: HuntSettings, shinyCharmSwitch: UISwitch) {
+        let switchEnabled = GamesList.games[settings.game]?.isShinyCharmAvailable ?? false
 		if (switchEnabled) {
 			enableSwitch(uiSwitch: shinyCharmSwitch)
-			shinyCharmSwitch.isOn = pokemon.isShinyCharmActive
+			shinyCharmSwitch.isOn = settings.isShinyCharmActive
 		}
 		else {
 			disableSwitch(uiSwitch: shinyCharmSwitch)
-			pokemon.isShinyCharmActive = false
 		}
 	}
     

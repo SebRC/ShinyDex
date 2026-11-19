@@ -42,10 +42,10 @@ class HuntPickerCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(hunt: Hunt) {
+	func configure(hunt: HuntSummary) {
 		nameLabel.text = hunt.name
-		subtitleLabel.text = HuntHeaderView.encountersText(hunt.totalEncounters, pokemonCount: hunt.pokemon.count)
-		iconImageView.image = hunt.pokemon.first.flatMap { UIImage(named: $0.name.lowercased()) }
+		subtitleLabel.text = HuntHeaderView.encountersText(hunt.totalEncounters, pokemonCount: hunt.members.count)
+		iconImageView.image = hunt.members.first.flatMap { UIImage(named: $0.name.lowercased()) }
 		accessibilityLabel = "\(hunt.name), \(subtitleLabel.text ?? "")"
 	}
 

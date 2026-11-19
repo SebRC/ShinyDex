@@ -8,10 +8,13 @@ enum PokeballPickerResult {
 }
 
 class PokeballModalVC: UIViewController {
-	fileprivate let pokemon: Pokemon
+	fileprivate let container: AppContainer
+	fileprivate let number: Int
+	fileprivate let pokemonName: String
 	fileprivate let onFinish: (PokeballPickerResult) -> Void
-	fileprivate let catchService = CatchService()
+	fileprivate lazy var ballGrid = BallGrid(container: container)
 	fileprivate var hasCatches = false
+	fileprivate var caughtBall: String?
 	fileprivate var caughtDate = Date()
 
 	fileprivate let summaryView = UIView()
@@ -22,8 +25,10 @@ class PokeballModalVC: UIViewController {
 	fileprivate let failedView = UIView()
 	fileprivate let dateCaptionLabel = UILabel(fontSize: 15, color: Color.Grey400)
 
-	init(pokemon: Pokemon, onFinish: @escaping (PokeballPickerResult) -> Void) {
-		self.pokemon = pokemon
+	init(container: AppContainer, number: Int, pokemonName: String, onFinish: @escaping (PokeballPickerResult) -> Void) {
+		self.container = container
+		self.number = number
+		self.pokemonName = pokemonName
 		self.onFinish = onFinish
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -34,7 +39,9 @@ class PokeballModalVC: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		hasCatches = !catchService.getCatches(for: pokemon).isEmpty
+		let details = container.getPokemonDetails.handle(GetPokemonDetailsQuery(number: number))
+		hasCatches = (details?.catchCount ?? 0) > 0
+		caughtBall = details?.caughtBall
 		view.backgroundColor = Color.Grey900
 		title = "Log a catch"
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
@@ -69,12 +76,12 @@ class PokeballModalVC: UIViewController {
 		summaryView.backgroundColor = Color.Grey800
 		summaryView.layer.cornerRadius = CornerRadius.standard
 
-		let spriteView = UIImageView(image: UIImage(named: pokemon.name.lowercased()))
+		let spriteView = UIImageView(image: UIImage(named: pokemonName.lowercased()))
 		spriteView.contentMode = .scaleAspectFit
 		spriteView.layer.magnificationFilter = .nearest
 		spriteView.isAccessibilityElement = false
 		let nameLabel = UILabel(fontSize: 20, weight: .semibold)
-		nameLabel.text = pokemon.name
+		nameLabel.text = pokemonName
 		dateCaptionLabel.text = "Date caught"
 
 		let labels = UIStackView(arrangedSubviews: [nameLabel, dateCaptionLabel])
@@ -133,20 +140,20 @@ class PokeballModalVC: UIViewController {
 
 	fileprivate func setUpGridView() {
 		gridView.caption = "WHICH BALL?"
-		gridView.items = BallGrid.items
-		gridView.currentIndex = hasCatches ? BallGrid.index(of: pokemon.caughtBall) : nil
+		gridView.items = ballGrid.items
+		gridView.currentIndex = hasCatches ? ballGrid.index(of: caughtBall) : nil
 		if (hasCatches) {
 			gridView.actions = [IconGridAction(title: "Remove latest catch", symbol: "arrow.uturn.left", isDestructive: true)]
 		}
 		gridView.onSelect = { [weak self] index in
 			guard let self = self else { return }
-			self.catchService.logCatch(pokemon: self.pokemon, caughtBall: BallGrid.ballNames[index], caughtDate: self.caughtDate)
+			self.container.logCatch.handle(LogCatchCommand(number: self.number, outcome: .caught(ball: self.ballGrid.ballNames[index]), date: self.caughtDate))
 			Haptics.success()
 			self.finish(.loggedCatch)
 		}
 		gridView.onAction = { [weak self] _ in
 			guard let self = self else { return }
-			self.finish(self.catchService.removeLatestCatch(pokemon: self.pokemon) ? .removedLatestCatch : .nothingToRemove)
+			self.finish(self.container.removeLatestCatch.handle(RemoveLatestCatchCommand(number: self.number)) ? .removedLatestCatch : .nothingToRemove)
 		}
 	}
 
@@ -195,7 +202,7 @@ class PokeballModalVC: UIViewController {
 	}
 
 	@objc fileprivate func logFailedPressed() {
-		catchService.logFailed(pokemon: pokemon, date: caughtDate)
+		container.logCatch.handle(LogCatchCommand(number: number, outcome: .gotAway, date: caughtDate))
 		Haptics.tap()
 		finish(.loggedFailed)
 	}

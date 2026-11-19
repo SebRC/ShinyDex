@@ -3,9 +3,9 @@ import UIKit
 class EVTrainingVC: UIViewController {
 	fileprivate static let steps = [1, 2, 3, 4, 8, 10]
 
-	fileprivate let caught: Catch
-	fileprivate let pokemon: Pokemon
-	fileprivate let catchService = CatchService()
+	fileprivate let container: AppContainer
+	fileprivate let catchId: CatchID
+	fileprivate var caught: CatchSummary
 	fileprivate let totalLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
 	fileprivate let remainingLabel = UILabel(fontSize: 13, color: Color.Grey400)
 	fileprivate let totalBar = UIProgressView(progressViewStyle: .default)
@@ -13,9 +13,10 @@ class EVTrainingVC: UIViewController {
 	fileprivate var rows = [EVStatRow]()
 	fileprivate var resetButton: UIBarButtonItem!
 
-	init(caught: Catch, pokemon: Pokemon) {
+	init(container: AppContainer, caught: CatchSummary) {
+		self.container = container
+		catchId = caught.id
 		self.caught = caught
-		self.pokemon = pokemon
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -58,7 +59,7 @@ class EVTrainingVC: UIViewController {
 		let card = UIView()
 		card.backgroundColor = Color.Grey800
 		card.layer.cornerRadius = 14
-		let sprite = UIImageView(image: UIImage(named: pokemon.name.lowercased()))
+		let sprite = UIImageView(image: UIImage(named: caught.pokemonName.lowercased()))
 		sprite.contentMode = .scaleAspectFit
 		sprite.layer.magnificationFilter = .nearest
 		sprite.isAccessibilityElement = false
@@ -157,13 +158,16 @@ class EVTrainingVC: UIViewController {
 	}
 
 	fileprivate func save(_ evs: EffortValues) {
-		catchService.update(caught: caught, pokemon: pokemon) { $0.evs = evs }
+		try? container.updateCatch.handle(UpdateCatchCommand(catchId: catchId, change: .evs(evs)))
+		if let updated = container.getCatchDetails.handle(GetCatchDetailsQuery(catchId: catchId)) {
+			caught = updated.summary
+		}
 		refresh()
 	}
 
 	@objc fileprivate func resetPressed() {
 		presentDestructiveConfirmation(title: "Reset EVs?",
-									   message: "All of \(pokemon.name)'s EVs go back to 0.",
+									   message: "All of \(caught.pokemonName)'s EVs go back to 0.",
 									   destructiveTitle: "Reset") { [weak self] in
 			self?.save(EffortValues())
 		}

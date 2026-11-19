@@ -1,13 +1,11 @@
 import UIKit
 
 class JourneysTVC: UITableViewController {
-	fileprivate let journeyService = JourneyService()
-	fileprivate let pokemonService = PokemonService()
-	fileprivate var journeys = [Journey]()
-	fileprivate var catchesById = [UUID: Catch]()
-	fileprivate var allPokemon = [Pokemon]()
+	fileprivate let container: AppContainer
+	fileprivate var journeys = [JourneySummary]()
 
-	init() {
+	init(container: AppContainer) {
+		self.container = container
 		super.init(style: .insetGrouped)
 	}
 
@@ -27,7 +25,6 @@ class JourneysTVC: UITableViewController {
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 110
 		tableView.register(JourneyCell.self, forCellReuseIdentifier: JourneyCell.reuseIdentifier)
-		allPokemon = pokemonService.getAll()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -36,8 +33,7 @@ class JourneysTVC: UITableViewController {
 	}
 
 	fileprivate func reloadJourneys() {
-		journeys = journeyService.getAll()
-		catchesById = journeyService.catchesById()
+		journeys = container.getJourneys.handle(GetJourneysQuery())
 		tableView.reloadData()
 		tableView.backgroundView = journeys.isEmpty
 			? EmptyStateView(symbolName: "map.fill",
@@ -53,16 +49,13 @@ class JourneysTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: JourneyCell.reuseIdentifier, for: indexPath) as! JourneyCell
 		let journey = journeys[indexPath.row]
-		let members = journey.entries.compactMap { entry in
-			allPokemon[safe: entry.number].map { (pokemon: $0, isCaught: journey.linkedCatch(for: entry, in: catchesById) != nil) }
-		}
-		cell.configure(name: journey.name, caught: journey.caughtCount(in: catchesById), members: members)
+		cell.configure(name: journey.name, caught: journey.caughtCount, members: journey.members)
 		return cell
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		navigationController?.pushViewController(JourneyDetailTVC(journey: journeys[indexPath.row]), animated: true)
+		openJourney(journeys[indexPath.row].id)
 	}
 
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -89,27 +82,32 @@ class JourneysTVC: UITableViewController {
 		}
 	}
 
-	fileprivate func rename(_ journey: Journey) {
+	fileprivate func openJourney(_ id: JourneyID) {
+		guard let detail = JourneyDetailTVC(container: container, journeyId: id) else { return }
+		navigationController?.pushViewController(detail, animated: true)
+	}
+
+	fileprivate func rename(_ journey: JourneySummary) {
 		presentTextInput(title: "Rename journey", text: journey.name, placeholder: "Journey name") { [weak self] name in
-			self?.journeyService.rename(journey, to: name)
+			self?.container.updateJourney.handle(UpdateJourneyCommand(journeyId: journey.id, change: .rename(name)))
 			self?.reloadJourneys()
 		}
 	}
 
-	fileprivate func confirmDelete(_ journey: Journey) {
+	fileprivate func confirmDelete(_ journey: JourneySummary) {
 		presentDestructiveConfirmation(title: "Delete \(journey.name)?",
 									   message: "The journey is removed. Your catches stay in your collection.",
 									   destructiveTitle: "Delete") { [weak self] in
-			self?.journeyService.delete(journey)
+			self?.container.deleteJourney.handle(DeleteJourneyCommand(journeyId: journey.id))
 			self?.reloadJourneys()
 		}
 	}
 
 	@objc fileprivate func addPressed() {
-		let picker = PokemonPickerModalVC(configuration: .newJourney) { [weak self] name, picked in
+		let picker = PokemonPickerModalVC(container: container, configuration: .newJourney) { [weak self] name, picked in
 			guard let self = self else { return }
-			let journey = self.journeyService.createJourney(named: name, numbers: picked.map { $0.number })
-			self.navigationController?.pushViewController(JourneyDetailTVC(journey: journey), animated: true)
+			let id = self.container.createJourney.handle(CreateJourneyCommand(name: name, pokemonNumbers: picked.map { $0.number }))
+			self.openJourney(id)
 		}
 		present(picker.inSheet(), animated: true)
 	}
@@ -159,7 +157,7 @@ fileprivate class JourneyCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(name: String, caught: Int, members: [(pokemon: Pokemon, isCaught: Bool)]) {
+	func configure(name: String, caught: Int, members: [JourneyMember]) {
 		nameLabel.text = name
 		let total = members.count
 		progressLabel.text = total == 0 ? "No Pokémon yet" : (caught == total ? "Complete · all \(total) caught" : "\(caught) of \(total) caught")
@@ -170,7 +168,7 @@ fileprivate class JourneyCell: UITableViewCell {
 			view.removeFromSuperview()
 		}
 		for member in members.prefix(JourneyCell.maximumSprites) {
-			let sprite = UIImageView(image: UIImage(named: member.pokemon.name.lowercased()))
+			let sprite = UIImageView(image: UIImage(named: member.name.lowercased()))
 			sprite.contentMode = .scaleAspectFit
 			sprite.layer.magnificationFilter = .nearest
 			sprite.alpha = member.isCaught ? 1 : 0.35

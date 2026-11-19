@@ -17,9 +17,10 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 		Preset(value: 6, label: "Horde", description: "Horde encounters, where six Pokémon appear at once.")
 	]
 
-	fileprivate let pokemon: Pokemon
+	fileprivate let container: AppContainer
+	fileprivate let number: Int
+	fileprivate let currentIncrement: Int
 	fileprivate let onSave: () -> Void
-	fileprivate let pokemonService = PokemonService()
 	fileprivate var saveButton: UIBarButtonItem!
 
 	fileprivate var presetTiles = [IncrementTile]()
@@ -34,8 +35,10 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 	fileprivate var selectedPresetIndex: Int?
 	fileprivate var customValue = 7
 
-	init(pokemon: Pokemon, onSave: @escaping () -> Void) {
-		self.pokemon = pokemon
+	init(container: AppContainer, number: Int, increment: Int, onSave: @escaping () -> Void) {
+		self.container = container
+		self.number = number
+		self.currentIncrement = increment
 		self.onSave = onSave
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -52,12 +55,12 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 		saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(confirmPressed))
 		navigationItem.rightBarButtonItem = saveButton
 
-		if let index = IncrementVC.presets.firstIndex(where: { $0.value == pokemon.increment }) {
+		if let index = IncrementVC.presets.firstIndex(where: { $0.value == currentIncrement }) {
 			selectedPresetIndex = index
 		}
 		else {
 			selectedPresetIndex = nil
-			customValue = min(max(pokemon.increment, 1), IncrementVC.maximumIncrement)
+			customValue = min(max(currentIncrement, 1), IncrementVC.maximumIncrement)
 		}
 		layOutViews()
 		updateSelection()
@@ -238,8 +241,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 
 	@objc fileprivate func confirmPressed() {
 		guard let increment = getIncrement() else { return }
-		pokemon.increment = increment
-		pokemonService.save(pokemon: pokemon)
+		container.setIncrement.handle(SetIncrementCommand(number: number, increment: increment))
 		Haptics.success()
 		dismissSheet { [onSave] in
 			onSave()

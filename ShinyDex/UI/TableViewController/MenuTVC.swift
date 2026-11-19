@@ -15,18 +15,12 @@ class MenuTVC: UITableViewController {
 		("Pokédex", Array(0...9))
 	]
 
-	var hunts = [Hunt]()
 	let textResolver = TextResolver()
-	var huntService = HuntService()
-	fileprivate let catchService = CatchService()
-	fileprivate var catchCounts = [Int: Int]()
-	fileprivate var totalCatches = 0
-	fileprivate var menuStats: CatchStats?
-	fileprivate let journeyService = JourneyService()
-	fileprivate var journeys = [Journey]()
-	fileprivate var catchesById = [UUID: Catch]()
+	fileprivate let container: AppContainer
+	fileprivate var summary: MenuSummary?
 
-	init() {
+	init(container: AppContainer) {
+		self.container = container
 		super.init(style: .insetGrouped)
 	}
 
@@ -52,13 +46,7 @@ class MenuTVC: UITableViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		hunts = huntService.getAll()
-		let catches = catchService.getAll()
-		totalCatches = catches.count
-		catchCounts = CatchRules.countsByNumber(catches)
-		menuStats = CatchStats(catches: catchService.getAllIncludingFailed())
-		journeys = journeyService.getAll()
-		catchesById = Dictionary(catches.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+		summary = container.getMenuSummary.handle(GetMenuSummaryQuery())
 		tableView.reloadData()
 	}
 
@@ -115,44 +103,41 @@ class MenuTVC: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseIdentifier, for: indexPath) as! MenuCell
 		let index = menuIndex(for: indexPath)
 		var image = resolveGenImage(gen: index)
-		if (index == 10), let firstHuntPokemon = hunts.first?.pokemon.first {
-			image = UIImage(named: firstHuntPokemon.name.lowercased())
+		if (index == 10), let firstHuntPokemonName = summary?.firstHuntPokemonName {
+			image = UIImage(named: firstHuntPokemonName.lowercased())
 		}
 		cell.configure(title: textResolver.getGenTitle(gen: index), subtitle: subtitle(for: index), image: image, progress: progress(for: index))
 		return cell
 	}
 
 	fileprivate func subtitle(for index: Int) -> String {
+		guard let summary = summary else { return "" }
 		switch index {
 		case 10:
-			guard !hunts.isEmpty else { return "No hunts yet" }
-			let encounters = hunts.reduce(0) { $0 + $1.pokemon.reduce(0) { $0 + $1.encounters } }
-			let huntText = hunts.count == 1 ? "1 hunt" : "\(hunts.count) hunts"
-			return "\(huntText) · \(encounters.grouped) encounters"
+			guard summary.huntCount > 0 else { return "No hunts yet" }
+			let huntText = summary.huntCount == 1 ? "1 hunt" : "\(summary.huntCount) hunts"
+			return "\(huntText) · \(summary.huntEncounters.grouped) encounters"
 		case 11:
-			return totalCatches == 1 ? "1 shiny caught" : "\(totalCatches.grouped) shinies caught"
+			return summary.caughtCount == 1 ? "1 shiny caught" : "\(summary.caughtCount.grouped) shinies caught"
 		case 12:
 			return "Track PP during battles"
 		case 13:
-			guard let average = menuStats?.averageEncounters else { return "Averages, balls, records and more" }
+			guard let average = summary.averageEncounters else { return "Averages, balls, records and more" }
 			return "\(average.grouped) encounters per shiny on average"
 		case 14:
-			guard !journeys.isEmpty else { return "Badge quests, dream teams and more" }
-			let complete = journeys.filter { !$0.entries.isEmpty && $0.caughtCount(in: catchesById) == $0.entries.count }.count
-			let journeyText = journeys.count == 1 ? "1 journey" : "\(journeys.count) journeys"
-			return complete == 0 ? journeyText : "\(journeyText) · \(complete) complete"
+			guard summary.journeyCount > 0 else { return "Badge quests, dream teams and more" }
+			let journeyText = summary.journeyCount == 1 ? "1 journey" : "\(summary.journeyCount) journeys"
+			return summary.completeJourneyCount == 0 ? journeyText : "\(journeyText) · \(summary.completeJourneyCount) complete"
 		default:
-			guard let range = PokedexTVC.pokemonRange(for: index) else { return "" }
-			let caught = range.filter { (catchCounts[$0] ?? 0) > 0 }.count
+			guard let progress = summary.regionProgress[index] else { return "" }
 			let region = index == 8 ? "Legends: Arceus" : "Generation \(index < 8 ? index + 1 : index)"
-			return "\(region) · \(caught)/\(range.count) caught"
+			return "\(region) · \(progress.caught)/\(progress.total) caught"
 		}
 	}
 
 	fileprivate func progress(for index: Int) -> Float? {
-		guard let range = PokedexTVC.pokemonRange(for: index) else { return nil }
-		let caught = range.filter { (catchCounts[$0] ?? 0) > 0 }.count
-		return Float(caught) / Float(range.count)
+		guard let progress = summary?.regionProgress[index] else { return nil }
+		return Float(progress.caught) / Float(progress.total)
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,17 +145,17 @@ class MenuTVC: UITableViewController {
 		let viewController: UIViewController
 		switch destination(for: menuIndex(for: indexPath)) {
 		case .pokedex(let generation):
-			viewController = PokedexTVC(generation: generation)
+			viewController = PokedexTVC(container: container, generation: generation)
 		case .hunts:
-			viewController = HuntsTVC()
+			viewController = HuntsTVC(container: container)
 		case .collection:
-			viewController = CollectionTVC()
+			viewController = CollectionTVC(container: container)
 		case .ppCounter:
-			viewController = PPCounterTVC()
+			viewController = PPCounterTVC(container: container)
 		case .stats:
-			viewController = StatsVC()
+			viewController = StatsVC(container: container)
 		case .journeys:
-			viewController = JourneysTVC()
+			viewController = JourneysTVC(container: container)
 		}
 		navigationController?.pushViewController(viewController, animated: true)
 	}
@@ -199,6 +184,6 @@ class MenuTVC: UITableViewController {
 	}
 
 	@objc fileprivate func settingsPressed() {
-		navigationController?.pushViewController(SettingsVC(pokemon: Pokemon()), animated: true)
+		navigationController?.pushViewController(SettingsVC(container: container), animated: true)
 	}
 }

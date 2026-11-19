@@ -24,6 +24,10 @@ final class CoreDataPokemonRepository: PokemonRepository {
         return []
     }
 
+    func get(number: Int) -> Pokemon? {
+        return object(for: number).map(makePokemon)
+    }
+
     func insert(_ pokemon: Pokemon) {
         let pokemonEntity = managedContext.insertWithPermanentID(entity: entity)
         pokemonEntity.setValue(pokemon.number, forKey: "number")

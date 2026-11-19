@@ -66,7 +66,7 @@ class CurrentHuntCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(pokemon: Pokemon) {
+	func configure(pokemon: HuntMember) {
 		sprite.image = UIImage(named: pokemon.name.lowercased())
 		nameLabel.text = pokemon.name
 		encountersLabel.text = pokemon.encounters.grouped

@@ -84,10 +84,10 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(hunt: Hunt) {
+	func configure(hunt: HuntSummary) {
 		isCollapsed = hunt.isCollapsed
 		nameLabel.text = hunt.name
-		encountersLabel.text = HuntHeaderView.encountersText(hunt.totalEncounters, pokemonCount: hunt.pokemon.count)
+		encountersLabel.text = HuntHeaderView.encountersText(hunt.totalEncounters, pokemonCount: hunt.members.count)
 		chevronImageView.transform = isCollapsed ? CGAffineTransform(rotationAngle: -.pi / 2) : .identity
 		toggleControl.accessibilityLabel = "\(hunt.name), \(encountersLabel.text ?? "")"
 		toggleControl.accessibilityValue = isCollapsed ? "Collapsed" : "Expanded"

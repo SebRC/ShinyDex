@@ -2,12 +2,11 @@ import UIKit
 import WebKit
 
 class LocationVC: UIViewController, WKNavigationDelegate {
-	var pokemon: Pokemon!
+	fileprivate let url: URL
 	var webView: WKWebView?
-	fileprivate let locationLinkProvider = AppContainer.shared.locationLinkProvider
 
-	init(pokemon: Pokemon) {
-		self.pokemon = pokemon
+	init(url: URL) {
+		self.url = url
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -30,7 +29,6 @@ class LocationVC: UIViewController, WKNavigationDelegate {
 		navigationItem.rightBarButtonItems?[0].accessibilityLabel = "Forward"
 		navigationItem.rightBarButtonItems?[1].accessibilityLabel = "Back a page"
 
-		let url = URL(string: locationLinkProvider.locationURL(forPokemonNamed: pokemon.name, number: pokemon.number, generation: pokemon.generation))!
 		webView!.load(URLRequest(url: url))
     }
 

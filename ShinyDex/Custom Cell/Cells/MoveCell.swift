@@ -70,7 +70,7 @@ class MoveCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(move: ActiveMove) {
+	func configure(move: MoveSlot) {
 		nameLabel.text = move.name
 		typeLabel.text = move.type
 		typeIconView.setType(move.type)

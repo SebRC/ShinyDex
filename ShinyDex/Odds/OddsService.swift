@@ -11,10 +11,13 @@ class OddsService {
 	fileprivate let dexNavOddsService = DexNavOddsService()
 
 	func getShinyOdds(pokemon: Pokemon) -> Int {
-		let generation = pokemon.generation
-		let encounters = pokemon.encounters
-		let isCharmActive = pokemon.isShinyCharmActive
-		let huntMethod = pokemon.huntMethod
+		return getShinyOdds(configuration: pokemon.huntConfiguration, encounters: pokemon.encounters)
+	}
+
+	func getShinyOdds(configuration: HuntConfiguration, encounters: Int) -> Int {
+		let generation = configuration.generation
+		let isCharmActive = configuration.isShinyCharmActive
+		let huntMethod = configuration.huntMethod
 		switch huntMethod {
 		case .Gen2Breeding:
 			return gen2BreedingOddsService.getOdds()
@@ -31,10 +34,10 @@ class OddsService {
 		case .SosChaining:
 			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
         case .Lure:
-            return lgpeOddsService.getOdds(pokemon: pokemon)
+            return lgpeOddsService.getOdds(huntMethod: huntMethod, isShinyCharmActive: isCharmActive, catchCombo: encounters)
 		default:
-            if(pokemon.game == .LetsGoPikachu || pokemon.game == .LetsGoEevee) {
-                return lgpeOddsService.getOdds(pokemon: pokemon)
+            if(configuration.game == .LetsGoPikachu || configuration.game == .LetsGoEevee) {
+                return lgpeOddsService.getOdds(huntMethod: huntMethod, isShinyCharmActive: isCharmActive, catchCombo: encounters)
             }
 			if (generation < 5) {
 				return 8192

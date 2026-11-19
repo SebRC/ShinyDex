@@ -12,15 +12,19 @@ class JourneyDetailTVC: UITableViewController {
 		}
 	}
 
-	fileprivate let journey: Journey
-	fileprivate let journeyService = JourneyService()
-	fileprivate let allPokemon = PokemonService().getAll()
-	fileprivate var catchesById = [UUID: Catch]()
-	fileprivate var timeline = [(entry: JourneyEntry, caught: Catch)]()
+	fileprivate let container: AppContainer
+	fileprivate let journeyId: JourneyID
+	fileprivate var journey: JourneyDetails
+	fileprivate var timeline: [CatchSummary] {
+		return journey.timeline
+	}
 	fileprivate let header = JourneyHeaderView()
 	fileprivate var mode = Mode.pokemon
 
-	init(journey: Journey) {
+	init?(container: AppContainer, journeyId: JourneyID) {
+		guard let journey = container.getJourneyDetails.handle(GetJourneyDetailsQuery(journeyId: journeyId)) else { return nil }
+		self.container = container
+		self.journeyId = journeyId
 		self.journey = journey
 		super.init(style: .insetGrouped)
 	}
@@ -68,11 +72,20 @@ class JourneyDetailTVC: UITableViewController {
 		}
 	}
 
+	fileprivate func refreshJourney() {
+		if let updated = container.getJourneyDetails.handle(GetJourneyDetailsQuery(journeyId: journeyId)) {
+			journey = updated
+		}
+	}
+
+	fileprivate func linkableCatches(for entry: JourneyEntryDetails) -> [CatchSummary] {
+		return container.getLinkableCatches.handle(GetLinkableCatchesQuery(journeyId: journeyId, entryId: entry.id))
+	}
+
 	fileprivate func reload() {
+		refreshJourney()
 		title = journey.name
-		catchesById = journeyService.catchesById()
-		timeline = journey.timeline(in: catchesById)
-		header.configure(caught: journey.caughtCount(in: catchesById), total: journey.entries.count, firstCatch: timeline.first?.caught.caughtDate)
+		header.configure(caught: journey.caughtCount, total: journey.entries.count, firstCatch: timeline.first?.caughtDate)
 		tableView.reloadData()
 		updateEmptyState()
 	}
@@ -87,10 +100,6 @@ class JourneyDetailTVC: UITableViewController {
 			tableView.backgroundView = nil
 		}
 		tableView.backgroundView?.isUserInteractionEnabled = false
-	}
-
-	fileprivate func pokemon(number: Int) -> Pokemon? {
-		return allPokemon[safe: number]
 	}
 
 	// MARK: Table
@@ -109,17 +118,14 @@ class JourneyDetailTVC: UITableViewController {
 		case .pokemon:
 			let cell = tableView.dequeueReusableCell(withIdentifier: JourneyEntryCell.reuseIdentifier, for: indexPath) as! JourneyEntryCell
 			let entry = journey.entries[indexPath.row]
-			let linked = journey.linkedCatch(for: entry, in: catchesById)
-			let linkable = linked == nil ? journeyService.linkableCatches(for: entry, in: journey).count : 0
-			cell.configure(pokemon: pokemon(number: entry.number), linked: linked, linkedPokemon: linked.flatMap { pokemon(number: $0.number) }, linkableCount: linkable)
+			cell.configure(entry: entry)
 			return cell
 		case .timeline:
 			let cell = tableView.dequeueReusableCell(withIdentifier: TimelineCell.reuseIdentifier, for: indexPath) as! TimelineCell
-			let item = timeline[indexPath.row]
-			let previousDate = indexPath.row > 0 ? timeline[indexPath.row - 1].caught.caughtDate : nil
+			let caught = timeline[indexPath.row]
+			let previousDate = indexPath.row > 0 ? timeline[indexPath.row - 1].caughtDate : nil
 			cell.configure(step: indexPath.row + 1,
-						   caught: item.caught,
-						   pokemon: pokemon(number: item.caught.number),
+						   caught: caught,
 						   previousDate: previousDate,
 						   isFirst: indexPath.row == 0,
 						   isLast: indexPath.row == timeline.count - 1)
@@ -133,7 +139,7 @@ class JourneyDetailTVC: UITableViewController {
 		case .pokemon:
 			showActions(for: journey.entries[indexPath.row], at: indexPath)
 		case .timeline:
-			showCatch(timeline[indexPath.row].caught)
+			showCatch(timeline[indexPath.row])
 		}
 	}
 
@@ -146,7 +152,8 @@ class JourneyDetailTVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-		journeyService.moveEntry(from: sourceIndexPath.row, to: destinationIndexPath.row, in: journey)
+		container.updateJourney.handle(UpdateJourneyCommand(journeyId: journeyId, change: .moveEntry(from: sourceIndexPath.row, to: destinationIndexPath.row)))
+		refreshJourney()
 	}
 
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -162,7 +169,7 @@ class JourneyDetailTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		guard mode == .pokemon else { return nil }
 		let entry = journey.entries[indexPath.row]
-		guard journey.linkedCatch(for: entry, in: catchesById) == nil, !journeyService.linkableCatches(for: entry, in: journey).isEmpty else { return nil }
+		guard entry.linkedCatch == nil, entry.linkableCatchCount > 0 else { return nil }
 		let link = UIContextualAction(style: .normal, title: "Link catch") { [weak self] _, _, done in
 			self?.pickCatch(for: entry)
 			done(true)
@@ -173,10 +180,10 @@ class JourneyDetailTVC: UITableViewController {
 
 	// MARK: Entry actions
 
-	fileprivate func showActions(for entry: JourneyEntry, at indexPath: IndexPath) {
-		let name = pokemon(number: entry.number)?.name ?? "this Pokémon"
-		let linked = journey.linkedCatch(for: entry, in: catchesById)
-		let linkable = journeyService.linkableCatches(for: entry, in: journey)
+	fileprivate func showActions(for entry: JourneyEntryDetails, at indexPath: IndexPath) {
+		let name = entry.pokemonName ?? "this Pokémon"
+		let linked = entry.linkedCatch
+		let linkable = linkableCatches(for: entry)
 		let message = linked == nil && linkable.isEmpty ? "You haven't caught a shiny \(name) yet. Log one from its tracker, then link it here." : nil
 		let sheet = UIAlertController(title: name, message: message, preferredStyle: .actionSheet)
 		if let linked = linked {
@@ -199,49 +206,49 @@ class JourneyDetailTVC: UITableViewController {
 		present(sheet, animated: true)
 	}
 
-	fileprivate func pickCatch(for entry: JourneyEntry) {
-		let picker = LinkCatchTVC(entry: entry, journey: journey, allPokemon: allPokemon) { [weak self] caught in
+	fileprivate func pickCatch(for entry: JourneyEntryDetails) {
+		let picker = LinkCatchTVC(container: container, journeyId: journeyId, entry: entry) { [weak self] caught in
 			self?.link(caught, to: entry)
 		}
 		navigationController?.pushViewController(picker, animated: true)
 	}
 
-	fileprivate func link(_ caught: Catch?, to entry: JourneyEntry) {
-		journeyService.link(caught, toEntry: entry.id, in: journey)
+	fileprivate func link(_ caught: CatchSummary?, to entry: JourneyEntryDetails) {
+		container.updateJourney.handle(UpdateJourneyCommand(journeyId: journeyId, change: .link(entry: entry.id, catchId: caught?.id)))
 		if (caught != nil) {
 			Haptics.success()
 		}
 		reload()
 	}
 
-	fileprivate func remove(_ entry: JourneyEntry) {
+	fileprivate func remove(_ entry: JourneyEntryDetails) {
 		let removeEntry = { [weak self] in
 			guard let self = self else { return }
-			self.journeyService.removeEntry(entry.id, from: self.journey)
+			self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .removeEntry(entry.id)))
 			self.reload()
 		}
-		guard journey.linkedCatch(for: entry, in: catchesById) != nil else {
+		guard entry.linkedCatch != nil else {
 			removeEntry()
 			return
 		}
-		let name = pokemon(number: entry.number)?.name ?? "this Pokémon"
+		let name = entry.pokemonName ?? "this Pokémon"
 		presentDestructiveConfirmation(title: "Remove \(name)?",
 									   message: "Its linked catch is unlinked from this journey. The catch stays in your collection.",
 									   destructiveTitle: "Remove",
 									   onConfirm: removeEntry)
 	}
 
-	fileprivate func showCatch(_ caught: Catch) {
-		guard let pokemon = pokemon(number: caught.number) else { return }
-		navigationController?.pushViewController(CatchDetailTVC(caught: caught, pokemon: pokemon), animated: true)
+	fileprivate func showCatch(_ caught: CatchSummary) {
+		guard let detail = CatchDetailTVC(container: container, catchId: caught.id) else { return }
+		navigationController?.pushViewController(detail, animated: true)
 	}
 
 	// MARK: Journey actions
 
 	@objc fileprivate func addPressed() {
-		let picker = PokemonPickerModalVC(configuration: .addToJourney) { [weak self] _, picked in
+		let picker = PokemonPickerModalVC(container: container, configuration: .addToJourney) { [weak self] _, picked in
 			guard let self = self else { return }
-			self.journeyService.add(numbers: picked.map { $0.number }, to: self.journey)
+			self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .addPokemon(picked.map { $0.number })))
 			self.mode = .pokemon
 			self.header.selectMode(Mode.pokemon.rawValue)
 			self.reload()
@@ -265,7 +272,7 @@ class JourneyDetailTVC: UITableViewController {
 	fileprivate func rename() {
 		presentTextInput(title: "Rename journey", text: journey.name, placeholder: "Journey name") { [weak self] name in
 			guard let self = self else { return }
-			self.journeyService.rename(self.journey, to: name)
+			self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .rename(name)))
 			self.reload()
 		}
 	}
@@ -284,7 +291,7 @@ class JourneyDetailTVC: UITableViewController {
 									   message: "The journey is removed. Your catches stay in your collection.",
 									   destructiveTitle: "Delete") { [weak self] in
 			guard let self = self else { return }
-			self.journeyService.delete(self.journey)
+			self.container.deleteJourney.handle(DeleteJourneyCommand(journeyId: self.journeyId))
 			self.navigationController?.popViewController(animated: true)
 		}
 	}
@@ -426,9 +433,11 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(pokemon: Pokemon?, linked: Catch?, linkedPokemon: Pokemon?, linkableCount: Int) {
-		let name = pokemon?.name ?? "Unknown"
-		sprite.image = pokemon.flatMap { UIImage(named: $0.name.lowercased()) }
+	func configure(entry: JourneyEntryDetails) {
+		let linked = entry.linkedCatch
+		let linkableCount = entry.linkableCatchCount
+		let name = entry.pokemonName ?? "Unknown"
+		sprite.image = entry.pokemonName.flatMap { UIImage(named: $0.lowercased()) }
 		nameLabel.text = name
 		sprite.alpha = linked == nil ? 0.4 : 1
 		nameLabel.textColor = linked == nil ? Color.Grey300 : Color.Grey100
@@ -438,8 +447,8 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 			if let date = linked.formattedCaughtDate {
 				parts.append(date)
 			}
-			if let linkedPokemon = linkedPokemon, linkedPokemon.number != pokemon?.number {
-				parts.insert("as \(linkedPokemon.name)", at: 0)
+			if (linked.number != entry.number) {
+				parts.insert("as \(linked.pokemonName)", at: 0)
 			}
 			statusLabel.text = parts.joined(separator: " · ")
 			statusLabel.textColor = Color.Grey400
@@ -538,16 +547,16 @@ fileprivate class TimelineCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(step: Int, caught: Catch, pokemon: Pokemon?, previousDate: Date?, isFirst: Bool, isLast: Bool) {
+	func configure(step: Int, caught: CatchSummary, previousDate: Date?, isFirst: Bool, isLast: Bool) {
 		dot.text = "\(step)"
 		topRail.isHidden = isFirst
 		bottomRail.isHidden = isLast
 		dateLabel.text = caught.formattedCaughtDate ?? "Undated"
 		gapLabel.text = TimelineCell.gapText(from: previousDate, to: caught.caughtDate)
 		gapLabel.isHidden = gapLabel.text == nil
-		let name = pokemon?.name ?? "Unknown"
+		let name = caught.pokemonName
 		nameLabel.text = name
-		sprite.image = pokemon.flatMap { UIImage(named: $0.name.lowercased()) }
+		sprite.image = UIImage(named: name.lowercased())
 		ballView.image = UIImage(named: caught.caughtBall)
 		detailLabel.text = "\(caught.encounters.grouped) encounters\n\(caught.ballName) · \(caught.game.displayName)"
 		accessibilityLabel = "Catch \(step), \(name), \(dateLabel.text ?? ""), \(gapLabel.text ?? ""), \(detailLabel.text ?? "")"

@@ -47,7 +47,7 @@ class PokemonPickerCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(pokemon: Pokemon, isSelected: Bool, isInOtherHunt: Bool) {
+	func configure(pokemon: PokemonSummary, isSelected: Bool, isInOtherHunt: Bool) {
 		spriteImageView.image = UIImage(named: pokemon.name.lowercased())
 		nameLabel.text = pokemon.name
 		numberLabel.text = String(format: "No. %03d", pokemon.number + 1)

@@ -3,9 +3,9 @@ import UIKit
 class GameSettingsModalVC: GameSettingsHostVC, UIAdaptivePresentationControllerDelegate {
 	fileprivate let onDismiss: () -> Void
 
-	init(pokemon: Pokemon, onDismiss: @escaping () -> Void) {
+	init(container: AppContainer, pokemon: PokemonDetails, onDismiss: @escaping () -> Void) {
 		self.onDismiss = onDismiss
-		super.init(pokemon: pokemon)
+		super.init(container: container, pokemon: pokemon)
 	}
 
 	required init?(coder: NSCoder) {

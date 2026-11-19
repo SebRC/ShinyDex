@@ -3,11 +3,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
-	lazy var container: AppContainer = {
-		let container = AppContainer.live()
-		AppContainer.shared = container
-		return container
-	}()
+	lazy var container = AppContainer.live()
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		return true

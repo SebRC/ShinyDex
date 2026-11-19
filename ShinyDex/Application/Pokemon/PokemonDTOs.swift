@@ -1,0 +1,68 @@
+import Foundation
+
+struct HuntSettings: Equatable {
+    var game: Games
+    var generation: Int
+    var huntMethod: HuntMethod
+    var isShinyCharmActive: Bool
+}
+
+struct PokemonSummary: Equatable {
+    let number: Int
+    let name: String
+    let caughtBall: String
+    let isBeingHunted: Bool
+    let encounters: Int
+}
+
+struct PokemonDetails: Equatable {
+    let number: Int
+    let name: String
+    let encounters: Int
+    let increment: Int
+    let settings: HuntSettings
+    let shinyOdds: Int
+    let chainThreshold: Int
+    let probability: Double
+    let caughtBall: String
+    let catchCount: Int
+    let isBeingHunted: Bool
+}
+
+extension HuntSettings {
+    init(_ configuration: HuntConfiguration) {
+        self.init(game: configuration.game, generation: configuration.generation, huntMethod: configuration.huntMethod, isShinyCharmActive: configuration.isShinyCharmActive)
+    }
+
+    var configuration: HuntConfiguration {
+        return HuntConfiguration(game: game, generation: generation, huntMethod: huntMethod, isShinyCharmActive: isShinyCharmActive)
+    }
+}
+
+extension PokemonSummary {
+    init(_ pokemon: Pokemon) {
+        self.init(number: pokemon.number, name: pokemon.name, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, encounters: pokemon.encounters)
+    }
+}
+
+struct PokemonDetailsMapper {
+    let odds: OddsService
+    let probability: ProbabilityService
+
+    func details(of pokemon: Pokemon, catchCount: Int) -> PokemonDetails {
+        let configuration = pokemon.huntConfiguration
+        let shinyOdds = odds.getShinyOdds(configuration: configuration, encounters: pokemon.encounters)
+        return PokemonDetails(
+            number: pokemon.number,
+            name: pokemon.name,
+            encounters: pokemon.encounters,
+            increment: pokemon.increment,
+            settings: HuntSettings(configuration),
+            shinyOdds: shinyOdds,
+            chainThreshold: configuration.chainThreshold,
+            probability: probability.getProbability(encounters: pokemon.encounters - configuration.chainThreshold, shinyOdds: shinyOdds),
+            caughtBall: pokemon.caughtBall,
+            catchCount: catchCount,
+            isBeingHunted: pokemon.isBeingHunted)
+    }
+}

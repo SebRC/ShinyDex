@@ -1,16 +1,16 @@
 import UIKit
 
 class LinkCatchTVC: UITableViewController {
-	fileprivate let entry: JourneyEntry
-	fileprivate let journey: Journey
-	fileprivate let allPokemon: [Pokemon]
-	fileprivate let onLink: (Catch) -> Void
-	fileprivate var catches = [Catch]()
+	fileprivate let container: AppContainer
+	fileprivate let journeyId: JourneyID
+	fileprivate let entry: JourneyEntryDetails
+	fileprivate let onLink: (CatchSummary) -> Void
+	fileprivate var catches = [CatchSummary]()
 
-	init(entry: JourneyEntry, journey: Journey, allPokemon: [Pokemon], onLink: @escaping (Catch) -> Void) {
+	init(container: AppContainer, journeyId: JourneyID, entry: JourneyEntryDetails, onLink: @escaping (CatchSummary) -> Void) {
+		self.container = container
+		self.journeyId = journeyId
 		self.entry = entry
-		self.journey = journey
-		self.allPokemon = allPokemon
 		self.onLink = onLink
 		super.init(style: .insetGrouped)
 	}
@@ -20,7 +20,7 @@ class LinkCatchTVC: UITableViewController {
 	}
 
 	fileprivate var entryName: String {
-		return allPokemon[safe: entry.number]?.name ?? "this Pokémon"
+		return entry.pokemonName ?? "this Pokémon"
 	}
 
 	override func viewDidLoad() {
@@ -30,7 +30,7 @@ class LinkCatchTVC: UITableViewController {
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey700
 		tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
-		catches = JourneyService().linkableCatches(for: entry, in: journey)
+		catches = container.getLinkableCatches.handle(GetLinkableCatchesQuery(journeyId: journeyId, entryId: entry.id))
 		if (catches.isEmpty) {
 			tableView.backgroundView = EmptyStateView(symbolName: "sparkles",
 													  title: "Nothing to link",
@@ -57,13 +57,12 @@ class LinkCatchTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
-		guard let pokemon = allPokemon[safe: caught.number] else { return cell }
-		let title = pokemon.number == entry.number ? "\(caught.ballName) · \(caught.game.displayName)" : "\(pokemon.name) · \(caught.ballName)"
-		cell.configure(pokemon: pokemon,
+		let title = caught.number == entry.number ? "\(caught.ballName) · \(caught.game.displayName)" : "\(caught.pokemonName) · \(caught.ballName)"
+		cell.configure(pokemonName: caught.pokemonName,
 					   title: title,
 					   subtitle: ["\(caught.encounters.grouped) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
 					   ball: caught.caughtBall)
-		cell.accessoryType = caught.id == entry.catchId ? .checkmark : .none
+		cell.accessoryType = caught.id == entry.linkedCatch?.id ? .checkmark : .none
 		cell.tintColor = Color.Orange500
 		return cell
 	}

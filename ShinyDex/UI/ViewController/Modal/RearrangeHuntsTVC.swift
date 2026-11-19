@@ -1,12 +1,13 @@
 import UIKit
 
 class RearrangeHuntsTVC: UITableViewController {
-	fileprivate let huntService = HuntService()
+	fileprivate let container: AppContainer
 	fileprivate let onSave: () -> Void
-	fileprivate var hunts = [Hunt]()
+	fileprivate var hunts = [HuntSummary]()
 	fileprivate var saveButton: UIBarButtonItem!
 
-	init(onSave: @escaping () -> Void) {
+	init(container: AppContainer, onSave: @escaping () -> Void) {
+		self.container = container
 		self.onSave = onSave
 		super.init(style: .insetGrouped)
 	}
@@ -18,7 +19,7 @@ class RearrangeHuntsTVC: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Rearrange hunts"
-		hunts = huntService.getAll()
+		hunts = container.getHunts.handle(GetHuntsQuery())
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
 		saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePressed))
 		saveButton.isEnabled = false
@@ -63,10 +64,7 @@ class RearrangeHuntsTVC: UITableViewController {
 	}
 
 	@objc fileprivate func savePressed() {
-		for (priority, hunt) in hunts.enumerated() {
-			hunt.priority = priority
-			huntService.save(hunt: hunt)
-		}
+		container.reorderHunts.handle(ReorderHuntsCommand(orderedIds: hunts.map { $0.id }))
 		dismissSheet { [onSave] in
 			onSave()
 		}

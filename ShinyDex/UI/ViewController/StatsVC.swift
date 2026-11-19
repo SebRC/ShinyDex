@@ -3,9 +3,16 @@ import UIKit
 class StatsVC: UIViewController {
 	fileprivate let scrollView = UIScrollView()
 	fileprivate let stack = UIStackView()
-	fileprivate let catchService = CatchService()
-	fileprivate let pokemonService = PokemonService()
-	fileprivate var pokemonByNumber = [Int: Pokemon]()
+	fileprivate let container: AppContainer
+
+	init(container: AppContainer) {
+		self.container = container
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -34,8 +41,7 @@ class StatsVC: UIViewController {
 			stack.removeArrangedSubview(view)
 			view.removeFromSuperview()
 		}
-		pokemonByNumber = Dictionary(pokemonService.getAll().map { ($0.number, $0) }, uniquingKeysWith: { first, _ in first })
-		let stats = CatchStats(catches: catchService.getAllIncludingFailed())
+		let stats = container.getCatchStatistics.handle(GetCatchStatisticsQuery())
 		guard stats.foundCount > 0 else {
 			let empty = EmptyStateView(symbolName: "chart.bar.fill",
 									   title: "No stats yet",
@@ -48,8 +54,7 @@ class StatsVC: UIViewController {
 		addYears(stats)
 		addRecords(stats)
 		addUsage(title: "Balls", rows: stats.ballUsage.prefix(8).map { usage in
-			let pokeball = Pokeball(ballName: usage.key)
-			return UsageRow(title: "\(pokeball.name) Ball", image: pokeball.image, count: usage.count, filter: .ball(usage.key))
+			UsageRow(title: "\(BallGrid.displayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
 		}, total: stats.caughtCount)
 		addUsage(title: "Games", rows: stats.gameUsage.prefix(6).map { usage in
 			UsageRow(title: usage.key.displayName, image: GamesList.games[usage.key].flatMap { UIImage(named: $0.coverPokemon) }, count: usage.count, filter: .game(usage.key))
@@ -57,6 +62,10 @@ class StatsVC: UIViewController {
 		addUsage(title: "Methods", rows: stats.methodUsage.map { usage in
 			UsageRow(title: usage.key.rawValue, image: UIImage(named: usage.key.rawValue), count: usage.count, filter: .method(usage.key))
 		}, total: stats.caughtCount)
+	}
+
+	fileprivate func showCollection(filter: CollectionFilter? = nil) {
+		navigationController?.pushViewController(CollectionTVC(container: container, filter: filter), animated: true)
 	}
 
 	// MARK: Sections
@@ -80,16 +89,16 @@ class StatsVC: UIViewController {
 		}
 	}
 
-	fileprivate func addOverview(_ stats: CatchStats) {
+	fileprivate func addOverview(_ stats: CatchStatistics) {
 		let average = stats.averageEncounters.map { $0.grouped } ?? "–"
 		let grid = UIStackView(arrangedSubviews: [
 			row(StatsVC.makeTile(caption: "Shinies found", value: stats.foundCount.grouped, highlighted: true),
 				StatsVC.makeTile(caption: "Species caught", value: stats.caughtSpeciesCount.grouped)),
 			row(StatsVC.makeTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRatePercent.map { "\($0)% catch rate" }) { [weak self] in
-					self?.navigationController?.pushViewController(CollectionTVC(), animated: true)
+					self?.showCollection()
 				},
 				StatsVC.makeTile(caption: "Got away", value: stats.failedCount.grouped) { [weak self] in
-					self?.navigationController?.pushViewController(CollectionTVC(filter: .gotAway), animated: true)
+					self?.showCollection(filter: .gotAway)
 				}),
 			row(StatsVC.makeTile(caption: "Encounters", value: stats.totalEncounters.grouped),
 				StatsVC.makeTile(caption: "Avg per shiny", value: average))
@@ -109,7 +118,7 @@ class StatsVC: UIViewController {
 		return row
 	}
 
-	fileprivate func addYears(_ stats: CatchStats) {
+	fileprivate func addYears(_ stats: CatchStatistics) {
 		guard !stats.years.isEmpty else { return }
 		let chart = YearChartView(years: stats.years)
 		let footnote = stats.undatedCount > 0
@@ -118,7 +127,7 @@ class StatsVC: UIViewController {
 		addSection("Average encounters by year", chart, footnote: footnote)
 	}
 
-	fileprivate func addRecords(_ stats: CatchStats) {
+	fileprivate func addRecords(_ stats: CatchStatistics) {
 		guard let fastest = stats.fastestCatch, let longest = stats.longestCatch else { return }
 		let records = UIStackView(arrangedSubviews: [
 			recordCard(title: "Fastest shiny", caught: fastest, symbol: "hare.fill"),
@@ -129,11 +138,11 @@ class StatsVC: UIViewController {
 		addSection("Records", records)
 	}
 
-	fileprivate func recordCard(title: String, caught: Catch, symbol: String) -> UIView {
-		let card = RecordCard(title: title, symbol: symbol, pokemon: pokemonByNumber[caught.number], caught: caught)
+	fileprivate func recordCard(title: String, caught: CatchSummary, symbol: String) -> UIView {
+		let card = RecordCard(title: title, symbol: symbol, caught: caught)
 		card.onTap = { [weak self] in
-			guard let self = self, let pokemon = self.pokemonByNumber[caught.number] else { return }
-			self.navigationController?.pushViewController(CatchDetailTVC(caught: caught, pokemon: pokemon), animated: true)
+			guard let self = self, let detail = CatchDetailTVC(container: self.container, catchId: caught.id) else { return }
+			self.navigationController?.pushViewController(detail, animated: true)
 		}
 		return card
 	}
@@ -150,7 +159,7 @@ class StatsVC: UIViewController {
 		for usage in rows {
 			let rowView = UsageRowView(row: usage, maxCount: maxCount, total: total)
 			rowView.onTap = { [weak self] in
-				self?.navigationController?.pushViewController(CollectionTVC(filter: usage.filter), animated: true)
+				self?.showCollection(filter: usage.filter)
 			}
 			list.addArrangedSubview(rowView)
 		}
@@ -226,7 +235,7 @@ fileprivate class TappableTile: UIControl {
 fileprivate class YearChartView: UIView {
 	fileprivate static let barAreaHeight: CGFloat = 140
 
-	init(years: [CatchStats.YearStat]) {
+	init(years: [CatchStatistics.Year]) {
 		super.init(frame: .zero)
 		backgroundColor = Color.Grey800
 		layer.cornerRadius = CornerRadius.standard
@@ -258,7 +267,7 @@ fileprivate class YearChartView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	fileprivate static func makeColumn(_ year: CatchStats.YearStat, maxAverage: Int) -> UIView {
+	fileprivate static func makeColumn(_ year: CatchStatistics.Year, maxAverage: Int) -> UIView {
 		let valueLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey200)
 		valueLabel.text = year.averageEncounters.map { $0.grouped } ?? "–"
 		valueLabel.textAlignment = .center
@@ -377,7 +386,7 @@ fileprivate class UsageRowView: UIControl {
 fileprivate class RecordCard: UIControl {
 	var onTap: (() -> Void)?
 
-	init(title: String, symbol: String, pokemon: Pokemon?, caught: Catch) {
+	init(title: String, symbol: String, caught: CatchSummary) {
 		super.init(frame: .zero)
 		backgroundColor = Color.Grey800
 		layer.cornerRadius = CornerRadius.standard
@@ -392,7 +401,7 @@ fileprivate class RecordCard: UIControl {
 		titleRow.spacing = 5
 		titleRow.alignment = .center
 
-		let sprite = UIImageView(image: pokemon.flatMap { UIImage(named: $0.name.lowercased()) })
+		let sprite = UIImageView(image: UIImage(named: caught.pokemonName.lowercased()))
 		sprite.contentMode = .scaleAspectFit
 		sprite.layer.magnificationFilter = .nearest
 		let encountersLabel = UILabel(fontSize: 22, weight: .bold, color: Color.Grey100)
@@ -401,7 +410,7 @@ fileprivate class RecordCard: UIControl {
 		encountersLabel.adjustsFontSizeToFitWidth = true
 		encountersLabel.minimumScaleFactor = 0.6
 		let detailLabel = UILabel(fontSize: 12, color: Color.Grey400)
-		detailLabel.text = [pokemon?.name, caught.isFailed ? "got away" : nil, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
+		detailLabel.text = [caught.pokemonName, caught.isFailed ? "got away" : nil, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
 		detailLabel.adjustsFontSizeToFitWidth = true
 		detailLabel.minimumScaleFactor = 0.8
 
@@ -420,7 +429,7 @@ fileprivate class RecordCard: UIControl {
 		addTarget(self, action: #selector(tapped), for: .touchUpInside)
 		isAccessibilityElement = true
 		accessibilityTraits = .button
-		accessibilityLabel = "\(title): \(pokemon?.name ?? "Unknown"), \(caught.encounters) encounters"
+		accessibilityLabel = "\(title): \(caught.pokemonName), \(caught.encounters) encounters"
 	}
 
 	required init?(coder: NSCoder) {

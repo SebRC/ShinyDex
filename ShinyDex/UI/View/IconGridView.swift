@@ -125,18 +125,26 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 	}
 }
 
-enum BallGrid {
-	static let ballNames = AppContainer.shared.resourceLoader.lines(ofTextResource: "pokeballs").filter { $0 != CatchRules.noBall }
+struct BallGrid {
+	let ballNames: [String]
 
-	static var items: [IconGridItem] {
+	init(container: AppContainer) {
+		ballNames = container.getBallNames.handle(GetBallNamesQuery())
+	}
+
+	var items: [IconGridItem] {
 		return ballNames.map { name in
-			let pokeball = Pokeball(ballName: name)
-			return IconGridItem(title: pokeball.name, image: pokeball.image, accessibilityLabel: "\(pokeball.name) Ball")
+			let title = BallGrid.displayName(of: name)
+			return IconGridItem(title: title, image: UIImage(named: name), accessibilityLabel: "\(title) Ball")
 		}
 	}
 
-	static func index(of ball: String?) -> Int? {
+	func index(of ball: String?) -> Int? {
 		return ball.flatMap { ballNames.firstIndex(of: $0) }
+	}
+
+	static func displayName(of ball: String) -> String {
+		return ball.capitalizingFirstLetter()
 	}
 }
 

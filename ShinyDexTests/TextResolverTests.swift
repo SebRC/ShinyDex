@@ -30,14 +30,14 @@ class TextResolverTests: XCTestCase {
 
 	func test_withLgpeMaxChainNotReached_onlyShowsMethodVerb() {
 		// Arrange
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.generation = 7
         pokemon.game = .LetsGoEevee
 		pokemon.encounters = 20
 		let expectedResult = "Catch Combo: \(pokemon.encounters)"
 
 		// Act
-		let actual = textResolver.getEncountersLabelText(pokemon: pokemon)
+		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.details())
 
 		// Assert
 		XCTAssertEqual(actual, expectedResult)
@@ -45,7 +45,7 @@ class TextResolverTests: XCTestCase {
 
 	func test_withLgpeMaxChainReached_textIncludesSeen() {
 		// Arrange
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.generation = 7
         pokemon.game = .LetsGoEevee
 		pokemon.encounters = 35
@@ -54,7 +54,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Catch Combo: \(methodDecrement)\nEncounters: \(pokemon.encounters - methodDecrement)"
 
 		// Act
-		let actual = textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement)
+		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.details(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(actual, expectedResult)
@@ -63,20 +63,20 @@ class TextResolverTests: XCTestCase {
 	func test_Gen2BreedingOrMasuda_textIncludesEggs() {
 		// Arrange
 		let encounters = 35
-		let gen2BreddingPokemon = Pokemon()
+		let gen2BreddingPokemon = PokemonFixture()
 		gen2BreddingPokemon.generation = 4
 		gen2BreddingPokemon.encounters = encounters
 		gen2BreddingPokemon.huntMethod = .Gen2Breeding
 
-		let masudaPokemon = Pokemon()
+		let masudaPokemon = PokemonFixture()
 		masudaPokemon.generation = 4
 		masudaPokemon.encounters = encounters
 		masudaPokemon.huntMethod = .Masuda
 		let expectedResult = "Eggs: \(encounters)"
 
 		// Act
-		let gen2BreedingActual = textResolver.getEncountersLabelText(pokemon: gen2BreddingPokemon)
-		let masudaActual = textResolver.getEncountersLabelText(pokemon: masudaPokemon)
+		let gen2BreedingActual = textResolver.getEncountersLabelText(pokemon: gen2BreddingPokemon.details())
+		let masudaActual = textResolver.getEncountersLabelText(pokemon: masudaPokemon.details())
 
 		// Assert
 		XCTAssertEqual(gen2BreedingActual, expectedResult)
@@ -86,20 +86,20 @@ class TextResolverTests: XCTestCase {
 	func test_ChainingMaxChainNotReached_onlyShowsMethodVerb() {
 		// Arrange
 		let encounters = 15
-		let sosChainPokemon = Pokemon()
+		let sosChainPokemon = PokemonFixture()
 		sosChainPokemon.generation = 7
 		sosChainPokemon.encounters = encounters
 		sosChainPokemon.huntMethod = .SosChaining
 
-		let chainFishPokemon = Pokemon()
+		let chainFishPokemon = PokemonFixture()
 		chainFishPokemon.generation = 6
 		chainFishPokemon.encounters = encounters
 		chainFishPokemon.huntMethod = .ChainFishing
 		let expectedResult = "Chain: \(encounters)"
 
 		// Act
-		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon)
-		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon)
+		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon.details())
+		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon.details())
 
 		// Assert
 		XCTAssertEqual(sosChainActual, expectedResult)
@@ -110,20 +110,20 @@ class TextResolverTests: XCTestCase {
 		// Arrange
 		let encounters = 50
 		let methodDecrement = 10
-		let sosChainPokemon = Pokemon()
+		let sosChainPokemon = PokemonFixture()
 		sosChainPokemon.generation = 7
 		sosChainPokemon.encounters = encounters
 		sosChainPokemon.huntMethod = .SosChaining
 
-		let chainFishPokemon = Pokemon()
+		let chainFishPokemon = PokemonFixture()
 		chainFishPokemon.generation = 6
 		chainFishPokemon.encounters = encounters
 		chainFishPokemon.huntMethod = .ChainFishing
 		let expectedResult = "Chain: \(methodDecrement)\nEncounters: \(encounters - methodDecrement)"
 
 		// Act
-		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon, methodDecrement: methodDecrement)
-		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon, methodDecrement: methodDecrement)
+		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon.details(chainThreshold: methodDecrement))
+		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon.details(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(sosChainActual, expectedResult)
@@ -135,14 +135,14 @@ class TextResolverTests: XCTestCase {
 		let encounters = 50
 		let methodDecrement = 10
 
-		let pokeradarPokemon = Pokemon()
+		let pokeradarPokemon = PokemonFixture()
 		pokeradarPokemon.generation = 6
 		pokeradarPokemon.encounters = encounters
 		pokeradarPokemon.huntMethod = .Pokeradar
 		let expectedResult = "Chain: \(methodDecrement)\nPatches: \(encounters - methodDecrement)"
 
 		// Act
-		let pokeradarActual = textResolver.getEncountersLabelText(pokemon: pokeradarPokemon, methodDecrement: methodDecrement)
+		let pokeradarActual = textResolver.getEncountersLabelText(pokemon: pokeradarPokemon.details(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(pokeradarActual, expectedResult)
@@ -150,14 +150,14 @@ class TextResolverTests: XCTestCase {
 
 	func test_dexNavMaxChainNotReached_onlyShowsMethodVerb() {
 		// Arrange
-		let dexNavPokemon = Pokemon()
+		let dexNavPokemon = PokemonFixture()
 		dexNavPokemon.generation = 6
 		dexNavPokemon.encounters = 50
 		dexNavPokemon.huntMethod = .DexNav
 		let expectedResult = "Search level: \(dexNavPokemon.encounters)"
 
 		// Act
-		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon)
+		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon.details())
 
 		// Assert
 		XCTAssertEqual(dexNavActual, expectedResult)
@@ -166,14 +166,14 @@ class TextResolverTests: XCTestCase {
 	func test_dexNavMaxChainReached_textIncludesPatches() {
 		// Arrange
 		let methodDecrement = 10
-		let dexNavPokemon = Pokemon()
+		let dexNavPokemon = PokemonFixture()
 		dexNavPokemon.generation = 6
 		dexNavPokemon.encounters = 1000
 		dexNavPokemon.huntMethod = .DexNav
 		let expectedResult = "Search level: \(methodDecrement)\nEncounters: \(dexNavPokemon.encounters - methodDecrement)"
 
 		// Act
-		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon, methodDecrement: methodDecrement)
+		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon.details(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(dexNavActual, expectedResult)
@@ -182,14 +182,14 @@ class TextResolverTests: XCTestCase {
 	func test_EncountersMethod_defaultText() {
 		// Arrange
 		let methodDecrement = 10
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.generation = 6
 		pokemon.encounters = 1000
 		pokemon.huntMethod = .Encounters
 		let expectedResult = "Encounters: \(pokemon.encounters)"
 
 		// Act
-		let actual = textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement)
+		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.details(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(actual, expectedResult)

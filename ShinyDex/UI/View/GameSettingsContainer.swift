@@ -1,10 +1,13 @@
 import UIKit
 
 class GameSettingsContainer: UIView {
-	var pokemonService = PokemonService()
-	var oddsService = OddsService()
 	var switchStateService = SwitchStateService()
-	var pokemon: Pokemon!
+	var settings: HuntSettings!
+	var shinyOdds = 0
+	// The Pokémon these settings belong to; nil when editing settings to apply to every Pokémon.
+	var subjectName: String?
+	var preview: ((HuntSettings) -> HuntSettingsPreview)?
+	var onSettingsChanged: ((HuntSettings) -> Void)?
 	var gameSettingsCells: [GameSettingsCell]?
 	var onApplyToAll: (() -> Void)?
 
@@ -188,7 +191,7 @@ class GameSettingsContainer: UIView {
 			cell.setAvailable(cell.actionSwitch.isEnabled)
 		}
 		if (available.isEmpty) {
-			noMethodsLabel.text = "\(pokemon.game.displayName) only has random encounters at base odds."
+			noMethodsLabel.text = "\(settings.game.displayName) only has random encounters at base odds."
 			let wrapper = UIView()
 			wrapper.addAutoLayoutSubviews(noMethodsLabel)
 			noMethodsLabel.pinEdges(to: wrapper, insets: UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14))
@@ -196,7 +199,7 @@ class GameSettingsContainer: UIView {
 		}
 		GameSettingsContainer.fill(methodsCard, with: available)
 		GameSettingsContainer.fill(unavailableCard, with: unavailable)
-		unavailableHeader.text = "NOT AVAILABLE IN \(pokemon.game.displayName.uppercased())"
+		unavailableHeader.text = "NOT AVAILABLE IN \(settings.game.displayName.uppercased())"
 		unavailableHeader.isHidden = unavailable.isEmpty
 		unavailableCard.isHidden = unavailable.isEmpty
 		shinyCharmCell.setAvailable(shinyCharmCell.actionSwitch.isEnabled)
@@ -230,19 +233,19 @@ class GameSettingsContainer: UIView {
 
 	func setGame(coverPokemon: String) {
 		gameImageView.image = UIImage(named: coverPokemon)
-		gameTitle.text = pokemon.game.displayName
-		gameButton.accessibilityLabel = "Game, \(pokemon.game.displayName)"
+		gameTitle.text = settings.game.displayName
+		gameButton.accessibilityLabel = "Game, \(settings.game.displayName)"
 	}
 
 	func resolveUIObjectsState() {
-		genTwoBreedingCell.actionSwitch.isOn = pokemon.huntMethod == .Gen2Breeding
-		masudaCell.actionSwitch.isOn = pokemon.huntMethod == .Masuda
-		shinyCharmCell.actionSwitch.isOn = pokemon.isShinyCharmActive
-		friendSafariCell.actionSwitch.isOn = pokemon.huntMethod == .FriendSafari
-		chainFishingCell.actionSwitch.isOn = pokemon.huntMethod == .ChainFishing
-		sosChainCell.actionSwitch.isOn = pokemon.huntMethod == .SosChaining
-		dexNavCell.actionSwitch.isOn = pokemon.huntMethod == .DexNav
-		lureCell.actionSwitch.isOn = pokemon.huntMethod == .Lure
+		genTwoBreedingCell.actionSwitch.isOn = settings.huntMethod == .Gen2Breeding
+		masudaCell.actionSwitch.isOn = settings.huntMethod == .Masuda
+		shinyCharmCell.actionSwitch.isOn = settings.isShinyCharmActive
+		friendSafariCell.actionSwitch.isOn = settings.huntMethod == .FriendSafari
+		chainFishingCell.actionSwitch.isOn = settings.huntMethod == .ChainFishing
+		sosChainCell.actionSwitch.isOn = settings.huntMethod == .SosChaining
+		dexNavCell.actionSwitch.isOn = settings.huntMethod == .DexNav
+		lureCell.actionSwitch.isOn = settings.huntMethod == .Lure
 
 		setAllImageViewAlphas()
 		resolveSwitchStates()
@@ -250,28 +253,30 @@ class GameSettingsContainer: UIView {
 	}
 
 	func setShinyOddsLabelText() {
-		pokemon!.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
-		shinyOddsLabel.text = "1/\(pokemon!.shinyOdds.grouped)"
-		var parts = [pokemon.game.displayName, pokemon.huntMethod.rawValue]
-		if (pokemon.isShinyCharmActive) {
+		if let preview = preview?(settings) {
+			settings = preview.settings
+			shinyOdds = preview.shinyOdds
+		}
+		shinyOddsLabel.text = "1/\(shinyOdds.grouped)"
+		var parts = [settings.game.displayName, settings.huntMethod.rawValue]
+		if (settings.isShinyCharmActive) {
 			parts.append("Shiny Charm")
 		}
 		oddsSummaryLabel.text = parts.joined(separator: " · ")
-		shinyOddsLabel.superview?.superview?.accessibilityLabel = "Shiny odds: 1 in \(pokemon!.shinyOdds.grouped), \(parts.joined(separator: ", "))"
+		shinyOddsLabel.superview?.superview?.accessibilityLabel = "Shiny odds: 1 in \(shinyOdds.grouped), \(parts.joined(separator: ", "))"
 	}
 
 	func setExplanationLabelText() {
-		explanationLabel.text = pokemon.name == "Placeholder"
-		? "These settings don't change any Pokémon on their own. Apply to All gives every Pokémon this game and these hunt settings."
-		: "Changes here apply to \(pokemon.name) straight away. Apply to All gives every Pokémon the same game and hunt settings."
+		explanationLabel.text = subjectName.map { "Changes here apply to \($0) straight away. Apply to All gives every Pokémon the same game and hunt settings." }
+			?? "These settings don't change any Pokémon on their own. Apply to All gives every Pokémon this game and these hunt settings."
 	}
-    
-    func updateUI(updatedPokemon: Pokemon, coverPokemon: String) {
-        pokemon = updatedPokemon
-        setGame(coverPokemon: coverPokemon)
-        resolveUIObjectsState()
-        setShinyOddsLabelText()
-    }
+
+	func updateUI(updatedSettings: HuntSettings, coverPokemon: String) {
+		settings = updatedSettings
+		setGame(coverPokemon: coverPokemon)
+		resolveUIObjectsState()
+		setShinyOddsLabelText()
+	}
 
 	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool) {
 		imageView.alpha = isSwitchOn ? 1.0 : 0.55
@@ -315,9 +320,9 @@ class GameSettingsContainer: UIView {
 			cell = pokeradarCell
 		}
 		else if (tag == 3) {
-			selectedHuntMethod = pokemon!.huntMethod
-			pokemon!.isShinyCharmActive = sender.isOn
-			setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
+			selectedHuntMethod = settings.huntMethod
+			settings.isShinyCharmActive = sender.isOn
+			setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: settings.isShinyCharmActive)
 			cell = shinyCharmCell
 			callTurnSwitchesOff = false
 		}
@@ -348,32 +353,30 @@ class GameSettingsContainer: UIView {
 			callTurnSwitchesOff = false
 		}
 		let activeHuntMethod = sender.isOn || sender.tag == 3 ? selectedHuntMethod : .Encounters
-		pokemon!.huntMethod = activeHuntMethod
-		setImageViewAlpha(imageView: icon, isSwitchOn: pokemon!.huntMethod == selectedHuntMethod)
+		settings.huntMethod = activeHuntMethod
+		setImageViewAlpha(imageView: icon, isSwitchOn: settings.huntMethod == selectedHuntMethod)
 		if (callTurnSwitchesOff) {
-			turnSwitchesOff(enabledCell: cell, huntMethod: pokemon!.huntMethod)
+			turnSwitchesOff(enabledCell: cell, huntMethod: settings.huntMethod)
 		}
 		setShinyOddsLabelText()
 		saveIfReal()
 	}
 
 	fileprivate func saveIfReal() {
-		if (pokemon.name != "Placeholder") {
-			pokemonService.save(pokemon: pokemon)
-		}
+		onSettingsChanged?(settings)
 	}
 
 	fileprivate func setAllImageViewAlphas() {
-		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
-        setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Gen2Breeding)
-		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Masuda)
-		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Pokeradar)
-		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: pokemon.huntMethod == .ChainFishing)
-		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon.huntMethod == .DexNav)
-		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: pokemon.huntMethod == .FriendSafari)
-		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: pokemon.huntMethod == .DexNav)
-		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: pokemon.huntMethod == .SosChaining)
-        setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: pokemon.huntMethod == .Lure)
+		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: settings.isShinyCharmActive)
+        setImageViewAlpha(imageView: genTwoBreedingCell.iconImageView, isSwitchOn: settings.huntMethod == .Gen2Breeding)
+		setImageViewAlpha(imageView: masudaCell.iconImageView, isSwitchOn: settings.huntMethod == .Masuda)
+		setImageViewAlpha(imageView: pokeradarCell.iconImageView, isSwitchOn: settings.huntMethod == .Pokeradar)
+		setImageViewAlpha(imageView: chainFishingCell.iconImageView, isSwitchOn: settings.huntMethod == .ChainFishing)
+		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: settings.huntMethod == .DexNav)
+		setImageViewAlpha(imageView: friendSafariCell.iconImageView, isSwitchOn: settings.huntMethod == .FriendSafari)
+		setImageViewAlpha(imageView: dexNavCell.iconImageView, isSwitchOn: settings.huntMethod == .DexNav)
+		setImageViewAlpha(imageView: sosChainCell.iconImageView, isSwitchOn: settings.huntMethod == .SosChaining)
+        setImageViewAlpha(imageView: lureCell.iconImageView, isSwitchOn: settings.huntMethod == .Lure)
 	}
 
 	fileprivate func turnSwitchesOff(enabledCell: GameSettingsCell, huntMethod: HuntMethod) {
@@ -382,7 +385,7 @@ class GameSettingsContainer: UIView {
 			setImageViewAlpha(imageView: cell.iconImageView, isSwitchOn: false)
 			cell.actionSwitch.isOn = false
 		}
-		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: pokemon!.isShinyCharmActive)
+		setImageViewAlpha(imageView: shinyCharmCell.iconImageView, isSwitchOn: settings.isShinyCharmActive)
 		setImageViewAlpha(imageView: enabledCell.iconImageView, isSwitchOn: enabledCell.actionSwitch.isOn)
 		gameSettingsCells!.append(enabledCell)
 		gameSettingsCells!.append(shinyCharmCell)
@@ -391,15 +394,15 @@ class GameSettingsContainer: UIView {
 	}
 
 	fileprivate func resolveSwitchStates() {
-		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon, shinyCharmSwitch: shinyCharmCell.actionSwitch)
-        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: lureCell.actionSwitch, huntMethod: .Lure)
-		switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: masudaCell.actionSwitch, huntMethod: .Masuda)
-		switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: genTwoBreedingCell.actionSwitch, huntMethod: .Gen2Breeding)
-        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: friendSafariCell.actionSwitch, huntMethod: .FriendSafari)
-        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: sosChainCell.actionSwitch, huntMethod: .SosChaining)
-        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: chainFishingCell.actionSwitch, huntMethod: .ChainFishing)
-        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: pokeradarCell.actionSwitch, huntMethod: .Pokeradar)
-        switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: dexNavCell.actionSwitch, huntMethod: .DexNav)
+		switchStateService.resolveShinyCharmSwitchState(settings: settings, shinyCharmSwitch: shinyCharmCell.actionSwitch)
+        switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: lureCell.actionSwitch, huntMethod: .Lure)
+		switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: masudaCell.actionSwitch, huntMethod: .Masuda)
+		switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: genTwoBreedingCell.actionSwitch, huntMethod: .Gen2Breeding)
+        switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: friendSafariCell.actionSwitch, huntMethod: .FriendSafari)
+        switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: sosChainCell.actionSwitch, huntMethod: .SosChaining)
+        switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: chainFishingCell.actionSwitch, huntMethod: .ChainFishing)
+        switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: pokeradarCell.actionSwitch, huntMethod: .Pokeradar)
+        switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: dexNavCell.actionSwitch, huntMethod: .DexNav)
 	}
 
 	@objc fileprivate func applyToAllPressed() {

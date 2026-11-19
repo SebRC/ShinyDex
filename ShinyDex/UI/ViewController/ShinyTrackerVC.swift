@@ -14,22 +14,18 @@ class ShinyTrackerVC: UIViewController {
 	fileprivate let caughtBallView = UIImageView()
 	fileprivate let caughtLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Orange500)
 	fileprivate let caughtRow = UIStackView()
-	fileprivate let catchService = CatchService()
 	fileprivate let oddsTile = StatTileView(caption: "Shiny odds")
 	fileprivate let probabilityTile = StatTileView(caption: "Chance so far")
 	fileprivate var addToHuntButton: UIBarButtonItem!
 
-	var pokemon: Pokemon!
-	let probabilityService = ProbabilityService()
-	let oddsService = OddsService()
-	var probability: Double?
-	var methodDecrement = 0
+	fileprivate let container: AppContainer
+	fileprivate var pokemon: PokemonDetails
 	let popupHandler = PopupHandler()
-	var pokemonService = PokemonService()
-	var huntService = HuntService()
 	var textResolver = TextResolver()
 
-	init(pokemon: Pokemon) {
+	init?(container: AppContainer, number: Int) {
+		guard let pokemon = container.getPokemonDetails.handle(GetPokemonDetailsQuery(number: number)) else { return nil }
+		self.container = container
 		self.pokemon = pokemon
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -44,7 +40,6 @@ class ShinyTrackerVC: UIViewController {
 		layOutViews()
 		setUpNavigationItems()
 		setGif()
-		setMethodDecrement()
 		resolveEncounterDetails()
 		setCaughtStatus()
 		setMethodImage()
@@ -56,7 +51,14 @@ class ShinyTrackerVC: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		reloadPokemon()
 		setCaughtStatus()
+	}
+
+	fileprivate func reloadPokemon() {
+		if let updated = container.getPokemonDetails.handle(GetPokemonDetailsQuery(number: pokemon.number)) {
+			pokemon = updated
+		}
 	}
 
 	fileprivate func layOutViews() {
@@ -181,29 +183,11 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	@objc fileprivate func catchesButtonPressed() {
-		navigationController?.pushViewController(CatchesTVC(pokemon: pokemon), animated: true)
-	}
-
-	fileprivate func setMethodDecrement() {
-		if (pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .Lure || pokemon.generation == 0) {
-			methodDecrement = 30
-		}
-		else if (pokemon.huntMethod == .ChainFishing) {
-			methodDecrement = 20
-		}
-		else if (pokemon.huntMethod == .Pokeradar) {
-			methodDecrement = 40
-		}
-		else if (pokemon.huntMethod == .DexNav) {
-			methodDecrement = 999
-		}
-		else {
-			methodDecrement = 0
-		}
+		navigationController?.pushViewController(CatchesTVC(container: container, number: pokemon.number, pokemonName: pokemon.name), animated: true)
 	}
 
 	fileprivate func setCaughtStatus() {
-		let catchCount = catchService.getCatches(for: pokemon).count
+		let catchCount = pokemon.catchCount
 		caughtBallView.image = UIImage(named: pokemon.caughtBall)
 		caughtLabel.text = catchCount == 1 ? "Caught" : "Caught ×\(catchCount)"
 		caughtRow.isHidden = catchCount == 0
@@ -217,9 +201,9 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func getMethodImage() -> UIImage? {
-		let huntMethod = pokemon.huntMethod
+		let huntMethod = pokemon.settings.huntMethod
 		let canBeCombinedWithCharm = huntMethod != .Gen2Breeding && huntMethod != .Pokeradar
-		if (pokemon.isShinyCharmActive && canBeCombinedWithCharm) {
+		if (pokemon.settings.isShinyCharmActive && canBeCombinedWithCharm) {
 			return UIImage(named: "\(huntMethod.rawValue) + Charm")
 		}
 		return UIImage(named: huntMethod.rawValue)
@@ -242,16 +226,10 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func resolveEncounterDetails() {
-		setProbability()
 		setProbabilityLabelText()
-		setEncountersText(textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement))
+		setEncountersText(textResolver.getEncountersLabelText(pokemon: pokemon))
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
-	}
-
-	fileprivate func setProbability() {
-		pokemon.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
-		probability = probabilityService.getProbability(encounters: pokemon.encounters - methodDecrement, shinyOdds: pokemon.shinyOdds)
 	}
 
 	fileprivate func setEncountersText(_ text: String) {
@@ -271,9 +249,9 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	fileprivate func setProbabilityLabelText() {
-		let text = probabilityService.getProbabilityText(probability: probability!, pokemon: pokemon, methodDecrement: methodDecrement)
+		let text = textResolver.getProbabilityText(pokemon: pokemon)
 		if (text.hasPrefix("Probability")) {
-			probabilityTile.setValue(String(format: "%.2f%%", probability!))
+			probabilityTile.setValue(String(format: "%.2f%%", pokemon.probability))
 		}
 		else {
 			probabilityTile.setMessage(text)
@@ -295,22 +273,25 @@ class ShinyTrackerVC: UIViewController {
 
 	@objc fileprivate func plusPressed() {
 		Haptics.tap()
-		pokemon.encounters += pokemon.increment
-		resolveEncounterDetails()
-		pokemonService.save(pokemon: pokemon)
+		changeEncounters(.increment)
 	}
 
 	@objc fileprivate func minusPressed() {
 		guard pokemon.encounters > 0 else { return }
 		Haptics.tap()
-		pokemon.encounters -= 1
+		changeEncounters(.decrement)
+	}
+
+	fileprivate func changeEncounters(_ change: ChangeEncountersCommand.Change) {
+		container.changeEncounters.handle(ChangeEncountersCommand(number: pokemon.number, change: change))
+		reloadPokemon()
 		resolveEncounterDetails()
-		pokemonService.save(pokemon: pokemon)
 	}
 
 	@objc fileprivate func addToHuntPressed() {
-		let picker = HuntPickerModalVC(pokemon: pokemon) { [weak self] huntName in
+		let picker = HuntPickerModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] huntName in
 			guard let self = self else { return }
+			self.reloadPokemon()
 			self.addToHuntButton.isEnabled = self.addToHuntButtonIsEnabled()
 			self.popupHandler.showPopup(text: "\(self.pokemon.name) was added to \(huntName).")
 		}
@@ -318,7 +299,7 @@ class ShinyTrackerVC: UIViewController {
 	}
 
 	@objc fileprivate func infoButtonPressed() {
-		let gameSettings = GameSettingsModalVC(pokemon: pokemon) { [weak self] in
+		let gameSettings = GameSettingsModalVC(container: container, pokemon: pokemon) { [weak self] in
 			self?.gameSettingsChanged()
 		}
 		present(gameSettings.inSheet(), animated: true)
@@ -333,33 +314,34 @@ class ShinyTrackerVC: UIViewController {
 						 keyboardType: .numberPad,
 						 isValid: { Int($0).map { (0...maximum).contains($0) } ?? false }) { [weak self] value in
 			guard let self = self, let encounters = Int(value) else { return }
-			self.pokemon.encounters = encounters
-			self.pokemonService.save(pokemon: self.pokemon)
-			self.resolveEncounterDetails()
+			self.changeEncounters(.set(encounters))
 		}
 	}
 
 	@objc fileprivate func incrementButtonPressed() {
-		let incrementPicker = IncrementVC(pokemon: pokemon) { [weak self] in
+		let incrementPicker = IncrementVC(container: container, number: pokemon.number, increment: pokemon.increment) { [weak self] in
+			self?.reloadPokemon()
 			self?.setIncrementImage()
 		}
 		present(incrementPicker.inSheet(), animated: true)
 	}
 
 	@objc fileprivate func changeCaughtButtonPressed() {
-		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] _ in
+		let picker = PokeballModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] _ in
+			self?.reloadPokemon()
 			self?.setCaughtStatus()
 		}
 		present(picker.inSheet(), animated: true)
 	}
 
 	@objc fileprivate func locationButtonPressed() {
-		navigationController?.pushViewController(LocationVC(pokemon: pokemon), animated: true)
+		guard let url = container.getLocationLink.handle(GetLocationLinkQuery(number: pokemon.number)) else { return }
+		navigationController?.pushViewController(LocationVC(url: url), animated: true)
 	}
 
 	fileprivate func gameSettingsChanged() {
+		reloadPokemon()
 		setMethodImage()
-		setMethodDecrement()
 		resolveEncounterDetails()
 		setOddsLabelText()
 	}

@@ -6,14 +6,17 @@ class HuntPickerModalVC: UITableViewController {
 		case hunts
 	}
 
-	fileprivate let pokemon: Pokemon
+	fileprivate let container: AppContainer
+	fileprivate let number: Int
+	fileprivate let pokemonName: String
 	fileprivate let onPick: (String) -> Void
-	fileprivate var hunts = [Hunt]()
-	fileprivate let huntService = HuntService()
+	fileprivate var hunts = [HuntSummary]()
 	fileprivate let newHuntCell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
 
-	init(pokemon: Pokemon, onPick: @escaping (_ huntName: String) -> Void) {
-		self.pokemon = pokemon
+	init(container: AppContainer, number: Int, pokemonName: String, onPick: @escaping (_ huntName: String) -> Void) {
+		self.container = container
+		self.number = number
+		self.pokemonName = pokemonName
 		self.onPick = onPick
 		super.init(style: .insetGrouped)
 	}
@@ -26,7 +29,7 @@ class HuntPickerModalVC: UITableViewController {
 		super.viewDidLoad()
 		title = "Add to hunt"
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
-		hunts = huntService.getAll()
+		hunts = container.getHunts.handle(GetHuntsQuery())
 
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey700
@@ -46,7 +49,7 @@ class HuntPickerModalVC: UITableViewController {
 		newHuntCell.textLabel?.text = "New hunt"
 		newHuntCell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 		newHuntCell.textLabel?.textColor = Color.Orange500
-		newHuntCell.detailTextLabel?.text = "Start a new hunt with \(pokemon.name)"
+		newHuntCell.detailTextLabel?.text = "Start a new hunt with \(pokemonName)"
 		newHuntCell.detailTextLabel?.font = UIFont.systemFont(ofSize: 15)
 		newHuntCell.detailTextLabel?.textColor = Color.Grey400
 		newHuntCell.accessibilityTraits = .button
@@ -89,18 +92,18 @@ class HuntPickerModalVC: UITableViewController {
 			return
 		}
 		let hunt = hunts[indexPath.row]
-		huntService.add(pokemon: pokemon, to: hunt)
+		container.addPokemonToHunt.handle(AddPokemonToHuntCommand(huntId: hunt.id, number: number))
 		finish(huntName: hunt.name)
 	}
 
 	fileprivate func presentNewHuntNaming() {
 		presentTextInput(title: "New hunt",
-						 message: "\(pokemon.name) will be added to it.",
-						 text: "\(pokemon.name) hunt",
+						 message: "\(pokemonName) will be added to it.",
+						 text: "\(pokemonName) hunt",
 						 placeholder: "Hunt name",
 						 saveTitle: "Create") { [weak self] name in
 			guard let self = self else { return }
-			self.huntService.createHunt(named: name, with: [self.pokemon])
+			self.container.createHunt.handle(CreateHuntCommand(name: name, pokemonNumbers: [self.number]))
 			self.finish(huntName: name)
 		}
 	}

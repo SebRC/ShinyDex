@@ -30,17 +30,23 @@ class CatchDetailTVC: UITableViewController {
 		var isSymbol = false
 	}
 
-	fileprivate let caught: Catch
-	fileprivate var pokemon: Pokemon
+	fileprivate let container: AppContainer
+	fileprivate let catchId: CatchID
+	fileprivate var details: CatchDetails
+	fileprivate var caught: CatchSummary {
+		return details.summary
+	}
+	fileprivate lazy var ballGrid = BallGrid(container: container)
 	fileprivate var trainingRows = [TrainingRow]()
-	fileprivate let catchService = CatchService()
 	fileprivate let cellIdentifier = "catchDetailCell"
 	fileprivate var rows = [Row]()
 	fileprivate var positionText: String?
 
-	init(caught: Catch, pokemon: Pokemon) {
-		self.caught = caught
-		self.pokemon = pokemon
+	init?(container: AppContainer, catchId: CatchID) {
+		guard let details = container.getCatchDetails.handle(GetCatchDetailsQuery(catchId: catchId)) else { return nil }
+		self.container = container
+		self.catchId = catchId
+		self.details = details
 		super.init(style: .insetGrouped)
 	}
 
@@ -50,7 +56,7 @@ class CatchDetailTVC: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = caught.isFailed ? "\(pokemon.name) (got away)" : pokemon.name
+		title = caught.isFailed ? "\(caught.pokemonName) (got away)" : caught.pokemonName
 		navigationItem.largeTitleDisplayMode = .never
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey700
@@ -69,6 +75,9 @@ class CatchDetailTVC: UITableViewController {
 	}
 
 	fileprivate func reloadRows() {
+		if let updated = container.getCatchDetails.handle(GetCatchDetailsQuery(catchId: catchId)) {
+			details = updated
+		}
 		let gameCover = GamesList.games[caught.game].flatMap { UIImage(named: $0.coverPokemon) }
 		rows = [
 			Row(field: .ball, title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
@@ -81,13 +90,12 @@ class CatchDetailTVC: UITableViewController {
 			rows.removeAll { $0.field == .ball }
 		}
 		trainingRows = caught.isFailed ? [] : [.evs]
-		if (!caught.isFailed && !AppContainer.shared.evolutions.evolutionTargets(of: pokemon.number).isEmpty) {
+		if (!caught.isFailed && !details.evolutionTargets.isEmpty) {
 			trainingRows.append(.evolve)
 		}
-		title = caught.isFailed ? "\(pokemon.name) (got away)" : pokemon.name
-		let speciesCatches = caught.isFailed ? [] : catchService.getCatches(for: pokemon)
-		if speciesCatches.count > 1, let position = speciesCatches.firstIndex(where: { $0.id == caught.id }) {
-			positionText = "Catch \(position + 1) of \(speciesCatches.count)"
+		title = caught.isFailed ? "\(caught.pokemonName) (got away)" : caught.pokemonName
+		if let position = details.position {
+			positionText = "Catch \(position + 1) of \(details.speciesCatchCount)"
 		}
 		else {
 			positionText = nil
@@ -95,39 +103,15 @@ class CatchDetailTVC: UITableViewController {
 		tableView.reloadData()
 	}
 
-	fileprivate func save(_ changes: (Catch) -> Void) {
-		catchService.update(caught: caught, pokemon: pokemon, applying: changes)
+	fileprivate func save(_ change: UpdateCatchCommand.Change) {
+		try? container.updateCatch.handle(UpdateCatchCommand(catchId: catchId, change: change))
 		reloadRows()
 	}
 
 	// MARK: Odds and luck
 
-	fileprivate var huntOdds: Int? {
-		let game = GamesList.games[caught.game]
-		let generation = game?.generation ?? 0
-		let charm = caught.isShinyCharmActive
-		if (caught.game == .LetsGoPikachu || caught.game == .LetsGoEevee) {
-			return nil
-		}
-		switch caught.huntMethod {
-		case .Gen2Breeding:
-			return Gen2BreedingOddsService().getOdds()
-		case .Masuda:
-			return MasudaOddsService().getOdds(generation: generation, isCharmActive: charm)
-		case .FriendSafari:
-			return FriendSafariOddsService().getOdds(isShinyCharmActive: charm)
-		case .Encounters:
-			if (generation < 5) { return 8192 }
-			if (generation == 5) { return charm ? 2731 : 8192 }
-			return charm ? 1365 : 4096
-		default:
-			return nil
-		}
-	}
-
 	fileprivate var luckText: String? {
-		guard let odds = huntOdds, caught.encounters > 0 else { return nil }
-		let chance = Double.getProbability(encounters: caught.encounters, odds: odds)
+		guard let chance = details.chanceOfFindingSooner else { return nil }
 		if (chance <= 50) {
 			return "Luckier than \(Int((100 - chance).rounded()))% of hunts at these odds"
 		}
@@ -177,14 +161,14 @@ class CatchDetailTVC: UITableViewController {
 		case .hero:
 			let cell = tableView.dequeueReusableCell(withIdentifier: CatchHeroCell.reuseIdentifier, for: indexPath) as! CatchHeroCell
 			let verb = caught.isFailed ? "Found" : "Caught"
-			cell.configure(pokemon: pokemon,
+			cell.configure(pokemonName: caught.pokemonName,
 						   dateText: caught.formattedCaughtDate.map { "\(verb) \($0)" } ?? "Logged before catch history",
 						   positionText: positionText,
 						   isFailed: caught.isFailed)
 			return cell
 		case .stats:
 			let cell = tableView.dequeueReusableCell(withIdentifier: CatchStatsCell.reuseIdentifier, for: indexPath) as! CatchStatsCell
-			cell.configure(encounters: caught.encounters.grouped, odds: huntOdds.map { "1/\($0.grouped)" } ?? "Varies", luck: luckText)
+			cell.configure(encounters: caught.encounters.grouped, odds: details.odds.map { "1/\($0.grouped)" } ?? "Varies", luck: luckText)
 			return cell
 		case .training:
 			return trainingCell(for: trainingRows[indexPath.row])
@@ -212,16 +196,14 @@ class CatchDetailTVC: UITableViewController {
 			cell.imageView?.image = UIImage.symbol("bolt.fill", pointSize: 18, weight: .medium)?.padded(to: iconSize)
 		case .evolve:
 			cell.textLabel?.text = "Evolve"
-			let names = AppContainer.shared.evolutions.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0]?.name }
-			let origin = caught.evolvedFrom.flatMap { allPokemon[safe: $0]?.name }.map { "Caught as \($0) · " } ?? ""
+			let names = details.evolutionTargets.map { $0.name }
+			let origin = details.evolvedFromName.map { "Caught as \($0) · " } ?? ""
 			cell.detailTextLabel?.text = origin + names.joined(separator: ", ")
 			cell.imageView?.image = UIImage.symbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: iconSize)
 		}
 		cell.imageView?.tintColor = Color.Orange500
 		return cell
 	}
-
-	fileprivate lazy var allPokemon = PokemonService().getAll()
 
 	fileprivate func detailCell(for row: Row) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
@@ -251,7 +233,7 @@ class CatchDetailTVC: UITableViewController {
 		if (Section(rawValue: indexPath.section) == .training) {
 			switch trainingRows[indexPath.row] {
 			case .evs:
-				navigationController?.pushViewController(EVTrainingVC(caught: caught, pokemon: pokemon), animated: true)
+				navigationController?.pushViewController(EVTrainingVC(container: container, caught: caught), animated: true)
 			case .evolve:
 				showEvolvePicker()
 			}
@@ -269,7 +251,7 @@ class CatchDetailTVC: UITableViewController {
 			showEncountersEditor()
 		case .caughtDate:
 			present(CatchDatePickerVC.inNavigationController(initialDate: caught.caughtDate) { [weak self] date in
-				self?.save { $0.caughtDate = date }
+				self?.save(.caughtDate(date))
 			}, animated: true)
 		}
 	}
@@ -277,16 +259,16 @@ class CatchDetailTVC: UITableViewController {
 	// MARK: Evolve
 
 	fileprivate func showEvolvePicker() {
-		let targets = AppContainer.shared.evolutions.evolutionTargets(of: pokemon.number).compactMap { allPokemon[safe: $0] }
+		let targets = details.evolutionTargets
 		let items = targets.map { IconGridItem(title: $0.name, image: UIImage(named: $0.name.lowercased())) }
-		showPicker(title: "Evolve", caption: "Evolve \(pokemon.name) into", items: items, columns: 3, currentIndex: nil) { [weak self] index in
+		showPicker(title: "Evolve", caption: "Evolve \(caught.pokemonName) into", items: items, columns: 3, currentIndex: nil) { [weak self] index in
 			self?.confirmEvolve(into: targets[index])
 		}
 	}
 
-	fileprivate func confirmEvolve(into target: Pokemon) {
+	fileprivate func confirmEvolve(into target: NamedPokemon) {
 		let alert = UIAlertController(title: "Evolve into \(target.name)?",
-									  message: "This \(pokemon.name)'s ball, game, method, encounters, date and EVs move to \(target.name). You can change it back later.",
+									  message: "This \(caught.pokemonName)'s ball, game, method, encounters, date and EVs move to \(target.name). You can change it back later.",
 									  preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 		alert.addAction(UIAlertAction(title: "Evolve", style: .default) { [weak self] _ in
@@ -296,19 +278,19 @@ class CatchDetailTVC: UITableViewController {
 		present(alert, animated: true)
 	}
 
-	fileprivate func evolve(into target: Pokemon) {
-		guard catchService.evolve(caught: caught, from: pokemon, into: target) else { return }
+	fileprivate func evolve(into target: NamedPokemon) {
+		guard (try? container.evolveCatch.handle(EvolveCatchCommand(catchId: catchId, targetNumber: target.number))) != nil else { return }
 		Haptics.success()
-		let previousName = pokemon.name
-		pokemon = target
+		let previousName = caught.pokemonName
 		reloadRows()
 		PopupHandler().showPopup(text: "\(previousName) evolved into \(target.name)!")
 	}
 
 
 	fileprivate func showBallPicker() {
-		showPicker(title: "Ball", caption: "Caught in", items: BallGrid.items, columns: 4, currentIndex: BallGrid.index(of: caught.caughtBall)) { [weak self] index in
-			self?.save { $0.caughtBall = BallGrid.ballNames[index] }
+		showPicker(title: "Ball", caption: "Caught in", items: ballGrid.items, columns: 4, currentIndex: ballGrid.index(of: caught.caughtBall)) { [weak self] index in
+			guard let self = self else { return }
+			self.save(.ball(self.ballGrid.ballNames[index]))
 		}
 	}
 
@@ -316,7 +298,7 @@ class CatchDetailTVC: UITableViewController {
 		let games = Games.allCases
 		let items = games.map { IconGridItem(title: $0.displayName, image: GamesList.games[$0].flatMap { UIImage(named: $0.coverPokemon) }) }
 		showPicker(title: "Game", caption: "Caught in", items: items, columns: 3, currentIndex: games.firstIndex(of: caught.game)) { [weak self] index in
-			self?.save { $0.game = games[index] }
+			self?.save(.game(games[index]))
 		}
 	}
 
@@ -327,7 +309,7 @@ class CatchDetailTVC: UITableViewController {
 		}
 		let items = methods.map { IconGridItem(title: $0.rawValue, image: UIImage(named: $0.rawValue)) }
 		showPicker(title: "Method", caption: "Methods in \(caught.game.displayName)", items: items, columns: 3, currentIndex: methods.firstIndex(of: caught.huntMethod)) { [weak self] index in
-			self?.save { $0.huntMethod = methods[index] }
+			self?.save(.huntMethod(methods[index]))
 		}
 	}
 
@@ -344,10 +326,11 @@ class CatchDetailTVC: UITableViewController {
 		}
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 		alert.addAction(UIAlertAction(title: "Save", style: .default) { [weak self, weak alert] _ in
-			guard let text = alert?.textFields?.first?.text, let encounters = CatchRules.encounters(from: text) else {
+			guard let text = alert?.textFields?.first?.text,
+				  let encounters = Int(text.trimmingCharacters(in: .whitespaces)), encounters >= 0 else {
 				return
 			}
-			self?.save { $0.encounters = encounters }
+			self?.save(.encounters(encounters))
 		})
 		present(alert, animated: true)
 	}
@@ -453,24 +436,24 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		glowLayer.frame = glowView.bounds
 	}
 
-	func configure(pokemon: Pokemon, dateText: String, positionText: String?, isFailed: Bool) {
+	func configure(pokemonName: String, dateText: String, positionText: String?, isFailed: Bool) {
 		badge.backgroundColor = isFailed ? Color.Grey600 : Color.Orange500
 		badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
 		badgeLabel.textColor = isFailed ? Color.Grey100 : Color.Grey900
 		badgeIcon.image = UIImage(systemName: isFailed ? "wind" : PokemonCell.logCatchSymbol)
 		badgeIcon.tintColor = badgeLabel.textColor
 		glowView.isHidden = isFailed
-		if let gif = NSDataAsset(name: pokemon.name) {
+		if let gif = NSDataAsset(name: pokemonName) {
 			animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: gif.data)
 		}
 		else {
-			animatedImageView.image = UIImage(named: pokemon.name.lowercased())
+			animatedImageView.image = UIImage(named: pokemonName.lowercased())
 		}
-		nameLabel.text = pokemon.name
+		nameLabel.text = pokemonName
 		dateLabel.text = dateText
 		positionLabel.text = positionText
 		positionLabel.isHidden = positionText == nil
-		accessibilityLabel = [isFailed ? "Shiny \(pokemon.name) that got away" : "Shiny \(pokemon.name)", dateText, positionText].compactMap { $0 }.joined(separator: ", ")
+		accessibilityLabel = [isFailed ? "Shiny \(pokemonName) that got away" : "Shiny \(pokemonName)", dateText, positionText].compactMap { $0 }.joined(separator: ", ")
 	}
 }
 

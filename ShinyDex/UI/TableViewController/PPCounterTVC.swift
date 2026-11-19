@@ -6,13 +6,14 @@ class PPCounterTVC: UITableViewController {
 		case moves
 	}
 
-	fileprivate let moveService = MoveService()
+	fileprivate let container: AppContainer
 	fileprivate let pressureSwitch = UISwitch()
 	fileprivate let pressureCell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-	fileprivate var activeMoves = [ActiveMove]()
+	fileprivate var activeMoves = [MoveSlot]()
 	fileprivate var restoreAllButton: UIBarButtonItem!
 
-	init() {
+	init(container: AppContainer) {
+		self.container = container
 		super.init(style: .insetGrouped)
 	}
 
@@ -23,10 +24,13 @@ class PPCounterTVC: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "PP Counter"
-		activeMoves = moveService.getAll()
-		for move in activeMoves where move.remainingPP > move.maxPP {
-			move.remainingPP = move.maxPP
+		let moveSet = container.getActiveMoves.handle(GetActiveMovesQuery())
+		activeMoves = moveSet.slots.map { slot in
+			var clamped = slot
+			clamped.remainingPP = min(slot.remainingPP, slot.maxPP)
+			return clamped
 		}
+		pressureSwitch.isOn = moveSet.pressureActive
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey700
 		tableView.rowHeight = UITableView.automaticDimension
@@ -50,7 +54,6 @@ class PPCounterTVC: UITableViewController {
 		pressureCell.imageView?.image = UIImage.symbol("bolt.fill", pointSize: 20)
 		pressureCell.imageView?.tintColor = Color.Orange500
 		pressureSwitch.onTintColor = Color.Orange500
-		pressureSwitch.isOn = moveService.getIsPressureActive()
 		pressureSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
 		pressureCell.accessoryView = pressureSwitch
 	}
@@ -95,9 +98,9 @@ class PPCounterTVC: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let picker = MovePickerModalTVC(activeMoves: activeMoves, selectedActiveMoveIndex: indexPath.row) { [weak self] in
+		let picker = MovePickerModalTVC(container: container, moves: ActiveMoveSet(slots: activeMoves, pressureActive: pressureSwitch.isOn), selectedActiveMoveIndex: indexPath.row) { [weak self] in
 			guard let self = self else { return }
-			self.activeMoves = self.moveService.getAll()
+			self.activeMoves = self.container.getActiveMoves.handle(GetActiveMovesQuery()).slots
 			self.tableView.reloadSections(IndexSet(integer: Section.moves.rawValue), with: .automatic)
 			self.updateRestoreAllButton()
 		}
@@ -106,8 +109,8 @@ class PPCounterTVC: UITableViewController {
 
 	fileprivate func changePP(at index: Int, by amount: Int) {
 		Haptics.tap()
+		activeMoves[index].remainingPP = min(activeMoves[index].maxPP, max(0, activeMoves[index].remainingPP + amount))
 		let move = activeMoves[index]
-		move.remainingPP = min(move.maxPP, max(0, move.remainingPP + amount))
 		save()
 		let indexPath = IndexPath(row: index, section: Section.moves.rawValue)
 		(tableView.cellForRow(at: indexPath) as? MoveCell)?.configure(move: move)
@@ -123,8 +126,8 @@ class PPCounterTVC: UITableViewController {
 									   message: "Every move goes back to full PP.",
 									   destructiveTitle: "Restore") { [weak self] in
 			guard let self = self else { return }
-			for move in self.activeMoves {
-				move.remainingPP = move.maxPP
+			for index in self.activeMoves.indices {
+				self.activeMoves[index].remainingPP = self.activeMoves[index].maxPP
 			}
 			self.save()
 			self.tableView.reloadSections(IndexSet(integer: Section.moves.rawValue), with: .none)
@@ -133,7 +136,7 @@ class PPCounterTVC: UITableViewController {
 	}
 
 	fileprivate func save() {
-		moveService.save(activeMoves: activeMoves, pressureActive: pressureSwitch.isOn)
+		container.saveActiveMoves.handle(SaveActiveMovesCommand(moves: ActiveMoveSet(slots: activeMoves, pressureActive: pressureSwitch.isOn)))
 	}
 
 	@objc fileprivate func switchPressed() {

@@ -32,10 +32,10 @@ class ProbabilityServiceTests: XCTestCase {
 
 		// Act + Assert
 		for entry in entries {
-			let pokemon = Pokemon()
+			let pokemon = PokemonFixture()
 			pokemon.huntMethod = entry.key
 			pokemon.encounters = 0
-			let actualText = probabilityService.getProbabilityText(probability: 0.0, pokemon: pokemon, methodDecrement: entry.value)
+			let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: entry.value, probability: 0.0))
 			XCTAssertEqual(actualText, "Chain \(entry.value) to see probability")
 		}
 	}
@@ -43,13 +43,13 @@ class ProbabilityServiceTests: XCTestCase {
 	func test_generationIs0_returnsChainText() {
 		// Arrange
 		let methodDecrement = 30
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.huntMethod = .Encounters
 		pokemon.generation = 0
 		pokemon.encounters = 0
 
 		// Act
-		let actualText = probabilityService.getProbabilityText(probability: 0.0, pokemon: pokemon, methodDecrement: methodDecrement)
+		let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: methodDecrement, probability: 0.0))
 
 		// Assert
 		XCTAssertEqual(actualText, "Chain \(methodDecrement) to see probability")
@@ -63,22 +63,22 @@ class ProbabilityServiceTests: XCTestCase {
 
 		// Act + Assert
 		for entry in entries {
-			let pokemon = Pokemon()
+			let pokemon = PokemonFixture()
 			pokemon.huntMethod = entry.key
 			pokemon.encounters = 50
-			let actualText = probabilityService.getProbabilityText(probability: probability, pokemon: pokemon, methodDecrement: entry.value)
+			let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: entry.value, probability: probability))
 			XCTAssertEqual(actualText, "Probability: \(probability)")
 		}
 	}
 
 	func test_dexNavBelowDecrement_returnsSearchLevelText() {
 		// Arrange
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.huntMethod = .DexNav
 		pokemon.encounters = 50
 
 		// Act
-		let actualText = probabilityService.getProbabilityText(probability: 0.00, pokemon: pokemon, methodDecrement: 999)
+		let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: 999, probability: 0.00))
 
 		// Assert
 		XCTAssertEqual(actualText, "Reach Search level 999 to see probability")

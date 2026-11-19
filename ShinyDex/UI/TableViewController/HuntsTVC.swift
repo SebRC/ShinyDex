@@ -1,21 +1,36 @@
 import UIKit
 
 class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-	var pokemonService = PokemonService()
-	var huntService = HuntService()
-	var totalEncounters = 0
+	fileprivate let container: AppContainer
 	var popupHandler = PopupHandler()
-	var hunts = [Hunt]()
+	fileprivate var hunts = [HuntSummary]()
+
+	fileprivate var totalEncounters: Int {
+		return hunts.reduce(0) { $0 + $1.totalEncounters }
+	}
 
 	fileprivate let createHuntButton = UIButton(type: .system)
 	fileprivate let rearrangeHuntsButton = UIButton.symbolButton("arrow.up.arrow.down", pointSize: 18)
 	fileprivate let tableView = UITableView(frame: .zero, style: .insetGrouped)
 	fileprivate var clearCurrentHuntButton: UIBarButtonItem!
 
+	init(container: AppContainer) {
+		self.container = container
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	fileprivate func reloadHunts() {
+		hunts = container.getHunts.handle(GetHuntsQuery())
+	}
+
 	override func viewDidLoad() {
         super.viewDidLoad()
 
-		hunts = huntService.getAll()
+		reloadHunts()
 		layOutViews()
 		tableView.register(CurrentHuntCell.self, forCellReuseIdentifier: CurrentHuntCell.reuseIdentifier)
 		tableView.rowHeight = UITableView.automaticDimension
@@ -74,7 +89,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		hunts = huntService.getAll()
+		reloadHunts()
 		setColors()
 		setEncounters()
 		reloadData()
@@ -98,7 +113,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	fileprivate func setEncounters() {
-		totalEncounters = resolveCurrentEncounters()
 		updateSummary()
 	}
 
@@ -129,18 +143,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 												  message: "Tap Create Hunt, or add a Pokémon from the Pokédex, to start counting encounters.")
 	}
 	
-	fileprivate func resolveCurrentEncounters() -> Int {
-		var encounters = 0
-		for hunt in hunts {
-			hunt.totalEncounters = 0
-			for pokemon in hunt.pokemon {
-				encounters += pokemon.encounters
-				hunt.totalEncounters += pokemon.encounters
-			}
-		}
-		return encounters
-	}
-
 	func numberOfSections(in tableView: UITableView) -> Int	{
 		return hunts.count
 	}
@@ -149,7 +151,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		if (hunts[section].isCollapsed) {
 			return 0
 		}
-		return hunts[section].pokemon.count
+		return hunts[section].members.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,7 +165,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 			self.decrementEncounters(at: indexPath)
 		}
 		
-		cell.configure(pokemon: hunts[indexPath.section].pokemon[indexPath.row])
+		cell.configure(pokemon: hunts[indexPath.section].members[indexPath.row])
         return cell
     }
 
@@ -171,17 +173,16 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HuntHeaderView.reuseIdentifier) as! HuntHeaderView
 		let hunt = hunts[section]
 		header.configure(hunt: hunt)
-		header.onToggleCollapse = { [weak self, weak hunt] in
-			guard let self = self, let hunt = hunt, let index = self.hunts.firstIndex(where: { $0 === hunt }) else { return }
+		header.onToggleCollapse = { [weak self] in
+			guard let self = self, let index = self.hunts.firstIndex(where: { $0.id == hunt.id }) else { return }
 			self.collapseSection(index)
 		}
-		header.onIncrementAll = { [weak self, weak hunt] in
-			guard let self = self, let hunt = hunt, let index = self.hunts.firstIndex(where: { $0 === hunt }) else { return }
+		header.onIncrementAll = { [weak self] in
+			guard let self = self, let index = self.hunts.firstIndex(where: { $0.id == hunt.id }) else { return }
 			self.incrementAllInHunt(index)
 		}
-		header.onRename = { [weak self, weak hunt] in
-			guard let self = self, let hunt = hunt else { return }
-			self.presentRename(hunt: hunt)
+		header.onRename = { [weak self] in
+			self?.presentRename(hunt: hunt)
 		}
 		return header
 	}
@@ -195,130 +196,89 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	}
 
 	fileprivate func collapseSection(_ section: Int) {
-
-		func indexPathsForSection() -> [IndexPath] {
-			var indexPaths = [IndexPath]()
-
-			for row in 0..<hunts[section].pokemon.count {
-				indexPaths.append(IndexPath(row: row, section: section))
-			}
-			return indexPaths
-		}
-		if (hunts[section].isCollapsed) {
-			hunts[section].isCollapsed = false
-            tableView.insertRows(at: indexPathsForSection(), with: .automatic)
+		let hunt = hunts[section]
+		let indexPaths = hunt.members.indices.map { IndexPath(row: $0, section: section) }
+		container.updateHunt.handle(UpdateHuntCommand(huntId: hunt.id, change: .setCollapsed(!hunt.isCollapsed)))
+		reloadHunts()
+		if (hunt.isCollapsed) {
+			tableView.insertRows(at: indexPaths, with: .automatic)
 		}
 		else {
-			hunts[section].isCollapsed = true
-			tableView.deleteRows(at: indexPathsForSection(), with: .automatic)
+			tableView.deleteRows(at: indexPaths, with: .automatic)
 		}
-		huntService.save(hunt: hunts[section])
 		reloadData(duration: 0.2)
 	}
-    
-	fileprivate func presentRename(hunt: Hunt) {
+
+	fileprivate func presentRename(hunt: HuntSummary) {
 		presentTextInput(title: "Rename hunt", text: hunt.name, placeholder: "Hunt name") { [weak self] name in
 			guard let self = self else { return }
-			hunt.name = name
-			self.huntService.save(hunt: hunt)
+			self.container.updateHunt.handle(UpdateHuntCommand(huntId: hunt.id, change: .rename(name)))
+			self.reloadHunts()
 			self.tableView.reloadData()
 		}
 	}
 
 	fileprivate func incrementAllInHunt(_ section: Int) {
-		let hunt = hunts[section]
-		var totalIncremented = 0
-		for pokemon in hunt.pokemon {
-			pokemon.encounters += pokemon.increment
-			totalIncremented += pokemon.increment
-			pokemonService.save(pokemon: pokemon)
-		}
-		totalEncounters += totalIncremented
-		hunt.totalEncounters += totalIncremented
+		container.incrementAllInHunt.handle(IncrementAllInHuntCommand(huntId: hunts[section].id))
+		reloadHunts()
 		updateSummary()
 		reloadData(duration: 0.2)
 	}
 
 	fileprivate func decrementEncounters(at indexPath: IndexPath) {
-		let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-		guard pokemon.encounters > 0 else { return }
+		guard hunts[indexPath.section].members[indexPath.row].encounters > 0 else { return }
 		Haptics.tap()
-		hunts[indexPath.section].totalEncounters -= 1
-		pokemon.encounters -= 1
-		totalEncounters -= 1
-		updateSummary()
-		reloadSectionKeepingHeader(indexPath)
-		pokemonService.save(pokemon: pokemon)
+		changeEncounters(at: indexPath, .decrement)
 	}
-	
+
 	fileprivate func incrementEncounters(at indexPath: IndexPath) {
-		let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-		let increment = pokemon.increment
 		Haptics.tap()
-		hunts[indexPath.section].totalEncounters += increment
-		pokemon.encounters += increment
-		totalEncounters += increment
+		changeEncounters(at: indexPath, .increment)
+	}
+
+	fileprivate func changeEncounters(at indexPath: IndexPath, _ change: ChangeEncountersCommand.Change) {
+		let number = hunts[indexPath.section].members[indexPath.row].number
+		container.changeEncounters.handle(ChangeEncountersCommand(number: number, change: change))
+		reloadHunts()
 		updateSummary()
 		reloadSectionKeepingHeader(indexPath)
-		pokemonService.save(pokemon: pokemon)
 	}
 
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-			let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
-				let currentHunt = self.hunts[indexPath.section]
-				let pokemonNumber = currentHunt.pokemon[indexPath.row].number
-				self.totalEncounters -= currentHunt.pokemon[indexPath.row].encounters
-				currentHunt.totalEncounters -= currentHunt.pokemon[indexPath.row].encounters
-				currentHunt.pokemon[indexPath.row].isBeingHunted = false
-				self.pokemonService.save(pokemon: currentHunt.pokemon[indexPath.row])
-				currentHunt.pokemon.remove(at: indexPath.row)
-				currentHunt.indexes.removeAll{$0 == pokemonNumber}
+		let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completionHandler) in
+			guard let self = self else { return }
+			let hunt = self.hunts[indexPath.section]
+			self.container.removePokemonFromHunt.handle(RemovePokemonFromHuntCommand(huntId: hunt.id, number: hunt.members[indexPath.row].number))
+			self.reloadHunts()
+			if (self.hunts.contains { $0.id == hunt.id }) {
 				tableView.deleteRows(at: [indexPath], with: .fade)
-				self.updateSummary()
-
-				if (currentHunt.pokemon.isEmpty) {
-					self.removeHunt(currentHunt, indexPath.section)
-					self.updateHuntPriorities()
-				}
-				else {
-					self.huntService.save(hunt: self.hunts[indexPath.section])
-				}
-
-				self.reloadData()
-				completionHandler(true)
 			}
-			deleteAction.title = "Remove"
-			deleteAction.image = UIImage(systemName: "minus.circle.fill")
-			deleteAction.backgroundColor = .systemRed
-			return UISwipeActionsConfiguration(actions: [deleteAction])
-	}
-
-	fileprivate func removeHunt(_ hunt: Hunt, _ section: Int) {
-		huntService.delete(hunt: hunt)
-		hunts.remove(at: section)
-	}
-
-	fileprivate func updateHuntPriorities() {
-		var counter = 0
-		for hunt in hunts.sorted(by: { $0.priority < $1.priority}) {
-			hunt.priority = counter
-			huntService.save(hunt: hunt)
-			counter += 1
+			else {
+				tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+			}
+			self.updateSummary()
+			self.setClearHuntButtonState()
+			self.setRearrangeButtonState()
+			self.reloadData()
+			completionHandler(true)
 		}
-		setClearHuntButtonState()
-		setRearrangeButtonState()
+		deleteAction.title = "Remove"
+		deleteAction.image = UIImage(systemName: "minus.circle.fill")
+		deleteAction.backgroundColor = .systemRed
+		return UISwipeActionsConfiguration(actions: [deleteAction])
 	}
-	
+
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		navigationController?.pushViewController(ShinyTrackerVC(pokemon: hunts[indexPath.section].pokemon[indexPath.row]), animated: true)
+		guard let tracker = ShinyTrackerVC(container: container, number: hunts[indexPath.section].members[indexPath.row].number) else { return }
+		navigationController?.pushViewController(tracker, animated: true)
 	}
 	
 	@objc fileprivate func clearCurrentHuntPressed() {
 		presentDestructiveConfirmation(title: "Clear all hunts?",
 									   message: "Every hunt will be removed. Encounter counts are kept on each Pokémon.",
 									   destructiveTitle: "Clear Hunts") { [weak self] in
-			self?.huntService.clear()
+			self?.container.clearHunts.handle(ClearHuntsCommand())
 			self?.clearAllHunts()
 		}
 	}
@@ -329,12 +289,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	
 	fileprivate func clearAllHunts() {
 		clearCurrentHuntButton.isEnabled = false
-		for hunt in hunts {
-			for pokemon in hunt.pokemon {
-				pokemon.isBeingHunted = false
-				pokemonService.save(pokemon: pokemon)
-			}
-		}
 		hunts.removeAll()
 		reloadData()
 		setEncounters()
@@ -342,7 +296,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	}
 
 	fileprivate func huntsChanged() {
-		hunts = huntService.getAll()
+		reloadHunts()
 		reloadData()
 		setEncounters()
 		setClearHuntButtonState()
@@ -350,15 +304,15 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	}
 
 	@objc fileprivate func createHuntButtonPressed() {
-		let createHunt = PokemonPickerModalVC(configuration: .hunt) { [weak self] name, picked in
-			self?.huntService.createHunt(named: name, with: picked)
+		let createHunt = PokemonPickerModalVC(container: container, configuration: .hunt) { [weak self] name, picked in
+			self?.container.createHunt.handle(CreateHuntCommand(name: name, pokemonNumbers: picked.map { $0.number }))
 			self?.huntsChanged()
 		}
 		present(createHunt.inSheet(), animated: true)
 	}
 
 	@objc fileprivate func rearrangePressed() {
-		let rearrange = RearrangeHuntsTVC { [weak self] in
+		let rearrange = RearrangeHuntsTVC(container: container) { [weak self] in
 			self?.huntsChanged()
 		}
 		present(rearrange.inSheet(), animated: true)

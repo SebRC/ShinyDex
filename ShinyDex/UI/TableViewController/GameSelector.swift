@@ -39,23 +39,11 @@ enum GameSelector {
 		GamesList.games[Games.Scarlet],
 		GamesList.games[Games.Violet]].compactMap { $0 }
 
-	static func make(pokemon: Pokemon, selectedGame: Game?, onSelect: @escaping (Game) -> Void) -> GridPickerVC {
+	static func make(selectedGame: Games, onSelect: @escaping (Games) -> Void) -> GridPickerVC {
 		let items = games.map { IconGridItem(title: $0.displayTitle, image: UIImage(named: $0.coverPokemon)) }
-		let currentIndex = games.firstIndex { $0.title == selectedGame?.title }
+		let currentIndex = games.firstIndex { $0.title == selectedGame.rawValue }
 		return GridPickerVC(title: "Game", caption: "Hunting in", items: items, columns: 3, currentIndex: currentIndex) { index in
-			let game = games[index]
-			pokemon.game = Games(rawValue: game.title) ?? Games.Red
-			pokemon.generation = game.generation
-			if (!game.availableMethods.contains(pokemon.huntMethod)) {
-				pokemon.huntMethod = .Encounters
-			}
-			if (!game.isShinyCharmAvailable) {
-				pokemon.isShinyCharmActive = false
-			}
-			if (pokemon.name != "Placeholder") {
-				PokemonService().save(pokemon: pokemon)
-			}
-			onSelect(game)
+			onSelect(Games(rawValue: games[index].title) ?? Games.Red)
 		}
 	}
 }

@@ -5,9 +5,12 @@ class LGPEOddsService {
 	fileprivate var isLureActive = false
 
 	func getOdds(pokemon: Pokemon) -> Int {
-		isShinyCharmActive = pokemon.isShinyCharmActive
-		isLureActive = pokemon.huntMethod == HuntMethod.Lure
-		let catchCombo = pokemon.encounters
+		return getOdds(huntMethod: pokemon.huntMethod, isShinyCharmActive: pokemon.isShinyCharmActive, catchCombo: pokemon.encounters)
+	}
+
+	func getOdds(huntMethod: HuntMethod, isShinyCharmActive: Bool, catchCombo: Int) -> Int {
+		self.isShinyCharmActive = isShinyCharmActive
+		isLureActive = huntMethod == HuntMethod.Lure
 
 		if (catchCombo >= 0 && catchCombo <= 10 || catchCombo < 0) {
 			return getTier4Odds()

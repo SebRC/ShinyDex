@@ -20,7 +20,7 @@ enum CollectionFilter {
 		}
 	}
 
-	func matches(_ caught: Catch) -> Bool {
+	func matches(_ caught: CatchSummary) -> Bool {
 		switch self {
 		case .ball(let ball): return caught.caughtBall == ball
 		case .game(let game): return caught.game == game
@@ -31,10 +31,7 @@ enum CollectionFilter {
 }
 
 class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
-	fileprivate struct Entry {
-		let caught: Catch
-		let pokemon: Pokemon
-	}
+	fileprivate typealias Entry = CatchSummary
 
 	fileprivate enum SortOrder: Int {
 		case dex
@@ -43,8 +40,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
 	fileprivate static let headerKind = "collectionHeader"
 
-	fileprivate let catchService = CatchService()
-	fileprivate let pokemonService = PokemonService()
+	fileprivate let container: AppContainer
 	fileprivate let searchController = UISearchController(searchResultsController: nil)
 	fileprivate var collectionView: UICollectionView!
 	fileprivate var entries = [Entry]()
@@ -52,7 +48,8 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 	fileprivate var sortOrder = SortOrder.dex
 	fileprivate let filter: CollectionFilter?
 
-	init(filter: CollectionFilter? = nil) {
+	init(container: AppContainer, filter: CollectionFilter? = nil) {
+		self.container = container
 		self.filter = filter
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -110,21 +107,17 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 	// MARK: Data
 
 	fileprivate func reloadEntries() {
-		let pokemonByNumber = Dictionary(pokemonService.getAll().map { ($0.number, $0) }, uniquingKeysWith: { first, _ in first })
-		let source = filter?.showsFailed == true ? catchService.getAllIncludingFailed() : catchService.getAll()
-		let catches = source.filter { filter?.matches($0) ?? true }
-		entries = CatchRules.sortedForCollection(catches).compactMap { caught in
-			pokemonByNumber[caught.number].map { Entry(caught: caught, pokemon: $0) }
-		}
+		let source = container.getCatches.handle(GetCatchesQuery(scope: .collection, includingFailed: filter?.showsFailed == true))
+		entries = source.filter { filter?.matches($0) ?? true }
 		applySearch()
 	}
 
 	fileprivate func applySearch() {
 		let searchText = searchController.searchBar.text?.lowercased() ?? ""
-		var shown = searchText.isEmpty ? entries : entries.filter { $0.pokemon.name.lowercased().contains(searchText) }
+		var shown = searchText.isEmpty ? entries : entries.filter { $0.pokemonName.lowercased().contains(searchText) }
 		if (sortOrder == .recent) {
 			shown = shown.enumerated().sorted { lhs, rhs in
-				switch (lhs.element.caught.caughtDate, rhs.element.caught.caughtDate) {
+				switch (lhs.element.caughtDate, rhs.element.caughtDate) {
 				case let (l?, r?): return l != r ? l > r : lhs.offset < rhs.offset
 				case (_?, nil): return true
 				case (nil, _?): return false
@@ -168,13 +161,13 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionCard.reuseIdentifier, for: indexPath) as! CollectionCard
 		let entry = visibleEntries[indexPath.item]
-		cell.configure(pokemon: entry.pokemon, caught: entry.caught)
+		cell.configure(caught: entry)
 		return cell
 	}
 
 	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionHeader.reuseIdentifier, for: indexPath) as! CollectionHeader
-		let catches = entries.map { $0.caught }
+		let catches = entries
 		header.configure(shiniesCaption: filter?.showsFailed == true ? "GOT AWAY" : "SHINIES",
 						 shinies: catches.count,
 						 species: Set(catches.map { $0.number }).count,
@@ -192,7 +185,8 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let entry = visibleEntries[indexPath.item]
-		navigationController?.pushViewController(CatchDetailTVC(caught: entry.caught, pokemon: entry.pokemon), animated: true)
+		guard let detail = CatchDetailTVC(container: container, catchId: entry.id) else { return }
+		navigationController?.pushViewController(detail, animated: true)
 	}
 }
 
@@ -340,17 +334,17 @@ fileprivate class CollectionCard: UICollectionViewCell {
 		}
 	}
 
-	func configure(pokemon: Pokemon, caught: Catch) {
-		spriteView.image = UIImage(named: pokemon.name.lowercased())
+	func configure(caught: CatchSummary) {
+		spriteView.image = UIImage(named: caught.pokemonName.lowercased())
 		spriteView.alpha = caught.isFailed ? 0.55 : 1
 		glowView.isHidden = caught.isFailed
 		ballView.image = caught.isFailed ? UIImage.symbol("wind", pointSize: 14, weight: .semibold) : UIImage(named: caught.caughtBall)
 		ballView.tintColor = Color.Grey400
 		ballView.contentMode = caught.isFailed ? .center : .scaleAspectFit
-		nameLabel.text = pokemon.name
+		nameLabel.text = caught.pokemonName
 		dateLabel.text = caught.formattedCaughtDate ?? "Before history"
 		let detail = caught.isFailed ? "got away" : caught.ballName
-		accessibilityLabel = "Shiny \(pokemon.name), \(detail), \(caught.formattedCaughtDate ?? "date unknown")"
+		accessibilityLabel = "Shiny \(caught.pokemonName), \(detail), \(caught.formattedCaughtDate ?? "date unknown")"
 	}
 }
 

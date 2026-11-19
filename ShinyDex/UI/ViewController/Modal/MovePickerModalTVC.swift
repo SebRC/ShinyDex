@@ -1,16 +1,20 @@
 import UIKit
 
 class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
-	fileprivate let moveService = MoveService()
+	fileprivate let container: AppContainer
 	fileprivate let searchController = UISearchController(searchResultsController: nil)
 	fileprivate let selectedActiveMoveIndex: Int
-	fileprivate var activeMoves: [ActiveMove]
+	fileprivate var moves: ActiveMoveSet
+	fileprivate var activeMoves: [MoveSlot] {
+		return moves.slots
+	}
 	fileprivate let onPick: () -> Void
-	fileprivate var allMoves = [Move]()
-	fileprivate var filteredMoves = [Move]()
+	fileprivate var allMoves = [MoveOption]()
+	fileprivate var filteredMoves = [MoveOption]()
 
-	init(activeMoves: [ActiveMove], selectedActiveMoveIndex: Int, onPick: @escaping () -> Void) {
-		self.activeMoves = activeMoves
+	init(container: AppContainer, moves: ActiveMoveSet, selectedActiveMoveIndex: Int, onPick: @escaping () -> Void) {
+		self.container = container
+		self.moves = moves
 		self.selectedActiveMoveIndex = selectedActiveMoveIndex
 		self.onPick = onPick
 		super.init(style: .insetGrouped)
@@ -23,7 +27,7 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
-		allMoves = moveService.getMoves()
+		allMoves = container.getMoveOptions.handle(GetMoveOptionsQuery())
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
 
 		searchController.searchResultsUpdater = self
@@ -48,7 +52,7 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 		let searchText = searchController.searchBar.text?.lowercased() ?? ""
 		let query = searchText.replacingOccurrences(of: " ", with: "-")
 		filteredMoves = allMoves.filter {
-			$0.identifier.lowercased().contains(query) || (MoveTypes.types[$0.type_id]?.lowercased() == searchText)
+			$0.identifier.lowercased().contains(query) || $0.type.lowercased() == searchText
 		}
 		tableView.reloadData()
 	}
@@ -57,7 +61,7 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 		return !(searchController.searchBar.text?.isEmpty ?? true)
 	}
 
-	fileprivate func move(at indexPath: IndexPath) -> Move {
+	fileprivate func move(at indexPath: IndexPath) -> MoveOption {
 		return isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
 	}
 
@@ -76,22 +80,17 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: MovePickerCell.reuseIdentifier, for: indexPath) as! MovePickerCell
 		let move = move(at: indexPath)
-		let name = cleanName(name: move.identifier)
-		cell.configure(name: name, maxPP: move.pp ?? 0, type: MoveTypes.types[move.type_id] ?? "", isInUse: activeMoveNames.contains(name))
+		cell.configure(name: move.name, maxPP: move.pp, type: move.type, isInUse: activeMoveNames.contains(move.name))
 		return cell
 	}
 
 	fileprivate lazy var activeMoveNames = Set(activeMoves.map { $0.name })
 
-	fileprivate func cleanName(name: String) -> String {
-		return name.replacingOccurrences(of: "-", with: " ").capitalizingFirstLetter()
-	}
-
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedMove = move(at: indexPath)
-		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: MoveTypes.types[selectedMove.type_id]!)
-		activeMoves[selectedActiveMoveIndex] = newActiveMove
-		moveService.save(activeMoves: activeMoves, pressureActive: moveService.getIsPressureActive())
+		moves.slots[selectedActiveMoveIndex] = MoveSlot(name: selectedMove.name, maxPP: selectedMove.pp, remainingPP: selectedMove.pp, type: selectedMove.type)
+		moves.pressureActive = container.getActiveMoves.handle(GetActiveMovesQuery()).pressureActive
+		container.saveActiveMoves.handle(SaveActiveMovesCommand(moves: moves))
 		dismissSheet { [onPick] in
 			onPick()
 		}

@@ -3,20 +3,16 @@ import UIKit
 class PokedexTVC: UITableViewController {
 	let searchController = UISearchController(searchResultsController: nil)
 	
-	var filteredPokemon = [Pokemon]()
-	var allPokemon = [Pokemon]()
-	var slicedPokemon = [Pokemon]()
-	var hunts = [Hunt]()
+	fileprivate let container: AppContainer
+	fileprivate var filteredPokemon = [PokedexEntry]()
+	fileprivate var slicedPokemon = [PokedexEntry]()
+	fileprivate var isRegion = false
 	let textResolver = TextResolver()
 	var generation = 0
-	var selectedPokemon: Pokemon?
 	var popupHandler = PopupHandler()
-	var pokemonService = PokemonService()
-	var huntService = HuntService()
-	var catchService = CatchService()
-	var catchCounts = [Int: Int]()
 
-	init(generation: Int) {
+	init(container: AppContainer, generation: Int) {
+		self.container = container
 		self.generation = generation
 		super.init(style: .insetGrouped)
 	}
@@ -43,11 +39,7 @@ class PokedexTVC: UITableViewController {
         
         setTitle()
 		
-        allPokemon = pokemonService.getAll()
-        hunts = huntService.getAll()
-        catchCounts = catchService.getCountsByNumber()
-        slicedPokemon = slicePokemonList()
-
+		reloadPokedex()
 		tableView.reloadData()
 		updateEmptyState()
 		updateProgressHeader()
@@ -77,35 +69,25 @@ class PokedexTVC: UITableViewController {
 		navigationItem.title = textResolver.getGenTitle(gen: generation)
 	}
 	
-	static func pokemonRange(for generation: Int) -> Range<Int>? {
-		switch generation {
-		case 0: return 0..<151
-		case 1: return 151..<251
-		case 2: return 251..<386
-		case 3: return 386..<493
-		case 4: return 493..<649
-		case 5: return 649..<721
-		case 6: return 721..<807
-		case 7: return 807..<898
-		case 8: return 898..<905
-		case 9: return 905..<1010
-		default: return nil
+	fileprivate func reloadPokedex() {
+		let pokedex = container.getPokedex.handle(GetPokedexQuery(region: generation))
+		slicedPokemon = pokedex.entries
+		isRegion = pokedex.isRegion
+		if (isFiltering()) {
+			filterContentForSearchText(searchController.searchBar.text ?? "")
 		}
 	}
 
-	fileprivate func slicePokemonList() -> [Pokemon] {
-		if let range = PokedexTVC.pokemonRange(for: generation), range.upperBound <= allPokemon.count {
-			return Array(allPokemon[range])
-		}
-		return allPokemon.filter({$0.caughtBall != "none"})
+	fileprivate func catchCount(of number: Int) -> Int {
+		return slicedPokemon.first { $0.number == number }?.catchCount ?? 0
 	}
 
 	fileprivate func updateProgressHeader() {
-		guard PokedexTVC.pokemonRange(for: generation) != nil, !slicedPokemon.isEmpty else {
+		guard isRegion, !slicedPokemon.isEmpty else {
 			tableView.tableHeaderView = nil
 			return
 		}
-		let caught = slicedPokemon.filter { (catchCounts[$0.number] ?? 0) > 0 }.count
+		let caught = slicedPokemon.filter { $0.catchCount > 0 }.count
 		let header = (tableView.tableHeaderView as? DexProgressView) ?? DexProgressView()
 		header.set(caught: caught, total: slicedPokemon.count)
 		header.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 64)
@@ -116,29 +98,28 @@ class PokedexTVC: UITableViewController {
 		searchController.searchBar.resignFirstResponder()
 	}
 	
-	fileprivate func changeCaughtButtonPressed(pokemon: Pokemon) {
-		selectedPokemon = pokemon
+	fileprivate func changeCaughtButtonPressed(pokemon: PokedexEntry) {
 		presentPokeballPicker(pokemon: pokemon)
 	}
 
-	fileprivate func presentPokeballPicker(pokemon: Pokemon) {
-		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] result in
+	fileprivate func presentPokeballPicker(pokemon: PokedexEntry) {
+		let picker = PokeballModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] result in
 			self?.pokeballPicked(pokemon: pokemon, result: result)
 		}
 		present(picker.inSheet(), animated: true)
 	}
 
-	fileprivate func pokeballPicked(pokemon: Pokemon, result: PokeballPickerResult) {
-		catchCounts = catchService.getCountsByNumber()
+	fileprivate func pokeballPicked(pokemon: PokedexEntry, result: PokeballPickerResult) {
+		reloadPokedex()
 		showCatchPopup(pokemon: pokemon, result: result)
 		tableView.reloadData()
 		updateProgressHeader()
 	}
 
-	fileprivate func showCatchPopup(pokemon: Pokemon, result: PokeballPickerResult) {
+	fileprivate func showCatchPopup(pokemon: PokedexEntry, result: PokeballPickerResult) {
 		switch result {
 		case .loggedCatch:
-			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(catchCounts[pokemon.number] ?? 0).")
+			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(catchCount(of: pokemon.number)).")
 		case .loggedFailed:
 			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name) that got away.")
 		case .removedLatestCatch:
@@ -148,18 +129,17 @@ class PokedexTVC: UITableViewController {
 		}
 	}
 	
-	fileprivate func addToHuntPressed(pokemon: Pokemon) {
-		selectedPokemon = pokemon
-		let picker = HuntPickerModalVC(pokemon: pokemon) { [weak self] huntName in
+	fileprivate func addToHuntPressed(pokemon: PokedexEntry) {
+		let picker = HuntPickerModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] huntName in
 			guard let self = self else { return }
-			self.hunts = self.huntService.getAll()
+			self.reloadPokedex()
 			self.tableView.reloadData()
 			self.popupHandler.showPopup(text: "\(pokemon.name) was added to \(huntName).")
 		}
 		present(picker.inSheet(), animated: true)
 	}
 
-	fileprivate func getSelectedPokemon(index: Int) -> Pokemon {
+	fileprivate func getSelectedPokemon(index: Int) -> PokedexEntry {
 		if (isFiltering()) {
 			return filteredPokemon[index]
 		}
@@ -221,12 +201,12 @@ class PokedexTVC: UITableViewController {
         return cell
     }
 	
-	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: Pokemon) {
+	fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: PokedexEntry) {
 		pokemonCell.sprite.image = UIImage(named: pokemon.name.lowercased())
 	}
 	
-	fileprivate func setPokemonCellProperties(pokemonCell: PokemonCell, pokemon: Pokemon) {
-		let catchCount = catchCounts[pokemon.number] ?? 0
+	fileprivate func setPokemonCellProperties(pokemonCell: PokemonCell, pokemon: PokedexEntry) {
+		let catchCount = pokemon.catchCount
 		pokemonCell.pokemonName.text = pokemon.name
 		pokemonCell.pokemonNumber.text = String(format: "#%03d", pokemon.number + 1)
 		pokemonCell.setStatus(catchCount: catchCount, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted)
@@ -238,7 +218,12 @@ class PokedexTVC: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		navigationController?.pushViewController(ShinyTrackerVC(pokemon: getSelectedPokemon(index: indexPath.row)), animated: true)
+		openTracker(for: getSelectedPokemon(index: indexPath.row))
+	}
+
+	fileprivate func openTracker(for pokemon: PokedexEntry) {
+		guard let tracker = ShinyTrackerVC(container: container, number: pokemon.number) else { return }
+		navigationController?.pushViewController(tracker, animated: true)
 	}
 	
 
@@ -265,7 +250,7 @@ class PokedexTVC: UITableViewController {
 				self?.addToHuntPressed(pokemon: pokemon)
 			}
 			let openTracker = UIAction(title: "Open tracker", image: UIImage(systemName: "chevron.right.circle")) { _ in
-				self?.navigationController?.pushViewController(ShinyTrackerVC(pokemon: pokemon), animated: true)
+				self?.openTracker(for: pokemon)
 			}
 			return UIMenu(title: pokemon.name, children: [logCatch, addToHunt, openTracker])
 		}

@@ -19,7 +19,7 @@ class SwitchStateServiceTests: XCTestCase {
 
     func test_gameHasMethod_switchIsEnabled() throws {
 		// Arrange
-        let pokemon = Pokemon()
+        let pokemon = PokemonFixture()
         
         for huntMethodCase in gameHasMethodCases {
             pokemon.game = huntMethodCase.key
@@ -28,7 +28,7 @@ class SwitchStateServiceTests: XCTestCase {
             huntMethodSwitch.isOn = false
 
             // Act
-            switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: huntMethodSwitch, huntMethod: huntMethodCase.value)
+            switchStateService.resolveHuntMethodSwitchState(settings: pokemon.settings, huntMethodSwitch: huntMethodSwitch, huntMethod: huntMethodCase.value)
 
             // Assert
             XCTAssertTrue(huntMethodSwitch.isOn)
@@ -40,7 +40,7 @@ class SwitchStateServiceTests: XCTestCase {
     
     func test_gameDoesNotHaveMethod_switchIsDisabled() throws {
         // Arrange
-        let pokemon = Pokemon()
+        let pokemon = PokemonFixture()
         
         for huntMethodCase in gameDoesNotHaveMethodCases {
             pokemon.game = huntMethodCase.key
@@ -49,7 +49,7 @@ class SwitchStateServiceTests: XCTestCase {
             huntMethodSwitch.isOn = true
 
             // Act
-            switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: huntMethodSwitch, huntMethod: huntMethodCase.value)
+            switchStateService.resolveHuntMethodSwitchState(settings: pokemon.settings, huntMethodSwitch: huntMethodSwitch, huntMethod: huntMethodCase.value)
 
             // Assert
             XCTAssertFalse(huntMethodSwitch.isOn)
@@ -59,7 +59,7 @@ class SwitchStateServiceTests: XCTestCase {
 
 	func test_gameHasShinyCharm_switchIsEnabled() throws {
 		// Arrange
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.generation = 5
         pokemon.game = .Black2
         pokemon.isShinyCharmActive = true
@@ -67,7 +67,7 @@ class SwitchStateServiceTests: XCTestCase {
 		shinyCharmSwitch.isOn = false
 
 		// Act
-		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon, shinyCharmSwitch: shinyCharmSwitch)
+		switchStateService.resolveShinyCharmSwitchState(settings: pokemon.settings, shinyCharmSwitch: shinyCharmSwitch)
 
 		// Assert
 		XCTAssertTrue(shinyCharmSwitch.isOn)
@@ -76,14 +76,14 @@ class SwitchStateServiceTests: XCTestCase {
 
 	func test_gameDoesNotHaveShinyCharm_switchIsDisabled() throws {
 		// Arrange
-		let pokemon = Pokemon()
+		let pokemon = PokemonFixture()
 		pokemon.generation = 2
         pokemon.game = .Gold
 		let shinyCharmSwitch = UISwitch()
 		shinyCharmSwitch.isOn = true
 
 		// Act
-		switchStateService.resolveShinyCharmSwitchState(pokemon: pokemon, shinyCharmSwitch: shinyCharmSwitch)
+		switchStateService.resolveShinyCharmSwitchState(settings: pokemon.settings, shinyCharmSwitch: shinyCharmSwitch)
 
 		// Assert
 		XCTAssertFalse(shinyCharmSwitch.isOn)
