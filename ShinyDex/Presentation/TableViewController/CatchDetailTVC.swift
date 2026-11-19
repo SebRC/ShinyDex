@@ -362,8 +362,9 @@ extension UIImage {
 fileprivate class CatchHeroCell: UITableViewCell {
 	static let reuseIdentifier = "catchHeroCell"
 
-	fileprivate let glowLayer = CAGradientLayer()
-	fileprivate let glowView = UIView()
+	fileprivate static let spriteSide: CGFloat = 170
+	fileprivate static let glowSide: CGFloat = 280
+	fileprivate let glowView = GlowView(intensity: 0.35)
 	fileprivate let animatedImageView = FLAnimatedImageView()
 	fileprivate let badgeLabel = UILabel(fontSize: 13, weight: .bold, color: Color.Grey900)
 	fileprivate let badge = UIView()
@@ -376,13 +377,6 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		backgroundColor = .clear
 		selectionStyle = .none
-
-		glowLayer.type = .radial
-		glowLayer.colors = [Color.Orange500.withAlphaComponent(0.35).cgColor, Color.Orange500.withAlphaComponent(0).cgColor]
-		glowLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
-		glowLayer.endPoint = CGPoint(x: 1, y: 1)
-		glowView.layer.addSublayer(glowLayer)
-		glowView.isUserInteractionEnabled = false
 
 		animatedImageView.contentMode = .scaleAspectFit
 		animatedImageView.isAccessibilityElement = false
@@ -406,34 +400,28 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		text.setCustomSpacing(8, after: badge)
 
 		contentView.addAutoLayoutSubviews(glowView, animatedImageView, text)
+		// The glow sits fully inside the cell: the inset grouped table clips anything drawn above a cell's top edge.
 		NSLayoutConstraint.activate([
-			animatedImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-			animatedImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-			animatedImageView.widthAnchor.constraint(equalToConstant: 170),
-			animatedImageView.heightAnchor.constraint(equalToConstant: 170),
+			glowView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			glowView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+			glowView.widthAnchor.constraint(equalToConstant: CatchHeroCell.glowSide),
+			glowView.heightAnchor.constraint(equalToConstant: CatchHeroCell.glowSide),
 
-			glowView.centerXAnchor.constraint(equalTo: animatedImageView.centerXAnchor),
-			glowView.centerYAnchor.constraint(equalTo: animatedImageView.centerYAnchor),
-			glowView.widthAnchor.constraint(equalToConstant: 280),
-			glowView.heightAnchor.constraint(equalToConstant: 280),
+			animatedImageView.centerXAnchor.constraint(equalTo: glowView.centerXAnchor),
+			animatedImageView.centerYAnchor.constraint(equalTo: glowView.centerYAnchor),
+			animatedImageView.widthAnchor.constraint(equalToConstant: CatchHeroCell.spriteSide),
+			animatedImageView.heightAnchor.constraint(equalToConstant: CatchHeroCell.spriteSide),
 
 			text.topAnchor.constraint(equalTo: animatedImageView.bottomAnchor, constant: 8),
 			text.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			text.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			text.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
 		])
-		contentView.clipsToBounds = false
-		clipsToBounds = false
 		isAccessibilityElement = true
 	}
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-	}
-
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		glowLayer.frame = glowView.bounds
 	}
 
 	func configure(pokemonName: String, dateText: String, positionText: String?, isFailed: Bool) {
@@ -480,7 +468,11 @@ fileprivate class CatchStatsCell: UITableViewCell {
 
 		let star = UIImageView(image: UIImage.symbol("star.fill", pointSize: 14))
 		star.tintColor = Color.Orange500
+		star.contentMode = .center
 		star.setContentHuggingPriority(.required, for: .horizontal)
+		star.setContentCompressionResistancePriority(.required, for: .horizontal)
+		star.widthAnchor.constraint(equalToConstant: 18).isActive = true
+		luckLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 		luckRow.addArrangedSubview(star)
 		luckRow.addArrangedSubview(luckLabel)
 		luckRow.spacing = 8

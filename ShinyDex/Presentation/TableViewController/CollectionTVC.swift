@@ -347,23 +347,3 @@ fileprivate class CollectionCard: UICollectionViewCell {
 		accessibilityLabel = "Shiny \(caught.pokemonName), \(detail), \(caught.formattedCaughtDate ?? "date unknown")"
 	}
 }
-
-fileprivate class GlowView: UIView {
-	override class var layerClass: AnyClass {
-		return CAGradientLayer.self
-	}
-
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		isUserInteractionEnabled = false
-		let gradient = layer as! CAGradientLayer
-		gradient.type = .radial
-		gradient.colors = [Color.Orange500.withAlphaComponent(0.3).cgColor, Color.Orange500.withAlphaComponent(0).cgColor]
-		gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
-		gradient.endPoint = CGPoint(x: 1, y: 1)
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-}
