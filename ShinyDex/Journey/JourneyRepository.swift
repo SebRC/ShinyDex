@@ -6,9 +6,8 @@ class JourneyRepository {
 	fileprivate var managedContext: NSManagedObjectContext
 	fileprivate var entity: NSEntityDescription
 
-	init() {
-		let appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
-		managedContext = appDelegate.persistentContainer.viewContext
+	init(managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext) {
+		self.managedContext = managedContext
 		entity = NSEntityDescription.entity(forEntityName: "JourneyEntity", in: managedContext)!
 	}
 

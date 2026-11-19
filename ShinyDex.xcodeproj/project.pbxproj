@@ -14,6 +14,9 @@
 		B10C0A000000000000000F09 /* JourneyDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0A /* JourneyDetailTVC.swift */; };
 		B10C0A000000000000000F0B /* LinkCatchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0C /* LinkCatchTVC.swift */; };
 		B10C0A000000000000000F0D /* JourneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0E /* JourneyTests.swift */; };
+		B10C0A000000000000001000 /* TestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000002000 /* TestStore.swift */; };
+		B10C0A000000000000001001 /* PersistenceRoundTripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000002001 /* PersistenceRoundTripTests.swift */; };
+		B10C0A000000000000001002 /* StoreMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000002002 /* StoreMigrationTests.swift */; };
 		B10C0A0000000000000000EB /* EvolutionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000EC /* EvolutionsTests.swift */; };
 		B10C0A0000000000000000E9 /* EffortValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000EA /* EffortValuesTests.swift */; };
 		B10C0A0000000000000000E7 /* evolutions.json in Resources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E8 /* evolutions.json */; };
@@ -148,6 +151,9 @@
 		B10C0A000000000000000F0A /* JourneyDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDetailTVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F0C /* LinkCatchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCatchTVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F0E /* JourneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTests.swift; sourceTree = "<group>"; };
+		B10C0A000000000000002000 /* TestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStore.swift; sourceTree = "<group>"; };
+		B10C0A000000000000002001 /* PersistenceRoundTripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceRoundTripTests.swift; sourceTree = "<group>"; };
+		B10C0A000000000000002002 /* StoreMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMigrationTests.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F10 /* ShinyDex 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 5.xcdatamodel"; sourceTree = "<group>"; };
 		B10C0A0000000000000000EC /* EvolutionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolutionsTests.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000EA /* EffortValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffortValuesTests.swift; sourceTree = "<group>"; };
@@ -351,6 +357,9 @@
 				B10C0A0000000000000000EA /* EffortValuesTests.swift */,
 				B10C0A0000000000000000C2 /* CatchStatsTests.swift */,
 				B10C0A000000000000000F0E /* JourneyTests.swift */,
+				B10C0A000000000000002000 /* TestStore.swift */,
+				B10C0A000000000000002001 /* PersistenceRoundTripTests.swift */,
+				B10C0A000000000000002002 /* StoreMigrationTests.swift */,
 				3538AD3592B4469FBE09F1C6 /* GamesTests.swift */,
 				96C3CB65266185440090186E /* PokemonServiceTests.swift */,
 				962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */,
@@ -780,6 +789,9 @@
 				B10C0A0000000000000000E9 /* EffortValuesTests.swift in Sources */,
 				B10C0A0000000000000000C1 /* CatchStatsTests.swift in Sources */,
 				B10C0A000000000000000F0D /* JourneyTests.swift in Sources */,
+				B10C0A000000000000001000 /* TestStore.swift in Sources */,
+				B10C0A000000000000001001 /* PersistenceRoundTripTests.swift in Sources */,
+				B10C0A000000000000001002 /* StoreMigrationTests.swift in Sources */,
 				B2D8EC9476D9C3F4A4A241A1 /* GamesTests.swift in Sources */,
 				966B1EF62656A92100DF1FE0 /* SosChainingOddsServiceTests.swift in Sources */,
 				966B1F082656C1B700DF1FE0 /* TxtReaderTests.swift in Sources */,

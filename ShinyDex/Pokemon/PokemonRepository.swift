@@ -3,15 +3,11 @@ import UIKit
 import CoreData
 
 public class PokemonRepository {
-	fileprivate var appDelegate: AppDelegate
 	fileprivate var managedContext: NSManagedObjectContext
 	fileprivate var entity: NSEntityDescription
 	
-	init() {
-		appDelegate = (UIApplication.shared.delegate as? AppDelegate)!
-		
-		managedContext = appDelegate.persistentContainer.viewContext
-		
+	init(managedContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext) {
+		self.managedContext = managedContext
 		entity = NSEntityDescription.entity(forEntityName: "PokemonEntity", in: managedContext)!
 	}
 	
