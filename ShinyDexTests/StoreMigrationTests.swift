@@ -102,7 +102,7 @@ final class StoreMigrationTests: XCTestCase {
     // MARK: Reading with the current code
 
     private func assertPokemon(in context: NSManagedObjectContext, file: StaticString, line: UInt) {
-        let pokemon = PokemonRepository(managedContext: context).getAll().map { Pokemon(pokemonEntity: $0) }
+        let pokemon = CoreDataPokemonRepository(managedContext: context).getAll()
         XCTAssertEqual(pokemon.count, 1, file: file, line: line)
         guard let ralts = pokemon.first else { return }
         XCTAssertEqual(ralts.name, "Ralts", file: file, line: line)
@@ -120,7 +120,7 @@ final class StoreMigrationTests: XCTestCase {
     }
 
     private func assertHunt(in context: NSManagedObjectContext, file: StaticString, line: UInt) {
-        let hunts = HuntRepository(managedContext: context).getAll().map { Hunt(huntEntity: $0) }
+        let hunts = CoreDataHuntRepository(managedContext: context).getAll()
         XCTAssertEqual(hunts.count, 1, file: file, line: line)
         guard let hunt = hunts.first else { return }
         XCTAssertEqual(hunt.name, "Gardevoir line", file: file, line: line)
@@ -130,14 +130,16 @@ final class StoreMigrationTests: XCTestCase {
     }
 
     private func assertActiveMoves(in context: NSManagedObjectContext, file: StaticString, line: UInt) {
-        let activeMoves = MoveRepository(managedContext: context).getAll().map { ActiveMoves(moveEntity: $0) }
-        XCTAssertEqual(activeMoves.count, 1, file: file, line: line)
-        XCTAssertEqual(activeMoves.first?.json, activeMovesJson, file: file, line: line)
-        XCTAssertEqual(activeMoves.first?.pressureActive, true, file: file, line: line)
+        let activeMoves = CoreDataMoveRepository(managedContext: context).getActiveMoves()
+        XCTAssertEqual(activeMoves?.moves.map { $0.name }, ["Spore"], file: file, line: line)
+        XCTAssertEqual(activeMoves?.moves.map { $0.maxPP }, [24], file: file, line: line)
+        XCTAssertEqual(activeMoves?.moves.map { $0.remainingPP }, [3], file: file, line: line)
+        XCTAssertEqual(activeMoves?.moves.map { $0.type }, ["grass"], file: file, line: line)
+        XCTAssertEqual(activeMoves?.pressureActive, true, file: file, line: line)
     }
 
     private func assertCatch(in context: NSManagedObjectContext, oldModel: NSManagedObjectModel, file: StaticString, line: UInt) {
-        let catches = CatchRepository(managedContext: context).getAll().map { Catch(catchEntity: $0) }
+        let catches = CoreDataCatchRepository(managedContext: context).getAll()
         XCTAssertEqual(catches.count, 1, file: file, line: line)
         guard let caught = catches.first else { return }
         let oldAttributes = oldModel.entitiesByName["CatchEntity"]!.attributesByName
@@ -160,7 +162,7 @@ final class StoreMigrationTests: XCTestCase {
     }
 
     private func assertJourney(in context: NSManagedObjectContext, file: StaticString, line: UInt) {
-        let journeys = JourneyRepository(managedContext: context).getAll().map { Journey(journeyEntity: $0) }
+        let journeys = CoreDataJourneyRepository(managedContext: context).getAll()
         XCTAssertEqual(journeys.count, 1, file: file, line: line)
         guard let journey = journeys.first else { return }
         XCTAssertEqual(journey.id, journeyId, file: file, line: line)

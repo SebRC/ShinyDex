@@ -10,6 +10,13 @@
 		B10C0A000000000000000F01 /* Journey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F02 /* Journey.swift */; };
 		B10C0A000000000000000F03 /* JourneyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F04 /* JourneyRepository.swift */; };
 		B10C0A000000000000000F05 /* JourneyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F06 /* JourneyService.swift */; };
+		B10C0A00000000000000310D /* Pokeball+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A00000000000000310E /* Pokeball+Image.swift */; };
+		B10C0A000000000000003100 /* CoreDataCatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003101 /* CoreDataCatchRepository.swift */; };
+		B10C0A000000000000003102 /* CoreDataHuntRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003103 /* CoreDataHuntRepository.swift */; };
+		B10C0A000000000000003104 /* CoreDataJourneyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003105 /* CoreDataJourneyRepository.swift */; };
+		B10C0A000000000000003106 /* CoreDataMoveRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003107 /* CoreDataMoveRepository.swift */; };
+		B10C0A000000000000003108 /* CoreDataPokemonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000003109 /* CoreDataPokemonRepository.swift */; };
+		B10C0A00000000000000310A /* ManagedObjectIdentityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A00000000000000310B /* ManagedObjectIdentityMap.swift */; };
 		B10C0A000000000000000F07 /* JourneysTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F08 /* JourneysTVC.swift */; };
 		B10C0A000000000000000F09 /* JourneyDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0A /* JourneyDetailTVC.swift */; };
 		B10C0A000000000000000F0B /* LinkCatchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000000F0C /* LinkCatchTVC.swift */; };
@@ -147,6 +154,13 @@
 		B10C0A000000000000000F02 /* Journey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journey.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F04 /* JourneyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRepository.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F06 /* JourneyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyService.swift; sourceTree = "<group>"; };
+		B10C0A00000000000000310E /* Pokeball+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pokeball+Image.swift"; sourceTree = "<group>"; };
+		B10C0A000000000000003101 /* CoreDataCatchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataCatchRepository.swift"; sourceTree = "<group>"; };
+		B10C0A000000000000003103 /* CoreDataHuntRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataHuntRepository.swift"; sourceTree = "<group>"; };
+		B10C0A000000000000003105 /* CoreDataJourneyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataJourneyRepository.swift"; sourceTree = "<group>"; };
+		B10C0A000000000000003107 /* CoreDataMoveRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataMoveRepository.swift"; sourceTree = "<group>"; };
+		B10C0A000000000000003109 /* CoreDataPokemonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataPokemonRepository.swift"; sourceTree = "<group>"; };
+		B10C0A00000000000000310B /* ManagedObjectIdentityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedObjectIdentityMap.swift"; sourceTree = "<group>"; };
 		B10C0A000000000000000F08 /* JourneysTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneysTVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F0A /* JourneyDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDetailTVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000000F0C /* LinkCatchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkCatchTVC.swift; sourceTree = "<group>"; };
@@ -299,6 +313,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B10C0A00000000000000310C /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				B10C0A000000000000003101 /* CoreDataCatchRepository.swift */,
+				B10C0A000000000000003103 /* CoreDataHuntRepository.swift */,
+				B10C0A000000000000003105 /* CoreDataJourneyRepository.swift */,
+				B10C0A000000000000003107 /* CoreDataMoveRepository.swift */,
+				B10C0A000000000000003109 /* CoreDataPokemonRepository.swift */,
+				B10C0A00000000000000310B /* ManagedObjectIdentityMap.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		B10C0A000000000000000F0F /* Journey */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +412,7 @@
 		962E58B52411A690001D5E41 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				B10C0A00000000000000310E /* Pokeball+Image.swift */,
 				96FC083E23EF59DA00459450 /* View */,
 				96FC082C23EF599900459450 /* ViewController */,
 				96FC082523EF596200459450 /* TableViewController */,
@@ -503,6 +531,7 @@
 				96FC081623EF58F200459450 /* Pokeball */,
 				64D3E4E2DCF763E6C6C89870 /* Catch */,
 				B10C0A000000000000000F0F /* Journey */,
+				B10C0A00000000000000310C /* Persistence */,
 				966C211B24118BA40019F835 /* Hunt */,
 				9689C7352409AD0A0007AD5D /* Odds */,
 				9689C7342409ACFD0007AD5D /* Probability */,
@@ -824,6 +853,13 @@
 				B10C0A000000000000000F01 /* Journey.swift in Sources */,
 				B10C0A000000000000000F03 /* JourneyRepository.swift in Sources */,
 				B10C0A000000000000000F05 /* JourneyService.swift in Sources */,
+				B10C0A00000000000000310D /* Pokeball+Image.swift in Sources */,
+				B10C0A000000000000003100 /* CoreDataCatchRepository.swift in Sources */,
+				B10C0A000000000000003102 /* CoreDataHuntRepository.swift in Sources */,
+				B10C0A000000000000003104 /* CoreDataJourneyRepository.swift in Sources */,
+				B10C0A000000000000003106 /* CoreDataMoveRepository.swift in Sources */,
+				B10C0A000000000000003108 /* CoreDataPokemonRepository.swift in Sources */,
+				B10C0A00000000000000310A /* ManagedObjectIdentityMap.swift in Sources */,
 				B10C0A000000000000000F07 /* JourneysTVC.swift in Sources */,
 				B10C0A000000000000000F09 /* JourneyDetailTVC.swift in Sources */,
 				B10C0A000000000000000F0B /* LinkCatchTVC.swift in Sources */,

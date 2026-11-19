@@ -1,16 +1,14 @@
 import Foundation
-import CoreData
 
 class HuntService {
 	fileprivate var pokemonService = PokemonService()
-	fileprivate var huntRepository = HuntRepository()
+	fileprivate let huntRepository: HuntRepository = CoreDataHuntRepository()
 	
 	func getAll() -> [Hunt] {
 		let pokemon = pokemonService.getAll()
-		let currentHuntEntities = huntRepository.getAll()
-		var hunts = [Hunt]()
-		for huntEntity in currentHuntEntities {
-			hunts.append(constructHunt(huntEntity: huntEntity, allPokemon: pokemon))
+		let hunts = huntRepository.getAll()
+		for hunt in hunts {
+			attachPokemon(to: hunt, from: pokemon)
 		}
 
 		for hunt in hunts {
@@ -20,7 +18,7 @@ class HuntService {
 	}
 
 	func save(hunt: Hunt) {
-		huntRepository.save(hunt: hunt)
+		huntRepository.save(hunt)
 	}
 
 	func clear() {
@@ -28,7 +26,7 @@ class HuntService {
 	}
 
 	func delete(hunt: Hunt) {
-		huntRepository.delete(hunt: hunt)
+		huntRepository.delete(hunt)
 	}
 
 	func createHunt(named name: String, with pokemon: [Pokemon]) {
@@ -37,12 +35,12 @@ class HuntService {
 		for member in pokemon.sorted(by: { $0.number < $1.number }) {
 			addWithoutSavingHunt(member, to: hunt)
 		}
-		huntRepository.save(hunt: hunt)
+		huntRepository.save(hunt)
 	}
 
 	func add(pokemon: Pokemon, to hunt: Hunt) {
 		addWithoutSavingHunt(pokemon, to: hunt)
-		huntRepository.save(hunt: hunt)
+		huntRepository.save(hunt)
 	}
 
 	fileprivate func addWithoutSavingHunt(_ pokemon: Pokemon, to hunt: Hunt) {
@@ -53,13 +51,11 @@ class HuntService {
 		pokemonService.save(pokemon: pokemon)
 	}
 
-	fileprivate func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt {
-		let hunt = Hunt(huntEntity: huntEntity)
+	fileprivate func attachPokemon(to hunt: Hunt, from allPokemon: [Pokemon]) {
 		for index in hunt.indexes {
 			let pokemon = allPokemon[index]
 			hunt.pokemon.append(pokemon)
 			hunt.totalEncounters += pokemon.encounters
 		}
-		return hunt
 	}
 }

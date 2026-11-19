@@ -1,11 +1,11 @@
 import Foundation
 
 class JourneyService {
-	fileprivate let journeyRepository = JourneyRepository()
+	fileprivate let journeyRepository: JourneyRepository = CoreDataJourneyRepository()
 	fileprivate let catchService = CatchService()
 
 	func getAll() -> [Journey] {
-		return journeyRepository.getAll().map { Journey(journeyEntity: $0) }.sorted { $0.priority < $1.priority }
+		return journeyRepository.getAll().sorted { $0.priority < $1.priority }
 	}
 
 	func catchesById() -> [UUID: Catch] {
@@ -15,39 +15,39 @@ class JourneyService {
 	func createJourney(named name: String, numbers: [Int]) -> Journey {
 		let priority = (getAll().map { $0.priority }.max() ?? -1) + 1
 		let journey = Journey(name: name, priority: priority, numbers: numbers)
-		journeyRepository.save(journey: journey)
+		journeyRepository.save(journey)
 		return journey
 	}
 
 	func rename(_ journey: Journey, to name: String) {
 		journey.name = name
-		journeyRepository.save(journey: journey)
+		journeyRepository.save(journey)
 	}
 
 	func add(numbers: [Int], to journey: Journey) {
 		journey.entries.append(contentsOf: numbers.map { JourneyEntry(number: $0) })
-		journeyRepository.save(journey: journey)
+		journeyRepository.save(journey)
 	}
 
 	func removeEntry(_ entryId: UUID, from journey: Journey) {
 		journey.entries.removeAll { $0.id == entryId }
-		journeyRepository.save(journey: journey)
+		journeyRepository.save(journey)
 	}
 
 	func moveEntry(from source: Int, to destination: Int, in journey: Journey) {
 		guard journey.entries.indices.contains(source), journey.entries.indices.contains(destination) else { return }
 		journey.entries.insert(journey.entries.remove(at: source), at: destination)
-		journeyRepository.save(journey: journey)
+		journeyRepository.save(journey)
 	}
 
 	func link(_ caught: Catch?, toEntry entryId: UUID, in journey: Journey) {
 		guard let index = journey.entries.firstIndex(where: { $0.id == entryId }) else { return }
 		journey.entries[index].catchId = caught?.id
-		journeyRepository.save(journey: journey)
+		journeyRepository.save(journey)
 	}
 
 	func delete(_ journey: Journey) {
-		journeyRepository.delete(journey: journey)
+		journeyRepository.delete(journey)
 	}
 
 	func linkableCatches(for entry: JourneyEntry, in journey: Journey) -> [Catch] {

@@ -1,6 +1,4 @@
 import Foundation
-import UIKit
-import CoreData
 
 class ActiveMove: Encodable, Decodable {
 	var name: String

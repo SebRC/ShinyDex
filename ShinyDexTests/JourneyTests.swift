@@ -61,7 +61,7 @@ class JourneyTests: XCTestCase {
 		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, bulbasaur])
 		journey.entries[1].catchId = UUID()
 
-		let decoded = try JSONDecoder().decode([JourneyEntry].self, from: Data(journey.encodedEntries.utf8))
+		let decoded = try XCTUnwrap(StoredJourneyEntry.decode(StoredJourneyEntry.encode(journey.entries)))
 
 		XCTAssertEqual(decoded, journey.entries)
 		XCTAssertNotEqual(decoded[0].id, decoded[1].id, "The same species can be in a journey twice")

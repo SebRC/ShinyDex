@@ -1,9 +1,6 @@
 import Foundation
-import UIKit
-import CoreData
 
 class Pokemon: NSObject {
-	var pokemonEntity: NSManagedObject
 	var name: String
 	var number: Int
 	var encounters: Int
@@ -17,24 +14,26 @@ class Pokemon: NSObject {
 	var increment: Int
     var game: Games
 
-	init(pokemonEntity: NSManagedObject) {
-		self.pokemonEntity = pokemonEntity
-		self.name = pokemonEntity.value(forKey: "name") as! String
-		self.number = pokemonEntity.value(forKey: "number") as! Int
-		self.caughtDescription = pokemonEntity.value(forKey: "caughtDescription") as! String
-		self.encounters = pokemonEntity.value(forKey: "encounters") as! Int
-		self.isBeingHunted = pokemonEntity.value(forKey: "isBeingHunted") as? Bool ?? false
-		self.caughtBall = pokemonEntity.value(forKey: "caughtBall") as! String
-		self.generation = pokemonEntity.value(forKey: "generation") as! Int
-		self.isShinyCharmActive = pokemonEntity.value(forKey: "isShinyCharmActive") as! Bool
-		self.shinyOdds = pokemonEntity.value(forKey: "shinyOdds") as! Int
-		self.huntMethod = HuntMethod(rawValue: pokemonEntity.value(forKey: "huntMethod") as! String)!
-		self.increment = pokemonEntity.value(forKey: "increment") as! Int
-        self.game = Games(rawValue: pokemonEntity.value(forKey: "game") as? String ?? Games.Red.rawValue) ?? Games.Red
+	init(name: String, number: Int, encounters: Int, caughtDescription: String, caughtBall: String, isBeingHunted: Bool, generation: Int, isShinyCharmActive: Bool, shinyOdds: Int, huntMethod: HuntMethod, increment: Int, game: Games) {
+		self.name = name
+		self.number = number
+		self.encounters = encounters
+		self.caughtDescription = caughtDescription
+		self.caughtBall = caughtBall
+		self.isBeingHunted = isBeingHunted
+		self.generation = generation
+		self.isShinyCharmActive = isShinyCharmActive
+		self.shinyOdds = shinyOdds
+		self.huntMethod = huntMethod
+		self.increment = increment
+		self.game = game
+	}
+
+	convenience init(newlyAddedNamed name: String, number: Int) {
+		self.init(name: name, number: number, encounters: 0, caughtDescription: "Not Caught", caughtBall: "none", isBeingHunted: false, generation: 2, isShinyCharmActive: false, shinyOdds: 8192, huntMethod: .Encounters, increment: 1, game: .Red)
 	}
 
 	override init() {
-		self.pokemonEntity = NSManagedObject()
 		self.name = "Placeholder"
 		self.number = -1
 		self.caughtDescription = "Placeholder"

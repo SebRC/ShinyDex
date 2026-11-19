@@ -24,12 +24,12 @@ final class PersistenceRoundTripTests: XCTestCase {
         let original = Catch(number: 25, caughtBall: "ultra", game: .Scarlet, huntMethod: .Masuda, encounters: 1234, isShinyCharmActive: true, caughtDate: date(4), isFailed: true)
         original.evs = EffortValues(encoded: "4,252,0,0,0,252")
         original.evolvedFrom = 171
-        let repository = CatchRepository(managedContext: store.context)
-        repository.insert(catchToInsert: original)
+        let repository = CoreDataCatchRepository(managedContext: store.context)
+        repository.insert(original)
         XCTAssertTrue(repository.save())
 
         try store.reopen()
-        let reloaded = CatchRepository(managedContext: store.context).getAll().map { Catch(catchEntity: $0) }
+        let reloaded = CoreDataCatchRepository(managedContext: store.context).getAll()
 
         XCTAssertEqual(reloaded.count, 1)
         let caught = try XCTUnwrap(reloaded.first)
@@ -48,13 +48,13 @@ final class PersistenceRoundTripTests: XCTestCase {
 
     func test_catch_withOptionalFieldsEmpty_survivesSaveAndReload() throws {
         let original = Catch(number: 1, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 0, isShinyCharmActive: false, caughtDate: nil)
-        let repository = CatchRepository(managedContext: store.context)
-        repository.insert(catchToInsert: original)
+        let repository = CoreDataCatchRepository(managedContext: store.context)
+        repository.insert(original)
         XCTAssertTrue(repository.save())
 
         try store.reopen()
-        let entity = try XCTUnwrap(CatchRepository(managedContext: store.context).getAll().first)
-        let caught = Catch(catchEntity: entity)
+        let entity = try XCTUnwrap(rawRows("CatchEntity").first)
+        let caught = try XCTUnwrap(CoreDataCatchRepository(managedContext: store.context).getAll().first)
 
         XCTAssertNil(entity.value(forKey: "evs"), "Empty EVs are stored as nil")
         XCTAssertEqual(entity.value(forKey: "evolvedFrom") as? Int, -1, "No pre-evolution is stored as -1")
@@ -67,33 +67,33 @@ final class PersistenceRoundTripTests: XCTestCase {
     func test_catch_update_andDelete_arePersisted() throws {
         let first = Catch(number: 4, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 10, isShinyCharmActive: false, caughtDate: date(1))
         let second = Catch(number: 7, caughtBall: "great", game: .Red, huntMethod: .Encounters, encounters: 20, isShinyCharmActive: false, caughtDate: date(2))
-        let repository = CatchRepository(managedContext: store.context)
-        repository.insert(catchToInsert: first)
-        repository.insert(catchToInsert: second)
+        let repository = CoreDataCatchRepository(managedContext: store.context)
+        repository.insert(first)
+        repository.insert(second)
         XCTAssertTrue(repository.save())
 
         first.encounters = 99
-        repository.update(catchToUpdate: first)
-        repository.delete(catchToDelete: second)
+        repository.update(first)
+        repository.delete(second)
         XCTAssertTrue(repository.save())
 
         try store.reopen()
-        let reloaded = CatchRepository(managedContext: store.context).getAll().map { Catch(catchEntity: $0) }
+        let reloaded = CoreDataCatchRepository(managedContext: store.context).getAll()
 
         XCTAssertEqual(reloaded.map { $0.id }, [first.id])
         XCTAssertEqual(reloaded.first?.encounters, 99)
     }
 
     func test_catch_fetchByNumber_returnsOnlyThatSpecies() throws {
-        let repository = CatchRepository(managedContext: store.context)
+        let repository = CoreDataCatchRepository(managedContext: store.context)
         for number in [1, 4, 4] {
-            repository.insert(catchToInsert: Catch(number: number, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil))
+            repository.insert(Catch(number: number, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil))
         }
         XCTAssertTrue(repository.save())
 
         try store.reopen()
 
-        XCTAssertEqual(CatchRepository(managedContext: store.context).getAll(number: 4).count, 2)
+        XCTAssertEqual(CoreDataCatchRepository(managedContext: store.context).getAll(number: 4).count, 2)
     }
 
     // MARK: Hunt
@@ -102,10 +102,10 @@ final class PersistenceRoundTripTests: XCTestCase {
         let hunt = Hunt(name: "Starters", pokemon: [], priority: 3)
         hunt.indexes = [0, 3, 6]
         hunt.isCollapsed = true
-        HuntRepository(managedContext: store.context).save(hunt: hunt)
+        CoreDataHuntRepository(managedContext: store.context).save(hunt)
 
         try store.reopen()
-        let reloaded = HuntRepository(managedContext: store.context).getAll().map { Hunt(huntEntity: $0) }
+        let reloaded = CoreDataHuntRepository(managedContext: store.context).getAll()
 
         XCTAssertEqual(reloaded.count, 1)
         let stored = try XCTUnwrap(reloaded.first)
@@ -118,17 +118,17 @@ final class PersistenceRoundTripTests: XCTestCase {
     func test_hunt_update_andDelete_arePersisted() throws {
         let kept = Hunt(name: "Kept", pokemon: [], priority: 0)
         let removed = Hunt(name: "Removed", pokemon: [], priority: 1)
-        let repository = HuntRepository(managedContext: store.context)
-        repository.save(hunt: kept)
-        repository.save(hunt: removed)
+        let repository = CoreDataHuntRepository(managedContext: store.context)
+        repository.save(kept)
+        repository.save(removed)
 
         kept.name = "Renamed"
         kept.indexes = [150]
-        repository.save(hunt: kept)
-        repository.delete(hunt: removed)
+        repository.save(kept)
+        repository.delete(removed)
 
         try store.reopen()
-        let reloaded = HuntRepository(managedContext: store.context).getAll().map { Hunt(huntEntity: $0) }
+        let reloaded = CoreDataHuntRepository(managedContext: store.context).getAll()
 
         XCTAssertEqual(reloaded.map { $0.name }, ["Renamed"])
         XCTAssertEqual(reloaded.first?.indexes, [150])
@@ -140,10 +140,10 @@ final class PersistenceRoundTripTests: XCTestCase {
         let journey = Journey(name: "Kanto dream team", priority: 2, numbers: [0, 3, 6])
         let catchId = UUID()
         journey.entries[1].catchId = catchId
-        XCTAssertTrue(JourneyRepository(managedContext: store.context).save(journey: journey))
+        XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
 
         try store.reopen()
-        let reloaded = JourneyRepository(managedContext: store.context).getAll().map { Journey(journeyEntity: $0) }
+        let reloaded = CoreDataJourneyRepository(managedContext: store.context).getAll()
 
         XCTAssertEqual(reloaded.count, 1)
         let stored = try XCTUnwrap(reloaded.first)
@@ -158,10 +158,10 @@ final class PersistenceRoundTripTests: XCTestCase {
     func test_journey_entries_areStoredWithTheirCurrentJsonKeys() throws {
         let journey = Journey(name: "Format", priority: 0, numbers: [25])
         journey.entries[0].catchId = UUID()
-        XCTAssertTrue(JourneyRepository(managedContext: store.context).save(journey: journey))
+        XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
 
         try store.reopen()
-        let entity = try XCTUnwrap(JourneyRepository(managedContext: store.context).getAll().first)
+        let entity = try XCTUnwrap(rawRows("JourneyEntity").first)
         let json = try XCTUnwrap((entity.value(forKey: "entries") as? String)?.data(using: .utf8))
         let entries = try XCTUnwrap(JSONSerialization.jsonObject(with: json) as? [[String: Any]])
 
@@ -174,22 +174,22 @@ final class PersistenceRoundTripTests: XCTestCase {
 
     func test_journey_delete_isPersisted() throws {
         let journey = Journey(name: "Gone", priority: 0, numbers: [1])
-        let repository = JourneyRepository(managedContext: store.context)
-        XCTAssertTrue(repository.save(journey: journey))
-        repository.delete(journey: journey)
+        let repository = CoreDataJourneyRepository(managedContext: store.context)
+        XCTAssertTrue(repository.save(journey))
+        repository.delete(journey)
 
         try store.reopen()
 
-        XCTAssertTrue(JourneyRepository(managedContext: store.context).getAll().isEmpty)
+        XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).getAll().isEmpty)
     }
 
     // MARK: Pokemon
 
     func test_pokemon_createdWithDefaults_survivesReload() throws {
-        PokemonRepository(managedContext: store.context).save(name: "Bulbasaur", number: 0)
+        CoreDataPokemonRepository(managedContext: store.context).insert(Pokemon(newlyAddedNamed: "Bulbasaur", number: 0))
 
         try store.reopen()
-        let reloaded = PokemonRepository(managedContext: store.context).getAll().map { Pokemon(pokemonEntity: $0) }
+        let reloaded = CoreDataPokemonRepository(managedContext: store.context).getAll()
 
         XCTAssertEqual(reloaded.count, 1)
         let pokemon = try XCTUnwrap(reloaded.first)
@@ -208,9 +208,9 @@ final class PersistenceRoundTripTests: XCTestCase {
     }
 
     func test_pokemon_changes_surviveReload() throws {
-        PokemonRepository(managedContext: store.context).save(name: "Ralts", number: 279)
+        CoreDataPokemonRepository(managedContext: store.context).insert(Pokemon(newlyAddedNamed: "Ralts", number: 279))
         try store.reopen()
-        let pokemon = try XCTUnwrap(PokemonRepository(managedContext: store.context).getAll().map { Pokemon(pokemonEntity: $0) }.first)
+        let pokemon = try XCTUnwrap(CoreDataPokemonRepository(managedContext: store.context).getAll().first)
         pokemon.encounters = 4321
         pokemon.caughtDescription = "Caught"
         pokemon.caughtBall = "dream"
@@ -221,10 +221,10 @@ final class PersistenceRoundTripTests: XCTestCase {
         pokemon.huntMethod = .Masuda
         pokemon.increment = 3
         pokemon.game = .Scarlet
-        PokemonRepository(managedContext: store.context).save(pokemon: pokemon)
+        CoreDataPokemonRepository(managedContext: store.context).save(pokemon)
 
         try store.reopen()
-        let reloaded = try XCTUnwrap(PokemonRepository(managedContext: store.context).getAll().map { Pokemon(pokemonEntity: $0) }.first)
+        let reloaded = try XCTUnwrap(CoreDataPokemonRepository(managedContext: store.context).getAll().first)
 
         XCTAssertEqual(reloaded.encounters, 4321)
         XCTAssertEqual(reloaded.caughtDescription, "Caught")
@@ -239,33 +239,123 @@ final class PersistenceRoundTripTests: XCTestCase {
     }
 
     func test_pokemon_areReturnedSortedByNumber() throws {
-        let repository = PokemonRepository(managedContext: store.context)
-        repository.save(name: "Squirtle", number: 6)
-        repository.save(name: "Bulbasaur", number: 0)
-        repository.save(name: "Charmander", number: 3)
+        let repository = CoreDataPokemonRepository(managedContext: store.context)
+        repository.insert(Pokemon(newlyAddedNamed: "Squirtle", number: 6))
+        repository.insert(Pokemon(newlyAddedNamed: "Bulbasaur", number: 0))
+        repository.insert(Pokemon(newlyAddedNamed: "Charmander", number: 3))
 
         try store.reopen()
 
-        XCTAssertEqual(PokemonRepository(managedContext: store.context).getAll().map { Pokemon(pokemonEntity: $0).number }, [0, 3, 6])
+        XCTAssertEqual(CoreDataPokemonRepository(managedContext: store.context).getAll().map { $0.number }, [0, 3, 6])
     }
 
     // MARK: Active moves
 
     func test_activeMoves_surviveSaveAndReload() throws {
-        let json = #"[{"name":"Spore","maxPP":24,"remainingPP":17,"type":"grass"}]"#
-        MoveRepository(managedContext: store.context).save(json: json)
+        let spore = ActiveMove(name: "Spore", maxPP: 24, remainingPP: 17, type: "grass")
+        CoreDataMoveRepository(managedContext: store.context).insert(ActiveMoves(moves: [spore], pressureActive: false))
 
         try store.reopen()
-        let activeMoves = try XCTUnwrap(MoveRepository(managedContext: store.context).getAll().map { ActiveMoves(moveEntity: $0) }.first)
-        XCTAssertEqual(activeMoves.json, json)
+        let activeMoves = try XCTUnwrap(CoreDataMoveRepository(managedContext: store.context).getActiveMoves())
+        XCTAssertEqual(activeMoves.moves.map { $0.name }, ["Spore"])
+        XCTAssertEqual(activeMoves.moves.first?.remainingPP, 17)
         XCTAssertFalse(activeMoves.pressureActive)
 
+        activeMoves.moves[0].remainingPP = 9
         activeMoves.pressureActive = true
-        MoveRepository(managedContext: store.context).save(activeMoves: activeMoves)
+        CoreDataMoveRepository(managedContext: store.context).save(activeMoves)
 
         try store.reopen()
-        let reloaded = try XCTUnwrap(MoveRepository(managedContext: store.context).getAll().map { ActiveMoves(moveEntity: $0) }.first)
-        XCTAssertEqual(reloaded.json, json)
+        let reloaded = try XCTUnwrap(CoreDataMoveRepository(managedContext: store.context).getActiveMoves())
+        XCTAssertEqual(reloaded.moves.map { $0.remainingPP }, [9])
         XCTAssertTrue(reloaded.pressureActive)
+        XCTAssertEqual(rawRows("ActiveMovesEntity").count, 1)
+    }
+
+    func test_activeMoves_areStoredWithTheirCurrentJsonKeys() throws {
+        CoreDataMoveRepository(managedContext: store.context).insert(ActiveMoves(moves: [ActiveMove(name: "Spore", maxPP: 24, remainingPP: 17, type: "grass")], pressureActive: false))
+
+        try store.reopen()
+        let json = try XCTUnwrap((rawRows("ActiveMovesEntity").first?.value(forKey: "json") as? String)?.data(using: .utf8))
+        let moves = try XCTUnwrap(JSONSerialization.jsonObject(with: json) as? [[String: Any]])
+
+        XCTAssertEqual(moves.count, 1)
+        XCTAssertEqual(Set(moves[0].keys), ["name", "maxPP", "remainingPP", "type"])
+        XCTAssertEqual(moves[0]["name"] as? String, "Spore")
+        XCTAssertEqual(moves[0]["remainingPP"] as? Int, 17)
+    }
+
+    // MARK: Data safety
+
+    func test_journey_withUnreadableStoredEntries_isNotOverwritten() throws {
+        let journey = Journey(name: "Damaged", priority: 0, numbers: [1])
+        XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
+        let corrupt = "{not json"
+        try XCTUnwrap(rawRows("JourneyEntity").first).setValue(corrupt, forKey: "entries")
+        try store.context.save()
+
+        try store.reopen()
+        let repository = CoreDataJourneyRepository(managedContext: store.context)
+        let loaded = try XCTUnwrap(repository.getAll().first)
+        XCTAssertTrue(loaded.entries.isEmpty)
+        loaded.name = "Renamed"
+        XCTAssertFalse(repository.save(loaded))
+
+        try store.reopen()
+        let row = try XCTUnwrap(rawRows("JourneyEntity").first)
+        XCTAssertEqual(row.value(forKey: "entries") as? String, corrupt)
+        XCTAssertEqual(row.value(forKey: "name") as? String, "Damaged")
+    }
+
+    func test_activeMoves_withUnreadableStoredJson_areNotOverwritten() throws {
+        CoreDataMoveRepository(managedContext: store.context).insert(ActiveMoves(moves: [], pressureActive: false))
+        let corrupt = "[{\"name\":"
+        try XCTUnwrap(rawRows("ActiveMovesEntity").first).setValue(corrupt, forKey: "json")
+        try store.context.save()
+
+        try store.reopen()
+        let repository = CoreDataMoveRepository(managedContext: store.context)
+        XCTAssertEqual(repository.getActiveMoves()?.moves.count, 0)
+        repository.save(ActiveMoves(moves: [ActiveMove(name: "Tackle", maxPP: 35, remainingPP: 35, type: "normal")], pressureActive: true))
+
+        try store.reopen()
+        XCTAssertEqual(rawRows("ActiveMovesEntity").first?.value(forKey: "json") as? String, corrupt)
+    }
+
+    func test_hunt_savedThroughAnotherRepositoryInstance_updatesTheSameRow() throws {
+        CoreDataHuntRepository(managedContext: store.context).save(Hunt(name: "Original", pokemon: [], priority: 0))
+        try store.reopen()
+
+        let loaded = try XCTUnwrap(CoreDataHuntRepository(managedContext: store.context).getAll().first)
+        loaded.name = "Updated"
+        CoreDataHuntRepository(managedContext: store.context).save(loaded)
+        CoreDataHuntRepository(managedContext: store.context).delete(Hunt(name: "Never saved", pokemon: [], priority: 1))
+
+        try store.reopen()
+        XCTAssertEqual(CoreDataHuntRepository(managedContext: store.context).getAll().map { $0.name }, ["Updated"])
+    }
+
+    func test_catch_savedThroughAnotherRepositoryInstance_updatesTheSameRow() throws {
+        let original = Catch(number: 1, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 5, isShinyCharmActive: false, caughtDate: nil)
+        let repository = CoreDataCatchRepository(managedContext: store.context)
+        repository.insert(original)
+        XCTAssertTrue(repository.save())
+        try store.reopen()
+
+        let loaded = try XCTUnwrap(CoreDataCatchRepository(managedContext: store.context).getAll().first)
+        loaded.encounters = 50
+        let otherRepository = CoreDataCatchRepository(managedContext: store.context)
+        otherRepository.update(loaded)
+        XCTAssertTrue(otherRepository.save())
+
+        try store.reopen()
+        let reloaded = CoreDataCatchRepository(managedContext: store.context).getAll()
+        XCTAssertEqual(reloaded.map { $0.id }, [original.id])
+        XCTAssertEqual(reloaded.first?.encounters, 50)
+        XCTAssertEqual(CoreDataCatchRepository(managedContext: store.context).get(id: original.id)?.encounters, 50)
+    }
+
+    private func rawRows(_ entityName: String) -> [NSManagedObject] {
+        return (try? store.context.fetch(NSFetchRequest<NSManagedObject>(entityName: entityName))) ?? []
     }
 }

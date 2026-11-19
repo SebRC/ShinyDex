@@ -1,20 +1,18 @@
 import Foundation
-import CoreData
 
-struct JourneyEntry: Codable, Equatable {
+struct JourneyEntry: Equatable {
 	let id: UUID
 	var number: Int
 	var catchId: UUID?
 
-	init(number: Int, catchId: UUID? = nil) {
-		self.id = UUID()
+	init(id: UUID = UUID(), number: Int, catchId: UUID? = nil) {
+		self.id = id
 		self.number = number
 		self.catchId = catchId
 	}
 }
 
 class Journey {
-	var journeyEntity: NSManagedObject?
 	let id: UUID
 	var name: String
 	let createdDate: Date
@@ -29,19 +27,12 @@ class Journey {
 		entries = numbers.map { JourneyEntry(number: $0) }
 	}
 
-	init(journeyEntity: NSManagedObject) {
-		self.journeyEntity = journeyEntity
-		id = journeyEntity.value(forKey: "id") as? UUID ?? UUID()
-		name = journeyEntity.value(forKey: "name") as? String ?? "Journey"
-		createdDate = journeyEntity.value(forKey: "createdDate") as? Date ?? Date()
-		priority = journeyEntity.value(forKey: "priority") as? Int ?? 0
-		let json = (journeyEntity.value(forKey: "entries") as? String)?.data(using: .utf8) ?? Data()
-		entries = (try? JSONDecoder().decode([JourneyEntry].self, from: json)) ?? []
-	}
-
-	var encodedEntries: String {
-		let data = (try? JSONEncoder().encode(entries)) ?? Data()
-		return String(data: data, encoding: .utf8) ?? "[]"
+	init(id: UUID, name: String, createdDate: Date, priority: Int, entries: [JourneyEntry]) {
+		self.id = id
+		self.name = name
+		self.createdDate = createdDate
+		self.priority = priority
+		self.entries = entries
 	}
 
 	func linkedCatch(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> Catch? {

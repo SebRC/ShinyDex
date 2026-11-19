@@ -2,19 +2,14 @@ import Foundation
 
 class PokemonService {
 	fileprivate let txtReader = TxtReader()
-	fileprivate var pokemonRepository = PokemonRepository()
+	fileprivate let pokemonRepository: PokemonRepository = CoreDataPokemonRepository()
 
 	func save(pokemon: Pokemon) {
-		pokemonRepository.save(pokemon: pokemon)
+		pokemonRepository.save(pokemon)
 	}
 
 	func getAll() -> [Pokemon] {
-		let allPokemonEntities = pokemonRepository.getAll()
-		var allPokemon = [Pokemon]()
-		for pokemon in allPokemonEntities {
-			allPokemon.append(Pokemon(pokemonEntity: pokemon))
-		}
-		return allPokemon
+		return pokemonRepository.getAll()
 	}
 
 	func populateDatabase() {
@@ -23,7 +18,7 @@ class PokemonService {
 		var count = 0
 
 		for name in names {
-			pokemonRepository.save(name: name, number: count)
+			pokemonRepository.insert(Pokemon(newlyAddedNamed: name, number: count))
 			count += 1
 		}
 	}
@@ -36,7 +31,7 @@ class PokemonService {
         var startIndex = allNames.count - difference
         let names = Array(allNames[startIndex..<allNames.count])
         for name in names {
-            pokemonRepository.save(name: name, number: startIndex)
+            pokemonRepository.insert(Pokemon(newlyAddedNamed: name, number: startIndex))
             startIndex += 1
         }
         

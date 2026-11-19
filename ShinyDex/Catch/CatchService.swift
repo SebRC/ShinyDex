@@ -3,7 +3,7 @@ import Foundation
 class CatchService {
 	static let backfillCompletedKey = "didBackfillCatches_v1"
 
-	fileprivate let catchRepository = CatchRepository()
+	fileprivate let catchRepository: CatchRepository = CoreDataCatchRepository()
 	fileprivate let pokemonService = PokemonService()
 	fileprivate let userDefaults: UserDefaults
 
@@ -16,7 +16,7 @@ class CatchService {
 	}
 
 	func getAllIncludingFailed() -> [Catch] {
-		return catchRepository.getAll().map { Catch(catchEntity: $0) }
+		return catchRepository.getAll()
 	}
 
 	func getCatches(for pokemon: Pokemon) -> [Catch] {
@@ -24,7 +24,7 @@ class CatchService {
 	}
 
 	func getCatchesIncludingFailed(for pokemon: Pokemon) -> [Catch] {
-		return CatchRules.sortedOldestFirst(catchRepository.getAll(number: pokemon.number).map { Catch(catchEntity: $0) })
+		return CatchRules.sortedOldestFirst(catchRepository.getAll(number: pokemon.number))
 	}
 
 	func getCountsByNumber() -> [Int: Int] {
@@ -32,25 +32,25 @@ class CatchService {
 	}
 
 	func logCatch(pokemon: Pokemon, caughtBall: String, caughtDate: Date = Date()) {
-		catchRepository.insert(catchToInsert: Catch(pokemon: pokemon, caughtBall: caughtBall, caughtDate: caughtDate))
+		catchRepository.insert(Catch(pokemon: pokemon, caughtBall: caughtBall, caughtDate: caughtDate))
 		if catchRepository.save() {
 			syncCaughtBall(pokemon: pokemon)
 		}
 	}
 
 	func logFailed(pokemon: Pokemon, date: Date = Date()) {
-		catchRepository.insert(catchToInsert: Catch(pokemon: pokemon, caughtBall: CatchRules.noBall, caughtDate: date, isFailed: true))
+		catchRepository.insert(Catch(pokemon: pokemon, caughtBall: CatchRules.noBall, caughtDate: date, isFailed: true))
 		catchRepository.save()
 	}
 
 	func update(caught: Catch, pokemon: Pokemon, applying changes: (Catch) -> Void) {
 		changes(caught)
-		catchRepository.update(catchToUpdate: caught)
+		catchRepository.update(caught)
 		if catchRepository.save() {
 			syncCaughtBall(pokemon: pokemon)
 		}
 		else {
-			caught.revertToSaved()
+			revertToSaved(caught)
 		}
 	}
 
@@ -59,9 +59,9 @@ class CatchService {
 		let originalNumber = caught.evolvedFrom ?? caught.number
 		caught.number = target.number
 		caught.evolvedFrom = originalNumber == target.number ? nil : originalNumber
-		catchRepository.update(catchToUpdate: caught)
+		catchRepository.update(caught)
 		guard catchRepository.save() else {
-			caught.revertToSaved()
+			revertToSaved(caught)
 			return false
 		}
 		syncCaughtBall(pokemon: pokemon)
@@ -70,7 +70,7 @@ class CatchService {
 	}
 
 	func delete(catchToDelete: Catch, pokemon: Pokemon) {
-		catchRepository.delete(catchToDelete: catchToDelete)
+		catchRepository.delete(catchToDelete)
 		if catchRepository.save() {
 			syncCaughtBall(pokemon: pokemon)
 		}
@@ -91,10 +91,16 @@ class CatchService {
 		}
 		let pokemonToBackfill = CatchRules.pokemonToBackfill(from: pokemonService.getAll(), existingCounts: getCountsByNumber())
 		for pokemon in pokemonToBackfill {
-			catchRepository.insert(catchToInsert: Catch(pokemon: pokemon, caughtBall: pokemon.caughtBall, caughtDate: nil))
+			catchRepository.insert(Catch(pokemon: pokemon, caughtBall: pokemon.caughtBall, caughtDate: nil))
 		}
 		if pokemonToBackfill.isEmpty || catchRepository.save() {
 			userDefaults.set(true, forKey: CatchService.backfillCompletedKey)
+		}
+	}
+
+	fileprivate func revertToSaved(_ caught: Catch) {
+		if let saved = catchRepository.get(id: caught.id) {
+			caught.restore(from: saved)
 		}
 	}
 
