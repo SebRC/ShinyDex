@@ -1,5 +1,4 @@
 import UIKit
-import FLAnimatedImage
 
 class CatchDetailTVC: UITableViewController {
 	fileprivate enum Section: Int, CaseIterable {
@@ -459,7 +458,7 @@ fileprivate class CatchHeroCell: UITableViewCell {
 	fileprivate static let spriteSide: CGFloat = 170
 	fileprivate static let glowSide: CGFloat = 280
 	fileprivate let glowView = GlowView(intensity: 0.35)
-	fileprivate let animatedImageView = FLAnimatedImageView()
+	fileprivate let spriteView = PokemonSpriteView()
 	fileprivate let badgeLabel = UILabel(fontSize: 13, weight: .bold, color: Color.Grey900)
 	fileprivate let badge = UIView()
 	fileprivate let badgeIcon = UIImageView()
@@ -473,8 +472,6 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		backgroundColor = .clear
 		selectionStyle = .none
 
-		animatedImageView.contentMode = .scaleAspectFit
-		animatedImageView.isAccessibilityElement = false
 
 		badge.layer.cornerRadius = 11
 		badgeIcon.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 11, weight: .bold)
@@ -495,7 +492,7 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		text.spacing = 4
 		text.setCustomSpacing(8, after: badge)
 
-		contentView.addAutoLayoutSubviews(glowView, animatedImageView, text)
+		contentView.addAutoLayoutSubviews(glowView, spriteView, text)
 		// The glow sits fully inside the cell: the inset grouped table clips anything drawn above a cell's top edge.
 		NSLayoutConstraint.activate([
 			glowView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -503,12 +500,12 @@ fileprivate class CatchHeroCell: UITableViewCell {
 			glowView.widthAnchor.constraint(equalToConstant: CatchHeroCell.glowSide),
 			glowView.heightAnchor.constraint(equalToConstant: CatchHeroCell.glowSide),
 
-			animatedImageView.centerXAnchor.constraint(equalTo: glowView.centerXAnchor),
-			animatedImageView.centerYAnchor.constraint(equalTo: glowView.centerYAnchor),
-			animatedImageView.widthAnchor.constraint(equalToConstant: CatchHeroCell.spriteSide),
-			animatedImageView.heightAnchor.constraint(equalToConstant: CatchHeroCell.spriteSide),
+			spriteView.centerXAnchor.constraint(equalTo: glowView.centerXAnchor),
+			spriteView.centerYAnchor.constraint(equalTo: glowView.centerYAnchor),
+			spriteView.widthAnchor.constraint(equalToConstant: CatchHeroCell.spriteSide),
+			spriteView.heightAnchor.constraint(equalToConstant: CatchHeroCell.spriteSide),
 
-			text.topAnchor.constraint(equalTo: animatedImageView.bottomAnchor, constant: 8),
+			text.topAnchor.constraint(equalTo: spriteView.bottomAnchor, constant: 8),
 			text.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			text.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			text.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
@@ -527,12 +524,7 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		badgeIcon.image = UIImage(systemName: isFailed ? "wind" : PokemonCell.logCatchSymbol)
 		badgeIcon.tintColor = badgeLabel.textColor
 		glowView.isHidden = isFailed
-		if let gif = NSDataAsset(name: pokemonName) {
-			animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: gif.data)
-		}
-		else {
-			animatedImageView.image = UIImage(named: pokemonName.lowercased())
-		}
+		spriteView.setPokemon(named: pokemonName)
 		nameLabel.text = [nickname ?? pokemonName, genderSymbol].compactMap { $0 }.joined(separator: " ")
 		speciesLabel.text = pokemonName
 		speciesLabel.isHidden = nickname == nil

@@ -1,11 +1,10 @@
 import UIKit
-import FLAnimatedImage
 
 class ShinyTrackerVC: UIViewController {
 	fileprivate let plusButton = UIButton(type: .system)
 	fileprivate let minusButton = UIButton(type: .system)
 	fileprivate let buttonStrip = ButtonStrip()
-	fileprivate let animatedImageView = FLAnimatedImageView()
+	fileprivate let spriteView = PokemonSpriteView()
 	fileprivate let heroView = UIView()
 	fileprivate let methodIconView = UIImageView()
 	fileprivate let encountersCaptionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
@@ -39,7 +38,7 @@ class ShinyTrackerVC: UIViewController {
 
 		layOutViews()
 		setUpNavigationItems()
-		setGif()
+		setSprite()
 		resolveEncounterDetails()
 		setCaughtStatus()
 		setMethodImage()
@@ -65,10 +64,6 @@ class ShinyTrackerVC: UIViewController {
 		title = pokemon.name
 		navigationItem.largeTitleDisplayMode = .never
 		view.backgroundColor = Color.Grey900
-		animatedImageView.contentMode = .scaleAspectFit
-		animatedImageView.isAccessibilityElement = false
-		animatedImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-		animatedImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
 
 		setUpHeroView()
 		setUpCounterButtons()
@@ -80,18 +75,24 @@ class ShinyTrackerVC: UIViewController {
 		let counter = UIStackView(arrangedSubviews: [minusButton, plusButton])
 		counter.spacing = 12
 
-		view.addAutoLayoutSubviews(heroView, stats, animatedImageView, buttonStrip, counter)
+		view.addAutoLayoutSubviews(heroView, stats, spriteView, buttonStrip, counter)
 		let safeArea = view.safeAreaLayoutGuide
+		let preferredSpriteWidth = spriteView.widthAnchor.constraint(equalToConstant: 220)
+		preferredSpriteWidth.priority = .defaultHigh
+		// The sprite view has no intrinsic size, so without this the button strip would stretch into the leftover height instead.
+		let spriteFillsRemainingHeight = spriteView.heightAnchor.constraint(equalToConstant: 10_000)
+		spriteFillsRemainingHeight.priority = UILayoutPriority(500)
 		NSLayoutConstraint.activate([
+			preferredSpriteWidth,
+			spriteFillsRemainingHeight,
 			heroView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 12),
 			stats.topAnchor.constraint(equalTo: heroView.bottomAnchor, constant: 12),
 
-			animatedImageView.topAnchor.constraint(equalTo: stats.bottomAnchor, constant: 12),
-			animatedImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			animatedImageView.widthAnchor.constraint(lessThanOrEqualToConstant: 220),
-			animatedImageView.widthAnchor.constraint(lessThanOrEqualTo: safeArea.widthAnchor, constant: -32),
+			spriteView.topAnchor.constraint(equalTo: stats.bottomAnchor, constant: 12),
+			spriteView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			spriteView.widthAnchor.constraint(lessThanOrEqualTo: safeArea.widthAnchor, constant: -32),
 
-			buttonStrip.topAnchor.constraint(equalTo: animatedImageView.bottomAnchor, constant: 12),
+			buttonStrip.topAnchor.constraint(equalTo: spriteView.bottomAnchor, constant: 12),
 			counter.topAnchor.constraint(equalTo: buttonStrip.bottomAnchor, constant: 12),
 			counter.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -12),
 			counter.heightAnchor.constraint(equalToConstant: 76),
@@ -209,10 +210,8 @@ class ShinyTrackerVC: UIViewController {
 		return UIImage(named: huntMethod.rawValue)
 	}
 
-	fileprivate func setGif() {
-		if let gifAsset = NSDataAsset(name: "\(pokemon.name)") {
-			animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: gifAsset.data)
-		}
+	fileprivate func setSprite() {
+		spriteView.setPokemon(named: pokemon.name)
 	}
 
 	fileprivate func setButtonActions() {
