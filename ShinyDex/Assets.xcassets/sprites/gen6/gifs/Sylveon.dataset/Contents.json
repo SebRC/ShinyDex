@@ -1,12 +1,12 @@
 {
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  },
   "data" : [
     {
-      "idiom" : "universal",
-      "filename" : "Sylveon.gif"
+      "filename" : "Sylveon.gif",
+      "idiom" : "universal"
     }
-  ]
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
 }

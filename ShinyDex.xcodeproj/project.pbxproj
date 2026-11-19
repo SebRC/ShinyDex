@@ -99,6 +99,7 @@
 		969BEF9226B2DEBC00FDF445 /* PPCounterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEF9126B2DEBC00FDF445 /* PPCounterTVC.swift */; };
 		969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BEFA326B2E63B00FDF445 /* MoveCell.swift */; };
 		96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A72990245F12C500AF3F5F /* ButtonStrip.swift */; };
+		AA51DE5E0000000000000001 /* PokemonSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA51DE5E0000000000000002 /* PokemonSpriteView.swift */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
 		96BC2CDB26B4309A00353665 /* MoveTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BC2CDA26B4309A00353665 /* MoveTypes.swift */; };
 		96C3CB6A26618B620090186E /* PopupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB6926618B620090186E /* PopupHandlerTests.swift */; };
@@ -326,6 +327,7 @@
 		969BEF9126B2DEBC00FDF445 /* PPCounterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPCounterTVC.swift; sourceTree = "<group>"; };
 		969BEFA326B2E63B00FDF445 /* MoveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCell.swift; sourceTree = "<group>"; };
 		96A72990245F12C500AF3F5F /* ButtonStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStrip.swift; sourceTree = "<group>"; };
+		AA51DE5E0000000000000002 /* PokemonSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSpriteView.swift; sourceTree = "<group>"; };
 		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
 		96BC2CDA26B4309A00353665 /* MoveTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTypes.swift; sourceTree = "<group>"; };
 		96C3CB6926618B620090186E /* PopupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandlerTests.swift; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 			isa = PBXGroup;
 			children = (
 				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
+				AA51DE5E0000000000000002 /* PokemonSpriteView.swift */,
 				6719D034E3CFD6B73371F886 /* EmptyStateView.swift */,
 				967F62FF2465C608008F2C4B /* GameSettingsCell.swift */,
 				967F63032465C8FB008F2C4B /* GameSettingsContainer.swift */,
@@ -1253,6 +1256,7 @@
 				9689C72724084CCF0007AD5D /* LGPEOddsService.swift in Sources */,
 				96FC079D23EF192400459450 /* AppDelegate.swift in Sources */,
 				96A72992245F12C600AF3F5F /* ButtonStrip.swift in Sources */,
+				AA51DE5E0000000000000001 /* PokemonSpriteView.swift in Sources */,
 				A1B2C3D4E5F6071829304152 /* IconGridView.swift in Sources */,
 				96435D452455C31A00C45A00 /* PokemonPickerModalVC.swift in Sources */,
 				96435D4924571D0A00C45A00 /* HuntPickerModalVC.swift in Sources */,

@@ -1,12 +1,12 @@
 {
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  },
   "data" : [
     {
-      "idiom" : "universal",
-      "filename" : "Porygon-Z.gif"
+      "filename" : "Porygon-Z.gif",
+      "idiom" : "universal"
     }
-  ]
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
 }
