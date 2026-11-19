@@ -146,6 +146,7 @@
 		B10C0A0000000000000000A1 /* CatchStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000A2 /* CatchStats.swift */; };
 		B10C0A0000000000000000B1 /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000B2 /* StatsVC.swift */; };
 		B10C0A0000000000000000C1 /* CatchStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000C2 /* CatchStatsTests.swift */; };
+		D22000000000000000000B03 /* CatchPeriodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22000000000000000000F03 /* CatchPeriodTests.swift */; };
 		B10C0A0000000000000000E1 /* EffortValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E2 /* EffortValues.swift */; };
 		B10C0A000000000000005004 /* IndividualValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005804 /* IndividualValues.swift */; };
 		B10C0A000000000000005003 /* Nature.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005803 /* Nature.swift */; };
@@ -200,6 +201,7 @@
 		E8431168EFED363AC1FD549E /* ClearHunts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F45120AF3E3DB5D52EBC2F3 /* ClearHunts.swift */; };
 		E99FDDED867FEC95076F5E93 /* GetMenuSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D071513DB370706418AF14 /* GetMenuSummary.swift */; };
 		EAEFB0DF1012A6F6F13764B0 /* CatchRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832943F8492A89E3B3A4977E /* CatchRules.swift */; };
+		D22000000000000000000B01 /* CatchPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22000000000000000000F01 /* CatchPeriod.swift */; };
 		EB45740CE883690975FF3ED3 /* GetAllPokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E4E0867F1440ECDEABCDE /* GetAllPokemon.swift */; };
 		F363BCF9D47D0C696C09E5C8 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD625845E4AACABFF6A1B98 /* ToastView.swift */; };
 		F76B2EB70B7DCF1A4CB2C281 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9352F4490F50198D78E2EA23 /* CoreDataStack.swift */; };
@@ -279,6 +281,7 @@
 		7F38366A50CF3D75831C7500 /* GetMoveOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetMoveOptions.swift; sourceTree = "<group>"; };
 		7F51D841B5CB5F12B0D0E8F1 /* JourneyDTOs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JourneyDTOs.swift; sourceTree = "<group>"; };
 		832943F8492A89E3B3A4977E /* CatchRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRules.swift; sourceTree = "<group>"; };
+		D22000000000000000000F01 /* CatchPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchPeriod.swift; sourceTree = "<group>"; };
 		840CFD474B98C04E23A50454 /* GetHunts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetHunts.swift; sourceTree = "<group>"; };
 		8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRulesTests.swift; sourceTree = "<group>"; };
 		8FFD756C635C42E39026A4B9 /* DeleteJourney.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeleteJourney.swift; sourceTree = "<group>"; };
@@ -370,6 +373,7 @@
 		B10C0A0000000000000000A2 /* CatchStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStats.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000B2 /* StatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000C2 /* CatchStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsTests.swift; sourceTree = "<group>"; };
+		D22000000000000000000F03 /* CatchPeriodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchPeriodTests.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000D1 /* ShinyDex 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 3.xcdatamodel"; sourceTree = "<group>"; };
 		B10C0A0000000000000000D2 /* ShinyDex 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 4.xcdatamodel"; sourceTree = "<group>"; };
 		B10C0A0000000000000000E2 /* EffortValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffortValues.swift; sourceTree = "<group>"; };
@@ -547,6 +551,7 @@
 				E0068511BD9BCD2B45F5D0F4 /* CatchOdds.swift */,
 				BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */,
 				832943F8492A89E3B3A4977E /* CatchRules.swift */,
+				D22000000000000000000F01 /* CatchPeriod.swift */,
 				B10C0A0000000000000000A2 /* CatchStats.swift */,
 				B10C0A0000000000000000E2 /* EffortValues.swift */,
 				B10C0A000000000000005804 /* IndividualValues.swift */,
@@ -718,6 +723,7 @@
 				B10C0A000000000000005808 /* CatchTraitsTests.swift */,
 				B10C0A000000000000005807 /* IndividualValuesTests.swift */,
 				B10C0A0000000000000000C2 /* CatchStatsTests.swift */,
+				D22000000000000000000F03 /* CatchPeriodTests.swift */,
 				B10C0A000000000000000F0E /* JourneyTests.swift */,
 				B10C0A000000000000002000 /* TestStore.swift */,
 				B10C0A000000000000002001 /* PersistenceRoundTripTests.swift */,
@@ -1152,6 +1158,7 @@
 				B10C0A000000000000005008 /* CatchTraitsTests.swift in Sources */,
 				B10C0A000000000000005007 /* IndividualValuesTests.swift in Sources */,
 				B10C0A0000000000000000C1 /* CatchStatsTests.swift in Sources */,
+				D22000000000000000000B03 /* CatchPeriodTests.swift in Sources */,
 				B10C0A000000000000000F0D /* JourneyTests.swift in Sources */,
 				B10C0A000000000000001000 /* TestStore.swift in Sources */,
 				B10C0A000000000000001001 /* PersistenceRoundTripTests.swift in Sources */,
@@ -1188,6 +1195,7 @@
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
 				74C3CC04D71A5395765FCEAA /* Catch.swift in Sources */,
 				EAEFB0DF1012A6F6F13764B0 /* CatchRules.swift in Sources */,
+				D22000000000000000000B01 /* CatchPeriod.swift in Sources */,
 				B10C0A0000000000000000E1 /* EffortValues.swift in Sources */,
 				B10C0A000000000000005004 /* IndividualValues.swift in Sources */,
 				B10C0A000000000000005003 /* Nature.swift in Sources */,

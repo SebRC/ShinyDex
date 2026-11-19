@@ -122,56 +122,60 @@ class StatsVC: UIViewController {
 
 	fileprivate func addYears(_ stats: CatchStatistics) {
 		guard !stats.years.isEmpty else { return }
-		let chart = YearChartView(years: stats.years)
-		let footnote = stats.undatedCount > 0
-			? "\(stats.undatedCount) \(stats.undatedCount == 1 ? "catch was" : "catches were") logged before catch history and \(stats.undatedCount == 1 ? "has" : "have") no year."
-			: nil
-		addSection("Average encounters by year", chart, footnote: footnote)
+		let chart = YearChartView(years: stats.years) { [weak self] year in
+			self?.showCollection(filter: .period(.year(year)))
+		}
+		let undatedNote = stats.undatedCount > 0
+			? " \(stats.undatedCount) \(stats.undatedCount == 1 ? "catch was" : "catches were") logged before catch history and \(stats.undatedCount == 1 ? "has" : "have") no year."
+			: ""
+		addSection("Average encounters by year", chart, footnote: "Tap a year to see its catches." + undatedNote)
 	}
 
 	fileprivate func addLuckiestPeriods(_ stats: CatchStatistics) {
 		guard stats.months.contains(where: { $0.foundCount > 0 }) else { return }
 		let calendar = Calendar.current
 		let monthBars = stats.months.map {
-			PeriodChartView.Bar(label: calendar.veryShortMonthSymbols[$0.period - 1], name: calendar.monthSymbols[$0.period - 1], foundCount: $0.foundCount)
+			PeriodChartView.Bar(period: .month($0.period), label: calendar.veryShortMonthSymbols[$0.period - 1], name: calendar.monthSymbols[$0.period - 1], foundCount: $0.foundCount)
 		}
 		addPeriodChart(title: "Luckiest months", bars: monthBars)
 
 		let weekdaysByNumber = Dictionary(uniqueKeysWithValues: stats.weekdays.map { ($0.period, $0.foundCount) })
 		let weekdayBars = (0..<7).map { offset -> PeriodChartView.Bar in
 			let weekday = (calendar.firstWeekday - 1 + offset) % 7 + 1
-			return PeriodChartView.Bar(label: calendar.shortWeekdaySymbols[weekday - 1], name: calendar.weekdaySymbols[weekday - 1], foundCount: weekdaysByNumber[weekday] ?? 0)
+			return PeriodChartView.Bar(period: .weekday(weekday), label: calendar.shortWeekdaySymbols[weekday - 1], name: calendar.weekdaySymbols[weekday - 1], foundCount: weekdaysByNumber[weekday] ?? 0)
 		}
 		addPeriodChart(title: "Luckiest weekdays", bars: weekdayBars)
 	}
 
 	fileprivate func addPeriodChart(title: String, bars: [PeriodChartView.Bar]) {
-		let chart = PeriodChartView(bars: bars)
+		let chart = PeriodChartView(bars: bars) { [weak self] bar in
+			self?.showCollection(filter: .period(bar.period))
+		}
 		let luckiest = chart.luckiestBars
 		let names = ListFormatter.localizedString(byJoining: luckiest.map { $0.name })
 		let count = luckiest.first?.foundCount ?? 0
-		addSection(title, chart, footnote: "Luckiest: \(names), with \(StatsVC.shinies(count)).")
+		addSection(title, chart, footnote: "Luckiest: \(names), with \(StatsVC.shinies(count)). Tap a bar to see those catches.")
 	}
 
 	fileprivate func addLuckiestDates(_ stats: CatchStatistics) {
 		guard !stats.luckiestDates.isEmpty else { return }
-		let formatter = DateFormatter()
-		formatter.setLocalizedDateFormatFromTemplate("MMMMd")
 		let card = UIView()
 		card.backgroundColor = Color.Grey800
 		card.layer.cornerRadius = CornerRadius.standard
+		card.clipsToBounds = true
 		let list = UIStackView()
 		list.axis = .vertical
-		let anyLeapYear = 2024
 		for (index, luckyDate) in stats.luckiestDates.prefix(5).enumerated() {
-			let date = Calendar.current.date(from: DateComponents(year: anyLeapYear, month: luckyDate.month, day: luckyDate.day))
-			list.addArrangedSubview(LuckyDateRow(rank: index + 1,
-												 title: date.map { formatter.string(from: $0) } ?? "\(luckyDate.day)/\(luckyDate.month)",
-												 count: luckyDate.foundCount))
+			let filter = CollectionFilter.period(.date(month: luckyDate.month, day: luckyDate.day))
+			let row = LuckyDateRow(rank: index + 1, title: filter.title, count: luckyDate.foundCount)
+			row.onTap = { [weak self] in
+				self?.showCollection(filter: filter)
+			}
+			list.addArrangedSubview(row)
 		}
 		card.addAutoLayoutSubviews(list)
 		list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-		addSection("Luckiest dates", card, footnote: "Dates you've found more than one shiny on, across all years.")
+		addSection("Luckiest dates", card, footnote: "Dates you've found more than one shiny on, across all years. Tap one to see those catches.")
 	}
 
 	fileprivate static func shinies(_ count: Int) -> String {
@@ -283,10 +287,43 @@ fileprivate class TappableTile: UIControl {
 	}
 }
 
+fileprivate class TappableColumn: UIControl {
+	fileprivate let onTap: () -> Void
+
+	init(content: UIView, onTap: @escaping () -> Void) {
+		self.onTap = onTap
+		super.init(frame: .zero)
+		layer.cornerRadius = 8
+		content.isUserInteractionEnabled = false
+		content.isAccessibilityElement = false
+		addAutoLayoutSubviews(content)
+		content.pinEdges(to: self)
+		addTarget(self, action: #selector(tapped), for: .touchUpInside)
+		isAccessibilityElement = true
+		accessibilityTraits = .button
+		accessibilityLabel = content.accessibilityLabel
+		accessibilityHint = "Shows these catches."
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			backgroundColor = isHighlighted ? Color.Grey700 : .clear
+		}
+	}
+
+	@objc fileprivate func tapped() {
+		onTap()
+	}
+}
+
 fileprivate class YearChartView: UIView {
 	fileprivate static let barAreaHeight: CGFloat = 140
 
-	init(years: [CatchStatistics.Year]) {
+	init(years: [CatchStatistics.Year], onSelectYear: @escaping (Int) -> Void) {
 		super.init(frame: .zero)
 		backgroundColor = Color.Grey800
 		layer.cornerRadius = CornerRadius.standard
@@ -298,7 +335,9 @@ fileprivate class YearChartView: UIView {
 		columns.spacing = 14
 		let maxAverage = max(1, years.compactMap { $0.averageEncounters }.max() ?? 1)
 		for year in years {
-			columns.addArrangedSubview(YearChartView.makeColumn(year, maxAverage: maxAverage))
+			columns.addArrangedSubview(TappableColumn(content: YearChartView.makeColumn(year, maxAverage: maxAverage)) {
+				onSelectYear(year.year)
+			})
 		}
 		addAutoLayoutSubviews(scrollView)
 		scrollView.addAutoLayoutSubviews(columns)
@@ -359,6 +398,7 @@ fileprivate class YearChartView: UIView {
 
 fileprivate class PeriodChartView: UIView {
 	struct Bar {
+		let period: CatchPeriod
 		let label: String
 		let name: String
 		let foundCount: Int
@@ -367,14 +407,18 @@ fileprivate class PeriodChartView: UIView {
 	fileprivate static let barAreaHeight: CGFloat = 90
 	let luckiestBars: [Bar]
 
-	init(bars: [Bar]) {
+	init(bars: [Bar], onSelect: @escaping (Bar) -> Void) {
 		let maxCount = bars.map { $0.foundCount }.max() ?? 0
 		luckiestBars = maxCount > 0 ? bars.filter { $0.foundCount == maxCount } : []
 		super.init(frame: .zero)
 		backgroundColor = Color.Grey800
 		layer.cornerRadius = CornerRadius.standard
 
-		let columns = UIStackView(arrangedSubviews: bars.map { PeriodChartView.makeColumn($0, maxCount: max(1, maxCount)) })
+		let columns = UIStackView(arrangedSubviews: bars.map { bar -> UIView in
+			let column = PeriodChartView.makeColumn(bar, maxCount: max(1, maxCount))
+			guard bar.foundCount > 0 else { return column }
+			return TappableColumn(content: column) { onSelect(bar) }
+		})
 		columns.alignment = .bottom
 		columns.distribution = .fillEqually
 		columns.spacing = 4
@@ -425,7 +469,9 @@ fileprivate class PeriodChartView: UIView {
 	}
 }
 
-fileprivate class LuckyDateRow: UIView {
+fileprivate class LuckyDateRow: UIControl {
+	var onTap: (() -> Void)?
+
 	init(rank: Int, title: String, count: Int) {
 		super.init(frame: .zero)
 		let rankLabel = UILabel(fontSize: 13, weight: .bold, color: rank == 1 ? Color.Orange500 : Color.Grey500)
@@ -439,14 +485,31 @@ fileprivate class LuckyDateRow: UIView {
 		countLabel.text = "\(count) shinies"
 		countLabel.setContentHuggingPriority(.required, for: .horizontal)
 		countLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-		let layout = UIStackView(arrangedSubviews: [rankLabel, titleLabel, countLabel])
+		let chevron = UIImageView(image: UIImage.symbol("chevron.right", pointSize: 12, weight: .semibold))
+		chevron.tintColor = Color.Grey500
+		chevron.setContentHuggingPriority(.required, for: .horizontal)
+		let layout = UIStackView(arrangedSubviews: [rankLabel, titleLabel, countLabel, chevron])
 		layout.alignment = .center
 		layout.spacing = 10
+		layout.isUserInteractionEnabled = false
 		addAutoLayoutSubviews(layout)
-		layout.pinEdges(to: self, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14))
+		layout.pinEdges(to: self, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 12))
 		rankLabel.widthAnchor.constraint(equalToConstant: 28).isActive = true
+		addTarget(self, action: #selector(tapped), for: .touchUpInside)
 		isAccessibilityElement = true
+		accessibilityTraits = .button
 		accessibilityLabel = "Number \(rank): \(title), \(count) shinies"
+		accessibilityHint = "Shows the catches from this date."
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			backgroundColor = isHighlighted ? Color.Grey700 : .clear
+		}
+	}
+
+	@objc fileprivate func tapped() {
+		onTap?()
 	}
 
 	required init?(coder: NSCoder) {

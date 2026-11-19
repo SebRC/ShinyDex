@@ -5,8 +5,16 @@ enum CollectionFilter {
 	case game(Games)
 	case method(HuntMethod)
 	case gotAway
+	case period(CatchPeriod)
 
 	var showsFailed: Bool {
+		switch self {
+		case .gotAway, .period: return true
+		case .ball, .game, .method: return false
+		}
+	}
+
+	var isGotAway: Bool {
 		if case .gotAway = self { return true }
 		return false
 	}
@@ -17,6 +25,25 @@ enum CollectionFilter {
 		case .game(let game): return game.displayName
 		case .method(let method): return method.rawValue
 		case .gotAway: return "Got away"
+		case .period(let period): return CollectionFilter.title(of: period)
+		}
+	}
+
+	fileprivate static func title(of period: CatchPeriod) -> String {
+		let calendar = Calendar.current
+		switch period {
+		case .year(let year):
+			return String(year)
+		case .month(let month):
+			return calendar.monthSymbols[month - 1]
+		case .weekday(let weekday):
+			return calendar.weekdaySymbols[weekday - 1]
+		case let .date(month, day):
+			let anyLeapYear = 2024
+			guard let date = calendar.date(from: DateComponents(year: anyLeapYear, month: month, day: day)) else { return "\(day)/\(month)" }
+			let formatter = DateFormatter()
+			formatter.setLocalizedDateFormatFromTemplate("MMMMd")
+			return formatter.string(from: date)
 		}
 	}
 
@@ -26,6 +53,7 @@ enum CollectionFilter {
 		case .game(let game): return caught.game == game
 		case .method(let method): return caught.huntMethod == method
 		case .gotAway: return caught.isFailed
+		case .period(let period): return caught.caughtDate.map { period.contains($0, calendar: .current) } ?? false
 		}
 	}
 }
@@ -51,6 +79,9 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 	init(container: AppContainer, filter: CollectionFilter? = nil) {
 		self.container = container
 		self.filter = filter
+		if case .period? = filter {
+			sortOrder = .recent
+		}
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -135,13 +166,13 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 			collectionView.backgroundView = nil
 			return
 		}
-		let emptyMessage = filter?.showsFailed == true
+		let emptyMessage = filter?.isGotAway == true
 			? "Shinies you log as got away will show up here."
 			: filter.map { "No catches in \($0.title) any more." }
 			?? "Log a catch with the sparkles button next to a Pokémon in the Pokédex or on its tracker."
 		collectionView.backgroundView = entries.isEmpty
 			? EmptyStateView(symbolName: "sparkles",
-							 title: filter?.showsFailed == true ? "None got away" : (filter == nil ? "No shinies yet" : "Nothing here"),
+							 title: filter?.isGotAway == true ? "None got away" : (filter == nil ? "No shinies yet" : "Nothing here"),
 							 message: emptyMessage)
 			: EmptyStateView(symbolName: "magnifyingglass",
 							 title: "No results",
@@ -168,7 +199,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 	func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionHeader.reuseIdentifier, for: indexPath) as! CollectionHeader
 		let catches = entries
-		header.configure(shiniesCaption: filter?.showsFailed == true ? "GOT AWAY" : "SHINIES",
+		header.configure(shiniesCaption: filter?.isGotAway == true ? "GOT AWAY" : "SHINIES",
 						 shinies: catches.count,
 						 species: Set(catches.map { $0.number }).count,
 						 encounters: catches.reduce(0) { $0 + $1.encounters },
