@@ -134,5 +134,8 @@ final class CatchHandlerTests: XCTestCase {
         XCTAssertEqual(statistics.foundCount, 1)
         XCTAssertEqual(statistics.fastestCatch?.pokemonName, "Bulbasaur")
         XCTAssertEqual(statistics.ballUsage.map { $0.key }, ["poke"])
+        XCTAssertEqual(statistics.months.reduce(0) { $0 + $1.foundCount }, 1)
+        XCTAssertEqual(statistics.weekdays.reduce(0) { $0 + $1.foundCount }, 1)
+        XCTAssertEqual(statistics.luckiestDates, [])
     }
 }
