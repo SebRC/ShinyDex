@@ -14,7 +14,6 @@ final class EvolveCatchHandler {
         self.pokemonRepository = pokemonRepository
     }
 
-    // Moving back to the species it was caught as clears the record of what it evolved from.
     func handle(_ command: EvolveCatchCommand) throws {
         guard let caught = catchRepository.get(id: command.catchId.rawValue) else { throw CatchUpdateError.notFound }
         let previousNumber = caught.number

@@ -1,6 +1,5 @@
 @testable import ShinyDex
 
-// Builds the plain values the presentation layer receives, with the same defaults the old placeholder Pokémon had.
 final class PokemonFixture {
     var name = "Placeholder"
     var number = -1

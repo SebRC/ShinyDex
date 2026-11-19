@@ -1,7 +1,7 @@
 import Foundation
 
 enum CatchOdds {
-    // Fixed odds for the catch's game and method. Chain methods and Let's Go depend on how the chain went, which isn't recorded.
+    // Chain methods and Let's Go return nil: their odds depend on how the chain went, which isn't recorded.
     static func odds(for caught: Catch) -> Int? {
         let generation = GamesList.games[caught.game]?.generation ?? 0
         let charm = caught.isShinyCharmActive
@@ -24,7 +24,6 @@ enum CatchOdds {
         }
     }
 
-    // The chance, as a percentage, that a hunt at these odds would have found a shiny within this catch's encounters.
     static func chanceOfFindingSooner(_ caught: Catch) -> Double? {
         guard let odds = odds(for: caught), caught.encounters > 0 else { return nil }
         return Double.getProbability(encounters: caught.encounters, odds: odds)

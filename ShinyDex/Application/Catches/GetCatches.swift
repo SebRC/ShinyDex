@@ -19,7 +19,6 @@ final class GetCatchesHandler {
         self.pokemonRepository = pokemonRepository
     }
 
-    // A species' catches come oldest first; the collection is ordered by Pokédex number, then oldest first.
     func handle(_ query: GetCatchesQuery) -> [CatchSummary] {
         let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll())
         let sorted: [Catch]

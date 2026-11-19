@@ -2,7 +2,6 @@ import Foundation
 
 struct PrepareDataCommand {}
 
-// Fills a new store, adds Pokémon added to the app since the last launch, and records catches for Pokémon caught before catch history existed.
 final class PrepareDataHandler {
     static let catchBackfillCompletedKey = "didBackfillCatches_v1"
 

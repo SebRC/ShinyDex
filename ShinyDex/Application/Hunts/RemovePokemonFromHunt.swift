@@ -14,7 +14,6 @@ final class RemovePokemonFromHuntHandler {
         self.pokemonRepository = pokemonRepository
     }
 
-    // Removing the last Pokémon removes the hunt, and the remaining hunts are renumbered so priorities stay contiguous.
     func handle(_ command: RemovePokemonFromHuntCommand) {
         let hunts = huntRepository.getAll()
         guard let hunt = hunts.first(where: { $0.id == command.huntId.rawValue }) else { return }

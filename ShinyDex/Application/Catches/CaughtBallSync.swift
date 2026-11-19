@@ -1,6 +1,5 @@
 import Foundation
 
-// Keeps a Pokémon's shown ball and caught state in line with its catches after they change.
 struct CaughtBallSync {
     let catchRepository: CatchRepository
     let pokemonRepository: PokemonRepository

@@ -50,7 +50,7 @@ final class CoreDataHuntRepository: HuntRepository {
         save()
     }
 
-    // Gives every stored hunt a unique id. Run once the store has loaded, before anything reads hunts.
+    // Must run once the store has loaded, before anything reads hunts.
     static func assignMissingIds(in context: NSManagedObjectContext) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
         fetchRequest.predicate = NSPredicate(format: "id == nil")

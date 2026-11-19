@@ -14,7 +14,6 @@ struct PokedexEntry: Equatable {
 
 struct Pokedex: Equatable {
     let entries: [PokedexEntry]
-    // Regions are complete lists with progress; any other list shows only the Pokémon that have been caught.
     let isRegion: Bool
 
     var caughtCount: Int {

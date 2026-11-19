@@ -8,7 +8,6 @@ class GameSettingsHostVC: UIViewController {
 	fileprivate let pokemonNumber: Int?
 	fileprivate let encounters: Int
 
-	// Pass a Pokémon to edit its settings; leave it out to edit settings that are only applied to every Pokémon.
 	init(container: AppContainer, pokemon: PokemonDetails?) {
 		self.container = container
 		pokemonNumber = pokemon?.number

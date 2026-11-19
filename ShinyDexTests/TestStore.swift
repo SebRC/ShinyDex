@@ -34,7 +34,6 @@ final class TestStore {
         try FileManager.default.removeItem(at: url.deletingLastPathComponent())
     }
 
-    // The app's own stack, pointed at a temporary file.
     static func openStack(at url: URL) throws -> CoreDataStack {
         return try CoreDataStack(storeURL: url, model: currentModel)
     }

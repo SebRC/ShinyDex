@@ -36,7 +36,6 @@ struct JourneyDetails: Equatable {
     }
 }
 
-// Shared by the journey queries: which catches an entry links to, and which it could link to.
 struct JourneyCatchLinks {
     let caught: [Catch]
     let catchesById: [UUID: Catch]

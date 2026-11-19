@@ -7,7 +7,7 @@ extension String {
 }
 
 extension Double {
-    // The chance, as a percentage, of finding at least one shiny in this many encounters at 1/odds.
+    // Returns a percentage from 0 to 100, not a fraction.
     static func getProbability(encounters: Int, odds: Int) -> Double {
         let cumulativeProbability = pow(Double(odds - 1) / Double(odds), Double(encounters))
         let decimalProbability = 1 - cumulativeProbability

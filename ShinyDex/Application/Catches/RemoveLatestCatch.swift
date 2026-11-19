@@ -13,7 +13,6 @@ final class RemoveLatestCatchHandler {
         self.deleteCatch = deleteCatch
     }
 
-    // Returns whether there was a catch to remove.
     @discardableResult
     func handle(_ command: RemoveLatestCatchCommand) -> Bool {
         let catches = CatchRules.sortedOldestFirst(catchRepository.getAll(number: command.number)).filter { !$0.isFailed }

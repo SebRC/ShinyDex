@@ -2,7 +2,6 @@ import XCTest
 import CoreData
 @testable import ShinyDex
 
-// Builds a store with each shipped model version, then opens it the way the app does to prove an upgrade keeps every record.
 final class StoreMigrationTests: XCTestCase {
     private let storedHuntId = UUID(uuidString: "3C9E1F70-8A42-4D1B-B6E5-2F8A0C7D9E44")!
     private let catchId = UUID(uuidString: "6F1C2B0A-6D0B-4C55-9B7E-0E3B7C1D2A11")!
