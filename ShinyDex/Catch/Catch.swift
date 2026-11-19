@@ -11,6 +11,10 @@ class Catch {
 	var encounters: Int
 	var isShinyCharmActive: Bool
 	var caughtDate: Date?
+	/// Got-away shinies count towards stats, but never towards the collection, the Pokédex or the ball shown for a Pokémon.
+	var isFailed: Bool
+	var evs: EffortValues
+	var evolvedFrom: Int?
 
 	init(catchEntity: NSManagedObject) {
 		self.catchEntity = catchEntity
@@ -22,9 +26,13 @@ class Catch {
 		self.encounters = catchEntity.value(forKey: "encounters") as? Int ?? 0
 		self.isShinyCharmActive = catchEntity.value(forKey: "isShinyCharmActive") as? Bool ?? false
 		self.caughtDate = catchEntity.value(forKey: "caughtDate") as? Date
+		self.isFailed = catchEntity.value(forKey: "isFailed") as? Bool ?? false
+		self.evs = EffortValues(encoded: catchEntity.value(forKey: "evs") as? String)
+		let evolvedFrom = catchEntity.value(forKey: "evolvedFrom") as? Int ?? -1
+		self.evolvedFrom = evolvedFrom >= 0 ? evolvedFrom : nil
 	}
 
-	init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?) {
+	init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool = false) {
 		self.id = UUID()
 		self.number = number
 		self.caughtBall = caughtBall
@@ -33,6 +41,9 @@ class Catch {
 		self.encounters = encounters
 		self.isShinyCharmActive = isShinyCharmActive
 		self.caughtDate = caughtDate
+		self.isFailed = isFailed
+		self.evs = EffortValues()
+		self.evolvedFrom = nil
 	}
 
 	func revertToSaved() {
@@ -46,16 +57,21 @@ class Catch {
 		encounters = saved.encounters
 		isShinyCharmActive = saved.isShinyCharmActive
 		caughtDate = saved.caughtDate
+		isFailed = saved.isFailed
+		evs = saved.evs
+		evolvedFrom = saved.evolvedFrom
+		number = saved.number
 	}
 
-	convenience init(pokemon: Pokemon, caughtBall: String, caughtDate: Date?) {
+	convenience init(pokemon: Pokemon, caughtBall: String, caughtDate: Date?, isFailed: Bool = false) {
 		self.init(number: pokemon.number,
 				  caughtBall: caughtBall,
 				  game: pokemon.game,
 				  huntMethod: pokemon.huntMethod,
 				  encounters: pokemon.encounters,
 				  isShinyCharmActive: pokemon.isShinyCharmActive,
-				  caughtDate: caughtDate)
+				  caughtDate: caughtDate,
+				  isFailed: isFailed)
 	}
 }
 

@@ -2,17 +2,24 @@ import UIKit
 import FLAnimatedImage
 
 class ShinyTrackerVC: UIViewController {
-	@IBOutlet weak var plusButton: UIButton!
-	@IBOutlet weak var minusButton: UIButton!
-	@IBOutlet weak var addToHuntButton: UIBarButtonItem!
-	@IBOutlet weak var buttonStrip: ButtonStrip!
-	@IBOutlet weak var gifSeparatorView: UIView!
-	@IBOutlet weak var animatedImageView: FLAnimatedImageView!
-    @IBOutlet weak var probabilityView: IconTextView!
-    @IBOutlet weak var encountersView: IconTextView!
-    
-    var pokemon: Pokemon!
-	var hunts = [Hunt]()
+	fileprivate let plusButton = UIButton(type: .system)
+	fileprivate let minusButton = UIButton(type: .system)
+	fileprivate let buttonStrip = ButtonStrip()
+	fileprivate let animatedImageView = FLAnimatedImageView()
+	fileprivate let heroView = UIView()
+	fileprivate let methodIconView = UIImageView()
+	fileprivate let encountersCaptionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+	fileprivate let encountersValueLabel = UILabel(fontSize: 56, weight: .bold, color: Color.Grey100)
+	fileprivate let encountersDetailLabel = UILabel(fontSize: 15, color: Color.Grey400)
+	fileprivate let caughtBallView = UIImageView()
+	fileprivate let caughtLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Orange500)
+	fileprivate let caughtRow = UIStackView()
+	fileprivate let catchService = CatchService()
+	fileprivate let oddsTile = StatTileView(caption: "Shiny odds")
+	fileprivate let probabilityTile = StatTileView(caption: "Chance so far")
+	fileprivate var addToHuntButton: UIBarButtonItem!
+
+	var pokemon: Pokemon!
 	let probabilityService = ProbabilityService()
 	let oddsService = OddsService()
 	var probability: Double?
@@ -21,251 +28,395 @@ class ShinyTrackerVC: UIViewController {
 	var pokemonService = PokemonService()
 	var huntService = HuntService()
 	var textResolver = TextResolver()
-    
-	override func viewDidLoad() {
-        super.viewDidLoad()
 
-		hunts = huntService.getAll()
-		setUIColors()
-		roundCorners()
-		setTitle()
+	init(pokemon: Pokemon) {
+		self.pokemon = pokemon
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		layOutViews()
+		setUpNavigationItems()
 		setGif()
 		setMethodDecrement()
 		resolveEncounterDetails()
-		setPokeballButtonImage()
+		setCaughtStatus()
 		setMethodImage()
 		setIncrementImage()
 		setButtonActions()
 		setOddsLabelText()
-        addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-        addToHuntButton.tintColor = Color.Orange500
-        addCatchesButton()
-        
-        encountersView.imageView.image = getMethodImage()
-        probabilityView.imageView.image = UIImage.init(systemName: "percent")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small))
-        probabilityView.layer.cornerRadius = CornerRadius.standard
-        encountersView.layer.cornerRadius = CornerRadius.standard
+		setAccessibilityLabels()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setPokeballButtonImage()
+		setCaughtStatus()
 	}
 
-	fileprivate func addCatchesButton() {
+	/// Top to bottom: the count (the thing you look at most), odds and chance, the sprite, the actions,
+	/// and the − / + buttons at the bottom within thumb reach, with + as the large primary button.
+	fileprivate func layOutViews() {
+		title = pokemon.name
+		navigationItem.largeTitleDisplayMode = .never
+		view.backgroundColor = Color.Grey900
+		animatedImageView.contentMode = .scaleAspectFit
+		animatedImageView.isAccessibilityElement = false
+		animatedImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+		animatedImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+
+		setUpHeroView()
+		setUpCounterButtons()
+
+		let stats = UIStackView(arrangedSubviews: [oddsTile, probabilityTile])
+		stats.distribution = .fillEqually
+		stats.spacing = 12
+
+		let counter = UIStackView(arrangedSubviews: [minusButton, plusButton])
+		counter.spacing = 12
+
+		view.addAutoLayoutSubviews(heroView, stats, animatedImageView, buttonStrip, counter)
+		let safeArea = view.safeAreaLayoutGuide
+		NSLayoutConstraint.activate([
+			heroView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 12),
+			stats.topAnchor.constraint(equalTo: heroView.bottomAnchor, constant: 12),
+
+			animatedImageView.topAnchor.constraint(equalTo: stats.bottomAnchor, constant: 12),
+			animatedImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			animatedImageView.widthAnchor.constraint(lessThanOrEqualToConstant: 220),
+			animatedImageView.widthAnchor.constraint(lessThanOrEqualTo: safeArea.widthAnchor, constant: -32),
+
+			buttonStrip.topAnchor.constraint(equalTo: animatedImageView.bottomAnchor, constant: 12),
+			counter.topAnchor.constraint(equalTo: buttonStrip.bottomAnchor, constant: 12),
+			counter.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -12),
+			counter.heightAnchor.constraint(equalToConstant: 76),
+			minusButton.widthAnchor.constraint(equalToConstant: 88)
+		])
+		for row in [heroView, stats, buttonStrip, counter] as [UIView] {
+			NSLayoutConstraint.activate([
+				row.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+				row.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
+			])
+		}
+	}
+
+	fileprivate func setUpHeroView() {
+		heroView.backgroundColor = Color.Grey800
+		heroView.layer.cornerRadius = CornerRadius.standard
+		methodIconView.contentMode = .scaleAspectFit
+		methodIconView.layer.magnificationFilter = .nearest
+		encountersValueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 56, weight: .bold)
+		encountersValueLabel.adjustsFontSizeToFitWidth = true
+		encountersValueLabel.minimumScaleFactor = 0.5
+		encountersValueLabel.textAlignment = .center
+		encountersDetailLabel.textAlignment = .center
+
+		let captionRow = UIStackView(arrangedSubviews: [methodIconView, encountersCaptionLabel])
+		captionRow.spacing = 6
+		captionRow.alignment = .center
+		caughtBallView.contentMode = .scaleAspectFit
+		caughtBallView.layer.magnificationFilter = .nearest
+		caughtRow.addArrangedSubview(caughtBallView)
+		caughtRow.addArrangedSubview(caughtLabel)
+		caughtRow.spacing = 4
+		caughtRow.alignment = .center
+		caughtBallView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+		caughtBallView.heightAnchor.constraint(equalToConstant: 18).isActive = true
+
+		let stack = UIStackView(arrangedSubviews: [captionRow, encountersValueLabel, encountersDetailLabel, caughtRow])
+		stack.axis = .vertical
+		stack.alignment = .center
+		stack.spacing = 0
+		heroView.addAutoLayoutSubviews(stack)
+		stack.pinEdges(to: heroView, insets: UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16))
+		NSLayoutConstraint.activate([
+			methodIconView.widthAnchor.constraint(equalToConstant: 24),
+			methodIconView.heightAnchor.constraint(equalToConstant: 24)
+		])
+		heroView.isAccessibilityElement = true
+	}
+
+	fileprivate func setUpCounterButtons() {
+		minusButton.backgroundColor = Color.Grey800
+		minusButton.layer.cornerRadius = 20
+		minusButton.tintColor = Color.Grey200
+		minusButton.setImage(UIImage.symbol("minus", pointSize: 28, weight: .bold), for: .normal)
+
+		plusButton.backgroundColor = Color.Orange500
+		plusButton.layer.cornerRadius = 20
+		plusButton.tintColor = Color.Grey900
+		plusButton.setImage(UIImage.symbol("plus", pointSize: 26, weight: .bold), for: .normal)
+		plusButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 30, weight: .bold)
+		plusButton.setTitleColor(Color.Grey900, for: .normal)
+		plusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+		plusButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+	}
+
+	fileprivate func setUpNavigationItems() {
+		addToHuntButton = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addToHuntPressed))
+		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
 		let catchesButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(catchesButtonPressed))
-		catchesButton.tintColor = Color.Orange500
 		catchesButton.accessibilityLabel = "Catches"
-		navigationItem.rightBarButtonItems = (navigationItem.rightBarButtonItems ?? []) + [catchesButton]
+		navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton]
 	}
 
-	@objc fileprivate func catchesButtonPressed(_ sender: Any) {
+	/// The tracker is almost entirely icon buttons, so give each one a spoken name for VoiceOver.
+	fileprivate func setAccessibilityLabels() {
+		minusButton.accessibilityLabel = "Remove an encounter"
+		addToHuntButton.accessibilityLabel = "Add to hunt"
+		buttonStrip.updateEncountersButton.accessibilityLabel = "Set encounters"
+		buttonStrip.methodButton.accessibilityLabel = "Game and hunt method"
+		buttonStrip.pokeballButton.accessibilityLabel = "Log a catch"
+		buttonStrip.locationButton.accessibilityLabel = "Where to find \(pokemon.name)"
+		updateIncrementAccessibility()
+	}
+
+	fileprivate func updateIncrementAccessibility() {
+		let increment = pokemon.increment
+		plusButton.accessibilityLabel = increment == 1 ? "Add an encounter" : "Add \(increment) encounters"
+		buttonStrip.incrementButton.accessibilityLabel = "Encounters per tap"
+		buttonStrip.incrementButton.accessibilityValue = "\(increment)"
+	}
+
+	@objc fileprivate func catchesButtonPressed() {
 		navigationController?.pushViewController(CatchesTVC(pokemon: pokemon), animated: true)
 	}
 
 	fileprivate func setMethodDecrement() {
-		if (pokemon!.huntMethod == .SosChaining || pokemon!.huntMethod == .Lure || pokemon!.generation == 0) {
+		if (pokemon.huntMethod == .SosChaining || pokemon.huntMethod == .Lure || pokemon.generation == 0) {
 			methodDecrement = 30
 		}
-		else if (pokemon!.huntMethod == .ChainFishing) {
+		else if (pokemon.huntMethod == .ChainFishing) {
 			methodDecrement = 20
 		}
-		else if (pokemon!.huntMethod == .Pokeradar) {
+		else if (pokemon.huntMethod == .Pokeradar) {
 			methodDecrement = 40
 		}
-		else if (pokemon!.huntMethod == .DexNav) {
+		else if (pokemon.huntMethod == .DexNav) {
 			methodDecrement = 999
 		}
 		else {
 			methodDecrement = 0
 		}
 	}
-	
-	fileprivate func setPokeballButtonImage() {
-		buttonStrip.pokeballButton.setImage(UIImage(named: pokemon.caughtBall), for: .normal)
+
+	/// Whether it's been caught is shown under the count (with the latest ball), not on the Log catch button,
+	/// so the button always looks like an action rather than a status.
+	fileprivate func setCaughtStatus() {
+		let catchCount = catchService.getCatches(for: pokemon).count
+		caughtBallView.image = UIImage(named: pokemon.caughtBall)
+		caughtLabel.text = catchCount == 1 ? "Caught" : "Caught ×\(catchCount)"
+		caughtRow.isHidden = catchCount == 0
+		buttonStrip.pokeballButton.accessibilityValue = catchCount == 0 ? "Not caught yet" : caughtLabel.text
 	}
 
 	fileprivate func setMethodImage() {
-        let image = getMethodImage();
-        encountersView.imageView.image = image
-        buttonStrip.methodButton.setImage(image, for: .normal)
+		let image = getMethodImage()
+		methodIconView.image = image
+		buttonStrip.methodButton.iconView.image = image
 	}
 
-	fileprivate func getMethodImage() -> UIImage {
-		let huntMethod = pokemon!.huntMethod
+	fileprivate func getMethodImage() -> UIImage? {
+		let huntMethod = pokemon.huntMethod
 		let canBeCombinedWithCharm = huntMethod != .Gen2Breeding && huntMethod != .Pokeradar
-		if (pokemon!.isShinyCharmActive && canBeCombinedWithCharm) {
-			return UIImage(named: "\(huntMethod.rawValue) + Charm")!
+		if (pokemon.isShinyCharmActive && canBeCombinedWithCharm) {
+			return UIImage(named: "\(huntMethod.rawValue) + Charm")
 		}
-		else {
-			return UIImage(named: huntMethod.rawValue)!
-		}
+		return UIImage(named: huntMethod.rawValue)
 	}
-	
-	fileprivate func setUIColors() {
-        view.backgroundColor = Color.Grey900
-        encountersView.backgroundColor = Color.Grey800
-		gifSeparatorView.backgroundColor = Color.Grey400
-        plusButton.tintColor = Color.Grey400
-        minusButton.tintColor = Color.Grey400
-    }
-	
-	fileprivate func roundCorners() {
-		gifSeparatorView.layer.cornerRadius = CornerRadius.soft
-	}
-	
-	fileprivate func setTitle() {
-		title = pokemon.name
-	}
-	
+
 	fileprivate func setGif() {
 		if let gifAsset = NSDataAsset(name: "\(pokemon.name)") {
-            animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: gifAsset.data)
+			animatedImageView.animatedImage = FLAnimatedImage(animatedGIFData: gifAsset.data)
 		}
 	}
-	
+
 	fileprivate func setButtonActions() {
+		plusButton.addTarget(self, action: #selector(plusPressed), for: .touchUpInside)
+		minusButton.addTarget(self, action: #selector(minusPressed), for: .touchUpInside)
 		buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
 		buttonStrip.incrementButton.addTarget(self, action: #selector(incrementButtonPressed), for: .touchUpInside)
 		buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
 		buttonStrip.pokeballButton.addTarget(self, action: #selector(changeCaughtButtonPressed), for: .touchUpInside)
 		buttonStrip.locationButton.addTarget(self, action: #selector(locationButtonPressed), for: .touchUpInside)
 	}
-	
+
 	fileprivate func resolveEncounterDetails() {
 		setProbability()
 		setProbabilityLabelText()
-        encountersView.label.text = textResolver.getEncountersLabelText(pokemon: pokemon!, methodDecrement: methodDecrement)
+		setEncountersText(textResolver.getEncountersLabelText(pokemon: pokemon, methodDecrement: methodDecrement))
 		setOddsLabelText()
 		minusButton.isEnabled = minusButtonIsEnabled()
 	}
-	
+
 	fileprivate func setProbability() {
-		var encounters = pokemon.encounters
-		pokemon!.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
-		encounters -= methodDecrement
-		probability = probabilityService.getProbability(encounters: encounters, shinyOdds: pokemon!.shinyOdds)
+		pokemon.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
+		probability = probabilityService.getProbability(encounters: pokemon.encounters - methodDecrement, shinyOdds: pokemon.shinyOdds)
 	}
 
+	/// The resolver returns lines like "Chain: 30\nEncounters: 12". The first line becomes the big number with its
+	/// label as the caption; any further lines are shown as a smaller detail underneath.
+	fileprivate func setEncountersText(_ text: String) {
+		let lines = text.components(separatedBy: "\n").map { line -> (label: String, value: String) in
+			let parts = line.components(separatedBy: ": ")
+			guard parts.count == 2 else { return ("Encounters", line) }
+			let value = Int(parts[1]).map { $0.grouped } ?? parts[1]
+			return (parts[0], value)
+		}
+		guard let primary = lines.first else { return }
+		encountersCaptionLabel.text = primary.label.uppercased()
+		encountersValueLabel.text = primary.value
+		let details = lines.dropFirst().map { "\($0.label): \($0.value)" }
+		encountersDetailLabel.text = details.joined(separator: " · ")
+		encountersDetailLabel.isHidden = details.isEmpty
+		heroView.accessibilityLabel = ([primary] + Array(lines.dropFirst())).map { "\($0.label) \($0.value)" }.joined(separator: ", ")
+	}
+
+	/// Until a chain reaches its bonus there's no meaningful chance to show, so the tile explains what's needed instead.
 	fileprivate func setProbabilityLabelText() {
-		let probabilityLabelText = probabilityService.getProbabilityText(probability: probability!,  pokemon: pokemon!, methodDecrement: methodDecrement)
-        probabilityView.label.text = probabilityLabelText
+		let text = probabilityService.getProbabilityText(probability: probability!, pokemon: pokemon, methodDecrement: methodDecrement)
+		if (text.hasPrefix("Probability")) {
+			probabilityTile.setValue(String(format: "%.2f%%", probability!))
+		}
+		else {
+			probabilityTile.setMessage(text)
+		}
 	}
 
 	fileprivate func setOddsLabelText() {
-		buttonStrip.oddsLabel.text = "1/\(pokemon!.shinyOdds)"
+		oddsTile.setValue("1/\(pokemon.shinyOdds.grouped)")
+		oddsTile.accessibilityValue = "1 in \(pokemon.shinyOdds.grouped)"
 	}
-	
+
 	fileprivate func minusButtonIsEnabled() -> Bool {
 		return pokemon.encounters != 0
 	}
-	
+
 	fileprivate func addToHuntButtonIsEnabled() -> Bool {
 		return !pokemon.isBeingHunted
 	}
-	
-	@IBAction func plusPressed(_ sender: Any) {
-		pokemon.encounters += pokemon!.increment
+
+	@objc fileprivate func plusPressed() {
+		Haptics.tap()
+		pokemon.encounters += pokemon.increment
 		resolveEncounterDetails()
 		pokemonService.save(pokemon: pokemon)
 	}
-	
-	@IBAction func minusPressed(_ sender: Any) {
+
+	@objc fileprivate func minusPressed() {
+		guard pokemon.encounters > 0 else { return }
+		Haptics.tap()
 		pokemon.encounters -= 1
 		resolveEncounterDetails()
 		pokemonService.save(pokemon: pokemon)
 	}
-	
-	@IBAction func addToHuntPressed(_ sender: Any) {
-		if (hunts.isEmpty) {
-			huntService.createNewHuntWithPokemon(hunts: &hunts, pokemon: pokemon!)
-			popupHandler.showPopup(text: "\(pokemon!.name) was added to New Hunt.")
-			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+
+	@objc fileprivate func addToHuntPressed() {
+		let picker = HuntPickerModalVC(pokemon: pokemon) { [weak self] huntName in
+			guard let self = self else { return }
+			self.addToHuntButton.isEnabled = self.addToHuntButtonIsEnabled()
+			self.popupHandler.showPopup(text: "\(self.pokemon.name) was added to \(huntName).")
 		}
-		else if (hunts.count == 1) {
-			huntService.addToOnlyExistingHunt(hunts: &hunts, pokemon: pokemon!)
-			popupHandler.showPopup(text: "\(pokemon!.name) was added to \(hunts[0].name).")
-			addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+		present(picker.inSheet(), animated: true)
+	}
+
+	@objc fileprivate func infoButtonPressed() {
+		let gameSettings = GameSettingsModalVC(pokemon: pokemon) { [weak self] in
+			self?.gameSettingsChanged()
 		}
-		else {
-			performSegue(withIdentifier: "pickHunt", sender: self)
+		present(gameSettings.inSheet(), animated: true)
+	}
+
+	@objc fileprivate func updateEncountersPressed() {
+		let maximum = 500000
+		presentTextInput(title: "Set encounters",
+						 message: "Enter a number from 0 to \(maximum.grouped).",
+						 text: "\(pokemon.encounters)",
+						 placeholder: "Encounters",
+						 keyboardType: .numberPad,
+						 isValid: { Int($0).map { (0...maximum).contains($0) } ?? false }) { [weak self] value in
+			guard let self = self, let encounters = Int(value) else { return }
+			self.pokemon.encounters = encounters
+			self.pokemonService.save(pokemon: self.pokemon)
+			self.resolveEncounterDetails()
 		}
 	}
 
-	@objc fileprivate func infoButtonPressed(_ sender: Any) {
-		performSegue(withIdentifier: "editInfo", sender: self)
+	@objc fileprivate func incrementButtonPressed() {
+		let incrementPicker = IncrementVC(pokemon: pokemon) { [weak self] in
+			self?.setIncrementImage()
+		}
+		present(incrementPicker.inSheet(), animated: true)
 	}
 
-	@objc fileprivate func updateEncountersPressed(_ sender: Any) {
-		performSegue(withIdentifier: "editEncounters", sender: self)
-	}
-
-	@objc fileprivate func incrementButtonPressed(_ sender: Any) {
-		performSegue(withIdentifier: "editIncrement", sender: self)
-	}
-
-	@objc fileprivate func changeCaughtButtonPressed(_ sender: Any) {
+	@objc fileprivate func changeCaughtButtonPressed() {
 		let picker = PokeballModalVC(pokemon: pokemon) { [weak self] _ in
-			self?.setPokeballButtonImage()
+			self?.setCaughtStatus()
 		}
-		present(picker, animated: true)
+		present(picker.inSheet(), animated: true)
 	}
 
-	@objc fileprivate func locationButtonPressed(_ sender: Any) {
-		performSegue(withIdentifier: "toLocation", sender: self)
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		let identifier = segue.identifier
-		if (identifier == "editInfo") {
-			let destVC = segue.destination as! GameSettingsModalVC
-			destVC.pokemon = pokemon
-		}
-		else if (identifier == "editEncounters") {
-			let destVC = segue.destination as! SetEncountersModalVC
-			destVC.pokemon = pokemon
-			destVC.methodDecrement = methodDecrement
-		}
-		else if (identifier == "pickHunt") {
-			let destVC = segue.destination as! HuntPickerModalVC
-			destVC.pokemon = pokemon
-		}
-		else if (identifier == "toLocation") {
-			let destVC = segue.destination as! LocationVC
-			destVC.pokemon = pokemon
-		}
-		else if (identifier == "editIncrement") {
-			let destVC = segue.destination as! IncrementVC
-			destVC.pokemon = pokemon
-		}
-	}
-	
-	@IBAction func saveEncounters(_ unwindSegue: UIStoryboardSegue) {
-		let sourceVC = unwindSegue.source as! SetEncountersModalVC
-		pokemon = sourceVC.pokemon
-		pokemonService.save(pokemon: pokemon)
-		resolveEncounterDetails()
+	@objc fileprivate func locationButtonPressed() {
+		navigationController?.pushViewController(LocationVC(pokemon: pokemon), animated: true)
 	}
 
-	@IBAction func finish(_ unwindSegue: UIStoryboardSegue) {
-		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
-		let source = unwindSegue.source as! HuntPickerModalVC
-		let huntName = source.pickedHuntName
-		popupHandler.showPopup(text: "\(pokemon!.name) was added to \(huntName!).")
-	}
-
-	@IBAction func dismissModal(_ unwindSegue: UIStoryboardSegue) {
+	fileprivate func gameSettingsChanged() {
 		setMethodImage()
 		setMethodDecrement()
 		resolveEncounterDetails()
 		setOddsLabelText()
 	}
 
-	@IBAction func confirmIncrement(_ unwindSegue: UIStoryboardSegue) {
-		setIncrementImage()
+	fileprivate func setIncrementImage() {
+		let symbolName = pokemon.increment > 50 ? "plus.circle" : "\(pokemon.increment).circle"
+		buttonStrip.incrementButton.iconView.image = UIImage.symbol(symbolName, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
+		plusButton.setTitle("\(pokemon.increment)", for: .normal)
+		updateIncrementAccessibility()
+	}
+}
+
+fileprivate class StatTileView: UIView {
+	fileprivate let captionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+	fileprivate let valueLabel = UILabel(fontSize: 22, weight: .semibold, lines: 2)
+
+	init(caption: String) {
+		super.init(frame: .zero)
+		backgroundColor = Color.Grey800
+		layer.cornerRadius = CornerRadius.standard
+		isAccessibilityElement = true
+		accessibilityLabel = caption
+		captionLabel.text = caption.uppercased()
+		valueLabel.adjustsFontSizeToFitWidth = true
+		valueLabel.minimumScaleFactor = 0.6
+
+		let stack = UIStackView(arrangedSubviews: [captionLabel, valueLabel])
+		stack.axis = .vertical
+		stack.spacing = 2
+		addAutoLayoutSubviews(stack)
+		stack.pinEdges(to: self, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14))
+		heightAnchor.constraint(greaterThanOrEqualToConstant: 68).isActive = true
 	}
 
-	fileprivate func setIncrementImage() {
-		buttonStrip.incrementButton.setImage(UIImage(systemName: pokemon.increment > 6 ? "plus.circle.fill" : "\(pokemon!.increment).circle.fill"), for: .normal)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	func setValue(_ value: String) {
+		valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
+		valueLabel.textColor = Color.Grey100
+		valueLabel.text = value
+		accessibilityValue = value
+	}
+
+	func setMessage(_ message: String) {
+		valueLabel.font = UIFont.systemFont(ofSize: 14)
+		valueLabel.textColor = Color.Grey300
+		valueLabel.text = message
+		accessibilityValue = message
 	}
 }

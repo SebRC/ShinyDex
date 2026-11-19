@@ -1,69 +1,32 @@
 import UIKit
 
-class GameSettingsModalVC: UIViewController, UIAdaptivePresentationControllerDelegate, SegueActivated {
-	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
-	@IBOutlet weak var scrollView: UIScrollView!
-	var pokemon: Pokemon!
-	var popupHandler = PopupHandler()
-	
+/// Changes are saved as they're made; `onDismiss` lets the tracker refresh however the sheet is closed.
+class GameSettingsModalVC: GameSettingsHostVC, UIAdaptivePresentationControllerDelegate {
+	fileprivate let onDismiss: () -> Void
+
+	init(pokemon: Pokemon, onDismiss: @escaping () -> Void) {
+		self.onDismiss = onDismiss
+		super.init(pokemon: pokemon)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	override func viewDidLoad() {
-        super.viewDidLoad()
-		gameSettingsContainer.pokemon = pokemon
-		gameSettingsContainer.setShinyOddsLabelText()
-		gameSettingsContainer.resolveUIObjectsState()
-		gameSettingsContainer.setExplanationLabelText()
-		gameSettingsContainer.delegate = self
-
-		presentationController?.delegate = self
-
-		scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: gameSettingsContainer.topAnchor, constant: 8.0).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
-		
-		roundViewCorner()
-        
-        gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
-        gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[pokemon.game]?.coverPokemon ?? "charizard"), for: .normal)
-        gameSettingsContainer.gameTitle.text = pokemon.game.displayName
-    }
-	
-	fileprivate func roundViewCorner() {
-		gameSettingsContainer.layer.cornerRadius = CornerRadius.standard
+		super.viewDidLoad()
+		title = "Game settings"
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
+		navigationController?.presentationController?.delegate = self
 	}
 
-	func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-		performSegue(withIdentifier: "unwindFromGameSettings", sender: self)
-	}
-
-	func segueActivated() {
-		performSegue(withIdentifier: "applyToAll", sender: self)
-	}
-
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if (segue.identifier == "applyToAll") {
-			let destVC = segue.destination as! ApplyToAllVC
-			destVC.pokemon = pokemon
-			destVC.isFromSettings = false
+	@objc fileprivate func donePressed() {
+		dismissSheet { [onDismiss] in
+			onDismiss()
 		}
-        else if (segue.identifier == "fromGameSettingsToGameSelector") {
-            let destVC = segue.destination as! GameSelectorTVC
-            destVC.pokemon = pokemon
-            destVC.selectedGame = GamesList.games[pokemon.game]
-        }
 	}
 
-	@IBAction func showGameSettingsConfirmation(_ unwindSegue: UIStoryboardSegue) {
-		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
+	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+		onDismiss()
 	}
-    
-    @objc fileprivate func gameButtonPressed() {
-        performSegue(withIdentifier: "fromGameSettingsToGameSelector", sender: self)
-    }
-    
-    @IBAction func gameSelectedInGameSettings(_ unwindSegue: UIStoryboardSegue) {
-        let source = unwindSegue.source as! GameSelectorTVC
-        let selectedGame = source.selectedGame!
-        gameSettingsContainer.updateUI(updatedPokemon: source.pokemon, coverPokemon: selectedGame.coverPokemon)
-    }
 }

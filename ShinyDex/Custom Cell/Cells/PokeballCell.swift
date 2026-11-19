@@ -1,32 +1,41 @@
 import UIKit
 
-class PokeballCell: UITableViewCell {
+class PokeballCell: UICollectionViewCell {
 	static let reuseIdentifier = "pokeballCell"
-	static let imageSize: CGFloat = 50
 
-	let pokeballImageView = UIImageView()
-	let nameLabel = UILabel()
+	fileprivate let tileView = UIView()
+	fileprivate let pokeballImageView = UIImageView()
+	fileprivate let nameLabel = UILabel(fontSize: 13, color: Color.Grey300, lines: 2)
 
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		nameLabel.font = UIFont.systemFont(ofSize: 23)
-		nameLabel.textColor = Color.Grey200
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		isAccessibilityElement = true
+		accessibilityTraits = .button
+		tileView.backgroundColor = Color.Grey800
+		tileView.layer.cornerRadius = 14
+		tileView.layer.borderColor = Color.Orange500.cgColor
 		pokeballImageView.contentMode = .scaleAspectFit
-		pokeballImageView.clipsToBounds = true
-		pokeballImageView.layer.cornerRadius = PokeballCell.imageSize / 2
+		pokeballImageView.layer.magnificationFilter = .nearest
+		nameLabel.textAlignment = .center
+		nameLabel.adjustsFontSizeToFitWidth = true
+		nameLabel.minimumScaleFactor = 0.8
 
-		for subview in [nameLabel, pokeballImageView] {
-			subview.translatesAutoresizingMaskIntoConstraints = false
-			contentView.addSubview(subview)
-		}
+		tileView.addAutoLayoutSubviews(pokeballImageView)
+		contentView.addAutoLayoutSubviews(tileView, nameLabel)
 		NSLayoutConstraint.activate([
-			nameLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-			nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: pokeballImageView.leadingAnchor, constant: -16),
-			pokeballImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-			pokeballImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-			pokeballImageView.widthAnchor.constraint(equalToConstant: PokeballCell.imageSize),
-			pokeballImageView.heightAnchor.constraint(equalToConstant: PokeballCell.imageSize)
+			tileView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			tileView.heightAnchor.constraint(equalTo: tileView.widthAnchor),
+			pokeballImageView.centerXAnchor.constraint(equalTo: tileView.centerXAnchor),
+			pokeballImageView.centerYAnchor.constraint(equalTo: tileView.centerYAnchor),
+			pokeballImageView.widthAnchor.constraint(equalTo: tileView.widthAnchor, multiplier: 0.8),
+			pokeballImageView.heightAnchor.constraint(equalTo: pokeballImageView.widthAnchor),
+
+			nameLabel.topAnchor.constraint(equalTo: tileView.bottomAnchor, constant: 6),
+			nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor)
 		])
 	}
 
@@ -34,11 +43,17 @@ class PokeballCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(pokeball: Pokeball, title: String, isCurrentBall: Bool) {
-		pokeballImageView.image = pokeball.image
-		nameLabel.text = title
-		pokeballImageView.backgroundColor = isCurrentBall ? Color.Grey900 : .none
-		pokeballImageView.layer.borderWidth = isCurrentBall ? 2 : 0
-		pokeballImageView.layer.borderColor = isCurrentBall ? Color.Orange500.cgColor : UIColor.clear.cgColor
+	override var isHighlighted: Bool {
+		didSet {
+			tileView.backgroundColor = isHighlighted ? Color.Grey700 : Color.Grey800
+		}
+	}
+
+	func configure(item: IconGridItem, isCurrent: Bool) {
+		pokeballImageView.image = item.image
+		nameLabel.text = item.title
+		tileView.layer.borderWidth = isCurrent ? 2 : 0
+		accessibilityLabel = item.accessibilityLabel ?? item.title
+		accessibilityTraits = isCurrent ? [.button, .selected] : .button
 	}
 }

@@ -18,7 +18,7 @@ class CatchesTVC: UITableViewController {
 		super.viewDidLoad()
 		title = "\(pokemon.name) catches"
 		tableView.backgroundColor = Color.Grey900
-		tableView.separatorColor = Color.Grey900
+		tableView.separatorColor = Color.Grey700
 		tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
 	}
 
@@ -28,19 +28,16 @@ class CatchesTVC: UITableViewController {
 	}
 
 	fileprivate func reloadCatches() {
-		catches = catchService.getCatches(for: pokemon).reversed()
+		catches = catchService.getCatchesIncludingFailed(for: pokemon).reversed()
 		tableView.reloadData()
 		updateEmptyState()
 	}
 
 	fileprivate func updateEmptyState() {
 		if (catches.isEmpty) {
-			let label = UILabel()
-			label.text = "No catches logged yet.\nTap the Poké Ball on the tracker to log one."
-			label.numberOfLines = 0
-			label.textAlignment = .center
-			label.textColor = Color.Grey400
-			tableView.backgroundView = label
+			tableView.backgroundView = EmptyStateView(symbolName: "sparkles",
+													  title: "No catches yet",
+													  message: "Tap Log catch on the tracker to log a shiny \(pokemon.name).")
 		}
 		else {
 			tableView.backgroundView = nil
@@ -59,9 +56,10 @@ class CatchesTVC: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
 		cell.configure(pokemon: pokemon,
-					   title: "\(caught.ballName) · \(caught.game.displayName)",
-					   subtitle: ["\(caught.encounters) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
-					   ball: caught.caughtBall)
+					   title: "\(caught.isFailed ? "Got away" : caught.ballName) · \(caught.game.displayName)",
+					   subtitle: ["\(caught.encounters.grouped) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
+					   ball: caught.caughtBall,
+					   isFailed: caught.isFailed)
 		return cell
 	}
 
@@ -70,12 +68,26 @@ class CatchesTVC: UITableViewController {
 		navigationController?.pushViewController(CatchDetailTVC(caught: catches[indexPath.row], pokemon: pokemon), animated: true)
 	}
 
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		if (editingStyle == .delete) {
-			catchService.delete(catchToDelete: catches[indexPath.row], pokemon: pokemon)
-			catches.remove(at: indexPath.row)
-			tableView.deleteRows(at: [indexPath], with: .automatic)
-			updateEmptyState()
+	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
+			guard let self = self else { return completion(false) }
+			let caught = self.catches[indexPath.row]
+			// A catch can't be recovered once it's gone, so ask first.
+			let description = caught.isFailed ? "The \(self.pokemon.name) that got away in" : "The \(caught.ballName) \(self.pokemon.name) from"
+			self.presentDestructiveConfirmation(title: caught.isFailed ? "Delete this entry?" : "Delete this catch?",
+												message: "\(description) \(caught.game.displayName) will be removed. This can't be undone.",
+												destructiveTitle: "Delete") { [weak self] in
+				guard let self = self, let index = self.catches.firstIndex(where: { $0 === caught }) else { return }
+				self.catchService.delete(catchToDelete: caught, pokemon: self.pokemon)
+				self.catches.remove(at: index)
+				self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+				self.updateEmptyState()
+			}
+			completion(false)
 		}
+		deleteAction.image = UIImage(systemName: "trash")
+		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+		configuration.performsFirstActionWithFullSwipe = false
+		return configuration
 	}
 }

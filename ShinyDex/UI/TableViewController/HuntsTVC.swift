@@ -1,35 +1,76 @@
 import UIKit
 
-class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CurrentHuntCellDelegate {
-
-	let tableViewHelper = TableViewHelper()
+class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var pokemonService = PokemonService()
 	var huntService = HuntService()
 	var totalEncounters = 0
-	var selectedIndex = 0
-	var selectedSection = 0
 	var popupHandler = PopupHandler()
 	var hunts = [Hunt]()
 
-	@IBOutlet weak var rearrangeHuntsButton: UIButton!
-	@IBOutlet weak var createHuntButton: UIButton!
-	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var clearCurrentHuntButton: UIBarButtonItem!
+	fileprivate let createHuntButton = UIButton(type: .system)
+	fileprivate let rearrangeHuntsButton = UIButton.symbolButton("arrow.up.arrow.down", pointSize: 18)
+	fileprivate let tableView = UITableView(frame: .zero, style: .insetGrouped)
+	fileprivate var clearCurrentHuntButton: UIBarButtonItem!
 
 	override func viewDidLoad() {
         super.viewDidLoad()
 
 		hunts = huntService.getAll()
+		layOutViews()
+		tableView.register(CurrentHuntCell.self, forCellReuseIdentifier: CurrentHuntCell.reuseIdentifier)
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 80
 		tableView.delegate = self
 		tableView.dataSource = self
+		tableView.register(HuntHeaderView.self, forHeaderFooterViewReuseIdentifier: HuntHeaderView.reuseIdentifier)
+		tableView.estimatedSectionHeaderHeight = 64
+		tableView.sectionHeaderHeight = UITableView.automaticDimension
         view.backgroundColor = Color.Grey900
+		navigationItem.title = "Hunts"
+		createHuntButton.accessibilityLabel = "Create hunt"
+		rearrangeHuntsButton.accessibilityLabel = "Rearrange hunts"
+		clearCurrentHuntButton.accessibilityLabel = "Clear all hunts"
 		createHuntButton.layer.cornerRadius = CornerRadius.standard
 		rearrangeHuntsButton.layer.cornerRadius = CornerRadius.standard
 		rearrangeHuntsButton.isEnabled = hunts.count > 1
 		setRearrangeButtonState()
 		setClearHuntButtonState()
-		setUpBackButton()
     }
+
+	fileprivate func layOutViews() {
+		clearCurrentHuntButton = UIBarButtonItem(image: UIImage(systemName: "xmark.rectangle.fill"), style: .plain, target: self, action: #selector(clearCurrentHuntPressed))
+		navigationItem.rightBarButtonItem = clearCurrentHuntButton
+
+		// Icon leads the title at the text's own weight, so the button reads as one label rather than text plus a big glyph.
+		createHuntButton.setTitle("Create Hunt", for: .normal)
+		createHuntButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+		createHuntButton.setImage(UIImage.symbol("plus", pointSize: 18, weight: .semibold), for: .normal)
+		createHuntButton.tintColor = Color.Grey200
+		createHuntButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+		createHuntButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+		rearrangeHuntsButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold), forImageIn: .normal)
+		createHuntButton.addTarget(self, action: #selector(createHuntButtonPressed), for: .touchUpInside)
+		rearrangeHuntsButton.addTarget(self, action: #selector(rearrangePressed), for: .touchUpInside)
+
+		view.addAutoLayoutSubviews(createHuntButton, rearrangeHuntsButton, tableView)
+		let safeArea = view.safeAreaLayoutGuide
+		NSLayoutConstraint.activate([
+			createHuntButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
+			createHuntButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+			createHuntButton.heightAnchor.constraint(equalToConstant: 52),
+			createHuntButton.trailingAnchor.constraint(equalTo: rearrangeHuntsButton.leadingAnchor, constant: -20),
+
+			rearrangeHuntsButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+			rearrangeHuntsButton.centerYAnchor.constraint(equalTo: createHuntButton.centerYAnchor),
+			rearrangeHuntsButton.widthAnchor.constraint(equalToConstant: 52),
+			rearrangeHuntsButton.heightAnchor.constraint(equalToConstant: 52),
+
+			tableView.topAnchor.constraint(equalTo: createHuntButton.bottomAnchor, constant: 8),
+			tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+		])
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -48,14 +89,9 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		clearCurrentHuntButton.isEnabled = !hunts.isEmpty
 	}
 	
-	fileprivate func setUpBackButton() {
-		let backButton = UIBarButtonItem(title: "", style: UIBarButtonItem.Style.plain, target: self, action: nil)
-		navigationItem.backBarButtonItem = backButton
-	}
-	
 	fileprivate func setColors() {
         tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey900
+        tableView.separatorColor = Color.Grey700
         createHuntButton.backgroundColor = Color.Grey800
         createHuntButton.setTitleColor(Color.Grey200, for: .normal)
         rearrangeHuntsButton.backgroundColor = Color.Grey800
@@ -64,7 +100,34 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	
 	fileprivate func setEncounters() {
 		totalEncounters = resolveCurrentEncounters()
-		navigationItem.title = String(totalEncounters)
+		updateSummary()
+	}
+
+	fileprivate func updateSummary() {
+		guard !hunts.isEmpty else {
+			tableView.tableHeaderView = nil
+			return
+		}
+		let label = (tableView.tableHeaderView as? UILabel) ?? UILabel()
+		label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+		label.adjustsFontForContentSizeCategory = true
+		label.textColor = Color.Grey400
+		label.text = totalEncounters == 1 ? "1 encounter across all hunts" : "\(totalEncounters.grouped) encounters across all hunts"
+		label.accessibilityTraits = .header
+		let height = label.font.lineHeight + 8
+		label.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: height)
+		label.textAlignment = .center
+		tableView.tableHeaderView = label
+	}
+
+	fileprivate func updateEmptyState() {
+		guard hunts.isEmpty else {
+			tableView.backgroundView = nil
+			return
+		}
+		tableView.backgroundView = EmptyStateView(symbolName: "sparkles",
+												  title: "No hunts yet",
+												  message: "Tap Create Hunt, or add a Pokémon from the Pokédex, to start counting encounters.")
 	}
 	
 	fileprivate func resolveCurrentEncounters() -> Int {
@@ -90,78 +153,49 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		return hunts[section].pokemon.count
     }
 
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 140.0
-	}
-	
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "currentHuntCell", for: indexPath) as! CurrentHuntCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CurrentHuntCell.reuseIdentifier, for: indexPath) as! CurrentHuntCell
+		cell.onIncrement = { [weak self, weak cell] in
+			guard let self = self, let cell = cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+			self.incrementEncounters(at: indexPath)
+		}
+		cell.onDecrement = { [weak self, weak cell] in
+			guard let self = self, let cell = cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+			self.decrementEncounters(at: indexPath)
+		}
 		
-		cell.cellDelegate = self
-		
-		let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-		
-		let minusButtonIsEnabled = pokemon.encounters <= 0
-		
-		cell.minusButton.isEnabled = !minusButtonIsEnabled
-		
-		setCellProperties(currentHuntCell: cell, pokemon: pokemon)
-
+		cell.configure(pokemon: hunts[indexPath.section].pokemon[indexPath.row])
         return cell
     }
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionView = UIView()
-        sectionView.clipsToBounds = true
-		let collapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.frame.width / 1.5, height: 60))
-		collapseButton.tag = section
-		collapseButton.addTarget(self, action: #selector(collapseSection(sender:)), for: .touchUpInside)
-        let longGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(editSectionHeader(sender:)))
-        longGestureRecognizer.name = String(section)
-        collapseButton.addGestureRecognizer(longGestureRecognizer)
-		collapseButton.setTitle("\(hunts[section].name): \(hunts[section].totalEncounters)", for: .normal)
-        collapseButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        collapseButton.setTitleColor(Color.Grey200, for: .normal)
-		collapseButton.setImage(UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), for: .normal)
-        collapseButton.imageView?.tintColor = Color.Grey200
-		collapseButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 10, bottom: 0, right: 0)
-		collapseButton.contentHorizontalAlignment = .left
-		collapseButton.titleEdgeInsets = UIEdgeInsets(top: 25, left: 15, bottom: 0, right: 0)
-        let incrementAllButton = UIButton(frame: CGRect(x: collapseButton.frame.width + 20, y: 0, width: 80, height: 60))
-        incrementAllButton.addTarget(self, action: #selector(incrementAllInHunt(sender:)), for: .touchUpInside)
-        incrementAllButton.tag = section
-        incrementAllButton.setImage(UIImage(systemName: "plus.square.fill.on.square.fill"), for: .normal)
-        incrementAllButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 0, bottom: 0, right: 20)
-        incrementAllButton.imageView?.tintColor = Color.Grey200
-        incrementAllButton.contentHorizontalAlignment = .right
-		sectionView.addSubview(collapseButton)
-        sectionView.addSubview(incrementAllButton)
-		return sectionView
+		let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HuntHeaderView.reuseIdentifier) as! HuntHeaderView
+		let hunt = hunts[section]
+		header.configure(hunt: hunt)
+		header.onToggleCollapse = { [weak self, weak hunt] in
+			guard let self = self, let hunt = hunt, let index = self.hunts.firstIndex(where: { $0 === hunt }) else { return }
+			self.collapseSection(index)
+		}
+		header.onIncrementAll = { [weak self, weak hunt] in
+			guard let self = self, let hunt = hunt, let index = self.hunts.firstIndex(where: { $0 === hunt }) else { return }
+			self.incrementAllInHunt(index)
+		}
+		header.onRename = { [weak self, weak hunt] in
+			guard let self = self, let hunt = hunt else { return }
+			self.presentRename(hunt: hunt)
+		}
+		return header
 	}
 
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let footerView = UIView()
-		footerView.layer.cornerRadius = CornerRadius.standard
-		if (hunts[section].isCollapsed) {
-            footerView.backgroundColor = Color.Grey800
-		}
-		else {
-			footerView.backgroundColor = .clear
-		}
-		return footerView
+		return UIView()
 	}
 
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 5
+		return 8
 	}
 
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 60.0
-	}
-
-	@objc
-	private func collapseSection(sender: UIButton) {
-		let section = sender.tag
+	fileprivate func collapseSection(_ section: Int) {
 
 		func indexPathsForSection() -> [IndexPath] {
 			var indexPaths = [IndexPath]()
@@ -183,65 +217,51 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		reloadData(duration: 0.2)
 	}
     
-    @objc
-    private func editSectionHeader(sender: UILongPressGestureRecognizer) {
-        selectedSection = Int(truncating: NumberFormatter().number(from: sender.name!)!)
-        performSegue(withIdentifier: "editName", sender: self)
-    }
-    
-    @objc
-    private func incrementAllInHunt(sender: UIButton) {
-        let section = sender.tag
-        let hunt = hunts[section]
-        var totalIncremented = 0
-        for pokemon in hunt.pokemon {
-            pokemon.encounters += pokemon.increment
-            totalIncremented += pokemon.increment
-            pokemonService.save(pokemon: pokemon)
-        }
-        totalEncounters += totalIncremented
-        navigationItem.title = String(totalEncounters)
-        hunt.totalEncounters += totalIncremented
-        reloadData(duration: 0.2)
-    }
-	
-	fileprivate func setCellProperties(currentHuntCell: CurrentHuntCell, pokemon: Pokemon) {
-		currentHuntCell.sprite.image = UIImage(named: pokemon.name.lowercased())
-		
-		currentHuntCell.nameLabel.text = pokemon.name
-        currentHuntCell.nameLabel.textColor = Color.Grey200
-		
-		currentHuntCell.encountersLabel.text = String(pokemon.encounters)
-        currentHuntCell.encountersLabel.textColor = Color.Grey200
-		
-        currentHuntCell.plusButton.tintColor = Color.Grey200
-        currentHuntCell.minusButton.tintColor = Color.Grey200
-	}
-
-	func decrementEncounters(_ sender: UIButton) {
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-
-			hunts[indexPath.section].totalEncounters -= 1
-			pokemon.encounters -= 1
-			totalEncounters -= 1
-			navigationItem.title = String(totalEncounters)
-			tableView.reloadData()
-			pokemonService.save(pokemon: pokemon)
+	fileprivate func presentRename(hunt: Hunt) {
+		presentTextInput(title: "Rename hunt", text: hunt.name, placeholder: "Hunt name") { [weak self] name in
+			guard let self = self else { return }
+			hunt.name = name
+			self.huntService.save(hunt: hunt)
+			self.tableView.reloadData()
 		}
 	}
-	
-	func incrementEncounters(_ sender: UIButton) {
-		if let indexPath = tableViewHelper.getPressedButtonIndexPath(sender, tableView) {
-			let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
-			let increment = pokemon.increment
-			hunts[indexPath.section].totalEncounters += increment
-			pokemon.encounters += increment
-			totalEncounters += increment
-			navigationItem.title = String(totalEncounters)
-			tableView.reloadData()
+
+	fileprivate func incrementAllInHunt(_ section: Int) {
+		let hunt = hunts[section]
+		var totalIncremented = 0
+		for pokemon in hunt.pokemon {
+			pokemon.encounters += pokemon.increment
+			totalIncremented += pokemon.increment
 			pokemonService.save(pokemon: pokemon)
 		}
+		totalEncounters += totalIncremented
+		hunt.totalEncounters += totalIncremented
+		updateSummary()
+		reloadData(duration: 0.2)
+	}
+
+	fileprivate func decrementEncounters(at indexPath: IndexPath) {
+		let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
+		guard pokemon.encounters > 0 else { return }
+		Haptics.tap()
+		hunts[indexPath.section].totalEncounters -= 1
+		pokemon.encounters -= 1
+		totalEncounters -= 1
+		updateSummary()
+		reloadSectionKeepingHeader(indexPath)
+		pokemonService.save(pokemon: pokemon)
+	}
+	
+	fileprivate func incrementEncounters(at indexPath: IndexPath) {
+		let pokemon = hunts[indexPath.section].pokemon[indexPath.row]
+		let increment = pokemon.increment
+		Haptics.tap()
+		hunts[indexPath.section].totalEncounters += increment
+		pokemon.encounters += increment
+		totalEncounters += increment
+		updateSummary()
+		reloadSectionKeepingHeader(indexPath)
+		pokemonService.save(pokemon: pokemon)
 	}
 
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -255,7 +275,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				currentHunt.pokemon.remove(at: indexPath.row)
 				currentHunt.indexes.removeAll{$0 == pokemonNumber}
 				tableView.deleteRows(at: [indexPath], with: .fade)
-				self.navigationItem.title = String(self.totalEncounters)
+				self.updateSummary()
 
 				if (currentHunt.pokemon.isEmpty) {
 					self.removeHunt(currentHunt, indexPath.section)
@@ -268,7 +288,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 				self.reloadData()
 				completionHandler(true)
 			}
-			deleteAction.image = UIImage(systemName: "trash.circle.fill")
+			deleteAction.title = "Remove"
+			deleteAction.image = UIImage(systemName: "minus.circle.fill")
 			deleteAction.backgroundColor = .systemRed
 			return UISwipeActionsConfiguration(actions: [deleteAction])
 	}
@@ -290,31 +311,24 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		selectedIndex = indexPath.row
-		selectedSection = indexPath.section
-		performSegue(withIdentifier: "trackShiny", sender: self)
+		tableView.deselectRow(at: indexPath, animated: true)
+		navigationController?.pushViewController(ShinyTrackerVC(pokemon: hunts[indexPath.section].pokemon[indexPath.row]), animated: true)
 	}
 	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if (segue.identifier == "editName") {
-			let destVC = segue.destination as! HuntNameEditorModalVC
-			destVC.hunt = hunts[selectedSection]
+	@objc fileprivate func clearCurrentHuntPressed() {
+		presentDestructiveConfirmation(title: "Clear all hunts?",
+									   message: "Every hunt will be removed. Encounter counts are kept on each Pokémon.",
+									   destructiveTitle: "Clear Hunts") { [weak self] in
+			self?.huntService.clear()
+			self?.clearAllHunts()
 		}
-		else {
-			let destVC = segue.destination as? ShinyTrackerVC
-			destVC?.pokemon = hunts[selectedSection].pokemon[selectedIndex]
-		}
-	}
-	
-	@IBAction func clearCurrentHuntPressed(_ sender: Any) {
-		performSegue(withIdentifier: "confirmClear", sender: self)
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = Color.Grey800
 	}
 	
-	@IBAction func confirm(_ unwindSegue: UIStoryboardSegue) {
+	fileprivate func clearAllHunts() {
 		clearCurrentHuntButton.isEnabled = false
 		for hunt in hunts {
 			for pokemon in hunt.pokemon {
@@ -325,9 +339,10 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		hunts.removeAll()
 		reloadData()
 		setEncounters()
+		setRearrangeButtonState()
 	}
 
-	@IBAction func createHuntConfirm(_ unwindSegue: UIStoryboardSegue) {
+	fileprivate func huntsChanged() {
 		hunts = huntService.getAll()
 		reloadData()
 		setEncounters()
@@ -335,25 +350,34 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UI
 		setRearrangeButtonState()
 	}
 
-	@IBAction func confirmHuntName(_ unwindSegue: UIStoryboardSegue) {
-		if let source = unwindSegue.source as? HuntNameEditorModalVC {
-			hunts[selectedSection] = source.hunt
-			tableView.reloadData()
+	@objc fileprivate func createHuntButtonPressed() {
+		let createHunt = CreateHuntModalVC { [weak self] in
+			self?.huntsChanged()
 		}
+		present(createHunt.inSheet(), animated: true)
 	}
 
-	@IBAction func confirmRearrange(_ unwindSegue: UIStoryboardSegue) {
-		hunts = huntService.getAll()
-		reloadData()
-	}
-
-	@IBAction func createHuntButtonPressed(_ sender: Any) {
-		performSegue(withIdentifier: "createHunt", sender: self)
+	@objc fileprivate func rearrangePressed() {
+		let rearrange = RearrangeHuntsTVC { [weak self] in
+			self?.huntsChanged()
+		}
+		present(rearrange.inSheet(), animated: true)
 	}
 
 	fileprivate func reloadData(duration: Double = 0.5) {
+		updateEmptyState()
 		UIView.transition(with: tableView, duration: duration, options: .transitionCrossDissolve, animations: {
 			self.tableView.reloadData()
 		}, completion: nil)
+	}
+
+	/// Avoids reloading (and flashing) the whole list.
+	fileprivate func reloadSectionKeepingHeader(_ indexPath: IndexPath) {
+		UIView.performWithoutAnimation {
+			tableView.reloadRows(at: [indexPath], with: .none)
+		}
+		if let header = tableView.headerView(forSection: indexPath.section) as? HuntHeaderView {
+			header.configure(hunt: hunts[indexPath.section])
+		}
 	}
 }
