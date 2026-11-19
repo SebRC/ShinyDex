@@ -100,7 +100,7 @@ class HuntPickerModalVC: UITableViewController {
 						 placeholder: "Hunt name",
 						 saveTitle: "Create") { [weak self] name in
 			guard let self = self else { return }
-			self.huntService.createHunt(named: name, with: self.pokemon)
+			self.huntService.createHunt(named: name, with: [self.pokemon])
 			self.finish(huntName: name)
 		}
 	}

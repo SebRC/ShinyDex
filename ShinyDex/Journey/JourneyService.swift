@@ -12,7 +12,6 @@ class JourneyService {
 		return Dictionary(catchService.getAll().map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
 	}
 
-	@discardableResult
 	func createJourney(named name: String, numbers: [Int]) -> Journey {
 		let priority = (getAll().map { $0.priority }.max() ?? -1) + 1
 		let journey = Journey(name: name, priority: priority, numbers: numbers)
