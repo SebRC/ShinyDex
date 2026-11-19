@@ -65,6 +65,33 @@ final class CatchHandlerTests: XCTestCase {
         XCTAssertThrowsError(try update.handle(UpdateCatchCommand(catchId: CatchID(rawValue: UUID()), change: .encounters(1))))
     }
 
+    func test_updateCatch_setsAndClearsNicknameGenderNatureAndIVs() throws {
+        log(bulbasaur, ball: "poke", on: day(1))
+        let id = speciesCatches(bulbasaur)[0].id
+        let update = UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon)
+        let ivs = IndividualValues().setting(31, for: .speed)
+
+        try update.handle(UpdateCatchCommand(catchId: id, change: .nickname("  Sprout  ")))
+        try update.handle(UpdateCatchCommand(catchId: id, change: .gender(.male)))
+        try update.handle(UpdateCatchCommand(catchId: id, change: .nature(.jolly)))
+        try update.handle(UpdateCatchCommand(catchId: id, change: .ivs(ivs)))
+
+        let updated = speciesCatches(bulbasaur)[0]
+        XCTAssertEqual(updated.nickname, "Sprout", "Nicknames are trimmed")
+        XCTAssertEqual(updated.gender, .male)
+        XCTAssertEqual(updated.nature, .jolly)
+        XCTAssertEqual(updated.ivs, ivs)
+
+        try update.handle(UpdateCatchCommand(catchId: id, change: .nickname("   ")))
+        try update.handle(UpdateCatchCommand(catchId: id, change: .gender(nil)))
+        try update.handle(UpdateCatchCommand(catchId: id, change: .nature(nil)))
+
+        let cleared = speciesCatches(bulbasaur)[0]
+        XCTAssertNil(cleared.nickname, "A blank nickname removes it")
+        XCTAssertNil(cleared.gender)
+        XCTAssertNil(cleared.nature)
+    }
+
     func test_evolveCatch_movesItToTheTarget_andBackClearsTheOrigin() throws {
         log(bulbasaur, ball: "poke", on: day(1))
         let id = speciesCatches(bulbasaur)[0].id

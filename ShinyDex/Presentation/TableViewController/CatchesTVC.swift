@@ -59,7 +59,7 @@ class CatchesTVC: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
 		cell.configure(pokemonName: pokemonName,
-					   title: "\(caught.isFailed ? "Got away" : caught.ballName) · \(caught.game.displayName)",
+					   title: [caught.nickname, caught.isFailed ? "Got away" : caught.ballName, caught.game.displayName].compactMap { $0 }.joined(separator: " · "),
 					   subtitle: ["\(caught.encounters.grouped) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
 					   ball: caught.caughtBall,
 					   isFailed: caught.isFailed)

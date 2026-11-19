@@ -5,8 +5,16 @@ class CatchDetailTVC: UITableViewController {
 	fileprivate enum Section: Int, CaseIterable {
 		case hero
 		case stats
+		case about
 		case training
 		case details
+	}
+
+	fileprivate enum AboutRow: CaseIterable {
+		case nickname
+		case gender
+		case nature
+		case ivs
 	}
 
 	fileprivate enum TrainingRow {
@@ -37,6 +45,7 @@ class CatchDetailTVC: UITableViewController {
 		return details.summary
 	}
 	fileprivate lazy var ballGrid = BallGrid(container: container)
+	fileprivate var aboutRows = [AboutRow]()
 	fileprivate var trainingRows = [TrainingRow]()
 	fileprivate let cellIdentifier = "catchDetailCell"
 	fileprivate var rows = [Row]()
@@ -89,6 +98,7 @@ class CatchDetailTVC: UITableViewController {
 		if (caught.isFailed) {
 			rows.removeAll { $0.field == .ball }
 		}
+		aboutRows = caught.isFailed ? [] : AboutRow.allCases
 		trainingRows = caught.isFailed ? [] : [.evs]
 		if (!caught.isFailed && !details.evolutionTargets.isEmpty) {
 			trainingRows.append(.evolve)
@@ -127,6 +137,7 @@ class CatchDetailTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch Section(rawValue: section)! {
 		case .details: return rows.count
+		case .about: return aboutRows.count
 		case .training: return trainingRows.count
 		default: return 1
 		}
@@ -135,6 +146,7 @@ class CatchDetailTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch Section(rawValue: section)! {
 		case .details: return "Details"
+		case .about: return aboutRows.isEmpty ? nil : "About"
 		case .training: return trainingRows.isEmpty ? nil : "Training"
 		default: return nil
 		}
@@ -147,6 +159,7 @@ class CatchDetailTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch Section(rawValue: section)! {
 		case .details: return UITableView.automaticDimension
+		case .about: return aboutRows.isEmpty ? 4 : UITableView.automaticDimension
 		case .training: return trainingRows.isEmpty ? 4 : UITableView.automaticDimension
 		default: return 4
 		}
@@ -162,6 +175,8 @@ class CatchDetailTVC: UITableViewController {
 			let cell = tableView.dequeueReusableCell(withIdentifier: CatchHeroCell.reuseIdentifier, for: indexPath) as! CatchHeroCell
 			let verb = caught.isFailed ? "Found" : "Caught"
 			cell.configure(pokemonName: caught.pokemonName,
+						   nickname: caught.nickname,
+						   genderSymbol: caught.gender?.symbol,
 						   dateText: caught.formattedCaughtDate.map { "\(verb) \($0)" } ?? "Logged before catch history",
 						   positionText: positionText,
 						   isFailed: caught.isFailed)
@@ -170,11 +185,48 @@ class CatchDetailTVC: UITableViewController {
 			let cell = tableView.dequeueReusableCell(withIdentifier: CatchStatsCell.reuseIdentifier, for: indexPath) as! CatchStatsCell
 			cell.configure(encounters: caught.encounters.grouped, odds: details.odds.map { "1/\($0.grouped)" } ?? "Varies", luck: luckText)
 			return cell
+		case .about:
+			return aboutCell(for: aboutRows[indexPath.row])
 		case .training:
 			return trainingCell(for: trainingRows[indexPath.row])
 		case .details:
 			return detailCell(for: rows[indexPath.row])
 		}
+	}
+
+	fileprivate func aboutCell(for row: AboutRow) -> UITableViewCell {
+		let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+		cell.backgroundColor = Color.Grey800
+		let selectedBackground = UIView()
+		selectedBackground.backgroundColor = Color.Grey700
+		cell.selectedBackgroundView = selectedBackground
+		cell.textLabel?.textColor = Color.Grey200
+		cell.detailTextLabel?.textColor = Color.Grey400
+		cell.accessoryType = .disclosureIndicator
+		let symbol: String
+		switch row {
+		case .nickname:
+			cell.textLabel?.text = "Nickname"
+			cell.detailTextLabel?.text = caught.nickname ?? "None"
+			symbol = "tag.fill"
+		case .gender:
+			cell.textLabel?.text = "Gender"
+			cell.detailTextLabel?.text = caught.gender.map { [$0.symbol, $0.name].compactMap { $0 }.joined(separator: " ") } ?? "Unknown"
+			symbol = "person.fill"
+		case .nature:
+			cell.textLabel?.text = "Nature"
+			cell.detailTextLabel?.text = caught.nature.map { "\($0.name) · \($0.effectSummary)" } ?? "Unknown"
+			symbol = "leaf.fill"
+		case .ivs:
+			cell.textLabel?.text = "IVs"
+			let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.Grey400])
+			ivsText.append(caught.ivs.coloredSummary(unknownColor: Color.Grey400))
+			cell.detailTextLabel?.attributedText = ivsText
+			symbol = "chart.bar.fill"
+		}
+		cell.imageView?.image = UIImage.symbol(symbol, pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
+		cell.imageView?.tintColor = Color.Orange500
+		return cell
 	}
 
 	fileprivate func trainingCell(for row: TrainingRow) -> UITableViewCell {
@@ -225,11 +277,24 @@ class CatchDetailTVC: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
 		let section = Section(rawValue: indexPath.section)
-		return section == .details || section == .training
+		return section == .details || section == .about || section == .training
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
+		if (Section(rawValue: indexPath.section) == .about) {
+			switch aboutRows[indexPath.row] {
+			case .nickname:
+				showNicknameEditor()
+			case .gender:
+				showGenderPicker()
+			case .nature:
+				showNaturePicker()
+			case .ivs:
+				navigationController?.pushViewController(IVEditorVC(container: container, caught: caught), animated: true)
+			}
+			return
+		}
 		if (Section(rawValue: indexPath.section) == .training) {
 			switch trainingRows[indexPath.row] {
 			case .evs:
@@ -256,6 +321,35 @@ class CatchDetailTVC: UITableViewController {
 		}
 	}
 
+	// MARK: About
+
+	fileprivate func showNicknameEditor() {
+		let maximumLength = Catch.maximumNicknameLength
+		presentTextInput(title: "Nickname",
+						 message: "Up to \(maximumLength) characters. Leave it empty to remove the nickname.",
+						 text: caught.nickname,
+						 placeholder: caught.pokemonName,
+						 isValid: { $0.count <= maximumLength }) { [weak self] nickname in
+			self?.save(.nickname(nickname))
+		}
+	}
+
+	fileprivate func showGenderPicker() {
+		let genders = Gender.allCases
+		let options = genders.map { PickerOption(title: $0.name, subtitle: $0.symbol) }
+		let picker = OptionPickerTVC(title: "Gender", options: options, selectedIndex: caught.gender.flatMap { genders.firstIndex(of: $0) }) { [weak self] index in
+			self?.save(.gender(index.map { genders[$0] }))
+		}
+		navigationController?.pushViewController(picker, animated: true)
+	}
+
+	fileprivate func showNaturePicker() {
+		let picker = NaturePickerVC(selected: caught.nature) { [weak self] nature in
+			self?.save(.nature(nature))
+		}
+		navigationController?.pushViewController(picker, animated: true)
+	}
+
 	// MARK: Evolve
 
 	fileprivate func showEvolvePicker() {
@@ -268,7 +362,7 @@ class CatchDetailTVC: UITableViewController {
 
 	fileprivate func confirmEvolve(into target: NamedPokemon) {
 		let alert = UIAlertController(title: "Evolve into \(target.name)?",
-									  message: "This \(caught.pokemonName)'s ball, game, method, encounters, date and EVs move to \(target.name). You can change it back later.",
+									  message: "This \(caught.pokemonName)'s details, EVs and IVs move to \(target.name). You can change it back later.",
 									  preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 		alert.addAction(UIAlertAction(title: "Evolve", style: .default) { [weak self] _ in
@@ -370,6 +464,7 @@ fileprivate class CatchHeroCell: UITableViewCell {
 	fileprivate let badge = UIView()
 	fileprivate let badgeIcon = UIImageView()
 	fileprivate let nameLabel = UILabel(fontSize: 30, weight: .bold, color: Color.Grey100)
+	fileprivate let speciesLabel = UILabel(fontSize: 17, weight: .semibold, color: Color.Grey300)
 	fileprivate let dateLabel = UILabel(fontSize: 15, color: Color.Grey400)
 	fileprivate let positionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Orange500)
 
@@ -390,10 +485,11 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		badgeContent.pinEdges(to: badge, insets: UIEdgeInsets(top: 3, left: 9, bottom: 3, right: 10))
 
 		nameLabel.textAlignment = .center
+		speciesLabel.textAlignment = .center
 		dateLabel.textAlignment = .center
 		positionLabel.textAlignment = .center
 
-		let text = UIStackView(arrangedSubviews: [badge, nameLabel, dateLabel, positionLabel])
+		let text = UIStackView(arrangedSubviews: [badge, nameLabel, speciesLabel, dateLabel, positionLabel])
 		text.axis = .vertical
 		text.alignment = .center
 		text.spacing = 4
@@ -424,7 +520,7 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(pokemonName: String, dateText: String, positionText: String?, isFailed: Bool) {
+	func configure(pokemonName: String, nickname: String?, genderSymbol: String?, dateText: String, positionText: String?, isFailed: Bool) {
 		badge.backgroundColor = isFailed ? Color.Grey600 : Color.Orange500
 		badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
 		badgeLabel.textColor = isFailed ? Color.Grey100 : Color.Grey900
@@ -437,11 +533,13 @@ fileprivate class CatchHeroCell: UITableViewCell {
 		else {
 			animatedImageView.image = UIImage(named: pokemonName.lowercased())
 		}
-		nameLabel.text = pokemonName
+		nameLabel.text = [nickname ?? pokemonName, genderSymbol].compactMap { $0 }.joined(separator: " ")
+		speciesLabel.text = pokemonName
+		speciesLabel.isHidden = nickname == nil
 		dateLabel.text = dateText
 		positionLabel.text = positionText
 		positionLabel.isHidden = positionText == nil
-		accessibilityLabel = [isFailed ? "Shiny \(pokemonName) that got away" : "Shiny \(pokemonName)", dateText, positionText].compactMap { $0 }.joined(separator: ", ")
+		accessibilityLabel = [nickname, isFailed ? "Shiny \(pokemonName) that got away" : "Shiny \(pokemonName)", dateText, positionText].compactMap { $0 }.joined(separator: ", ")
 	}
 }
 

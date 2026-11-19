@@ -114,7 +114,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
 	fileprivate func applySearch() {
 		let searchText = searchController.searchBar.text?.lowercased() ?? ""
-		var shown = searchText.isEmpty ? entries : entries.filter { $0.pokemonName.lowercased().contains(searchText) }
+		var shown = searchText.isEmpty ? entries : entries.filter { [$0.pokemonName, $0.nickname].compactMap { $0?.lowercased() }.contains { $0.contains(searchText) } }
 		if (sortOrder == .recent) {
 			shown = shown.enumerated().sorted { lhs, rhs in
 				switch (lhs.element.caughtDate, rhs.element.caughtDate) {
@@ -273,6 +273,7 @@ fileprivate class CollectionCard: UICollectionViewCell {
 	fileprivate let spriteView = UIImageView()
 	fileprivate let ballView = UIImageView()
 	fileprivate let nameLabel = UILabel(fontSize: 14, weight: .semibold)
+	fileprivate let speciesLabel = UILabel(fontSize: 11, weight: .medium, color: Color.Grey300)
 	fileprivate let dateLabel = UILabel(fontSize: 11, color: Color.Grey400)
 
 	override init(frame: CGRect) {
@@ -290,11 +291,14 @@ fileprivate class CollectionCard: UICollectionViewCell {
 		nameLabel.textAlignment = .center
 		nameLabel.adjustsFontSizeToFitWidth = true
 		nameLabel.minimumScaleFactor = 0.75
+		speciesLabel.textAlignment = .center
+		speciesLabel.adjustsFontSizeToFitWidth = true
+		speciesLabel.minimumScaleFactor = 0.8
 		dateLabel.textAlignment = .center
 		dateLabel.adjustsFontSizeToFitWidth = true
 		dateLabel.minimumScaleFactor = 0.8
 
-		contentView.addAutoLayoutSubviews(glowView, spriteView, ballView, nameLabel, dateLabel)
+		contentView.addAutoLayoutSubviews(glowView, spriteView, ballView, nameLabel, speciesLabel, dateLabel)
 		NSLayoutConstraint.activate([
 			spriteView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -4),
 			spriteView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -314,7 +318,10 @@ fileprivate class CollectionCard: UICollectionViewCell {
 			nameLabel.topAnchor.constraint(equalTo: spriteView.bottomAnchor, constant: -10),
 			nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
 			nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-			dateLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 1),
+			speciesLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 1),
+			speciesLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+			speciesLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+			dateLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor, constant: 1),
 			dateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
 			dateLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
 			dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
@@ -341,9 +348,11 @@ fileprivate class CollectionCard: UICollectionViewCell {
 		ballView.image = caught.isFailed ? UIImage.symbol("wind", pointSize: 14, weight: .semibold) : UIImage(named: caught.caughtBall)
 		ballView.tintColor = Color.Grey400
 		ballView.contentMode = caught.isFailed ? .center : .scaleAspectFit
-		nameLabel.text = caught.pokemonName
+		nameLabel.text = caught.nickname ?? caught.pokemonName
+		speciesLabel.text = caught.pokemonName
+		speciesLabel.isHidden = caught.nickname == nil
 		dateLabel.text = caught.formattedCaughtDate ?? "Before history"
 		let detail = caught.isFailed ? "got away" : caught.ballName
-		accessibilityLabel = "Shiny \(caught.pokemonName), \(detail), \(caught.formattedCaughtDate ?? "date unknown")"
+		accessibilityLabel = [caught.nickname, "Shiny \(caught.pokemonName)", detail, caught.formattedCaughtDate ?? "date unknown"].compactMap { $0 }.joined(separator: ", ")
 	}
 }

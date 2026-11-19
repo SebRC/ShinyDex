@@ -76,7 +76,11 @@ final class CoreDataCatchRepository: CatchRepository {
             caughtDate: catchEntity.value(forKey: "caughtDate") as? Date,
             isFailed: catchEntity.value(forKey: "isFailed") as? Bool ?? false,
             evs: EffortValues(encoded: catchEntity.value(forKey: "evs") as? String),
-            evolvedFrom: evolvedFrom >= 0 ? evolvedFrom : nil)
+            evolvedFrom: evolvedFrom >= 0 ? evolvedFrom : nil,
+            nickname: catchEntity.value(forKey: "nickname") as? String,
+            gender: (catchEntity.value(forKey: "gender") as? String).flatMap(Gender.init(rawValue:)),
+            nature: (catchEntity.value(forKey: "nature") as? String).flatMap(Nature.init(rawValue:)),
+            ivs: IndividualValues(encoded: catchEntity.value(forKey: "ivs") as? String))
     }
 
     private func write(_ caught: Catch, to catchEntity: NSManagedObject) {
@@ -91,6 +95,10 @@ final class CoreDataCatchRepository: CatchRepository {
         catchEntity.setValue(caught.isFailed, forKey: "isFailed")
         catchEntity.setValue(caught.evs.isEmpty ? nil : caught.evs.encoded, forKey: "evs")
         catchEntity.setValue(caught.evolvedFrom ?? -1, forKey: "evolvedFrom")
+        catchEntity.setValue(caught.nickname, forKey: "nickname")
+        catchEntity.setValue(caught.gender?.rawValue, forKey: "gender")
+        catchEntity.setValue(caught.nature?.rawValue, forKey: "nature")
+        catchEntity.setValue(caught.ivs.isEmpty ? nil : caught.ivs.encoded, forKey: "ivs")
     }
 
     private func fetch(predicate: NSPredicate?) -> [NSManagedObject] {

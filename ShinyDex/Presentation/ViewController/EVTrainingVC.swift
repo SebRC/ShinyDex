@@ -116,7 +116,7 @@ class EVTrainingVC: UIViewController {
 		let list = UIStackView()
 		list.axis = .vertical
 		list.spacing = 14
-		for stat in EffortValues.Stat.allCases {
+		for stat in Stat.allCases {
 			let row = EVStatRow(stat: stat)
 			row.onChange = { [weak self] amount in self?.change(stat, by: amount) }
 			row.onValueTapped = { [weak self] in self?.promptExactValue(for: stat) }
@@ -134,7 +134,7 @@ class EVTrainingVC: UIViewController {
 		return EVTrainingVC.steps[stepControl.selectedSegmentIndex]
 	}
 
-	fileprivate func change(_ stat: EffortValues.Stat, by direction: Int) {
+	fileprivate func change(_ stat: Stat, by direction: Int) {
 		let updated = caught.evs.adding(direction * step, to: stat)
 		guard updated != caught.evs else {
 			Haptics.warning()
@@ -144,7 +144,7 @@ class EVTrainingVC: UIViewController {
 		save(updated)
 	}
 
-	fileprivate func promptExactValue(for stat: EffortValues.Stat) {
+	fileprivate func promptExactValue(for stat: Stat) {
 		let ceiling = min(EffortValues.maximumPerStat, caught.evs[stat] + caught.evs.remaining)
 		presentTextInput(title: stat.name,
 						 message: "Enter a number from 0 to \(ceiling).",
@@ -187,7 +187,7 @@ class EVTrainingVC: UIViewController {
 }
 
 fileprivate class EVStatRow: UIView {
-	let stat: EffortValues.Stat
+	let stat: Stat
 	var onChange: ((Int) -> Void)?
 	var onValueTapped: (() -> Void)?
 
@@ -196,7 +196,7 @@ fileprivate class EVStatRow: UIView {
 	fileprivate let minusButton = UIButton(type: .system)
 	fileprivate let plusButton = UIButton(type: .system)
 
-	init(stat: EffortValues.Stat) {
+	init(stat: Stat) {
 		self.stat = stat
 		super.init(frame: .zero)
 		let nameLabel = UILabel(fontSize: 15, weight: .semibold)
