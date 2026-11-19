@@ -1,103 +1,321 @@
 import UIKit
 
-class IncrementVC: UIViewController {
-	@IBOutlet weak var modalView: UIView!
-	@IBOutlet weak var titleLabel: UILabel!
-	@IBOutlet weak var descriptionLabel: UILabel!
-	@IBOutlet weak var cancelButton: UIButton!
-	@IBOutlet weak var confirmButton: UIButton!
-	@IBOutlet weak var horizontalSeparator: UIView!
-	@IBOutlet weak var verticalSeparator: UIView!
-	@IBOutlet weak var incrementSegmentedControl: UISegmentedControl!
-	@IBOutlet weak var incrementTextField: UITextField!
+/// Sheet for choosing how many encounters one tap on + counts. Present it with `inSheet()`.
+/// Presets are big number tiles with a short label; Custom reveals − / + buttons and a field for 1–100.
+/// A card underneath explains when the selected option is used, and a line previews what a tap will add.
+class IncrementVC: UIViewController, UITextFieldDelegate {
+	fileprivate struct Preset {
+		let value: Int
+		let label: String
+		let description: String
+	}
 
-	var pokemonService = PokemonService()
-	var pokemon: Pokemon!
-	var selectedIncrement = 1
+	fileprivate static let maximumIncrement = 100
+	fileprivate static let presets = [
+		Preset(value: 1, label: "Single", description: "Single encounters, like soft resetting for one Pokémon, Pokéradar chaining or chain fishing."),
+		Preset(value: 2, label: "Double", description: "Double hunting, like soft resetting for static encounters on two systems."),
+		Preset(value: 3, label: "Radar ×3", description: "Pokéradar chaining when space is limited and three patches of grass shake most often."),
+		Preset(value: 4, label: "Radar ×4", description: "Pokéradar chaining with plenty of space, where four patches of grass shake most often."),
+		Preset(value: 5, label: "Radar ×5", description: "Generation 6 (X & Y) Pokéradar chaining, where five patches can shake at once, or receiving 5 gift Pokémon per reset."),
+		Preset(value: 6, label: "Horde", description: "Horde encounters, where six Pokémon appear at once.")
+	]
+
+	fileprivate let pokemon: Pokemon
+	fileprivate let onSave: () -> Void
+	fileprivate let pokemonService = PokemonService()
+	fileprivate var saveButton: UIBarButtonItem!
+
+	fileprivate var presetTiles = [IncrementTile]()
+	fileprivate let customTile = IncrementTile(valueText: "", label: "Custom", isWide: true)
+	fileprivate let customCard = UIView()
+	fileprivate let customField = UITextField()
+	fileprivate let customMinus = UIButton(type: .system)
+	fileprivate let customPlus = UIButton(type: .system)
+	fileprivate let descriptionLabel = UILabel(fontSize: 15, color: Color.Grey300, lines: 0)
+	fileprivate let previewLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Orange500, lines: 0)
+
+	/// The preset index, or nil when Custom is selected.
+	fileprivate var selectedPreset: Int?
+	fileprivate var customValue = 7
+
+	init(pokemon: Pokemon, onSave: @escaping () -> Void) {
+		self.pokemon = pokemon
+		self.onSave = onSave
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	override func viewDidLoad() {
-        super.viewDidLoad()
-		selectedIncrement = pokemon.increment
+		super.viewDidLoad()
+		title = "Encounters per tap"
+		view.backgroundColor = Color.Grey900
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
+		saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(confirmPressed))
+		navigationItem.rightBarButtonItem = saveButton
 
-		titleLabel.textColor = Color.Grey200
-		titleLabel.backgroundColor = Color.Grey800
-		descriptionLabel.textColor = Color.Grey200
-		modalView.layer.cornerRadius = CornerRadius.standard
-		modalView.backgroundColor = Color.Grey900
-		confirmButton.backgroundColor = Color.Grey800
-		confirmButton.setTitleColor(Color.Grey200, for: .normal)
-		cancelButton.backgroundColor = Color.Danger500
-		cancelButton.setTitleColor(Color.Danger100, for: .normal)
-		incrementTextField.textColor = Color.Grey200
-		incrementTextField.placeholder = "Custom increment"
-		incrementTextField.backgroundColor = Color.Grey800
-		horizontalSeparator.backgroundColor = Color.Grey900
-		verticalSeparator.backgroundColor = Color.Grey900
-
-		incrementSegmentedControl.backgroundColor = Color.Grey800
-		incrementSegmentedControl.tintColor = Color.Grey200
-        incrementSegmentedControl.selectedSegmentTintColor = Color.Orange500
-
-		incrementSegmentedControl.selectedSegmentIndex = pokemon.increment > 6
-		? 6
-		: pokemon.increment - 1
-		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
-		incrementTextField.text = incrementTextField.isEnabled ? "\(pokemon.increment)" : ""
-        setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
-        view.addBlur()
-    }
-
-	@IBAction func incrementChanged(_ sender: Any) {
-		incrementTextField.isEnabled = incrementSegmentedControl.selectedSegmentIndex == 6
-		selectedIncrement = getIncrement()
-        setDescriptionText(increment: incrementSegmentedControl.selectedSegmentIndex)
-	}
-	
-	@IBAction func cancelPressed(_ sender: Any) {
-		dismiss(animated: true)
-	}
-
-	@IBAction func confirmPressed(_ sender: Any) {
-		pokemon.increment = getIncrement()
-		pokemonService.save(pokemon: pokemon)
-		performSegue(withIdentifier: "unwindFromEditIncrement", sender: self)
-	}
-
-	fileprivate func getIncrement() -> Int {
-		let index = incrementSegmentedControl.selectedSegmentIndex
-		return index == 6 && !incrementTextField.isEmpty()
-			? getTextFieldIncrement()
-			: getEmptyTextFieldIncrement(index: index)
-	}
-
-	fileprivate func getEmptyTextFieldIncrement(index: Int) -> Int {
-		return index == 6 && incrementTextField.isEmpty() ? 1 : index  + 1
-	}
-
-	fileprivate func getTextFieldIncrement() -> Int {
-		var increment = Int(incrementTextField.text!)!
-		if (increment == 0 || increment > 100) {
-			increment = 1
+		if let index = IncrementVC.presets.firstIndex(where: { $0.value == pokemon.increment }) {
+			selectedPreset = index
 		}
-		return increment
+		else {
+			selectedPreset = nil
+			customValue = min(max(pokemon.increment, 1), IncrementVC.maximumIncrement)
+		}
+		layOutViews()
+		updateSelection()
 	}
 
-	fileprivate func setDescriptionText(increment: Int) {
-		switch increment {
-		case 0:
-			descriptionLabel.text = "Used for single encounters, like when soft resetting for a single Pokémon, Pokéradar chaining or chain fishing."
-		case 1:
-			descriptionLabel.text = "Used for double hunting, like when soft resetting for static encounters on multiple systems."
-		case 2:
-			descriptionLabel.text = "Used for Pokéradar chaining, when space is limited and three patches of grass are the most frequent."
-		case 3:
-			descriptionLabel.text = "Used for Pokéradar chaining, when you have plenty of space and four patches of grass are the most frequent."
-		case 4:
-			descriptionLabel.text = "Used for generation 6(X & Y) Pokéradar chaining, where five patches of grass can shake at once, or when receiving 5 gift Pokémon per reset."
-		case 5:
-			descriptionLabel.text = "Used for horde encounters, where six Pokémon appear at once."
-		default:
-			descriptionLabel.text = "Set your own custom increment. The minimum is 1 and the maximum is 100."
+	// MARK: Layout
+
+	fileprivate func layOutViews() {
+		let scrollView = UIScrollView()
+		scrollView.keyboardDismissMode = .onDrag
+		scrollView.alwaysBounceVertical = true
+		let stack = UIStackView()
+		stack.axis = .vertical
+		stack.spacing = 10
+
+		for (index, preset) in IncrementVC.presets.enumerated() {
+			let tile = IncrementTile(valueText: "\(preset.value)", label: preset.label, isWide: false)
+			tile.tag = index
+			tile.addTarget(self, action: #selector(presetPressed(_:)), for: .touchUpInside)
+			presetTiles.append(tile)
+		}
+		for rowStart in stride(from: 0, to: presetTiles.count, by: 3) {
+			let row = UIStackView(arrangedSubviews: Array(presetTiles[rowStart..<min(rowStart + 3, presetTiles.count)]))
+			row.distribution = .fillEqually
+			row.spacing = 10
+			stack.addArrangedSubview(row)
+		}
+		customTile.addTarget(self, action: #selector(customPressed), for: .touchUpInside)
+		stack.addArrangedSubview(customTile)
+		setUpCustomCard()
+		stack.addArrangedSubview(customCard)
+
+		let descriptionCard = UIView()
+		descriptionCard.backgroundColor = Color.Grey800
+		descriptionCard.layer.cornerRadius = CornerRadius.standard
+		let infoIcon = UIImageView(image: UIImage.symbol("info.circle", pointSize: 15, weight: .semibold))
+		infoIcon.tintColor = Color.Grey400
+		infoIcon.setContentHuggingPriority(.required, for: .horizontal)
+		let descriptionRow = UIStackView(arrangedSubviews: [infoIcon, descriptionLabel])
+		descriptionRow.spacing = 10
+		descriptionRow.alignment = .top
+		descriptionCard.addAutoLayoutSubviews(descriptionRow)
+		descriptionRow.pinEdges(to: descriptionCard, insets: UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14))
+		stack.setCustomSpacing(18, after: customCard)
+		stack.addArrangedSubview(descriptionCard)
+
+		previewLabel.textAlignment = .center
+		stack.setCustomSpacing(16, after: descriptionCard)
+		stack.addArrangedSubview(previewLabel)
+
+		view.addAutoLayoutSubviews(scrollView)
+		scrollView.pinEdges(to: view)
+		scrollView.addAutoLayoutSubviews(stack)
+		NSLayoutConstraint.activate([
+			stack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 16),
+			stack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
+			stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 16),
+			stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -16)
+		])
+	}
+
+	/// − / + for nudging the value, and a field for typing it. Only shown while Custom is selected.
+	fileprivate func setUpCustomCard() {
+		customCard.backgroundColor = Color.Grey800
+		customCard.layer.cornerRadius = CornerRadius.standard
+		for (button, symbol, label) in [(customMinus, "minus", "Decrease"), (customPlus, "plus", "Increase")] {
+			button.setImage(UIImage.symbol(symbol, pointSize: 20, weight: .bold), for: .normal)
+			button.tintColor = Color.Grey200
+			button.backgroundColor = Color.Grey700
+			button.layer.cornerRadius = 22
+			button.accessibilityLabel = label
+			button.widthAnchor.constraint(equalToConstant: 56).isActive = true
+			button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+		}
+		customMinus.addTarget(self, action: #selector(customMinusPressed), for: .touchUpInside)
+		customPlus.addTarget(self, action: #selector(customPlusPressed), for: .touchUpInside)
+
+		customField.delegate = self
+		customField.keyboardType = .numberPad
+		customField.textAlignment = .center
+		customField.font = UIFont.monospacedDigitSystemFont(ofSize: 30, weight: .bold)
+		customField.textColor = Color.Grey100
+		customField.accessibilityLabel = "Custom encounters per tap"
+		customField.addTarget(self, action: #selector(customFieldChanged), for: .editingChanged)
+
+		let rangeLabel = UILabel(fontSize: 12, color: Color.Grey500)
+		rangeLabel.text = "1–\(IncrementVC.maximumIncrement)"
+		rangeLabel.textAlignment = .center
+		let fieldStack = UIStackView(arrangedSubviews: [customField, rangeLabel])
+		fieldStack.axis = .vertical
+		let row = UIStackView(arrangedSubviews: [customMinus, fieldStack, customPlus])
+		row.alignment = .center
+		row.spacing = 12
+		customCard.addAutoLayoutSubviews(row)
+		row.pinEdges(to: customCard, insets: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
+	}
+
+	// MARK: Selection
+
+	@objc fileprivate func presetPressed(_ sender: IncrementTile) {
+		Haptics.tap()
+		selectedPreset = sender.tag
+		view.endEditing(true)
+		updateSelection()
+	}
+
+	@objc fileprivate func customPressed() {
+		Haptics.tap()
+		selectedPreset = nil
+		updateSelection()
+	}
+
+	@objc fileprivate func customMinusPressed() {
+		setCustomValue((currentCustomValue ?? customValue) - 1)
+	}
+
+	@objc fileprivate func customPlusPressed() {
+		setCustomValue((currentCustomValue ?? customValue) + 1)
+	}
+
+	fileprivate func setCustomValue(_ value: Int) {
+		Haptics.tap()
+		customValue = min(max(value, 1), IncrementVC.maximumIncrement)
+		customField.text = "\(customValue)"
+		updateSelection()
+	}
+
+	@objc fileprivate func customFieldChanged() {
+		if let value = currentCustomValue {
+			customValue = value
+		}
+		updateSelection()
+	}
+
+	/// The typed custom value, or nil while it's empty or out of range.
+	fileprivate var currentCustomValue: Int? {
+		guard let value = Int(customField.text ?? ""), (1...IncrementVC.maximumIncrement).contains(value) else { return nil }
+		return value
+	}
+
+	fileprivate func getIncrement() -> Int? {
+		if let index = selectedPreset {
+			return IncrementVC.presets[index].value
+		}
+		return currentCustomValue
+	}
+
+	fileprivate func updateSelection() {
+		for (index, tile) in presetTiles.enumerated() {
+			tile.isChosen = index == selectedPreset
+		}
+		let isCustom = selectedPreset == nil
+		customTile.isChosen = isCustom
+
+		if (isCustom && customField.text?.isEmpty != false) {
+			customField.text = "\(customValue)"
+		}
+		customCard.isHidden = !isCustom
+		customMinus.isEnabled = (currentCustomValue ?? customValue) > 1
+		customPlus.isEnabled = (currentCustomValue ?? customValue) < IncrementVC.maximumIncrement
+
+		descriptionLabel.text = selectedPreset.map { IncrementVC.presets[$0].description }
+			?? "Set your own number of encounters per tap, from 1 to \(IncrementVC.maximumIncrement)."
+		if let increment = getIncrement() {
+			previewLabel.text = increment == 1 ? "Each tap on + adds 1 encounter" : "Each tap on + adds \(increment) encounters"
+			previewLabel.textColor = Color.Orange500
+		}
+		else {
+			previewLabel.text = "Enter a number from 1 to \(IncrementVC.maximumIncrement)"
+			previewLabel.textColor = Color.Danger400
+		}
+		saveButton.isEnabled = getIncrement() != nil
+	}
+
+	// MARK: Actions
+
+	@objc fileprivate func cancelPressed() {
+		dismissSheet()
+	}
+
+	@objc fileprivate func confirmPressed() {
+		guard let increment = getIncrement() else { return }
+		pokemon.increment = increment
+		pokemonService.save(pokemon: pokemon)
+		Haptics.success()
+		dismissSheet { [onSave] in
+			onSave()
+		}
+	}
+}
+
+/// A preset or Custom tile: a big number with a short label, outlined in orange when chosen.
+fileprivate class IncrementTile: UIControl {
+	fileprivate let valueLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
+	fileprivate let captionLabel = UILabel(fontSize: 13, weight: .medium, color: Color.Grey400)
+
+	var isChosen = false {
+		didSet {
+			layer.borderWidth = isChosen ? 2 : 0
+			backgroundColor = isChosen ? Color.Orange900 : Color.Grey800
+			valueLabel.textColor = isChosen ? Color.Orange500 : Color.Grey100
+			captionLabel.textColor = isChosen ? Color.Orange400 : Color.Grey400
+			accessibilityTraits = isChosen ? [.button, .selected] : .button
+		}
+	}
+
+	init(valueText: String, label: String, isWide: Bool) {
+		super.init(frame: .zero)
+		backgroundColor = Color.Grey800
+		layer.cornerRadius = 14
+		layer.borderColor = Color.Orange500.cgColor
+		valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: isWide ? 22 : 34, weight: .bold)
+		valueLabel.textAlignment = .center
+		captionLabel.textAlignment = .center
+		captionLabel.adjustsFontSizeToFitWidth = true
+		captionLabel.minimumScaleFactor = 0.8
+		captionLabel.text = label
+		valueLabel.text = valueText
+
+		let stack: UIStackView
+		if (isWide) {
+			let icon = UIImageView(image: UIImage.symbol("slider.horizontal.3", pointSize: 17, weight: .semibold))
+			icon.tintColor = Color.Grey400
+			captionLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+			stack = UIStackView(arrangedSubviews: [icon, captionLabel, UIView(), valueLabel])
+			stack.spacing = 10
+			stack.alignment = .center
+			heightAnchor.constraint(equalToConstant: 56).isActive = true
+		}
+		else {
+			stack = UIStackView(arrangedSubviews: [valueLabel, captionLabel])
+			stack.axis = .vertical
+			stack.spacing = 0
+			heightAnchor.constraint(equalToConstant: 86).isActive = true
+		}
+		stack.isUserInteractionEnabled = false
+		addAutoLayoutSubviews(stack)
+		NSLayoutConstraint.activate([
+			stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
+			stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
+			stack.centerYAnchor.constraint(equalTo: centerYAnchor)
+		])
+		isAccessibilityElement = true
+		accessibilityTraits = .button
+		accessibilityLabel = valueText.isEmpty ? label : "\(valueText), \(label)"
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			alpha = isHighlighted ? 0.7 : 1
 		}
 	}
 }

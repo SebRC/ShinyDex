@@ -6,91 +6,239 @@ class GameSettingsContainer: UIView {
 	var switchStateService = SwitchStateService()
 	var pokemon: Pokemon!
 	var gameSettingsCells: [GameSettingsCell]?
-	var delegate: SegueActivated!
+	/// Called when "Apply to all Pokémon" is pressed.
+	var onApplyToAll: (() -> Void)?
 
-	let nibName = "GameSettingsContainer"
-    var contentView: UIView?
-    
-	@IBOutlet weak var gameLabel: UILabel!
-	@IBOutlet weak var shinyCharmCell: GameSettingsCell!
-	@IBOutlet weak var lureCell: GameSettingsCell!
-	@IBOutlet weak var masudaCell: GameSettingsCell!
-	@IBOutlet weak var pokeradarCell: GameSettingsCell!
-	@IBOutlet weak var genTwoBreedingCell: GameSettingsCell!
-	@IBOutlet weak var sosChainCell: GameSettingsCell!
-	@IBOutlet weak var shinyOddsLabel: UILabel!
-	@IBOutlet weak var generationSeparator: UIView!
-	@IBOutlet weak var chainFishingCell: GameSettingsCell!
-	@IBOutlet weak var dexNavCell: GameSettingsCell!
-	@IBOutlet weak var friendSafariCell: GameSettingsCell!
-	@IBOutlet weak var applyToAllButton: UIButton!
-	@IBOutlet weak var explanationLabel: UILabel!
-    @IBOutlet weak var gameButton: UIButton!
-    @IBOutlet weak var gameTitle: UILabel!
-    
+	let shinyCharmCell = GameSettingsCell(title: "Shiny Charm", description: "Available from generation 5 and onwards", icon: UIImage(named: "Charm"), tag: 3)
+	let lureCell = GameSettingsCell(title: "Lure", description: "Only available in Let's Go Pikachu & Eevee.", icon: UIImage(named: HuntMethod.Lure.rawValue), tag: 8)
+	let masudaCell = GameSettingsCell(title: "Masuda", description: "Available from generation 4 and onwards", icon: UIImage(named: HuntMethod.Masuda.rawValue), tag: 1)
+	let pokeradarCell = GameSettingsCell(title: "Pokéradar", description: "Only available in Diamond, Pearl, Platinum, X and Y", icon: UIImage(named: HuntMethod.Pokeradar.rawValue), tag: 2)
+	let genTwoBreedingCell = GameSettingsCell(title: "Gen 2 breeding", description: "Increased shiny odds from breeding shinies are only available in Gold, Silver and Crystal", icon: UIImage(named: HuntMethod.Gen2Breeding.rawValue), tag: 0)
+	let sosChainCell = GameSettingsCell(title: "SOS chaining", description: "Only available in Sun, Moon, Ultra Sun and Ultra Moon", icon: UIImage(named: HuntMethod.SosChaining.rawValue), tag: 7)
+	let chainFishingCell = GameSettingsCell(title: "Chain fishing", description: "Only available in X, Y, Omega Ruby and Alpha Sapphire", icon: UIImage(named: HuntMethod.ChainFishing.rawValue), tag: 4)
+	let dexNavCell = GameSettingsCell(title: "DexNav", description: "Only available in Omega Ruby & Alpha Sapphire", icon: UIImage(named: HuntMethod.DexNav.rawValue), tag: 5)
+	let friendSafariCell = GameSettingsCell(title: "Friend Safari", description: "Only available in X and Y", icon: UIImage(named: HuntMethod.FriendSafari.rawValue), tag: 6)
+	let applyToAllButton = UIButton(type: .system)
+	let explanationLabel = UILabel(fontSize: 13, color: Color.Grey400, lines: 0)
+	fileprivate lazy var explanationFooter: UIView = {
+		let wrapper = UIView()
+		wrapper.addAutoLayoutSubviews(explanationLabel)
+		explanationLabel.pinEdges(to: wrapper, insets: UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14))
+		return wrapper
+	}()
+	/// The game row. Tapping it opens the game grid.
+	let gameButton = UIControl()
+	let gameTitle = UILabel(fontSize: 17, weight: .semibold)
+
+	fileprivate let shinyOddsLabel = UILabel(fontSize: 44, weight: .bold, color: Color.Orange500)
+	fileprivate let oddsSummaryLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
+	fileprivate let gameImageView = UIImageView()
+	fileprivate let gameSubtitle = UILabel(fontSize: 13, color: Color.Grey400)
+	fileprivate let methodsCard = GameSettingsContainer.makeCardStack()
+	fileprivate let unavailableHeader = GameSettingsContainer.makeSectionHeader("")
+	fileprivate let unavailableCard = GameSettingsContainer.makeCardStack()
+	fileprivate let noMethodsLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
+	/// Fixed display order for the method rows, whichever card they land in.
+	fileprivate var methodCells: [GameSettingsCell] {
+		return [genTwoBreedingCell, masudaCell, pokeradarCell, chainFishingCell, friendSafariCell, dexNavCell, sosChainCell, lureCell]
+	}
+
+	init() {
+		super.init(frame: .zero)
+		gameSettingsCells = [genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
+		for cell in gameSettingsCells! {
+			cell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
+		}
+
+		let oddsCard = makeOddsCard()
+		let gameCard = GameSettingsContainer.makeCardStack()
+		gameCard.stack.addArrangedSubview(makeGameRow())
+		let charmCard = GameSettingsContainer.makeCardStack()
+		charmCard.stack.addArrangedSubview(shinyCharmCell)
+
+		applyToAllButton.setTitle("Apply to All Pokémon", for: .normal)
+		applyToAllButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+		applyToAllButton.setImage(UIImage.symbol("square.stack.3d.down.right", pointSize: 16, weight: .semibold), for: .normal)
+		applyToAllButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+		applyToAllButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+		applyToAllButton.layer.cornerRadius = CornerRadius.standard
+		applyToAllButton.layer.borderWidth = 1.5
+		applyToAllButton.addTarget(self, action: #selector(applyToAllPressed), for: .touchUpInside)
+
+		let stack = UIStackView(arrangedSubviews: [
+			oddsCard,
+			GameSettingsContainer.makeSectionHeader("Game"), gameCard,
+			GameSettingsContainer.makeSectionHeader("Shiny Charm"), charmCard,
+			GameSettingsContainer.makeSectionHeader("Hunt method"), methodsCard,
+			unavailableHeader, unavailableCard,
+			applyToAllButton, explanationFooter
+		])
+		stack.axis = .vertical
+		stack.spacing = 6
+		stack.setCustomSpacing(20, after: oddsCard)
+		stack.setCustomSpacing(20, after: gameCard)
+		stack.setCustomSpacing(20, after: charmCard)
+		stack.setCustomSpacing(20, after: methodsCard)
+		stack.setCustomSpacing(24, after: unavailableCard)
+		stack.setCustomSpacing(8, after: applyToAllButton)
+		addAutoLayoutSubviews(stack)
+		NSLayoutConstraint.activate([
+			stack.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+			stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+			stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+			stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
+			applyToAllButton.heightAnchor.constraint(equalToConstant: 50)
+		])
+		setUIColors()
+	}
 
 	required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initContentView(nibName: nibName, contentView: &contentView)
+		fatalError("init(coder:) has not been implemented")
+	}
 
-		gameSettingsCells = [genTwoBreedingCell, masudaCell, pokeradarCell, shinyCharmCell, chainFishingCell, dexNavCell, friendSafariCell, sosChainCell, lureCell]
+	// MARK: Building blocks
 
-		applyToAllButton.layer.cornerRadius = CornerRadius.standard
-        gameButton.layer.cornerRadius = CornerRadius.standard
-		generationSeparator.layer.cornerRadius = CornerRadius.standard
-		genTwoBreedingCell.actionSwitch.tag = 0
-		genTwoBreedingCell.iconImageView.image = UIImage(named: HuntMethod.Gen2Breeding.rawValue)
-		genTwoBreedingCell.titleLabel.text = "Gen 2 breeding"
-		genTwoBreedingCell.descriptionLabel.text = "Increased shiny odds from breeding shinies are only available in Gold, Silver and Crystal"
-		masudaCell.actionSwitch.tag = 1
-		masudaCell.iconImageView.image = UIImage(named: HuntMethod.Masuda.rawValue)
-		masudaCell.titleLabel.text = "Masuda"
-		masudaCell.descriptionLabel.text = "Available from generation 4 and onwards"
-		pokeradarCell.actionSwitch.tag = 2
-		pokeradarCell.iconImageView.image = UIImage(named: HuntMethod.Pokeradar.rawValue)
-		pokeradarCell.titleLabel.text = "Pokéradar"
-		pokeradarCell.descriptionLabel.text = "Only available in Diamond, Pearl, Platinum, X and Y"
-		shinyCharmCell.actionSwitch.tag = 3
-		shinyCharmCell.iconImageView.image = UIImage(named: "Charm")
-		shinyCharmCell.titleLabel.text = "Shiny Charm"
-		shinyCharmCell.descriptionLabel.text = "Available from generation 5 and onwards"
-		chainFishingCell.actionSwitch.tag = 4
-		chainFishingCell.iconImageView.image = UIImage(named: HuntMethod.ChainFishing.rawValue)
-		chainFishingCell.titleLabel.text = "Chain fishing"
-		chainFishingCell.descriptionLabel.text = "Only available in X, Y, Omega Ruby and Alpha Sapphire"
-		dexNavCell.actionSwitch.tag = 5
-		dexNavCell.iconImageView.image = UIImage(named: HuntMethod.DexNav.rawValue)
-		dexNavCell.titleLabel.text = "DexNav"
-		dexNavCell.descriptionLabel.text = "Only available in Omega Ruby & Alpha Sapphire"
-		friendSafariCell.actionSwitch.tag = 6
-		friendSafariCell.iconImageView.image = UIImage(named: HuntMethod.FriendSafari.rawValue)
-		friendSafariCell.titleLabel.text = "Friend Safari"
-		friendSafariCell.descriptionLabel.text = "Only available in X and Y"
-		sosChainCell.actionSwitch.tag = 7
-		sosChainCell.iconImageView.image = UIImage(named: HuntMethod.SosChaining.rawValue)
-		sosChainCell.titleLabel.text = "SOS chaining"
-		sosChainCell.descriptionLabel.text = "Only available in Sun, Moon, Ultra Sun and Ultra Moon"
-		lureCell.actionSwitch.tag = 8
-		lureCell.iconImageView.image = UIImage(named: HuntMethod.Lure.rawValue)
-		lureCell.titleLabel.text = "Lure"
-		lureCell.descriptionLabel.text = "Only available in Let's Go Pikachu & Eevee."
-		lureCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		shinyCharmCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		masudaCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		genTwoBreedingCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		friendSafariCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		chainFishingCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		sosChainCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		pokeradarCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		dexNavCell.actionSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
-		setUIColors()
-        gameButton.setTitle("", for: .normal)
-    }
+	fileprivate static func makeCardStack() -> SettingsCard {
+		return SettingsCard()
+	}
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initContentView(nibName: nibName, contentView: &contentView)
-    }
+	fileprivate static func makeSectionHeader(_ text: String) -> SectionHeaderLabel {
+		let label = SectionHeaderLabel()
+		label.text = text.uppercased()
+		return label
+	}
+
+	/// The current odds, front and centre, with what they're made of underneath. Updates as switches change.
+	fileprivate func makeOddsCard() -> UIView {
+		let card = UIView()
+		card.backgroundColor = Color.Grey800
+		card.layer.cornerRadius = 14
+		card.layer.borderWidth = 1
+		card.layer.borderColor = Color.Orange500.withAlphaComponent(0.35).cgColor
+
+		let sparkle = UIImageView(image: UIImage(systemName: "sparkles") ?? UIImage(systemName: "star.fill"))
+		sparkle.tintColor = Color.Orange500
+		sparkle.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 13, weight: .bold)
+		let caption = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+		caption.text = "SHINY ODDS"
+		let captionRow = UIStackView(arrangedSubviews: [sparkle, caption])
+		captionRow.spacing = 6
+		captionRow.alignment = .center
+
+		shinyOddsLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 44, weight: .bold)
+		shinyOddsLabel.adjustsFontSizeToFitWidth = true
+		shinyOddsLabel.minimumScaleFactor = 0.6
+		shinyOddsLabel.textAlignment = .center
+		oddsSummaryLabel.textAlignment = .center
+
+		let stack = UIStackView(arrangedSubviews: [captionRow, shinyOddsLabel, oddsSummaryLabel])
+		stack.axis = .vertical
+		stack.alignment = .center
+		stack.spacing = 2
+		card.addAutoLayoutSubviews(stack)
+		stack.pinEdges(to: card, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
+		card.isAccessibilityElement = true
+		return card
+	}
+
+	fileprivate func makeGameRow() -> UIView {
+		gameImageView.contentMode = .scaleAspectFit
+		gameImageView.layer.magnificationFilter = .nearest
+		gameImageView.isAccessibilityElement = false
+		gameSubtitle.text = "Tap to change"
+		let chevron = UIImageView(image: UIImage.symbol("chevron.right", pointSize: 14, weight: .semibold))
+		chevron.tintColor = Color.Grey500
+		chevron.setContentHuggingPriority(.required, for: .horizontal)
+
+		let labels = UIStackView(arrangedSubviews: [gameTitle, gameSubtitle])
+		labels.axis = .vertical
+		labels.spacing = 2
+		let row = UIStackView(arrangedSubviews: [gameImageView, labels, chevron])
+		row.alignment = .center
+		row.spacing = 12
+		row.isUserInteractionEnabled = false
+		gameButton.addAutoLayoutSubviews(row)
+		row.pinEdges(to: gameButton, insets: UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 14))
+		NSLayoutConstraint.activate([
+			gameImageView.widthAnchor.constraint(equalToConstant: 52),
+			gameImageView.heightAnchor.constraint(equalToConstant: 52)
+		])
+		gameButton.isAccessibilityElement = true
+		gameButton.accessibilityTraits = .button
+		gameButton.accessibilityHint = "Choose the game you are hunting in."
+		gameButton.addTarget(self, action: #selector(gameHighlight), for: [.touchDown, .touchDragEnter])
+		gameButton.addTarget(self, action: #selector(gameUnhighlight), for: [.touchUpInside, .touchUpOutside, .touchCancel, .touchDragExit])
+		return gameButton
+	}
+
+	@objc fileprivate func gameHighlight() {
+		gameButton.backgroundColor = Color.Grey700
+	}
+
+	@objc fileprivate func gameUnhighlight() {
+		UIView.animate(withDuration: 0.2) { self.gameButton.backgroundColor = .clear }
+	}
+
+	/// Puts each method in the card for available methods or the dimmed "not available" card, keeping a fixed order.
+	fileprivate func layOutMethodRows() {
+		for card in [methodsCard, unavailableCard] {
+			for view in card.stack.arrangedSubviews {
+				card.stack.removeArrangedSubview(view)
+				view.removeFromSuperview()
+			}
+		}
+		let available = methodCells.filter { $0.actionSwitch.isEnabled }
+		let unavailable = methodCells.filter { !$0.actionSwitch.isEnabled }
+		for cell in methodCells {
+			cell.setAvailable(cell.actionSwitch.isEnabled)
+		}
+		if (available.isEmpty) {
+			noMethodsLabel.text = "\(pokemon.game.displayName) only has random encounters at base odds."
+			let wrapper = UIView()
+			wrapper.addAutoLayoutSubviews(noMethodsLabel)
+			noMethodsLabel.pinEdges(to: wrapper, insets: UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14))
+			methodsCard.stack.addArrangedSubview(wrapper)
+		}
+		GameSettingsContainer.fill(methodsCard, with: available)
+		GameSettingsContainer.fill(unavailableCard, with: unavailable)
+		unavailableHeader.text = "NOT AVAILABLE IN \(pokemon.game.displayName.uppercased())"
+		unavailableHeader.isHidden = unavailable.isEmpty
+		unavailableCard.isHidden = unavailable.isEmpty
+		shinyCharmCell.setAvailable(shinyCharmCell.actionSwitch.isEnabled)
+	}
+
+	fileprivate static func fill(_ card: SettingsCard, with cells: [GameSettingsCell]) {
+		for (index, cell) in cells.enumerated() {
+			if (index > 0 || !card.stack.arrangedSubviews.isEmpty) {
+				card.stack.addArrangedSubview(makeSeparator())
+			}
+			card.stack.addArrangedSubview(cell)
+		}
+	}
+
+	fileprivate static func makeSeparator() -> UIView {
+		let line = UIView()
+		let hairline = UIView()
+		hairline.backgroundColor = Color.Grey700
+		line.addAutoLayoutSubviews(hairline)
+		NSLayoutConstraint.activate([
+			line.heightAnchor.constraint(equalToConstant: 1),
+			hairline.topAnchor.constraint(equalTo: line.topAnchor),
+			hairline.bottomAnchor.constraint(equalTo: line.bottomAnchor),
+			hairline.leadingAnchor.constraint(equalTo: line.leadingAnchor, constant: 60),
+			hairline.trailingAnchor.constraint(equalTo: line.trailingAnchor)
+		])
+		return line
+	}
+
+	// MARK: State
+
+	/// Shows the selected game's title and cover Pokémon on the game row.
+	func setGame(coverPokemon: String) {
+		gameImageView.image = UIImage(named: coverPokemon)
+		gameTitle.text = pokemon.game.displayName
+		gameButton.accessibilityLabel = "Game, \(pokemon.game.displayName)"
+	}
 
 	func resolveUIObjectsState() {
 		genTwoBreedingCell.actionSwitch.isOn = pokemon.huntMethod == .Gen2Breeding
@@ -104,41 +252,43 @@ class GameSettingsContainer: UIView {
 
 		setAllImageViewAlphas()
 		resolveSwitchStates()
+		layOutMethodRows()
 	}
 
 	func setShinyOddsLabelText() {
 		pokemon!.shinyOdds = oddsService.getShinyOdds(pokemon: pokemon)
-		shinyOddsLabel.text = "Shiny Odds: 1/\(pokemon!.shinyOdds)"
+		shinyOddsLabel.text = "1/\(pokemon!.shinyOdds.grouped)"
+		var parts = [pokemon.game.displayName, pokemon.huntMethod.rawValue]
+		if (pokemon.isShinyCharmActive) {
+			parts.append("Shiny Charm")
+		}
+		oddsSummaryLabel.text = parts.joined(separator: " · ")
+		shinyOddsLabel.superview?.superview?.accessibilityLabel = "Shiny odds: 1 in \(pokemon!.shinyOdds.grouped), \(parts.joined(separator: ", "))"
 	}
 
 	func setExplanationLabelText() {
 		explanationLabel.text = pokemon.name == "Placeholder"
-		? "From here you can apply game settings to all Pokémon. Editing the settings will not be applied to any Pokémon, unless the button below is pressed."
-		: "Editing the game settings from here will immediately apply them to \(pokemon.name).\nTo apply the selected settings to all Pokémon, press the button below."
+		? "These settings don't change any Pokémon on their own. Apply to All gives every Pokémon this game and these hunt settings."
+		: "Changes here apply to \(pokemon.name) straight away. Apply to All gives every Pokémon the same game and hunt settings."
 	}
     
     func updateUI(updatedPokemon: Pokemon, coverPokemon: String) {
         pokemon = updatedPokemon
-        gameButton.setImage(UIImage(named: coverPokemon), for: .normal)
-        gameTitle.text = pokemon.game.displayName
+        setGame(coverPokemon: coverPokemon)
         resolveUIObjectsState()
         setShinyOddsLabelText()
     }
 
 	fileprivate func setImageViewAlpha(imageView: UIImageView, isSwitchOn: Bool) {
-		imageView.alpha = isSwitchOn ? 1.0 : 0.5
+		imageView.alpha = isSwitchOn ? 1.0 : 0.55
 	}
 
 	func setUIColors() {
-        contentView?.backgroundColor = Color.Grey800
-        explanationLabel.textColor = Color.Grey200
-		applyToAllButton.setTitleColor(Color.Grey200, for: .normal)
-		applyToAllButton.backgroundColor = Color.Grey900
-		generationSeparator.backgroundColor = Color.Grey900
-		shinyOddsLabel.textColor = Color.Grey200
-		gameLabel.textColor = Color.Grey200
-        gameTitle.textColor = Color.Grey200
-        gameButton.backgroundColor = Color.Grey900
+		backgroundColor = .clear
+		applyToAllButton.tintColor = Color.Orange500
+		applyToAllButton.setTitleColor(Color.Orange500, for: .normal)
+		applyToAllButton.layer.borderColor = Color.Orange500.cgColor
+		applyToAllButton.backgroundColor = .clear
 	}
 
 	func setCellColors() {
@@ -151,7 +301,7 @@ class GameSettingsContainer: UIView {
 		let tag = sender.tag
 		var selectedHuntMethod = HuntMethod.Encounters
 		var icon = UIImageView()
-		var cell = GameSettingsCell()
+		var cell = shinyCharmCell
 		var callTurnSwitchesOff = true
 
 		if (tag == 0) {
@@ -258,7 +408,52 @@ class GameSettingsContainer: UIView {
         switchStateService.resolveHuntMethodSwitchState(pokemon: pokemon, huntMethodSwitch: dexNavCell.actionSwitch, huntMethod: .DexNav)
 	}
 
-	@IBAction func applyToAllPressed(_ sender: Any) {
-		delegate.segueActivated()
+	@objc fileprivate func applyToAllPressed() {
+		onApplyToAll?()
+	}
+}
+
+/// A rounded card whose rows are separated by inset hairlines, like a grouped table section.
+/// A plain view holds the stack because stack views only draw backgrounds from iOS 14.
+fileprivate class SettingsCard: UIView {
+	let stack = UIStackView()
+
+	init() {
+		super.init(frame: .zero)
+		backgroundColor = Color.Grey800
+		layer.cornerRadius = CornerRadius.standard
+		clipsToBounds = true
+		stack.axis = .vertical
+		addAutoLayoutSubviews(stack)
+		stack.pinEdges(to: self)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+/// Small uppercase caption above a card, indented to line up with the card's contents.
+fileprivate class SectionHeaderLabel: UILabel {
+	fileprivate let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+
+	init() {
+		super.init(frame: .zero)
+		font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+		textColor = Color.Grey400
+		accessibilityTraits = .header
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func drawText(in rect: CGRect) {
+		super.drawText(in: rect.inset(by: insets))
+	}
+
+	override var intrinsicContentSize: CGSize {
+		let size = super.intrinsicContentSize
+		return CGSize(width: size.width + insets.left + insets.right, height: size.height)
 	}
 }

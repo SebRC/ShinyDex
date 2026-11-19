@@ -1,115 +1,107 @@
 import UIKit
 
-class MovePickerModalTVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-	var moveService = MoveService()
-	var allMoves = [Move]()
-	var filteredMoves = [Move]()
-	var selectedActiveMoveIndex: Int!
-	var activeMoves: [ActiveMove]!
+/// Sheet for replacing one of the active moves in the PP counter. Present it with `inSheet()`.
+class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
+	fileprivate let moveService = MoveService()
+	fileprivate let searchController = UISearchController(searchResultsController: nil)
+	fileprivate let selectedActiveMoveIndex: Int
+	fileprivate var activeMoves: [ActiveMove]
+	fileprivate let onPick: () -> Void
+	fileprivate var allMoves = [Move]()
+	fileprivate var filteredMoves = [Move]()
 
-	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var cancelButton: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	init(activeMoves: [ActiveMove], selectedActiveMoveIndex: Int, onPick: @escaping () -> Void) {
+		self.activeMoves = activeMoves
+		self.selectedActiveMoveIndex = selectedActiveMoveIndex
+		self.onPick = onPick
+		super.init(style: .insetGrouped)
+	}
 
-		tableView.delegate = self
-		tableView.dataSource = self
-		searchBar.delegate = self
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
 		allMoves = moveService.getMoves()
-        view.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey900
-		tableView.backgroundColor = .clear
-        titleLabel.textColor = Color.Orange500
-        titleLabel.text = "Replace \(activeMoves[selectedActiveMoveIndex].name)"
-		setUpSearchController(searchBar: searchBar)
-        cancelButton.setTitleColor(Color.Danger100, for: .normal)
-        cancelButton.backgroundColor = Color.Danger500
-        cancelButton.layer.cornerRadius = CornerRadius.standard
-    }
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
 
-	func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-	   filterContentForSearchText(self.searchBar.text!)
+		searchController.searchResultsUpdater = self
+		searchController.obscuresBackgroundDuringPresentation = false
+		searchController.searchBar.placeholder = "Search by name or type"
+		navigationItem.searchController = searchController
+		navigationItem.hidesSearchBarWhenScrolling = false
+		definesPresentationContext = true
+
+		tableView.backgroundColor = Color.Grey900
+		tableView.separatorColor = Color.Grey700
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 60
+		tableView.keyboardDismissMode = .onDrag
+		if #available(iOS 15.0, *) {
+			tableView.sectionHeaderTopPadding = 0
+		}
+		tableView.register(MovePickerCell.self, forCellReuseIdentifier: MovePickerCell.reuseIdentifier)
 	}
 
-	func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-	   filterContentForSearchText(self.searchBar.text!)
-	}
-
-	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-	   filterContentForSearchText(self.searchBar.text!)
-	}
-
-	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-		searchBar.searchTextField.resignFirstResponder()
-	}
-
-	func filterContentForSearchText(_ searchText: String) {
-		filteredMoves = allMoves.filter( {(move : Move) -> Bool in
-			if (searchBarIsEmpty()) {
-				return true
-			}
-			return move.identifier.lowercased().contains(searchText.lowercased())
-		})
+	func updateSearchResults(for searchController: UISearchController) {
+		let searchText = searchController.searchBar.text?.lowercased() ?? ""
+		// Move identifiers use dashes ("thunder-punch"), so match what people type with spaces too.
+		let query = searchText.replacingOccurrences(of: " ", with: "-")
+		// Typing a type name ("fire") lists that type's moves too.
+		filteredMoves = allMoves.filter {
+			$0.identifier.lowercased().contains(query) || (MoveTypes.types[$0.type_id]?.lowercased() == searchText)
+		}
 		tableView.reloadData()
 	}
 
-	func isFiltering() -> Bool {
-		return !searchBarIsEmpty()
+	fileprivate func isFiltering() -> Bool {
+		return !(searchController.searchBar.text?.isEmpty ?? true)
 	}
 
-	func searchBarIsEmpty() -> Bool {
-		return searchBar.text?.isEmpty ?? true
+	fileprivate func move(at indexPath: IndexPath) -> Move {
+		return isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
 	}
 
-	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+	/// The list has no section title, so drop the grouped style's empty header gap under the search bar.
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 8
 	}
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		return UIView()
+	}
+
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return isFiltering() ? filteredMoves.count : allMoves.count
 	}
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "movePickerCell", for: indexPath) as! MovePickerCell
-
-        cell.backgroundColor = Color.Grey800
-        cell.nameLabel.textColor = Color.Grey200
-		cell.ppLabel.textColor = Color.Grey200
-		cell.typeLabel.textColor = Color.Grey200
-
-		cell.imageBackgroundView.makeCircle()
-
-		let move = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
-		let typeName = MoveTypes.types[move.type_id]
-		cell.imageBackgroundView.backgroundColor = MoveTypes.colors[typeName!]
-		cell.nameLabel.text = cleanName(name: move.identifier)
-		cell.ppLabel.text = "PP: \(move.pp ?? 0)"
-		cell.typeLabel.text = MoveTypes.types[move.type_id]
-		cell.typeImageView.image = UIImage(named: MoveTypes.types[move.type_id]!.lowercased())
-
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: MovePickerCell.reuseIdentifier, for: indexPath) as! MovePickerCell
+		let move = move(at: indexPath)
+		let name = cleanName(name: move.identifier)
+		cell.configure(name: name, maxPP: move.pp ?? 0, type: MoveTypes.types[move.type_id] ?? "", isInUse: activeMoveNames.contains(name))
 		return cell
 	}
+
+	fileprivate lazy var activeMoveNames = Set(activeMoves.map { $0.name })
 
 	fileprivate func cleanName(name: String) -> String {
 		return name.replacingOccurrences(of: "-", with: " ").capitalizingFirstLetter()
 	}
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let selectedMove = isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let selectedMove = move(at: indexPath)
 		let newActiveMove = ActiveMove(name: cleanName(name: selectedMove.identifier), maxPP: selectedMove.pp ?? 0, remainingPP: selectedMove.pp ?? 0, type: MoveTypes.types[selectedMove.type_id]!)
 		activeMoves[selectedActiveMoveIndex] = newActiveMove
-        moveService.save(activeMoves: activeMoves, pressureActive: moveService.getIsPressureActive())
-		performSegue(withIdentifier: "unwindFromMovePicker", sender: self)
+		moveService.save(activeMoves: activeMoves, pressureActive: moveService.getIsPressureActive())
+		dismissSheet { [onPick] in
+			onPick()
+		}
 	}
 
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 155.0
+	@objc fileprivate func cancelPressed() {
+		dismissSheet()
 	}
-    
-    @IBAction func cancelPressed(_ sender: Any) {
-        dismiss(animated: true)
-    }
 }

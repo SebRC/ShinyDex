@@ -31,24 +31,22 @@ class HuntService {
 		huntRepository.delete(hunt: hunt)
 	}
 
-	func createNewHuntWithPokemon(hunts: inout [Hunt], pokemon: Pokemon) {
-		let hunt = Hunt(name: "New Hunt", pokemon: [Pokemon](), priority: 0)
-		hunt.pokemon.append(pokemon)
-		hunt.indexes.append(pokemon.number)
-		pokemon.isBeingHunted = true
-		pokemonService.save(pokemon: pokemon)
-		hunt.totalEncounters = pokemon.encounters
-		hunts.append(hunt)
-		huntRepository.save(hunt: hunt)
+	/// Creates a hunt containing `pokemon`, placed after every existing hunt.
+	@discardableResult
+	func createHunt(named name: String, with pokemon: Pokemon) -> Hunt {
+		let priority = (getAll().map { $0.priority }.max() ?? -1) + 1
+		let hunt = Hunt(name: name, pokemon: [Pokemon](), priority: priority)
+		add(pokemon: pokemon, to: hunt)
+		return hunt
 	}
 
-	func addToOnlyExistingHunt(hunts: inout [Hunt], pokemon: Pokemon) {
-		hunts[0].pokemon.append(pokemon)
-		hunts[0].indexes.append(pokemon.number)
-		hunts[0].totalEncounters += pokemon.encounters
+	func add(pokemon: Pokemon, to hunt: Hunt) {
+		hunt.pokemon.append(pokemon)
+		hunt.indexes.append(pokemon.number)
+		hunt.totalEncounters += pokemon.encounters
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
-		huntRepository.save(hunt: hunts[0])
+		huntRepository.save(hunt: hunt)
 	}
 
 	fileprivate func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt {

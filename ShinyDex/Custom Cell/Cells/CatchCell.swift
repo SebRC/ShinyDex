@@ -1,47 +1,43 @@
 import UIKit
 
+/// A catch in a Pokémon's catches list: sprite, a title and subtitle, and the ball on the right.
 class CatchCell: UITableViewCell {
 	static let reuseIdentifier = "catchCell"
-	static let height: CGFloat = 65
+	static let height: CGFloat = 72
 
 	fileprivate let sprite = UIImageView()
-	fileprivate let titleLabel = UILabel()
-	fileprivate let subtitleLabel = UILabel()
+	fileprivate let titleLabel = UILabel(fontSize: 17, weight: .semibold)
+	fileprivate let subtitleLabel = UILabel(fontSize: 13, color: Color.Grey400)
 	fileprivate let ballImageView = UIImageView()
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		backgroundColor = Color.Grey800
-		contentView.clipsToBounds = true
-		sprite.contentMode = .scaleAspectFit
-		ballImageView.contentMode = .scaleAspectFit
-		titleLabel.font = UIFont.systemFont(ofSize: 20)
-		titleLabel.textColor = Color.Grey200
-		subtitleLabel.font = UIFont.systemFont(ofSize: 15)
-		subtitleLabel.textColor = Color.Grey200
+		let selectedBackground = UIView()
+		selectedBackground.backgroundColor = Color.Grey700
+		selectedBackgroundView = selectedBackground
+		accessoryType = .disclosureIndicator
+		for imageView in [sprite, ballImageView] {
+			imageView.contentMode = .scaleAspectFit
+			imageView.layer.magnificationFilter = .nearest
+			imageView.isAccessibilityElement = false
+		}
 
 		let labels = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
 		labels.axis = .vertical
-		labels.spacing = 6
-
-		for subview in [sprite, labels, ballImageView] {
-			subview.translatesAutoresizingMaskIntoConstraints = false
-			contentView.addSubview(subview)
-		}
+		labels.spacing = 2
+		let row = UIStackView(arrangedSubviews: [sprite, labels, ballImageView])
+		row.alignment = .center
+		row.spacing = 10
+		contentView.addAutoLayoutSubviews(row)
 		NSLayoutConstraint.activate([
-			sprite.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 1),
-			sprite.bottomAnchor.constraint(equalTo: ballImageView.bottomAnchor),
-			sprite.widthAnchor.constraint(equalToConstant: 79),
-			sprite.heightAnchor.constraint(equalToConstant: 79),
-
-			labels.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 85),
-			labels.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-			labels.trailingAnchor.constraint(lessThanOrEqualTo: ballImageView.leadingAnchor, constant: -8),
-
-			ballImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-			ballImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-			ballImageView.widthAnchor.constraint(equalToConstant: 59),
-			ballImageView.heightAnchor.constraint(equalToConstant: 59)
+			row.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
+			row.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+			row.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+			sprite.widthAnchor.constraint(equalToConstant: 60),
+			sprite.heightAnchor.constraint(equalToConstant: 60),
+			ballImageView.widthAnchor.constraint(equalToConstant: 36),
+			ballImageView.heightAnchor.constraint(equalToConstant: 36)
 		])
 	}
 
@@ -49,10 +45,16 @@ class CatchCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(pokemon: Pokemon, title: String, subtitle: String, ball: String) {
+	/// A shiny that got away shows a grey "wind" symbol where the ball would be, and a dimmed sprite.
+	func configure(pokemon: Pokemon, title: String, subtitle: String, ball: String, isFailed: Bool = false) {
 		sprite.image = UIImage(named: pokemon.name.lowercased())
+		sprite.alpha = isFailed ? 0.55 : 1
 		titleLabel.text = title
+		titleLabel.textColor = isFailed ? Color.Grey300 : Color.Grey200
 		subtitleLabel.text = subtitle
-		ballImageView.image = UIImage(named: ball)
+		ballImageView.image = isFailed ? UIImage.symbol("wind", pointSize: 20, weight: .semibold) : UIImage(named: ball)
+		ballImageView.tintColor = Color.Grey500
+		ballImageView.contentMode = isFailed ? .center : .scaleAspectFit
+		accessibilityLabel = "\(title), \(subtitle)"
 	}
 }

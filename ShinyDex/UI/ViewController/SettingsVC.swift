@@ -1,67 +1,71 @@
 import UIKit
 
-class SettingsVC: UIViewController, SegueActivated {
-	var popupHandler = PopupHandler()
-	var pokemon: Pokemon!
+/// Shows the game settings container in a scroll view and handles picking a game and applying settings to all Pokémon.
+/// `SettingsVC` uses it for the global settings and `GameSettingsModalVC` for a single Pokémon.
+class GameSettingsHostVC: UIViewController {
+	let scrollView = UIScrollView()
+	let gameSettingsContainer = GameSettingsContainer()
+	let popupHandler = PopupHandler()
+	let pokemonService = PokemonService()
+	var pokemon: Pokemon
 
-	@IBOutlet weak var scrollView: UIScrollView!
-	@IBOutlet weak var gameSettingsContainer: GameSettingsContainer!
+	init(pokemon: Pokemon) {
+		self.pokemon = pokemon
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	override func viewDidLoad() {
-        super.viewDidLoad()
-        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8.0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8.0).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8.0).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: gameSettingsContainer.bottomAnchor, constant: -8.0).isActive = true
+		super.viewDidLoad()
+		view.backgroundColor = Color.Grey900
+		navigationItem.largeTitleDisplayMode = .never
 
 		gameSettingsContainer.pokemon = pokemon
 		gameSettingsContainer.setShinyOddsLabelText()
 		gameSettingsContainer.resolveUIObjectsState()
 		gameSettingsContainer.setExplanationLabelText()
-		gameSettingsContainer.delegate = self
-        gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
-        gameSettingsContainer.gameButton.setImage(UIImage(named: GamesList.games[Games.Red]!.coverPokemon), for: .normal)
-        gameSettingsContainer.gameTitle.text = pokemon.game.displayName
+		gameSettingsContainer.setGame(coverPokemon: GamesList.games[pokemon.game]?.coverPokemon ?? "charizard")
+		gameSettingsContainer.onApplyToAll = { [weak self] in self?.confirmApplyToAll() }
+		gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
 
-		setUIColors()
-		roundCorners()
-    }
-	
-	fileprivate func setUIColors() {
-        view.backgroundColor = Color.Grey900
+		view.addAutoLayoutSubviews(scrollView)
+		scrollView.addAutoLayoutSubviews(gameSettingsContainer)
+		scrollView.pinEdges(to: view)
+		let content = scrollView.contentLayoutGuide
+		NSLayoutConstraint.activate([
+			gameSettingsContainer.topAnchor.constraint(equalTo: content.topAnchor, constant: 8),
+			gameSettingsContainer.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -8),
+			gameSettingsContainer.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 8),
+			gameSettingsContainer.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -8)
+		])
 	}
-	
-	fileprivate func roundCorners() {
-		gameSettingsContainer.layer.cornerRadius = CornerRadius.standard
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if (segue.identifier == "applyToAll") {
-			let destVC = segue.destination as! ApplyToAllVC
-			destVC.pokemon = pokemon
-			destVC.isFromSettings = true
+
+	@objc fileprivate func gameButtonPressed() {
+		let selector = GameSelector.make(pokemon: pokemon, selectedGame: GamesList.games[pokemon.game]) { [weak self] game in
+			guard let self = self else { return }
+			self.gameSettingsContainer.updateUI(updatedPokemon: self.pokemon, coverPokemon: game.coverPokemon)
 		}
-        else if (segue.identifier == "toGameSelector") {
-            let destVC = segue.destination as! GameSelectorTVC
-            destVC.pokemon = pokemon
-            destVC.selectedGame = GamesList.games[pokemon.game]
-        }
+		navigationController?.pushViewController(selector, animated: true)
 	}
-	
-    @objc fileprivate func gameButtonPressed() {
-        performSegue(withIdentifier: "toGameSelector", sender: self)
-    }
-	
-	func segueActivated() {
-		performSegue(withIdentifier: "applyToAll", sender: self)
+
+	/// Overwrites every Pokémon's game, method and charm, so it gets a confirmation with a destructive button.
+	fileprivate func confirmApplyToAll() {
+		presentDestructiveConfirmation(title: "Apply to all Pokémon?",
+									   message: "Every Pokémon will use \(pokemon.game.displayName) and these hunt settings. Their current settings will be replaced.",
+									   destructiveTitle: "Apply to All") { [weak self] in
+			guard let self = self else { return }
+			self.pokemonService.applyToAll(pokemon: self.pokemon, allPokemon: self.pokemonService.getAll())
+			self.popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
+		}
 	}
-	@IBAction func showSettingsConfirmation(_ unwindSegue: UIStoryboardSegue) {
-		popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
+}
+
+class SettingsVC: GameSettingsHostVC {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "Settings"
 	}
-    
-    @IBAction func gameSelected(_ unwindSegue: UIStoryboardSegue) {
-        let source = unwindSegue.source as! GameSelectorTVC
-        let selectedGame = source.selectedGame!
-        gameSettingsContainer.updateUI(updatedPokemon: source.pokemon, coverPokemon: selectedGame.coverPokemon)
-    }
 }

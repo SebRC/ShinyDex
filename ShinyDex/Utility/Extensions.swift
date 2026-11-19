@@ -13,18 +13,6 @@ extension PokedexTVC: UISearchBarDelegate {
 	}
 }
 
-extension CreateHuntModalVC: UISearchResultsUpdating {
-	func updateSearchResults(for searchController: UISearchController) {
-		filterContentForSearchText(searchController.searchBar.text!)
-	}
-}
-
-extension CreateHuntModalVC {
-	func searchBar(_ searchBar: UISearchBar) {
-		filterContentForSearchText(searchBar.text!)
-	}
-}
-
 extension String {
 	func capitalizingFirstLetter() -> String {
 		return prefix(1).uppercased() + self.lowercased().dropFirst()
@@ -50,37 +38,11 @@ extension UIColor {
 }
 
 extension UIView {
-	func initContentView(nibName: String, contentView: inout UIView?) {
-        guard let view = loadViewFromNib(nibName: nibName) else { return }
-        view.frame = self.bounds
-        self.addSubview(view)
-        contentView = view
-    }
-
-	func loadViewFromNib(nibName: String) -> UIView? {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: nibName, bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as? UIView
-    }
-
-	func makeCircle() {
-		self.layer.cornerRadius = self.frame.size.width / 2
-		self.clipsToBounds = true
-	}
-    
     func addShadow() {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 1, height: 1)
         self.layer.shadowRadius = 5
         self.layer.shadowOpacity = 0.5
-    }
-    
-    func addBlur() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.insertSubview(blurEffectView, at: 0)
     }
 }
 
@@ -99,18 +61,22 @@ extension Double {
 	}
 }
 
-extension UIViewController {
-    func setUpSearchController(searchBar: UISearchBar) {
-        searchBar.placeholder = "Search"
-        let attributes =
-        [
-            NSAttributedString.Key.foregroundColor: Color.Grey200,
-        ]
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-        let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
-        searchBarTextField?.textColor = Color.Grey200
-        searchBar.clipsToBounds = true
-        searchBar.layer.cornerRadius = CornerRadius.standard
-        searchBar.barTintColor = Color.Grey800
-    }
+extension Int {
+	fileprivate static let groupingFormatter: NumberFormatter = {
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		return formatter
+	}()
+
+	/// The number with locale-aware thousands separators, e.g. 12,345.
+	var grouped: String {
+		return Int.groupingFormatter.string(from: NSNumber(value: self)) ?? String(self)
+	}
+}
+
+extension Array {
+	/// The element at `index`, or nil when it's out of range.
+	subscript(safe index: Int) -> Element? {
+		return indices.contains(index) ? self[index] : nil
+	}
 }

@@ -2,21 +2,28 @@ import UIKit
 
 enum PokeballPickerResult {
 	case loggedCatch
+	case loggedFailed
 	case removedLatestCatch
 	case nothingToRemove
 }
 
-class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-	fileprivate let titleLabel = UILabel()
-	fileprivate let indicatorView = IndicatorView(frame: .zero)
-	fileprivate let pokeballTableView = UITableView(frame: .zero, style: .insetGrouped)
-	fileprivate let cancelButton = UIButton(type: .system)
-
+/// Sheet for logging a catch: pick the date, then tap the ball it was caught in. Present it with `inSheet()`.
+/// The balls are a grid so they can all be scanned at once; removing the latest catch is a separate red action below them.
+/// A Caught / Got away toggle at the top switches to logging a shiny that fled or fainted, which has no ball.
+class PokeballModalVC: UIViewController {
 	fileprivate let pokemon: Pokemon
 	fileprivate let onFinish: (PokeballPickerResult) -> Void
 	fileprivate let catchService = CatchService()
-	fileprivate var pokeballs = [Pokeball]()
 	fileprivate var hasCatches = false
+	fileprivate var caughtDate = Date()
+
+	fileprivate let summaryView = UIView()
+	fileprivate let datePicker = UIDatePicker()
+	fileprivate let dateButton = UIButton(type: .system)
+	fileprivate let gridView = IconGridView(columns: 4)
+	fileprivate let outcomeControl = UISegmentedControl(items: ["Caught", "Got away"])
+	fileprivate let failedView = UIView()
+	fileprivate let dateCaptionLabel = UILabel(fontSize: 15, color: Color.Grey400)
 
 	init(pokemon: Pokemon, onFinish: @escaping (PokeballPickerResult) -> Void) {
 		self.pokemon = pokemon
@@ -30,111 +37,183 @@ class PokeballModalVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		pokeballs = TxtReader().readFile(textFile: "pokeballs").map { Pokeball(ballName: $0) }
 		hasCatches = !catchService.getCatches(for: pokemon).isEmpty
 		view.backgroundColor = Color.Grey900
-		setUpTitleLabel()
-		setUpIndicatorView()
-		setUpTableView()
-		setUpCancelButton()
-		layOutSubviews()
-	}
+		title = "Log a catch"
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
+		setUpSummaryView()
+		setUpGridView()
+		setUpOutcomeControl()
+		setUpFailedView()
 
-	fileprivate func setUpTitleLabel() {
-		titleLabel.text = "Change caught ball"
-		titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-		titleLabel.textColor = Color.Orange500
-	}
-
-	fileprivate func setUpIndicatorView() {
-		indicatorView.titleLabel.text = "Which ball did you catch \(pokemon.name) in?"
-		indicatorView.pokemonImageView.image = UIImage(named: pokemon.name.lowercased())
-	}
-
-	fileprivate func setUpTableView() {
-		pokeballTableView.register(PokeballCell.self, forCellReuseIdentifier: PokeballCell.reuseIdentifier)
-		pokeballTableView.dataSource = self
-		pokeballTableView.delegate = self
-		pokeballTableView.backgroundColor = .clear
-		pokeballTableView.separatorColor = Color.Grey900
-		pokeballTableView.layer.cornerRadius = CornerRadius.standard
-	}
-
-	fileprivate func setUpCancelButton() {
-		cancelButton.setTitle("Cancel", for: .normal)
-		cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 25)
-		cancelButton.backgroundColor = Color.Danger500
-		cancelButton.setTitleColor(Color.Danger100, for: .normal)
-		cancelButton.layer.cornerRadius = CornerRadius.standard
-		cancelButton.addTarget(self, action: #selector(cancelPressed), for: .touchUpInside)
-	}
-
-	fileprivate func layOutSubviews() {
-		for subview in [titleLabel, indicatorView, pokeballTableView, cancelButton] {
-			subview.translatesAutoresizingMaskIntoConstraints = false
-			view.addSubview(subview)
-		}
+		view.addAutoLayoutSubviews(summaryView, outcomeControl, gridView, failedView)
 		let safeArea = view.safeAreaLayoutGuide
 		NSLayoutConstraint.activate([
-			titleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 20),
-			titleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-			titleLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-			titleLabel.heightAnchor.constraint(equalToConstant: 48),
-
-			indicatorView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-			indicatorView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-			indicatorView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-			indicatorView.heightAnchor.constraint(equalToConstant: 100),
-
-			pokeballTableView.topAnchor.constraint(equalTo: indicatorView.bottomAnchor, constant: 18),
-			pokeballTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-			pokeballTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-
-			cancelButton.topAnchor.constraint(equalTo: pokeballTableView.bottomAnchor, constant: 18),
-			cancelButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-			cancelButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-			cancelButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -26),
-			cancelButton.heightAnchor.constraint(equalToConstant: 46)
+			summaryView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 12),
+			summaryView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+			summaryView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+			outcomeControl.topAnchor.constraint(equalTo: summaryView.bottomAnchor, constant: 12),
+			outcomeControl.leadingAnchor.constraint(equalTo: summaryView.leadingAnchor),
+			outcomeControl.trailingAnchor.constraint(equalTo: summaryView.trailingAnchor),
+			outcomeControl.heightAnchor.constraint(equalToConstant: 34),
+			failedView.topAnchor.constraint(equalTo: outcomeControl.bottomAnchor, constant: 16),
+			failedView.leadingAnchor.constraint(equalTo: summaryView.leadingAnchor),
+			failedView.trailingAnchor.constraint(equalTo: summaryView.trailingAnchor),
+			gridView.topAnchor.constraint(equalTo: outcomeControl.bottomAnchor, constant: 4),
+			gridView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			gridView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			gridView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 	}
 
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 100.0
-	}
+	// MARK: Summary
 
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return pokeballs.count
-	}
+	/// The Pokémon being logged and the date it was caught. Catches default to today and can't be in the future.
+	fileprivate func setUpSummaryView() {
+		summaryView.backgroundColor = Color.Grey800
+		summaryView.layer.cornerRadius = CornerRadius.standard
 
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: PokeballCell.reuseIdentifier, for: indexPath) as! PokeballCell
-		let pokeball = pokeballs[indexPath.row]
-		let ballName = pokeball.name.lowercased()
-		let isNoneRow = ballName == CatchRules.noBall
-		cell.configure(pokeball: pokeball,
-					   title: isNoneRow && hasCatches ? "Remove latest catch" : pokeball.name,
-					   isCurrentBall: !isNoneRow && ballName == pokemon.caughtBall)
-		return cell
-	}
+		let spriteView = UIImageView(image: UIImage(named: pokemon.name.lowercased()))
+		spriteView.contentMode = .scaleAspectFit
+		spriteView.layer.magnificationFilter = .nearest
+		spriteView.isAccessibilityElement = false
+		let nameLabel = UILabel(fontSize: 20, weight: .semibold)
+		nameLabel.text = pokemon.name
+		dateCaptionLabel.text = "Date caught"
 
-	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		cell.backgroundColor = Color.Grey800
-	}
+		let labels = UIStackView(arrangedSubviews: [nameLabel, dateCaptionLabel])
+		labels.axis = .vertical
+		labels.spacing = 2
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		onFinish(pickBall(named: pokeballs[indexPath.row].name.lowercased()))
-		dismiss(animated: true)
-	}
-
-	fileprivate func pickBall(named caughtBall: String) -> PokeballPickerResult {
-		if (caughtBall != CatchRules.noBall) {
-			catchService.logCatch(pokemon: pokemon, caughtBall: caughtBall)
-			return .loggedCatch
+		let dateControl: UIView
+		if #available(iOS 14.0, *) {
+			datePicker.datePickerMode = .date
+			datePicker.preferredDatePickerStyle = .compact
+			datePicker.maximumDate = Date()
+			datePicker.date = caughtDate
+			datePicker.tintColor = Color.Orange500
+			datePicker.accessibilityLabel = "Date caught"
+			datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+			dateControl = datePicker
 		}
-		return catchService.removeLatestCatch(pokemon: pokemon) ? .removedLatestCatch : .nothingToRemove
+		else {
+			dateButton.tintColor = Color.Orange500
+			dateButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+			dateButton.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
+			updateDateButton()
+			dateControl = dateButton
+		}
+		dateControl.setContentHuggingPriority(.required, for: .horizontal)
+		dateControl.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+		let row = UIStackView(arrangedSubviews: [spriteView, labels, dateControl])
+		row.alignment = .center
+		row.spacing = 12
+		summaryView.addAutoLayoutSubviews(row)
+		row.pinEdges(to: summaryView, insets: UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 12))
+		NSLayoutConstraint.activate([
+			spriteView.widthAnchor.constraint(equalToConstant: 64),
+			spriteView.heightAnchor.constraint(equalToConstant: 64)
+		])
+	}
+
+	@objc fileprivate func dateChanged() {
+		caughtDate = datePicker.date
+	}
+
+	fileprivate func updateDateButton() {
+		let title = Calendar.current.isDateInToday(caughtDate) ? "Today" : DateFormatter.localizedString(from: caughtDate, dateStyle: .medium, timeStyle: .none)
+		dateButton.setTitle(title, for: .normal)
+	}
+
+	/// iOS 13 has no compact date picker, so the full picker opens as its own sheet.
+	@objc fileprivate func dateButtonPressed() {
+		present(CatchDatePickerVC.inNavigationController(initialDate: caughtDate) { [weak self] date in
+			self?.caughtDate = date
+			self?.updateDateButton()
+		}, animated: true)
+	}
+
+	// MARK: Grid
+
+	fileprivate func setUpGridView() {
+		gridView.caption = "WHICH BALL?"
+		gridView.items = BallGrid.items
+		gridView.currentIndex = hasCatches ? BallGrid.index(of: pokemon.caughtBall) : nil
+		// Found it but it fled or fainted: logged with the date, without a ball. Removing is only offered once there's a catch.
+		if (hasCatches) {
+			gridView.actions = [IconGridAction(title: "Remove latest catch", symbol: "arrow.uturn.left", isDestructive: true)]
+		}
+		gridView.onSelect = { [weak self] index in
+			guard let self = self else { return }
+			self.catchService.logCatch(pokemon: self.pokemon, caughtBall: BallGrid.ballNames[index], caughtDate: self.caughtDate)
+			Haptics.success()
+			self.finish(.loggedCatch)
+		}
+		gridView.onAction = { [weak self] _ in
+			guard let self = self else { return }
+			self.finish(self.catchService.removeLatestCatch(pokemon: self.pokemon) ? .removedLatestCatch : .nothingToRemove)
+		}
+	}
+
+	// MARK: Got away
+
+	fileprivate func setUpOutcomeControl() {
+		outcomeControl.selectedSegmentIndex = 0
+		outcomeControl.selectedSegmentTintColor = Color.Orange500
+		outcomeControl.backgroundColor = Color.Grey800
+		outcomeControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 14, weight: .semibold)], for: .selected)
+		outcomeControl.setTitleTextAttributes([.foregroundColor: Color.Grey300, .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .normal)
+		outcomeControl.addTarget(self, action: #selector(outcomeChanged), for: .valueChanged)
+	}
+
+	/// What "got away" means and how it's counted, with the button that logs it.
+	fileprivate func setUpFailedView() {
+		failedView.isHidden = true
+		let icon = UIImageView(image: UIImage.symbol("wind", pointSize: 34, weight: .medium))
+		icon.tintColor = Color.Grey400
+		icon.contentMode = .center
+		let explanation = UILabel(fontSize: 15, color: Color.Grey300, lines: 0)
+		explanation.textAlignment = .center
+		explanation.text = "For a shiny that fled or fainted before you could catch it. It counts towards your stats, but not your collection or Pokédex."
+		let logButton = UIButton(type: .system)
+		logButton.setTitle("Log as got away", for: .normal)
+		logButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+		logButton.setTitleColor(Color.Grey900, for: .normal)
+		logButton.backgroundColor = Color.Orange500
+		logButton.layer.cornerRadius = CornerRadius.standard
+		logButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		logButton.addTarget(self, action: #selector(logFailedPressed), for: .touchUpInside)
+
+		let stack = UIStackView(arrangedSubviews: [icon, explanation, logButton])
+		stack.axis = .vertical
+		stack.spacing = 16
+		stack.setCustomSpacing(24, after: explanation)
+		failedView.addAutoLayoutSubviews(stack)
+		stack.pinEdges(to: failedView)
+	}
+
+	@objc fileprivate func outcomeChanged() {
+		let isFailed = outcomeControl.selectedSegmentIndex == 1
+		gridView.isHidden = isFailed
+		failedView.isHidden = !isFailed
+		dateCaptionLabel.text = isFailed ? "Date found" : "Date caught"
+		Haptics.tap()
+	}
+
+	@objc fileprivate func logFailedPressed() {
+		catchService.logFailed(pokemon: pokemon, date: caughtDate)
+		Haptics.tap()
+		finish(.loggedFailed)
+	}
+
+	fileprivate func finish(_ result: PokeballPickerResult) {
+		dismissSheet { [onFinish] in
+			onFinish(result)
+		}
 	}
 
 	@objc fileprivate func cancelPressed() {
-		dismiss(animated: true)
+		dismissSheet()
 	}
 }

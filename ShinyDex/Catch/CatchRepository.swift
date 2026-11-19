@@ -42,6 +42,9 @@ class CatchRepository {
 		catchEntity.setValue(caught.encounters, forKey: "encounters")
 		catchEntity.setValue(caught.isShinyCharmActive, forKey: "isShinyCharmActive")
 		catchEntity.setValue(caught.caughtDate, forKey: "caughtDate")
+		catchEntity.setValue(caught.isFailed, forKey: "isFailed")
+		catchEntity.setValue(caught.evs.isEmpty ? nil : caught.evs.encoded, forKey: "evs")
+		catchEntity.setValue(caught.evolvedFrom ?? -1, forKey: "evolvedFrom")
 	}
 
 	func delete(catchToDelete: Catch) {
