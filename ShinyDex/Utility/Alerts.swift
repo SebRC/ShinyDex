@@ -15,8 +15,6 @@ extension UIViewController {
 		present(alert, animated: true)
 	}
 
-	/// Shows an alert with a single text field. `onSave` is only called with a trimmed, non-empty value,
-	/// and the save button stays disabled until `isValid` accepts the input.
 	func presentTextInput(title: String,
 						  message: String? = nil,
 						  text: String?,
@@ -53,7 +51,6 @@ extension UIViewController {
 	}
 }
 
-/// Calls back on every edit of a text field. It's owned by the text field it watches.
 fileprivate class TextFieldValidator: NSObject {
 	fileprivate static var associationKey = 0
 	fileprivate let onChange: (String) -> Void

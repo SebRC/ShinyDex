@@ -31,21 +31,26 @@ class HuntService {
 		huntRepository.delete(hunt: hunt)
 	}
 
-	@discardableResult
-	func createHunt(named name: String, with pokemon: Pokemon) -> Hunt {
+	func createHunt(named name: String, with pokemon: [Pokemon]) {
 		let priority = (getAll().map { $0.priority }.max() ?? -1) + 1
 		let hunt = Hunt(name: name, pokemon: [Pokemon](), priority: priority)
-		add(pokemon: pokemon, to: hunt)
-		return hunt
+		for member in pokemon.sorted(by: { $0.number < $1.number }) {
+			addWithoutSavingHunt(member, to: hunt)
+		}
+		huntRepository.save(hunt: hunt)
 	}
 
 	func add(pokemon: Pokemon, to hunt: Hunt) {
+		addWithoutSavingHunt(pokemon, to: hunt)
+		huntRepository.save(hunt: hunt)
+	}
+
+	fileprivate func addWithoutSavingHunt(_ pokemon: Pokemon, to hunt: Hunt) {
 		hunt.pokemon.append(pokemon)
 		hunt.indexes.append(pokemon.number)
 		hunt.totalEncounters += pokemon.encounters
 		pokemon.isBeingHunted = true
 		pokemonService.save(pokemon: pokemon)
-		huntRepository.save(hunt: hunt)
 	}
 
 	fileprivate func constructHunt(huntEntity: NSManagedObject, allPokemon: [Pokemon]) -> Hunt {

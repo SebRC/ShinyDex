@@ -249,7 +249,6 @@ fileprivate class YearChartView: UIView {
 			columns.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 14),
 			columns.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -14),
 			columns.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor),
-			// With few years the bars spread across the card; with many they keep their width and scroll.
 			columns.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.frameLayoutGuide.widthAnchor, constant: -28)
 		])
 		columns.distribution = .fillEqually

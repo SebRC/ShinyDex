@@ -1,6 +1,5 @@
 import UIKit
 
-/// Rows sit inside grouped cards, so the row itself has no background; the card draws it.
 class GameSettingsCell: UIView {
 	let iconImageView = UIImageView()
 	let titleLabel = UILabel(fontSize: 17, weight: .semibold)
@@ -40,7 +39,6 @@ class GameSettingsCell: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	/// Dims a row the selected game doesn't support; its switch is already disabled by `SwitchStateService`.
 	func setAvailable(_ isAvailable: Bool) {
 		titleLabel.alpha = isAvailable ? 1 : 0.45
 		descriptionLabel.alpha = isAvailable ? 1 : 0.7

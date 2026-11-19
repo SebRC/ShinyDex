@@ -41,7 +41,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		clearCurrentHuntButton = UIBarButtonItem(image: UIImage(systemName: "xmark.rectangle.fill"), style: .plain, target: self, action: #selector(clearCurrentHuntPressed))
 		navigationItem.rightBarButtonItem = clearCurrentHuntButton
 
-		// Icon leads the title at the text's own weight, so the button reads as one label rather than text plus a big glyph.
 		createHuntButton.setTitle("Create Hunt", for: .normal)
 		createHuntButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
 		createHuntButton.setImage(UIImage.symbol("plus", pointSize: 18, weight: .semibold), for: .normal)
@@ -351,7 +350,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	}
 
 	@objc fileprivate func createHuntButtonPressed() {
-		let createHunt = CreateHuntModalVC { [weak self] in
+		let createHunt = PokemonPickerModalVC(configuration: .hunt) { [weak self] name, picked in
+			self?.huntService.createHunt(named: name, with: picked)
 			self?.huntsChanged()
 		}
 		present(createHunt.inSheet(), animated: true)
@@ -371,7 +371,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 		}, completion: nil)
 	}
 
-	/// Avoids reloading (and flashing) the whole list.
 	fileprivate func reloadSectionKeepingHeader(_ indexPath: IndexPath) {
 		UIView.performWithoutAnimation {
 			tableView.reloadRows(at: [indexPath], with: .none)

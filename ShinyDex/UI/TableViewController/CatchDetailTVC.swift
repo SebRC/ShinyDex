@@ -61,7 +61,6 @@ class CatchDetailTVC: UITableViewController {
 		reloadRows()
 	}
 
-	/// Coming back from EV training, the EV summary needs to show the new values.
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if (isMovingToParent == false) {
@@ -103,7 +102,6 @@ class CatchDetailTVC: UITableViewController {
 
 	// MARK: Odds and luck
 
-	/// Chain methods change odds as the chain grows, so there's no single number for them.
 	fileprivate var huntOdds: Int? {
 		let game = GamesList.games[caught.game]
 		let generation = game?.generation ?? 0
@@ -483,7 +481,6 @@ fileprivate class CatchStatsCell: UITableViewCell {
 	fileprivate let oddsValue = UILabel(fontSize: 24, weight: .bold, color: Color.Grey100)
 	fileprivate let luckLabel = UILabel(fontSize: 15, weight: .medium, color: Color.Orange500, lines: 0)
 	fileprivate let luckRow = UIStackView()
-	/// Stack views only draw a background from iOS 14, so the tinted banner is a plain view around the row.
 	fileprivate let luckBanner = UIView()
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

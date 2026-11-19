@@ -52,9 +52,7 @@ class ActionButton: UIControl {
 	}
 }
 
-/// Every action has a caption, so the row reads without having to learn what each icon means.
 class ButtonStrip: UIView {
-	/// Point size for the SF Symbol icons, chosen to sit at the same visual weight as the image icons beside them.
 	static let symbolPointSize: CGFloat = 22
 
 	let updateEncountersButton = ActionButton(caption: "Edit count")
@@ -72,7 +70,6 @@ class ButtonStrip: UIView {
 		updateEncountersButton.iconView.contentMode = .center
 		incrementButton.iconView.contentMode = .center
 		locationButton.iconView.image = UIImage(named: "town-map")
-		// Logging a catch is an action, so it gets the same sparkles as the Pokédex rows instead of the caught ball.
 		pokeballButton.iconView.image = UIImage.symbol(PokemonCell.logCatchSymbol, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
 		pokeballButton.iconView.contentMode = .center
 		pokeballButton.iconView.tintColor = Color.Orange500

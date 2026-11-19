@@ -55,7 +55,6 @@ class MoveCell: UITableViewCell {
 			content.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14),
 			content.trailingAnchor.constraint(equalTo: buttons.leadingAnchor, constant: -16),
 			ppBar.heightAnchor.constraint(equalToConstant: 6),
-			// Wide enough for "40/40 PP", so the bars line up from row to row.
 			ppLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 76),
 
 			buttons.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
@@ -88,7 +87,6 @@ class MoveCell: UITableViewCell {
 		incrementButton.accessibilityLabel = "Restore PP for \(move.name)"
 		decrementButton.accessibilityLabel = "Use \(move.name)"
 		accessibilityLabel = "\(move.name), \(move.type), \(move.remainingPP) of \(move.maxPP) PP"
-		// The cell is one VoiceOver element, so the buttons are offered as actions on it.
 		accessibilityCustomActions = [
 			UIAccessibilityCustomAction(name: "Use move", target: self, selector: #selector(decrementAction)),
 			UIAccessibilityCustomAction(name: "Restore PP", target: self, selector: #selector(incrementAction))

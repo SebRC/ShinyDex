@@ -77,7 +77,6 @@ class PokedexTVC: UITableViewController {
 		navigationItem.title = textResolver.getGenTitle(gen: generation)
 	}
 	
-	/// The dex slice for each menu generation. Index 10 and above aren't regions.
 	static func pokemonRange(for generation: Int) -> Range<Int>? {
 		switch generation {
 		case 0: return 0..<151
@@ -175,7 +174,6 @@ class PokedexTVC: UITableViewController {
 	
 	func filterContentForSearchText(_ searchText: String) {
 		let query = searchText.trimmingCharacters(in: .whitespaces).lowercased()
-		// "25", "#25" and "025" all find Pikachu; anything else is matched against the name.
 		let number = Int(query.trimmingCharacters(in: CharacterSet(charactersIn: "#")))
 		filteredPokemon = slicedPokemon.filter { pokemon in
 			if let number = number {

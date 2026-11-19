@@ -2,7 +2,6 @@ import XCTest
 @testable import ShinyDex
 
 class EvolutionsTests: XCTestCase {
-	// 0-based app numbers, so these are dex number minus one.
 	fileprivate let bulbasaur = 0, ivysaur = 1, venusaur = 2
 	fileprivate let eevee = 132, vaporeon = 133, sylveon = 699
 	fileprivate let pichu = 171, pikachu = 24, raichu = 25

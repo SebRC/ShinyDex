@@ -56,7 +56,6 @@ class LoadingVC: UIViewController {
 		return allPokemon.count != names.count
 	}
 
-	/// The loading screen is replaced rather than pushed, so there's nothing to go back to.
 	fileprivate func showMenu() {
 		guard let navigationController = navigationController else { return }
 		navigationController.isNavigationBarHidden = false

@@ -1,6 +1,5 @@
 import UIKit
 
-/// Used both for the main stack and for every modal sheet so they all look the same.
 class ShinyNavigationController: UINavigationController {
 	override init(rootViewController: UIViewController) {
 		super.init(rootViewController: rootViewController)
@@ -32,7 +31,6 @@ class ShinyNavigationController: UINavigationController {
 		navigationBar.prefersLargeTitles = true
 	}
 
-	/// The back button belongs to the screen being left, so it's given an empty title just before something is pushed on top.
 	override func pushViewController(_ viewController: UIViewController, animated: Bool) {
 		if let current = topViewController, current.navigationItem.backBarButtonItem == nil {
 			current.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -48,7 +46,6 @@ extension UIViewController {
 		return navigationController
 	}
 
-	/// Closes the sheet this controller is in, together with anything shown on top of it (like an active search).
 	func dismissSheet(completion: (() -> Void)? = nil) {
 		if let presenter = presentingViewController {
 			presenter.dismiss(animated: true, completion: completion)

@@ -7,12 +7,11 @@ class MenuTVC: UITableViewController {
 		case collection
 		case ppCounter
 		case stats
+		case journeys
 	}
 
-	/// Rows are grouped so the tools people use every session (hunts, collection, PP counter) sit at the top,
-	/// with the generation Pokédexes below. Row numbers are the menu indexes `TextResolver` uses for titles.
 	fileprivate let sections: [(title: String, rows: [Int])] = [
-		("Tracking", [10, 11, 13, 12]),
+		("Tracking", [10, 14, 11, 13, 12]),
 		("Pokédex", Array(0...9))
 	]
 
@@ -23,6 +22,9 @@ class MenuTVC: UITableViewController {
 	fileprivate var catchCounts = [Int: Int]()
 	fileprivate var totalCatches = 0
 	fileprivate var menuStats: CatchStats?
+	fileprivate let journeyService = JourneyService()
+	fileprivate var journeys = [Journey]()
+	fileprivate var catchesById = [UUID: Catch]()
 
 	init() {
 		super.init(style: .insetGrouped)
@@ -55,6 +57,8 @@ class MenuTVC: UITableViewController {
 		totalCatches = catches.count
 		catchCounts = CatchRules.countsByNumber(catches)
 		menuStats = CatchStats(catches: catchService.getAllIncludingFailed())
+		journeys = journeyService.getAll()
+		catchesById = Dictionary(catches.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
 		tableView.reloadData()
 	}
 
@@ -68,6 +72,7 @@ class MenuTVC: UITableViewController {
 		case 11: return .collection
 		case 12: return .ppCounter
 		case 13: return .stats
+		case 14: return .journeys
 		default: return .pokedex(generation: index)
 		}
 	}
@@ -131,10 +136,14 @@ class MenuTVC: UITableViewController {
 		case 13:
 			guard let average = menuStats?.averageEncounters else { return "Averages, balls, records and more" }
 			return "\(average.grouped) encounters per shiny on average"
+		case 14:
+			guard !journeys.isEmpty else { return "Badge quests, dream teams and more" }
+			let complete = journeys.filter { !$0.entries.isEmpty && $0.caughtCount(in: catchesById) == $0.entries.count }.count
+			let journeyText = journeys.count == 1 ? "1 journey" : "\(journeys.count) journeys"
+			return complete == 0 ? journeyText : "\(journeyText) · \(complete) complete"
 		default:
 			guard let range = PokedexTVC.pokemonRange(for: index) else { return "" }
 			let caught = range.filter { (catchCounts[$0] ?? 0) > 0 }.count
-			// Hisui sits between Galar (gen 8) and Paldea (gen 9) in the menu, so it shifts the numbering after it.
 			let region = index == 8 ? "Legends: Arceus" : "Generation \(index < 8 ? index + 1 : index)"
 			return "\(region) · \(caught)/\(range.count) caught"
 		}
@@ -160,6 +169,8 @@ class MenuTVC: UITableViewController {
 			viewController = PPCounterTVC()
 		case .stats:
 			viewController = StatsVC()
+		case .journeys:
+			viewController = JourneysTVC()
 		}
 		navigationController?.pushViewController(viewController, animated: true)
 	}
@@ -179,8 +190,9 @@ class MenuTVC: UITableViewController {
 		case 12:
 			return UIImage(named: "journal")
 		case 13:
-			// Drawn at a fixed size inside the icon frame so it sits at the same weight as the pixel art beside it.
 			return UIImage.symbol("chart.bar.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+		case 14:
+			return UIImage.symbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
 		default:
 			return UIImage(named: "gen1")
 		}

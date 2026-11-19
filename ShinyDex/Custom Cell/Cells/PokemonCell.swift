@@ -1,6 +1,5 @@
 import UIKit
 
-/// The ball it was caught in is shown in the status line as information, never as a button.
 class PokemonCell: UITableViewCell {
 	static let reuseIdentifier = "pokemonCell"
 
@@ -13,7 +12,6 @@ class PokemonCell: UITableViewCell {
 	let caughtButton = PokemonCell.makeRoundButton(symbol: PokemonCell.logCatchSymbol, tint: Color.Orange500, background: Color.Orange900)
 	let addToCurrentHuntButton = PokemonCell.makeRoundButton(symbol: "plus", tint: Color.Grey200, background: Color.Grey700)
 
-	/// Sparkles read as "shiny" and differ clearly from the hunt button's plus; iOS 13 lacks the symbol, so it falls back to a star.
 	static let logCatchSymbol = UIImage(systemName: "sparkles") != nil ? "sparkles" : "star.fill"
 	fileprivate static let buttonSize: CGFloat = 38
 	fileprivate let statusIcon = UIImageView()
@@ -83,7 +81,6 @@ class PokemonCell: UITableViewCell {
 		return button
 	}
 
-	/// Caught wins over "in a hunt", since the hunt is over once it's caught.
 	func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool) {
 		if (catchCount > 0) {
 			statusIcon.image = UIImage(named: caughtBall)

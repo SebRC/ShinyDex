@@ -1,9 +1,5 @@
 import Foundation
 
-/// Shinies that got away count as found: they're in the totals, averages, years and records, since the encounters
-/// were spent all the same. The ball, game and method breakdowns only count caught shinies, matching the collection.
-/// Catches logged before catch history (no date, 0 encounters) count towards totals and breakdowns,
-/// but averages and records only use catches with encounters logged, so they aren't dragged towards zero.
 struct CatchStats {
 	struct YearStat: Equatable {
 		let year: Int

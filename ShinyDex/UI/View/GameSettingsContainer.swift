@@ -407,7 +407,6 @@ class GameSettingsContainer: UIView {
 	}
 }
 
-/// A plain view holds the stack because stack views only draw backgrounds from iOS 14.
 fileprivate class SettingsCard: UIView {
 	let stack = UIStackView()
 

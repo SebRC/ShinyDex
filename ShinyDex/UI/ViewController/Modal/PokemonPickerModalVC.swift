@@ -1,9 +1,27 @@
 import UIKit
 
-class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchResultsUpdating, UIAdaptivePresentationControllerDelegate {
-	fileprivate let huntService = HuntService()
+struct PokemonPickerConfiguration {
+	let title: String
+	let selectionTitle: String
+	let confirmTitle: String
+	let discardTitle: String
+	let nameLabel: String?
+	let defaultName: String
+	let namesAfterFirstPick: Bool
+	let excludesHuntedPokemon: Bool
+
+	static let hunt = PokemonPickerConfiguration(title: "Create hunt", selectionTitle: "In this hunt", confirmTitle: "Create", discardTitle: "Discard Hunt",
+												 nameLabel: "Hunt name", defaultName: "New Hunt", namesAfterFirstPick: true, excludesHuntedPokemon: true)
+	static let newJourney = PokemonPickerConfiguration(title: "New journey", selectionTitle: "In this journey", confirmTitle: "Create", discardTitle: "Discard Journey",
+													   nameLabel: "Journey name", defaultName: "New Journey", namesAfterFirstPick: false, excludesHuntedPokemon: false)
+	static let addToJourney = PokemonPickerConfiguration(title: "Add Pokémon", selectionTitle: "Adding", confirmTitle: "Add", discardTitle: "Discard Picks",
+														 nameLabel: nil, defaultName: "", namesAfterFirstPick: false, excludesHuntedPokemon: false)
+}
+
+class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearchResultsUpdating, UIAdaptivePresentationControllerDelegate {
 	fileprivate let pokemonService = PokemonService()
-	fileprivate let onCreate: () -> Void
+	fileprivate let configuration: PokemonPickerConfiguration
+	fileprivate let onConfirm: (_ name: String, _ picked: [Pokemon]) -> Void
 	fileprivate let searchController = UISearchController(searchResultsController: nil)
 	fileprivate let textField = UITextField()
 	fileprivate var filteredPokemon = [Pokemon]()
@@ -12,8 +30,9 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 	fileprivate var createButton: UIBarButtonItem!
 	fileprivate let selectedCell = SelectedPokemonCell()
 
-	init(onCreate: @escaping () -> Void) {
-		self.onCreate = onCreate
+	init(configuration: PokemonPickerConfiguration, onConfirm: @escaping (_ name: String, _ picked: [Pokemon]) -> Void) {
+		self.configuration = configuration
+		self.onConfirm = onConfirm
 		super.init(style: .insetGrouped)
 	}
 
@@ -23,12 +42,12 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "Create hunt"
+		title = configuration.title
 		allPokemon = pokemonService.getAll()
 		navigationController?.presentationController?.delegate = self
 
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
-		createButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(confirmPressed))
+		createButton = UIBarButtonItem(title: configuration.confirmTitle, style: .done, target: self, action: #selector(confirmPressed))
 		createButton.isEnabled = false
 		navigationItem.rightBarButtonItem = createButton
 
@@ -44,7 +63,7 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 		tableView.keyboardDismissMode = .onDrag
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 64
-		tableView.register(CreateHuntCell.self, forCellReuseIdentifier: CreateHuntCell.reuseIdentifier)
+		tableView.register(PokemonPickerCell.self, forCellReuseIdentifier: PokemonPickerCell.reuseIdentifier)
 		setUpNameCell()
 		selectedCell.onRemove = { [weak self] pokemon in
 			self?.toggle(pokemon)
@@ -69,7 +88,7 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 		textField.returnKeyType = .done
 		textField.autocapitalizationType = .words
 		textField.clearButtonMode = .whileEditing
-		textField.accessibilityLabel = "Hunt name"
+		textField.accessibilityLabel = configuration.nameLabel
 		textField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
 		nameCell.contentView.addAutoLayoutSubviews(textField)
 		NSLayoutConstraint.activate([
@@ -84,17 +103,21 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 		return Section.allCases.count
 	}
 
+	fileprivate var showsName: Bool {
+		return configuration.nameLabel != nil
+	}
+
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch Section(rawValue: section)! {
-		case .name: return "Name"
-		case .selected: return selected.isEmpty ? "In this hunt" : "In this hunt (\(selected.count))"
+		case .name: return showsName ? "Name" : nil
+		case .selected: return selected.isEmpty ? configuration.selectionTitle : "\(configuration.selectionTitle) (\(selected.count))"
 		case .pokemon: return "Pokémon"
 		}
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		switch Section(rawValue: indexPath.section)! {
-		case .name: return 52
+		case .name: return showsName ? 52 : 0
 		case .selected: return selected.isEmpty ? 52 : 84
 		case .pokemon: return UITableView.automaticDimension
 		}
@@ -110,7 +133,7 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 	}
 
 	fileprivate func isInOtherHunt(_ pokemon: Pokemon) -> Bool {
-		return pokemon.isBeingHunted && !isSelected(pokemon)
+		return configuration.excludesHuntedPokemon && pokemon.isBeingHunted && !isSelected(pokemon)
 	}
 
 	func updateSearchResults(for searchController: UISearchController) {
@@ -128,8 +151,10 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if (Section(rawValue: section) != .pokemon) {
-			return 1
+		switch Section(rawValue: section)! {
+		case .name: return showsName ? 1 : 0
+		case .selected: return 1
+		case .pokemon: break
 		}
 		return isFiltering() ? filteredPokemon.count : allPokemon.count
 	}
@@ -141,7 +166,7 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 		case .selected:
 			return selectedCell
 		case .pokemon:
-			let cell = tableView.dequeueReusableCell(withIdentifier: CreateHuntCell.reuseIdentifier, for: indexPath) as! CreateHuntCell
+			let cell = tableView.dequeueReusableCell(withIdentifier: PokemonPickerCell.reuseIdentifier, for: indexPath) as! PokemonPickerCell
 			let pokemon = getSelectedPokemon(index: indexPath.row)
 			cell.configure(pokemon: pokemon, isSelected: isSelected(pokemon), isInOtherHunt: isInOtherHunt(pokemon))
 			return cell
@@ -162,7 +187,7 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 			selected.append(pokemon)
 		}
 		updateSelection()
-		for case let cell as CreateHuntCell in tableView.visibleCells {
+		for case let cell as PokemonPickerCell in tableView.visibleCells {
 			if let indexPath = tableView.indexPath(for: cell), Section(rawValue: indexPath.section) == .pokemon {
 				let shown = getSelectedPokemon(index: indexPath.row)
 				cell.configure(pokemon: shown, isSelected: isSelected(shown), isInOtherHunt: isInOtherHunt(shown))
@@ -178,16 +203,14 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 
 	fileprivate func updateSelection() {
 		selectedCell.setPokemon(selected)
-		createButton.title = selected.isEmpty ? "Create" : "Create (\(selected.count))"
+		createButton.title = selected.isEmpty ? configuration.confirmTitle : "\(configuration.confirmTitle) (\(selected.count))"
 		createButton.isEnabled = !selected.isEmpty
-		// Picks are only kept in memory until Create is pressed, so ask before a swipe would throw them away.
 		isModalInPresentation = !selected.isEmpty
 		updateNamePlaceholder()
 	}
 
-	/// The hunt is named after its first Pokémon unless a name is typed, so the placeholder says what it'll be.
 	fileprivate func updateNamePlaceholder() {
-		let fallback = selected.first?.name ?? "New Hunt"
+		let fallback = defaultName
 		textField.attributedPlaceholder = NSAttributedString(string: fallback, attributes: [.foregroundColor: Color.Grey500])
 	}
 
@@ -205,37 +228,29 @@ class CreateHuntModalVC: UITableViewController, UITextFieldDelegate, UISearchRes
 	}
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-		let alert = UIAlertController(title: nil, message: "Discard this hunt?", preferredStyle: .actionSheet)
-		alert.addAction(UIAlertAction(title: "Discard Hunt", style: .destructive) { [weak self] _ in self?.cancelPressed() })
+		let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		alert.addAction(UIAlertAction(title: configuration.discardTitle, style: .destructive) { [weak self] _ in self?.cancelPressed() })
 		alert.addAction(UIAlertAction(title: "Keep Editing", style: .cancel))
 		alert.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
 		present(alert, animated: true)
 	}
 
 	@objc fileprivate func confirmPressed() {
-		let hunt = Hunt(name: getHuntName(), pokemon: [Pokemon](), priority: getPriority())
-		for pokemon in selected.sorted(by: { $0.number < $1.number }) {
-			pokemon.isBeingHunted = true
-			pokemonService.save(pokemon: pokemon)
-			hunt.pokemon.append(pokemon)
-			hunt.indexes.append(pokemon.number)
-			hunt.totalEncounters += pokemon.encounters
-		}
-		huntService.save(hunt: hunt)
+		let name = enteredName
+		let picked = selected
 		Haptics.success()
-		dismissSheet { [onCreate] in
-			onCreate()
+		dismissSheet { [onConfirm] in
+			onConfirm(name, picked)
 		}
 	}
 
-	fileprivate func getPriority() -> Int {
-		let hunts = huntService.getAll()
-		return (hunts.map { $0.priority }.max() ?? -1) + 1
+	fileprivate var defaultName: String {
+		return configuration.namesAfterFirstPick ? selected.first?.name ?? configuration.defaultName : configuration.defaultName
 	}
 
-	fileprivate func getHuntName() -> String {
+	fileprivate var enteredName: String {
 		let name = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-		return name.isEmpty ? selected.first?.name ?? "New Hunt" : name
+		return name.isEmpty ? defaultName : name
 	}
 }
 

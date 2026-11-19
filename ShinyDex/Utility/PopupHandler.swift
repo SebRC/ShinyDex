@@ -8,7 +8,6 @@ class PopupHandler {
 	func showPopup(text: String) {
 		guard let window = keyWindow() else { return }
 
-		// Only one toast at a time; a new message replaces the old one instead of stacking on top of it.
 		PopupHandler.currentToast?.removeFromSuperview()
 
 		let toast = ToastView(text: text)

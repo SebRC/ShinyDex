@@ -1,6 +1,5 @@
 import UIKit
 
-/// Changes are saved as they're made; `onDismiss` lets the tracker refresh however the sheet is closed.
 class GameSettingsModalVC: GameSettingsHostVC, UIAdaptivePresentationControllerDelegate {
 	fileprivate let onDismiss: () -> Void
 

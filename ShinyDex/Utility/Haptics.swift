@@ -1,6 +1,5 @@
 import UIKit
 
-/// Central place for haptic feedback so every screen uses the same feel for the same kind of action.
 enum Haptics {
 	static func tap() {
 		UIImpactFeedbackGenerator(style: .light).impactOccurred()

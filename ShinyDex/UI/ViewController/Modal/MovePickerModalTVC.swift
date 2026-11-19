@@ -46,7 +46,6 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 
 	func updateSearchResults(for searchController: UISearchController) {
 		let searchText = searchController.searchBar.text?.lowercased() ?? ""
-		// Move identifiers use dashes ("thunder-punch"), so match what people type with spaces too.
 		let query = searchText.replacingOccurrences(of: " ", with: "-")
 		filteredMoves = allMoves.filter {
 			$0.identifier.lowercased().contains(query) || (MoveTypes.types[$0.type_id]?.lowercased() == searchText)
@@ -62,7 +61,6 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 		return isFiltering() ? filteredMoves[indexPath.row] : allMoves[indexPath.row]
 	}
 
-	/// The list has no section title, so drop the grouped style's empty header gap under the search bar.
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 8
 	}

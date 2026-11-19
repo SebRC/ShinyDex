@@ -98,7 +98,6 @@ class CatchService {
 		}
 	}
 
-	// PokemonEntity.caughtBall mirrors the latest catch, so existing screens and older builds keep showing the right ball.
 	fileprivate func syncCaughtBall(pokemon: Pokemon) {
 		let catches = getCatches(for: pokemon)
 		pokemon.caughtBall = CatchRules.latestBall(of: catches)

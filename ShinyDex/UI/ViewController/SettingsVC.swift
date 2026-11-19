@@ -1,6 +1,5 @@
 import UIKit
 
-/// `SettingsVC` uses it for the global settings and `GameSettingsModalVC` for a single Pokémon.
 class GameSettingsHostVC: UIViewController {
 	let scrollView = UIScrollView()
 	let gameSettingsContainer = GameSettingsContainer()
@@ -50,7 +49,6 @@ class GameSettingsHostVC: UIViewController {
 		navigationController?.pushViewController(selector, animated: true)
 	}
 
-	/// Overwrites every Pokémon's game, method and charm, so it gets a confirmation with a destructive button.
 	fileprivate func confirmApplyToAll() {
 		presentDestructiveConfirmation(title: "Apply to all Pokémon?",
 									   message: "Every Pokémon will use \(pokemon.game.displayName) and these hunt settings. Their current settings will be replaced.",

@@ -1,6 +1,5 @@
 import UIKit
 
-/// + is the primary action, so it's larger and orange; − is smaller and grey.
 class CurrentHuntCell: UITableViewCell {
 	static let reuseIdentifier = "currentHuntCell"
 
