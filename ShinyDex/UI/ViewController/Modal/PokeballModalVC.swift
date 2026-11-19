@@ -7,7 +7,6 @@ enum PokeballPickerResult {
 	case nothingToRemove
 }
 
-/// The balls are a grid so they can all be scanned at once.
 class PokeballModalVC: UIViewController {
 	fileprivate let pokemon: Pokemon
 	fileprivate let onFinish: (PokeballPickerResult) -> Void
@@ -123,7 +122,6 @@ class PokeballModalVC: UIViewController {
 		dateButton.setTitle(title, for: .normal)
 	}
 
-	/// iOS 13 has no compact date picker, so the full picker opens as its own sheet.
 	@objc fileprivate func dateButtonPressed() {
 		present(CatchDatePickerVC.inNavigationController(initialDate: caughtDate) { [weak self] date in
 			self?.caughtDate = date

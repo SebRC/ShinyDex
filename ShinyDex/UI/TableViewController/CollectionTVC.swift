@@ -308,7 +308,6 @@ fileprivate class CollectionCard: UICollectionViewCell {
 			spriteView.heightAnchor.constraint(equalTo: spriteView.widthAnchor),
 
 			glowView.centerXAnchor.constraint(equalTo: spriteView.centerXAnchor),
-			// The sprite art sits low in its image, so the glow is centred a little below the image's middle.
 			glowView.centerYAnchor.constraint(equalTo: spriteView.centerYAnchor, constant: 14),
 			glowView.widthAnchor.constraint(equalTo: spriteView.widthAnchor, multiplier: 0.9),
 			glowView.heightAnchor.constraint(equalTo: glowView.widthAnchor),
@@ -355,7 +354,6 @@ fileprivate class CollectionCard: UICollectionViewCell {
 	}
 }
 
-/// The view's own layer is the gradient, so it always fills the view's bounds.
 fileprivate class GlowView: UIView {
 	override class var layerClass: AnyClass {
 		return CAGradientLayer.self

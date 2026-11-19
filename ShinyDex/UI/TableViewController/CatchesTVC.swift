@@ -72,7 +72,6 @@ class CatchesTVC: UITableViewController {
 		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
 			guard let self = self else { return completion(false) }
 			let caught = self.catches[indexPath.row]
-			// A catch can't be recovered once it's gone, so ask first.
 			let description = caught.isFailed ? "The \(self.pokemon.name) that got away in" : "The \(caught.ballName) \(self.pokemon.name) from"
 			self.presentDestructiveConfirmation(title: caught.isFailed ? "Delete this entry?" : "Delete this catch?",
 												message: "\(description) \(caught.game.displayName) will be removed. This can't be undone.",

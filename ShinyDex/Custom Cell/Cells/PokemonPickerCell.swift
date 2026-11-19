@@ -1,7 +1,7 @@
 import UIKit
 
-class CreateHuntCell: UITableViewCell {
-	static let reuseIdentifier = "createHuntCell"
+class PokemonPickerCell: UITableViewCell {
+	static let reuseIdentifier = "pokemonPickerCell"
 
 	let spriteImageView = UIImageView()
 	let nameLabel = UILabel(fontSize: 17, weight: .semibold)
@@ -63,6 +63,6 @@ class CreateHuntCell: UITableViewCell {
 
 		accessibilityLabel = "\(pokemon.name), number \(pokemon.number + 1)"
 		accessibilityTraits = isInOtherHunt ? [.button, .notEnabled] : (isSelected ? [.button, .selected] : .button)
-		accessibilityHint = isInOtherHunt ? "Already in a hunt." : (isSelected ? "Removes \(pokemon.name) from the new hunt." : "Adds \(pokemon.name) to the new hunt.")
+		accessibilityHint = isInOtherHunt ? "Already in a hunt." : (isSelected ? "Removes \(pokemon.name) from your picks." : "Adds \(pokemon.name) to your picks.")
 	}
 }

@@ -39,6 +39,21 @@ class HuntService {
 		return hunt
 	}
 
+	@discardableResult
+	func createHunt(named name: String, with pokemon: [Pokemon]) -> Hunt {
+		let priority = (getAll().map { $0.priority }.max() ?? -1) + 1
+		let hunt = Hunt(name: name, pokemon: [Pokemon](), priority: priority)
+		for member in pokemon.sorted(by: { $0.number < $1.number }) {
+			hunt.pokemon.append(member)
+			hunt.indexes.append(member.number)
+			hunt.totalEncounters += member.encounters
+			member.isBeingHunted = true
+			pokemonService.save(pokemon: member)
+		}
+		huntRepository.save(hunt: hunt)
+		return hunt
+	}
+
 	func add(pokemon: Pokemon, to hunt: Hunt) {
 		hunt.pokemon.append(pokemon)
 		hunt.indexes.append(pokemon.number)

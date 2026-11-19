@@ -59,8 +59,6 @@ class ShinyTrackerVC: UIViewController {
 		setCaughtStatus()
 	}
 
-	/// Top to bottom: the count (the thing you look at most), odds and chance, the sprite, the actions,
-	/// and the − / + buttons at the bottom within thumb reach, with + as the large primary button.
 	fileprivate func layOutViews() {
 		title = pokemon.name
 		navigationItem.largeTitleDisplayMode = .never
@@ -165,7 +163,6 @@ class ShinyTrackerVC: UIViewController {
 		navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton]
 	}
 
-	/// The tracker is almost entirely icon buttons, so give each one a spoken name for VoiceOver.
 	fileprivate func setAccessibilityLabels() {
 		minusButton.accessibilityLabel = "Remove an encounter"
 		addToHuntButton.accessibilityLabel = "Add to hunt"
@@ -205,8 +202,6 @@ class ShinyTrackerVC: UIViewController {
 		}
 	}
 
-	/// Whether it's been caught is shown under the count (with the latest ball), not on the Log catch button,
-	/// so the button always looks like an action rather than a status.
 	fileprivate func setCaughtStatus() {
 		let catchCount = catchService.getCatches(for: pokemon).count
 		caughtBallView.image = UIImage(named: pokemon.caughtBall)
@@ -259,8 +254,6 @@ class ShinyTrackerVC: UIViewController {
 		probability = probabilityService.getProbability(encounters: pokemon.encounters - methodDecrement, shinyOdds: pokemon.shinyOdds)
 	}
 
-	/// The resolver returns lines like "Chain: 30\nEncounters: 12". The first line becomes the big number with its
-	/// label as the caption; any further lines are shown as a smaller detail underneath.
 	fileprivate func setEncountersText(_ text: String) {
 		let lines = text.components(separatedBy: "\n").map { line -> (label: String, value: String) in
 			let parts = line.components(separatedBy: ": ")
@@ -277,7 +270,6 @@ class ShinyTrackerVC: UIViewController {
 		heroView.accessibilityLabel = ([primary] + Array(lines.dropFirst())).map { "\($0.label) \($0.value)" }.joined(separator: ", ")
 	}
 
-	/// Until a chain reaches its bonus there's no meaningful chance to show, so the tile explains what's needed instead.
 	fileprivate func setProbabilityLabelText() {
 		let text = probabilityService.getProbabilityText(probability: probability!, pokemon: pokemon, methodDecrement: methodDecrement)
 		if (text.hasPrefix("Probability")) {

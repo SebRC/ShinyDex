@@ -38,7 +38,6 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 	fileprivate let columns: Int
 	fileprivate var collectionView: UICollectionView!
 
-	/// Four columns suit short names like balls; three leave room for longer ones like game titles.
 	init(columns: Int = 4) {
 		self.columns = columns
 		super.init(frame: .zero)
@@ -127,7 +126,6 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
 }
 
 enum BallGrid {
-	/// "None" is left out: it isn't a ball, and removing a catch is its own action.
 	static let ballNames = TxtReader().readFile(textFile: "pokeballs").filter { $0 != CatchRules.noBall }
 
 	static var items: [IconGridItem] {

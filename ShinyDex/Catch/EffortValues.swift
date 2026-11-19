@@ -1,6 +1,5 @@
 import Foundation
 
-/// Limits as in the games since generation 6.
 struct EffortValues: Equatable {
 	enum Stat: Int, CaseIterable {
 		case hp, attack, defense, specialAttack, specialDefense, speed

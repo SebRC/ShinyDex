@@ -53,7 +53,6 @@ class CatchRepository {
 		}
 	}
 
-	// On failure the unsaved changes are rolled back, so they can't be persisted later by an unrelated save.
 	@discardableResult
 	func save() -> Bool {
 		do {

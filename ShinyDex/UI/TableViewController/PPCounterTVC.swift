@@ -24,7 +24,6 @@ class PPCounterTVC: UITableViewController {
 		super.viewDidLoad()
 		title = "PP Counter"
 		activeMoves = moveService.getAll()
-		// Older saves could hold more PP than the move's maximum.
 		for move in activeMoves where move.remainingPP > move.maxPP {
 			move.remainingPP = move.maxPP
 		}
@@ -39,7 +38,6 @@ class PPCounterTVC: UITableViewController {
 		updateRestoreAllButton()
 	}
 
-	/// The Pressure ability makes every move cost 2 PP, so it's a toggle in its own section above the moves.
 	fileprivate func setUpPressureCell() {
 		pressureCell.backgroundColor = Color.Grey800
 		pressureCell.selectionStyle = .none
@@ -106,7 +104,6 @@ class PPCounterTVC: UITableViewController {
 		present(picker.inSheet(), animated: true)
 	}
 
-	/// Updates the one cell in place rather than reloading the table, so rapid taps stay smooth.
 	fileprivate func changePP(at index: Int, by amount: Int) {
 		Haptics.tap()
 		let move = activeMoves[index]

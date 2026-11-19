@@ -11,7 +11,6 @@ class Catch {
 	var encounters: Int
 	var isShinyCharmActive: Bool
 	var caughtDate: Date?
-	/// Got-away shinies count towards stats, but never towards the collection, the Pokédex or the ball shown for a Pokémon.
 	var isFailed: Bool
 	var evs: EffortValues
 	var evolvedFrom: Int?

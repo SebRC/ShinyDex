@@ -1,6 +1,5 @@
 import UIKit
 
-/// Shown every time, even with zero or one hunt, so adding never happens silently.
 class HuntPickerModalVC: UITableViewController {
 	fileprivate enum Section: Int, CaseIterable {
 		case newHunt
@@ -94,7 +93,6 @@ class HuntPickerModalVC: UITableViewController {
 		finish(huntName: hunt.name)
 	}
 
-	/// The hunt is only created once it has a name, so cancelling the alert leaves nothing behind.
 	fileprivate func presentNewHuntNaming() {
 		presentTextInput(title: "New hunt",
 						 message: "\(pokemon.name) will be added to it.",

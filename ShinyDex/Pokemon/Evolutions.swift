@@ -1,9 +1,6 @@
 import Foundation
 
-/// Evolution lines, from the bundled `evolutions.json` (PokeAPI's "evolves from" data, using the app's 0-based numbers).
-/// A line is every species sharing a root, so branches like Eevee's are one line.
 struct Evolutions {
-	/// For each species number, the species it evolves from, or -1.
 	let evolvesFrom: [Int]
 
 	static let shared = Evolutions.loadBundled()
