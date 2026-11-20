@@ -10,8 +10,11 @@
 ## Code style
 
 - Follow Apple's Swift API Design Guidelines and Xcode's default formatting (4-space indentation, `lowerCamelCase` for members, `UpperCamelCase` for types).
-- Prefer descriptive method and variable names over comments.
-- Don't add superfluous comments. Remove any that restate a method name or describe what the code plainly does. Keep a comment only when it explains *why* something non-obvious is done.
+- Code must document itself. Express intent through type, method, property and variable names, small well-named helpers, and tests, not comments.
+- Don't write comments by default. That includes comments explaining what code does, why a business rule exists, a data format or layout, or a workaround that a better name could convey. If you feel a comment is needed, first rename or extract code until it isn't.
+- A comment is allowed only in rare, obscure cases where the code genuinely cannot convey the reason, e.g. a framework bug workaround or a non-obvious external constraint. Keep it to one line.
+- `// MARK:` lines are fine.
+- Before finishing any change, check the diff for added `//` or `/* */` lines and remove each one that doesn't meet the bar above.
 
 ## UI
 
