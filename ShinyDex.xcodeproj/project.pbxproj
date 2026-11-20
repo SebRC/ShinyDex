@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */; };
+		A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A48736C9F55354A7736D7 /* NatureChartView.swift */; };
+		B243322F7989347710F03348 /* PeriodChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */; };
+		9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEDA61CC8AB213395372361 /* RecordCard.swift */; };
+		87477D2F5EA46112BA98BD66 /* TappableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */; };
+		BE5827726EAF3BA5B3E0D66C /* TappableTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3C0A25B782F5C429729604 /* TappableTile.swift */; };
+		3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA654D4858207C263458AB0B /* UsageRowView.swift */; };
+		91B7BE5138DB0F8FD50C7C6E /* YearChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CB9957CECCA901BA95C2F /* YearChartView.swift */; };
+		99A4CE46F802F46D05C4019B /* YearLuckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454668927CA4DEF8DD8A8F5A /* YearLuckRow.swift */; };
+		8BD1A9ED86CEDAEF08A5936A /* JourneyEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */; };
+		15AF1205340032F8CEC88D2B /* JourneyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379D332AACECAE817D2C1D2 /* JourneyHeaderView.swift */; };
+		85DCEF784C08C4F4553019D4 /* PhaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C54DC045682F012780CE0 /* PhaseCell.swift */; };
+		1FFCDD849247F70D725F3423 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B01F4F455B934233CCF700 /* TimelineCell.swift */; };
+		1D7EFCF34FEFE2B8EFD457C9 /* CatchHeroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F8F567DA65E32E9D9FD97 /* CatchHeroCell.swift */; };
+		45558E6E5244C2B7A20D93BA /* CatchStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CAFDF673597290762643C1 /* CatchStatsCell.swift */; };
 		01A3F60057C8E3CBA6856AA8 /* UpdateJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9B03F6882C7267B8C10EC /* UpdateJourney.swift */; };
 		0336C0532DA23F33348B8D65 /* UpdateCatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74AFFB6D94D4431D6196AA1 /* UpdateCatch.swift */; };
 		070E2DD8A599C87AAD905B7E /* GlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E85001DD5542189F24541 /* GlowView.swift */; };
@@ -221,6 +236,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyDateRow.swift; sourceTree = "<group>"; };
+		1D5A48736C9F55354A7736D7 /* NatureChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatureChartView.swift; sourceTree = "<group>"; };
+		9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodChartView.swift; sourceTree = "<group>"; };
+		2EEDA61CC8AB213395372361 /* RecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCard.swift; sourceTree = "<group>"; };
+		6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableColumn.swift; sourceTree = "<group>"; };
+		5C3C0A25B782F5C429729604 /* TappableTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableTile.swift; sourceTree = "<group>"; };
+		CA654D4858207C263458AB0B /* UsageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageRowView.swift; sourceTree = "<group>"; };
+		A65CB9957CECCA901BA95C2F /* YearChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearChartView.swift; sourceTree = "<group>"; };
+		454668927CA4DEF8DD8A8F5A /* YearLuckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearLuckRow.swift; sourceTree = "<group>"; };
+		261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyEntryCell.swift; sourceTree = "<group>"; };
+		F379D332AACECAE817D2C1D2 /* JourneyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderView.swift; sourceTree = "<group>"; };
+		846C54DC045682F012780CE0 /* PhaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseCell.swift; sourceTree = "<group>"; };
+		16B01F4F455B934233CCF700 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		D91F8F567DA65E32E9D9FD97 /* CatchHeroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchHeroCell.swift; sourceTree = "<group>"; };
+		D9CAFDF673597290762643C1 /* CatchStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsCell.swift; sourceTree = "<group>"; };
 		021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetJourneyDetails.swift; sourceTree = "<group>"; };
 		0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HuntHandlerTests.swift; sourceTree = "<group>"; };
 		0D05946C93D560F974F136F6 /* ResourceLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
@@ -455,6 +485,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CCF9CB8C702F7D88075BC906 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
+				1D5A48736C9F55354A7736D7 /* NatureChartView.swift */,
+				9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */,
+				2EEDA61CC8AB213395372361 /* RecordCard.swift */,
+				6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */,
+				5C3C0A25B782F5C429729604 /* TappableTile.swift */,
+				CA654D4858207C263458AB0B /* UsageRowView.swift */,
+				A65CB9957CECCA901BA95C2F /* YearChartView.swift */,
+				454668927CA4DEF8DD8A8F5A /* YearLuckRow.swift */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		18261A520B9AF898BB73D38B /* Journey */ = {
+			isa = PBXGroup;
+			children = (
+				261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */,
+				F379D332AACECAE817D2C1D2 /* JourneyHeaderView.swift */,
+				846C54DC045682F012780CE0 /* PhaseCell.swift */,
+				16B01F4F455B934233CCF700 /* TimelineCell.swift */,
+			);
+			path = Journey;
+			sourceTree = "<group>";
+		};
+		5913B7E3D4F0C6B4BEA842CD /* CatchDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D91F8F567DA65E32E9D9FD97 /* CatchHeroCell.swift */,
+				D9CAFDF673597290762643C1 /* CatchStatsCell.swift */,
+			);
+			path = CatchDetail;
+			sourceTree = "<group>";
+		};
 		12288E1CD133403AE92AAABC /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,6 +881,9 @@
 		A30C2A803F938502AE9F3FC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CCF9CB8C702F7D88075BC906 /* Stats */,
+				18261A520B9AF898BB73D38B /* Journey */,
+				5913B7E3D4F0C6B4BEA842CD /* CatchDetail */,
 				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
 				AA51DE5E0000000000000002 /* PokemonSpriteView.swift */,
 				6719D034E3CFD6B73371F886 /* EmptyStateView.swift */,
@@ -1192,6 +1261,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */,
+				A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */,
+				B243322F7989347710F03348 /* PeriodChartView.swift in Sources */,
+				9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */,
+				87477D2F5EA46112BA98BD66 /* TappableColumn.swift in Sources */,
+				BE5827726EAF3BA5B3E0D66C /* TappableTile.swift in Sources */,
+				3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */,
+				91B7BE5138DB0F8FD50C7C6E /* YearChartView.swift in Sources */,
+				99A4CE46F802F46D05C4019B /* YearLuckRow.swift in Sources */,
+				8BD1A9ED86CEDAEF08A5936A /* JourneyEntryCell.swift in Sources */,
+				15AF1205340032F8CEC88D2B /* JourneyHeaderView.swift in Sources */,
+				85DCEF784C08C4F4553019D4 /* PhaseCell.swift in Sources */,
+				1FFCDD849247F70D725F3423 /* TimelineCell.swift in Sources */,
+				1D7EFCF34FEFE2B8EFD457C9 /* CatchHeroCell.swift in Sources */,
+				45558E6E5244C2B7A20D93BA /* CatchStatsCell.swift in Sources */,
 				96FC07A723EF192400459450 /* ShinyDex.xcdatamodeld in Sources */,
 				74C3CC04D71A5395765FCEAA /* Catch.swift in Sources */,
 				EAEFB0DF1012A6F6F13764B0 /* CatchRules.swift in Sources */,
