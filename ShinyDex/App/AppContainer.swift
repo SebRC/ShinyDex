@@ -13,6 +13,7 @@ final class AppContainer {
     let journeyRepository: JourneyRepository
     let bingoBoardRepository: BingoBoardRepository
     let moveRepository: MoveRepository
+    let backupRepository: BackupRepository
 
     init(coreDataStack: CoreDataStack, resourceLoader: ResourceLoader, keyValueStore: KeyValueStore, locationLinkProvider: LocationLinkProvider) {
         self.coreDataStack = coreDataStack
@@ -28,6 +29,7 @@ final class AppContainer {
         journeyRepository = CoreDataJourneyRepository(managedContext: context)
         bingoBoardRepository = CoreDataBingoBoardRepository(managedContext: context)
         moveRepository = CoreDataMoveRepository(managedContext: context)
+        backupRepository = CoreDataBackupRepository(managedContext: context)
     }
 
     private let odds = OddsService()
@@ -91,6 +93,12 @@ final class AppContainer {
     var getActiveMoves: GetActiveMovesHandler { GetActiveMovesHandler(moveRepository: moveRepository) }
     var saveActiveMoves: SaveActiveMovesHandler { SaveActiveMovesHandler(moveRepository: moveRepository) }
     var getMoveOptions: GetMoveOptionsHandler { GetMoveOptionsHandler(resourceLoader: resourceLoader) }
+
+    // MARK: Backup
+
+    var exportBackup: ExportBackupHandler { ExportBackupHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, huntRepository: huntRepository, journeyRepository: journeyRepository, bingoBoardRepository: bingoBoardRepository, moveRepository: moveRepository) }
+    var getBackupSummary: GetBackupSummaryHandler { GetBackupSummaryHandler() }
+    var restoreBackup: RestoreBackupHandler { RestoreBackupHandler(backupRepository: backupRepository, pokemonRepository: pokemonRepository) }
 
     // MARK: Menu and startup
 

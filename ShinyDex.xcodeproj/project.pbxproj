@@ -241,6 +241,17 @@
 		B1B60A00000000000000001D /* BingoProgressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000001C /* BingoProgressText.swift */; };
 		B1B60A00000000000000001F /* BingoBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000001E /* BingoBoardTests.swift */; };
 		B1B60A000000000000000021 /* BingoHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000020 /* BingoHandlerTests.swift */; };
+		BAC0B0000000000000000002 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000001 /* Backup.swift */; };
+		BAC0B0000000000000000004 /* BackupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000003 /* BackupRepository.swift */; };
+		BAC0B0000000000000000006 /* BackupDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000005 /* BackupDocument.swift */; };
+		BAC0B0000000000000000008 /* BackupDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000007 /* BackupDTOs.swift */; };
+		BAC0B000000000000000000A /* ExportBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000009 /* ExportBackup.swift */; };
+		BAC0B000000000000000000C /* GetBackupSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B000000000000000000B /* GetBackupSummary.swift */; };
+		BAC0B000000000000000000E /* RestoreBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B000000000000000000D /* RestoreBackup.swift */; };
+		BAC0B0000000000000000010 /* CoreDataBackupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B000000000000000000F /* CoreDataBackupRepository.swift */; };
+		BAC0B0000000000000000012 /* BackupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000011 /* BackupSettingsView.swift */; };
+		BAC0B0000000000000000014 /* BackupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000013 /* BackupHandlerTests.swift */; };
+		BAC0B0000000000000000016 /* BackupPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000015 /* BackupPersistenceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -501,6 +512,17 @@
 		B1B60A00000000000000001E /* BingoBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoardTests.swift; sourceTree = "<group>"; };
 		B1B60A000000000000000020 /* BingoHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoHandlerTests.swift; sourceTree = "<group>"; };
 		B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 8.xcdatamodel"; sourceTree = "<group>"; };
+		BAC0B0000000000000000001 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000003 /* BackupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRepository.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000005 /* BackupDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupDocument.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000007 /* BackupDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupDTOs.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000009 /* ExportBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBackup.swift; sourceTree = "<group>"; };
+		BAC0B000000000000000000B /* GetBackupSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBackupSummary.swift; sourceTree = "<group>"; };
+		BAC0B000000000000000000D /* RestoreBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreBackup.swift; sourceTree = "<group>"; };
+		BAC0B000000000000000000F /* CoreDataBackupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBackupRepository.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000011 /* BackupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSettingsView.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000013 /* BackupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupHandlerTests.swift; sourceTree = "<group>"; };
+		BAC0B0000000000000000015 /* BackupPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPersistenceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -706,6 +728,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				BAC0B0000000000000000018 /* Backup */,
 				B1B60A000000000000000006 /* Bingo */,
 				FFEB6BB220ADEBFAFB386D38 /* Ports */,
 				C28708F586654470EEAB0AC2 /* Catches */,
@@ -822,6 +845,8 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				BAC0B0000000000000000013 /* BackupHandlerTests.swift */,
+				BAC0B0000000000000000015 /* BackupPersistenceTests.swift */,
 				B1B60A000000000000000020 /* BingoHandlerTests.swift */,
 				B1B60A00000000000000001E /* BingoBoardTests.swift */,
 				96C3CB6926618B620090186E /* PopupHandlerTests.swift */,
@@ -923,6 +948,7 @@
 		A30C2A803F938502AE9F3FC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAC0B0000000000000000011 /* BackupSettingsView.swift */,
 				B1B60A000000000000000019 /* Bingo */,
 				CCF9CB8C702F7D88075BC906 /* Stats */,
 				18261A520B9AF898BB73D38B /* Journey */,
@@ -961,6 +987,7 @@
 		B10C0A00000000000000310C /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				BAC0B000000000000000000F /* CoreDataBackupRepository.swift */,
 				B1B60A000000000000000013 /* CoreDataBingoBoardRepository.swift */,
 				B10C0A000000000000003101 /* CoreDataCatchRepository.swift */,
 				B10C0A000000000000003103 /* CoreDataHuntRepository.swift */,
@@ -1058,6 +1085,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				BAC0B0000000000000000017 /* Backup */,
 				B1B60A000000000000000001 /* Bingo */,
 				12288E1CD133403AE92AAABC /* Shared */,
 				4269F7CC769B40E8C17EA8F1 /* Catch */,
@@ -1152,6 +1180,27 @@
 			);
 			name = Bingo;
 			path = Bingo;
+			sourceTree = "<group>";
+		};
+		BAC0B0000000000000000017 /* Backup */ = {
+			isa = PBXGroup;
+			children = (
+				BAC0B0000000000000000001 /* Backup.swift */,
+				BAC0B0000000000000000003 /* BackupRepository.swift */,
+			);
+			path = Backup;
+			sourceTree = "<group>";
+		};
+		BAC0B0000000000000000018 /* Backup */ = {
+			isa = PBXGroup;
+			children = (
+				BAC0B0000000000000000005 /* BackupDocument.swift */,
+				BAC0B0000000000000000007 /* BackupDTOs.swift */,
+				BAC0B0000000000000000009 /* ExportBackup.swift */,
+				BAC0B000000000000000000B /* GetBackupSummary.swift */,
+				BAC0B000000000000000000D /* RestoreBackup.swift */,
+			);
+			path = Backup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1302,6 +1351,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAC0B0000000000000000014 /* BackupHandlerTests.swift in Sources */,
+				BAC0B0000000000000000016 /* BackupPersistenceTests.swift in Sources */,
 				B1B60A000000000000000021 /* BingoHandlerTests.swift in Sources */,
 				B1B60A00000000000000001F /* BingoBoardTests.swift in Sources */,
 				966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */,
@@ -1345,6 +1396,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAC0B0000000000000000002 /* Backup.swift in Sources */,
+				BAC0B0000000000000000004 /* BackupRepository.swift in Sources */,
+				BAC0B0000000000000000006 /* BackupDocument.swift in Sources */,
+				BAC0B0000000000000000008 /* BackupDTOs.swift in Sources */,
+				BAC0B000000000000000000A /* ExportBackup.swift in Sources */,
+				BAC0B000000000000000000C /* GetBackupSummary.swift in Sources */,
+				BAC0B000000000000000000E /* RestoreBackup.swift in Sources */,
+				BAC0B0000000000000000010 /* CoreDataBackupRepository.swift in Sources */,
+				BAC0B0000000000000000012 /* BackupSettingsView.swift in Sources */,
 				B1B60A00000000000000001D /* BingoProgressText.swift in Sources */,
 				B1B60A00000000000000001B /* BingoSquareCell.swift in Sources */,
 				B1B60A000000000000000018 /* BingoBoardVC.swift in Sources */,
