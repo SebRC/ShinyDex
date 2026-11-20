@@ -66,4 +66,71 @@ class JourneyTests: XCTestCase {
 		XCTAssertEqual(decoded, journey.entries)
 		XCTAssertNotEqual(decoded[0].id, decoded[1].id, "The same species can be in a journey twice")
 	}
+
+	func test_phases_includeCatchesThatGotAway_andLeaveTheEntryUncaught() {
+		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur])
+		let caughtPhase = makeCatch(number: charmander, date: day(1))
+		let fledPhase = makeCatch(number: squirtle, date: day(2), isFailed: true)
+		journey.addPhase(caughtPhase.id, toEntry: journey.entries[0].id)
+		journey.addPhase(fledPhase.id, toEntry: journey.entries[0].id)
+		let catches = byId([caughtPhase, fledPhase])
+
+		XCTAssertEqual(journey.phases(for: journey.entries[0], in: catches).map { $0.id }, [caughtPhase.id, fledPhase.id])
+		XCTAssertEqual(journey.phaseCount(in: catches), 2)
+		XCTAssertEqual(journey.caughtCount(in: catches), 0)
+		XCTAssertEqual(journey.phaseCount(in: byId([fledPhase])), 1, "A deleted catch drops out of the phases")
+	}
+
+	func test_aCatchIsLinkedOncePerJourney_asTargetOrPhase() {
+		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, charmander])
+		let squirtleCatch = makeCatch(number: squirtle, date: day(1))
+		let bulbasaurCatch = makeCatch(number: bulbasaur, date: day(2))
+		journey.entries[0].catchId = bulbasaurCatch.id
+
+		XCTAssertTrue(journey.addPhase(squirtleCatch.id, toEntry: journey.entries[0].id))
+		XCTAssertFalse(journey.addPhase(squirtleCatch.id, toEntry: journey.entries[1].id))
+		XCTAssertFalse(journey.addPhase(bulbasaurCatch.id, toEntry: journey.entries[1].id))
+		XCTAssertTrue(journey.isLinked(squirtleCatch))
+
+		journey.removePhase(squirtleCatch.id, fromEntry: journey.entries[0].id)
+
+		XCTAssertFalse(journey.isLinked(squirtleCatch))
+	}
+
+	func test_timeline_interleavesPhasesByDate_withPhasesBeforeTheirTargetOnTheSameDay() {
+		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, charmander])
+		let bulbasaurCatch = makeCatch(number: bulbasaur, date: day(5))
+		let sameDayPhase = makeCatch(number: squirtle, date: day(5), isFailed: true)
+		let earlyPhase = makeCatch(number: squirtle, date: day(1))
+		let charmanderCatch = makeCatch(number: charmander, date: day(3))
+		journey.entries[0].catchId = bulbasaurCatch.id
+		journey.entries[1].catchId = charmanderCatch.id
+		journey.addPhase(sameDayPhase.id, toEntry: journey.entries[0].id)
+		journey.addPhase(earlyPhase.id, toEntry: journey.entries[1].id)
+
+		let timeline = journey.timeline(in: byId([bulbasaurCatch, sameDayPhase, earlyPhase, charmanderCatch]))
+
+		XCTAssertEqual(timeline.map { $0.caught.id }, [earlyPhase.id, charmanderCatch.id, sameDayPhase.id, bulbasaurCatch.id])
+		XCTAssertEqual(timeline.map { $0.isPhase }, [true, false, true, false])
+		XCTAssertEqual(timeline.map { $0.entry.number }, [charmander, charmander, bulbasaur, bulbasaur])
+	}
+
+	func test_phases_roundTripThroughTheirStoredForm() throws {
+		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur])
+		journey.entries[0].phaseCatchIds = [UUID(), UUID()]
+
+		let decoded = try XCTUnwrap(StoredJourneyEntry.decode(StoredJourneyEntry.encode(journey.entries)))
+
+		XCTAssertEqual(decoded, journey.entries)
+	}
+
+	func test_entriesStoredBeforePhases_decodeWithoutPhases() throws {
+		let entryId = UUID(), catchId = UUID()
+		let json = "[{\"id\":\"\(entryId.uuidString)\",\"number\":25,\"catchId\":\"\(catchId.uuidString)\"}]"
+
+		let decoded = try XCTUnwrap(StoredJourneyEntry.decode(json))
+
+		XCTAssertEqual(decoded, [JourneyEntry(id: entryId, number: 25, catchId: catchId)])
+		XCTAssertFalse(StoredJourneyEntry.encode(decoded).contains("phaseCatchIds"), "Entries without phases keep their old stored form")
+	}
 }

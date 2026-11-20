@@ -15,11 +15,25 @@ class JourneyDetailTVC: UITableViewController {
 	fileprivate let container: AppContainer
 	fileprivate let journeyId: JourneyID
 	fileprivate var journey: JourneyDetails
-	fileprivate var timeline: [CatchSummary] {
+	fileprivate var timeline: [JourneyTimelineStep] {
 		return journey.timeline
 	}
+	fileprivate enum PokemonRow {
+		case entry(JourneyEntryDetails)
+		case phase(CatchSummary, of: JourneyEntryDetails)
+	}
+
 	fileprivate let header = JourneyHeaderView()
 	fileprivate var mode = Mode.pokemon
+	fileprivate var expandedEntryIds = Set<JourneyEntryID>()
+	fileprivate var isReordering = false
+
+	fileprivate var pokemonRows: [PokemonRow] {
+		return journey.entries.flatMap { entry -> [PokemonRow] in
+			let phaseRows = expandedEntryIds.contains(entry.id) ? entry.phases.map { PokemonRow.phase($0, of: entry) } : []
+			return [.entry(entry)] + phaseRows
+		}
+	}
 
 	init?(container: AppContainer, journeyId: JourneyID) {
 		guard let journey = container.getJourneyDetails.handle(GetJourneyDetailsQuery(journeyId: journeyId)) else { return nil }
@@ -48,6 +62,7 @@ class JourneyDetailTVC: UITableViewController {
 		tableView.estimatedRowHeight = 72
 		tableView.register(JourneyEntryCell.self, forCellReuseIdentifier: JourneyEntryCell.reuseIdentifier)
 		tableView.register(TimelineCell.self, forCellReuseIdentifier: TimelineCell.reuseIdentifier)
+		tableView.register(PhaseCell.self, forCellReuseIdentifier: PhaseCell.reuseIdentifier)
 		header.onModeChange = { [weak self] index in
 			self?.mode = Mode(rawValue: index) ?? .pokemon
 			self?.setEditing(false, animated: false)
@@ -85,7 +100,7 @@ class JourneyDetailTVC: UITableViewController {
 	fileprivate func reload() {
 		refreshJourney()
 		title = journey.name
-		header.configure(caught: journey.caughtCount, total: journey.entries.count, firstCatch: timeline.first?.caughtDate)
+		header.configure(caught: journey.caughtCount, total: journey.entries.count, phases: journey.phaseCount, firstCatch: timeline.first { !$0.isPhase }?.caught.caughtDate)
 		tableView.reloadData()
 		updateEmptyState()
 	}
@@ -95,7 +110,7 @@ class JourneyDetailTVC: UITableViewController {
 		case .pokemon where journey.entries.isEmpty:
 			tableView.backgroundView = EmptyStateView(symbolName: "plus.circle", title: "No Pokémon yet", message: "Tap + to add the Pokémon this journey is about.")
 		case .timeline where timeline.isEmpty:
-			tableView.backgroundView = EmptyStateView(symbolName: "calendar", title: "Nothing caught yet", message: "Link a catch to a Pokémon in this journey and it shows up here, in the order you caught them.")
+			tableView.backgroundView = EmptyStateView(symbolName: "calendar", title: "Nothing caught yet", message: "Link a catch or log a phase for a Pokémon in this journey and it shows up here, in the order you found them.")
 		default:
 			tableView.backgroundView = nil
 		}
@@ -105,27 +120,35 @@ class JourneyDetailTVC: UITableViewController {
 	// MARK: Table
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return mode == .pokemon ? journey.entries.count : timeline.count
+		return mode == .pokemon ? pokemonRows.count : timeline.count
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		guard mode == .pokemon, !journey.entries.isEmpty else { return nil }
-		return "Adding a Pokémon you've already caught doesn't tick it off. Tap it and link the catch you made for this journey."
+		return "Adding a Pokémon you've already caught doesn't tick it off. Tap it to link the catch you made for this journey, or to log phases you found along the way. Tap its phases to show them."
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch mode {
 		case .pokemon:
-			let cell = tableView.dequeueReusableCell(withIdentifier: JourneyEntryCell.reuseIdentifier, for: indexPath) as! JourneyEntryCell
-			let entry = journey.entries[indexPath.row]
-			cell.configure(entry: entry)
-			return cell
+			switch pokemonRows[indexPath.row] {
+			case .entry(let entry):
+				let cell = tableView.dequeueReusableCell(withIdentifier: JourneyEntryCell.reuseIdentifier, for: indexPath) as! JourneyEntryCell
+				cell.configure(entry: entry, phasesExpanded: expandedEntryIds.contains(entry.id))
+				cell.onPhasesTapped = { [weak self] in self?.togglePhases(of: entry) }
+				return cell
+			case .phase(let phase, _):
+				let cell = tableView.dequeueReusableCell(withIdentifier: PhaseCell.reuseIdentifier, for: indexPath) as! PhaseCell
+				cell.configure(phase: phase)
+				return cell
+			}
 		case .timeline:
 			let cell = tableView.dequeueReusableCell(withIdentifier: TimelineCell.reuseIdentifier, for: indexPath) as! TimelineCell
-			let caught = timeline[indexPath.row]
-			let previousDate = indexPath.row > 0 ? timeline[indexPath.row - 1].caughtDate : nil
-			cell.configure(step: indexPath.row + 1,
-						   caught: caught,
+			let step = timeline[indexPath.row]
+			let previousDate = indexPath.row > 0 ? timeline[indexPath.row - 1].caught.caughtDate : nil
+			let catchNumber = step.isPhase ? nil : timeline[...indexPath.row].filter { !$0.isPhase }.count
+			cell.configure(catchNumber: catchNumber,
+						   step: step,
 						   previousDate: previousDate,
 						   isFirst: indexPath.row == 0,
 						   isLast: indexPath.row == timeline.count - 1)
@@ -137,9 +160,12 @@ class JourneyDetailTVC: UITableViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 		switch mode {
 		case .pokemon:
-			showActions(for: journey.entries[indexPath.row], at: indexPath)
+			switch pokemonRows[indexPath.row] {
+			case .entry(let entry): showActions(for: entry, at: indexPath)
+			case .phase(let phase, _): showCatch(phase)
+			}
 		case .timeline:
-			showCatch(timeline[indexPath.row])
+			showCatch(timeline[indexPath.row].caught)
 		}
 	}
 
@@ -148,7 +174,7 @@ class JourneyDetailTVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-		return mode == .pokemon
+		return mode == .pokemon && isReordering
 	}
 
 	override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -158,17 +184,24 @@ class JourneyDetailTVC: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		guard mode == .pokemon else { return nil }
-		let entry = journey.entries[indexPath.row]
-		let remove = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, done in
-			self?.remove(entry)
-			done(false)
+		switch pokemonRows[indexPath.row] {
+		case .entry(let entry):
+			let remove = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, done in
+				self?.remove(entry)
+				done(false)
+			}
+			return UISwipeActionsConfiguration(actions: [remove])
+		case .phase(let phase, let entry):
+			let unlink = UIContextualAction(style: .destructive, title: "Unlink") { [weak self] _, _, done in
+				self?.unlinkPhase(phase, from: entry)
+				done(true)
+			}
+			return UISwipeActionsConfiguration(actions: [unlink])
 		}
-		return UISwipeActionsConfiguration(actions: [remove])
 	}
 
 	override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-		guard mode == .pokemon else { return nil }
-		let entry = journey.entries[indexPath.row]
+		guard mode == .pokemon, case .entry(let entry) = pokemonRows[indexPath.row] else { return nil }
 		guard entry.linkedCatch == nil, entry.linkableCatchCount > 0 else { return nil }
 		let link = UIContextualAction(style: .normal, title: "Link catch") { [weak self] _, _, done in
 			self?.pickCatch(for: entry)
@@ -196,6 +229,7 @@ class JourneyDetailTVC: UITableViewController {
 		else if (!linkable.isEmpty) {
 			sheet.addAction(UIAlertAction(title: "Link a catch", style: .default) { [weak self] _ in self?.pickCatch(for: entry) })
 		}
+		sheet.addAction(UIAlertAction(title: "Log a phase", style: .default) { [weak self] _ in self?.logPhase(for: entry) })
 		sheet.addAction(UIAlertAction(title: "Remove from journey", style: .destructive) { [weak self] _ in self?.remove(entry) })
 		sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 		sheet.view.tintColor = Color.Orange500
@@ -213,6 +247,41 @@ class JourneyDetailTVC: UITableViewController {
 		navigationController?.pushViewController(picker, animated: true)
 	}
 
+	fileprivate func logPhase(for entry: JourneyEntryDetails) {
+		let picker = LinkCatchTVC(container: container, journeyId: journeyId, entry: entry, role: .phase) { [weak self] caught in
+			guard let self = self else { return }
+			self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .addPhase(entry: entry.id, catchId: caught.id)))
+			self.expandedEntryIds.insert(entry.id)
+			Haptics.success()
+		}
+		navigationController?.pushViewController(picker, animated: true)
+	}
+
+	fileprivate func unlinkPhase(_ phase: CatchSummary, from entry: JourneyEntryDetails) {
+		container.updateJourney.handle(UpdateJourneyCommand(journeyId: journeyId, change: .removePhase(entry: entry.id, catchId: phase.id)))
+		reload()
+	}
+
+	fileprivate func togglePhases(of entry: JourneyEntryDetails) {
+		guard !isReordering, let entryRow = pokemonRows.firstIndex(where: { row in
+			if case .entry(let candidate) = row { return candidate.id == entry.id }
+			return false
+		}) else { return }
+		let phaseIndexPaths = entry.phases.indices.map { IndexPath(row: entryRow + 1 + $0, section: 0) }
+		let isExpanding = !expandedEntryIds.contains(entry.id)
+		tableView.performBatchUpdates {
+			if (isExpanding) {
+				expandedEntryIds.insert(entry.id)
+				tableView.insertRows(at: phaseIndexPaths, with: .fade)
+			}
+			else {
+				expandedEntryIds.remove(entry.id)
+				tableView.deleteRows(at: phaseIndexPaths, with: .fade)
+			}
+		}
+		(tableView.cellForRow(at: IndexPath(row: entryRow, section: 0)) as? JourneyEntryCell)?.setPhasesExpanded(isExpanding)
+	}
+
 	fileprivate func link(_ caught: CatchSummary?, to entry: JourneyEntryDetails) {
 		container.updateJourney.handle(UpdateJourneyCommand(journeyId: journeyId, change: .link(entry: entry.id, catchId: caught?.id)))
 		if (caught != nil) {
@@ -227,13 +296,13 @@ class JourneyDetailTVC: UITableViewController {
 			self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .removeEntry(entry.id)))
 			self.reload()
 		}
-		guard entry.linkedCatch != nil else {
+		guard entry.linkedCatch != nil || !entry.phases.isEmpty else {
 			removeEntry()
 			return
 		}
 		let name = entry.pokemonName ?? "this Pokémon"
 		presentDestructiveConfirmation(title: "Remove \(name)?",
-									   message: "Its linked catch is unlinked from this journey. The catch stays in your collection.",
+									   message: "Its linked catch and phases are unlinked from this journey. The catches stay in your collection.",
 									   destructiveTitle: "Remove",
 									   onConfirm: removeEntry)
 	}
@@ -283,7 +352,19 @@ class JourneyDetailTVC: UITableViewController {
 			header.selectMode(Mode.pokemon.rawValue)
 			reload()
 		}
-		setEditing(!isEditing, animated: true)
+		isReordering = !isEditing
+		if (isReordering && !expandedEntryIds.isEmpty) {
+			expandedEntryIds.removeAll()
+			tableView.reloadData()
+		}
+		setEditing(isReordering, animated: true)
+	}
+
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		if (!editing) {
+			isReordering = false
+		}
+		super.setEditing(editing, animated: animated)
 	}
 
 	fileprivate func confirmDelete() {
@@ -359,16 +440,18 @@ fileprivate class JourneyHeaderView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(caught: Int, total: Int, firstCatch: Date?) {
+	func configure(caught: Int, total: Int, phases: Int, firstCatch: Date?) {
 		countLabel.text = "\(caught) / \(total)"
+		let phasesText = phases == 0 ? nil : (phases == 1 ? "1 phase" : "\(phases.grouped) phases")
 		if (total > 0 && caught == total) {
-			detailLabel.text = "Journey complete"
+			detailLabel.text = ["Journey complete", phasesText].compactMap { $0 }.joined(separator: " · ")
 			detailLabel.textColor = Color.Orange500
 		}
 		else {
 			let remaining = total - caught
 			let remainingText = remaining == 1 ? "1 to go" : "\(remaining) to go"
-			detailLabel.text = firstCatch.map { "\(remainingText) · first catch \(DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none))" } ?? remainingText
+			let firstCatchText = firstCatch.map { "first catch \(DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none))" }
+			detailLabel.text = [remainingText, phasesText, firstCatchText].compactMap { $0 }.joined(separator: " · ")
 			detailLabel.textColor = Color.Grey400
 		}
 		progressBar.progress = total == 0 ? 0 : Float(caught) / Float(total)
@@ -390,8 +473,11 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 	fileprivate let sprite = UIImageView()
 	fileprivate let nameLabel = UILabel(fontSize: 17, weight: .semibold)
 	fileprivate let statusLabel = UILabel(fontSize: 13, color: Color.Grey400)
+	fileprivate let phasesButton = UIButton(type: .system)
 	fileprivate let ballView = UIImageView()
 	fileprivate let statusIcon = UIImageView()
+	fileprivate var phaseCount = 0
+	var onPhasesTapped: (() -> Void)?
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -409,7 +495,15 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 		let statusRow = UIStackView(arrangedSubviews: [ballView, statusLabel])
 		statusRow.spacing = 4
 		statusRow.alignment = .center
-		let labels = UIStackView(arrangedSubviews: [nameLabel, statusRow])
+		phasesButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+		phasesButton.tintColor = Color.Orange500
+		phasesButton.semanticContentAttribute = .forceRightToLeft
+		phasesButton.contentHorizontalAlignment = .leading
+		phasesButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+		phasesButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 4)
+		phasesButton.addTarget(self, action: #selector(phasesPressed), for: .touchUpInside)
+		let labels = UIStackView(arrangedSubviews: [nameLabel, statusRow, phasesButton])
+		labels.alignment = .leading
 		labels.axis = .vertical
 		labels.spacing = 2
 		let row = UIStackView(arrangedSubviews: [sprite, labels, statusIcon])
@@ -433,7 +527,7 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(entry: JourneyEntryDetails) {
+	func configure(entry: JourneyEntryDetails, phasesExpanded: Bool) {
 		let linked = entry.linkedCatch
 		let linkableCount = entry.linkableCatchCount
 		let name = entry.pokemonName ?? "Unknown"
@@ -464,8 +558,90 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 			statusIcon.image = UIImage.symbol(linkableCount == 0 ? "circle" : "link", pointSize: 18, weight: .semibold)
 			statusIcon.tintColor = Color.Grey500
 		}
-		accessibilityLabel = "\(name), \(linked == nil ? "" : "caught, ")\(statusLabel.text ?? "")"
+		phaseCount = entry.phases.count
+		phasesButton.setTitle(phaseCount == 1 ? "1 phase" : "\(phaseCount) phases", for: .normal)
+		phasesButton.isHidden = phaseCount == 0
+		setPhasesExpanded(phasesExpanded)
+		accessibilityLabel = ["\(name), \(linked == nil ? "" : "caught, ")\(statusLabel.text ?? "")", phaseCount == 0 ? nil : phasesButton.currentTitle].compactMap { $0 }.joined(separator: ", ")
 		accessibilityTraits = .button
+	}
+
+	func setPhasesExpanded(_ expanded: Bool) {
+		phasesButton.setImage(UIImage.symbol(expanded ? "chevron.up" : "chevron.down", pointSize: 11, weight: .bold), for: .normal)
+		let toggleTitle = expanded ? "Hide phases" : "Show phases"
+		phasesButton.accessibilityLabel = toggleTitle
+		accessibilityCustomActions = phaseCount == 0 ? nil : [UIAccessibilityCustomAction(name: toggleTitle) { [weak self] _ in
+			self?.onPhasesTapped?()
+			return true
+		}]
+	}
+
+	@objc fileprivate func phasesPressed() {
+		onPhasesTapped?()
+	}
+}
+
+fileprivate class PhaseCell: UITableViewCell {
+	static let reuseIdentifier = "journeyPhaseCell"
+
+	fileprivate let connector = UIView()
+	fileprivate let sprite = UIImageView()
+	fileprivate let titleLabel = UILabel(fontSize: 15, weight: .semibold)
+	fileprivate let subtitleLabel = UILabel(fontSize: 12, color: Color.Grey400)
+	fileprivate let outcomeView = UIImageView()
+
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		backgroundColor = Color.Grey800
+		let selectedBackground = UIView()
+		selectedBackground.backgroundColor = Color.Grey700
+		selectedBackgroundView = selectedBackground
+		accessoryType = .disclosureIndicator
+		separatorInset = UIEdgeInsets(top: 0, left: 76, bottom: 0, right: 0)
+		connector.backgroundColor = Color.Grey600
+		for imageView in [sprite, outcomeView] {
+			imageView.contentMode = .scaleAspectFit
+			imageView.layer.magnificationFilter = .nearest
+		}
+
+		let labels = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+		labels.axis = .vertical
+		labels.spacing = 1
+		let row = UIStackView(arrangedSubviews: [sprite, labels, outcomeView])
+		row.alignment = .center
+		row.spacing = 8
+		contentView.addAutoLayoutSubviews(connector, row)
+		NSLayoutConstraint.activate([
+			connector.centerXAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+			connector.topAnchor.constraint(equalTo: contentView.topAnchor),
+			connector.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			connector.widthAnchor.constraint(equalToConstant: 2),
+			row.leadingAnchor.constraint(equalTo: connector.trailingAnchor, constant: 12),
+			row.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+			row.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+			row.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+			sprite.widthAnchor.constraint(equalToConstant: 40),
+			sprite.heightAnchor.constraint(equalToConstant: 40),
+			outcomeView.widthAnchor.constraint(equalToConstant: 24),
+			outcomeView.heightAnchor.constraint(equalToConstant: 24)
+		])
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	func configure(phase: CatchSummary) {
+		sprite.image = UIImage(named: phase.pokemonName.lowercased())
+		sprite.alpha = phase.isFailed ? 0.55 : 1
+		titleLabel.text = [phase.nickname, phase.pokemonName].compactMap { $0 }.joined(separator: " · ")
+		titleLabel.textColor = phase.isFailed ? Color.Grey300 : Color.Grey200
+		let outcome = phase.isFailed ? "Got away" : phase.ballName
+		subtitleLabel.text = [outcome, "\(phase.encounters.grouped) encounters", phase.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
+		outcomeView.image = phase.isFailed ? UIImage.symbol("wind", pointSize: 15, weight: .semibold) : UIImage(named: phase.caughtBall)
+		outcomeView.tintColor = Color.Grey500
+		outcomeView.contentMode = phase.isFailed ? .center : .scaleAspectFit
+		accessibilityLabel = "Phase, \(titleLabel.text ?? ""), \(subtitleLabel.text ?? "")"
 	}
 }
 
@@ -547,8 +723,19 @@ fileprivate class TimelineCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(step: Int, caught: CatchSummary, previousDate: Date?, isFirst: Bool, isLast: Bool) {
-		dot.text = "\(step)"
+	func configure(catchNumber: Int?, step: JourneyTimelineStep, previousDate: Date?, isFirst: Bool, isLast: Bool) {
+		let caught = step.caught
+		if let catchNumber = catchNumber {
+			dot.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .bold)
+			dot.text = "\(catchNumber)"
+			dot.backgroundColor = Color.Orange500
+		}
+		else {
+			let sparkle = UIImage.symbol("sparkle", pointSize: 11, weight: .bold)?.withTintColor(Color.Grey900, renderingMode: .alwaysOriginal)
+			dot.attributedText = sparkle.map { NSAttributedString(attachment: NSTextAttachment(image: $0)) }
+			dot.backgroundColor = Color.Grey500
+		}
+		dot.textAlignment = .center
 		topRail.isHidden = isFirst
 		bottomRail.isHidden = isLast
 		dateLabel.text = caught.formattedCaughtDate ?? "Undated"
@@ -558,8 +745,12 @@ fileprivate class TimelineCell: UITableViewCell {
 		nameLabel.text = name
 		sprite.image = UIImage(named: name.lowercased())
 		ballView.image = UIImage(named: caught.caughtBall)
-		detailLabel.text = "\(caught.encounters.grouped) encounters\n\(caught.ballName) · \(caught.game.displayName)"
-		accessibilityLabel = "Catch \(step), \(name), \(dateLabel.text ?? ""), \(gapLabel.text ?? ""), \(detailLabel.text ?? "")"
+		ballView.isHidden = caught.isFailed
+		let outcome = caught.isFailed ? "Got away" : caught.ballName
+		let details = "\(caught.encounters.grouped) encounters\n\(outcome) · \(caught.game.displayName)"
+		detailLabel.text = step.isPhase ? "Phase while hunting \(step.entryPokemonName ?? "Unknown")\n\(details)" : details
+		let stepTitle = catchNumber.map { "Catch \($0)" } ?? "Phase"
+		accessibilityLabel = "\(stepTitle), \(name), \(dateLabel.text ?? ""), \(gapLabel.text ?? ""), \(detailLabel.text ?? "")"
 		accessibilityTraits = .button
 	}
 

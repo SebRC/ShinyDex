@@ -29,9 +29,12 @@ final class GetJourneyDetailsHandler {
                 number: entry.number,
                 pokemonName: allPokemon[safe: entry.number]?.name,
                 linkedCatch: linked.flatMap(mapper.summary),
-                linkableCatchCount: linked == nil ? links.linkable(for: entry, in: journey).count : 0)
+                linkableCatchCount: linked == nil ? links.linkable(for: entry, in: journey).count : 0,
+                phases: journey.phases(for: entry, in: links.catchesById).compactMap(mapper.summary))
         }
-        let timeline = journey.timeline(in: links.catchesById).compactMap { mapper.summary(of: $0.caught) }
+        let timeline = journey.timeline(in: links.catchesById).compactMap { step in
+            mapper.summary(of: step.caught).map { JourneyTimelineStep(caught: $0, isPhase: step.isPhase, entryPokemonName: allPokemon[safe: step.entry.number]?.name) }
+        }
         return JourneyDetails(id: query.journeyId, name: journey.name, entries: entries, timeline: timeline)
     }
 }

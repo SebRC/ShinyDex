@@ -25,9 +25,9 @@ final class JourneyHandlerTests: XCTestCase {
             .handle(GetJourneyDetailsQuery(journeyId: id))
     }
 
-    private func linkable(_ id: JourneyID, _ entry: JourneyEntryID) -> [CatchSummary] {
+    private func linkable(_ id: JourneyID, _ entry: JourneyEntryID, as role: JourneyCatchRole = .target) -> [CatchSummary] {
         return GetLinkableCatchesHandler(journeyRepository: journeys, catchRepository: catches, pokemonRepository: pokemon, evolutions: evolutions)
-            .handle(GetLinkableCatchesQuery(journeyId: id, entryId: entry))
+            .handle(GetLinkableCatchesQuery(journeyId: id, entryId: entry, role: role))
     }
 
     func test_linkingACatch_ticksTheEntryOff_andShowsItOnTheTimeline() {
@@ -44,7 +44,7 @@ final class JourneyHandlerTests: XCTestCase {
         let linked = details(id)!
         XCTAssertEqual(linked.caughtCount, 1)
         XCTAssertEqual(linked.entries[0].linkedCatch?.pokemonName, "Ivysaur")
-        XCTAssertEqual(linked.timeline.map { $0.id }, [ivysaurCatch])
+        XCTAssertEqual(linked.timeline.map { $0.caught.id }, [ivysaurCatch])
     }
 
     func test_aCatchCanOnlyBeLinkedOncePerJourney() {
@@ -71,5 +71,36 @@ final class JourneyHandlerTests: XCTestCase {
 
         DeleteJourneyHandler(journeyRepository: journeys).handle(DeleteJourneyCommand(journeyId: id))
         XCTAssertNil(details(id))
+    }
+
+    func test_phaseCandidates_areOtherSpecies_includingOnesThatGotAway() {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Grass", pokemonNumbers: [0]))
+        _ = logCatch(1)
+        let fledCharmander = logCatch(3, isFailed: true)
+        let entry = details(id)!.entries[0]
+
+        XCTAssertEqual(linkable(id, entry.id, as: .phase).map { $0.id }, [fledCharmander], "The entry's own evolution line isn't a phase")
+    }
+
+    func test_loggingAPhase_showsItOnTheEntryAndTimeline_withoutTickingTheEntryOff() {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Grass", pokemonNumbers: [0, 3]))
+        let charmanderPhase = logCatch(3, isFailed: true)
+        let entries = details(id)!.entries
+        let update = UpdateJourneyHandler(journeyRepository: journeys)
+
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .addPhase(entry: entries[0].id, catchId: charmanderPhase)))
+
+        let logged = details(id)!
+        XCTAssertEqual(logged.entries[0].phases.map { $0.id }, [charmanderPhase])
+        XCTAssertEqual(logged.phaseCount, 1)
+        XCTAssertEqual(logged.caughtCount, 0)
+        XCTAssertEqual(logged.timeline, [JourneyTimelineStep(caught: logged.entries[0].phases[0], isPhase: true, entryPokemonName: "Bulbasaur")])
+        XCTAssertTrue(linkable(id, entries[0].id, as: .phase).isEmpty, "A logged phase isn't offered again")
+        XCTAssertEqual(logged.entries[1].linkableCatchCount, 0, "A phase can't also be linked as another entry's catch")
+
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .removePhase(entry: entries[0].id, catchId: charmanderPhase)))
+
+        XCTAssertTrue(details(id)!.entries[0].phases.isEmpty)
+        XCTAssertTrue(details(id)!.timeline.isEmpty)
     }
 }
