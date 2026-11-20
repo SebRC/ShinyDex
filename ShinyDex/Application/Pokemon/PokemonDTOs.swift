@@ -44,7 +44,8 @@ struct PokemonDetails: Equatable {
     let increment: Int
     let settings: HuntSettings
     let shinyOdds: Int
-    let chainThreshold: Int
+    let chain: Int
+    let usesChain: Bool
     let probability: Double
     let caughtBall: String
     let catchCount: Int
@@ -73,7 +74,8 @@ struct PokemonDetailsMapper {
 
     func makeDetails(of pokemon: Pokemon, catchCount: Int) -> PokemonDetails {
         let configuration = pokemon.huntConfiguration
-        let shinyOdds = odds.getShinyOdds(configuration: configuration, encounters: pokemon.encounters)
+        let shinyOdds = odds.getShinyOdds(configuration: configuration, chain: pokemon.chain)
+        let calculator = ShinyChanceCalculator(odds: odds, probability: probability)
         return PokemonDetails(
             number: pokemon.number,
             name: pokemon.name,
@@ -81,8 +83,9 @@ struct PokemonDetailsMapper {
             increment: pokemon.increment,
             settings: HuntSettings(configuration),
             shinyOdds: shinyOdds,
-            chainThreshold: configuration.chainThreshold,
-            probability: probability.getProbability(encounters: pokemon.encounters - configuration.chainThreshold, shinyOdds: shinyOdds),
+            chain: pokemon.chain,
+            usesChain: configuration.usesChain,
+            probability: calculator.calculateChance(encounters: pokemon.encounters, chain: pokemon.chain, configuration: configuration),
             caughtBall: pokemon.caughtBall,
             catchCount: catchCount,
             isBeingHunted: pokemon.isBeingHunted)

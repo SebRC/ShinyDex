@@ -263,6 +263,9 @@
 		0DD551700000000000000005 /* SimulateOdds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000004 /* SimulateOdds.swift */; };
 		0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000006 /* OddsSimulatorVC.swift */; };
 		0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000008 /* OddsSimulatorTests.swift */; };
+		C4A1A0000000000000000002 /* ChangeChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A0000000000000000001 /* ChangeChain.swift */; };
+		C4A1A0000000000000000004 /* HuntCounterText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A0000000000000000003 /* HuntCounterText.swift */; };
+		C4A1A0000000000000000006 /* HuntChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A0000000000000000005 /* HuntChainTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -524,6 +527,7 @@
 		B1B60A000000000000000020 /* BingoHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoHandlerTests.swift; sourceTree = "<group>"; };
 		B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 8.xcdatamodel"; sourceTree = "<group>"; };
 		F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 9.xcdatamodel"; sourceTree = "<group>"; };
+		F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 10.xcdatamodel"; sourceTree = "<group>"; };
 		BAC0B0000000000000000001 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		BAC0B0000000000000000003 /* BackupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRepository.swift; sourceTree = "<group>"; };
 		BAC0B0000000000000000005 /* BackupDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupDocument.swift; sourceTree = "<group>"; };
@@ -546,6 +550,9 @@
 		0DD551700000000000000004 /* SimulateOdds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateOdds.swift; sourceTree = "<group>"; };
 		0DD551700000000000000006 /* OddsSimulatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsSimulatorVC.swift; sourceTree = "<group>"; };
 		0DD551700000000000000008 /* OddsSimulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsSimulatorTests.swift; sourceTree = "<group>"; };
+		C4A1A0000000000000000001 /* ChangeChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeChain.swift; sourceTree = "<group>"; };
+		C4A1A0000000000000000003 /* HuntCounterText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntCounterText.swift; sourceTree = "<group>"; };
+		C4A1A0000000000000000005 /* HuntChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntChainTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -812,6 +819,7 @@
 		74800DB66393B78C353B2B60 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				C4A1A0000000000000000001 /* ChangeChain.swift */,
 				F0A1B2000000000000000003 /* GetPokemonForms.swift */,
 				759D1CE442FD135517E1ED30 /* ApplyHuntSettingsToAll.swift */,
 				78B33A2D5D2A2AD856B1FE1B /* ChangeEncounters.swift */,
@@ -872,6 +880,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				C4A1A0000000000000000005 /* HuntChainTests.swift */,
 				0DD551700000000000000008 /* OddsSimulatorTests.swift */,
 				F0A1B200000000000000000B /* PokemonFormsTests.swift */,
 				BAC0B0000000000000000013 /* BackupHandlerTests.swift */,
@@ -1089,6 +1098,7 @@
 		E8811AC4641D3747098C7826 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C4A1A0000000000000000003 /* HuntCounterText.swift */,
 				F0A1B2000000000000000101 /* FormPicker.swift */,
 				F0A1B2000000000000000007 /* PokemonSprites.swift */,
 				D19809F1653E932226FF52BB /* Alerts.swift */,
@@ -1394,6 +1404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A1A0000000000000000006 /* HuntChainTests.swift in Sources */,
 				0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */,
 				F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */,
 				BAC0B0000000000000000014 /* BackupHandlerTests.swift in Sources */,
@@ -1441,6 +1452,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A1A0000000000000000004 /* HuntCounterText.swift in Sources */,
+				C4A1A0000000000000000002 /* ChangeChain.swift in Sources */,
 				0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */,
 				0DD551700000000000000005 /* SimulateOdds.swift in Sources */,
 				0DD551700000000000000002 /* ShinyChanceCalculator.swift in Sources */,
@@ -1912,8 +1925,9 @@
 				B10C0A000000000000004004 /* ShinyDex 7.xcdatamodel */,
 				B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */,
 				F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */,
+				F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */,
 			);
-			currentVersion = F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */;
+			currentVersion = F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

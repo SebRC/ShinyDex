@@ -136,6 +136,7 @@ final class StoreMigrationTests: XCTestCase {
         XCTAssertEqual(ralts.name, "Ralts", file: file, line: line)
         XCTAssertEqual(ralts.number, 279, file: file, line: line)
         XCTAssertEqual(ralts.encounters, 4321, file: file, line: line)
+        XCTAssertEqual(ralts.chain, 0, file: file, line: line)
         XCTAssertEqual(ralts.caughtDescription, "Caught", file: file, line: line)
         XCTAssertEqual(ralts.caughtBall, "dream", file: file, line: line)
         XCTAssertTrue(ralts.isBeingHunted, file: file, line: line)

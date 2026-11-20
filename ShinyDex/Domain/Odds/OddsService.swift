@@ -11,10 +11,10 @@ class OddsService {
 	fileprivate let dexNavOddsService = DexNavOddsService()
 
 	func getShinyOdds(pokemon: Pokemon) -> Int {
-		return getShinyOdds(configuration: pokemon.huntConfiguration, encounters: pokemon.encounters)
+		return getShinyOdds(configuration: pokemon.huntConfiguration, chain: pokemon.chain)
 	}
 
-	func getShinyOdds(configuration: HuntConfiguration, encounters: Int) -> Int {
+	func getShinyOdds(configuration: HuntConfiguration, chain: Int) -> Int {
 		let generation = configuration.generation
 		let isCharmActive = configuration.isShinyCharmActive
 		let huntMethod = configuration.huntMethod
@@ -24,20 +24,20 @@ class OddsService {
 		case .Masuda:
 			return masudaOddsService.getOdds(generation: generation, isCharmActive: isCharmActive)
 		case .Pokeradar:
-			return pokeradarOddsService.getOdds(chain: encounters)
+			return pokeradarOddsService.getOdds(chain: chain, generation: generation)
 		case .FriendSafari:
 			return friendSafariOddsService.getOdds(isShinyCharmActive: isCharmActive)
 		case .ChainFishing:
-			return chainFishingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
+			return chainFishingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: chain)
 		case .DexNav:
-			return dexNavOddsService.getOdds(searchLevel: encounters, isShinyCharmActive: isCharmActive)
+			return dexNavOddsService.getOdds(searchLevel: min(chain, configuration.chainForBestOdds), isShinyCharmActive: isCharmActive)
 		case .SosChaining:
-			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: encounters)
+			return sosChainingOddsService.getOdds(isShinyCharmActive: isCharmActive, chain: chain)
         case .Lure:
-            return lgpeOddsService.getOdds(huntMethod: huntMethod, isShinyCharmActive: isCharmActive, catchCombo: encounters)
+            return lgpeOddsService.getOdds(huntMethod: huntMethod, isShinyCharmActive: isCharmActive, catchCombo: chain)
 		default:
             if(configuration.game == .LetsGoPikachu || configuration.game == .LetsGoEevee) {
-                return lgpeOddsService.getOdds(huntMethod: huntMethod, isShinyCharmActive: isCharmActive, catchCombo: encounters)
+                return lgpeOddsService.getOdds(huntMethod: huntMethod, isShinyCharmActive: isCharmActive, catchCombo: chain)
             }
 			if (generation < 5) {
 				return 8192

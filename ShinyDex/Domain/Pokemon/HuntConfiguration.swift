@@ -27,10 +27,17 @@ struct HuntConfiguration: Equatable {
         return configuration
     }
 
-    // Encounters that build up a chain or combo before boosted odds apply.
-    var chainThreshold: Int {
-        if huntMethod == .SosChaining || huntMethod == .Lure || generation == 0 {
-            return 30
+    var isLetsGo: Bool {
+        return game == .LetsGoPikachu || game == .LetsGoEevee || generation == 0
+    }
+
+    var usesChain: Bool {
+        return isLetsGo || [.Pokeradar, .ChainFishing, .SosChaining, .DexNav, .Lure].contains(huntMethod)
+    }
+
+    var chainForBestOdds: Int {
+        if isLetsGo || huntMethod == .Lure || huntMethod == .SosChaining {
+            return 31
         }
         switch huntMethod {
         case .ChainFishing: return 20
@@ -38,6 +45,10 @@ struct HuntConfiguration: Equatable {
         case .DexNav: return 999
         default: return 0
         }
+    }
+
+    func makeChainFromLegacyEncounters(_ encounters: Int) -> Int {
+        return usesChain ? min(max(encounters, 0), chainForBestOdds) : 0
     }
 }
 

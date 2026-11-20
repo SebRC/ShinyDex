@@ -16,7 +16,7 @@ struct OddsSimulation: Equatable {
     let encounters: Int
     let shinyOdds: Int
     let chance: Double
-    let chainThreshold: Int
+    let usesChain: Bool
     let milestones: [ChanceMilestone]
 }
 
@@ -41,11 +41,11 @@ final class SimulateOddsHandler {
         return OddsSimulation(
             settings: HuntSettings(configuration),
             encounters: encounters,
-            shinyOdds: odds.getShinyOdds(configuration: configuration, encounters: encounters),
-            chance: calculator.calculateChance(within: encounters, configuration: configuration),
-            chainThreshold: configuration.chainThreshold,
+            shinyOdds: odds.getShinyOdds(configuration: configuration, chain: encounters),
+            chance: calculator.calculateChanceOfUnbrokenChain(length: encounters, configuration: configuration),
+            usesChain: configuration.usesChain,
             milestones: SimulateOddsHandler.milestonePercents.map {
-                ChanceMilestone(percent: $0, encounters: calculator.findEncountersNeeded(forChance: Double($0), configuration: configuration))
+                ChanceMilestone(percent: $0, encounters: calculator.findChainLengthNeeded(forChance: Double($0), configuration: configuration))
             })
     }
 }

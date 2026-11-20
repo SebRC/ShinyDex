@@ -41,7 +41,8 @@ final class PokemonHandlerTests: XCTestCase {
 
         XCTAssertEqual(result?.catchCount, 1)
         XCTAssertEqual(result?.shinyOdds, 8192)
-        XCTAssertEqual(result?.chainThreshold, 0)
+        XCTAssertEqual(result?.usesChain, false)
+        XCTAssertEqual(result?.chain, 0)
         XCTAssertNil(getDetails(99))
     }
 
@@ -49,11 +50,11 @@ final class PokemonHandlerTests: XCTestCase {
         let preview = PreviewHuntSettingsHandler(odds: OddsService())
         let masudaWithCharm = HuntSettings(game: .Sword, generation: 8, huntMethod: .Masuda, isShinyCharmActive: true)
 
-        let gold = preview.handle(PreviewHuntSettingsQuery(settings: masudaWithCharm, encounters: 0, selectingGame: .Gold))
+        let gold = preview.handle(PreviewHuntSettingsQuery(settings: masudaWithCharm, chain: 0, selectingGame: .Gold))
 
         XCTAssertEqual(gold.settings, HuntSettings(game: .Gold, generation: 2, huntMethod: .Encounters, isShinyCharmActive: false))
         XCTAssertEqual(gold.shinyOdds, 8192)
-        XCTAssertEqual(preview.handle(PreviewHuntSettingsQuery(settings: masudaWithCharm, encounters: 0)).shinyOdds, 512)
+        XCTAssertEqual(preview.handle(PreviewHuntSettingsQuery(settings: masudaWithCharm, chain: 0)).shinyOdds, 512)
     }
 
     func test_saveHuntSettings_normalisesAndStoresTheOdds() {

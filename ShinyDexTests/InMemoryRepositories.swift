@@ -30,10 +30,12 @@ final class InMemoryPokemonRepository: PokemonRepository {
     }
 
     static func copy(_ pokemon: Pokemon) -> Pokemon {
-        return Pokemon(name: pokemon.name, number: pokemon.number, encounters: pokemon.encounters, caughtDescription: pokemon.caughtDescription,
+        let copy = Pokemon(name: pokemon.name, number: pokemon.number, encounters: pokemon.encounters, caughtDescription: pokemon.caughtDescription,
                        caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, generation: pokemon.generation,
                        isShinyCharmActive: pokemon.isShinyCharmActive, shinyOdds: pokemon.shinyOdds, huntMethod: pokemon.huntMethod,
                        increment: pokemon.increment, game: pokemon.game)
+        copy.chain = pokemon.chain
+        return copy
     }
 }
 

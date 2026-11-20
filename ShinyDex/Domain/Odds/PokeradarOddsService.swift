@@ -1,7 +1,14 @@
 import Foundation
 
 class PokeradarOddsService {
-	func getOdds(chain: Int) -> Int {
+	static let firstGenerationWithDoubledOdds = 6
+
+	func getOdds(chain: Int, generation: Int) -> Int {
+		let odds = getSinnohOdds(chain: chain)
+		return generation >= PokeradarOddsService.firstGenerationWithDoubledOdds ? odds / 2 : odds
+	}
+
+	fileprivate func getSinnohOdds(chain: Int) -> Int {
 		if (chain <= 0) {
 			return 8192
 		}

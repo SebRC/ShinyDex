@@ -50,10 +50,12 @@ final class RestoreBackupHandler {
         pokemon.huntMethod = record.huntMethod
         pokemon.increment = record.increment
         pokemon.game = record.game
+        pokemon.chain = record.chain ?? pokemon.huntConfiguration.makeChainFromLegacyEncounters(record.encounters)
     }
 
     private static func hasSameState(_ first: Pokemon, _ second: Pokemon) -> Bool {
         return first.encounters == second.encounters
+            && first.chain == second.chain
             && first.isBeingHunted == second.isBeingHunted
             && first.generation == second.generation
             && first.isShinyCharmActive == second.isShinyCharmActive
