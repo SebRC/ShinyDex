@@ -259,6 +259,10 @@
 		F0A1B200000000000000000A /* forms.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000009 /* forms.json */; };
 		F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B200000000000000000B /* PokemonFormsTests.swift */; };
 		F0A1B2000000000000000102 /* FormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000101 /* FormPicker.swift */; };
+		0DD551700000000000000002 /* ShinyChanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000001 /* ShinyChanceCalculator.swift */; };
+		0DD551700000000000000005 /* SimulateOdds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000004 /* SimulateOdds.swift */; };
+		0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000006 /* OddsSimulatorVC.swift */; };
+		0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000008 /* OddsSimulatorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -538,6 +542,10 @@
 		F0A1B2000000000000000009 /* forms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = forms.json; sourceTree = "<group>"; };
 		F0A1B200000000000000000B /* PokemonFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFormsTests.swift; sourceTree = "<group>"; };
 		F0A1B2000000000000000101 /* FormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPicker.swift; sourceTree = "<group>"; };
+		0DD551700000000000000001 /* ShinyChanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShinyChanceCalculator.swift; sourceTree = "<group>"; };
+		0DD551700000000000000004 /* SimulateOdds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateOdds.swift; sourceTree = "<group>"; };
+		0DD551700000000000000006 /* OddsSimulatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsSimulatorVC.swift; sourceTree = "<group>"; };
+		0DD551700000000000000008 /* OddsSimulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsSimulatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -743,6 +751,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				0DD551700000000000000003 /* Odds */,
 				BAC0B0000000000000000018 /* Backup */,
 				B1B60A000000000000000006 /* Bingo */,
 				FFEB6BB220ADEBFAFB386D38 /* Ports */,
@@ -863,6 +872,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				0DD551700000000000000008 /* OddsSimulatorTests.swift */,
 				F0A1B200000000000000000B /* PokemonFormsTests.swift */,
 				BAC0B0000000000000000013 /* BackupHandlerTests.swift */,
 				BAC0B0000000000000000015 /* BackupPersistenceTests.swift */,
@@ -1126,6 +1136,7 @@
 		F7A8A1B1849F45879A824E2A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A0000000000000000E6 /* EVTrainingVC.swift */,
 				B10C0A000000000000005806 /* IVEditorVC.swift */,
@@ -1144,6 +1155,7 @@
 		FDE5A7430947C7A8EAA76D99 /* Odds */ = {
 			isa = PBXGroup;
 			children = (
+				0DD551700000000000000001 /* ShinyChanceCalculator.swift */,
 				9684073024AF6A2A005FE3D3 /* ChainFishingOddsService.swift */,
 				960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */,
 				961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */,
@@ -1223,6 +1235,14 @@
 				BAC0B000000000000000000D /* RestoreBackup.swift */,
 			);
 			path = Backup;
+			sourceTree = "<group>";
+		};
+		0DD551700000000000000003 /* Odds */ = {
+			isa = PBXGroup;
+			children = (
+				0DD551700000000000000004 /* SimulateOdds.swift */,
+			);
+			path = Odds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1374,6 +1394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */,
 				F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */,
 				BAC0B0000000000000000014 /* BackupHandlerTests.swift in Sources */,
 				BAC0B0000000000000000016 /* BackupPersistenceTests.swift in Sources */,
@@ -1420,6 +1441,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */,
+				0DD551700000000000000005 /* SimulateOdds.swift in Sources */,
+				0DD551700000000000000002 /* ShinyChanceCalculator.swift in Sources */,
 				F0A1B2000000000000000102 /* FormPicker.swift in Sources */,
 				F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */,
 				F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */,
