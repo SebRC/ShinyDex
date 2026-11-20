@@ -139,8 +139,8 @@ class OddsSimulatorVC: UIViewController {
         chanceLabel.accessibilityLabel = "\(String(format: "%.2f", simulation.chance)) percent chance \(chanceCaptionLabel.text ?? "")"
         milestonesStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         simulation.milestones.map(makeMilestoneRow).forEach(milestonesStack.addArrangedSubview)
-        chainNoteLabel.text = simulation.chainThreshold > 0
-            ? "With \(simulation.settings.huntMethod.rawValue), odds improve as the chain grows. The first \(simulation.chainThreshold.grouped) encounters build the chain before boosted odds count."
+        chainNoteLabel.text = simulation.usesChain
+            ? "Assumes an unbroken chain, so the odds improve with every encounter in it."
             : nil
         chainNoteLabel.isHidden = chainNoteLabel.text == nil
         gameSettingsContainer.settings = settings

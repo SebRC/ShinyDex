@@ -15,14 +15,22 @@ class PokeradarOddsServiceTests: XCTestCase {
 		try super.tearDownWithError()
 	}
 
-	func test_differentChains_returnsCorrectOdds() throws {
+	func test_differentChainsInSinnoh_returnsCorrectOdds() throws {
 		// Arrange
 		let entries = [-1: 8192, 0: 8192, 1: 8192, 5: 7281, 9: 6553, 12: 5957, 21: 4096, 31: 2048, 39: 402, 40: 200, 45: 200]
 
 		// Act + Assert
 		for entry in entries {
-			let actualOdds = pokeradarOddsService.getOdds(chain: entry.key)
+			let actualOdds = pokeradarOddsService.getOdds(chain: entry.key, generation: 4)
 			XCTAssertEqual(actualOdds, entry.value)
+		}
+	}
+
+	func test_xAndY_haveDoubledOdds_from4096Down_to100() throws {
+		let entries = [0: 4096, 21: 2048, 39: 201, 40: 100, 45: 100]
+
+		for entry in entries {
+			XCTAssertEqual(pokeradarOddsService.getOdds(chain: entry.key, generation: 6), entry.value)
 		}
 	}
 

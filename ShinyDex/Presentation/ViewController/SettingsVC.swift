@@ -8,12 +8,12 @@ class GameSettingsHostVC: UIViewController {
     let popupHandler = PopupHandler()
     let container: AppContainer
     fileprivate let pokemonNumber: Int?
-    fileprivate let encounters: Int
+    fileprivate let chain: Int
 
     init(container: AppContainer, pokemon: PokemonDetails?) {
         self.container = container
         pokemonNumber = pokemon?.number
-        encounters = pokemon?.encounters ?? 0
+        chain = pokemon?.chain ?? 0
         gameSettingsContainer.settings = pokemon?.settings ?? HuntSettings(game: .Red, generation: 1, huntMethod: .Encounters, isShinyCharmActive: false)
         gameSettingsContainer.pokemonName = pokemon?.name
         super.init(nibName: nil, bundle: nil)
@@ -28,8 +28,8 @@ class GameSettingsHostVC: UIViewController {
         view.backgroundColor = Color.Grey900
         navigationItem.largeTitleDisplayMode = .never
 
-        gameSettingsContainer.preview = { [container, encounters] settings in
-            container.previewHuntSettings.handle(PreviewHuntSettingsQuery(settings: settings, encounters: encounters))
+        gameSettingsContainer.preview = { [container, chain] settings in
+            container.previewHuntSettings.handle(PreviewHuntSettingsQuery(settings: settings, chain: chain))
         }
         gameSettingsContainer.onSettingsChanged = { [weak self] settings in
             self?.save(settings)
@@ -64,7 +64,7 @@ class GameSettingsHostVC: UIViewController {
     @objc fileprivate func gameButtonPressed() {
         let selector = GameSelector.make(selectedGame: gameSettingsContainer.settings.game) { [weak self] game in
             guard let self = self else { return }
-            let preview = self.container.previewHuntSettings.handle(PreviewHuntSettingsQuery(settings: self.gameSettingsContainer.settings, encounters: self.encounters, selectingGame: game))
+            let preview = self.container.previewHuntSettings.handle(PreviewHuntSettingsQuery(settings: self.gameSettingsContainer.settings, chain: self.chain, selectingGame: game))
             self.save(preview.settings)
             self.gameSettingsContainer.updateUI(updatedSettings: preview.settings, coverPokemon: GamesList.games[game]?.coverPokemon ?? "charizard")
         }

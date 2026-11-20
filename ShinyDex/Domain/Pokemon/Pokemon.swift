@@ -4,6 +4,7 @@ class Pokemon: NSObject {
 	var name: String
 	var number: Int
 	var encounters: Int
+	var chain = 0
 	var caughtDescription: String
 	var caughtBall: String
 	var isBeingHunted: Bool

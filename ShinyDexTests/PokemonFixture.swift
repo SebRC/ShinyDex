@@ -13,8 +13,8 @@ final class PokemonFixture {
         return HuntSettings(game: game, generation: generation, huntMethod: huntMethod, isShinyCharmActive: isShinyCharmActive)
     }
 
-    func makeDetails(chainThreshold: Int = 0, probability: Double = 0) -> PokemonDetails {
+    func makeDetails(chain: Int = 0, usesChain: Bool = false, probability: Double = 0) -> PokemonDetails {
         return PokemonDetails(number: number, name: name, encounters: encounters, increment: 1, settings: settings, shinyOdds: 8192,
-                              chainThreshold: chainThreshold, probability: probability, caughtBall: "none", catchCount: 0, isBeingHunted: false)
+                              chain: chain, usesChain: usesChain, probability: probability, caughtBall: "none", catchCount: 0, isBeingHunted: false)
     }
 }

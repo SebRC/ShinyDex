@@ -46,6 +46,7 @@ final class AppContainer {
     var saveHuntSettings: SaveHuntSettingsHandler { SaveHuntSettingsHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var applyHuntSettingsToAll: ApplyHuntSettingsToAllHandler { ApplyHuntSettingsToAllHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var changeEncounters: ChangeEncountersHandler { ChangeEncountersHandler(pokemonRepository: pokemonRepository, odds: odds) }
+    var changeChain: ChangeChainHandler { ChangeChainHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var setIncrement: SetIncrementHandler { SetIncrementHandler(pokemonRepository: pokemonRepository) }
     var getPokemonForms: GetPokemonFormsHandler { GetPokemonFormsHandler(forms: forms) }
     var simulateOdds: SimulateOddsHandler { SimulateOddsHandler(odds: odds, probability: probability) }

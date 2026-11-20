@@ -11,6 +11,7 @@ struct BackupDocument: Codable {
     struct PokemonRecord: Codable {
         let number: Int
         let encounters: Int
+        let chain: Int?
         let isBeingHunted: Bool
         let generation: Int
         let isShinyCharmActive: Bool
@@ -147,7 +148,7 @@ extension BackupDocument {
         formatVersion = BackupDocument.currentFormatVersion
         self.createdDate = createdDate
         self.pokemon = pokemon.map {
-            PokemonRecord(number: $0.number, encounters: $0.encounters, isBeingHunted: $0.isBeingHunted, generation: $0.generation, isShinyCharmActive: $0.isShinyCharmActive,
+            PokemonRecord(number: $0.number, encounters: $0.encounters, chain: $0.chain, isBeingHunted: $0.isBeingHunted, generation: $0.generation, isShinyCharmActive: $0.isShinyCharmActive,
                           shinyOdds: $0.shinyOdds, huntMethod: $0.huntMethod, increment: $0.increment, game: $0.game)
         }
         self.catches = catches.map {

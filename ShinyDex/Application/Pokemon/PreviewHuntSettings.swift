@@ -2,7 +2,7 @@ import Foundation
 
 struct PreviewHuntSettingsQuery {
     let settings: HuntSettings
-    let encounters: Int
+    let chain: Int
     var selectingGame: Games? = nil
 }
 
@@ -24,6 +24,6 @@ final class PreviewHuntSettingsHandler {
             configuration = configuration.selecting(game)
         }
         configuration = configuration.normalized()
-        return HuntSettingsPreview(settings: HuntSettings(configuration), shinyOdds: odds.getShinyOdds(configuration: configuration, encounters: query.encounters))
+        return HuntSettingsPreview(settings: HuntSettings(configuration), shinyOdds: odds.getShinyOdds(configuration: configuration, chain: query.chain))
     }
 }

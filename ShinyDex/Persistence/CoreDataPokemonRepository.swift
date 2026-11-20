@@ -43,6 +43,29 @@ final class CoreDataPokemonRepository: PokemonRepository {
         write(pokemon, to: pokemonEntity)
     }
 
+    static func assignMissingChains(in context: NSManagedObjectContext) {
+        guard context.persistentStoreCoordinator?.managedObjectModel.entitiesByName["PokemonEntity"]?.attributesByName["chain"] != nil else { return }
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")
+        fetchRequest.predicate = NSPredicate(format: "chain == nil")
+        guard let pokemonWithoutChain = try? context.fetch(fetchRequest), !pokemonWithoutChain.isEmpty else { return }
+        for pokemonEntity in pokemonWithoutChain {
+            let configuration = HuntConfiguration(
+                game: Games(rawValue: pokemonEntity.value(forKey: "game") as? String ?? "") ?? .Red,
+                generation: pokemonEntity.value(forKey: "generation") as? Int ?? 0,
+                huntMethod: HuntMethod(rawValue: pokemonEntity.value(forKey: "huntMethod") as? String ?? "") ?? .Encounters,
+                isShinyCharmActive: pokemonEntity.value(forKey: "isShinyCharmActive") as? Bool ?? false)
+            let encounters = pokemonEntity.value(forKey: "encounters") as? Int ?? 0
+            pokemonEntity.setValue(configuration.makeChainFromLegacyEncounters(encounters), forKey: "chain")
+        }
+        do {
+            try context.save()
+        }
+        catch let error as NSError {
+            print("Could not assign chains. \(error.localizedDescription)")
+            context.rollback()
+        }
+    }
+
     private func fetchObject(for number: Int) -> NSManagedObject? {
         if let known = Self.identities.getObject(for: number, in: managedContext) {
             return known
@@ -57,7 +80,7 @@ final class CoreDataPokemonRepository: PokemonRepository {
     private func makePokemon(from pokemonEntity: NSManagedObject) -> Pokemon {
         let number = pokemonEntity.value(forKey: "number") as! Int
         Self.identities.record(number, for: pokemonEntity.objectID)
-        return Pokemon(
+        let pokemon = Pokemon(
             name: pokemonEntity.value(forKey: "name") as! String,
             number: number,
             encounters: pokemonEntity.value(forKey: "encounters") as! Int,
@@ -70,11 +93,14 @@ final class CoreDataPokemonRepository: PokemonRepository {
             huntMethod: HuntMethod(rawValue: pokemonEntity.value(forKey: "huntMethod") as! String)!,
             increment: pokemonEntity.value(forKey: "increment") as! Int,
             game: Games(rawValue: pokemonEntity.value(forKey: "game") as? String ?? Games.Red.rawValue) ?? Games.Red)
+        pokemon.chain = pokemonEntity.value(forKey: "chain") as? Int ?? 0
+        return pokemon
     }
 
     private func write(_ pokemon: Pokemon, to pokemonEntity: NSManagedObject) {
         pokemonEntity.setValue(pokemon.name, forKey: "name")
         pokemonEntity.setValue(pokemon.encounters, forKey: "encounters")
+        pokemonEntity.setValue(pokemon.chain, forKey: "chain")
         pokemonEntity.setValue(pokemon.caughtDescription, forKey: "caughtDescription")
         pokemonEntity.setValue(pokemon.caughtBall, forKey: "caughtBall")
         pokemonEntity.setValue(pokemon.isBeingHunted, forKey: "isBeingHunted")

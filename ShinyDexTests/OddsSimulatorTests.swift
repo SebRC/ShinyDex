@@ -17,8 +17,8 @@ final class OddsSimulatorTests: XCTestCase {
                 XCTFail("\(milestone.percent)% should be reachable", file: file, line: line)
                 continue
             }
-            XCTAssertGreaterThanOrEqual(calculator.calculateChance(within: encounters, configuration: configuration), Double(milestone.percent), file: file, line: line)
-            XCTAssertLessThan(calculator.calculateChance(within: encounters - 1, configuration: configuration), Double(milestone.percent), file: file, line: line)
+            XCTAssertGreaterThanOrEqual(calculator.calculateChanceOfUnbrokenChain(length: encounters, configuration: configuration), Double(milestone.percent), file: file, line: line)
+            XCTAssertLessThan(calculator.calculateChanceOfUnbrokenChain(length: encounters - 1, configuration: configuration), Double(milestone.percent), file: file, line: line)
         }
     }
 
@@ -48,14 +48,17 @@ final class OddsSimulatorTests: XCTestCase {
         XCTAssertLessThan(withCharm.milestones[0].encounters!, withoutCharm.milestones[0].encounters!)
     }
 
-    func test_chainMethods_haveNoChanceUntilTheChainIsBuilt_andThenImprove() {
+    func test_chainMethods_assumeAnUnbrokenChain_soTheyBeatFullOddsOverTheSameEncounters() {
         let sos = HuntSettings(game: .Sun, generation: 7, huntMethod: .SosChaining, isShinyCharmActive: false)
+        let fullOddsSun = HuntSettings(game: .Sun, generation: 7, huntMethod: .Encounters, isShinyCharmActive: false)
 
-        XCTAssertEqual(simulate(sos, encounters: 30).chance, 0)
-        XCTAssertGreaterThan(simulate(sos, encounters: 60).chance, 0)
-        let simulation = simulate(sos, encounters: 0)
-        XCTAssertEqual(simulation.chainThreshold, 30)
-        assertMilestonesAreTheFirstEncounterReachingTheirChance(simulation)
+        let simulation = simulate(sos, encounters: 100)
+
+        XCTAssertTrue(simulation.usesChain)
+        XCTAssertEqual(simulation.shinyOdds, 315)
+        XCTAssertGreaterThan(simulation.chance, simulate(fullOddsSun, encounters: 100).chance)
+        XCTAssertGreaterThan(simulate(sos, encounters: 5).chance, 0)
+        assertMilestonesAreTheFirstEncounterReachingTheirChance(simulate(sos, encounters: 0))
     }
 
     func test_selectingAGameWithoutTheCharm_turnsTheCharmOff() {

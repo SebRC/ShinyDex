@@ -3,6 +3,10 @@ import UIKit
 class ShinyTrackerVC: UIViewController {
     fileprivate let plusButton = UIButton(type: .system)
     fileprivate let minusButton = UIButton(type: .system)
+    fileprivate let breakChainButton = UIButton(type: .system)
+    fileprivate let chainMinusButton = UIButton(type: .system)
+    fileprivate let chainPlusButton = UIButton(type: .system)
+    fileprivate let chainRow = UIStackView()
     fileprivate let buttonStrip = ButtonStrip()
     fileprivate let spriteView = PokemonSpriteView()
     fileprivate let heroView = UIView()
@@ -21,7 +25,6 @@ class ShinyTrackerVC: UIViewController {
     fileprivate let container: AppContainer
     fileprivate var pokemon: PokemonDetails
     let popupHandler = PopupHandler()
-    var textResolver = TextResolver()
 
     init?(container: AppContainer, number: Int) {
         guard let pokemon = container.getPokemonDetails.handle(GetPokemonDetailsQuery(number: number)) else { return nil }
@@ -84,7 +87,13 @@ class ShinyTrackerVC: UIViewController {
         let counter = UIStackView(arrangedSubviews: [minusButton, plusButton])
         counter.spacing = 12
 
-        view.addAutoLayoutSubviews(heroView, stats, spriteView, buttonStrip, counter)
+        [breakChainButton, chainMinusButton, chainPlusButton].forEach(chainRow.addArrangedSubview)
+        chainRow.spacing = 12
+        let controls = UIStackView(arrangedSubviews: [chainRow, counter])
+        controls.axis = .vertical
+        controls.spacing = 12
+
+        view.addAutoLayoutSubviews(heroView, stats, spriteView, buttonStrip, controls)
         let safeArea = view.safeAreaLayoutGuide
         let preferredSpriteWidth = spriteView.widthAnchor.constraint(equalToConstant: 220)
         preferredSpriteWidth.priority = .defaultHigh
@@ -102,12 +111,15 @@ class ShinyTrackerVC: UIViewController {
             spriteView.widthAnchor.constraint(lessThanOrEqualTo: safeArea.widthAnchor, constant: -32),
 
             buttonStrip.topAnchor.constraint(equalTo: spriteView.bottomAnchor, constant: 12),
-            counter.topAnchor.constraint(equalTo: buttonStrip.bottomAnchor, constant: 12),
-            counter.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -12),
+            controls.topAnchor.constraint(equalTo: buttonStrip.bottomAnchor, constant: 12),
+            controls.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -12),
             counter.heightAnchor.constraint(equalToConstant: 76),
-            minusButton.widthAnchor.constraint(equalToConstant: 88)
+            chainRow.heightAnchor.constraint(equalToConstant: 52),
+            minusButton.widthAnchor.constraint(equalToConstant: 88),
+            breakChainButton.widthAnchor.constraint(equalToConstant: 88),
+            chainMinusButton.widthAnchor.constraint(equalToConstant: 88)
         ])
-        for row in [heroView, stats, buttonStrip, counter] as [UIView] {
+        for row in [heroView, stats, buttonStrip, controls] as [UIView] {
             NSLayoutConstraint.activate([
                 row.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
                 row.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
@@ -157,6 +169,27 @@ class ShinyTrackerVC: UIViewController {
         minusButton.tintColor = Color.Grey200
         minusButton.setImage(UIImage.makeSymbol("minus", pointSize: 28, weight: .bold), for: .normal)
 
+        breakChainButton.backgroundColor = Color.Grey800
+        breakChainButton.layer.cornerRadius = 16
+        breakChainButton.tintColor = Color.Grey200
+        breakChainButton.setImage(UIImage.makeSymbol("arrow.counterclockwise", pointSize: 20, weight: .bold), for: .normal)
+
+        chainMinusButton.backgroundColor = Color.Grey800
+        chainMinusButton.layer.cornerRadius = 16
+        chainMinusButton.tintColor = Color.Grey200
+        chainMinusButton.setImage(UIImage.makeSymbol("minus", pointSize: 20, weight: .bold), for: .normal)
+
+        chainPlusButton.backgroundColor = Color.Grey800
+        chainPlusButton.layer.cornerRadius = 16
+        chainPlusButton.layer.borderWidth = 1.5
+        chainPlusButton.layer.borderColor = Color.Orange500.cgColor
+        chainPlusButton.tintColor = Color.Orange500
+        chainPlusButton.setImage(UIImage.makeSymbol("link", pointSize: 18, weight: .bold), for: .normal)
+        chainPlusButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        chainPlusButton.setTitleColor(Color.Orange500, for: .normal)
+        chainPlusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+        chainPlusButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+
         plusButton.backgroundColor = Color.Orange500
         plusButton.layer.cornerRadius = 20
         plusButton.tintColor = Color.Grey900
@@ -177,6 +210,9 @@ class ShinyTrackerVC: UIViewController {
 
     fileprivate func setAccessibilityLabels() {
         minusButton.accessibilityLabel = "Remove an encounter"
+        chainMinusButton.accessibilityLabel = "Shorten the chain by one"
+        breakChainButton.accessibilityLabel = "Chain broken"
+        breakChainButton.accessibilityHint = "Resets the chain to 0 and keeps your encounters"
         addToHuntButton.accessibilityLabel = "Add to hunt"
         buttonStrip.updateEncountersButton.accessibilityLabel = "Set encounters"
         buttonStrip.methodButton.accessibilityLabel = "Game and hunt method"
@@ -187,7 +223,8 @@ class ShinyTrackerVC: UIViewController {
 
     fileprivate func updateIncrementAccessibility() {
         let increment = pokemon.increment
-        plusButton.accessibilityLabel = increment == 1 ? "Add an encounter" : "Add \(increment) encounters"
+        let counterLabel = (HuntCounterText(pokemon: pokemon).secondary ?? HuntCounterText(pokemon: pokemon).primary).label.lowercased()
+        plusButton.accessibilityLabel = "Add \(increment) to \(counterLabel)"
         buttonStrip.incrementButton.accessibilityLabel = "Encounters per tap"
         buttonStrip.incrementButton.accessibilityValue = "\(increment)"
     }
@@ -226,6 +263,9 @@ class ShinyTrackerVC: UIViewController {
     fileprivate func setButtonActions() {
         plusButton.addTarget(self, action: #selector(plusPressed), for: .touchUpInside)
         minusButton.addTarget(self, action: #selector(minusPressed), for: .touchUpInside)
+        breakChainButton.addTarget(self, action: #selector(breakChainPressed), for: .touchUpInside)
+        chainMinusButton.addTarget(self, action: #selector(chainMinusPressed), for: .touchUpInside)
+        chainPlusButton.addTarget(self, action: #selector(chainPlusPressed), for: .touchUpInside)
         buttonStrip.updateEncountersButton.addTarget(self, action: #selector(updateEncountersPressed), for: .touchUpInside)
         buttonStrip.incrementButton.addTarget(self, action: #selector(incrementButtonPressed), for: .touchUpInside)
         buttonStrip.methodButton.addTarget(self, action: #selector(infoButtonPressed), for: .touchUpInside)
@@ -234,36 +274,25 @@ class ShinyTrackerVC: UIViewController {
     }
 
     fileprivate func resolveEncounterDetails() {
-        setProbabilityLabelText()
-        setEncountersText(textResolver.getEncountersLabelText(pokemon: pokemon))
+        probabilityTile.setValue(String(format: "%.2f%%", pokemon.probability))
+        setCounterText(HuntCounterText(pokemon: pokemon))
         setOddsLabelText()
         minusButton.isEnabled = isMinusButtonEnabled()
+        chainRow.isHidden = !pokemon.usesChain
+        breakChainButton.isEnabled = pokemon.chain > 0
+        chainMinusButton.isEnabled = pokemon.chain > 0
+        let chainLabel = HuntCounterText.makeChainLabel(for: pokemon.settings)
+        chainPlusButton.setTitle(chainLabel, for: .normal)
+        chainPlusButton.accessibilityLabel = "Grow the \(chainLabel.lowercased()) by one"
+        updateIncrementAccessibility()
     }
 
-    fileprivate func setEncountersText(_ text: String) {
-        let lines = text.components(separatedBy: "\n").map { line -> (label: String, value: String) in
-            let parts = line.components(separatedBy: ": ")
-            guard parts.count == 2 else { return ("Encounters", line) }
-            let value = Int(parts[1]).map { $0.grouped } ?? parts[1]
-            return (parts[0], value)
-        }
-        guard let primary = lines.first else { return }
-        encountersCaptionLabel.text = primary.label.uppercased()
-        encountersValueLabel.text = primary.value
-        let details = lines.dropFirst().map { "\($0.label): \($0.value)" }
-        encountersDetailLabel.text = details.joined(separator: " · ")
-        encountersDetailLabel.isHidden = details.isEmpty
-        heroView.accessibilityLabel = ([primary] + Array(lines.dropFirst())).map { "\($0.label) \($0.value)" }.joined(separator: ", ")
-    }
-
-    fileprivate func setProbabilityLabelText() {
-        let text = textResolver.getProbabilityText(pokemon: pokemon)
-        if (text.hasPrefix("Probability")) {
-            probabilityTile.setValue(String(format: "%.2f%%", pokemon.probability))
-        }
-        else {
-            probabilityTile.setMessage(text)
-        }
+    fileprivate func setCounterText(_ counter: HuntCounterText) {
+        encountersCaptionLabel.text = counter.primary.label.uppercased()
+        encountersValueLabel.text = counter.primary.value.grouped
+        encountersDetailLabel.text = counter.secondary.map { "\($0.label): \($0.value.grouped)" }
+        encountersDetailLabel.isHidden = counter.secondary == nil
+        heroView.accessibilityLabel = ([counter.primary] + [counter.secondary].compactMap { $0 }).map { "\($0.label) \($0.value)" }.joined(separator: ", ")
     }
 
     fileprivate func setOddsLabelText() {
@@ -296,6 +325,32 @@ class ShinyTrackerVC: UIViewController {
         resolveEncounterDetails()
     }
 
+    @objc fileprivate func chainPlusPressed() {
+        Haptics.tap()
+        changeChain(.increment)
+    }
+
+    @objc fileprivate func chainMinusPressed() {
+        guard pokemon.chain > 0 else { return }
+        Haptics.tap()
+        changeChain(.decrement)
+    }
+
+    @objc fileprivate func breakChainPressed() {
+        let chainLabel = HuntCounterText.makeChainLabel(for: pokemon.settings).lowercased()
+        presentDestructiveConfirmation(title: "Chain broken?",
+                                       message: "Your \(chainLabel) of \(pokemon.chain.grouped) goes back to 0. Your \(pokemon.encounters.grouped) encounters are kept.",
+                                       destructiveTitle: "Reset") { [weak self] in
+            self?.changeChain(.breakChain)
+        }
+    }
+
+    fileprivate func changeChain(_ change: ChangeChainCommand.Change) {
+        container.changeChain.handle(ChangeChainCommand(number: pokemon.number, change: change))
+        reloadPokemon()
+        resolveEncounterDetails()
+    }
+
     @objc fileprivate func addToHuntPressed() {
         let picker = HuntPickerModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] huntName in
             guard let self = self else { return }
@@ -314,6 +369,35 @@ class ShinyTrackerVC: UIViewController {
     }
 
     @objc fileprivate func updateEncountersPressed() {
+        guard pokemon.usesChain else {
+            presentEncountersInput()
+            return
+        }
+        let chainLabel = HuntCounterText.makeChainLabel(for: pokemon.settings)
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Set \(chainLabel.lowercased())", style: .default) { [weak self] _ in self?.presentChainInput(label: chainLabel) })
+        sheet.addAction(UIAlertAction(title: "Set encounters", style: .default) { [weak self] _ in self?.presentEncountersInput() })
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        sheet.view.tintColor = Color.Orange500
+        sheet.popoverPresentationController?.sourceView = buttonStrip.updateEncountersButton
+        sheet.popoverPresentationController?.sourceRect = buttonStrip.updateEncountersButton.bounds
+        present(sheet, animated: true)
+    }
+
+    fileprivate func presentChainInput(label: String) {
+        let maximum = 500000
+        presentTextInput(title: "Set \(label.lowercased())",
+                         message: "Enter a number from 0 to \(maximum.grouped).",
+                         text: "\(pokemon.chain)",
+                         placeholder: label,
+                         keyboardType: .numberPad,
+                         isValid: { Int($0).map { (0...maximum).contains($0) } ?? false }) { [weak self] value in
+            guard let chain = Int(value) else { return }
+            self?.changeChain(.set(chain))
+        }
+    }
+
+    fileprivate func presentEncountersInput() {
         let maximum = 500000
         presentTextInput(title: "Set encounters",
                          message: "Enter a number from 0 to \(maximum.grouped).",
