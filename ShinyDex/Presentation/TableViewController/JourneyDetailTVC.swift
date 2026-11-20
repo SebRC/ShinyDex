@@ -125,7 +125,7 @@ class JourneyDetailTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard mode == .pokemon, !journey.entries.isEmpty else { return nil }
-        return "Adding a Pokémon you've already caught doesn't tick it off. Tap it to link the catch you made for this journey, or to log phases you found along the way. Tap its phases to show them."
+        return "Adding a Pokémon you've already caught doesn't tick it off. Tap it to link the catch you made for this journey, or to log phases you found along the way."
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

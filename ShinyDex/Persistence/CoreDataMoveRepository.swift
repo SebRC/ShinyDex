@@ -32,17 +32,6 @@ final class CoreDataMoveRepository: MoveRepository {
         write(activeMoves, to: activeMovesEntity)
     }
 
-    func deleteAll() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "ActiveMovesEntity")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        do {
-            try managedContext.execute(deleteRequest)
-        }
-        catch let error as NSError {
-            print("An error ocurred when deleting all entities: \(error.localizedDescription)")
-        }
-    }
-
     private func write(_ activeMoves: ActiveMoves, to activeMovesEntity: NSManagedObject) {
         activeMovesEntity.setValue(StoredActiveMove.encode(activeMoves.moves), forKey: "json")
         activeMovesEntity.setValue(activeMoves.pressureActive, forKey: "pressureActive")

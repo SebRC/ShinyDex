@@ -6,7 +6,6 @@ class PokedexTVC: UITableViewController {
     fileprivate let container: AppContainer
     fileprivate var filteredPokemon = [PokedexEntry]()
     fileprivate var slicedPokemon = [PokedexEntry]()
-    fileprivate var isRegion = false
     let textResolver = TextResolver()
     var generation = 0
     var popupHandler = PopupHandler()
@@ -72,7 +71,6 @@ class PokedexTVC: UITableViewController {
     fileprivate func reloadPokedex() {
         let pokedex = container.getPokedex.handle(GetPokedexQuery(region: generation))
         slicedPokemon = pokedex.entries
-        isRegion = pokedex.isRegion
         if (isFiltering()) {
             filterContentForSearchText(searchController.searchBar.text ?? "")
         }
@@ -83,7 +81,7 @@ class PokedexTVC: UITableViewController {
     }
 
     fileprivate func updateProgressHeader() {
-        guard isRegion, !slicedPokemon.isEmpty else {
+        guard !slicedPokemon.isEmpty else {
             tableView.tableHeaderView = nil
             return
         }
@@ -167,16 +165,10 @@ class PokedexTVC: UITableViewController {
 
     fileprivate func updateEmptyState() {
         let showsNoResults = isFiltering() && filteredPokemon.isEmpty
-        let showsNoCaught = !isFiltering() && slicedPokemon.isEmpty
         if (showsNoResults) {
             tableView.backgroundView = EmptyStateView(symbolName: "magnifyingglass",
                                                       title: "No results",
                                                       message: "No Pokémon match \u{201C}\(searchController.searchBar.text ?? "")\u{201D}.")
-        }
-        else if (showsNoCaught) {
-            tableView.backgroundView = EmptyStateView(symbolName: "sparkles",
-                                                      title: "No shinies yet",
-                                                      message: "Tap the Poké Ball next to a Pokémon to log that you caught it.")
         }
         else {
             tableView.backgroundView = nil

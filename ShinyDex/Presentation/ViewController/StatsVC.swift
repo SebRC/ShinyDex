@@ -159,7 +159,7 @@ class StatsVC: UIViewController {
         }
         card.addAutoLayoutSubviews(list)
         list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-        addSection("Expected vs actual at full odds", card, footnote: "Only full odds (1/\(CatchOdds.fullOdds.grouped)) hunts without a method count, so expected shinies are their encounters divided by \(CatchOdds.fullOdds.grouped). Tap a year to see its catches.")
+        addSection("Expected vs actual at full odds", card, footnote: "Only full odds (1/\(CatchOdds.fullOdds.grouped)) hunts without a method count, so expected shinies are their encounters divided by \(CatchOdds.fullOdds.grouped).")
     }
 
     fileprivate func addLuckiestPeriods(_ stats: CatchStatistics) {
@@ -206,7 +206,7 @@ class StatsVC: UIViewController {
         }
         card.addAutoLayoutSubviews(list)
         list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-        addSection("Luckiest dates", card, footnote: "Dates you've found more than one shiny on, across all years. Tap one to see those catches.")
+        addSection("Luckiest dates", card, footnote: "Dates you've found more than one shiny on, across all years.")
     }
 
     fileprivate static func formatShinies(_ count: Int) -> String {
@@ -235,7 +235,7 @@ class StatsVC: UIViewController {
     fileprivate func addHuntRankings(_ stats: CatchStatistics) {
         guard stats.longestHunts.count > 1 else { return }
         huntRanking.update(longestHunts: stats.longestHunts, shortestHunts: stats.shortestHunts)
-        addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged. Tap a hunt to see the catch.")
+        addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged.")
     }
 
     fileprivate func addUsage(title: String, rows: [UsageRow], total: Int) {
@@ -256,7 +256,7 @@ class StatsVC: UIViewController {
         }
         card.addAutoLayoutSubviews(list)
         list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-        addSection(title, card, footnote: "Tap a row to see those catches.")
+        addSection(title, card)
     }
 
     fileprivate func addNatures(_ stats: CatchStatistics) {

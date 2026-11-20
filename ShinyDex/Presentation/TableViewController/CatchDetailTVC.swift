@@ -5,8 +5,8 @@ class CatchDetailTVC: UITableViewController {
         case hero
         case stats
         case about
-        case training
         case details
+        case training
     }
 
     fileprivate enum AboutRow: CaseIterable {
@@ -151,10 +151,6 @@ class CatchDetailTVC: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return Section(rawValue: section) == .details ? "Tap a detail to change it." : nil
-    }
-
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch Section(rawValue: section)! {
         case .details: return UITableView.automaticDimension
@@ -165,7 +161,7 @@ class CatchDetailTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return Section(rawValue: section) == .details ? UITableView.automaticDimension : 4
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -420,7 +416,7 @@ class CatchDetailTVC: UITableViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Save", style: .default) { [weak self, weak alert] _ in
             guard let text = alert?.textFields?.first?.text,
-                  let encounters = Int(text.trimmingCharacters(in: .whitespaces)), encounters >= 0 else {
+                  let encounters = CatchRules.parseEncounters(from: text) else {
                 return
             }
             self?.save(.encounters(encounters))

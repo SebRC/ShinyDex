@@ -33,10 +33,6 @@ class RearrangeHuntsTVC: UITableViewController {
 		tableView.isEditing = true
 	}
 
-	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return "Drag the handles to change the order hunts appear in."
-	}
-
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return hunts.count
 	}

@@ -29,10 +29,6 @@ final class InMemoryPokemonRepository: PokemonRepository {
         stored[pokemon.number] = InMemoryPokemonRepository.copy(pokemon)
     }
 
-    func deleteAll() {
-        stored.removeAll()
-    }
-
     static func copy(_ pokemon: Pokemon) -> Pokemon {
         return Pokemon(name: pokemon.name, number: pokemon.number, encounters: pokemon.encounters, caughtDescription: pokemon.caughtDescription,
                        caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, generation: pokemon.generation,
@@ -159,10 +155,6 @@ final class InMemoryMoveRepository: MoveRepository {
 
     func save(_ activeMoves: ActiveMoves) {
         stored = activeMoves
-    }
-
-    func deleteAll() {
-        stored = nil
     }
 }
 
