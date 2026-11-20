@@ -35,7 +35,7 @@ class ProbabilityServiceTests: XCTestCase {
 			let pokemon = PokemonFixture()
 			pokemon.huntMethod = entry.key
 			pokemon.encounters = 0
-			let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: entry.value, probability: 0.0))
+			let actualText = TextResolver().getProbabilityText(pokemon: pokemon.makeDetails(chainThreshold: entry.value, probability: 0.0))
 			XCTAssertEqual(actualText, "Chain \(entry.value) to see probability")
 		}
 	}
@@ -49,7 +49,7 @@ class ProbabilityServiceTests: XCTestCase {
 		pokemon.encounters = 0
 
 		// Act
-		let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: methodDecrement, probability: 0.0))
+		let actualText = TextResolver().getProbabilityText(pokemon: pokemon.makeDetails(chainThreshold: methodDecrement, probability: 0.0))
 
 		// Assert
 		XCTAssertEqual(actualText, "Chain \(methodDecrement) to see probability")
@@ -66,7 +66,7 @@ class ProbabilityServiceTests: XCTestCase {
 			let pokemon = PokemonFixture()
 			pokemon.huntMethod = entry.key
 			pokemon.encounters = 50
-			let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: entry.value, probability: probability))
+			let actualText = TextResolver().getProbabilityText(pokemon: pokemon.makeDetails(chainThreshold: entry.value, probability: probability))
 			XCTAssertEqual(actualText, "Probability: \(probability)")
 		}
 	}
@@ -78,7 +78,7 @@ class ProbabilityServiceTests: XCTestCase {
 		pokemon.encounters = 50
 
 		// Act
-		let actualText = TextResolver().getProbabilityText(pokemon: pokemon.details(chainThreshold: 999, probability: 0.00))
+		let actualText = TextResolver().getProbabilityText(pokemon: pokemon.makeDetails(chainThreshold: 999, probability: 0.00))
 
 		// Assert
 		XCTAssertEqual(actualText, "Reach Search level 999 to see probability")

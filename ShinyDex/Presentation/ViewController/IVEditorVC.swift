@@ -103,7 +103,7 @@ class IVEditorVC: UIViewController {
 	fileprivate func change(_ stat: Stat, by direction: Int) {
 		let target = caught.ivs[stat].map { $0 + direction } ?? IndividualValues.range.lowerBound
 		guard IndividualValues.range.contains(target) else {
-			Haptics.warning()
+			Haptics.playWarning()
 			return
 		}
 		Haptics.tap()
@@ -142,7 +142,7 @@ class IVEditorVC: UIViewController {
 	fileprivate func refresh() {
 		let ivs = caught.ivs
 		perfectLabel.text = "\(ivs.perfectCount) / \(Stat.allCases.count)"
-		summaryLabel.attributedText = ivs.coloredSummary(unknownColor: Color.Grey400)
+		summaryLabel.attributedText = ivs.makeColoredSummary(unknownColor: Color.Grey400)
 		perfectLabel.superview?.superview?.superview?.accessibilityLabel = "Perfect IVs \(ivs.perfectCount) of \(Stat.allCases.count), \(ivs.summary)"
 		for row in rows {
 			row.update(value: ivs[row.stat])
@@ -175,7 +175,7 @@ fileprivate class IVStatRow: UIView {
 		bar.clipsToBounds = true
 
 		for (button, symbol, direction) in [(minusButton, "minus", -1), (plusButton, "plus", 1)] {
-			button.setImage(UIImage.symbol(symbol, pointSize: 15, weight: .bold), for: .normal)
+			button.setImage(UIImage.makeSymbol(symbol, pointSize: 15, weight: .bold), for: .normal)
 			button.tintColor = Color.Grey200
 			button.backgroundColor = Color.Grey700
 			button.layer.cornerRadius = 18
@@ -207,11 +207,11 @@ fileprivate class IVStatRow: UIView {
 	func update(value: Int?) {
 		let maximum = IndividualValues.range.upperBound
 		valueButton.setTitle(value.map { "\($0) / \(maximum)" } ?? "Unknown", for: .normal)
-		valueButton.setTitleColor(value.map(IndividualValues.color(for:)) ?? Color.Grey400, for: .normal)
+		valueButton.setTitleColor(value.map(IndividualValues.getColor(for:)) ?? Color.Grey400, for: .normal)
 		valueButton.accessibilityLabel = "\(stat.name), \(value.map { "\($0) IV" } ?? "unknown IV")"
 		valueButton.accessibilityHint = "Type an exact value."
 		bar.progress = Float(value ?? 0) / Float(maximum)
-		bar.progressTintColor = value.map(IndividualValues.color(for:))
+		bar.progressTintColor = value.map(IndividualValues.getColor(for:))
 		minusButton.isEnabled = value.map { $0 > IndividualValues.range.lowerBound } ?? false
 		plusButton.isEnabled = value.map { $0 < maximum } ?? true
 		minusButton.alpha = minusButton.isEnabled ? 1 : 0.4

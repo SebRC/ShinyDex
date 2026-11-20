@@ -109,7 +109,7 @@ class JourneysTVC: UITableViewController {
 			let id = self.container.createJourney.handle(CreateJourneyCommand(name: name, pokemonNumbers: picked.map { $0.number }))
 			self.openJourney(id)
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 }
 

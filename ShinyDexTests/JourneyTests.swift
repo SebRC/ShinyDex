@@ -8,53 +8,53 @@ class JourneyTests: XCTestCase {
 		return Catch(number: number, caughtBall: "poke", game: .Scarlet, huntMethod: .Encounters, encounters: 100, isShinyCharmActive: false, caughtDate: date, isFailed: isFailed)
 	}
 
-	fileprivate func day(_ day: Int) -> Date {
+	fileprivate func makeDay(_ day: Int) -> Date {
 		return DateComponents(calendar: Calendar(identifier: .gregorian), year: 2025, month: 1, day: day).date!
 	}
 
-	fileprivate func byId(_ catches: [Catch]) -> [UUID: Catch] {
+	fileprivate func indexById(_ catches: [Catch]) -> [UUID: Catch] {
 		return Dictionary(uniqueKeysWithValues: catches.map { ($0.id, $0) })
 	}
 
 	func test_newEntries_startUncaught() {
 		let journey = Journey(name: "Badge quest", priority: 0, numbers: [bulbasaur, charmander])
-		let existing = makeCatch(number: bulbasaur, date: day(1))
+		let existing = makeCatch(number: bulbasaur, date: makeDay(1))
 
-		XCTAssertEqual(journey.caughtCount(in: byId([existing])), 0, "Owning a catch of the species doesn't tick off the entry")
+		XCTAssertEqual(journey.countCaught(in: indexById([existing])), 0, "Owning a catch of the species doesn't tick off the entry")
 		XCTAssertTrue(journey.entries.allSatisfy { $0.catchId == nil })
 	}
 
 	func test_linkedCatch_countsOnlyWhileTheCatchExistsAndWasCaught() {
 		let journey = Journey(name: "Dream team", priority: 0, numbers: [bulbasaur, charmander])
-		let caught = makeCatch(number: bulbasaur, date: day(1))
-		let gotAway = makeCatch(number: charmander, date: day(2), isFailed: true)
+		let caught = makeCatch(number: bulbasaur, date: makeDay(1))
+		let gotAway = makeCatch(number: charmander, date: makeDay(2), isFailed: true)
 		journey.entries[0].catchId = caught.id
 		journey.entries[1].catchId = gotAway.id
 
-		XCTAssertEqual(journey.caughtCount(in: byId([caught, gotAway])), 1)
-		XCTAssertEqual(journey.caughtCount(in: byId([gotAway])), 0, "A deleted catch leaves its entry uncaught")
+		XCTAssertEqual(journey.countCaught(in: indexById([caught, gotAway])), 1)
+		XCTAssertEqual(journey.countCaught(in: indexById([gotAway])), 0, "A deleted catch leaves its entry uncaught")
 	}
 
 	func test_timeline_isOrderedByCatchDate_withUndatedLast() {
 		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, charmander, squirtle])
-		let late = makeCatch(number: bulbasaur, date: day(20))
+		let late = makeCatch(number: bulbasaur, date: makeDay(20))
 		let undated = makeCatch(number: charmander, date: nil)
-		let early = makeCatch(number: squirtle, date: day(3))
+		let early = makeCatch(number: squirtle, date: makeDay(3))
 		for (index, caught) in [late, undated, early].enumerated() {
 			journey.entries[index].catchId = caught.id
 		}
 
-		let order = journey.timeline(in: byId([late, undated, early])).map { $0.caught.id }
+		let order = journey.makeTimeline(in: indexById([late, undated, early])).map { $0.caught.id }
 
 		XCTAssertEqual(order, [early.id, late.id, undated.id])
 	}
 
 	func test_timeline_leavesOutUnlinkedEntries() {
 		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, charmander])
-		let caught = makeCatch(number: charmander, date: day(1))
+		let caught = makeCatch(number: charmander, date: makeDay(1))
 		journey.entries[1].catchId = caught.id
 
-		XCTAssertEqual(journey.timeline(in: byId([caught])).map { $0.entry.number }, [charmander])
+		XCTAssertEqual(journey.makeTimeline(in: indexById([caught])).map { $0.entry.number }, [charmander])
 	}
 
 	func test_entries_roundTripThroughTheirStoredForm() throws {
@@ -69,22 +69,22 @@ class JourneyTests: XCTestCase {
 
 	func test_phases_includeCatchesThatGotAway_andLeaveTheEntryUncaught() {
 		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur])
-		let caughtPhase = makeCatch(number: charmander, date: day(1))
-		let fledPhase = makeCatch(number: squirtle, date: day(2), isFailed: true)
+		let caughtPhase = makeCatch(number: charmander, date: makeDay(1))
+		let fledPhase = makeCatch(number: squirtle, date: makeDay(2), isFailed: true)
 		journey.addPhase(caughtPhase.id, toEntry: journey.entries[0].id)
 		journey.addPhase(fledPhase.id, toEntry: journey.entries[0].id)
-		let catches = byId([caughtPhase, fledPhase])
+		let catches = indexById([caughtPhase, fledPhase])
 
-		XCTAssertEqual(journey.phases(for: journey.entries[0], in: catches).map { $0.id }, [caughtPhase.id, fledPhase.id])
-		XCTAssertEqual(journey.phaseCount(in: catches), 2)
-		XCTAssertEqual(journey.caughtCount(in: catches), 0)
-		XCTAssertEqual(journey.phaseCount(in: byId([fledPhase])), 1, "A deleted catch drops out of the phases")
+		XCTAssertEqual(journey.getPhases(for: journey.entries[0], in: catches).map { $0.id }, [caughtPhase.id, fledPhase.id])
+		XCTAssertEqual(journey.countPhases(in: catches), 2)
+		XCTAssertEqual(journey.countCaught(in: catches), 0)
+		XCTAssertEqual(journey.countPhases(in: indexById([fledPhase])), 1, "A deleted catch drops out of the phases")
 	}
 
 	func test_aCatchIsLinkedOncePerJourney_asTargetOrPhase() {
 		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, charmander])
-		let squirtleCatch = makeCatch(number: squirtle, date: day(1))
-		let bulbasaurCatch = makeCatch(number: bulbasaur, date: day(2))
+		let squirtleCatch = makeCatch(number: squirtle, date: makeDay(1))
+		let bulbasaurCatch = makeCatch(number: bulbasaur, date: makeDay(2))
 		journey.entries[0].catchId = bulbasaurCatch.id
 
 		XCTAssertTrue(journey.addPhase(squirtleCatch.id, toEntry: journey.entries[0].id))
@@ -99,16 +99,16 @@ class JourneyTests: XCTestCase {
 
 	func test_timeline_interleavesPhasesByDate_withPhasesBeforeTheirTargetOnTheSameDay() {
 		let journey = Journey(name: "Starters", priority: 0, numbers: [bulbasaur, charmander])
-		let bulbasaurCatch = makeCatch(number: bulbasaur, date: day(5))
-		let sameDayPhase = makeCatch(number: squirtle, date: day(5), isFailed: true)
-		let earlyPhase = makeCatch(number: squirtle, date: day(1))
-		let charmanderCatch = makeCatch(number: charmander, date: day(3))
+		let bulbasaurCatch = makeCatch(number: bulbasaur, date: makeDay(5))
+		let sameDayPhase = makeCatch(number: squirtle, date: makeDay(5), isFailed: true)
+		let earlyPhase = makeCatch(number: squirtle, date: makeDay(1))
+		let charmanderCatch = makeCatch(number: charmander, date: makeDay(3))
 		journey.entries[0].catchId = bulbasaurCatch.id
 		journey.entries[1].catchId = charmanderCatch.id
 		journey.addPhase(sameDayPhase.id, toEntry: journey.entries[0].id)
 		journey.addPhase(earlyPhase.id, toEntry: journey.entries[1].id)
 
-		let timeline = journey.timeline(in: byId([bulbasaurCatch, sameDayPhase, earlyPhase, charmanderCatch]))
+		let timeline = journey.makeTimeline(in: indexById([bulbasaurCatch, sameDayPhase, earlyPhase, charmanderCatch]))
 
 		XCTAssertEqual(timeline.map { $0.caught.id }, [earlyPhase.id, charmanderCatch.id, sameDayPhase.id, bulbasaurCatch.id])
 		XCTAssertEqual(timeline.map { $0.isPhase }, [true, false, true, false])

@@ -52,11 +52,12 @@ class StatsVC: UIViewController {
 		}
 		addOverview(stats)
 		addYears(stats)
+		addYearLuck(stats)
 		addLuckiestPeriods(stats)
 		addLuckiestDates(stats)
 		addRecords(stats)
 		addUsage(title: "Balls", rows: stats.ballUsage.prefix(8).map { usage in
-			UsageRow(title: "\(BallGrid.displayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
+			UsageRow(title: "\(BallGrid.getDisplayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
 		}, total: stats.caughtCount)
 		addUsage(title: "Games", rows: stats.gameUsage.prefix(6).map { usage in
 			UsageRow(title: usage.key.displayName, image: GamesList.games[usage.key].flatMap { UIImage(named: $0.coverPokemon) }, count: usage.count, filter: .game(usage.key))
@@ -94,15 +95,15 @@ class StatsVC: UIViewController {
 	fileprivate func addOverview(_ stats: CatchStatistics) {
 		let average = stats.averageEncounters.map { $0.grouped } ?? "–"
 		let grid = UIStackView(arrangedSubviews: [
-			row(StatsVC.makeTile(caption: "Shinies found", value: stats.foundCount.grouped, highlighted: true),
+			makeRow(StatsVC.makeTile(caption: "Shinies found", value: stats.foundCount.grouped, highlighted: true),
 				StatsVC.makeTile(caption: "Species caught", value: stats.caughtSpeciesCount.grouped)),
-			row(StatsVC.makeTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRatePercent.map { "\($0)% catch rate" }) { [weak self] in
+			makeRow(StatsVC.makeTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRatePercent.map { "\($0)% catch rate" }) { [weak self] in
 					self?.showCollection()
 				},
 				StatsVC.makeTile(caption: "Got away", value: stats.failedCount.grouped) { [weak self] in
 					self?.showCollection(filter: .gotAway)
 				}),
-			row(StatsVC.makeTile(caption: "Encounters", value: stats.totalEncounters.grouped),
+			makeRow(StatsVC.makeTile(caption: "Encounters", value: stats.totalEncounters.grouped),
 				StatsVC.makeTile(caption: "Avg per shiny", value: average))
 		])
 		grid.axis = .vertical
@@ -113,7 +114,7 @@ class StatsVC: UIViewController {
 		addSection("Overview", grid, footnote: footnote)
 	}
 
-	fileprivate func row(_ views: UIView...) -> UIStackView {
+	fileprivate func makeRow(_ views: UIView...) -> UIStackView {
 		let row = UIStackView(arrangedSubviews: views)
 		row.distribution = .fillEqually
 		row.spacing = 10
@@ -129,6 +130,26 @@ class StatsVC: UIViewController {
 			? " \(stats.undatedCount) \(stats.undatedCount == 1 ? "catch was" : "catches were") logged before catch history and \(stats.undatedCount == 1 ? "has" : "have") no year."
 			: ""
 		addSection("Average encounters by year", chart, footnote: "Tap a year to see its catches." + undatedNote)
+	}
+
+	fileprivate func addYearLuck(_ stats: CatchStatistics) {
+		guard !stats.yearLuck.isEmpty else { return }
+		let card = UIView()
+		card.backgroundColor = Color.Grey800
+		card.layer.cornerRadius = CornerRadius.standard
+		card.clipsToBounds = true
+		let list = UIStackView()
+		list.axis = .vertical
+		for luck in stats.yearLuck {
+			let row = YearLuckRow(luck: luck)
+			row.onTap = { [weak self] in
+				self?.showCollection(filter: .period(.year(luck.year)))
+			}
+			list.addArrangedSubview(row)
+		}
+		card.addAutoLayoutSubviews(list)
+		list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+		addSection("Expected vs actual by year", card, footnote: "Expected shinies add up encounters divided by odds for every catch. Chain hunts and Let's Go catches have no fixed odds, so they're left out along with catches without encounters. Tap a year to see its catches.")
 	}
 
 	fileprivate func addLuckiestPeriods(_ stats: CatchStatistics) {
@@ -154,7 +175,7 @@ class StatsVC: UIViewController {
 		let luckiest = chart.luckiestBars
 		let names = ListFormatter.localizedString(byJoining: luckiest.map { $0.name })
 		let count = luckiest.first?.foundCount ?? 0
-		addSection(title, chart, footnote: "Luckiest: \(names), with \(StatsVC.shinies(count)). Tap a bar to see those catches.")
+		addSection(title, chart, footnote: "Luckiest: \(names), with \(StatsVC.formatShinies(count)). Tap a bar to see those catches.")
 	}
 
 	fileprivate func addLuckiestDates(_ stats: CatchStatistics) {
@@ -178,22 +199,22 @@ class StatsVC: UIViewController {
 		addSection("Luckiest dates", card, footnote: "Dates you've found more than one shiny on, across all years. Tap one to see those catches.")
 	}
 
-	fileprivate static func shinies(_ count: Int) -> String {
+	fileprivate static func formatShinies(_ count: Int) -> String {
 		return count == 1 ? "1 shiny" : "\(count.grouped) shinies"
 	}
 
 	fileprivate func addRecords(_ stats: CatchStatistics) {
 		guard let fastest = stats.fastestCatch, let longest = stats.longestCatch else { return }
 		let records = UIStackView(arrangedSubviews: [
-			recordCard(title: "Fastest shiny", caught: fastest, symbol: "hare.fill"),
-			recordCard(title: "Longest hunt", caught: longest, symbol: "tortoise.fill")
+			makeRecordCard(title: "Fastest shiny", caught: fastest, symbol: "hare.fill"),
+			makeRecordCard(title: "Longest hunt", caught: longest, symbol: "tortoise.fill")
 		])
 		records.distribution = .fillEqually
 		records.spacing = 10
 		addSection("Records", records)
 	}
 
-	fileprivate func recordCard(title: String, caught: CatchSummary, symbol: String) -> UIView {
+	fileprivate func makeRecordCard(title: String, caught: CatchSummary, symbol: String) -> UIView {
 		let card = RecordCard(title: title, symbol: symbol, caught: caught)
 		card.onTap = { [weak self] in
 			guard let self = self, let detail = CatchDetailTVC(container: self.container, catchId: caught.id) else { return }
@@ -250,7 +271,7 @@ class StatsVC: UIViewController {
 		tile.addAutoLayoutSubviews(stack)
 		stack.pinEdges(to: tile, insets: UIEdgeInsets(top: 12, left: 14, bottom: 12, right: 14))
 		if (onTap != nil) {
-			let chevron = UIImageView(image: UIImage.symbol("chevron.right", pointSize: 12, weight: .semibold))
+			let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
 			chevron.tintColor = Color.Grey500
 			tile.addAutoLayoutSubviews(chevron)
 			NSLayoutConstraint.activate([
@@ -485,7 +506,7 @@ fileprivate class LuckyDateRow: UIControl {
 		countLabel.text = "\(count) shinies"
 		countLabel.setContentHuggingPriority(.required, for: .horizontal)
 		countLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-		let chevron = UIImageView(image: UIImage.symbol("chevron.right", pointSize: 12, weight: .semibold))
+		let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
 		chevron.tintColor = Color.Grey500
 		chevron.setContentHuggingPriority(.required, for: .horizontal)
 		let layout = UIStackView(arrangedSubviews: [rankLabel, titleLabel, countLabel, chevron])
@@ -509,6 +530,63 @@ fileprivate class LuckyDateRow: UIControl {
 	}
 
 	@objc fileprivate func tapped() {
+		onTap?()
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+fileprivate class YearLuckRow: UIControl {
+	var onTap: (() -> Void)?
+
+	init(luck: CatchStatistics.YearLuck) {
+		super.init(frame: .zero)
+		let expected = YearLuckRow.formatOneDecimal(luck.expectedShinies)
+		let difference = Double(luck.foundCount) - luck.expectedShinies
+		let isLucky = difference >= 0
+
+		let yearLabel = UILabel(fontSize: 15, weight: .semibold)
+		yearLabel.text = String(luck.year)
+		yearLabel.setContentHuggingPriority(.required, for: .horizontal)
+		let comparisonLabel = UILabel(fontSize: 13, color: Color.Grey300)
+		comparisonLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
+		comparisonLabel.text = "\(expected) expected · \(luck.foundCount) found"
+		comparisonLabel.adjustsFontSizeToFitWidth = true
+		comparisonLabel.minimumScaleFactor = 0.8
+		let differenceLabel = UILabel(fontSize: 13, weight: .bold, color: isLucky ? Color.Success400 : Color.Danger300)
+		differenceLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .bold)
+		differenceLabel.text = (isLucky ? "+" : "−") + YearLuckRow.formatOneDecimal(abs(difference))
+		differenceLabel.setContentHuggingPriority(.required, for: .horizontal)
+		differenceLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+		let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
+		chevron.tintColor = Color.Grey500
+		chevron.setContentHuggingPriority(.required, for: .horizontal)
+		let layout = UIStackView(arrangedSubviews: [yearLabel, comparisonLabel, differenceLabel, chevron])
+		layout.alignment = .center
+		layout.spacing = 12
+		layout.isUserInteractionEnabled = false
+		addAutoLayoutSubviews(layout)
+		layout.pinEdges(to: self, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 12))
+		addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+		isAccessibilityElement = true
+		accessibilityTraits = .button
+		accessibilityLabel = "\(luck.year): \(expected) expected, \(luck.foundCount) found, \(isLucky ? "luckier" : "unluckier") than expected"
+		accessibilityHint = "Shows the catches from this year."
+	}
+
+	fileprivate static func formatOneDecimal(_ value: Double) -> String {
+		return String(format: "%.1f", value)
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			backgroundColor = isHighlighted ? Color.Grey700 : .clear
+		}
+	}
+
+	@objc fileprivate func handleTap() {
 		onTap?()
 	}
 
@@ -554,7 +632,7 @@ fileprivate class UsageRowView: UIControl {
 		let labels = UIStackView(arrangedSubviews: [titleRow, track])
 		labels.axis = .vertical
 		labels.spacing = 6
-		let chevron = UIImageView(image: UIImage.symbol("chevron.right", pointSize: 12, weight: .semibold))
+		let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
 		chevron.tintColor = Color.Grey500
 		chevron.setContentHuggingPriority(.required, for: .horizontal)
 		let layout = UIStackView(arrangedSubviews: [icon, labels, chevron])
@@ -602,7 +680,7 @@ fileprivate class RecordCard: UIControl {
 		backgroundColor = Color.Grey800
 		layer.cornerRadius = CornerRadius.standard
 
-		let symbolView = UIImageView(image: UIImage.symbol(symbol, pointSize: 12, weight: .bold))
+		let symbolView = UIImageView(image: UIImage.makeSymbol(symbol, pointSize: 12, weight: .bold))
 		symbolView.tintColor = Color.Orange500
 		let titleLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
 		titleLabel.text = title.uppercased()

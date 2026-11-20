@@ -99,14 +99,14 @@ class NaturePickerVC: UIViewController {
 			button.layer.borderColor = Color.Grey700.cgColor
 		}
 		button.heightAnchor.constraint(equalToConstant: NaturePickerVC.cellHeight).isActive = true
-		button.accessibilityLabel = accessibilityDescription(of: nature)
+		button.accessibilityLabel = makeAccessibilityDescription(of: nature)
 		button.accessibilityTraits = isSelected ? [.button, .selected] : .button
 		button.tag = Nature.allCases.firstIndex(of: nature)!
 		button.addTarget(self, action: #selector(naturePressed(_:)), for: .touchUpInside)
 		return button
 	}
 
-	fileprivate func accessibilityDescription(of nature: Nature) -> String {
+	fileprivate func makeAccessibilityDescription(of nature: Nature) -> String {
 		guard let raised = nature.raisedStat, let lowered = nature.loweredStat else { return "\(nature.name), neutral" }
 		return "\(nature.name), raises \(raised.name), lowers \(lowered.name)"
 	}

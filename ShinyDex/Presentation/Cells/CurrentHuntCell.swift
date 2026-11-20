@@ -10,8 +10,8 @@ class CurrentHuntCell: UITableViewCell {
 	let nameLabel = UILabel(fontSize: 17, weight: .semibold)
 	let encountersLabel = UILabel(fontSize: 26, weight: .bold)
 	fileprivate let encountersCaption = UILabel(fontSize: 13, color: Color.Grey400)
-	let minusButton = UIButton.symbolButton("minus.circle.fill", pointSize: 32)
-	let plusButton = UIButton.symbolButton("plus.circle.fill", pointSize: 44)
+	let minusButton = UIButton.makeSymbolButton("minus.circle.fill", pointSize: 32)
+	let plusButton = UIButton.makeSymbolButton("plus.circle.fill", pointSize: 44)
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -239,7 +239,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 	@objc fileprivate func confirmPressed() {
 		let name = enteredName
 		let picked = selected
-		Haptics.success()
+		Haptics.playSuccess()
 		dismissSheet { [onConfirm] in
 			onConfirm(name, picked)
 		}
@@ -320,7 +320,7 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
 		chip.accessibilityLabel = "Remove \(pokemon.name)"
 		chip.addTarget(self, action: #selector(chipPressed(_:)), for: .touchUpInside)
 
-		let badge = UIImageView(image: UIImage.symbol("xmark.circle.fill", pointSize: 16, weight: .semibold))
+		let badge = UIImageView(image: UIImage.makeSymbol("xmark.circle.fill", pointSize: 16, weight: .semibold))
 		badge.tintColor = Color.Grey400
 		badge.isUserInteractionEnabled = false
 		chip.addAutoLayoutSubviews(badge)

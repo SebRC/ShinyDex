@@ -25,7 +25,7 @@ final class CoreDataPokemonRepository: PokemonRepository {
     }
 
     func get(number: Int) -> Pokemon? {
-        return object(for: number).map(makePokemon)
+        return fetchObject(for: number).map(makePokemon)
     }
 
     func insert(_ pokemon: Pokemon) {
@@ -36,7 +36,7 @@ final class CoreDataPokemonRepository: PokemonRepository {
     }
 
     func save(_ pokemon: Pokemon) {
-        guard let pokemonEntity = object(for: pokemon.number) else {
+        guard let pokemonEntity = fetchObject(for: pokemon.number) else {
             print("Could not save \(pokemon.name): no stored Pokémon has number \(pokemon.number).")
             return
         }
@@ -54,8 +54,8 @@ final class CoreDataPokemonRepository: PokemonRepository {
         }
     }
 
-    private func object(for number: Int) -> NSManagedObject? {
-        if let known = Self.identities.object(for: number, in: managedContext) {
+    private func fetchObject(for number: Int) -> NSManagedObject? {
+        if let known = Self.identities.getObject(for: number, in: managedContext) {
             return known
         }
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PokemonEntity")

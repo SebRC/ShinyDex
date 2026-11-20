@@ -87,7 +87,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
 	func configure(hunt: HuntSummary) {
 		isCollapsed = hunt.isCollapsed
 		nameLabel.text = hunt.name
-		encountersLabel.text = HuntHeaderView.encountersText(hunt.totalEncounters, pokemonCount: hunt.members.count)
+		encountersLabel.text = HuntHeaderView.formatEncounters(hunt.totalEncounters, pokemonCount: hunt.members.count)
 		chevronImageView.transform = isCollapsed ? CGAffineTransform(rotationAngle: -.pi / 2) : .identity
 		toggleControl.accessibilityLabel = "\(hunt.name), \(encountersLabel.text ?? "")"
 		toggleControl.accessibilityValue = isCollapsed ? "Collapsed" : "Expanded"
@@ -100,7 +100,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
 		]
 	}
 
-	static func encountersText(_ encounters: Int, pokemonCount: Int) -> String {
+	static func formatEncounters(_ encounters: Int, pokemonCount: Int) -> String {
 		let pokemonText = pokemonCount == 1 ? "1 Pokémon" : "\(pokemonCount) Pokémon"
 		let encountersText = encounters == 1 ? "1 encounter" : "\(encounters.grouped) encounters"
 		return "\(pokemonText) · \(encountersText)"
@@ -111,7 +111,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
 	}
 
 	@objc fileprivate func incrementAllPressed() {
-		Haptics.bulk()
+		Haptics.playBulk()
 		onIncrementAll?()
 	}
 

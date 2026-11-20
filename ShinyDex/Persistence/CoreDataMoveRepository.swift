@@ -10,7 +10,7 @@ final class CoreDataMoveRepository: MoveRepository {
     }
 
     func getActiveMoves() -> ActiveMoves? {
-        guard let activeMovesEntity = firstEntity() else { return nil }
+        guard let activeMovesEntity = fetchFirstEntity() else { return nil }
         return ActiveMoves(
             moves: StoredActiveMove.decode(activeMovesEntity.value(forKey: "json") as? String) ?? [],
             pressureActive: activeMovesEntity.value(forKey: "pressureActive") as? Bool ?? false)
@@ -21,7 +21,7 @@ final class CoreDataMoveRepository: MoveRepository {
     }
 
     func save(_ activeMoves: ActiveMoves) {
-        guard let activeMovesEntity = firstEntity() else {
+        guard let activeMovesEntity = fetchFirstEntity() else {
             insert(activeMoves)
             return
         }
@@ -54,7 +54,7 @@ final class CoreDataMoveRepository: MoveRepository {
         }
     }
 
-    private func firstEntity() -> NSManagedObject? {
+    private func fetchFirstEntity() -> NSManagedObject? {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ActiveMovesEntity")
         do {
             return try managedContext.fetch(fetchRequest).first

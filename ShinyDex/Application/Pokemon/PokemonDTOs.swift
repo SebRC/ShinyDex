@@ -49,7 +49,7 @@ struct PokemonDetailsMapper {
     let odds: OddsService
     let probability: ProbabilityService
 
-    func details(of pokemon: Pokemon, catchCount: Int) -> PokemonDetails {
+    func makeDetails(of pokemon: Pokemon, catchCount: Int) -> PokemonDetails {
         let configuration = pokemon.huntConfiguration
         let shinyOdds = odds.getShinyOdds(configuration: configuration, encounters: pokemon.encounters)
         return PokemonDetails(

@@ -37,27 +37,27 @@ class Journey {
 		self.entries = entries
 	}
 
-	func linkedCatch(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> Catch? {
+	func findLinkedCatch(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> Catch? {
 		guard let catchId = entry.catchId, let caught = catchesById[catchId], !caught.isFailed else { return nil }
 		return caught
 	}
 
-	func caughtCount(in catchesById: [UUID: Catch]) -> Int {
-		return entries.filter { linkedCatch(for: $0, in: catchesById) != nil }.count
+	func countCaught(in catchesById: [UUID: Catch]) -> Int {
+		return entries.filter { findLinkedCatch(for: $0, in: catchesById) != nil }.count
 	}
 
-	func phases(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> [Catch] {
+	func getPhases(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> [Catch] {
 		return entry.phaseCatchIds.compactMap { catchesById[$0] }
 	}
 
-	func phaseCount(in catchesById: [UUID: Catch]) -> Int {
-		return entries.reduce(0) { $0 + phases(for: $1, in: catchesById).count }
+	func countPhases(in catchesById: [UUID: Catch]) -> Int {
+		return entries.reduce(0) { $0 + getPhases(for: $1, in: catchesById).count }
 	}
 
-	func timeline(in catchesById: [UUID: Catch]) -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] {
+	func makeTimeline(in catchesById: [UUID: Catch]) -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] {
 		let steps = entries.flatMap { entry -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] in
-			let phaseSteps = phases(for: entry, in: catchesById).map { (entry: entry, caught: $0, isPhase: true) }
-			let targetStep = linkedCatch(for: entry, in: catchesById).map { [(entry: entry, caught: $0, isPhase: false)] } ?? []
+			let phaseSteps = getPhases(for: entry, in: catchesById).map { (entry: entry, caught: $0, isPhase: true) }
+			let targetStep = findLinkedCatch(for: entry, in: catchesById).map { [(entry: entry, caught: $0, isPhase: false)] } ?? []
 			return phaseSteps + targetStep
 		}
 		let sorted = steps.enumerated().sorted { first, second in

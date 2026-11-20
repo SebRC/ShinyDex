@@ -66,11 +66,11 @@ class ButtonStrip: UIView {
 		backgroundColor = Color.Grey800
 		layer.cornerRadius = CornerRadius.standard
 
-		updateEncountersButton.iconView.image = UIImage.symbol("pencil", pointSize: ButtonStrip.symbolPointSize, weight: .medium)
+		updateEncountersButton.iconView.image = UIImage.makeSymbol("pencil", pointSize: ButtonStrip.symbolPointSize, weight: .medium)
 		updateEncountersButton.iconView.contentMode = .center
 		incrementButton.iconView.contentMode = .center
 		locationButton.iconView.image = UIImage(named: "town-map")
-		pokeballButton.iconView.image = UIImage.symbol(PokemonCell.logCatchSymbol, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
+		pokeballButton.iconView.image = UIImage.makeSymbol(PokemonCell.logCatchSymbol, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
 		pokeballButton.iconView.contentMode = .center
 		pokeballButton.iconView.tintColor = Color.Orange500
 

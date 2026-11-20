@@ -15,7 +15,7 @@ class CatchDatePickerVC: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	static func inNavigationController(initialDate: Date?, onSave: @escaping (Date) -> Void) -> UINavigationController {
+	static func makeNavigationController(initialDate: Date?, onSave: @escaping (Date) -> Void) -> UINavigationController {
 		let navigationController = UINavigationController(rootViewController: CatchDatePickerVC(initialDate: initialDate, onSave: onSave))
 		navigationController.overrideUserInterfaceStyle = .dark
 		return navigationController

@@ -51,7 +51,7 @@ class PPCounterTVC: UITableViewController {
 		pressureCell.detailTextLabel?.text = "Each use of a move costs 2 PP"
 		pressureCell.detailTextLabel?.font = UIFont.systemFont(ofSize: 15)
 		pressureCell.detailTextLabel?.textColor = Color.Grey400
-		pressureCell.imageView?.image = UIImage.symbol("bolt.fill", pointSize: 20)
+		pressureCell.imageView?.image = UIImage.makeSymbol("bolt.fill", pointSize: 20)
 		pressureCell.imageView?.tintColor = Color.Orange500
 		pressureSwitch.onTintColor = Color.Orange500
 		pressureSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
@@ -104,7 +104,7 @@ class PPCounterTVC: UITableViewController {
 			self.tableView.reloadSections(IndexSet(integer: Section.moves.rawValue), with: .automatic)
 			self.updateRestoreAllButton()
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 
 	fileprivate func changePP(at index: Int, by amount: Int) {

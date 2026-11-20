@@ -50,7 +50,7 @@ class CatchCell: UITableViewCell {
 		titleLabel.text = title
 		titleLabel.textColor = isFailed ? Color.Grey300 : Color.Grey200
 		subtitleLabel.text = subtitle
-		ballImageView.image = isFailed ? UIImage.symbol("wind", pointSize: 20, weight: .semibold) : UIImage(named: ball)
+		ballImageView.image = isFailed ? UIImage.makeSymbol("wind", pointSize: 20, weight: .semibold) : UIImage(named: ball)
 		ballImageView.tintColor = Color.Grey500
 		ballImageView.contentMode = isFailed ? .center : .scaleAspectFit
 		accessibilityLabel = "\(title), \(subtitle)"

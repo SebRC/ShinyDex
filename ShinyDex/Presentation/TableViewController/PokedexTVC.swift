@@ -78,7 +78,7 @@ class PokedexTVC: UITableViewController {
 		}
 	}
 
-	fileprivate func catchCount(of number: Int) -> Int {
+	fileprivate func countCatches(of number: Int) -> Int {
 		return slicedPokemon.first { $0.number == number }?.catchCount ?? 0
 	}
 
@@ -106,7 +106,7 @@ class PokedexTVC: UITableViewController {
 		let picker = PokeballModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] result in
 			self?.pokeballPicked(pokemon: pokemon, result: result)
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 
 	fileprivate func pokeballPicked(pokemon: PokedexEntry, result: PokeballPickerResult) {
@@ -119,7 +119,7 @@ class PokedexTVC: UITableViewController {
 	fileprivate func showCatchPopup(pokemon: PokedexEntry, result: PokeballPickerResult) {
 		switch result {
 		case .loggedCatch:
-			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(catchCount(of: pokemon.number)).")
+			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(countCatches(of: pokemon.number)).")
 		case .loggedFailed:
 			popupHandler.showPopup(text: "Logged a shiny \(pokemon.name) that got away.")
 		case .removedLatestCatch:
@@ -136,7 +136,7 @@ class PokedexTVC: UITableViewController {
 			self.tableView.reloadData()
 			self.popupHandler.showPopup(text: "\(pokemon.name) was added to \(huntName).")
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 
 	fileprivate func getSelectedPokemon(index: Int) -> PokedexEntry {
@@ -148,7 +148,7 @@ class PokedexTVC: UITableViewController {
 		}
 	}
 	
-	func searchBarIsEmpty() -> Bool {
+	func isSearchBarEmpty() -> Bool {
 		return searchController.searchBar.text?.isEmpty ?? true
 	}
 	
@@ -184,7 +184,7 @@ class PokedexTVC: UITableViewController {
 	}
 	
 	func isFiltering() -> Bool {
-		return searchController.isActive && !searchBarIsEmpty()
+		return searchController.isActive && !isSearchBarEmpty()
 	}
 	
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

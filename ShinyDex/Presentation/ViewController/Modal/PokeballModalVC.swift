@@ -130,7 +130,7 @@ class PokeballModalVC: UIViewController {
 	}
 
 	@objc fileprivate func dateButtonPressed() {
-		present(CatchDatePickerVC.inNavigationController(initialDate: caughtDate) { [weak self] date in
+		present(CatchDatePickerVC.makeNavigationController(initialDate: caughtDate) { [weak self] date in
 			self?.caughtDate = date
 			self?.updateDateButton()
 		}, animated: true)
@@ -141,14 +141,14 @@ class PokeballModalVC: UIViewController {
 	fileprivate func setUpGridView() {
 		gridView.caption = "WHICH BALL?"
 		gridView.items = ballGrid.items
-		gridView.currentIndex = hasCatches ? ballGrid.index(of: caughtBall) : nil
+		gridView.currentIndex = hasCatches ? ballGrid.findIndex(of: caughtBall) : nil
 		if (hasCatches) {
 			gridView.actions = [IconGridAction(title: "Remove latest catch", symbol: "arrow.uturn.left", isDestructive: true)]
 		}
 		gridView.onSelect = { [weak self] index in
 			guard let self = self else { return }
 			self.container.logCatch.handle(LogCatchCommand(number: self.number, outcome: .caught(ball: self.ballGrid.ballNames[index]), date: self.caughtDate))
-			Haptics.success()
+			Haptics.playSuccess()
 			self.finish(.loggedCatch)
 		}
 		gridView.onAction = { [weak self] _ in
@@ -170,7 +170,7 @@ class PokeballModalVC: UIViewController {
 
 	fileprivate func setUpFailedView() {
 		failedView.isHidden = true
-		let icon = UIImageView(image: UIImage.symbol("wind", pointSize: 34, weight: .medium))
+		let icon = UIImageView(image: UIImage.makeSymbol("wind", pointSize: 34, weight: .medium))
 		icon.tintColor = Color.Grey400
 		icon.contentMode = .center
 		let explanation = UILabel(fontSize: 15, color: Color.Grey300, lines: 0)

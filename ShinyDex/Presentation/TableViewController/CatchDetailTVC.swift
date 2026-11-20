@@ -91,8 +91,8 @@ class CatchDetailTVC: UITableViewController {
 			Row(field: .ball, title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
 			Row(field: .game, title: "Game", value: caught.game.displayName, image: gameCover),
 			Row(field: .method, title: "Method", value: caught.huntMethod.rawValue, image: UIImage(named: caught.huntMethod.rawValue)),
-			Row(field: .encounters, title: "Encounters", value: caught.encounters.grouped, image: UIImage.symbol("number", pointSize: 18, weight: .medium), isSymbol: true),
-			Row(field: .caughtDate, title: caught.isFailed ? "Found" : "Caught", value: caught.formattedCaughtDate ?? "Unknown", image: UIImage.symbol("calendar", pointSize: 18, weight: .medium), isSymbol: true)
+			Row(field: .encounters, title: "Encounters", value: caught.encounters.grouped, image: UIImage.makeSymbol("number", pointSize: 18, weight: .medium), isSymbol: true),
+			Row(field: .caughtDate, title: caught.isFailed ? "Found" : "Caught", value: caught.formattedCaughtDate ?? "Unknown", image: UIImage.makeSymbol("calendar", pointSize: 18, weight: .medium), isSymbol: true)
 		]
 		if (caught.isFailed) {
 			rows.removeAll { $0.field == .ball }
@@ -185,15 +185,15 @@ class CatchDetailTVC: UITableViewController {
 			cell.configure(encounters: caught.encounters.grouped, odds: details.odds.map { "1/\($0.grouped)" } ?? "Varies", luck: luckText)
 			return cell
 		case .about:
-			return aboutCell(for: aboutRows[indexPath.row])
+			return makeAboutCell(for: aboutRows[indexPath.row])
 		case .training:
-			return trainingCell(for: trainingRows[indexPath.row])
+			return makeTrainingCell(for: trainingRows[indexPath.row])
 		case .details:
-			return detailCell(for: rows[indexPath.row])
+			return makeDetailCell(for: rows[indexPath.row])
 		}
 	}
 
-	fileprivate func aboutCell(for row: AboutRow) -> UITableViewCell {
+	fileprivate func makeAboutCell(for row: AboutRow) -> UITableViewCell {
 		let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
 		cell.backgroundColor = Color.Grey800
 		let selectedBackground = UIView()
@@ -219,16 +219,16 @@ class CatchDetailTVC: UITableViewController {
 		case .ivs:
 			cell.textLabel?.text = "IVs"
 			let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.Grey400])
-			ivsText.append(caught.ivs.coloredSummary(unknownColor: Color.Grey400))
+			ivsText.append(caught.ivs.makeColoredSummary(unknownColor: Color.Grey400))
 			cell.detailTextLabel?.attributedText = ivsText
 			symbol = "chart.bar.fill"
 		}
-		cell.imageView?.image = UIImage.symbol(symbol, pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
+		cell.imageView?.image = UIImage.makeSymbol(symbol, pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
 		cell.imageView?.tintColor = Color.Orange500
 		return cell
 	}
 
-	fileprivate func trainingCell(for row: TrainingRow) -> UITableViewCell {
+	fileprivate func makeTrainingCell(for row: TrainingRow) -> UITableViewCell {
 		let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
 		cell.backgroundColor = Color.Grey800
 		let selectedBackground = UIView()
@@ -244,19 +244,19 @@ class CatchDetailTVC: UITableViewController {
 		case .evs:
 			cell.textLabel?.text = "EV training"
 			cell.detailTextLabel?.text = caught.evs.isEmpty ? "Not trained yet" : "\(caught.evs.summary) · \(caught.evs.total)/\(EffortValues.maximumTotal)"
-			cell.imageView?.image = UIImage.symbol("bolt.fill", pointSize: 18, weight: .medium)?.padded(to: iconSize)
+			cell.imageView?.image = UIImage.makeSymbol("bolt.fill", pointSize: 18, weight: .medium)?.padded(to: iconSize)
 		case .evolve:
 			cell.textLabel?.text = "Evolve"
 			let names = details.evolutionTargets.map { $0.name }
 			let origin = details.evolvedFromName.map { "Caught as \($0) · " } ?? ""
 			cell.detailTextLabel?.text = origin + names.joined(separator: ", ")
-			cell.imageView?.image = UIImage.symbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: iconSize)
+			cell.imageView?.image = UIImage.makeSymbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: iconSize)
 		}
 		cell.imageView?.tintColor = Color.Orange500
 		return cell
 	}
 
-	fileprivate func detailCell(for row: Row) -> UITableViewCell {
+	fileprivate func makeDetailCell(for row: Row) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
 		cell.textLabel?.text = row.title
 		cell.textLabel?.textColor = Color.Grey200
@@ -314,7 +314,7 @@ class CatchDetailTVC: UITableViewController {
 		case .encounters:
 			showEncountersEditor()
 		case .caughtDate:
-			present(CatchDatePickerVC.inNavigationController(initialDate: caught.caughtDate) { [weak self] date in
+			present(CatchDatePickerVC.makeNavigationController(initialDate: caught.caughtDate) { [weak self] date in
 				self?.save(.caughtDate(date))
 			}, animated: true)
 		}
@@ -373,7 +373,7 @@ class CatchDetailTVC: UITableViewController {
 
 	fileprivate func evolve(into target: NamedPokemon) {
 		guard (try? container.evolveCatch.handle(EvolveCatchCommand(catchId: catchId, targetNumber: target.number))) != nil else { return }
-		Haptics.success()
+		Haptics.playSuccess()
 		let previousName = caught.pokemonName
 		reloadRows()
 		PopupHandler().showPopup(text: "\(previousName) evolved into \(target.name)!")
@@ -381,7 +381,7 @@ class CatchDetailTVC: UITableViewController {
 
 
 	fileprivate func showBallPicker() {
-		showPicker(title: "Ball", caption: "Caught in", items: ballGrid.items, columns: 4, currentIndex: ballGrid.index(of: caught.caughtBall)) { [weak self] index in
+		showPicker(title: "Ball", caption: "Caught in", items: ballGrid.items, columns: 4, currentIndex: ballGrid.findIndex(of: caught.caughtBall)) { [weak self] index in
 			guard let self = self else { return }
 			self.save(.ball(self.ballGrid.ballNames[index]))
 		}
@@ -556,7 +556,7 @@ fileprivate class CatchStatsCell: UITableViewCell {
 		tiles.distribution = .fillEqually
 		tiles.spacing = 12
 
-		let star = UIImageView(image: UIImage.symbol("star.fill", pointSize: 14))
+		let star = UIImageView(image: UIImage.makeSymbol("star.fill", pointSize: 14))
 		star.tintColor = Color.Orange500
 		star.contentMode = .center
 		star.setContentHuggingPriority(.required, for: .horizontal)

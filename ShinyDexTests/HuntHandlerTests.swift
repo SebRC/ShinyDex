@@ -14,7 +14,7 @@ final class HuntHandlerTests: XCTestCase {
         return CreateHuntHandler(huntRepository: hunts, pokemonRepository: pokemon).handle(CreateHuntCommand(name: name, pokemonNumbers: numbers))
     }
 
-    private func allHunts() -> [HuntSummary] {
+    private func getAllHunts() -> [HuntSummary] {
         return GetHuntsHandler(huntRepository: hunts, pokemonRepository: pokemon).handle(GetHuntsQuery())
     }
 
@@ -22,7 +22,7 @@ final class HuntHandlerTests: XCTestCase {
         _ = create("First", [0])
         _ = create("Second", [2, 1])
 
-        let result = allHunts()
+        let result = getAllHunts()
 
         XCTAssertEqual(result.map { $0.name }, ["First", "Second"])
         XCTAssertEqual(result.map { $0.priority }, [0, 1])
@@ -38,8 +38,8 @@ final class HuntHandlerTests: XCTestCase {
 
         RemovePokemonFromHuntHandler(huntRepository: hunts, pokemonRepository: pokemon).handle(RemovePokemonFromHuntCommand(huntId: middle, number: 1))
 
-        XCTAssertEqual(allHunts().map { $0.name }, ["First", "Last"])
-        XCTAssertEqual(allHunts().map { $0.priority }, [0, 1])
+        XCTAssertEqual(getAllHunts().map { $0.name }, ["First", "Last"])
+        XCTAssertEqual(getAllHunts().map { $0.priority }, [0, 1])
         XCTAssertFalse(pokemon.get(number: 1)!.isBeingHunted)
     }
 
@@ -50,8 +50,8 @@ final class HuntHandlerTests: XCTestCase {
         IncrementAllInHuntHandler(huntRepository: hunts, changeEncounters: ChangeEncountersHandler(pokemonRepository: pokemon, odds: OddsService()))
             .handle(IncrementAllInHuntCommand(huntId: id))
 
-        XCTAssertEqual(allHunts().first?.members.map { $0.encounters }, [1, 3])
-        XCTAssertEqual(allHunts().first?.totalEncounters, 4)
+        XCTAssertEqual(getAllHunts().first?.members.map { $0.encounters }, [1, 3])
+        XCTAssertEqual(getAllHunts().first?.totalEncounters, 4)
     }
 
     func test_reorderRenameAndCollapse_arePersisted() {
@@ -63,8 +63,8 @@ final class HuntHandlerTests: XCTestCase {
         update.handle(UpdateHuntCommand(huntId: first, change: .rename("Renamed")))
         update.handle(UpdateHuntCommand(huntId: second, change: .setCollapsed(true)))
 
-        XCTAssertEqual(allHunts().map { $0.name }, ["Second", "Renamed"])
-        XCTAssertEqual(allHunts().map { $0.isCollapsed }, [true, false])
+        XCTAssertEqual(getAllHunts().map { $0.name }, ["Second", "Renamed"])
+        XCTAssertEqual(getAllHunts().map { $0.isCollapsed }, [true, false])
     }
 
     func test_clearHunts_removesEveryHunt_andFreesTheirPokemon() {
@@ -73,7 +73,7 @@ final class HuntHandlerTests: XCTestCase {
 
         ClearHuntsHandler(huntRepository: hunts, pokemonRepository: pokemon).handle(ClearHuntsCommand())
 
-        XCTAssertTrue(allHunts().isEmpty)
+        XCTAssertTrue(getAllHunts().isEmpty)
         XCTAssertTrue(pokemon.getAll().allSatisfy { !$0.isBeingHunted })
     }
 }

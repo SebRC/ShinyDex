@@ -40,7 +40,7 @@ class ShinyNavigationController: UINavigationController {
 }
 
 extension UIViewController {
-	func inSheet() -> ShinyNavigationController {
+	func wrapInSheet() -> ShinyNavigationController {
 		let navigationController = ShinyNavigationController(rootViewController: self)
 		navigationController.navigationBar.prefersLargeTitles = false
 		return navigationController
@@ -57,15 +57,15 @@ extension UIViewController {
 }
 
 extension UIImage {
-	static func symbol(_ name: String, pointSize: CGFloat, weight: UIImage.SymbolWeight = .regular) -> UIImage? {
+	static func makeSymbol(_ name: String, pointSize: CGFloat, weight: UIImage.SymbolWeight = .regular) -> UIImage? {
 		return UIImage(systemName: name, withConfiguration: UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight))
 	}
 }
 
 extension UIButton {
-	static func symbolButton(_ name: String, pointSize: CGFloat, accessibilityLabel: String? = nil) -> UIButton {
+	static func makeSymbolButton(_ name: String, pointSize: CGFloat, accessibilityLabel: String? = nil) -> UIButton {
 		let button = UIButton(type: .system)
-		button.setImage(UIImage.symbol(name, pointSize: pointSize), for: .normal)
+		button.setImage(UIImage.makeSymbol(name, pointSize: pointSize), for: .normal)
 		button.tintColor = Color.Grey200
 		button.accessibilityLabel = accessibilityLabel
 		return button
@@ -73,7 +73,7 @@ extension UIButton {
 }
 
 extension UITableView {
-	func indexPath(containing view: UIView) -> IndexPath? {
+	func findIndexPath(containing view: UIView) -> IndexPath? {
 		return indexPathForRow(at: view.convert(CGPoint(x: view.bounds.midX, y: view.bounds.midY), to: self))
 	}
 }

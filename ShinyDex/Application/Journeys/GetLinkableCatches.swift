@@ -24,6 +24,6 @@ final class GetLinkableCatchesHandler {
               let entry = journey.entries.first(where: { $0.id == query.entryId.rawValue }) else { return [] }
         let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll())
         let links = JourneyCatchLinks(catches: catchRepository.getAll(), evolutions: evolutions)
-        return links.linkable(for: entry, in: journey, as: query.role).compactMap(mapper.summary)
+        return links.findLinkableCatches(for: entry, in: journey, as: query.role).compactMap(mapper.makeSummary)
     }
 }

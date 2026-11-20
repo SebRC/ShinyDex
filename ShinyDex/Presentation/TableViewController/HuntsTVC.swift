@@ -10,7 +10,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	}
 
 	fileprivate let createHuntButton = UIButton(type: .system)
-	fileprivate let rearrangeHuntsButton = UIButton.symbolButton("arrow.up.arrow.down", pointSize: 18)
+	fileprivate let rearrangeHuntsButton = UIButton.makeSymbolButton("arrow.up.arrow.down", pointSize: 18)
 	fileprivate let tableView = UITableView(frame: .zero, style: .insetGrouped)
 	fileprivate var clearCurrentHuntButton: UIBarButtonItem!
 
@@ -58,7 +58,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 		createHuntButton.setTitle("Create Hunt", for: .normal)
 		createHuntButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-		createHuntButton.setImage(UIImage.symbol("plus", pointSize: 18, weight: .semibold), for: .normal)
+		createHuntButton.setImage(UIImage.makeSymbol("plus", pointSize: 18, weight: .semibold), for: .normal)
 		createHuntButton.tintColor = Color.Grey200
 		createHuntButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
 		createHuntButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
@@ -308,14 +308,14 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 			self?.container.createHunt.handle(CreateHuntCommand(name: name, pokemonNumbers: picked.map { $0.number }))
 			self?.huntsChanged()
 		}
-		present(createHunt.inSheet(), animated: true)
+		present(createHunt.wrapInSheet(), animated: true)
 	}
 
 	@objc fileprivate func rearrangePressed() {
 		let rearrange = RearrangeHuntsTVC(container: container) { [weak self] in
 			self?.huntsChanged()
 		}
-		present(rearrange.inSheet(), animated: true)
+		present(rearrange.wrapInSheet(), animated: true)
 	}
 
 	fileprivate func reloadData(duration: Double = 0.5) {

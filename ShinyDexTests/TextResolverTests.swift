@@ -37,7 +37,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Catch Combo: \(pokemon.encounters)"
 
 		// Act
-		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.details())
+		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.makeDetails())
 
 		// Assert
 		XCTAssertEqual(actual, expectedResult)
@@ -54,7 +54,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Catch Combo: \(methodDecrement)\nEncounters: \(pokemon.encounters - methodDecrement)"
 
 		// Act
-		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.details(chainThreshold: methodDecrement))
+		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.makeDetails(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(actual, expectedResult)
@@ -75,8 +75,8 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Eggs: \(encounters)"
 
 		// Act
-		let gen2BreedingActual = textResolver.getEncountersLabelText(pokemon: gen2BreddingPokemon.details())
-		let masudaActual = textResolver.getEncountersLabelText(pokemon: masudaPokemon.details())
+		let gen2BreedingActual = textResolver.getEncountersLabelText(pokemon: gen2BreddingPokemon.makeDetails())
+		let masudaActual = textResolver.getEncountersLabelText(pokemon: masudaPokemon.makeDetails())
 
 		// Assert
 		XCTAssertEqual(gen2BreedingActual, expectedResult)
@@ -98,8 +98,8 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Chain: \(encounters)"
 
 		// Act
-		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon.details())
-		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon.details())
+		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon.makeDetails())
+		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon.makeDetails())
 
 		// Assert
 		XCTAssertEqual(sosChainActual, expectedResult)
@@ -122,8 +122,8 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Chain: \(methodDecrement)\nEncounters: \(encounters - methodDecrement)"
 
 		// Act
-		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon.details(chainThreshold: methodDecrement))
-		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon.details(chainThreshold: methodDecrement))
+		let sosChainActual = textResolver.getEncountersLabelText(pokemon: sosChainPokemon.makeDetails(chainThreshold: methodDecrement))
+		let chainFishActual = textResolver.getEncountersLabelText(pokemon: chainFishPokemon.makeDetails(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(sosChainActual, expectedResult)
@@ -142,7 +142,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Chain: \(methodDecrement)\nPatches: \(encounters - methodDecrement)"
 
 		// Act
-		let pokeradarActual = textResolver.getEncountersLabelText(pokemon: pokeradarPokemon.details(chainThreshold: methodDecrement))
+		let pokeradarActual = textResolver.getEncountersLabelText(pokemon: pokeradarPokemon.makeDetails(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(pokeradarActual, expectedResult)
@@ -157,7 +157,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Search level: \(dexNavPokemon.encounters)"
 
 		// Act
-		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon.details())
+		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon.makeDetails())
 
 		// Assert
 		XCTAssertEqual(dexNavActual, expectedResult)
@@ -173,7 +173,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Search level: \(methodDecrement)\nEncounters: \(dexNavPokemon.encounters - methodDecrement)"
 
 		// Act
-		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon.details(chainThreshold: methodDecrement))
+		let dexNavActual = textResolver.getEncountersLabelText(pokemon: dexNavPokemon.makeDetails(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(dexNavActual, expectedResult)
@@ -189,7 +189,7 @@ class TextResolverTests: XCTestCase {
 		let expectedResult = "Encounters: \(pokemon.encounters)"
 
 		// Act
-		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.details(chainThreshold: methodDecrement))
+		let actual = textResolver.getEncountersLabelText(pokemon: pokemon.makeDetails(chainThreshold: methodDecrement))
 
 		// Assert
 		XCTAssertEqual(actual, expectedResult)

@@ -23,7 +23,7 @@ class SerebiiLocationLinkProviderTests: XCTestCase {
 		let (name, number, generation) = ("Gastly", 92, 4)
 
 		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+		let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)
@@ -35,7 +35,7 @@ class SerebiiLocationLinkProviderTests: XCTestCase {
 		let (name, number, generation) = ("Snivy", 495, 1)
 
 		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+		let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)
@@ -47,7 +47,7 @@ class SerebiiLocationLinkProviderTests: XCTestCase {
 		let (name, number, generation) = ("Charmander", 5, 8)
 
 		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+		let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)
@@ -59,7 +59,7 @@ class SerebiiLocationLinkProviderTests: XCTestCase {
 		let (name, number, generation) = ("Charmander", 2000, 5)
 
 		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+		let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
 		// Assert
 		XCTAssertEqual(actual, expected)

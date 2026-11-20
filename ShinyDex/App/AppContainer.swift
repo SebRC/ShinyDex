@@ -86,7 +86,7 @@ final class AppContainer {
     var getMenuSummary: GetMenuSummaryHandler { GetMenuSummaryHandler(getHunts: getHunts, getJourneys: getJourneys, catchRepository: catchRepository) }
     var prepareData: PrepareDataHandler { PrepareDataHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, moveRepository: moveRepository, resourceLoader: resourceLoader, keyValueStore: keyValueStore) }
 
-    static func live() -> AppContainer {
+    static func makeLive() -> AppContainer {
         let coreDataStack: CoreDataStack
         do {
             coreDataStack = try CoreDataStack()

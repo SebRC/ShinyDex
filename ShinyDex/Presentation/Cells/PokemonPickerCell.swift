@@ -57,7 +57,7 @@ class PokemonPickerCell: UITableViewCell {
 		numberLabel.alpha = isInOtherHunt ? 0.6 : 1
 		inHuntLabel.isHidden = !isInOtherHunt
 		selectionView.isHidden = isInOtherHunt
-		selectionView.image = UIImage.symbol(isSelected ? "checkmark.circle.fill" : "circle", pointSize: 24, weight: .regular)
+		selectionView.image = UIImage.makeSymbol(isSelected ? "checkmark.circle.fill" : "circle", pointSize: 24, weight: .regular)
 		selectionView.tintColor = isSelected ? Color.Orange500 : Color.Grey600
 		selectionStyle = isInOtherHunt ? .none : .default
 

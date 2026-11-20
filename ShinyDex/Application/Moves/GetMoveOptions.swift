@@ -10,7 +10,7 @@ final class GetMoveOptionsHandler {
     }
 
     func handle(_ query: GetMoveOptionsQuery) -> [MoveOption] {
-        guard let data = resourceLoader.data(ofResource: "moves", withExtension: "json"),
+        guard let data = resourceLoader.loadData(ofResource: "moves", withExtension: "json"),
               let moves = try? JSONDecoder().decode([Move].self, from: data) else {
             return []
         }

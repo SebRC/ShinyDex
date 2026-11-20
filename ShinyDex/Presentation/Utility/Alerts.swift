@@ -8,7 +8,7 @@ extension UIViewController {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 		alert.addAction(UIAlertAction(title: destructiveTitle, style: .destructive) { _ in
-			Haptics.warning()
+			Haptics.playWarning()
 			onConfirm()
 		})
 		alert.view.tintColor = Color.Orange500

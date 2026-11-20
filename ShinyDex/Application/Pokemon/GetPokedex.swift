@@ -32,8 +32,8 @@ final class GetPokedexHandler {
 
     func handle(_ query: GetPokedexQuery) -> Pokedex {
         let allPokemon = pokemonRepository.getAll()
-        let catchCounts = CatchRules.countsByNumber(catchRepository.getAll().filter { !$0.isFailed })
-        let range = PokedexRegions.numbers(inRegion: query.region)
+        let catchCounts = CatchRules.countByNumber(catchRepository.getAll().filter { !$0.isFailed })
+        let range = PokedexRegions.getNumbers(inRegion: query.region)
         let listed: [Pokemon]
         if let range = range, range.upperBound <= allPokemon.count {
             listed = Array(allPokemon[range])

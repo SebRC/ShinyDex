@@ -5,7 +5,7 @@ extension IndividualValues {
 	fileprivate static let middleColor = Color.Orange500
 	fileprivate static let highColor = Color.Success400
 
-	static func color(for value: Int) -> UIColor {
+	static func getColor(for value: Int) -> UIColor {
 		let fraction = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound)
 		if (fraction < 0.5) {
 			return lowColor.blended(with: middleColor, fraction: fraction * 2)
@@ -13,7 +13,7 @@ extension IndividualValues {
 		return middleColor.blended(with: highColor, fraction: (fraction - 0.5) * 2)
 	}
 
-	func coloredSummary(unknownColor: UIColor) -> NSAttributedString {
+	func makeColoredSummary(unknownColor: UIColor) -> NSAttributedString {
 		guard !isEmpty else { return NSAttributedString(string: summary, attributes: [.foregroundColor: unknownColor]) }
 		let separator = NSAttributedString(string: " / ", attributes: [.foregroundColor: unknownColor])
 		let result = NSMutableAttributedString()
@@ -22,7 +22,7 @@ extension IndividualValues {
 				result.append(separator)
 			}
 			let text = value.map(String.init) ?? "?"
-			result.append(NSAttributedString(string: text, attributes: [.foregroundColor: value.map(IndividualValues.color(for:)) ?? unknownColor]))
+			result.append(NSAttributedString(string: text, attributes: [.foregroundColor: value.map(IndividualValues.getColor(for:)) ?? unknownColor]))
 		}
 		return result
 	}

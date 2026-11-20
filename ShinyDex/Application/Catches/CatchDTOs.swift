@@ -41,7 +41,7 @@ struct CatchSummaryMapper {
         namesByNumber = Dictionary(allPokemon.map { ($0.number, $0.name) }, uniquingKeysWith: { first, _ in first })
     }
 
-    func summary(of caught: Catch) -> CatchSummary? {
+    func makeSummary(of caught: Catch) -> CatchSummary? {
         guard let name = namesByNumber[caught.number] else { return nil }
         return CatchSummary(
             id: CatchID(rawValue: caught.id),

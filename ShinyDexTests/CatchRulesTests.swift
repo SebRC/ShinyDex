@@ -28,25 +28,25 @@ class CatchRulesTests: XCTestCase {
 	}
 
 	func test_encounters_acceptsWholeNonNegativeNumbers() {
-		XCTAssertEqual(CatchRules.encounters(from: " 1234 "), 1234)
-		XCTAssertEqual(CatchRules.encounters(from: "0"), 0)
-		XCTAssertNil(CatchRules.encounters(from: "-5"))
-		XCTAssertNil(CatchRules.encounters(from: "12a"))
-		XCTAssertNil(CatchRules.encounters(from: ""))
+		XCTAssertEqual(CatchRules.parseEncounters(from: " 1234 "), 1234)
+		XCTAssertEqual(CatchRules.parseEncounters(from: "0"), 0)
+		XCTAssertNil(CatchRules.parseEncounters(from: "-5"))
+		XCTAssertNil(CatchRules.parseEncounters(from: "12a"))
+		XCTAssertNil(CatchRules.parseEncounters(from: ""))
 	}
 
 	func test_latestBall_isNoneWithoutCatches() {
-		XCTAssertEqual(CatchRules.latestBall(of: []), CatchRules.noBall)
+		XCTAssertEqual(CatchRules.getLatestBall(of: []), CatchRules.noBall)
 	}
 
 	func test_latestBall_isMostRecentCatch() {
 		let catches = [makeCatch(ball: "master", date: Date(timeIntervalSince1970: 300)), makeCatch(ball: "poke", date: nil)]
-		XCTAssertEqual(CatchRules.latestBall(of: catches), "master")
+		XCTAssertEqual(CatchRules.getLatestBall(of: catches), "master")
 	}
 
 	func test_countsByNumber_countsDuplicates() {
 		let catches = [makeCatch(number: 1, ball: "poke", date: nil), makeCatch(number: 1, ball: "great", date: nil), makeCatch(number: 4, ball: "ultra", date: nil)]
-		XCTAssertEqual(CatchRules.countsByNumber(catches), [1: 2, 4: 1])
+		XCTAssertEqual(CatchRules.countByNumber(catches), [1: 2, 4: 1])
 	}
 
 	func test_pokemonToBackfill_onlyCaughtSpeciesWithoutCatches() {
@@ -54,7 +54,7 @@ class CatchRulesTests: XCTestCase {
 		let notCaught = Pokemon(); notCaught.number = 1; notCaught.caughtBall = "none"
 		let alreadyCopied = Pokemon(); alreadyCopied.number = 2; alreadyCopied.caughtBall = "ultra"
 
-		let result = CatchRules.pokemonToBackfill(from: [caught, notCaught, alreadyCopied], existingCounts: [2: 1])
+		let result = CatchRules.findPokemonToBackfill(from: [caught, notCaught, alreadyCopied], existingCounts: [2: 1])
 
 		XCTAssertEqual(result.map { $0.number }, [0])
 	}

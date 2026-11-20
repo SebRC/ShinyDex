@@ -24,7 +24,7 @@ final class CoreDataJourneyRepository: JourneyRepository {
 
     @discardableResult
     func save(_ journey: Journey) -> Bool {
-        let existing = object(for: journey.id)
+        let existing = fetchObject(for: journey.id)
         if let existing = existing, StoredJourneyEntry.hasUnreadableEntries(existing.value(forKey: "entries") as? String) {
             print("Refusing to save journey \(journey.id): its stored entries could not be read and would be overwritten.")
             return false
@@ -39,13 +39,13 @@ final class CoreDataJourneyRepository: JourneyRepository {
     }
 
     func delete(_ journey: Journey) {
-        guard let journeyEntity = object(for: journey.id) else { return }
+        guard let journeyEntity = fetchObject(for: journey.id) else { return }
         managedContext.delete(journeyEntity)
         save()
     }
 
-    private func object(for id: UUID) -> NSManagedObject? {
-        if let known = Self.identities.object(for: id, in: managedContext) {
+    private func fetchObject(for id: UUID) -> NSManagedObject? {
+        if let known = Self.identities.getObject(for: id, in: managedContext) {
             return known
         }
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "JourneyEntity")
@@ -60,7 +60,7 @@ final class CoreDataJourneyRepository: JourneyRepository {
     }
 
     private func makeJourney(from journeyEntity: NSManagedObject) -> Journey {
-        let id = journeyEntity.value(forKey: "id") as? UUID ?? Self.identities.key(for: journeyEntity.objectID) ?? UUID()
+        let id = journeyEntity.value(forKey: "id") as? UUID ?? Self.identities.getKey(for: journeyEntity.objectID) ?? UUID()
         Self.identities.record(id, for: journeyEntity.objectID)
         return Journey(
             id: id,

@@ -58,7 +58,7 @@ class GameSettingsContainer: UIView {
 
 		applyToAllButton.setTitle("Apply to All Pokémon", for: .normal)
 		applyToAllButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-		applyToAllButton.setImage(UIImage.symbol("square.stack.3d.down.right", pointSize: 16, weight: .semibold), for: .normal)
+		applyToAllButton.setImage(UIImage.makeSymbol("square.stack.3d.down.right", pointSize: 16, weight: .semibold), for: .normal)
 		applyToAllButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
 		applyToAllButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
 		applyToAllButton.layer.cornerRadius = CornerRadius.standard
@@ -145,7 +145,7 @@ class GameSettingsContainer: UIView {
 		gameImageView.layer.magnificationFilter = .nearest
 		gameImageView.isAccessibilityElement = false
 		gameSubtitle.text = "Tap to change"
-		let chevron = UIImageView(image: UIImage.symbol("chevron.right", pointSize: 14, weight: .semibold))
+		let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 14, weight: .semibold))
 		chevron.tintColor = Color.Grey500
 		chevron.setContentHuggingPriority(.required, for: .horizontal)
 
@@ -165,16 +165,16 @@ class GameSettingsContainer: UIView {
 		gameButton.isAccessibilityElement = true
 		gameButton.accessibilityTraits = .button
 		gameButton.accessibilityHint = "Choose the game you are hunting in."
-		gameButton.addTarget(self, action: #selector(gameHighlight), for: [.touchDown, .touchDragEnter])
-		gameButton.addTarget(self, action: #selector(gameUnhighlight), for: [.touchUpInside, .touchUpOutside, .touchCancel, .touchDragExit])
+		gameButton.addTarget(self, action: #selector(highlightGame), for: [.touchDown, .touchDragEnter])
+		gameButton.addTarget(self, action: #selector(unhighlightGame), for: [.touchUpInside, .touchUpOutside, .touchCancel, .touchDragExit])
 		return gameButton
 	}
 
-	@objc fileprivate func gameHighlight() {
+	@objc fileprivate func highlightGame() {
 		gameButton.backgroundColor = Color.Grey700
 	}
 
-	@objc fileprivate func gameUnhighlight() {
+	@objc fileprivate func unhighlightGame() {
 		UIView.animate(withDuration: 0.2) { self.gameButton.backgroundColor = .clear }
 	}
 

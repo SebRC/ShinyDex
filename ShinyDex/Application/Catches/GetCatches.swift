@@ -30,6 +30,6 @@ final class GetCatchesHandler {
         }
         return sorted
             .filter { query.includingFailed || !$0.isFailed }
-            .compactMap(mapper.summary)
+            .compactMap(mapper.makeSummary)
     }
 }

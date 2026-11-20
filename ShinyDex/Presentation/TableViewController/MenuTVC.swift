@@ -50,11 +50,11 @@ class MenuTVC: UITableViewController {
 		tableView.reloadData()
 	}
 
-	fileprivate func menuIndex(for indexPath: IndexPath) -> Int {
+	fileprivate func getMenuIndex(for indexPath: IndexPath) -> Int {
 		return sections[indexPath.section].rows[indexPath.row]
 	}
 
-	fileprivate func destination(for index: Int) -> Destination {
+	fileprivate func getDestination(for index: Int) -> Destination {
 		switch index {
 		case 10: return .hunts
 		case 11: return .collection
@@ -101,16 +101,16 @@ class MenuTVC: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseIdentifier, for: indexPath) as! MenuCell
-		let index = menuIndex(for: indexPath)
+		let index = getMenuIndex(for: indexPath)
 		var image = resolveGenImage(gen: index)
 		if (index == 10), let firstHuntPokemonName = summary?.firstHuntPokemonName {
 			image = UIImage(named: firstHuntPokemonName.lowercased())
 		}
-		cell.configure(title: textResolver.getGenTitle(gen: index), subtitle: subtitle(for: index), image: image, progress: progress(for: index))
+		cell.configure(title: textResolver.getGenTitle(gen: index), subtitle: getSubtitle(for: index), image: image, progress: getProgress(for: index))
 		return cell
 	}
 
-	fileprivate func subtitle(for index: Int) -> String {
+	fileprivate func getSubtitle(for index: Int) -> String {
 		guard let summary = summary else { return "" }
 		switch index {
 		case 10:
@@ -135,7 +135,7 @@ class MenuTVC: UITableViewController {
 		}
 	}
 
-	fileprivate func progress(for index: Int) -> Float? {
+	fileprivate func getProgress(for index: Int) -> Float? {
 		guard let progress = summary?.regionProgress[index] else { return nil }
 		return Float(progress.caught) / Float(progress.total)
 	}
@@ -143,7 +143,7 @@ class MenuTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		let viewController: UIViewController
-		switch destination(for: menuIndex(for: indexPath)) {
+		switch getDestination(for: getMenuIndex(for: indexPath)) {
 		case .pokedex(let generation):
 			viewController = PokedexTVC(container: container, generation: generation)
 		case .hunts:
@@ -175,9 +175,9 @@ class MenuTVC: UITableViewController {
 		case 12:
 			return UIImage(named: "journal")
 		case 13:
-			return UIImage.symbol("chart.bar.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+			return UIImage.makeSymbol("chart.bar.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
 		case 14:
-			return UIImage.symbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+			return UIImage.makeSymbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
 		default:
 			return UIImage(named: "gen1")
 		}

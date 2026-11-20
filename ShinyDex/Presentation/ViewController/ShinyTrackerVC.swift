@@ -146,12 +146,12 @@ class ShinyTrackerVC: UIViewController {
 		minusButton.backgroundColor = Color.Grey800
 		minusButton.layer.cornerRadius = 20
 		minusButton.tintColor = Color.Grey200
-		minusButton.setImage(UIImage.symbol("minus", pointSize: 28, weight: .bold), for: .normal)
+		minusButton.setImage(UIImage.makeSymbol("minus", pointSize: 28, weight: .bold), for: .normal)
 
 		plusButton.backgroundColor = Color.Orange500
 		plusButton.layer.cornerRadius = 20
 		plusButton.tintColor = Color.Grey900
-		plusButton.setImage(UIImage.symbol("plus", pointSize: 26, weight: .bold), for: .normal)
+		plusButton.setImage(UIImage.makeSymbol("plus", pointSize: 26, weight: .bold), for: .normal)
 		plusButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 30, weight: .bold)
 		plusButton.setTitleColor(Color.Grey900, for: .normal)
 		plusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
@@ -160,7 +160,7 @@ class ShinyTrackerVC: UIViewController {
 
 	fileprivate func setUpNavigationItems() {
 		addToHuntButton = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addToHuntPressed))
-		addToHuntButton.isEnabled = addToHuntButtonIsEnabled()
+		addToHuntButton.isEnabled = isAddToHuntButtonEnabled()
 		let catchesButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(catchesButtonPressed))
 		catchesButton.accessibilityLabel = "Catches"
 		navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton]
@@ -228,7 +228,7 @@ class ShinyTrackerVC: UIViewController {
 		setProbabilityLabelText()
 		setEncountersText(textResolver.getEncountersLabelText(pokemon: pokemon))
 		setOddsLabelText()
-		minusButton.isEnabled = minusButtonIsEnabled()
+		minusButton.isEnabled = isMinusButtonEnabled()
 	}
 
 	fileprivate func setEncountersText(_ text: String) {
@@ -262,11 +262,11 @@ class ShinyTrackerVC: UIViewController {
 		oddsTile.accessibilityValue = "1 in \(pokemon.shinyOdds.grouped)"
 	}
 
-	fileprivate func minusButtonIsEnabled() -> Bool {
+	fileprivate func isMinusButtonEnabled() -> Bool {
 		return pokemon.encounters != 0
 	}
 
-	fileprivate func addToHuntButtonIsEnabled() -> Bool {
+	fileprivate func isAddToHuntButtonEnabled() -> Bool {
 		return !pokemon.isBeingHunted
 	}
 
@@ -291,17 +291,17 @@ class ShinyTrackerVC: UIViewController {
 		let picker = HuntPickerModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] huntName in
 			guard let self = self else { return }
 			self.reloadPokemon()
-			self.addToHuntButton.isEnabled = self.addToHuntButtonIsEnabled()
+			self.addToHuntButton.isEnabled = self.isAddToHuntButtonEnabled()
 			self.popupHandler.showPopup(text: "\(self.pokemon.name) was added to \(huntName).")
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 
 	@objc fileprivate func infoButtonPressed() {
 		let gameSettings = GameSettingsModalVC(container: container, pokemon: pokemon) { [weak self] in
 			self?.gameSettingsChanged()
 		}
-		present(gameSettings.inSheet(), animated: true)
+		present(gameSettings.wrapInSheet(), animated: true)
 	}
 
 	@objc fileprivate func updateEncountersPressed() {
@@ -322,7 +322,7 @@ class ShinyTrackerVC: UIViewController {
 			self?.reloadPokemon()
 			self?.setIncrementImage()
 		}
-		present(incrementPicker.inSheet(), animated: true)
+		present(incrementPicker.wrapInSheet(), animated: true)
 	}
 
 	@objc fileprivate func changeCaughtButtonPressed() {
@@ -330,7 +330,7 @@ class ShinyTrackerVC: UIViewController {
 			self?.reloadPokemon()
 			self?.setCaughtStatus()
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 
 	@objc fileprivate func locationButtonPressed() {
@@ -347,7 +347,7 @@ class ShinyTrackerVC: UIViewController {
 
 	fileprivate func setIncrementImage() {
 		let symbolName = pokemon.increment > 50 ? "plus.circle" : "\(pokemon.increment).circle"
-		buttonStrip.incrementButton.iconView.image = UIImage.symbol(symbolName, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
+		buttonStrip.incrementButton.iconView.image = UIImage.makeSymbol(symbolName, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
 		plusButton.setTitle("\(pokemon.increment)", for: .normal)
 		updateIncrementAccessibility()
 	}

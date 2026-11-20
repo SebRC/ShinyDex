@@ -10,6 +10,6 @@ final class GetBallNamesHandler {
     }
 
     func handle(_ query: GetBallNamesQuery) -> [String] {
-        return resourceLoader.lines(ofTextResource: "pokeballs").filter { $0 != CatchRules.noBall }
+        return resourceLoader.loadLines(ofTextResource: "pokeballs").filter { $0 != CatchRules.noBall }
     }
 }

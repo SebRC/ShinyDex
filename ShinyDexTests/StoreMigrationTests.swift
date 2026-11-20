@@ -44,7 +44,7 @@ final class StoreMigrationTests: XCTestCase {
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: directory) }
         let url = directory.appendingPathComponent("ShinyDex.sqlite")
-        let oldModel = TestStore.model(version: version)
+        let oldModel = TestStore.loadModel(version: version)
 
         try seedStore(at: url, model: oldModel)
         let stack = try TestStore.openStack(at: url)

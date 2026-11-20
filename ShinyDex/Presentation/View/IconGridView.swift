@@ -134,16 +134,16 @@ struct BallGrid {
 
 	var items: [IconGridItem] {
 		return ballNames.map { name in
-			let title = BallGrid.displayName(of: name)
+			let title = BallGrid.getDisplayName(of: name)
 			return IconGridItem(title: title, image: UIImage(named: name), accessibilityLabel: "\(title) Ball")
 		}
 	}
 
-	func index(of ball: String?) -> Int? {
+	func findIndex(of ball: String?) -> Int? {
 		return ball.flatMap { ballNames.firstIndex(of: $0) }
 	}
 
-	static func displayName(of ball: String) -> String {
+	static func getDisplayName(of ball: String) -> String {
 		return ball.capitalizingFirstLetter()
 	}
 }
@@ -239,7 +239,7 @@ fileprivate class ActionCell: UICollectionViewCell {
 		let color = action.isDestructive ? Color.Danger400 : Color.Grey200
 		label.text = action.title
 		label.textColor = color
-		icon.image = UIImage.symbol(action.symbol, pointSize: 16, weight: .semibold)
+		icon.image = UIImage.makeSymbol(action.symbol, pointSize: 16, weight: .semibold)
 		icon.tintColor = color
 		accessibilityLabel = action.title
 	}

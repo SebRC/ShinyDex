@@ -6,7 +6,7 @@ class PopupHandler {
 	fileprivate static weak var currentToast: ToastView?
 
 	func showPopup(text: String) {
-		guard let window = keyWindow() else { return }
+		guard let window = findKeyWindow() else { return }
 
 		PopupHandler.currentToast?.removeFromSuperview()
 
@@ -45,7 +45,7 @@ class PopupHandler {
 		}
 	}
 
-	fileprivate func keyWindow() -> UIWindow? {
+	fileprivate func findKeyWindow() -> UIWindow? {
 		return UIApplication.shared.connectedScenes
 			.compactMap { $0 as? UIWindowScene }
 			.flatMap { $0.windows }

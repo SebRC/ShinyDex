@@ -137,7 +137,7 @@ class EVTrainingVC: UIViewController {
 	fileprivate func change(_ stat: Stat, by direction: Int) {
 		let updated = caught.evs.adding(direction * step, to: stat)
 		guard updated != caught.evs else {
-			Haptics.warning()
+			Haptics.playWarning()
 			return
 		}
 		Haptics.tap()
@@ -210,7 +210,7 @@ fileprivate class EVStatRow: UIView {
 		bar.clipsToBounds = true
 
 		for (button, symbol, direction) in [(minusButton, "minus", -1), (plusButton, "plus", 1)] {
-			button.setImage(UIImage.symbol(symbol, pointSize: 15, weight: .bold), for: .normal)
+			button.setImage(UIImage.makeSymbol(symbol, pointSize: 15, weight: .bold), for: .normal)
 			button.tintColor = Color.Grey200
 			button.backgroundColor = Color.Grey700
 			button.layer.cornerRadius = 18

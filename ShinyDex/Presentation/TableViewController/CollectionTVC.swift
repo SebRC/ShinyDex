@@ -25,11 +25,11 @@ enum CollectionFilter {
 		case .game(let game): return game.displayName
 		case .method(let method): return method.rawValue
 		case .gotAway: return "Got away"
-		case .period(let period): return CollectionFilter.title(of: period)
+		case .period(let period): return CollectionFilter.getTitle(of: period)
 		}
 	}
 
-	fileprivate static func title(of period: CatchPeriod) -> String {
+	fileprivate static func getTitle(of period: CatchPeriod) -> String {
 		let calendar = Calendar.current
 		switch period {
 		case .year(let year):
@@ -376,7 +376,7 @@ fileprivate class CollectionCard: UICollectionViewCell {
 		spriteView.image = UIImage(named: caught.pokemonName.lowercased())
 		spriteView.alpha = caught.isFailed ? 0.55 : 1
 		glowView.isHidden = caught.isFailed
-		ballView.image = caught.isFailed ? UIImage.symbol("wind", pointSize: 14, weight: .semibold) : UIImage(named: caught.caughtBall)
+		ballView.image = caught.isFailed ? UIImage.makeSymbol("wind", pointSize: 14, weight: .semibold) : UIImage(named: caught.caughtBall)
 		ballView.tintColor = Color.Grey400
 		ballView.contentMode = caught.isFailed ? .center : .scaleAspectFit
 		nameLabel.text = caught.nickname ?? caught.pokemonName

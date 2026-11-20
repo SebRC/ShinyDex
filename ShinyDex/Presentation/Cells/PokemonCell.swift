@@ -74,7 +74,7 @@ class PokemonCell: UITableViewCell {
 
 	fileprivate static func makeRoundButton(symbol: String, tint: UIColor, background: UIColor) -> UIButton {
 		let button = UIButton(type: .system)
-		button.setImage(UIImage.symbol(symbol, pointSize: 16, weight: .bold), for: .normal)
+		button.setImage(UIImage.makeSymbol(symbol, pointSize: 16, weight: .bold), for: .normal)
 		button.tintColor = tint
 		button.backgroundColor = background
 		button.layer.cornerRadius = buttonSize / 2
@@ -90,7 +90,7 @@ class PokemonCell: UITableViewCell {
 			statusRow.isHidden = false
 		}
 		else if (isBeingHunted) {
-			statusIcon.image = UIImage.symbol("scope", pointSize: 11, weight: .bold)
+			statusIcon.image = UIImage.makeSymbol("scope", pointSize: 11, weight: .bold)
 			statusIcon.tintColor = Color.Grey400
 			statusLabel.textColor = Color.Grey400
 			statusLabel.text = "In a hunt"
@@ -99,7 +99,7 @@ class PokemonCell: UITableViewCell {
 		else {
 			statusRow.isHidden = true
 		}
-		addToCurrentHuntButton.setImage(UIImage.symbol(isBeingHunted ? "checkmark" : "plus", pointSize: 16, weight: .bold), for: .normal)
+		addToCurrentHuntButton.setImage(UIImage.makeSymbol(isBeingHunted ? "checkmark" : "plus", pointSize: 16, weight: .bold), for: .normal)
 		addToCurrentHuntButton.isEnabled = !isBeingHunted
 		addToCurrentHuntButton.alpha = isBeingHunted ? 0.45 : 1
 	}

@@ -93,7 +93,7 @@ class JourneyDetailTVC: UITableViewController {
 		}
 	}
 
-	fileprivate func linkableCatches(for entry: JourneyEntryDetails) -> [CatchSummary] {
+	fileprivate func getLinkableCatches(for entry: JourneyEntryDetails) -> [CatchSummary] {
 		return container.getLinkableCatches.handle(GetLinkableCatchesQuery(journeyId: journeyId, entryId: entry.id))
 	}
 
@@ -216,7 +216,7 @@ class JourneyDetailTVC: UITableViewController {
 	fileprivate func showActions(for entry: JourneyEntryDetails, at indexPath: IndexPath) {
 		let name = entry.pokemonName ?? "this Pokémon"
 		let linked = entry.linkedCatch
-		let linkable = linkableCatches(for: entry)
+		let linkable = getLinkableCatches(for: entry)
 		let message = linked == nil && linkable.isEmpty ? "You haven't caught a shiny \(name) yet. Log one from its tracker, then link it here." : nil
 		let sheet = UIAlertController(title: name, message: message, preferredStyle: .actionSheet)
 		if let linked = linked {
@@ -252,7 +252,7 @@ class JourneyDetailTVC: UITableViewController {
 			guard let self = self else { return }
 			self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .addPhase(entry: entry.id, catchId: caught.id)))
 			self.expandedEntryIds.insert(entry.id)
-			Haptics.success()
+			Haptics.playSuccess()
 		}
 		navigationController?.pushViewController(picker, animated: true)
 	}
@@ -285,7 +285,7 @@ class JourneyDetailTVC: UITableViewController {
 	fileprivate func link(_ caught: CatchSummary?, to entry: JourneyEntryDetails) {
 		container.updateJourney.handle(UpdateJourneyCommand(journeyId: journeyId, change: .link(entry: entry.id, catchId: caught?.id)))
 		if (caught != nil) {
-			Haptics.success()
+			Haptics.playSuccess()
 		}
 		reload()
 	}
@@ -322,7 +322,7 @@ class JourneyDetailTVC: UITableViewController {
 			self.header.selectMode(Mode.pokemon.rawValue)
 			self.reload()
 		}
-		present(picker.inSheet(), animated: true)
+		present(picker.wrapInSheet(), animated: true)
 	}
 
 	@objc fileprivate func morePressed() {
@@ -548,14 +548,14 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 			statusLabel.textColor = Color.Grey400
 			ballView.image = UIImage(named: linked.caughtBall)
 			ballView.isHidden = false
-			statusIcon.image = UIImage.symbol("checkmark.seal.fill", pointSize: 22, weight: .semibold)
+			statusIcon.image = UIImage.makeSymbol("checkmark.seal.fill", pointSize: 22, weight: .semibold)
 			statusIcon.tintColor = Color.Orange500
 		}
 		else {
 			statusLabel.text = linkableCount == 0 ? "Not caught yet" : (linkableCount == 1 ? "Not linked · 1 catch you can link" : "Not linked · \(linkableCount) catches you can link")
 			statusLabel.textColor = linkableCount == 0 ? Color.Grey500 : Color.Grey300
 			ballView.isHidden = true
-			statusIcon.image = UIImage.symbol(linkableCount == 0 ? "circle" : "link", pointSize: 18, weight: .semibold)
+			statusIcon.image = UIImage.makeSymbol(linkableCount == 0 ? "circle" : "link", pointSize: 18, weight: .semibold)
 			statusIcon.tintColor = Color.Grey500
 		}
 		phaseCount = entry.phases.count
@@ -567,7 +567,7 @@ fileprivate class JourneyEntryCell: UITableViewCell {
 	}
 
 	func setPhasesExpanded(_ expanded: Bool) {
-		phasesButton.setImage(UIImage.symbol(expanded ? "chevron.up" : "chevron.down", pointSize: 11, weight: .bold), for: .normal)
+		phasesButton.setImage(UIImage.makeSymbol(expanded ? "chevron.up" : "chevron.down", pointSize: 11, weight: .bold), for: .normal)
 		let toggleTitle = expanded ? "Hide phases" : "Show phases"
 		phasesButton.accessibilityLabel = toggleTitle
 		accessibilityCustomActions = phaseCount == 0 ? nil : [UIAccessibilityCustomAction(name: toggleTitle) { [weak self] _ in
@@ -638,7 +638,7 @@ fileprivate class PhaseCell: UITableViewCell {
 		titleLabel.textColor = phase.isFailed ? Color.Grey300 : Color.Grey200
 		let outcome = phase.isFailed ? "Got away" : phase.ballName
 		subtitleLabel.text = [outcome, "\(phase.encounters.grouped) encounters", phase.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
-		outcomeView.image = phase.isFailed ? UIImage.symbol("wind", pointSize: 15, weight: .semibold) : UIImage(named: phase.caughtBall)
+		outcomeView.image = phase.isFailed ? UIImage.makeSymbol("wind", pointSize: 15, weight: .semibold) : UIImage(named: phase.caughtBall)
 		outcomeView.tintColor = Color.Grey500
 		outcomeView.contentMode = phase.isFailed ? .center : .scaleAspectFit
 		accessibilityLabel = "Phase, \(titleLabel.text ?? ""), \(subtitleLabel.text ?? "")"
@@ -731,7 +731,7 @@ fileprivate class TimelineCell: UITableViewCell {
 			dot.backgroundColor = Color.Orange500
 		}
 		else {
-			let sparkle = UIImage.symbol("sparkle", pointSize: 11, weight: .bold)?.withTintColor(Color.Grey900, renderingMode: .alwaysOriginal)
+			let sparkle = UIImage.makeSymbol("sparkle", pointSize: 11, weight: .bold)?.withTintColor(Color.Grey900, renderingMode: .alwaysOriginal)
 			dot.attributedText = sparkle.map { NSAttributedString(attachment: NSTextAttachment(image: $0)) }
 			dot.backgroundColor = Color.Grey500
 		}
@@ -739,7 +739,7 @@ fileprivate class TimelineCell: UITableViewCell {
 		topRail.isHidden = isFirst
 		bottomRail.isHidden = isLast
 		dateLabel.text = caught.formattedCaughtDate ?? "Undated"
-		gapLabel.text = TimelineCell.gapText(from: previousDate, to: caught.caughtDate)
+		gapLabel.text = TimelineCell.formatGap(from: previousDate, to: caught.caughtDate)
 		gapLabel.isHidden = gapLabel.text == nil
 		let name = caught.pokemonName
 		nameLabel.text = name
@@ -754,7 +754,7 @@ fileprivate class TimelineCell: UITableViewCell {
 		accessibilityTraits = .button
 	}
 
-	fileprivate static func gapText(from previous: Date?, to date: Date?) -> String? {
+	fileprivate static func formatGap(from previous: Date?, to date: Date?) -> String? {
 		guard let previous = previous, let date = date else { return nil }
 		let days = Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: previous), to: Calendar.current.startOfDay(for: date)).day ?? 0
 		switch days {

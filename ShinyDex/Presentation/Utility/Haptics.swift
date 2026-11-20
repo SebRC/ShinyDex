@@ -5,15 +5,15 @@ enum Haptics {
 		UIImpactFeedbackGenerator(style: .light).impactOccurred()
 	}
 
-	static func bulk() {
+	static func playBulk() {
 		UIImpactFeedbackGenerator(style: .medium).impactOccurred()
 	}
 
-	static func success() {
+	static func playSuccess() {
 		UINotificationFeedbackGenerator().notificationOccurred(.success)
 	}
 
-	static func warning() {
+	static func playWarning() {
 		UINotificationFeedbackGenerator().notificationOccurred(.warning)
 	}
 }

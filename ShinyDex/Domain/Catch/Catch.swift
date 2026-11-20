@@ -15,7 +15,7 @@ class Catch {
 	var evs: EffortValues
 	var evolvedFrom: Int?
 	var nickname: String? {
-		didSet { nickname = Catch.normalizedNickname(nickname) }
+		didSet { nickname = Catch.normalizeNickname(nickname) }
 	}
 	var gender: Gender?
 	var nature: Nature?
@@ -34,7 +34,7 @@ class Catch {
 		self.isFailed = isFailed
 		self.evs = evs
 		self.evolvedFrom = evolvedFrom
-		self.nickname = Catch.normalizedNickname(nickname)
+		self.nickname = Catch.normalizeNickname(nickname)
 		self.gender = gender
 		self.nature = nature
 		self.ivs = ivs
@@ -72,7 +72,7 @@ class Catch {
 		ivs = saved.ivs
 	}
 
-	static func normalizedNickname(_ nickname: String?) -> String? {
+	static func normalizeNickname(_ nickname: String?) -> String? {
 		guard let trimmed = nickname?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else { return nil }
 		return String(trimmed.prefix(maximumNicknameLength))
 	}

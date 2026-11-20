@@ -18,6 +18,6 @@ final class GetPokemonDetailsHandler {
     func handle(_ query: GetPokemonDetailsQuery) -> PokemonDetails? {
         guard let pokemon = pokemonRepository.get(number: query.number) else { return nil }
         let catchCount = catchRepository.getAll(number: query.number).filter { !$0.isFailed }.count
-        return mapper.details(of: pokemon, catchCount: catchCount)
+        return mapper.makeDetails(of: pokemon, catchCount: catchCount)
     }
 }

@@ -20,12 +20,12 @@ final class JourneyHandlerTests: XCTestCase {
         return CatchID(rawValue: caught.id)
     }
 
-    private func details(_ id: JourneyID) -> JourneyDetails? {
+    private func getDetails(_ id: JourneyID) -> JourneyDetails? {
         return GetJourneyDetailsHandler(journeyRepository: journeys, catchRepository: catches, pokemonRepository: pokemon, evolutions: evolutions)
             .handle(GetJourneyDetailsQuery(journeyId: id))
     }
 
-    private func linkable(_ id: JourneyID, _ entry: JourneyEntryID, as role: JourneyCatchRole = .target) -> [CatchSummary] {
+    private func getLinkable(_ id: JourneyID, _ entry: JourneyEntryID, as role: JourneyCatchRole = .target) -> [CatchSummary] {
         return GetLinkableCatchesHandler(journeyRepository: journeys, catchRepository: catches, pokemonRepository: pokemon, evolutions: evolutions)
             .handle(GetLinkableCatchesQuery(journeyId: id, entryId: entry, role: role))
     }
@@ -34,14 +34,14 @@ final class JourneyHandlerTests: XCTestCase {
         let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Grass", pokemonNumbers: [0, 3]))
         let ivysaurCatch = logCatch(1)
         _ = logCatch(0, isFailed: true)
-        let entry = details(id)!.entries[0]
+        let entry = getDetails(id)!.entries[0]
 
         XCTAssertEqual(entry.linkableCatchCount, 1, "Evolution line counts, catches that got away don't")
-        XCTAssertEqual(linkable(id, entry.id).map { $0.id }, [ivysaurCatch])
+        XCTAssertEqual(getLinkable(id, entry.id).map { $0.id }, [ivysaurCatch])
 
         UpdateJourneyHandler(journeyRepository: journeys).handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entry.id, catchId: ivysaurCatch)))
 
-        let linked = details(id)!
+        let linked = getDetails(id)!
         XCTAssertEqual(linked.caughtCount, 1)
         XCTAssertEqual(linked.entries[0].linkedCatch?.pokemonName, "Ivysaur")
         XCTAssertEqual(linked.timeline.map { $0.caught.id }, [ivysaurCatch])
@@ -50,11 +50,11 @@ final class JourneyHandlerTests: XCTestCase {
     func test_aCatchCanOnlyBeLinkedOncePerJourney() {
         let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Twins", pokemonNumbers: [0, 0]))
         let only = logCatch(0)
-        let entries = details(id)!.entries
+        let entries = getDetails(id)!.entries
         UpdateJourneyHandler(journeyRepository: journeys).handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[0].id, catchId: only)))
 
-        XCTAssertEqual(linkable(id, entries[0].id).map { $0.id }, [only], "The linked entry still offers its own catch")
-        XCTAssertTrue(linkable(id, entries[1].id).isEmpty)
+        XCTAssertEqual(getLinkable(id, entries[0].id).map { $0.id }, [only], "The linked entry still offers its own catch")
+        XCTAssertTrue(getLinkable(id, entries[1].id).isEmpty)
     }
 
     func test_entriesCanBeAddedMovedRemovedAndTheJourneyDeleted() {
@@ -63,44 +63,44 @@ final class JourneyHandlerTests: XCTestCase {
 
         update.handle(UpdateJourneyCommand(journeyId: id, change: .addPokemon([3, 2])))
         update.handle(UpdateJourneyCommand(journeyId: id, change: .moveEntry(from: 2, to: 0)))
-        update.handle(UpdateJourneyCommand(journeyId: id, change: .removeEntry(details(id)!.entries[1].id)))
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .removeEntry(getDetails(id)!.entries[1].id)))
         update.handle(UpdateJourneyCommand(journeyId: id, change: .rename("Final team")))
 
-        XCTAssertEqual(details(id)?.entries.map { $0.pokemonName }, ["Venusaur", "Charmander"])
+        XCTAssertEqual(getDetails(id)?.entries.map { $0.pokemonName }, ["Venusaur", "Charmander"])
         XCTAssertEqual(GetJourneysHandler(journeyRepository: journeys, catchRepository: catches, pokemonRepository: pokemon).handle(GetJourneysQuery()).map { $0.name }, ["Final team"])
 
         DeleteJourneyHandler(journeyRepository: journeys).handle(DeleteJourneyCommand(journeyId: id))
-        XCTAssertNil(details(id))
+        XCTAssertNil(getDetails(id))
     }
 
     func test_phaseCandidates_areOtherSpecies_includingOnesThatGotAway() {
         let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Grass", pokemonNumbers: [0]))
         _ = logCatch(1)
         let fledCharmander = logCatch(3, isFailed: true)
-        let entry = details(id)!.entries[0]
+        let entry = getDetails(id)!.entries[0]
 
-        XCTAssertEqual(linkable(id, entry.id, as: .phase).map { $0.id }, [fledCharmander], "The entry's own evolution line isn't a phase")
+        XCTAssertEqual(getLinkable(id, entry.id, as: .phase).map { $0.id }, [fledCharmander], "The entry's own evolution line isn't a phase")
     }
 
     func test_loggingAPhase_showsItOnTheEntryAndTimeline_withoutTickingTheEntryOff() {
         let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Grass", pokemonNumbers: [0, 3]))
         let charmanderPhase = logCatch(3, isFailed: true)
-        let entries = details(id)!.entries
+        let entries = getDetails(id)!.entries
         let update = UpdateJourneyHandler(journeyRepository: journeys)
 
         update.handle(UpdateJourneyCommand(journeyId: id, change: .addPhase(entry: entries[0].id, catchId: charmanderPhase)))
 
-        let logged = details(id)!
+        let logged = getDetails(id)!
         XCTAssertEqual(logged.entries[0].phases.map { $0.id }, [charmanderPhase])
         XCTAssertEqual(logged.phaseCount, 1)
         XCTAssertEqual(logged.caughtCount, 0)
         XCTAssertEqual(logged.timeline, [JourneyTimelineStep(caught: logged.entries[0].phases[0], isPhase: true, entryPokemonName: "Bulbasaur")])
-        XCTAssertTrue(linkable(id, entries[0].id, as: .phase).isEmpty, "A logged phase isn't offered again")
+        XCTAssertTrue(getLinkable(id, entries[0].id, as: .phase).isEmpty, "A logged phase isn't offered again")
         XCTAssertEqual(logged.entries[1].linkableCatchCount, 0, "A phase can't also be linked as another entry's catch")
 
         update.handle(UpdateJourneyCommand(journeyId: id, change: .removePhase(entry: entries[0].id, catchId: charmanderPhase)))
 
-        XCTAssertTrue(details(id)!.entries[0].phases.isEmpty)
-        XCTAssertTrue(details(id)!.timeline.isEmpty)
+        XCTAssertTrue(getDetails(id)!.entries[0].phases.isEmpty)
+        XCTAssertTrue(getDetails(id)!.timeline.isEmpty)
     }
 }

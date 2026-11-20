@@ -15,6 +15,6 @@ final class GetLocationLinkHandler {
 
     func handle(_ query: GetLocationLinkQuery) -> URL? {
         guard let pokemon = pokemonRepository.get(number: query.number) else { return nil }
-        return URL(string: locationLinkProvider.locationURL(forPokemonNamed: pokemon.name, number: pokemon.number, generation: pokemon.generation))
+        return URL(string: locationLinkProvider.makeLocationURL(forPokemonNamed: pokemon.name, number: pokemon.number, generation: pokemon.generation))
     }
 }

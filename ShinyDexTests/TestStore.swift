@@ -5,7 +5,7 @@ final class TestStore {
     static let modelDirectory = Bundle(for: AppDelegate.self).url(forResource: "ShinyDex", withExtension: "momd")!
     static let currentModel = NSManagedObjectModel(contentsOf: modelDirectory)!
 
-    static func model(version: String) -> NSManagedObjectModel {
+    static func loadModel(version: String) -> NSManagedObjectModel {
         return NSManagedObjectModel(contentsOf: modelDirectory.appendingPathComponent("\(version).mom"))!
     }
 

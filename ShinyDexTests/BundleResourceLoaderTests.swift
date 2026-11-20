@@ -21,7 +21,7 @@ class BundleResourceLoaderTests: XCTestCase {
 		"premier", "quick", "repeat", "safari", "sport", "timer", "ultra"]
 
 		// Act
-		let actualList = resourceLoader.lines(ofTextResource: "pokeballs")
+		let actualList = resourceLoader.loadLines(ofTextResource: "pokeballs")
 
 		// Assert
 		XCTAssertEqual(actualList, expectedList)

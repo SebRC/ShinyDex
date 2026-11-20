@@ -23,7 +23,7 @@ final class CoreDataHuntRepository: HuntRepository {
     }
 
     func save(_ hunt: Hunt) {
-        let huntEntity = object(for: hunt.id) ?? insertEntity(for: hunt)
+        let huntEntity = fetchObject(for: hunt.id) ?? insertEntity(for: hunt)
         huntEntity.setValue(hunt.id, forKey: "id")
         huntEntity.setValue(hunt.name, forKey: "name")
         huntEntity.setValue(hunt.indexes, forKey: "indexes")
@@ -33,7 +33,7 @@ final class CoreDataHuntRepository: HuntRepository {
     }
 
     func delete(_ hunt: Hunt) {
-        guard let huntEntity = object(for: hunt.id) else { return }
+        guard let huntEntity = fetchObject(for: hunt.id) else { return }
         managedContext.delete(huntEntity)
         save()
     }
@@ -67,8 +67,8 @@ final class CoreDataHuntRepository: HuntRepository {
         }
     }
 
-    private func object(for id: UUID) -> NSManagedObject? {
-        if let known = Self.identities.object(for: id, in: managedContext) {
+    private func fetchObject(for id: UUID) -> NSManagedObject? {
+        if let known = Self.identities.getObject(for: id, in: managedContext) {
             return known
         }
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "HuntEntity")
@@ -83,7 +83,7 @@ final class CoreDataHuntRepository: HuntRepository {
     }
 
     private func makeHunt(from huntEntity: NSManagedObject) -> Hunt {
-        let id = huntEntity.value(forKey: "id") as? UUID ?? Self.identities.key(for: huntEntity.objectID) ?? UUID()
+        let id = huntEntity.value(forKey: "id") as? UUID ?? Self.identities.getKey(for: huntEntity.objectID) ?? UUID()
         Self.identities.record(id, for: huntEntity.objectID)
         return Hunt(
             id: id,

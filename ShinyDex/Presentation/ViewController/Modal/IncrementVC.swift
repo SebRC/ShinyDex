@@ -96,7 +96,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 		let descriptionCard = UIView()
 		descriptionCard.backgroundColor = Color.Grey800
 		descriptionCard.layer.cornerRadius = CornerRadius.standard
-		let infoIcon = UIImageView(image: UIImage.symbol("info.circle", pointSize: 15, weight: .semibold))
+		let infoIcon = UIImageView(image: UIImage.makeSymbol("info.circle", pointSize: 15, weight: .semibold))
 		infoIcon.tintColor = Color.Grey400
 		infoIcon.setContentHuggingPriority(.required, for: .horizontal)
 		let descriptionRow = UIStackView(arrangedSubviews: [infoIcon, descriptionLabel])
@@ -126,7 +126,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 		customCard.backgroundColor = Color.Grey800
 		customCard.layer.cornerRadius = CornerRadius.standard
 		for (button, symbol, label) in [(customMinus, "minus", "Decrease"), (customPlus, "plus", "Increase")] {
-			button.setImage(UIImage.symbol(symbol, pointSize: 20, weight: .bold), for: .normal)
+			button.setImage(UIImage.makeSymbol(symbol, pointSize: 20, weight: .bold), for: .normal)
 			button.tintColor = Color.Grey200
 			button.backgroundColor = Color.Grey700
 			button.layer.cornerRadius = 22
@@ -242,7 +242,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 	@objc fileprivate func confirmPressed() {
 		guard let increment = getIncrement() else { return }
 		container.setIncrement.handle(SetIncrementCommand(number: number, increment: increment))
-		Haptics.success()
+		Haptics.playSuccess()
 		dismissSheet { [onSave] in
 			onSave()
 		}
@@ -278,7 +278,7 @@ fileprivate class IncrementTile: UIControl {
 
 		let stack: UIStackView
 		if (isWide) {
-			let icon = UIImageView(image: UIImage.symbol("slider.horizontal.3", pointSize: 17, weight: .semibold))
+			let icon = UIImageView(image: UIImage.makeSymbol("slider.horizontal.3", pointSize: 17, weight: .semibold))
 			icon.tintColor = Color.Grey400
 			captionLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 			stack = UIStackView(arrangedSubviews: [icon, captionLabel, UIView(), valueLabel])

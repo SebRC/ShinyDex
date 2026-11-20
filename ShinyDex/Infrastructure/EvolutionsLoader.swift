@@ -6,7 +6,7 @@ enum EvolutionsLoader {
     }
 
     static func load(from resourceLoader: ResourceLoader) -> Evolutions {
-        guard let data = resourceLoader.data(ofResource: "evolutions", withExtension: "json"),
+        guard let data = resourceLoader.loadData(ofResource: "evolutions", withExtension: "json"),
               let file = try? JSONDecoder().decode(File.self, from: data) else {
             return Evolutions(evolvesFrom: [])
         }

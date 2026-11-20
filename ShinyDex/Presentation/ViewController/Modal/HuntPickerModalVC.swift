@@ -44,7 +44,7 @@ class HuntPickerModalVC: UITableViewController {
 		let selectedBackground = UIView()
 		selectedBackground.backgroundColor = Color.Grey700
 		newHuntCell.selectedBackgroundView = selectedBackground
-		newHuntCell.imageView?.image = UIImage.symbol("plus.circle.fill", pointSize: 28)
+		newHuntCell.imageView?.image = UIImage.makeSymbol("plus.circle.fill", pointSize: 28)
 		newHuntCell.imageView?.tintColor = Color.Orange500
 		newHuntCell.textLabel?.text = "New hunt"
 		newHuntCell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -109,7 +109,7 @@ class HuntPickerModalVC: UITableViewController {
 	}
 
 	fileprivate func finish(huntName: String) {
-		Haptics.success()
+		Haptics.playSuccess()
 		dismissSheet { [onPick] in
 			onPick(huntName)
 		}
