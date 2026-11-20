@@ -1,10 +1,12 @@
 import UIKit
+import UniformTypeIdentifiers
 
 class GameSettingsHostVC: UIViewController {
     let scrollView = UIScrollView()
     let gameSettingsContainer = GameSettingsContainer()
+    let contentStack = UIStackView()
     let popupHandler = PopupHandler()
-    fileprivate let container: AppContainer
+    let container: AppContainer
     fileprivate let pokemonNumber: Int?
     fileprivate let encounters: Int
 
@@ -39,15 +41,18 @@ class GameSettingsHostVC: UIViewController {
         gameSettingsContainer.onApplyToAll = { [weak self] in self?.confirmApplyToAll() }
         gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
 
+        contentStack.axis = .vertical
+        contentStack.spacing = 24
+        contentStack.addArrangedSubview(gameSettingsContainer)
         view.addAutoLayoutSubviews(scrollView)
-        scrollView.addAutoLayoutSubviews(gameSettingsContainer)
+        scrollView.addAutoLayoutSubviews(contentStack)
         scrollView.pinEdges(to: view)
         let content = scrollView.contentLayoutGuide
         NSLayoutConstraint.activate([
-            gameSettingsContainer.topAnchor.constraint(equalTo: content.topAnchor, constant: 8),
-            gameSettingsContainer.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -8),
-            gameSettingsContainer.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 8),
-            gameSettingsContainer.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -8)
+            contentStack.topAnchor.constraint(equalTo: content.topAnchor, constant: 8),
+            contentStack.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -8),
+            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 8),
+            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
 
@@ -79,6 +84,8 @@ class GameSettingsHostVC: UIViewController {
 }
 
 class SettingsVC: GameSettingsHostVC {
+    fileprivate let backupSettingsView = BackupSettingsView()
+
     init(container: AppContainer) {
         super.init(container: container, pokemon: nil)
     }
@@ -90,5 +97,100 @@ class SettingsVC: GameSettingsHostVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
+        contentStack.addArrangedSubview(backupSettingsView)
+        backupSettingsView.exportRow.addTarget(self, action: #selector(exportPressed), for: .touchUpInside)
+        backupSettingsView.restoreRow.addTarget(self, action: #selector(restorePressed), for: .touchUpInside)
+    }
+
+    // MARK: Backup
+
+    @objc fileprivate func exportPressed() {
+        do {
+            let backupFile = try container.exportBackup.handle(ExportBackupQuery())
+            let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(backupFile.fileName)
+            try backupFile.data.write(to: fileURL, options: .atomic)
+            let shareSheet = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+            shareSheet.popoverPresentationController?.sourceView = backupSettingsView.exportRow
+            shareSheet.popoverPresentationController?.sourceRect = backupSettingsView.exportRow.bounds
+            present(shareSheet, animated: true)
+        }
+        catch {
+            presentBackupError(title: "Couldn't export backup", message: "The backup file could not be created. Please try again.")
+        }
+    }
+
+    @objc fileprivate func restorePressed() {
+        let picker: UIDocumentPickerViewController
+        if #available(iOS 14.0, *) {
+            picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.json], asCopy: true)
+        }
+        else {
+            picker = UIDocumentPickerViewController(documentTypes: ["public.json"], in: .import)
+        }
+        picker.delegate = self
+        picker.allowsMultipleSelection = false
+        present(picker, animated: true)
+    }
+
+    fileprivate func confirmRestore(from fileURL: URL) {
+        let data: Data
+        let summary: BackupSummary
+        do {
+            data = try Data(contentsOf: fileURL)
+            summary = try container.getBackupSummary.handle(GetBackupSummaryQuery(data: data))
+        }
+        catch BackupFileError.newerFormat {
+            presentBackupError(title: "Backup is too new", message: "This backup was made with a newer version of ShinyDex. Update the app to restore it.")
+            return
+        }
+        catch {
+            presentBackupError(title: "Couldn't read backup", message: "The file isn't a ShinyDex backup or is damaged. Nothing was changed.")
+            return
+        }
+        presentDestructiveConfirmation(title: "Restore backup?",
+                                       message: SettingsVC.makeRestoreMessage(for: summary),
+                                       destructiveTitle: "Replace All Data") { [weak self] in
+            self?.restore(from: data)
+        }
+    }
+
+    fileprivate func restore(from data: Data) {
+        do {
+            try container.restoreBackup.handle(RestoreBackupCommand(data: data))
+            Haptics.playSuccess()
+            popupHandler.showPopup(text: "Backup restored.")
+        }
+        catch {
+            presentBackupError(title: "Couldn't restore backup", message: "Your current data has been kept unchanged.")
+        }
+    }
+
+    fileprivate func presentBackupError(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.view.tintColor = Color.Orange500
+        present(alert, animated: true)
+    }
+
+    fileprivate static func makeRestoreMessage(for summary: BackupSummary) -> String {
+        let createdDate = DateFormatter.localizedString(from: summary.createdDate, dateStyle: .medium, timeStyle: .short)
+        let contents = [
+            makeCountText(summary.catchCount, singular: "shiny", plural: "shinies"),
+            makeCountText(summary.huntCount, singular: "hunt", plural: "hunts"),
+            makeCountText(summary.journeyCount, singular: "journey", plural: "journeys"),
+            makeCountText(summary.bingoBoardCount, singular: "bingo board", plural: "bingo boards")
+        ].joined(separator: ", ")
+        return "Backup from \(createdDate) with \(contents).\n\nAll current catches, hunts, journeys, bingo boards and hunt settings will be replaced. This can't be undone."
+    }
+
+    fileprivate static func makeCountText(_ count: Int, singular: String, plural: String) -> String {
+        return "\(count.grouped) \(count == 1 ? singular : plural)"
+    }
+}
+
+extension SettingsVC: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let fileURL = urls.first else { return }
+        confirmRestore(from: fileURL)
     }
 }

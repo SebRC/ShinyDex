@@ -398,7 +398,7 @@ class GameSettingsContainer: UIView {
     }
 }
 
-fileprivate class SettingsCard: UIView {
+class SettingsCard: UIView {
     let stack = UIStackView()
 
     init() {
@@ -416,7 +416,7 @@ fileprivate class SettingsCard: UIView {
     }
 }
 
-fileprivate class SectionHeaderLabel: UILabel {
+class SectionHeaderLabel: UILabel {
     fileprivate let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
 
     init() {
