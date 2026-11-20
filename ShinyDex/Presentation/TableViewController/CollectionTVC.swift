@@ -4,13 +4,14 @@ enum CollectionFilter {
     case ball(String)
     case game(Games)
     case method(HuntMethod)
+    case nature(Nature)
     case gotAway
     case period(CatchPeriod)
 
     var showsFailed: Bool {
         switch self {
         case .gotAway, .period: return true
-        case .ball, .game, .method: return false
+        case .ball, .game, .method, .nature: return false
         }
     }
 
@@ -24,6 +25,7 @@ enum CollectionFilter {
         case .ball(let ball): return "\(ball.capitalizingFirstLetter()) Ball"
         case .game(let game): return game.displayName
         case .method(let method): return method.rawValue
+        case .nature(let nature): return nature.name
         case .gotAway: return "Got away"
         case .period(let period): return CollectionFilter.getTitle(of: period)
         }
@@ -52,6 +54,7 @@ enum CollectionFilter {
         case .ball(let ball): return caught.caughtBall == ball
         case .game(let game): return caught.game == game
         case .method(let method): return caught.huntMethod == method
+        case .nature(let nature): return caught.nature == nature
         case .gotAway: return caught.isFailed
         case .period(let period): return caught.caughtDate.map { period.contains($0, calendar: .current) } ?? false
         }
