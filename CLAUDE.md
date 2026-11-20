@@ -7,6 +7,28 @@
 - Never commit, push, or open a PR without asking first.
 - Keep commit messages short: one or two sentences, phrased as an action, e.g. "Add view for pokeball selection" or "Update pods".
 
+## Project structure
+
+The app follows DDD layers. Dependencies point inward: Presentation → Application → Domain, with Persistence and Infrastructure implementing protocols defined by the inner layers.
+
+```
+ShinyDex/
+  App/             AppDelegate, SceneDelegate and AppContainer, the composition root that builds every handler
+  Domain/          Entities, value objects, domain services and repository protocols, grouped by feature. Foundation only
+  Application/     Commands and queries, one slice per file (e.g. Hunts/CreateHunt.swift holds the command and its handler), plus DTOs per feature
+    Ports/         Protocols for outside needs (ResourceLoader, KeyValueStore, LocationLinkProvider)
+  Persistence/     CoreDataStack, Core Data repositories and the versioned ShinyDex.xcdatamodeld. The only layer that imports CoreData
+  Infrastructure/  Implementations of the Application ports (bundle resources, UserDefaults, Serebii links)
+  Presentation/    UIKit screens, cells and views. Screens receive the AppContainer through their initialiser
+  Resources/, TextFile/  Bundled JSON and text data
+ShinyDexTests/     Domain, handler (in-memory repositories), persistence round-trip and store migration tests
+```
+
+- Screens only send commands and run queries. They never use repositories or domain entities; queries return DTOs and commands take typed IDs.
+- A new feature gets a folder in Domain and Application, a Core Data repository if it stores data, and its handlers exposed on AppContainer.
+- Never edit an existing Core Data model version. Add a new one and set it as current, and keep stored formats (entity and attribute names, JSON keys) unchanged.
+- The Xcode project doesn't sync folders, so new files must be added to `ShinyDex.xcodeproj` as well as to disk.
+
 ## Code style
 
 - Follow Apple's Swift API Design Guidelines and Xcode's default formatting (4-space indentation, `lowerCamelCase` for members, `UpperCamelCase` for types).
