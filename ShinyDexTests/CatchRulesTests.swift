@@ -2,60 +2,60 @@ import XCTest
 @testable import ShinyDex
 
 class CatchRulesTests: XCTestCase {
-	fileprivate func makeCatch(number: Int = 0, ball: String, date: Date?) -> Catch {
-		return Catch(number: number, caughtBall: ball, game: .Red, huntMethod: .Encounters, encounters: 0, isShinyCharmActive: false, caughtDate: date)
-	}
+    fileprivate func makeCatch(number: Int = 0, ball: String, date: Date?) -> Catch {
+        return Catch(number: number, caughtBall: ball, game: .Red, huntMethod: .Encounters, encounters: 0, isShinyCharmActive: false, caughtDate: date)
+    }
 
-	func test_sortedOldestFirst_undatedCatchesComeFirst_thenByDate() {
-		let newer = makeCatch(ball: "ultra", date: Date(timeIntervalSince1970: 200))
-		let older = makeCatch(ball: "great", date: Date(timeIntervalSince1970: 100))
-		let undated = makeCatch(ball: "poke", date: nil)
+    func test_sortedOldestFirst_undatedCatchesComeFirst_thenByDate() {
+        let newer = makeCatch(ball: "ultra", date: Date(timeIntervalSince1970: 200))
+        let older = makeCatch(ball: "great", date: Date(timeIntervalSince1970: 100))
+        let undated = makeCatch(ball: "poke", date: nil)
 
-		let sorted = CatchRules.sortedOldestFirst([newer, undated, older])
+        let sorted = CatchRules.sortedOldestFirst([newer, undated, older])
 
-		XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "great", "ultra"])
-	}
+        XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "great", "ultra"])
+    }
 
-	func test_sortedForCollection_groupsBySpecies_thenOldestFirst() {
-		let pikachuNewer = makeCatch(number: 24, ball: "ultra", date: Date(timeIntervalSince1970: 200))
-		let bulbasaur = makeCatch(number: 0, ball: "poke", date: Date(timeIntervalSince1970: 300))
-		let pikachuOlder = makeCatch(number: 24, ball: "great", date: Date(timeIntervalSince1970: 100))
-		let pikachuUndated = makeCatch(number: 24, ball: "master", date: nil)
+    func test_sortedForCollection_groupsBySpecies_thenOldestFirst() {
+        let pikachuNewer = makeCatch(number: 24, ball: "ultra", date: Date(timeIntervalSince1970: 200))
+        let bulbasaur = makeCatch(number: 0, ball: "poke", date: Date(timeIntervalSince1970: 300))
+        let pikachuOlder = makeCatch(number: 24, ball: "great", date: Date(timeIntervalSince1970: 100))
+        let pikachuUndated = makeCatch(number: 24, ball: "master", date: nil)
 
-		let sorted = CatchRules.sortedForCollection([pikachuNewer, bulbasaur, pikachuOlder, pikachuUndated])
+        let sorted = CatchRules.sortedForCollection([pikachuNewer, bulbasaur, pikachuOlder, pikachuUndated])
 
-		XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "master", "great", "ultra"])
-	}
+        XCTAssertEqual(sorted.map { $0.caughtBall }, ["poke", "master", "great", "ultra"])
+    }
 
-	func test_encounters_acceptsWholeNonNegativeNumbers() {
-		XCTAssertEqual(CatchRules.parseEncounters(from: " 1234 "), 1234)
-		XCTAssertEqual(CatchRules.parseEncounters(from: "0"), 0)
-		XCTAssertNil(CatchRules.parseEncounters(from: "-5"))
-		XCTAssertNil(CatchRules.parseEncounters(from: "12a"))
-		XCTAssertNil(CatchRules.parseEncounters(from: ""))
-	}
+    func test_encounters_acceptsWholeNonNegativeNumbers() {
+        XCTAssertEqual(CatchRules.parseEncounters(from: " 1234 "), 1234)
+        XCTAssertEqual(CatchRules.parseEncounters(from: "0"), 0)
+        XCTAssertNil(CatchRules.parseEncounters(from: "-5"))
+        XCTAssertNil(CatchRules.parseEncounters(from: "12a"))
+        XCTAssertNil(CatchRules.parseEncounters(from: ""))
+    }
 
-	func test_latestBall_isNoneWithoutCatches() {
-		XCTAssertEqual(CatchRules.getLatestBall(of: []), CatchRules.noBall)
-	}
+    func test_latestBall_isNoneWithoutCatches() {
+        XCTAssertEqual(CatchRules.getLatestBall(of: []), CatchRules.noBall)
+    }
 
-	func test_latestBall_isMostRecentCatch() {
-		let catches = [makeCatch(ball: "master", date: Date(timeIntervalSince1970: 300)), makeCatch(ball: "poke", date: nil)]
-		XCTAssertEqual(CatchRules.getLatestBall(of: catches), "master")
-	}
+    func test_latestBall_isMostRecentCatch() {
+        let catches = [makeCatch(ball: "master", date: Date(timeIntervalSince1970: 300)), makeCatch(ball: "poke", date: nil)]
+        XCTAssertEqual(CatchRules.getLatestBall(of: catches), "master")
+    }
 
-	func test_countsByNumber_countsDuplicates() {
-		let catches = [makeCatch(number: 1, ball: "poke", date: nil), makeCatch(number: 1, ball: "great", date: nil), makeCatch(number: 4, ball: "ultra", date: nil)]
-		XCTAssertEqual(CatchRules.countByNumber(catches), [1: 2, 4: 1])
-	}
+    func test_countsByNumber_countsDuplicates() {
+        let catches = [makeCatch(number: 1, ball: "poke", date: nil), makeCatch(number: 1, ball: "great", date: nil), makeCatch(number: 4, ball: "ultra", date: nil)]
+        XCTAssertEqual(CatchRules.countByNumber(catches), [1: 2, 4: 1])
+    }
 
-	func test_pokemonToBackfill_onlyCaughtSpeciesWithoutCatches() {
-		let caught = Pokemon(); caught.number = 0; caught.caughtBall = "poke"
-		let notCaught = Pokemon(); notCaught.number = 1; notCaught.caughtBall = "none"
-		let alreadyCopied = Pokemon(); alreadyCopied.number = 2; alreadyCopied.caughtBall = "ultra"
+    func test_pokemonToBackfill_onlyCaughtSpeciesWithoutCatches() {
+        let caught = Pokemon(); caught.number = 0; caught.caughtBall = "poke"
+        let notCaught = Pokemon(); notCaught.number = 1; notCaught.caughtBall = "none"
+        let alreadyCopied = Pokemon(); alreadyCopied.number = 2; alreadyCopied.caughtBall = "ultra"
 
-		let result = CatchRules.findPokemonToBackfill(from: [caught, notCaught, alreadyCopied], existingCounts: [2: 1])
+        let result = CatchRules.findPokemonToBackfill(from: [caught, notCaught, alreadyCopied], existingCounts: [2: 1])
 
-		XCTAssertEqual(result.map { $0.number }, [0])
-	}
+        XCTAssertEqual(result.map { $0.number }, [0])
+    }
 }
