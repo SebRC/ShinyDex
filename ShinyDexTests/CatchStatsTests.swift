@@ -12,8 +12,8 @@ class CatchStatsTests: XCTestCase {
         return calendar.date(from: DateComponents(year: year, month: 6, day: 1))!
     }
 
-    fileprivate func makeCatch(number: Int = 0, ball: String = "poke", game: Games = .Red, method: HuntMethod = .Encounters, encounters: Int, year: Int?, isFailed: Bool = false) -> Catch {
-        return Catch(number: number, caughtBall: ball, game: game, huntMethod: method, encounters: encounters, isShinyCharmActive: false, caughtDate: year.map { makeDate($0) }, isFailed: isFailed)
+    fileprivate func makeCatch(number: Int = 0, ball: String = "poke", game: Games = .Red, method: HuntMethod = .Encounters, isShinyCharmActive: Bool = false, encounters: Int, year: Int?, isFailed: Bool = false) -> Catch {
+        return Catch(number: number, caughtBall: ball, game: game, huntMethod: method, encounters: encounters, isShinyCharmActive: isShinyCharmActive, caughtDate: year.map { makeDate($0) }, isFailed: isFailed)
     }
 
     func test_failedShinies_countAsFound_butNotCaught() {
@@ -201,29 +201,41 @@ class CatchStatsTests: XCTestCase {
         ])
     }
 
-    func test_yearLuck_sumsEncountersOverOddsPerYear_andComparesWithShiniesFoundAtKnownOdds() {
+    func test_fullOddsLuck_sumsEncountersOverFullOdds_perYearAndLifetime_includingFailedAndUndatedInLifetime() {
         let stats = CatchStats(catches: [
-            makeCatch(game: .X, encounters: 4096, year: 2023),
-            makeCatch(game: .X, encounters: 2048, year: 2023, isFailed: true),
-            makeCatch(game: .Red, encounters: 4096, year: 2024)
+            makeCatch(game: .Red, encounters: 8192, year: 2023),
+            makeCatch(game: .Black, encounters: 4096, year: 2023, isFailed: true),
+            makeCatch(game: .Emerald, encounters: 2048, year: 2024),
+            makeCatch(game: .Gold, encounters: 6144, year: nil)
         ], calendar: calendar)
 
         XCTAssertEqual(stats.yearLuck, [
-            CatchStats.YearLuck(year: 2023, expectedShinies: 1.5, foundCount: 2),
-            CatchStats.YearLuck(year: 2024, expectedShinies: 0.5, foundCount: 1)
+            CatchStats.YearLuck(year: 2023, luck: CatchStats.Luck(expectedShinies: 1.5, foundCount: 2)),
+            CatchStats.YearLuck(year: 2024, luck: CatchStats.Luck(expectedShinies: 0.25, foundCount: 1))
         ])
+        XCTAssertEqual(stats.lifetimeLuck, CatchStats.Luck(expectedShinies: 2.5, foundCount: 4))
     }
 
-    func test_yearLuck_leavesOutCatchesWithoutKnownOddsEncountersOrDate() {
+    func test_fullOddsLuck_leavesOutMethodHunts_betterOdds_andCatchesWithoutEncounters() {
         let stats = CatchStats(catches: [
+            makeCatch(game: .Red, encounters: 8192, year: 2023),
             makeCatch(game: .X, encounters: 4096, year: 2023),
-            makeCatch(game: .X, method: .ChainFishing, encounters: 40, year: 2023),
-            makeCatch(game: .LetsGoEevee, encounters: 500, year: 2023),
-            makeCatch(game: .X, encounters: 0, year: 2023),
-            makeCatch(game: .X, encounters: 4096, year: nil),
-            makeCatch(game: .X, method: .ChainFishing, encounters: 40, year: 2024)
+            makeCatch(game: .Black, isShinyCharmActive: true, encounters: 2731, year: 2023),
+            makeCatch(game: .Diamond, method: .Masuda, encounters: 1638, year: 2023),
+            makeCatch(game: .Gold, method: .Gen2Breeding, encounters: 64, year: 2023),
+            makeCatch(game: .X, method: .ChainFishing, encounters: 40, year: 2024),
+            makeCatch(game: .LetsGoEevee, encounters: 500, year: 2024),
+            makeCatch(game: .Red, encounters: 0, year: 2024)
         ], calendar: calendar)
 
-        XCTAssertEqual(stats.yearLuck, [CatchStats.YearLuck(year: 2023, expectedShinies: 1, foundCount: 1)])
+        XCTAssertEqual(stats.yearLuck, [CatchStats.YearLuck(year: 2023, luck: CatchStats.Luck(expectedShinies: 1, foundCount: 1))])
+        XCTAssertEqual(stats.lifetimeLuck, CatchStats.Luck(expectedShinies: 1, foundCount: 1))
+    }
+
+    func test_fullOddsLuck_isNilWithoutFullOddsHunts() {
+        let stats = CatchStats(catches: [makeCatch(game: .X, encounters: 4096, year: 2023)], calendar: calendar)
+
+        XCTAssertNil(stats.lifetimeLuck)
+        XCTAssertEqual(stats.yearLuck, [])
     }
 }
