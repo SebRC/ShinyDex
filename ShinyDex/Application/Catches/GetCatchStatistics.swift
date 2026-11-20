@@ -48,6 +48,8 @@ struct CatchStatistics: Equatable {
     let ballUsage: [Usage<String>]
     let gameUsage: [Usage<Games>]
     let methodUsage: [Usage<HuntMethod>]
+    let natureUsage: [Usage<Nature>]
+    let unknownNatureCount: Int
     let fastestCatch: CatchSummary?
     let longestCatch: CatchSummary?
 }
@@ -84,6 +86,8 @@ final class GetCatchStatisticsHandler {
             ballUsage: stats.ballUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             gameUsage: stats.gameUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             methodUsage: stats.methodUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
+            natureUsage: stats.natureUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
+            unknownNatureCount: stats.unknownNatureCount,
             fastestCatch: stats.fastestCatch.flatMap(mapper.makeSummary),
             longestCatch: stats.longestCatch.flatMap(mapper.makeSummary))
     }

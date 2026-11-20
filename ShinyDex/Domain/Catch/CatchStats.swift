@@ -46,6 +46,8 @@ struct CatchStats {
     let ballUsage: [Usage<String>]
     let gameUsage: [Usage<Games>]
     let methodUsage: [Usage<HuntMethod>]
+    let natureUsage: [Usage<Nature>]
+    let unknownNatureCount: Int
     let fastestCatch: Catch?
     let longestCatch: Catch?
 
@@ -84,6 +86,9 @@ struct CatchStats {
         ballUsage = CatchStats.countUsage(of: caught.map { $0.caughtBall }.filter { $0 != CatchRules.noBall }, name: { $0 })
         gameUsage = CatchStats.countUsage(of: caught.map { $0.game }, name: { $0.displayName })
         methodUsage = CatchStats.countUsage(of: caught.map { $0.huntMethod }, name: { $0.rawValue })
+        let natures = caught.compactMap { $0.nature }
+        natureUsage = CatchStats.countUsage(of: natures, name: { $0.name })
+        unknownNatureCount = caught.count - natures.count
 
         fastestCatch = withEncounters.min { $0.encounters < $1.encounters }
         longestCatch = withEncounters.max { $0.encounters < $1.encounters }

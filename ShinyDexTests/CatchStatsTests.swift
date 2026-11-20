@@ -127,6 +127,23 @@ class CatchStatsTests: XCTestCase {
         XCTAssertEqual(stats.methodUsage.map { $0.key }, [.Masuda, .ChainFishing])
     }
 
+    func test_natureUsage_mostCommonFirst_tiesAlphabetical_andCountsCatchesWithoutNatureAsUnknown() {
+        let natures: [Nature?] = [.timid, .adamant, .timid, .bold, nil]
+        let catches = natures.map { nature -> Catch in
+            let caught = makeCatch(encounters: 1, year: 2023)
+            caught.nature = nature
+            return caught
+        }
+        let failed = makeCatch(ball: CatchRules.noBall, encounters: 1, year: 2023, isFailed: true)
+        failed.nature = .jolly
+
+        let stats = CatchStats(catches: catches + [failed], calendar: calendar)
+
+        XCTAssertEqual(stats.natureUsage.map { $0.key }, [.timid, .adamant, .bold])
+        XCTAssertEqual(stats.natureUsage.map { $0.count }, [2, 1, 1])
+        XCTAssertEqual(stats.unknownNatureCount, 1)
+    }
+
     func test_records_useFewestAndMostEncountersAboveZero() {
         let fastest = makeCatch(number: 1, encounters: 12, year: 2023)
         let longest = makeCatch(number: 2, encounters: 9000, year: 2023)
