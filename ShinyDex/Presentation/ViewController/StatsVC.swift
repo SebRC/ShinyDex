@@ -52,7 +52,7 @@ class StatsVC: UIViewController {
         }
         addOverview(stats)
         addYears(stats)
-        addYearLuck(stats)
+        addFullOddsLuck(stats)
         addLuckiestPeriods(stats)
         addLuckiestDates(stats)
         addRecords(stats)
@@ -133,24 +133,23 @@ class StatsVC: UIViewController {
         addSection("Average encounters by year", chart, footnote: "Tap a year to see its catches." + undatedNote)
     }
 
-    fileprivate func addYearLuck(_ stats: CatchStatistics) {
-        guard !stats.yearLuck.isEmpty else { return }
+    fileprivate func addFullOddsLuck(_ stats: CatchStatistics) {
+        guard let lifetimeLuck = stats.lifetimeLuck else { return }
         let card = UIView()
         card.backgroundColor = Color.Grey800
         card.layer.cornerRadius = CornerRadius.standard
         card.clipsToBounds = true
         let list = UIStackView()
         list.axis = .vertical
-        for luck in stats.yearLuck {
-            let row = YearLuckRow(luck: luck)
-            row.onTap = { [weak self] in
-                self?.showCollection(filter: .period(.year(luck.year)))
-            }
-            list.addArrangedSubview(row)
+        list.addArrangedSubview(LuckRow(title: "Lifetime", luck: lifetimeLuck, isEmphasized: true))
+        for yearLuck in stats.yearLuck {
+            list.addArrangedSubview(LuckRow(title: String(yearLuck.year), luck: yearLuck.luck) { [weak self] in
+                self?.showCollection(filter: .period(.year(yearLuck.year)))
+            })
         }
         card.addAutoLayoutSubviews(list)
         list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-        addSection("Expected vs actual by year", card, footnote: "Expected shinies add up encounters divided by odds for every catch. Chain hunts and Let's Go catches have no fixed odds, so they're left out along with catches without encounters. Tap a year to see its catches.")
+        addSection("Expected vs actual at full odds", card, footnote: "Only full odds (1/\(CatchOdds.fullOdds.grouped)) hunts without a method count, so expected shinies are their encounters divided by \(CatchOdds.fullOdds.grouped). Tap a year to see its catches.")
     }
 
     fileprivate func addLuckiestPeriods(_ stats: CatchStatistics) {

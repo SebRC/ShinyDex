@@ -9,10 +9,14 @@ struct CatchStatistics: Equatable {
         let averageEncounters: Int?
     }
 
-    struct YearLuck: Equatable {
-        let year: Int
+    struct Luck: Equatable {
         let expectedShinies: Double
         let foundCount: Int
+    }
+
+    struct YearLuck: Equatable {
+        let year: Int
+        let luck: Luck
     }
 
     struct Period: Equatable {
@@ -40,6 +44,7 @@ struct CatchStatistics: Equatable {
     let catchesWithEncounters: Int
     let averageEncounters: Int?
     let years: [Year]
+    let lifetimeLuck: Luck?
     let yearLuck: [YearLuck]
     let undatedCount: Int
     let months: [Period]
@@ -78,7 +83,8 @@ final class GetCatchStatisticsHandler {
             catchesWithEncounters: stats.catchesWithEncounters,
             averageEncounters: stats.averageEncounters,
             years: stats.years.map { CatchStatistics.Year(year: $0.year, foundCount: $0.foundCount, averageEncounters: $0.averageEncounters) },
-            yearLuck: stats.yearLuck.map { CatchStatistics.YearLuck(year: $0.year, expectedShinies: $0.expectedShinies, foundCount: $0.foundCount) },
+            lifetimeLuck: stats.lifetimeLuck.map(GetCatchStatisticsHandler.mapLuck),
+            yearLuck: stats.yearLuck.map { CatchStatistics.YearLuck(year: $0.year, luck: GetCatchStatisticsHandler.mapLuck($0.luck)) },
             undatedCount: stats.undatedCount,
             months: stats.months.map { CatchStatistics.Period(period: $0.period, foundCount: $0.foundCount) },
             weekdays: stats.weekdays.map { CatchStatistics.Period(period: $0.period, foundCount: $0.foundCount) },
@@ -90,5 +96,9 @@ final class GetCatchStatisticsHandler {
             unknownNatureCount: stats.unknownNatureCount,
             fastestCatch: stats.fastestCatch.flatMap(mapper.makeSummary),
             longestCatch: stats.longestCatch.flatMap(mapper.makeSummary))
+    }
+
+    private static func mapLuck(_ luck: CatchStats.Luck) -> CatchStatistics.Luck {
+        return CatchStatistics.Luck(expectedShinies: luck.expectedShinies, foundCount: luck.foundCount)
     }
 }

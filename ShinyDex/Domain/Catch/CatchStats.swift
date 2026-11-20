@@ -7,10 +7,14 @@ struct CatchStats {
         let averageEncounters: Int?
     }
 
-    struct YearLuck: Equatable {
-        let year: Int
+    struct Luck: Equatable {
         let expectedShinies: Double
         let foundCount: Int
+    }
+
+    struct YearLuck: Equatable {
+        let year: Int
+        let luck: Luck
     }
 
     struct PeriodStat: Equatable {
@@ -38,6 +42,7 @@ struct CatchStats {
     let catchesWithEncounters: Int
     let averageEncounters: Int?
     let years: [YearStat]
+    let lifetimeLuck: Luck?
     let yearLuck: [YearLuck]
     let undatedCount: Int
     let months: [PeriodStat]
@@ -74,8 +79,9 @@ struct CatchStats {
                             averageEncounters: CatchStats.calculateAverage(of: yearCatches.filter { $0.encounters > 0 }))
         }
 
+        lifetimeLuck = CatchStats.calculateFullOddsLuck(of: catches)
         yearLuck = byYear.keys.sorted().compactMap { year in
-            CatchStats.calculateYearLuck(year, catches: byYear[year]!)
+            CatchStats.calculateFullOddsLuck(of: byYear[year]!).map { YearLuck(year: year, luck: $0) }
         }
 
         let dates = dated.map { $0.caughtDate! }
@@ -100,15 +106,11 @@ struct CatchStats {
         return Int((Double(total) / Double(catches.count)).rounded())
     }
 
-    fileprivate static func calculateYearLuck(_ year: Int, catches: [Catch]) -> YearLuck? {
-        let expectedPerCatch = catches.compactMap(calculateExpectedShinies)
-        guard !expectedPerCatch.isEmpty else { return nil }
-        return YearLuck(year: year, expectedShinies: expectedPerCatch.reduce(0, +), foundCount: expectedPerCatch.count)
-    }
-
-    fileprivate static func calculateExpectedShinies(from caught: Catch) -> Double? {
-        guard caught.encounters > 0, let odds = CatchOdds.getOdds(for: caught) else { return nil }
-        return Double(caught.encounters) / Double(odds)
+    fileprivate static func calculateFullOddsLuck(of catches: [Catch]) -> Luck? {
+        let fullOddsHunts = catches.filter { $0.encounters > 0 && CatchOdds.isFullOddsHunt($0) }
+        guard !fullOddsHunts.isEmpty else { return nil }
+        let totalEncounters = fullOddsHunts.reduce(0) { $0 + $1.encounters }
+        return Luck(expectedShinies: Double(totalEncounters) / Double(CatchOdds.fullOdds), foundCount: fullOddsHunts.count)
     }
 
     fileprivate static func countPeriods(of dates: [Date], component: Calendar.Component, periods: ClosedRange<Int>, calendar: Calendar) -> [PeriodStat] {

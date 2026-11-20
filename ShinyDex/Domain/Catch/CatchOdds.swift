@@ -1,6 +1,8 @@
 import Foundation
 
 enum CatchOdds {
+    static let fullOdds = 8192
+
     // Chain methods and Let's Go return nil: their odds depend on how the chain went, which isn't recorded.
     static func getOdds(for caught: Catch) -> Int? {
         let generation = GamesList.games[caught.game]?.generation ?? 0
@@ -22,6 +24,10 @@ enum CatchOdds {
         default:
             return nil
         }
+    }
+
+    static func isFullOddsHunt(_ caught: Catch) -> Bool {
+        return caught.huntMethod == .Encounters && getOdds(for: caught) == fullOdds
     }
 
     static func calculateChanceOfFindingSooner(_ caught: Catch) -> Double? {
