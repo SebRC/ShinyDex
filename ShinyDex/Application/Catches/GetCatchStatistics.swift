@@ -55,8 +55,8 @@ struct CatchStatistics: Equatable {
     let methodUsage: [Usage<HuntMethod>]
     let natureUsage: [Usage<Nature>]
     let unknownNatureCount: Int
-    let fastestCatch: CatchSummary?
-    let longestCatch: CatchSummary?
+    let shortestHunts: [CatchSummary]
+    let longestHunts: [CatchSummary]
 }
 
 final class GetCatchStatisticsHandler {
@@ -94,8 +94,8 @@ final class GetCatchStatisticsHandler {
             methodUsage: stats.methodUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             natureUsage: stats.natureUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             unknownNatureCount: stats.unknownNatureCount,
-            fastestCatch: stats.fastestCatch.flatMap(mapper.makeSummary),
-            longestCatch: stats.longestCatch.flatMap(mapper.makeSummary))
+            shortestHunts: stats.shortestHunts.compactMap(mapper.makeSummary),
+            longestHunts: stats.longestHunts.compactMap(mapper.makeSummary))
     }
 
     private static func mapLuck(_ luck: CatchStats.Luck) -> CatchStatistics.Luck {

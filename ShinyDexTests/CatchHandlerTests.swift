@@ -132,7 +132,7 @@ final class CatchHandlerTests: XCTestCase {
         let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon).handle(GetCatchStatisticsQuery())
 
         XCTAssertEqual(statistics.foundCount, 1)
-        XCTAssertEqual(statistics.fastestCatch?.pokemonName, "Bulbasaur")
+        XCTAssertEqual(statistics.shortestHunts.first?.pokemonName, "Bulbasaur")
         XCTAssertEqual(statistics.ballUsage.map { $0.key }, ["poke"])
         XCTAssertEqual(statistics.months.reduce(0) { $0 + $1.foundCount }, 1)
         XCTAssertEqual(statistics.weekdays.reduce(0) { $0 + $1.foundCount }, 1)

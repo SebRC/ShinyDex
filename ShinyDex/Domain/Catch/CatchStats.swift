@@ -53,8 +53,10 @@ struct CatchStats {
     let methodUsage: [Usage<HuntMethod>]
     let natureUsage: [Usage<Nature>]
     let unknownNatureCount: Int
-    let fastestCatch: Catch?
-    let longestCatch: Catch?
+    let shortestHunts: [Catch]
+    let longestHunts: [Catch]
+
+    static let rankedHuntCount = 10
 
     init(catches: [Catch], calendar: Calendar = .current) {
         let caught = catches.filter { !$0.isFailed }
@@ -96,8 +98,8 @@ struct CatchStats {
         natureUsage = CatchStats.countUsage(of: natures, name: { $0.name })
         unknownNatureCount = caught.count - natures.count
 
-        fastestCatch = withEncounters.min { $0.encounters < $1.encounters }
-        longestCatch = withEncounters.max { $0.encounters < $1.encounters }
+        shortestHunts = Array(withEncounters.sorted { $0.encounters < $1.encounters }.prefix(CatchStats.rankedHuntCount))
+        longestHunts = Array(withEncounters.sorted { $0.encounters > $1.encounters }.prefix(CatchStats.rankedHuntCount))
     }
 
     fileprivate static func calculateAverage(of catches: [Catch]) -> Int? {

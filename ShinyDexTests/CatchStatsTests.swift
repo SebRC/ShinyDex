@@ -38,7 +38,7 @@ class CatchStatsTests: XCTestCase {
         XCTAssertEqual(stats.totalEncounters, 1000)
         XCTAssertEqual(stats.averageEncounters, 500)
         XCTAssertEqual(stats.years, [CatchStats.YearStat(year: 2024, foundCount: 2, averageEncounters: 500)])
-        XCTAssertTrue(stats.longestCatch === failed)
+        XCTAssertTrue(stats.longestHunts.first === failed)
     }
 
     func test_failedShinies_areLeftOutOfBallGameAndMethodBreakdowns() {
@@ -83,8 +83,8 @@ class CatchStatsTests: XCTestCase {
         let stats = CatchStats(catches: [makeCatch(encounters: 0, year: 2023)], calendar: calendar)
 
         XCTAssertNil(stats.averageEncounters)
-        XCTAssertNil(stats.fastestCatch)
-        XCTAssertNil(stats.longestCatch)
+        XCTAssertTrue(stats.shortestHunts.isEmpty)
+        XCTAssertTrue(stats.longestHunts.isEmpty)
     }
 
     func test_years_areOldestFirst_withPerYearAverages_andUndatedCountedSeparately() {
@@ -144,13 +144,24 @@ class CatchStatsTests: XCTestCase {
         XCTAssertEqual(stats.unknownNatureCount, 1)
     }
 
-    func test_records_useFewestAndMostEncountersAboveZero() {
+    func test_huntRankings_orderByEncounters_andLeaveOutHuntsWithoutEncounters() {
         let fastest = makeCatch(number: 1, encounters: 12, year: 2023)
+        let middle = makeCatch(number: 3, encounters: 500, year: 2023)
         let longest = makeCatch(number: 2, encounters: 9000, year: 2023)
-        let stats = CatchStats(catches: [makeCatch(encounters: 0, year: 2023), longest, fastest, makeCatch(encounters: 500, year: 2023)], calendar: calendar)
+        let stats = CatchStats(catches: [makeCatch(encounters: 0, year: 2023), longest, fastest, middle], calendar: calendar)
 
-        XCTAssertTrue(stats.fastestCatch === fastest)
-        XCTAssertTrue(stats.longestCatch === longest)
+        XCTAssertEqual(stats.shortestHunts.map { $0.encounters }, [12, 500, 9000])
+        XCTAssertEqual(stats.longestHunts.map { $0.encounters }, [9000, 500, 12])
+        XCTAssertTrue(stats.shortestHunts.first === fastest)
+        XCTAssertTrue(stats.longestHunts.first === longest)
+    }
+
+    func test_huntRankings_keepOnlyTheTopTen() {
+        let catches = (1...15).map { makeCatch(encounters: $0 * 100, year: 2023) }
+        let stats = CatchStats(catches: catches, calendar: calendar)
+
+        XCTAssertEqual(stats.shortestHunts.map { $0.encounters }, (1...10).map { $0 * 100 })
+        XCTAssertEqual(stats.longestHunts.map { $0.encounters }, (6...15).reversed().map { $0 * 100 })
     }
 
     fileprivate func makeCatch(on date: Date?, isFailed: Bool = false) -> Catch {
