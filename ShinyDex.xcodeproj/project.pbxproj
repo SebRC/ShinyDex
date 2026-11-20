@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */; };
+		AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F002 /* HuntRankingView.swift */; };
+		AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F001 /* HuntRankRow.swift */; };
 		A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A48736C9F55354A7736D7 /* NatureChartView.swift */; };
 		B243322F7989347710F03348 /* PeriodChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */; };
 		9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEDA61CC8AB213395372361 /* RecordCard.swift */; };
@@ -236,6 +238,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB52DE5E000000000000F001 /* HuntRankRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankRow.swift; sourceTree = "<group>"; };
+		AB52DE5E000000000000F002 /* HuntRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankingView.swift; sourceTree = "<group>"; };
 		0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyDateRow.swift; sourceTree = "<group>"; };
 		1D5A48736C9F55354A7736D7 /* NatureChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatureChartView.swift; sourceTree = "<group>"; };
 		9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodChartView.swift; sourceTree = "<group>"; };
@@ -489,6 +493,8 @@
 			isa = PBXGroup;
 			children = (
 				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
+				AB52DE5E000000000000F002 /* HuntRankingView.swift */,
+				AB52DE5E000000000000F001 /* HuntRankRow.swift */,
 				1D5A48736C9F55354A7736D7 /* NatureChartView.swift */,
 				9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */,
 				2EEDA61CC8AB213395372361 /* RecordCard.swift */,
@@ -1262,6 +1268,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */,
+				AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */,
+				AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */,
 				A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */,
 				B243322F7989347710F03348 /* PeriodChartView.swift in Sources */,
 				9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */,

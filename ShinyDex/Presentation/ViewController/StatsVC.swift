@@ -3,6 +3,7 @@ import UIKit
 class StatsVC: UIViewController {
     fileprivate let scrollView = UIScrollView()
     fileprivate let stack = UIStackView()
+    fileprivate let huntRanking = HuntRankingView()
     fileprivate let container: AppContainer
 
     init(container: AppContainer) {
@@ -20,6 +21,9 @@ class StatsVC: UIViewController {
         view.backgroundColor = Color.Grey900
         stack.axis = .vertical
         stack.spacing = 6
+        huntRanking.onSelect = { [weak self] hunt in
+            self?.showCatch(hunt)
+        }
         view.addAutoLayoutSubviews(scrollView)
         scrollView.pinEdges(to: view)
         scrollView.addAutoLayoutSubviews(stack)
@@ -56,6 +60,7 @@ class StatsVC: UIViewController {
         addLuckiestPeriods(stats)
         addLuckiestDates(stats)
         addRecords(stats)
+        addHuntRankings(stats)
         addUsage(title: "Balls", rows: stats.ballUsage.prefix(8).map { usage in
             UsageRow(title: "\(BallGrid.getDisplayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
         }, total: stats.caughtCount)
@@ -70,6 +75,11 @@ class StatsVC: UIViewController {
 
     fileprivate func showCollection(filter: CollectionFilter? = nil) {
         navigationController?.pushViewController(CollectionTVC(container: container, filter: filter), animated: true)
+    }
+
+    fileprivate func showCatch(_ caught: CatchSummary) {
+        guard let detail = CatchDetailTVC(container: container, catchId: caught.id) else { return }
+        navigationController?.pushViewController(detail, animated: true)
     }
 
     // MARK: Sections
@@ -204,7 +214,7 @@ class StatsVC: UIViewController {
     }
 
     fileprivate func addRecords(_ stats: CatchStatistics) {
-        guard let fastest = stats.fastestCatch, let longest = stats.longestCatch else { return }
+        guard let fastest = stats.shortestHunts.first, let longest = stats.longestHunts.first else { return }
         let records = UIStackView(arrangedSubviews: [
             makeRecordCard(title: "Fastest shiny", caught: fastest, symbol: "hare.fill"),
             makeRecordCard(title: "Longest hunt", caught: longest, symbol: "tortoise.fill")
@@ -217,10 +227,15 @@ class StatsVC: UIViewController {
     fileprivate func makeRecordCard(title: String, caught: CatchSummary, symbol: String) -> UIView {
         let card = RecordCard(title: title, symbol: symbol, caught: caught)
         card.onTap = { [weak self] in
-            guard let self = self, let detail = CatchDetailTVC(container: self.container, catchId: caught.id) else { return }
-            self.navigationController?.pushViewController(detail, animated: true)
+            self?.showCatch(caught)
         }
         return card
+    }
+
+    fileprivate func addHuntRankings(_ stats: CatchStatistics) {
+        guard stats.longestHunts.count > 1 else { return }
+        huntRanking.update(longestHunts: stats.longestHunts, shortestHunts: stats.shortestHunts)
+        addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged. Tap a hunt to see the catch.")
     }
 
     fileprivate func addUsage(title: String, rows: [UsageRow], total: Int) {
