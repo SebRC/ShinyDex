@@ -51,9 +51,9 @@ final class PhaseCell: UITableViewCell {
     }
 
     func configure(phase: CatchSummary) {
-        sprite.image = UIImage(named: phase.pokemonName.lowercased())
+        sprite.image = phase.spriteImage
         sprite.alpha = phase.isFailed ? 0.55 : 1
-        titleLabel.text = [phase.nickname, phase.pokemonName].compactMap { $0 }.joined(separator: " · ")
+        titleLabel.text = [phase.nickname, phase.speciesTitle].compactMap { $0 }.joined(separator: " · ")
         titleLabel.textColor = phase.isFailed ? Color.Grey300 : Color.Grey200
         let outcome = phase.isFailed ? "Got away" : phase.ballName
         subtitleLabel.text = [outcome, "\(phase.encounters.grouped) encounters", phase.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")

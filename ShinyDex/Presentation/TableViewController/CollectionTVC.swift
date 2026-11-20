@@ -148,7 +148,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
 
     fileprivate func applySearch() {
         let searchText = searchController.searchBar.text?.lowercased() ?? ""
-        var shown = searchText.isEmpty ? entries : entries.filter { [$0.pokemonName, $0.nickname].compactMap { $0?.lowercased() }.contains { $0.contains(searchText) } }
+        var shown = searchText.isEmpty ? entries : entries.filter { [$0.pokemonName, $0.nickname, $0.formName].compactMap { $0?.lowercased() }.contains { $0.contains(searchText) } }
         if (sortOrder == .recent) {
             shown = shown.enumerated().sorted { lhs, rhs in
                 switch (lhs.element.caughtDate, rhs.element.caughtDate) {
@@ -376,17 +376,17 @@ fileprivate class CollectionCard: UICollectionViewCell {
     }
 
     func configure(caught: CatchSummary) {
-        spriteView.image = UIImage(named: caught.pokemonName.lowercased())
+        spriteView.image = caught.spriteImage
         spriteView.alpha = caught.isFailed ? 0.55 : 1
         glowView.isHidden = caught.isFailed
         ballView.image = caught.isFailed ? UIImage.makeSymbol("wind", pointSize: 14, weight: .semibold) : UIImage(named: caught.caughtBall)
         ballView.tintColor = Color.Grey400
         ballView.contentMode = caught.isFailed ? .center : .scaleAspectFit
-        nameLabel.text = caught.nickname ?? caught.pokemonName
-        speciesLabel.text = caught.pokemonName
+        nameLabel.text = caught.nickname ?? caught.speciesTitle
+        speciesLabel.text = caught.speciesTitle
         speciesLabel.isHidden = caught.nickname == nil
         dateLabel.text = caught.formattedCaughtDate ?? "Before history"
         let detail = caught.isFailed ? "got away" : caught.ballName
-        accessibilityLabel = [caught.nickname, "Shiny \(caught.pokemonName)", detail, caught.formattedCaughtDate ?? "date unknown"].compactMap { $0 }.joined(separator: ", ")
+        accessibilityLabel = [caught.nickname, "Shiny \(caught.speciesTitle)", detail, caught.formattedCaughtDate ?? "date unknown"].compactMap { $0 }.joined(separator: ", ")
     }
 }

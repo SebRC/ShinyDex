@@ -341,7 +341,7 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
         chip.tag = tag
         chip.backgroundColor = Color.Grey900
         chip.layer.cornerRadius = 12
-        chip.setImage(UIImage(named: pokemon.name.lowercased()), for: .normal)
+        chip.setImage(PokemonSprites.makeImage(pokemonName: pokemon.name), for: .normal)
         chip.imageView?.contentMode = .scaleAspectFit
         chip.imageView?.layer.magnificationFilter = .nearest
         chip.contentHorizontalAlignment = .fill

@@ -67,7 +67,7 @@ class CurrentHuntCell: UITableViewCell {
     }
 
     func configure(pokemon: HuntMember) {
-        sprite.image = UIImage(named: pokemon.name.lowercased())
+        sprite.image = PokemonSprites.makeImage(pokemonName: pokemon.name)
         nameLabel.text = pokemon.name
         encountersLabel.text = pokemon.encounters.grouped
         encountersCaption.text = pokemon.encounters == 1 ? "encounter" : "encounters"

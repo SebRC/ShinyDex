@@ -112,6 +112,18 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(CoreDataCatchRepository(managedContext: store.context).getAll(number: 4).count, 2)
     }
 
+    func test_catchForm_survivesSaveAndReload() throws {
+        let original = Catch(number: 422, caughtBall: "dive", game: .Platinum, huntMethod: .Encounters, encounters: 10, isShinyCharmActive: false, caughtDate: makeDate(5))
+        original.formId = "east"
+        let repository = CoreDataCatchRepository(managedContext: store.context)
+        repository.insert(original)
+        XCTAssertTrue(repository.save())
+
+        try store.reopen()
+
+        XCTAssertEqual(CoreDataCatchRepository(managedContext: store.context).getAll().first?.formId, "east")
+    }
+
     // MARK: Hunt
 
     func test_hunt_survivesSaveAndReload() throws {
@@ -234,6 +246,29 @@ final class PersistenceRoundTripTests: XCTestCase {
         try store.reopen()
 
         XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).getAll().isEmpty)
+    }
+
+    func test_journeyEntryForm_survivesSaveAndReload_andIsLeftOutWhenUnset() throws {
+        let journey = Journey(name: "Seas", priority: 0, numbers: [421, 422])
+        journey.entries[1].formId = "east"
+        CoreDataJourneyRepository(managedContext: store.context).save(journey)
+
+        try store.reopen()
+
+        let stored = try XCTUnwrap(CoreDataJourneyRepository(managedContext: store.context).getAll().first)
+        XCTAssertEqual(stored.entries.map { $0.formId }, [nil, "east"])
+        let json = try XCTUnwrap(fetchRawRows("JourneyEntity").first?.value(forKey: "entries") as? String)
+        XCTAssertEqual(json.components(separatedBy: "\"form\"").count - 1, 1)
+    }
+
+    func test_bingoCellForm_survivesSaveAndReload() throws {
+        let board = BingoBoard(name: "Seas", priority: 0, size: .three, numbers: [422])
+        board.setForm("east", at: 0)
+        CoreDataBingoBoardRepository(managedContext: store.context).save(board)
+
+        try store.reopen()
+
+        XCTAssertEqual(CoreDataBingoBoardRepository(managedContext: store.context).getAll().first?.cells[0].formId, "east")
     }
 
     // MARK: Bingo board

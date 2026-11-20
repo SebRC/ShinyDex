@@ -96,16 +96,15 @@ final class TimelineCell: UITableViewCell {
         dateLabel.text = caught.formattedCaughtDate ?? "Undated"
         gapLabel.text = TimelineCell.formatGap(from: previousDate, to: caught.caughtDate)
         gapLabel.isHidden = gapLabel.text == nil
-        let name = caught.pokemonName
-        nameLabel.text = name
-        sprite.image = UIImage(named: name.lowercased())
+        nameLabel.text = caught.speciesTitle
+        sprite.image = caught.spriteImage
         ballView.image = UIImage(named: caught.caughtBall)
         ballView.isHidden = caught.isFailed
         let outcome = caught.isFailed ? "Got away" : caught.ballName
         let details = "\(caught.encounters.grouped) encounters\n\(outcome) · \(caught.game.displayName)"
         detailLabel.text = step.isPhase ? "Phase while hunting \(step.entryPokemonName ?? "Unknown")\n\(details)" : details
         let stepTitle = catchNumber.map { "Catch \($0)" } ?? "Phase"
-        accessibilityLabel = "\(stepTitle), \(name), \(dateLabel.text ?? ""), \(gapLabel.text ?? ""), \(detailLabel.text ?? "")"
+        accessibilityLabel = "\(stepTitle), \(caught.speciesTitle),\(dateLabel.text ?? ""), \(gapLabel.text ?? ""), \(detailLabel.text ?? "")"
         accessibilityTraits = .button
     }
 

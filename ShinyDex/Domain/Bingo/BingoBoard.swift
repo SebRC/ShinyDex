@@ -17,6 +17,13 @@ enum BingoBoardSize: Int, CaseIterable {
 struct BingoCell: Equatable {
     var number: Int?
     var catchId: UUID?
+    var formId: String?
+
+    init(number: Int?, catchId: UUID?, formId: String? = nil) {
+        self.number = number
+        self.catchId = catchId
+        self.formId = formId
+    }
 
     static let empty = BingoCell(number: nil, catchId: nil)
 
@@ -65,6 +72,13 @@ class BingoBoard {
         cells[index] = BingoCell(number: number, catchId: nil)
     }
 
+    func setForm(_ formId: String?, at index: Int) {
+        guard cells.indices.contains(index), cells[index].isFilled else { return }
+        guard cells[index].formId != formId else { return }
+        cells[index].formId = formId
+        cells[index].catchId = nil
+    }
+
     func clear(at index: Int) {
         guard cells.indices.contains(index) else { return }
         cells[index] = .empty
@@ -86,7 +100,7 @@ class BingoBoard {
 
     func findLinkedCatch(at index: Int, in catchesById: [UUID: Catch]) -> Catch? {
         guard cells.indices.contains(index), cells[index].isFilled,
-              let catchId = cells[index].catchId, let caught = catchesById[catchId], !caught.isFailed else { return nil }
+              let catchId = cells[index].catchId, let caught = catchesById[catchId], !caught.isFailed, caught.matchesForm(cells[index].formId) else { return nil }
         return caught
     }
 

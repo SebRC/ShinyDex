@@ -9,6 +9,7 @@ struct UpdateBingoBoardCommand {
         case swap(Int, Int)
         case fillEmptyCells([Int])
         case shuffle
+        case setForm(at: Int, formId: String?)
     }
 
     let boardId: BingoBoardID
@@ -41,6 +42,8 @@ final class UpdateBingoBoardHandler {
             board.fillEmptyCells(with: numbers)
         case .shuffle:
             board.shuffle(using: &generator)
+        case .setForm(let index, let formId):
+            board.setForm(formId, at: index)
         }
         bingoBoardRepository.save(board)
     }

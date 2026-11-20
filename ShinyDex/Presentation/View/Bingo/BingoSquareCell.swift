@@ -38,7 +38,7 @@ class BingoSquareCell: UICollectionViewCell {
 
     func configure(cell: BingoCellDetails) {
         let isObtained = cell.isObtained
-        spriteView.image = cell.pokemonName.flatMap { UIImage(named: $0.lowercased()) }
+        spriteView.image = cell.pokemonName.flatMap { PokemonSprites.makeImage(pokemonName: $0, formId: cell.formId) }
         spriteView.alpha = isObtained ? 1 : 0.4
         spriteView.isHidden = !cell.isFilled
         addIcon.isHidden = cell.isFilled
@@ -52,7 +52,7 @@ class BingoSquareCell: UICollectionViewCell {
 
     fileprivate func makeAccessibilityLabel(for cell: BingoCellDetails) -> String {
         guard cell.isFilled else { return "Empty square, add Pokémon" }
-        let name = cell.pokemonName ?? "Unknown Pokémon"
+        let name = cell.pokemonName.map { PokemonSprites.makeTitle(pokemonName: $0, formName: cell.formName) } ?? "Unknown Pokémon"
         if (cell.isObtained) {
             return "\(name), caught"
         }

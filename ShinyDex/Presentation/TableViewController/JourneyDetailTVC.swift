@@ -229,6 +229,9 @@ class JourneyDetailTVC: UITableViewController {
         else if (!linkable.isEmpty) {
             sheet.addAction(UIAlertAction(title: "Link a catch", style: .default) { [weak self] _ in self?.pickCatch(for: entry) })
         }
+        if let choices = container.getPokemonForms.handle(GetPokemonFormsQuery(number: entry.number)) {
+            sheet.addAction(UIAlertAction(title: "Form: \(choices.findName(of: entry.formId))", style: .default) { [weak self] _ in self?.pickForm(for: entry, from: choices) })
+        }
         sheet.addAction(UIAlertAction(title: "Log a phase", style: .default) { [weak self] _ in self?.logPhase(for: entry) })
         sheet.addAction(UIAlertAction(title: "Remove from journey", style: .destructive) { [weak self] _ in self?.remove(entry) })
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -243,6 +246,14 @@ class JourneyDetailTVC: UITableViewController {
     fileprivate func pickCatch(for entry: JourneyEntryDetails) {
         let picker = LinkCatchTVC(target: makeLinkTarget(for: entry), catches: getLinkableCatches(for: entry)) { [weak self] caught in
             self?.link(caught, to: entry)
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func pickForm(for entry: JourneyEntryDetails, from choices: FormChoices) {
+        let picker = FormPicker.make(pokemonName: entry.pokemonName, choices: choices, selectedFormId: entry.formId) { [weak self] formId in
+            guard let self = self else { return }
+            self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .setForm(entry: entry.id, formId: formId)))
         }
         navigationController?.pushViewController(picker, animated: true)
     }

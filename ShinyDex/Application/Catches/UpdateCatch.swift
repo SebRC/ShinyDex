@@ -17,6 +17,7 @@ struct UpdateCatchCommand {
         case gender(Gender?)
         case nature(Nature?)
         case ivs(IndividualValues)
+        case form(String?)
     }
 
     let catchId: CatchID
@@ -24,10 +25,12 @@ struct UpdateCatchCommand {
 }
 
 final class UpdateCatchHandler {
+    private let forms: PokemonForms
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms()) {
+        self.forms = forms
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
     }
@@ -45,6 +48,7 @@ final class UpdateCatchHandler {
         case .gender(let gender): caught.gender = gender
         case .nature(let nature): caught.nature = nature
         case .ivs(let ivs): caught.ivs = ivs
+        case .form(let formId): caught.formId = forms.carryOver(formId, to: caught.number)
         }
         catchRepository.update(caught)
         guard catchRepository.save() else { throw CatchUpdateError.saveFailed }

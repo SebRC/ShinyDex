@@ -65,10 +65,10 @@ class StatsVC: UIViewController {
             UsageRow(title: "\(BallGrid.getDisplayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
         }, total: stats.caughtCount)
         addUsage(title: "Games", rows: stats.gameUsage.prefix(6).map { usage in
-            UsageRow(title: usage.key.displayName, image: GamesList.games[usage.key].flatMap { UIImage(named: $0.coverPokemon) }, count: usage.count, filter: .game(usage.key))
+            UsageRow(title: usage.key.displayName, image: GamesList.games[usage.key].flatMap { PixelArt.makeCenteredImage(named: $0.coverPokemon) }, count: usage.count, filter: .game(usage.key))
         }, total: stats.caughtCount)
         addUsage(title: "Methods", rows: stats.methodUsage.map { usage in
-            UsageRow(title: usage.key.rawValue, image: UIImage(named: usage.key.rawValue), count: usage.count, filter: .method(usage.key))
+            UsageRow(title: usage.key.rawValue, image: PixelArt.makeCenteredImage(named: usage.key.rawValue), count: usage.count, filter: .method(usage.key))
         }, total: stats.caughtCount)
         addNatures(stats)
     }

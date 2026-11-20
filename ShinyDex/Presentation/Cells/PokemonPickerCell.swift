@@ -48,7 +48,7 @@ class PokemonPickerCell: UITableViewCell {
     }
 
     func configure(pokemon: PokemonSummary, isSelected: Bool, isInOtherHunt: Bool) {
-        spriteImageView.image = UIImage(named: pokemon.name.lowercased())
+        spriteImageView.image = PokemonSprites.makeImage(pokemonName: pokemon.name)
         nameLabel.text = pokemon.name
         numberLabel.text = String(format: "No. %03d", pokemon.number + 1)
 

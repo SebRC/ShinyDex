@@ -20,9 +20,10 @@ class Catch {
     var gender: Gender?
     var nature: Nature?
     var ivs: IndividualValues
+    var formId: String?
 
     init(id: UUID, number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool, evs: EffortValues, evolvedFrom: Int?,
-         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues()) {
+         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil) {
         self.id = id
         self.number = number
         self.caughtBall = caughtBall
@@ -38,6 +39,7 @@ class Catch {
         self.gender = gender
         self.nature = nature
         self.ivs = ivs
+        self.formId = formId
     }
 
     init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool = false) {
@@ -55,12 +57,16 @@ class Catch {
         self.ivs = IndividualValues()
     }
 
+    func matchesForm(_ targetFormId: String?) -> Bool {
+        return targetFormId == nil || formId == targetFormId
+    }
+
     static func normalizeNickname(_ nickname: String?) -> String? {
         guard let trimmed = nickname?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else { return nil }
         return String(trimmed.prefix(maximumNicknameLength))
     }
 
-    convenience init(pokemon: Pokemon, caughtBall: String, caughtDate: Date?, isFailed: Bool = false) {
+    convenience init(pokemon: Pokemon, caughtBall: String, caughtDate: Date?, isFailed: Bool = false, formId: String? = nil) {
         self.init(number: pokemon.number,
                   caughtBall: caughtBall,
                   game: pokemon.game,
@@ -69,5 +75,6 @@ class Catch {
                   isShinyCharmActive: pokemon.isShinyCharmActive,
                   caughtDate: caughtDate,
                   isFailed: isFailed)
+        self.formId = formId
     }
 }

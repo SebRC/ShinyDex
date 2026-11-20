@@ -168,7 +168,7 @@ fileprivate class JourneyCell: UITableViewCell {
             view.removeFromSuperview()
         }
         for member in members.prefix(JourneyCell.maximumSprites) {
-            let sprite = UIImageView(image: UIImage(named: member.name.lowercased()))
+            let sprite = UIImageView(image: PokemonSprites.makeImage(pokemonName: member.name))
             sprite.contentMode = .scaleAspectFit
             sprite.layer.magnificationFilter = .nearest
             sprite.alpha = member.isCaught ? 1 : 0.35

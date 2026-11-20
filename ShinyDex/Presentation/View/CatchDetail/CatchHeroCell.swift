@@ -65,14 +65,14 @@ final class CatchHeroCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(pokemonName: String, nickname: String?, genderSymbol: String?, dateText: String, positionText: String?, isFailed: Bool) {
+    func configure(pokemonName: String, spriteAssetName: String, nickname: String?, genderSymbol: String?, dateText: String, positionText: String?, isFailed: Bool) {
         badge.backgroundColor = isFailed ? Color.Grey600 : Color.Orange500
         badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
         badgeLabel.textColor = isFailed ? Color.Grey100 : Color.Grey900
         badgeIcon.image = UIImage(systemName: isFailed ? "wind" : PokemonCell.logCatchSymbol)
         badgeIcon.tintColor = badgeLabel.textColor
         glowView.isHidden = isFailed
-        spriteView.setPokemon(named: pokemonName)
+        spriteView.setPokemon(named: spriteAssetName)
         nameLabel.text = [nickname ?? pokemonName, genderSymbol].compactMap { $0 }.joined(separator: " ")
         speciesLabel.text = pokemonName
         speciesLabel.isHidden = nickname == nil

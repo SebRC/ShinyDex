@@ -1,6 +1,11 @@
 import UIKit
 
 class MenuTVC: UITableViewController {
+    fileprivate static let huntSymbolName = "scope"
+    fileprivate static let collectionBadgeSymbolName = "sparkle"
+    fileprivate static let collectionSymbolName = "sparkles"
+    fileprivate static let iconSize = CGSize(width: 56, height: 56)
+
     fileprivate enum Destination {
         case pokedex(generation: Int)
         case hunts
@@ -106,7 +111,10 @@ class MenuTVC: UITableViewController {
         let index = getMenuIndex(for: indexPath)
         var image = makeMenuImage(for: index)
         if (index == 10), let firstHuntPokemonName = summary?.firstHuntPokemonName {
-            image = UIImage(named: firstHuntPokemonName.lowercased())
+            image = makeBadgedSprite(pokemonName: firstHuntPokemonName, formId: nil, badgeSymbolName: MenuTVC.huntSymbolName)
+        }
+        if (index == 11), let latestCatchPokemonName = summary?.latestCatchPokemonName {
+            image = makeBadgedSprite(pokemonName: latestCatchPokemonName, formId: summary?.latestCatchFormId, badgeSymbolName: MenuTVC.collectionBadgeSymbolName)
         }
         cell.configure(title: textResolver.getGenTitle(gen: index), subtitle: getSubtitle(for: index), image: image, progress: getProgress(for: index))
         return cell
@@ -175,15 +183,15 @@ class MenuTVC: UITableViewController {
     fileprivate func makeMenuImage(for index: Int) -> UIImage? {
         switch index {
         case 0...7:
-            return UIImage(named: "gen\(index + 1)")
+            return makeRegionImage(named: "gen\(index + 1)")
         case 8:
-            return UIImage(named: "hisui")
+            return PixelArt.makeCenteredImage(named: "hisui")
         case 9:
-            return UIImage(named: "gen9")
+            return makeRegionImage(named: "gen9")
         case 10:
-            return UIImage(named: HuntMethod.Encounters.rawValue)
+            return UIImage.makeSymbol(MenuTVC.huntSymbolName, pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 11:
-            return UIImage(named: "collection")
+            return UIImage.makeSymbol(MenuTVC.collectionSymbolName, pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 12:
             return UIImage.makeSymbol("bolt.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
         case 13:
@@ -193,8 +201,43 @@ class MenuTVC: UITableViewController {
         case 15:
             return UIImage.makeSymbol("square.grid.3x3.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
         default:
-            return UIImage(named: "gen1")
+            return PixelArt.makeCenteredImage(named: "gen1")
         }
+    }
+
+    fileprivate func makeBadgedSprite(pokemonName: String, formId: String?, badgeSymbolName: String) -> UIImage? {
+        guard let sprite = PokemonSprites.makeImage(pokemonName: pokemonName, formId: formId) else { return nil }
+        let canvas = CGRect(origin: .zero, size: MenuTVC.iconSize)
+        let spriteRect = canvas.insetBy(dx: 0, dy: (canvas.height - canvas.width * sprite.size.height / sprite.size.width) / 2)
+        let badge = MenuTVC.makeBadgeRect(touching: sprite, drawnIn: spriteRect, within: canvas)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = UIScreen.main.scale
+        return UIGraphicsImageRenderer(size: canvas.size, format: format).image { context in
+            context.cgContext.interpolationQuality = .none
+            sprite.draw(in: spriteRect)
+            Color.Grey800.setFill()
+            UIBezierPath(ovalIn: badge).fill()
+            let symbol = UIImage.makeSymbol(badgeSymbolName, pointSize: 13, weight: .bold)?.withTintColor(Color.Orange500, renderingMode: .alwaysOriginal)
+            if let symbol = symbol {
+                symbol.draw(at: CGPoint(x: badge.midX - symbol.size.width / 2, y: badge.midY - symbol.size.height / 2))
+            }
+        }
+    }
+
+    fileprivate static func makeBadgeRect(touching sprite: UIImage, drawnIn spriteRect: CGRect, within canvas: CGRect) -> CGRect {
+        let badgeSize: CGFloat = 22
+        let overlap: CGFloat = 5
+        let scale = spriteRect.width / sprite.size.width
+        let visible = sprite.findVisiblePixelRect().map {
+            CGRect(x: spriteRect.minX + $0.minX * scale, y: spriteRect.minY + $0.minY * scale, width: $0.width * scale, height: $0.height * scale)
+        } ?? spriteRect
+        let x = min(visible.maxX - overlap, canvas.maxX - badgeSize)
+        let y = min(visible.maxY - overlap, canvas.maxY - badgeSize)
+        return CGRect(x: x, y: y, width: badgeSize, height: badgeSize)
+    }
+
+    fileprivate func makeRegionImage(named name: String) -> UIImage? {
+        return PixelArt.makeFilledImage(named: name, fillingFraction: 0.77, maximumScale: 3, canvasSize: MenuCell.regionImageSize)
     }
 
     @objc fileprivate func settingsPressed() {

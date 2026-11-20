@@ -252,6 +252,13 @@
 		BAC0B0000000000000000012 /* BackupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000011 /* BackupSettingsView.swift */; };
 		BAC0B0000000000000000014 /* BackupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000013 /* BackupHandlerTests.swift */; };
 		BAC0B0000000000000000016 /* BackupPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0B0000000000000000015 /* BackupPersistenceTests.swift */; };
+		F0A1B2000000000000000002 /* PokemonForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000001 /* PokemonForms.swift */; };
+		F0A1B2000000000000000004 /* GetPokemonForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000003 /* GetPokemonForms.swift */; };
+		F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000005 /* PokemonFormsLoader.swift */; };
+		F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000007 /* PokemonSprites.swift */; };
+		F0A1B200000000000000000A /* forms.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000009 /* forms.json */; };
+		F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B200000000000000000B /* PokemonFormsTests.swift */; };
+		F0A1B2000000000000000102 /* FormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000101 /* FormPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -512,6 +519,7 @@
 		B1B60A00000000000000001E /* BingoBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoardTests.swift; sourceTree = "<group>"; };
 		B1B60A000000000000000020 /* BingoHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoHandlerTests.swift; sourceTree = "<group>"; };
 		B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 8.xcdatamodel"; sourceTree = "<group>"; };
+		F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 9.xcdatamodel"; sourceTree = "<group>"; };
 		BAC0B0000000000000000001 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		BAC0B0000000000000000003 /* BackupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRepository.swift; sourceTree = "<group>"; };
 		BAC0B0000000000000000005 /* BackupDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupDocument.swift; sourceTree = "<group>"; };
@@ -523,6 +531,13 @@
 		BAC0B0000000000000000011 /* BackupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSettingsView.swift; sourceTree = "<group>"; };
 		BAC0B0000000000000000013 /* BackupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupHandlerTests.swift; sourceTree = "<group>"; };
 		BAC0B0000000000000000015 /* BackupPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupPersistenceTests.swift; sourceTree = "<group>"; };
+		F0A1B2000000000000000001 /* PokemonForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonForms.swift; sourceTree = "<group>"; };
+		F0A1B2000000000000000003 /* GetPokemonForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPokemonForms.swift; sourceTree = "<group>"; };
+		F0A1B2000000000000000005 /* PokemonFormsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFormsLoader.swift; sourceTree = "<group>"; };
+		F0A1B2000000000000000007 /* PokemonSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSprites.swift; sourceTree = "<group>"; };
+		F0A1B2000000000000000009 /* forms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = forms.json; sourceTree = "<group>"; };
+		F0A1B200000000000000000B /* PokemonFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFormsTests.swift; sourceTree = "<group>"; };
+		F0A1B2000000000000000101 /* FormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -764,6 +779,7 @@
 		6C8B0A952773450A9A79CF51 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B2000000000000000001 /* PokemonForms.swift */,
 				B10C0A0000000000000000E4 /* Evolutions.swift */,
 				76269D7B8EC297A0FA269D9A /* HuntConfiguration.swift */,
 				9648AE8C24AE110500E819CC /* HuntMethod.swift */,
@@ -787,6 +803,7 @@
 		74800DB66393B78C353B2B60 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B2000000000000000003 /* GetPokemonForms.swift */,
 				759D1CE442FD135517E1ED30 /* ApplyHuntSettingsToAll.swift */,
 				78B33A2D5D2A2AD856B1FE1B /* ChangeEncounters.swift */,
 				683E4E0867F1440ECDEABCDE /* GetAllPokemon.swift */,
@@ -814,6 +831,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B2000000000000000005 /* PokemonFormsLoader.swift */,
 				213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */,
 				C6F1C056BAF4755A1AD1E2EC /* BundleResourceLoader.swift */,
 				E62D0E871083310DE6F7C4B3 /* UserDefaultsStore.swift */,
@@ -845,6 +863,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B200000000000000000B /* PokemonFormsTests.swift */,
 				BAC0B0000000000000000013 /* BackupHandlerTests.swift */,
 				BAC0B0000000000000000015 /* BackupPersistenceTests.swift */,
 				B1B60A000000000000000020 /* BingoHandlerTests.swift */,
@@ -1060,6 +1079,8 @@
 		E8811AC4641D3747098C7826 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B2000000000000000101 /* FormPicker.swift */,
+				F0A1B2000000000000000007 /* PokemonSprites.swift */,
 				D19809F1653E932226FF52BB /* Alerts.swift */,
 				96FC07E423EF511500459450 /* Extensions.swift */,
 				FE0AFCED1806CF6CC43D659A /* Haptics.swift */,
@@ -1074,6 +1095,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B2000000000000000009 /* forms.json */,
 				9625741926B308350056B09C /* initialActiveMoves.json */,
 				51818C5A26C0483500B95FF6 /* moves.json */,
 				B10C0A0000000000000000E8 /* evolutions.json */,
@@ -1293,6 +1315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0A1B200000000000000000A /* forms.json in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
 				51818C5B26C0483500B95FF6 /* moves.json in Resources */,
@@ -1351,6 +1374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */,
 				BAC0B0000000000000000014 /* BackupHandlerTests.swift in Sources */,
 				BAC0B0000000000000000016 /* BackupPersistenceTests.swift in Sources */,
 				B1B60A000000000000000021 /* BingoHandlerTests.swift in Sources */,
@@ -1396,6 +1420,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0A1B2000000000000000102 /* FormPicker.swift in Sources */,
+				F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */,
+				F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */,
+				F0A1B2000000000000000004 /* GetPokemonForms.swift in Sources */,
+				F0A1B2000000000000000002 /* PokemonForms.swift in Sources */,
 				BAC0B0000000000000000002 /* Backup.swift in Sources */,
 				BAC0B0000000000000000004 /* BackupRepository.swift in Sources */,
 				BAC0B0000000000000000006 /* BackupDocument.swift in Sources */,
@@ -1858,8 +1887,9 @@
 				B10C0A000000000000004001 /* ShinyDex 6.xcdatamodel */,
 				B10C0A000000000000004004 /* ShinyDex 7.xcdatamodel */,
 				B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */,
+				F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */,
 			);
-			currentVersion = B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */;
+			currentVersion = F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

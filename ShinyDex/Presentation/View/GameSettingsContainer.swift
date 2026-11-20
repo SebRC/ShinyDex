@@ -10,15 +10,15 @@ class GameSettingsContainer: UIView {
     var gameSettingsCells: [GameSettingsCell]?
     var onApplyToAll: (() -> Void)?
 
-    let shinyCharmCell = GameSettingsCell(title: "Shiny Charm", description: "Available from generation 5 and onwards", icon: UIImage(named: "Charm"), tag: 3)
-    let lureCell = GameSettingsCell(title: "Lure", description: "Only available in Let's Go Pikachu & Eevee.", icon: UIImage(named: HuntMethod.Lure.rawValue), tag: 8)
-    let masudaCell = GameSettingsCell(title: "Masuda", description: "Available from generation 4 and onwards", icon: UIImage(named: HuntMethod.Masuda.rawValue), tag: 1)
-    let pokeradarCell = GameSettingsCell(title: "Pokéradar", description: "Only available in Diamond, Pearl, Platinum, X and Y", icon: UIImage(named: HuntMethod.Pokeradar.rawValue), tag: 2)
-    let genTwoBreedingCell = GameSettingsCell(title: "Gen 2 breeding", description: "Increased shiny odds from breeding shinies are only available in Gold, Silver and Crystal", icon: UIImage(named: HuntMethod.Gen2Breeding.rawValue), tag: 0)
-    let sosChainCell = GameSettingsCell(title: "SOS chaining", description: "Only available in Sun, Moon, Ultra Sun and Ultra Moon", icon: UIImage(named: HuntMethod.SosChaining.rawValue), tag: 7)
-    let chainFishingCell = GameSettingsCell(title: "Chain fishing", description: "Only available in X, Y, Omega Ruby and Alpha Sapphire", icon: UIImage(named: HuntMethod.ChainFishing.rawValue), tag: 4)
-    let dexNavCell = GameSettingsCell(title: "DexNav", description: "Only available in Omega Ruby & Alpha Sapphire", icon: UIImage(named: HuntMethod.DexNav.rawValue), tag: 5)
-    let friendSafariCell = GameSettingsCell(title: "Friend Safari", description: "Only available in X and Y", icon: UIImage(named: HuntMethod.FriendSafari.rawValue), tag: 6)
+    let shinyCharmCell = GameSettingsCell(title: "Shiny Charm", description: "Available from generation 5 and onwards", icon: PixelArt.makeCenteredImage(named: "Charm"), tag: 3)
+    let lureCell = GameSettingsCell(title: "Lure", description: "Only available in Let's Go Pikachu & Eevee.", icon: PixelArt.makeCenteredImage(named: HuntMethod.Lure.rawValue), tag: 8)
+    let masudaCell = GameSettingsCell(title: "Masuda", description: "Available from generation 4 and onwards", icon: PixelArt.makeCenteredImage(named: HuntMethod.Masuda.rawValue), tag: 1)
+    let pokeradarCell = GameSettingsCell(title: "Pokéradar", description: "Only available in Diamond, Pearl, Platinum, X and Y", icon: PixelArt.makeCenteredImage(named: HuntMethod.Pokeradar.rawValue), tag: 2)
+    let genTwoBreedingCell = GameSettingsCell(title: "Gen 2 breeding", description: "Increased shiny odds from breeding shinies are only available in Gold, Silver and Crystal", icon: PixelArt.makeCenteredImage(named: HuntMethod.Gen2Breeding.rawValue), tag: 0)
+    let sosChainCell = GameSettingsCell(title: "SOS chaining", description: "Only available in Sun, Moon, Ultra Sun and Ultra Moon", icon: PixelArt.makeCenteredImage(named: HuntMethod.SosChaining.rawValue), tag: 7)
+    let chainFishingCell = GameSettingsCell(title: "Chain fishing", description: "Only available in X, Y, Omega Ruby and Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.ChainFishing.rawValue), tag: 4)
+    let dexNavCell = GameSettingsCell(title: "DexNav", description: "Only available in Omega Ruby & Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.DexNav.rawValue), tag: 5)
+    let friendSafariCell = GameSettingsCell(title: "Friend Safari", description: "Only available in X and Y", icon: PixelArt.makeCenteredImage(named: HuntMethod.FriendSafari.rawValue), tag: 6)
     let applyToAllButton = UIButton(type: .system)
     let explanationLabel = UILabel(fontSize: 13, color: Color.Grey400, lines: 0)
     fileprivate lazy var explanationFooter: UIView = {
@@ -226,7 +226,7 @@ class GameSettingsContainer: UIView {
     // MARK: State
 
     func setGame(coverPokemon: String) {
-        gameImageView.image = UIImage(named: coverPokemon)
+        gameImageView.image = PixelArt.makeCenteredImage(named: coverPokemon)
         gameTitle.text = settings.game.displayName
         gameButton.accessibilityLabel = "Game, \(settings.game.displayName)"
     }

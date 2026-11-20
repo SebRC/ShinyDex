@@ -60,11 +60,13 @@ struct CatchStatistics: Equatable {
 }
 
 final class GetCatchStatisticsHandler {
+    private let forms: PokemonForms
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let calendar: Calendar
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, calendar: Calendar = .current) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, calendar: Calendar = .current, forms: PokemonForms = PokemonForms()) {
+        self.forms = forms
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
         self.calendar = calendar
@@ -72,7 +74,7 @@ final class GetCatchStatisticsHandler {
 
     func handle(_ query: GetCatchStatisticsQuery) -> CatchStatistics {
         let stats = CatchStats(catches: catchRepository.getAll(), calendar: calendar)
-        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll())
+        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms)
         return CatchStatistics(
             foundCount: stats.foundCount,
             caughtCount: stats.caughtCount,

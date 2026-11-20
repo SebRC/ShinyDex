@@ -7,6 +7,8 @@ struct BingoCellDetails: Equatable {
     let linkedCatch: CatchSummary?
     let linkableCatchCount: Int
     let isInCompletedLine: Bool
+    let formId: String?
+    let formName: String?
 
     var isFilled: Bool {
         return number != nil
@@ -68,9 +70,10 @@ struct BingoCatchLinks {
     func findLinkableCatches(at index: Int, in board: BingoBoard) -> [Catch] {
         guard board.cells.indices.contains(index), let number = board.cells[index].number else { return [] }
         let linkedId = board.cells[index].catchId
+        let formId = board.cells[index].formId
         let line = Set(evolutions.getLine(of: number)).union([number])
         return catches
-            .filter { !$0.isFailed && line.contains($0.number) && (!board.isLinked($0) || $0.id == linkedId) }
+            .filter { !$0.isFailed && line.contains($0.number) && $0.matchesForm(formId) && (!board.isLinked($0) || $0.id == linkedId) }
             .sorted { ($0.number == number ? 0 : 1, $0.caughtDate ?? .distantPast) < ($1.number == number ? 0 : 1, $1.caughtDate ?? .distantPast) }
     }
 }

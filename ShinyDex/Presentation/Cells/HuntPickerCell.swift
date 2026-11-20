@@ -45,7 +45,7 @@ class HuntPickerCell: UITableViewCell {
     func configure(hunt: HuntSummary) {
         nameLabel.text = hunt.name
         subtitleLabel.text = HuntHeaderView.formatEncounters(hunt.totalEncounters, pokemonCount: hunt.members.count)
-        iconImageView.image = hunt.members.first.flatMap { UIImage(named: $0.name.lowercased()) }
+        iconImageView.image = hunt.members.first.flatMap { PokemonSprites.makeImage(pokemonName: $0.name) }
         accessibilityLabel = "\(hunt.name), \(subtitleLabel.text ?? "")"
     }
 }

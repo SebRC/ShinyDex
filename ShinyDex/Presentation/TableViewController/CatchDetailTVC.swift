@@ -10,6 +10,7 @@ class CatchDetailTVC: UITableViewController {
     }
 
     fileprivate enum AboutRow: CaseIterable {
+        case form
         case nickname
         case gender
         case nature
@@ -86,18 +87,18 @@ class CatchDetailTVC: UITableViewController {
         if let updated = container.getCatchDetails.handle(GetCatchDetailsQuery(catchId: catchId)) {
             details = updated
         }
-        let gameCover = GamesList.games[caught.game].flatMap { UIImage(named: $0.coverPokemon) }
+        let gameCover = GamesList.games[caught.game].flatMap { PixelArt.makeCenteredImage(named: $0.coverPokemon) }
         rows = [
             Row(field: .ball, title: "Ball", value: caught.ballName, image: UIImage(named: caught.caughtBall)),
             Row(field: .game, title: "Game", value: caught.game.displayName, image: gameCover),
-            Row(field: .method, title: "Method", value: caught.huntMethod.rawValue, image: UIImage(named: caught.huntMethod.rawValue)),
+            Row(field: .method, title: "Method", value: caught.huntMethod.rawValue, image: PixelArt.makeCenteredImage(named: caught.huntMethod.rawValue)),
             Row(field: .encounters, title: "Encounters", value: caught.encounters.grouped, image: UIImage.makeSymbol("number", pointSize: 18, weight: .medium), isSymbol: true),
             Row(field: .caughtDate, title: caught.isFailed ? "Found" : "Caught", value: caught.formattedCaughtDate ?? "Unknown", image: UIImage.makeSymbol("calendar", pointSize: 18, weight: .medium), isSymbol: true)
         ]
         if (caught.isFailed) {
             rows.removeAll { $0.field == .ball }
         }
-        aboutRows = caught.isFailed ? [] : AboutRow.allCases
+        aboutRows = caught.isFailed ? [] : AboutRow.allCases.filter { $0 != .form || details.formChoices != nil }
         trainingRows = caught.isFailed ? [] : [.evs]
         if (!caught.isFailed && !details.evolutionTargets.isEmpty) {
             trainingRows.append(.evolve)
@@ -169,7 +170,8 @@ class CatchDetailTVC: UITableViewController {
         case .hero:
             let cell = tableView.dequeueReusableCell(withIdentifier: CatchHeroCell.reuseIdentifier, for: indexPath) as! CatchHeroCell
             let verb = caught.isFailed ? "Found" : "Caught"
-            cell.configure(pokemonName: caught.pokemonName,
+            cell.configure(pokemonName: caught.speciesTitle,
+                           spriteAssetName: caught.spriteAssetName,
                            nickname: caught.nickname,
                            genderSymbol: caught.gender?.symbol,
                            dateText: caught.formattedCaughtDate.map { "\(verb) \($0)" } ?? "Logged before catch history",
@@ -200,6 +202,10 @@ class CatchDetailTVC: UITableViewController {
         cell.accessoryType = .disclosureIndicator
         let symbol: String
         switch row {
+        case .form:
+            cell.textLabel?.text = "Form"
+            cell.detailTextLabel?.text = details.formChoices?.findName(of: caught.formId)
+            symbol = "square.stack.3d.up.fill"
         case .nickname:
             cell.textLabel?.text = "Nickname"
             cell.detailTextLabel?.text = caught.nickname ?? "None"
@@ -279,6 +285,8 @@ class CatchDetailTVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if (Section(rawValue: indexPath.section) == .about) {
             switch aboutRows[indexPath.row] {
+            case .form:
+                showFormPicker()
             case .nickname:
                 showNicknameEditor()
             case .gender:
@@ -338,6 +346,14 @@ class CatchDetailTVC: UITableViewController {
         navigationController?.pushViewController(picker, animated: true)
     }
 
+    fileprivate func showFormPicker() {
+        guard let choices = details.formChoices else { return }
+        let picker = FormPicker.make(pokemonName: caught.pokemonName, choices: choices, selectedFormId: caught.formId) { [weak self] formId in
+            self?.save(.form(formId))
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
     fileprivate func showNaturePicker() {
         let picker = NaturePickerVC(selected: caught.nature) { [weak self] nature in
             self?.save(.nature(nature))
@@ -349,7 +365,7 @@ class CatchDetailTVC: UITableViewController {
 
     fileprivate func showEvolvePicker() {
         let targets = details.evolutionTargets
-        let items = targets.map { IconGridItem(title: $0.name, image: UIImage(named: $0.name.lowercased())) }
+        let items = targets.map { IconGridItem(title: $0.name, image: PokemonSprites.makeImage(pokemonName: $0.name)) }
         showPicker(title: "Evolve", caption: "Evolve \(caught.pokemonName) into", items: items, columns: 3, currentIndex: nil) { [weak self] index in
             self?.confirmEvolve(into: targets[index])
         }
@@ -385,7 +401,7 @@ class CatchDetailTVC: UITableViewController {
 
     fileprivate func showGamePicker() {
         let games = Games.allCases
-        let items = games.map { IconGridItem(title: $0.displayName, image: GamesList.games[$0].flatMap { UIImage(named: $0.coverPokemon) }) }
+        let items = games.map { IconGridItem(title: $0.displayName, image: GamesList.games[$0].flatMap { PixelArt.makeCenteredImage(named: $0.coverPokemon) }) }
         showPicker(title: "Game", caption: "Caught in", items: items, columns: 3, currentIndex: games.firstIndex(of: caught.game)) { [weak self] index in
             self?.save(.game(games[index]))
         }
@@ -396,7 +412,7 @@ class CatchDetailTVC: UITableViewController {
         if !methods.contains(caught.huntMethod) {
             methods.append(caught.huntMethod)
         }
-        let items = methods.map { IconGridItem(title: $0.rawValue, image: UIImage(named: $0.rawValue)) }
+        let items = methods.map { IconGridItem(title: $0.rawValue, image: PixelArt.makeCenteredImage(named: $0.rawValue)) }
         showPicker(title: "Method", caption: "Methods in \(caught.game.displayName)", items: items, columns: 3, currentIndex: methods.firstIndex(of: caught.huntMethod)) { [weak self] index in
             self?.save(.huntMethod(methods[index]))
         }

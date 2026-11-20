@@ -84,7 +84,7 @@ final class InMemoryCatchRepository: CatchRepository {
         return Catch(id: caught.id, number: caught.number, caughtBall: caught.caughtBall, game: caught.game, huntMethod: caught.huntMethod,
                      encounters: caught.encounters, isShinyCharmActive: caught.isShinyCharmActive, caughtDate: caught.caughtDate,
                      isFailed: caught.isFailed, evs: caught.evs, evolvedFrom: caught.evolvedFrom,
-                     nickname: caught.nickname, gender: caught.gender, nature: caught.nature, ivs: caught.ivs)
+                     nickname: caught.nickname, gender: caught.gender, nature: caught.nature, ivs: caught.ivs, formId: caught.formId)
     }
 }
 
