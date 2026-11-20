@@ -241,20 +241,25 @@ class JourneyDetailTVC: UITableViewController {
     }
 
     fileprivate func pickCatch(for entry: JourneyEntryDetails) {
-        let picker = LinkCatchTVC(container: container, journeyId: journeyId, entry: entry) { [weak self] caught in
+        let picker = LinkCatchTVC(target: makeLinkTarget(for: entry), catches: getLinkableCatches(for: entry)) { [weak self] caught in
             self?.link(caught, to: entry)
         }
         navigationController?.pushViewController(picker, animated: true)
     }
 
     fileprivate func logPhase(for entry: JourneyEntryDetails) {
-        let picker = LinkCatchTVC(container: container, journeyId: journeyId, entry: entry, role: .phase) { [weak self] caught in
+        let phaseCatches = container.getLinkableCatches.handle(GetLinkableCatchesQuery(journeyId: journeyId, entryId: entry.id, role: .phase))
+        let picker = LinkCatchTVC(target: makeLinkTarget(for: entry), role: .phase, catches: phaseCatches) { [weak self] caught in
             guard let self = self else { return }
             self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .addPhase(entry: entry.id, catchId: caught.id)))
             self.expandedEntryIds.insert(entry.id)
             Haptics.playSuccess()
         }
         navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func makeLinkTarget(for entry: JourneyEntryDetails) -> LinkCatchTarget {
+        return LinkCatchTarget(number: entry.number, pokemonName: entry.pokemonName, linkedCatchId: entry.linkedCatch?.id, collectionName: "journey")
     }
 
     fileprivate func unlinkPhase(_ phase: CatchSummary, from entry: JourneyEntryDetails) {

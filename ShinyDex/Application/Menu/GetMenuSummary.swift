@@ -15,23 +15,28 @@ struct MenuSummary: Equatable {
     let averageEncounters: Int?
     let journeyCount: Int
     let completeJourneyCount: Int
+    let bingoBoardCount: Int
+    let bingoLineCount: Int
     let regionProgress: [Int: RegionProgress]
 }
 
 final class GetMenuSummaryHandler {
     private let getHunts: GetHuntsHandler
     private let getJourneys: GetJourneysHandler
+    private let getBingoBoards: GetBingoBoardsHandler
     private let catchRepository: CatchRepository
 
-    init(getHunts: GetHuntsHandler, getJourneys: GetJourneysHandler, catchRepository: CatchRepository) {
+    init(getHunts: GetHuntsHandler, getJourneys: GetJourneysHandler, getBingoBoards: GetBingoBoardsHandler, catchRepository: CatchRepository) {
         self.getHunts = getHunts
         self.getJourneys = getJourneys
+        self.getBingoBoards = getBingoBoards
         self.catchRepository = catchRepository
     }
 
     func handle(_ query: GetMenuSummaryQuery) -> MenuSummary {
         let hunts = getHunts.handle(GetHuntsQuery())
         let journeys = getJourneys.handle(GetJourneysQuery())
+        let bingoBoards = getBingoBoards.handle(GetBingoBoardsQuery())
         let allCatches = catchRepository.getAll()
         let caught = allCatches.filter { !$0.isFailed }
         let catchCounts = CatchRules.countByNumber(caught)
@@ -48,6 +53,8 @@ final class GetMenuSummaryHandler {
             averageEncounters: CatchStats(catches: allCatches).averageEncounters,
             journeyCount: journeys.count,
             completeJourneyCount: journeys.filter { $0.isComplete }.count,
+            bingoBoardCount: bingoBoards.count,
+            bingoLineCount: bingoBoards.reduce(0) { $0 + $1.completedLineCount },
             regionProgress: regionProgress)
     }
 }

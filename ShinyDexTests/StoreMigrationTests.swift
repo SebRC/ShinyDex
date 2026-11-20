@@ -9,6 +9,7 @@ final class StoreMigrationTests: XCTestCase {
     private let entryIds = [UUID(uuidString: "A1B2C3D4-0000-4000-8000-000000000001")!, UUID(uuidString: "A1B2C3D4-0000-4000-8000-000000000002")!]
     private let caughtDate = Date(timeIntervalSinceReferenceDate: 760_000_000)
     private let journeyCreatedDate = Date(timeIntervalSinceReferenceDate: 750_000_000)
+    private let bingoBoardId = UUID(uuidString: "5E8B2C61-7A3D-4F90-9B14-C2D6E8F0A177")!
     private let activeMovesJson = #"[{"name":"Spore","maxPP":24,"remainingPP":3,"type":"grass"}]"#
 
     func test_upgradeFromVersion1_keepsAllData() throws {
@@ -35,8 +36,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 6")
     }
 
-    func test_reopeningVersion7_keepsAllData() throws {
+    func test_upgradeFromVersion7_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 7")
+    }
+
+    func test_reopeningVersion8_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 8")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -58,6 +63,9 @@ final class StoreMigrationTests: XCTestCase {
         }
         if oldModel.entitiesByName["JourneyEntity"] != nil {
             assertJourney(in: context, file: file, line: line)
+        }
+        if oldModel.entitiesByName["BingoBoardEntity"] != nil {
+            assertBingoBoard(in: context, file: file, line: line)
         }
 
         try stack.close()
@@ -94,6 +102,11 @@ final class StoreMigrationTests: XCTestCase {
         insert("JourneyEntity", into: context, values: [
             "id": journeyId, "name": "Hoenn favourites", "createdDate": journeyCreatedDate, "priority": 1,
             "entries": #"[{"id":"\#(entryIds[0].uuidString)","number":279,"catchId":"\#(catchId.uuidString)"},{"id":"\#(entryIds[1].uuidString)","number":280}]"#,
+        ])
+
+        insert("BingoBoardEntity", into: context, values: [
+            "id": bingoBoardId, "name": "Paldea bingo", "createdDate": journeyCreatedDate, "priority": 2, "size": 3,
+            "cells": #"[{"number":279,"catchId":"\#(catchId.uuidString)"},{"number":280},{},{},{},{},{},{},{}]"#,
         ])
 
         try context.save()
@@ -204,5 +217,17 @@ final class StoreMigrationTests: XCTestCase {
         XCTAssertEqual(journey.entries.map { $0.id }, entryIds, file: file, line: line)
         XCTAssertEqual(journey.entries.map { $0.number }, [279, 280], file: file, line: line)
         XCTAssertEqual(journey.entries.map { $0.catchId }, [catchId, nil], file: file, line: line)
+    }
+
+    private func assertBingoBoard(in context: NSManagedObjectContext, file: StaticString, line: UInt) {
+        let boards = CoreDataBingoBoardRepository(managedContext: context).getAll()
+        XCTAssertEqual(boards.count, 1, file: file, line: line)
+        guard let board = boards.first else { return }
+        XCTAssertEqual(board.id, bingoBoardId, file: file, line: line)
+        XCTAssertEqual(board.name, "Paldea bingo", file: file, line: line)
+        XCTAssertEqual(board.priority, 2, file: file, line: line)
+        XCTAssertEqual(board.size, .three, file: file, line: line)
+        XCTAssertEqual(board.cells.prefix(3).map { $0.number }, [279, 280, nil], file: file, line: line)
+        XCTAssertEqual(board.cells.prefix(3).map { $0.catchId }, [catchId, nil, nil], file: file, line: line)
     }
 }

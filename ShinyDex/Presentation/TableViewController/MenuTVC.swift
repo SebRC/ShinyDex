@@ -8,10 +8,11 @@ class MenuTVC: UITableViewController {
         case ppCounter
         case stats
         case journeys
+        case bingo
     }
 
     fileprivate let sections: [(title: String, rows: [Int])] = [
-        ("Tracking", [10, 14, 11, 13, 12]),
+        ("Tracking", [10, 11, 14, 13, 15, 12]),
         ("Pokédex", Array(0...9))
     ]
 
@@ -61,6 +62,7 @@ class MenuTVC: UITableViewController {
         case 12: return .ppCounter
         case 13: return .stats
         case 14: return .journeys
+        case 15: return .bingo
         default: return .pokedex(generation: index)
         }
     }
@@ -102,7 +104,7 @@ class MenuTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseIdentifier, for: indexPath) as! MenuCell
         let index = getMenuIndex(for: indexPath)
-        var image = resolveGenImage(gen: index)
+        var image = makeMenuImage(for: index)
         if (index == 10), let firstHuntPokemonName = summary?.firstHuntPokemonName {
             image = UIImage(named: firstHuntPokemonName.lowercased())
         }
@@ -128,6 +130,14 @@ class MenuTVC: UITableViewController {
             guard summary.journeyCount > 0 else { return "Badge quests, dream teams and more" }
             let journeyText = summary.journeyCount == 1 ? "1 journey" : "\(summary.journeyCount) journeys"
             return summary.completeJourneyCount == 0 ? journeyText : "\(journeyText) · \(summary.completeJourneyCount) complete"
+        case 15:
+            guard summary.bingoBoardCount > 0 else { return "3×3, 4×4 and 5×5 shiny bingo boards" }
+            let boardText = summary.bingoBoardCount == 1 ? "1 board" : "\(summary.bingoBoardCount) boards"
+            switch summary.bingoLineCount {
+            case 0: return boardText
+            case 1: return "\(boardText) · 1 bingo"
+            default: return "\(boardText) · \(summary.bingoLineCount) bingos"
+            }
         default:
             guard let progress = summary.regionProgress[index] else { return "" }
             let region = index == 8 ? "Legends: Arceus" : "Generation \(index < 8 ? index + 1 : index)"
@@ -156,14 +166,16 @@ class MenuTVC: UITableViewController {
             viewController = StatsVC(container: container)
         case .journeys:
             viewController = JourneysTVC(container: container)
+        case .bingo:
+            viewController = BingoBoardsTVC(container: container)
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
 
-    fileprivate func resolveGenImage(gen: Int) -> UIImage? {
-        switch gen {
+    fileprivate func makeMenuImage(for index: Int) -> UIImage? {
+        switch index {
         case 0...7:
-            return UIImage(named: "gen\(gen + 1)")
+            return UIImage(named: "gen\(index + 1)")
         case 8:
             return UIImage(named: "hisui")
         case 9:
@@ -173,11 +185,13 @@ class MenuTVC: UITableViewController {
         case 11:
             return UIImage(named: "collection")
         case 12:
-            return UIImage(named: "journal")
+            return UIImage.makeSymbol("bolt.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
         case 13:
             return UIImage.makeSymbol("chart.bar.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
         case 14:
             return UIImage.makeSymbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+        case 15:
+            return UIImage.makeSymbol("square.grid.3x3.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
         default:
             return UIImage(named: "gen1")
         }

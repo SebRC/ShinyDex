@@ -1,18 +1,22 @@
 import UIKit
 
-class LinkCatchTVC: UITableViewController {
-	fileprivate let container: AppContainer
-	fileprivate let journeyId: JourneyID
-	fileprivate let entry: JourneyEntryDetails
-	fileprivate let role: JourneyCatchRole
-	fileprivate let onLink: (CatchSummary) -> Void
-	fileprivate var catches = [CatchSummary]()
+struct LinkCatchTarget {
+	let number: Int
+	let pokemonName: String?
+	let linkedCatchId: CatchID?
+	let collectionName: String
+}
 
-	init(container: AppContainer, journeyId: JourneyID, entry: JourneyEntryDetails, role: JourneyCatchRole = .target, onLink: @escaping (CatchSummary) -> Void) {
-		self.container = container
-		self.journeyId = journeyId
-		self.entry = entry
+class LinkCatchTVC: UITableViewController {
+	fileprivate let target: LinkCatchTarget
+	fileprivate let role: JourneyCatchRole
+	fileprivate let catches: [CatchSummary]
+	fileprivate let onLink: (CatchSummary) -> Void
+
+	init(target: LinkCatchTarget, role: JourneyCatchRole = .target, catches: [CatchSummary], onLink: @escaping (CatchSummary) -> Void) {
+		self.target = target
 		self.role = role
+		self.catches = catches
 		self.onLink = onLink
 		super.init(style: .insetGrouped)
 	}
@@ -22,7 +26,7 @@ class LinkCatchTVC: UITableViewController {
 	}
 
 	fileprivate var entryName: String {
-		return entry.pokemonName ?? "this Pokémon"
+		return target.pokemonName ?? "this Pokémon"
 	}
 
 	override func viewDidLoad() {
@@ -32,7 +36,6 @@ class LinkCatchTVC: UITableViewController {
 		tableView.backgroundColor = Color.Grey900
 		tableView.separatorColor = Color.Grey700
 		tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
-		catches = container.getLinkableCatches.handle(GetLinkableCatchesQuery(journeyId: journeyId, entryId: entry.id, role: role))
 		if (catches.isEmpty) {
 			let message = role == .target
 				? "You haven't caught a shiny \(entryName) yet. Log one from its tracker, then link it here."
@@ -53,8 +56,8 @@ class LinkCatchTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		guard !catches.isEmpty else { return nil }
 		return role == .target
-			? "Includes catches from \(entryName)'s evolution line. Each catch can be linked once per journey."
-			: "A phase is a shiny of another species, including ones that got away. Each catch can be linked once per journey."
+			? "Includes catches from \(entryName)'s evolution line. Each catch can be linked once per \(target.collectionName)."
+			: "A phase is a shiny of another species, including ones that got away. Each catch can be linked once per \(target.collectionName)."
 	}
 
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -65,13 +68,13 @@ class LinkCatchTVC: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
 		let outcome = caught.isFailed ? "Got away" : caught.ballName
-		let title = [caught.nickname] + (caught.number == entry.number ? [outcome, caught.game.displayName] : [caught.pokemonName, outcome])
+		let title = [caught.nickname] + (caught.number == target.number ? [outcome, caught.game.displayName] : [caught.pokemonName, outcome])
 		cell.configure(pokemonName: caught.pokemonName,
 					   title: title.compactMap { $0 }.joined(separator: " · "),
 					   subtitle: ["\(caught.encounters.grouped) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
 					   ball: caught.caughtBall,
 					   isFailed: caught.isFailed)
-		cell.accessoryType = caught.id == entry.linkedCatch?.id ? .checkmark : .none
+		cell.accessoryType = caught.id == target.linkedCatchId ? .checkmark : .none
 		cell.tintColor = Color.Orange500
 		return cell
 	}
