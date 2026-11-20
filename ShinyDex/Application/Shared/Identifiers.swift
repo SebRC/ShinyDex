@@ -15,3 +15,7 @@ struct JourneyID: Hashable {
 struct JourneyEntryID: Hashable {
     let rawValue: UUID
 }
+
+struct BingoBoardID: Hashable {
+    let rawValue: UUID
+}

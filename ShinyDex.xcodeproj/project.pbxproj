@@ -225,6 +225,22 @@
 		FA0FEB2EFCC708447BE8E5E3 /* GetPokedex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FF33EC46495387BCA5DB6F /* GetPokedex.swift */; };
 		FC69EEA49E99A955C31B754B /* GetCatchStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247425C0E7E1D4A61861661 /* GetCatchStatistics.swift */; };
 		FE60CEA635BB8F79333C2987 /* CatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C716A59684F5C0AFB7E3 /* CatchRepository.swift */; };
+		B1B60A000000000000000003 /* BingoBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000002 /* BingoBoard.swift */; };
+		B1B60A000000000000000005 /* BingoBoardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000004 /* BingoBoardRepository.swift */; };
+		B1B60A000000000000000008 /* BingoDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000007 /* BingoDTOs.swift */; };
+		B1B60A00000000000000000A /* GetBingoBoards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000009 /* GetBingoBoards.swift */; };
+		B1B60A0000000000000000F2 /* GetLinkableBingoCatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A0000000000000000F1 /* GetLinkableBingoCatches.swift */; };
+		B1B60A00000000000000000C /* GetBingoBoardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000000B /* GetBingoBoardDetails.swift */; };
+		B1B60A00000000000000000E /* CreateBingoBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000000D /* CreateBingoBoard.swift */; };
+		B1B60A000000000000000010 /* UpdateBingoBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000000F /* UpdateBingoBoard.swift */; };
+		B1B60A000000000000000012 /* DeleteBingoBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000011 /* DeleteBingoBoard.swift */; };
+		B1B60A000000000000000014 /* CoreDataBingoBoardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000013 /* CoreDataBingoBoardRepository.swift */; };
+		B1B60A000000000000000016 /* BingoBoardsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000015 /* BingoBoardsTVC.swift */; };
+		B1B60A000000000000000018 /* BingoBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000017 /* BingoBoardVC.swift */; };
+		B1B60A00000000000000001B /* BingoSquareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000001A /* BingoSquareCell.swift */; };
+		B1B60A00000000000000001D /* BingoProgressText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000001C /* BingoProgressText.swift */; };
+		B1B60A00000000000000001F /* BingoBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A00000000000000001E /* BingoBoardTests.swift */; };
+		B1B60A000000000000000021 /* BingoHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B60A000000000000000020 /* BingoHandlerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -468,6 +484,23 @@
 		F95B5EBB43AD40AB34598AFA /* HuntHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntHeaderView.swift; sourceTree = "<group>"; };
 		FE0AFCED1806CF6CC43D659A /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		FE694C66BBFA0608E20E1FEC /* LocationLinkProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LocationLinkProvider.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000002 /* BingoBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoard.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000004 /* BingoBoardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoardRepository.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000007 /* BingoDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoDTOs.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000009 /* GetBingoBoards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBingoBoards.swift; sourceTree = "<group>"; };
+		B1B60A0000000000000000F1 /* GetLinkableBingoCatches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLinkableBingoCatches.swift; sourceTree = "<group>"; };
+		B1B60A00000000000000000B /* GetBingoBoardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBingoBoardDetails.swift; sourceTree = "<group>"; };
+		B1B60A00000000000000000D /* CreateBingoBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBingoBoard.swift; sourceTree = "<group>"; };
+		B1B60A00000000000000000F /* UpdateBingoBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBingoBoard.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000011 /* DeleteBingoBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBingoBoard.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000013 /* CoreDataBingoBoardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataBingoBoardRepository.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000015 /* BingoBoardsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoardsTVC.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000017 /* BingoBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoardVC.swift; sourceTree = "<group>"; };
+		B1B60A00000000000000001A /* BingoSquareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoSquareCell.swift; sourceTree = "<group>"; };
+		B1B60A00000000000000001C /* BingoProgressText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoProgressText.swift; sourceTree = "<group>"; };
+		B1B60A00000000000000001E /* BingoBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoBoardTests.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000020 /* BingoHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoHandlerTests.swift; sourceTree = "<group>"; };
+		B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 8.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -673,6 +706,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000006 /* Bingo */,
 				FFEB6BB220ADEBFAFB386D38 /* Ports */,
 				C28708F586654470EEAB0AC2 /* Catches */,
 				661A8C542EC4A97910F3E2CD /* Hunts */,
@@ -788,6 +822,8 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000020 /* BingoHandlerTests.swift */,
+				B1B60A00000000000000001E /* BingoBoardTests.swift */,
 				96C3CB6926618B620090186E /* PopupHandlerTests.swift */,
 				8E683F8307A3C372FA0F24CA /* CatchRulesTests.swift */,
 				B10C0A0000000000000000EC /* EvolutionsTests.swift */,
@@ -887,6 +923,7 @@
 		A30C2A803F938502AE9F3FC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000019 /* Bingo */,
 				CCF9CB8C702F7D88075BC906 /* Stats */,
 				18261A520B9AF898BB73D38B /* Journey */,
 				5913B7E3D4F0C6B4BEA842CD /* CatchDetail */,
@@ -924,6 +961,7 @@
 		B10C0A00000000000000310C /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000013 /* CoreDataBingoBoardRepository.swift */,
 				B10C0A000000000000003101 /* CoreDataCatchRepository.swift */,
 				B10C0A000000000000003103 /* CoreDataHuntRepository.swift */,
 				B10C0A000000000000003105 /* CoreDataJourneyRepository.swift */,
@@ -959,6 +997,7 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000015 /* BingoBoardsTVC.swift */,
 				70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */,
 				B10C0A000000000000005805 /* OptionPickerTVC.swift */,
 				CE7F71281B079D457FDB64CE /* CatchesTVC.swift */,
@@ -1019,6 +1058,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000001 /* Bingo */,
 				12288E1CD133403AE92AAABC /* Shared */,
 				4269F7CC769B40E8C17EA8F1 /* Catch */,
 				4AD4FFC37F71B6C1DBB4547E /* Game */,
@@ -1036,6 +1076,7 @@
 		F7A8A1B1849F45879A824E2A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A0000000000000000E6 /* EVTrainingVC.swift */,
 				B10C0A000000000000005806 /* IVEditorVC.swift */,
 				B10C0A000000000000005901 /* NaturePickerVC.swift */,
@@ -1076,6 +1117,41 @@
 			);
 			name = Ports;
 			path = Ports;
+			sourceTree = "<group>";
+		};
+		B1B60A000000000000000001 /* Bingo */ = {
+			isa = PBXGroup;
+			children = (
+				B1B60A000000000000000004 /* BingoBoardRepository.swift */,
+				B1B60A000000000000000002 /* BingoBoard.swift */,
+			);
+			name = Bingo;
+			path = Bingo;
+			sourceTree = "<group>";
+		};
+		B1B60A000000000000000006 /* Bingo */ = {
+			isa = PBXGroup;
+			children = (
+				B1B60A000000000000000011 /* DeleteBingoBoard.swift */,
+				B1B60A00000000000000000F /* UpdateBingoBoard.swift */,
+				B1B60A00000000000000000D /* CreateBingoBoard.swift */,
+				B1B60A00000000000000000B /* GetBingoBoardDetails.swift */,
+				B1B60A0000000000000000F1 /* GetLinkableBingoCatches.swift */,
+				B1B60A000000000000000009 /* GetBingoBoards.swift */,
+				B1B60A000000000000000007 /* BingoDTOs.swift */,
+			);
+			name = Bingo;
+			path = Bingo;
+			sourceTree = "<group>";
+		};
+		B1B60A000000000000000019 /* Bingo */ = {
+			isa = PBXGroup;
+			children = (
+				B1B60A00000000000000001C /* BingoProgressText.swift */,
+				B1B60A00000000000000001A /* BingoSquareCell.swift */,
+			);
+			name = Bingo;
+			path = Bingo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1226,6 +1302,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1B60A000000000000000021 /* BingoHandlerTests.swift in Sources */,
+				B1B60A00000000000000001F /* BingoBoardTests.swift in Sources */,
 				966B1ED426542D4000DF1FE0 /* SwitchStateServiceTests.swift in Sources */,
 				3E36A1E39062B67E59018BAE /* CatchRulesTests.swift in Sources */,
 				B10C0A0000000000000000EB /* EvolutionsTests.swift in Sources */,
@@ -1267,6 +1345,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1B60A00000000000000001D /* BingoProgressText.swift in Sources */,
+				B1B60A00000000000000001B /* BingoSquareCell.swift in Sources */,
+				B1B60A000000000000000018 /* BingoBoardVC.swift in Sources */,
+				B1B60A000000000000000016 /* BingoBoardsTVC.swift in Sources */,
+				B1B60A000000000000000014 /* CoreDataBingoBoardRepository.swift in Sources */,
+				B1B60A000000000000000012 /* DeleteBingoBoard.swift in Sources */,
+				B1B60A000000000000000010 /* UpdateBingoBoard.swift in Sources */,
+				B1B60A00000000000000000E /* CreateBingoBoard.swift in Sources */,
+				B1B60A00000000000000000C /* GetBingoBoardDetails.swift in Sources */,
+				B1B60A0000000000000000F2 /* GetLinkableBingoCatches.swift in Sources */,
+				B1B60A00000000000000000A /* GetBingoBoards.swift in Sources */,
+				B1B60A000000000000000008 /* BingoDTOs.swift in Sources */,
+				B1B60A000000000000000005 /* BingoBoardRepository.swift in Sources */,
+				B1B60A000000000000000003 /* BingoBoard.swift in Sources */,
 				2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */,
 				AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */,
 				AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */,
@@ -1705,8 +1797,9 @@
 				B10C0A000000000000000F10 /* ShinyDex 5.xcdatamodel */,
 				B10C0A000000000000004001 /* ShinyDex 6.xcdatamodel */,
 				B10C0A000000000000004004 /* ShinyDex 7.xcdatamodel */,
+				B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */,
 			);
-			currentVersion = B10C0A000000000000004004 /* ShinyDex 7.xcdatamodel */;
+			currentVersion = B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

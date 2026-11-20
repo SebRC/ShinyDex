@@ -142,6 +142,32 @@ final class InMemoryJourneyRepository: JourneyRepository {
     }
 }
 
+final class InMemoryBingoBoardRepository: BingoBoardRepository {
+    private(set) var stored = [BingoBoard]()
+
+    func getAll() -> [BingoBoard] {
+        return stored.map(InMemoryBingoBoardRepository.copy)
+    }
+
+    @discardableResult
+    func save(_ board: BingoBoard) -> Bool {
+        if let index = stored.firstIndex(where: { $0.id == board.id }) {
+            stored[index] = InMemoryBingoBoardRepository.copy(board)
+        } else {
+            stored.append(InMemoryBingoBoardRepository.copy(board))
+        }
+        return true
+    }
+
+    func delete(_ board: BingoBoard) {
+        stored.removeAll { $0.id == board.id }
+    }
+
+    static func copy(_ board: BingoBoard) -> BingoBoard {
+        return BingoBoard(id: board.id, name: board.name, createdDate: board.createdDate, priority: board.priority, size: board.size, cells: board.cells)
+    }
+}
+
 final class InMemoryMoveRepository: MoveRepository {
     private(set) var stored: ActiveMoves?
 

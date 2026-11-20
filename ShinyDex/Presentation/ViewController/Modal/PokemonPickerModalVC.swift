@@ -9,6 +9,7 @@ struct PokemonPickerConfiguration {
     let defaultName: String
     let namesAfterFirstPick: Bool
     let excludesHuntedPokemon: Bool
+    var selectionLimit: Int? = nil
 
     static let hunt = PokemonPickerConfiguration(title: "Create hunt", selectionTitle: "In this hunt", confirmTitle: "Create", discardTitle: "Discard Hunt",
                                                  nameLabel: "Hunt name", defaultName: "New Hunt", namesAfterFirstPick: true, excludesHuntedPokemon: true)
@@ -16,6 +17,20 @@ struct PokemonPickerConfiguration {
                                                        nameLabel: "Journey name", defaultName: "New Journey", namesAfterFirstPick: false, excludesHuntedPokemon: false)
     static let addToJourney = PokemonPickerConfiguration(title: "Add Pokémon", selectionTitle: "Adding", confirmTitle: "Add", discardTitle: "Discard Picks",
                                                          nameLabel: nil, defaultName: "", namesAfterFirstPick: false, excludesHuntedPokemon: false)
+    static let placeOnBingoBoard = PokemonPickerConfiguration(title: "Pick Pokémon", selectionTitle: "Placing", confirmTitle: "Place", discardTitle: "Discard Pick",
+                                                              nameLabel: nil, defaultName: "", namesAfterFirstPick: false, excludesHuntedPokemon: false, selectionLimit: 1)
+
+    static func newBingoBoard(size: BingoBoardSize) -> PokemonPickerConfiguration {
+        return PokemonPickerConfiguration(title: "New \(size.title) bingo", selectionTitle: "On this board", confirmTitle: "Create", discardTitle: "Discard Board",
+                                          nameLabel: "Board name", defaultName: "Shiny Bingo", namesAfterFirstPick: false, excludesHuntedPokemon: false,
+                                          selectionLimit: size.cellCount)
+    }
+
+    static func fillBingoBoard(emptyCellCount: Int) -> PokemonPickerConfiguration {
+        return PokemonPickerConfiguration(title: "Fill board", selectionTitle: "Adding", confirmTitle: "Add", discardTitle: "Discard Picks",
+                                          nameLabel: nil, defaultName: "", namesAfterFirstPick: false, excludesHuntedPokemon: false,
+                                          selectionLimit: emptyCellCount)
+    }
 }
 
 class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearchResultsUpdating, UIAdaptivePresentationControllerDelegate {
@@ -111,7 +126,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch Section(rawValue: section)! {
         case .name: return showsName ? "Name" : nil
-        case .selected: return selected.isEmpty ? configuration.selectionTitle : "\(configuration.selectionTitle) (\(selected.count))"
+        case .selected: return makeSelectionTitle()
         case .pokemon: return "Pokémon"
         }
     }
@@ -127,6 +142,13 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard Section(rawValue: indexPath.section) == .pokemon else { return nil }
         return isInOtherHunt(getSelectedPokemon(index: indexPath.row)) ? nil : indexPath
+    }
+
+    fileprivate func makeSelectionTitle() -> String {
+        if let limit = configuration.selectionLimit, limit > 1 {
+            return "\(configuration.selectionTitle) (\(selected.count)/\(limit))"
+        }
+        return selected.isEmpty ? configuration.selectionTitle : "\(configuration.selectionTitle) (\(selected.count))"
     }
 
     fileprivate func isSelected(_ pokemon: PokemonSummary) -> Bool {
@@ -180,13 +202,20 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
     }
 
     fileprivate func toggle(_ pokemon: PokemonSummary) {
-        Haptics.tap()
         if let index = selected.firstIndex(where: { $0.number == pokemon.number }) {
             selected.remove(at: index)
+        }
+        else if configuration.selectionLimit == 1 {
+            selected = [pokemon]
+        }
+        else if let limit = configuration.selectionLimit, selected.count >= limit {
+            Haptics.playWarning()
+            return
         }
         else {
             selected.append(pokemon)
         }
+        Haptics.tap()
         updateSelection()
         for case let cell as PokemonPickerCell in tableView.visibleCells {
             if let indexPath = tableView.indexPath(for: cell), Section(rawValue: indexPath.section) == .pokemon {

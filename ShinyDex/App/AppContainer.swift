@@ -11,6 +11,7 @@ final class AppContainer {
     let catchRepository: CatchRepository
     let huntRepository: HuntRepository
     let journeyRepository: JourneyRepository
+    let bingoBoardRepository: BingoBoardRepository
     let moveRepository: MoveRepository
 
     init(coreDataStack: CoreDataStack, resourceLoader: ResourceLoader, keyValueStore: KeyValueStore, locationLinkProvider: LocationLinkProvider) {
@@ -25,6 +26,7 @@ final class AppContainer {
         catchRepository = CoreDataCatchRepository(managedContext: context)
         huntRepository = CoreDataHuntRepository(managedContext: context)
         journeyRepository = CoreDataJourneyRepository(managedContext: context)
+        bingoBoardRepository = CoreDataBingoBoardRepository(managedContext: context)
         moveRepository = CoreDataMoveRepository(managedContext: context)
     }
 
@@ -75,6 +77,15 @@ final class AppContainer {
     var updateJourney: UpdateJourneyHandler { UpdateJourneyHandler(journeyRepository: journeyRepository) }
     var deleteJourney: DeleteJourneyHandler { DeleteJourneyHandler(journeyRepository: journeyRepository) }
 
+    // MARK: Bingo
+
+    var getBingoBoards: GetBingoBoardsHandler { GetBingoBoardsHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository) }
+    var getBingoBoardDetails: GetBingoBoardDetailsHandler { GetBingoBoardDetailsHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
+    var getLinkableBingoCatches: GetLinkableBingoCatchesHandler { GetLinkableBingoCatchesHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
+    var createBingoBoard: CreateBingoBoardHandler { CreateBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
+    var updateBingoBoard: UpdateBingoBoardHandler { UpdateBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
+    var deleteBingoBoard: DeleteBingoBoardHandler { DeleteBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
+
     // MARK: Moves
 
     var getActiveMoves: GetActiveMovesHandler { GetActiveMovesHandler(moveRepository: moveRepository) }
@@ -83,7 +94,7 @@ final class AppContainer {
 
     // MARK: Menu and startup
 
-    var getMenuSummary: GetMenuSummaryHandler { GetMenuSummaryHandler(getHunts: getHunts, getJourneys: getJourneys, catchRepository: catchRepository) }
+    var getMenuSummary: GetMenuSummaryHandler { GetMenuSummaryHandler(getHunts: getHunts, getJourneys: getJourneys, getBingoBoards: getBingoBoards, catchRepository: catchRepository) }
     var prepareData: PrepareDataHandler { PrepareDataHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, moveRepository: moveRepository, resourceLoader: resourceLoader, keyValueStore: keyValueStore) }
 
     static func makeLive() -> AppContainer {

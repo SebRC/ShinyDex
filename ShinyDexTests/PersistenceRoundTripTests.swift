@@ -236,6 +236,77 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).getAll().isEmpty)
     }
 
+    // MARK: Bingo board
+
+    func test_bingoBoard_survivesSaveAndReload() throws {
+        let board = BingoBoard(name: "Shiny bingo", priority: 3, size: .four, numbers: [25, 133, 448])
+        board.link(UUID(), at: 1)
+        board.swap(2, 15)
+        XCTAssertTrue(CoreDataBingoBoardRepository(managedContext: store.context).save(board))
+
+        try store.reopen()
+        let reloaded = CoreDataBingoBoardRepository(managedContext: store.context).getAll()
+
+        XCTAssertEqual(reloaded.count, 1)
+        let stored = try XCTUnwrap(reloaded.first)
+        XCTAssertEqual(stored.id, board.id)
+        XCTAssertEqual(stored.name, "Shiny bingo")
+        XCTAssertEqual(stored.priority, 3)
+        XCTAssertEqual(stored.size, .four)
+        XCTAssertEqual(stored.createdDate, board.createdDate)
+        XCTAssertEqual(stored.cells, board.cells)
+    }
+
+    func test_bingoBoard_cells_areStoredWithTheirCurrentJsonKeys() throws {
+        let board = BingoBoard(name: "Format", priority: 0, size: .three, numbers: [25, 26])
+        let catchId = UUID()
+        board.link(catchId, at: 0)
+        XCTAssertTrue(CoreDataBingoBoardRepository(managedContext: store.context).save(board))
+
+        try store.reopen()
+        let entity = try XCTUnwrap(fetchRawRows("BingoBoardEntity").first)
+        let json = try XCTUnwrap((entity.value(forKey: "cells") as? String)?.data(using: .utf8))
+        let cells = try XCTUnwrap(JSONSerialization.jsonObject(with: json) as? [[String: Any]])
+
+        XCTAssertEqual(entity.value(forKey: "size") as? Int, 3)
+        XCTAssertEqual(cells.count, 9)
+        XCTAssertEqual(Set(cells[0].keys), ["number", "catchId"])
+        XCTAssertEqual(cells[0]["number"] as? Int, 25)
+        XCTAssertEqual(cells[0]["catchId"] as? String, catchId.uuidString)
+        XCTAssertEqual(Set(cells[1].keys), ["number"])
+        XCTAssertTrue(cells[2].isEmpty)
+    }
+
+    func test_bingoBoard_delete_isPersisted() throws {
+        let board = BingoBoard(name: "Gone", priority: 0, size: .three)
+        let repository = CoreDataBingoBoardRepository(managedContext: store.context)
+        XCTAssertTrue(repository.save(board))
+        repository.delete(board)
+
+        try store.reopen()
+
+        XCTAssertTrue(CoreDataBingoBoardRepository(managedContext: store.context).getAll().isEmpty)
+    }
+
+    func test_bingoBoard_withUnreadableStoredCells_isNotOverwritten() throws {
+        let board = BingoBoard(name: "Damaged", priority: 0, size: .three, numbers: [1])
+        XCTAssertTrue(CoreDataBingoBoardRepository(managedContext: store.context).save(board))
+        let corrupt = "[{\"number\":"
+        try XCTUnwrap(fetchRawRows("BingoBoardEntity").first).setValue(corrupt, forKey: "cells")
+        try store.context.save()
+
+        try store.reopen()
+        let repository = CoreDataBingoBoardRepository(managedContext: store.context)
+        let loaded = try XCTUnwrap(repository.getAll().first)
+        loaded.name = "Renamed"
+        XCTAssertFalse(repository.save(loaded))
+
+        try store.reopen()
+        let row = try XCTUnwrap(fetchRawRows("BingoBoardEntity").first)
+        XCTAssertEqual(row.value(forKey: "cells") as? String, corrupt)
+        XCTAssertEqual(row.value(forKey: "name") as? String, "Damaged")
+    }
+
     // MARK: Pokemon
 
     func test_pokemon_createdWithDefaults_survivesReload() throws {
