@@ -266,6 +266,13 @@
 		C4A1A0000000000000000002 /* ChangeChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A0000000000000000001 /* ChangeChain.swift */; };
 		C4A1A0000000000000000004 /* HuntCounterText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A0000000000000000003 /* HuntCounterText.swift */; };
 		C4A1A0000000000000000006 /* HuntChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A1A0000000000000000005 /* HuntChainTests.swift */; };
+		B12600000000000000000002 /* BingoTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12600000000000000000001 /* BingoTemplate.swift */; };
+		B12600000000000000000004 /* GetBingoTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12600000000000000000003 /* GetBingoTemplates.swift */; };
+		B12600000000000000000006 /* CreateGeneratedBingoBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12600000000000000000005 /* CreateGeneratedBingoBoard.swift */; };
+		B12600000000000000000008 /* BingoTemplatesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12600000000000000000007 /* BingoTemplatesLoader.swift */; };
+		B1260000000000000000000A /* BingoTemplatePickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12600000000000000000009 /* BingoTemplatePickerTVC.swift */; };
+		B1260000000000000000000C /* bingoTemplates.json in Resources */ = {isa = PBXBuildFile; fileRef = B1260000000000000000000B /* bingoTemplates.json */; };
+		B1260000000000000000000E /* BingoTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1260000000000000000000D /* BingoTemplateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +560,13 @@
 		C4A1A0000000000000000001 /* ChangeChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeChain.swift; sourceTree = "<group>"; };
 		C4A1A0000000000000000003 /* HuntCounterText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntCounterText.swift; sourceTree = "<group>"; };
 		C4A1A0000000000000000005 /* HuntChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntChainTests.swift; sourceTree = "<group>"; };
+		B12600000000000000000001 /* BingoTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoTemplate.swift; sourceTree = "<group>"; };
+		B12600000000000000000003 /* GetBingoTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBingoTemplates.swift; sourceTree = "<group>"; };
+		B12600000000000000000005 /* CreateGeneratedBingoBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGeneratedBingoBoard.swift; sourceTree = "<group>"; };
+		B12600000000000000000007 /* BingoTemplatesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoTemplatesLoader.swift; sourceTree = "<group>"; };
+		B12600000000000000000009 /* BingoTemplatePickerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoTemplatePickerTVC.swift; sourceTree = "<group>"; };
+		B1260000000000000000000B /* bingoTemplates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bingoTemplates.json; sourceTree = "<group>"; };
+		B1260000000000000000000D /* BingoTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoTemplateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -848,6 +862,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B12600000000000000000007 /* BingoTemplatesLoader.swift */,
 				F0A1B2000000000000000005 /* PokemonFormsLoader.swift */,
 				213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */,
 				C6F1C056BAF4755A1AD1E2EC /* BundleResourceLoader.swift */,
@@ -880,6 +895,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B1260000000000000000000D /* BingoTemplateTests.swift */,
 				C4A1A0000000000000000005 /* HuntChainTests.swift */,
 				0DD551700000000000000008 /* OddsSimulatorTests.swift */,
 				F0A1B200000000000000000B /* PokemonFormsTests.swift */,
@@ -1062,6 +1078,7 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B12600000000000000000009 /* BingoTemplatePickerTVC.swift */,
 				B1B60A000000000000000015 /* BingoBoardsTVC.swift */,
 				70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */,
 				B10C0A000000000000005805 /* OptionPickerTVC.swift */,
@@ -1115,6 +1132,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B1260000000000000000000B /* bingoTemplates.json */,
 				F0A1B2000000000000000009 /* forms.json */,
 				9625741926B308350056B09C /* initialActiveMoves.json */,
 				51818C5A26C0483500B95FF6 /* moves.json */,
@@ -1194,6 +1212,7 @@
 		B1B60A000000000000000001 /* Bingo */ = {
 			isa = PBXGroup;
 			children = (
+				B12600000000000000000001 /* BingoTemplate.swift */,
 				B1B60A000000000000000004 /* BingoBoardRepository.swift */,
 				B1B60A000000000000000002 /* BingoBoard.swift */,
 			);
@@ -1204,6 +1223,8 @@
 		B1B60A000000000000000006 /* Bingo */ = {
 			isa = PBXGroup;
 			children = (
+				B12600000000000000000005 /* CreateGeneratedBingoBoard.swift */,
+				B12600000000000000000003 /* GetBingoTemplates.swift */,
 				B1B60A000000000000000011 /* DeleteBingoBoard.swift */,
 				B1B60A00000000000000000F /* UpdateBingoBoard.swift */,
 				B1B60A00000000000000000D /* CreateBingoBoard.swift */,
@@ -1345,6 +1366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1260000000000000000000C /* bingoTemplates.json in Resources */,
 				F0A1B200000000000000000A /* forms.json in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
@@ -1404,6 +1426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1260000000000000000000E /* BingoTemplateTests.swift in Sources */,
 				C4A1A0000000000000000006 /* HuntChainTests.swift in Sources */,
 				0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */,
 				F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */,
@@ -1452,6 +1475,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1260000000000000000000A /* BingoTemplatePickerTVC.swift in Sources */,
+				B12600000000000000000008 /* BingoTemplatesLoader.swift in Sources */,
+				B12600000000000000000006 /* CreateGeneratedBingoBoard.swift in Sources */,
+				B12600000000000000000004 /* GetBingoTemplates.swift in Sources */,
+				B12600000000000000000002 /* BingoTemplate.swift in Sources */,
 				C4A1A0000000000000000004 /* HuntCounterText.swift in Sources */,
 				C4A1A0000000000000000002 /* ChangeChain.swift in Sources */,
 				0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */,

@@ -50,6 +50,11 @@ class BingoBoard {
         fillEmptyCells(with: numbers)
     }
 
+    convenience init(name: String, priority: Int, size: BingoBoardSize, entries: [BingoEntry]) {
+        self.init(id: UUID(), name: name, createdDate: Date(), priority: priority, size: size,
+                  cells: entries.map { BingoCell(number: $0.number, catchId: nil, formId: $0.formId) })
+    }
+
     init(id: UUID, name: String, createdDate: Date, priority: Int, size: BingoBoardSize, cells: [BingoCell]) {
         self.id = id
         self.name = name

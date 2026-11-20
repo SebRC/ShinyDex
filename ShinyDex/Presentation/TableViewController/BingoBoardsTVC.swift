@@ -106,13 +106,65 @@ class BingoBoardsTVC: UITableViewController {
         let sizePicker = UIAlertController(title: "Board size", message: nil, preferredStyle: .actionSheet)
         for size in BingoBoardSize.allCases {
             sizePicker.addAction(UIAlertAction(title: "\(size.title) · \(size.cellCount) Pokémon", style: .default) { [weak self] _ in
-                self?.presentPicker(for: size)
+                self?.presentFillOptions(for: size)
             })
         }
-        sizePicker.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sizePicker.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        sizePicker.view.tintColor = Color.Orange500
-        present(sizePicker, animated: true)
+        presentSheet(sizePicker)
+    }
+
+    fileprivate func presentFillOptions(for size: BingoBoardSize) {
+        let sheet = UIAlertController(title: "Fill the board", message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Choose Pokémon", style: .default) { [weak self] _ in self?.presentPicker(for: size) })
+        sheet.addAction(UIAlertAction(title: "Random", style: .default) { [weak self] _ in self?.presentRegionOptions(for: size) })
+        sheet.addAction(UIAlertAction(title: "From a template", style: .default) { [weak self] _ in self?.presentTemplates(for: size) })
+        presentSheet(sheet)
+    }
+
+    fileprivate func presentRegionOptions(for size: BingoBoardSize) {
+        let sheet = UIAlertController(title: "Random from", message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Every region", style: .default) { [weak self] _ in self?.presentCaughtOptions(for: size, region: nil) })
+        for region in 0...9 {
+            sheet.addAction(UIAlertAction(title: TextResolver().getGenTitle(gen: region), style: .default) { [weak self] _ in self?.presentCaughtOptions(for: size, region: region) })
+        }
+        presentSheet(sheet)
+    }
+
+    fileprivate func presentCaughtOptions(for size: BingoBoardSize, region: Int?) {
+        let regionName = region.map { TextResolver().getGenTitle(gen: $0) }
+        let sheet = UIAlertController(title: "Which Pokémon?", message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Only ones I haven't caught", style: .default) { [weak self] _ in
+            self?.createGeneratedBoard(name: regionName.map { "\($0) bingo" } ?? "Random bingo", size: size, source: .random(region: region, onlyUncaught: true))
+        })
+        sheet.addAction(UIAlertAction(title: "Any Pokémon", style: .default) { [weak self] _ in
+            self?.createGeneratedBoard(name: regionName.map { "\($0) bingo" } ?? "Random bingo", size: size, source: .random(region: region, onlyUncaught: false))
+        })
+        presentSheet(sheet)
+    }
+
+    fileprivate func presentTemplates(for size: BingoBoardSize) {
+        let templates = container.getBingoTemplates.handle(GetBingoTemplatesQuery())
+        let picker = BingoTemplatePickerTVC(templates: templates, size: size) { [weak self] template in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: false)
+            self.createGeneratedBoard(name: template.name, size: size, source: .template(id: template.id))
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func createGeneratedBoard(name: String, size: BingoBoardSize, source: CreateGeneratedBingoBoardCommand.Source) {
+        guard let id = container.createGeneratedBingoBoard.handle(CreateGeneratedBingoBoardCommand(name: name, size: size, source: source)) else {
+            PopupHandler().showPopup(text: "There are no Pokémon left to pick from.")
+            return
+        }
+        Haptics.playSuccess()
+        openBoard(id)
+    }
+
+    fileprivate func presentSheet(_ sheet: UIAlertController) {
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        sheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        sheet.view.tintColor = Color.Orange500
+        present(sheet, animated: true)
     }
 
     fileprivate func presentPicker(for size: BingoBoardSize) {

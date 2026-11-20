@@ -7,6 +7,7 @@ final class AppContainer {
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
+    let bingoTemplates: BingoTemplates
 
     let pokemonRepository: PokemonRepository
     let catchRepository: CatchRepository
@@ -23,6 +24,7 @@ final class AppContainer {
         self.locationLinkProvider = locationLinkProvider
         evolutions = EvolutionsLoader.load(from: resourceLoader)
         forms = PokemonFormsLoader.load(from: resourceLoader)
+        bingoTemplates = BingoTemplatesLoader.load(from: resourceLoader, pokemonNames: resourceLoader.loadLines(ofTextResource: "allGens"), forms: forms)
 
         let context = coreDataStack.viewContext
         pokemonRepository = CoreDataPokemonRepository(managedContext: context)
@@ -90,6 +92,8 @@ final class AppContainer {
     var getBingoBoardDetails: GetBingoBoardDetailsHandler { GetBingoBoardDetailsHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
     var getLinkableBingoCatches: GetLinkableBingoCatchesHandler { GetLinkableBingoCatchesHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
     var createBingoBoard: CreateBingoBoardHandler { CreateBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
+    var getBingoTemplates: GetBingoTemplatesHandler { GetBingoTemplatesHandler(templates: bingoTemplates, pokemonRepository: pokemonRepository) }
+    var createGeneratedBingoBoard: CreateGeneratedBingoBoardHandler { CreateGeneratedBingoBoardHandler(bingoBoardRepository: bingoBoardRepository, pokemonRepository: pokemonRepository, catchRepository: catchRepository, templates: bingoTemplates) }
     var updateBingoBoard: UpdateBingoBoardHandler { UpdateBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
     var deleteBingoBoard: DeleteBingoBoardHandler { DeleteBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
 
