@@ -9,6 +9,12 @@ struct CatchStatistics: Equatable {
         let averageEncounters: Int?
     }
 
+    struct YearLuck: Equatable {
+        let year: Int
+        let expectedShinies: Double
+        let foundCount: Int
+    }
+
     struct Period: Equatable {
         let period: Int
         let foundCount: Int
@@ -34,6 +40,7 @@ struct CatchStatistics: Equatable {
     let catchesWithEncounters: Int
     let averageEncounters: Int?
     let years: [Year]
+    let yearLuck: [YearLuck]
     let undatedCount: Int
     let months: [Period]
     let weekdays: [Period]
@@ -69,6 +76,7 @@ final class GetCatchStatisticsHandler {
             catchesWithEncounters: stats.catchesWithEncounters,
             averageEncounters: stats.averageEncounters,
             years: stats.years.map { CatchStatistics.Year(year: $0.year, foundCount: $0.foundCount, averageEncounters: $0.averageEncounters) },
+            yearLuck: stats.yearLuck.map { CatchStatistics.YearLuck(year: $0.year, expectedShinies: $0.expectedShinies, foundCount: $0.foundCount) },
             undatedCount: stats.undatedCount,
             months: stats.months.map { CatchStatistics.Period(period: $0.period, foundCount: $0.foundCount) },
             weekdays: stats.weekdays.map { CatchStatistics.Period(period: $0.period, foundCount: $0.foundCount) },
@@ -76,7 +84,7 @@ final class GetCatchStatisticsHandler {
             ballUsage: stats.ballUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             gameUsage: stats.gameUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             methodUsage: stats.methodUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
-            fastestCatch: stats.fastestCatch.flatMap(mapper.summary),
-            longestCatch: stats.longestCatch.flatMap(mapper.summary))
+            fastestCatch: stats.fastestCatch.flatMap(mapper.makeSummary),
+            longestCatch: stats.longestCatch.flatMap(mapper.makeSummary))
     }
 }

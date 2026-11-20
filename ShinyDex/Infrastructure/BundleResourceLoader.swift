@@ -7,7 +7,7 @@ final class BundleResourceLoader: ResourceLoader {
         self.bundle = bundle
     }
 
-    func lines(ofTextResource name: String) -> [String] {
+    func loadLines(ofTextResource name: String) -> [String] {
         guard let path = bundle.path(forResource: name, ofType: "txt"),
               let content = try? String(contentsOfFile: path, encoding: .utf8) else {
             return []
@@ -17,7 +17,7 @@ final class BundleResourceLoader: ResourceLoader {
         return lines
     }
 
-    func data(ofResource name: String, withExtension fileExtension: String) -> Data? {
+    func loadData(ofResource name: String, withExtension fileExtension: String) -> Data? {
         guard let url = bundle.url(forResource: name, withExtension: fileExtension) else { return nil }
         return try? Data(contentsOf: url)
     }

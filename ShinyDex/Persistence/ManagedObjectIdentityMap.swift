@@ -6,7 +6,7 @@ final class ManagedObjectIdentityMap<Key: Hashable> {
     private var objectIDsByKey = [Key: NSManagedObjectID]()
     private var keysByObjectID = [NSManagedObjectID: Key]()
 
-    func key(for objectID: NSManagedObjectID) -> Key? {
+    func getKey(for objectID: NSManagedObjectID) -> Key? {
         return keysByObjectID[objectID]
     }
 
@@ -18,7 +18,7 @@ final class ManagedObjectIdentityMap<Key: Hashable> {
         keysByObjectID[objectID] = key
     }
 
-    func object(for key: Key, in context: NSManagedObjectContext) -> NSManagedObject? {
+    func getObject(for key: Key, in context: NSManagedObjectContext) -> NSManagedObject? {
         guard let objectID = objectIDsByKey[key],
               let store = objectID.persistentStore,
               context.persistentStoreCoordinator?.persistentStores.contains(store) == true,

@@ -7,7 +7,7 @@ final class UserDefaultsStore: KeyValueStore {
         self.userDefaults = userDefaults
     }
 
-    func bool(forKey key: String) -> Bool {
+    func getBool(forKey key: String) -> Bool {
         return userDefaults.bool(forKey: key)
     }
 

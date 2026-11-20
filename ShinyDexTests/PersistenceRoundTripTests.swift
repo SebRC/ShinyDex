@@ -14,14 +14,14 @@ final class PersistenceRoundTripTests: XCTestCase {
         store = nil
     }
 
-    private func date(_ day: Int) -> Date {
+    private func makeDate(_ day: Int) -> Date {
         return DateComponents(calendar: Calendar(identifier: .gregorian), timeZone: TimeZone(identifier: "UTC"), year: 2025, month: 3, day: day, hour: 14, minute: 30).date!
     }
 
     // MARK: Catch
 
     func test_catch_withEveryFieldSet_survivesSaveAndReload() throws {
-        let original = Catch(number: 25, caughtBall: "ultra", game: .Scarlet, huntMethod: .Masuda, encounters: 1234, isShinyCharmActive: true, caughtDate: date(4), isFailed: true)
+        let original = Catch(number: 25, caughtBall: "ultra", game: .Scarlet, huntMethod: .Masuda, encounters: 1234, isShinyCharmActive: true, caughtDate: makeDate(4), isFailed: true)
         original.evs = EffortValues(encoded: "4,252,0,0,0,252")
         original.evolvedFrom = 171
         original.nickname = "Sparky"
@@ -44,7 +44,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(caught.huntMethod, .Masuda)
         XCTAssertEqual(caught.encounters, 1234)
         XCTAssertTrue(caught.isShinyCharmActive)
-        XCTAssertEqual(caught.caughtDate, date(4))
+        XCTAssertEqual(caught.caughtDate, makeDate(4))
         XCTAssertTrue(caught.isFailed)
         XCTAssertEqual(caught.evs, original.evs)
         XCTAssertEqual(caught.evolvedFrom, 171)
@@ -61,7 +61,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertTrue(repository.save())
 
         try store.reopen()
-        let entity = try XCTUnwrap(rawRows("CatchEntity").first)
+        let entity = try XCTUnwrap(fetchRawRows("CatchEntity").first)
         let caught = try XCTUnwrap(CoreDataCatchRepository(managedContext: store.context).getAll().first)
 
         XCTAssertNil(entity.value(forKey: "evs"), "Empty EVs are stored as nil")
@@ -81,8 +81,8 @@ final class PersistenceRoundTripTests: XCTestCase {
     }
 
     func test_catch_update_andDelete_arePersisted() throws {
-        let first = Catch(number: 4, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 10, isShinyCharmActive: false, caughtDate: date(1))
-        let second = Catch(number: 7, caughtBall: "great", game: .Red, huntMethod: .Encounters, encounters: 20, isShinyCharmActive: false, caughtDate: date(2))
+        let first = Catch(number: 4, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 10, isShinyCharmActive: false, caughtDate: makeDate(1))
+        let second = Catch(number: 7, caughtBall: "great", game: .Red, huntMethod: .Encounters, encounters: 20, isShinyCharmActive: false, caughtDate: makeDate(2))
         let repository = CoreDataCatchRepository(managedContext: store.context)
         repository.insert(first)
         repository.insert(second)
@@ -158,9 +158,9 @@ final class PersistenceRoundTripTests: XCTestCase {
         try store.context.save()
 
         CoreDataHuntRepository.assignMissingIds(in: store.context)
-        let firstPass = Dictionary(uniqueKeysWithValues: rawRows("HuntEntity").map { ($0.objectID, $0.value(forKey: "id") as? UUID) })
+        let firstPass = Dictionary(uniqueKeysWithValues: fetchRawRows("HuntEntity").map { ($0.objectID, $0.value(forKey: "id") as? UUID) })
         CoreDataHuntRepository.assignMissingIds(in: store.context)
-        let secondPass = Dictionary(uniqueKeysWithValues: rawRows("HuntEntity").map { ($0.objectID, $0.value(forKey: "id") as? UUID) })
+        let secondPass = Dictionary(uniqueKeysWithValues: fetchRawRows("HuntEntity").map { ($0.objectID, $0.value(forKey: "id") as? UUID) })
 
         XCTAssertEqual(withId.value(forKey: "id") as? UUID, existingId)
         XCTAssertEqual(Set(firstPass.values.compactMap { $0 }).count, 3)
@@ -214,7 +214,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
 
         try store.reopen()
-        let entity = try XCTUnwrap(rawRows("JourneyEntity").first)
+        let entity = try XCTUnwrap(fetchRawRows("JourneyEntity").first)
         let json = try XCTUnwrap((entity.value(forKey: "entries") as? String)?.data(using: .utf8))
         let entries = try XCTUnwrap(JSONSerialization.jsonObject(with: json) as? [[String: Any]])
 
@@ -322,14 +322,14 @@ final class PersistenceRoundTripTests: XCTestCase {
         let reloaded = try XCTUnwrap(CoreDataMoveRepository(managedContext: store.context).getActiveMoves())
         XCTAssertEqual(reloaded.moves.map { $0.remainingPP }, [9])
         XCTAssertTrue(reloaded.pressureActive)
-        XCTAssertEqual(rawRows("ActiveMovesEntity").count, 1)
+        XCTAssertEqual(fetchRawRows("ActiveMovesEntity").count, 1)
     }
 
     func test_activeMoves_areStoredWithTheirCurrentJsonKeys() throws {
         CoreDataMoveRepository(managedContext: store.context).insert(ActiveMoves(moves: [ActiveMove(name: "Spore", maxPP: 24, remainingPP: 17, type: "grass")], pressureActive: false))
 
         try store.reopen()
-        let json = try XCTUnwrap((rawRows("ActiveMovesEntity").first?.value(forKey: "json") as? String)?.data(using: .utf8))
+        let json = try XCTUnwrap((fetchRawRows("ActiveMovesEntity").first?.value(forKey: "json") as? String)?.data(using: .utf8))
         let moves = try XCTUnwrap(JSONSerialization.jsonObject(with: json) as? [[String: Any]])
 
         XCTAssertEqual(moves.count, 1)
@@ -344,7 +344,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         let journey = Journey(name: "Damaged", priority: 0, numbers: [1])
         XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
         let corrupt = "{not json"
-        try XCTUnwrap(rawRows("JourneyEntity").first).setValue(corrupt, forKey: "entries")
+        try XCTUnwrap(fetchRawRows("JourneyEntity").first).setValue(corrupt, forKey: "entries")
         try store.context.save()
 
         try store.reopen()
@@ -355,7 +355,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertFalse(repository.save(loaded))
 
         try store.reopen()
-        let row = try XCTUnwrap(rawRows("JourneyEntity").first)
+        let row = try XCTUnwrap(fetchRawRows("JourneyEntity").first)
         XCTAssertEqual(row.value(forKey: "entries") as? String, corrupt)
         XCTAssertEqual(row.value(forKey: "name") as? String, "Damaged")
     }
@@ -363,7 +363,7 @@ final class PersistenceRoundTripTests: XCTestCase {
     func test_activeMoves_withUnreadableStoredJson_areNotOverwritten() throws {
         CoreDataMoveRepository(managedContext: store.context).insert(ActiveMoves(moves: [], pressureActive: false))
         let corrupt = "[{\"name\":"
-        try XCTUnwrap(rawRows("ActiveMovesEntity").first).setValue(corrupt, forKey: "json")
+        try XCTUnwrap(fetchRawRows("ActiveMovesEntity").first).setValue(corrupt, forKey: "json")
         try store.context.save()
 
         try store.reopen()
@@ -372,7 +372,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         repository.save(ActiveMoves(moves: [ActiveMove(name: "Tackle", maxPP: 35, remainingPP: 35, type: "normal")], pressureActive: true))
 
         try store.reopen()
-        XCTAssertEqual(rawRows("ActiveMovesEntity").first?.value(forKey: "json") as? String, corrupt)
+        XCTAssertEqual(fetchRawRows("ActiveMovesEntity").first?.value(forKey: "json") as? String, corrupt)
     }
 
     func test_hunt_savedThroughAnotherRepositoryInstance_updatesTheSameRow() throws {
@@ -408,7 +408,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(CoreDataCatchRepository(managedContext: store.context).get(id: original.id)?.encounters, 50)
     }
 
-    private func rawRows(_ entityName: String) -> [NSManagedObject] {
+    private func fetchRawRows(_ entityName: String) -> [NSManagedObject] {
         return (try? store.context.fetch(NSFetchRequest<NSManagedObject>(entityName: entityName))) ?? []
     }
 }

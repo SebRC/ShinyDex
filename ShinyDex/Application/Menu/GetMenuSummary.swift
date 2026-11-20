@@ -34,10 +34,10 @@ final class GetMenuSummaryHandler {
         let journeys = getJourneys.handle(GetJourneysQuery())
         let allCatches = catchRepository.getAll()
         let caught = allCatches.filter { !$0.isFailed }
-        let catchCounts = CatchRules.countsByNumber(caught)
+        let catchCounts = CatchRules.countByNumber(caught)
         var regionProgress = [Int: MenuSummary.RegionProgress]()
         for region in 0...9 {
-            guard let range = PokedexRegions.numbers(inRegion: region) else { continue }
+            guard let range = PokedexRegions.getNumbers(inRegion: region) else { continue }
             regionProgress[region] = MenuSummary.RegionProgress(caught: range.filter { (catchCounts[$0] ?? 0) > 0 }.count, total: range.count)
         }
         return MenuSummary(

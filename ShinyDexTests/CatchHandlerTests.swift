@@ -11,7 +11,7 @@ final class CatchHandlerTests: XCTestCase {
         catches = InMemoryCatchRepository()
     }
 
-    private func day(_ day: Int) -> Date {
+    private func makeDay(_ day: Int) -> Date {
         return DateComponents(calendar: Calendar(identifier: .gregorian), year: 2025, month: 2, day: day).date!
     }
 
@@ -19,30 +19,30 @@ final class CatchHandlerTests: XCTestCase {
         LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(LogCatchCommand(number: number, outcome: .caught(ball: ball), date: date))
     }
 
-    private func speciesCatches(_ number: Int) -> [CatchSummary] {
+    private func getSpeciesCatches(_ number: Int) -> [CatchSummary] {
         return GetCatchesHandler(catchRepository: catches, pokemonRepository: pokemon).handle(GetCatchesQuery(scope: .species(number), includingFailed: true))
     }
 
     func test_logCatch_showsTheLatestBallOnThePokemon() {
-        log(bulbasaur, ball: "ultra", on: day(5))
-        log(bulbasaur, ball: "poke", on: day(1))
+        log(bulbasaur, ball: "ultra", on: makeDay(5))
+        log(bulbasaur, ball: "poke", on: makeDay(1))
 
-        XCTAssertEqual(speciesCatches(bulbasaur).map { $0.caughtBall }, ["poke", "ultra"], "Oldest first")
+        XCTAssertEqual(getSpeciesCatches(bulbasaur).map { $0.caughtBall }, ["poke", "ultra"], "Oldest first")
         XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtBall, "ultra")
         XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtDescription, "Caught")
     }
 
     func test_gotAway_isRecorded_butDoesNotMarkThePokemonCaught() {
-        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(LogCatchCommand(number: ivysaur, outcome: .gotAway, date: day(1)))
+        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(LogCatchCommand(number: ivysaur, outcome: .gotAway, date: makeDay(1)))
 
-        XCTAssertEqual(speciesCatches(ivysaur).map { $0.isFailed }, [true])
+        XCTAssertEqual(getSpeciesCatches(ivysaur).map { $0.isFailed }, [true])
         XCTAssertEqual(pokemon.get(number: ivysaur)?.caughtBall, "none")
     }
 
     func test_removeLatestCatch_removesTheNewest_andReportsWhenThereIsNone() {
         let remove = RemoveLatestCatchHandler(catchRepository: catches, deleteCatch: DeleteCatchHandler(catchRepository: catches, pokemonRepository: pokemon))
-        log(bulbasaur, ball: "poke", on: day(1))
-        log(bulbasaur, ball: "dusk", on: day(9))
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        log(bulbasaur, ball: "dusk", on: makeDay(9))
 
         XCTAssertTrue(remove.handle(RemoveLatestCatchCommand(number: bulbasaur)))
         XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtBall, "poke")
@@ -52,8 +52,8 @@ final class CatchHandlerTests: XCTestCase {
     }
 
     func test_updateCatch_changesTheCatch_andFailsCleanlyWhenTheSaveFails() throws {
-        log(bulbasaur, ball: "poke", on: day(1))
-        let id = speciesCatches(bulbasaur)[0].id
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        let id = getSpeciesCatches(bulbasaur)[0].id
         let update = UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon)
 
         try update.handle(UpdateCatchCommand(catchId: id, change: .ball("master")))
@@ -61,13 +61,13 @@ final class CatchHandlerTests: XCTestCase {
 
         catches.failsToSave = true
         XCTAssertThrowsError(try update.handle(UpdateCatchCommand(catchId: id, change: .encounters(500))))
-        XCTAssertEqual(speciesCatches(bulbasaur)[0].encounters, 0, "A failed save leaves the stored catch as it was")
+        XCTAssertEqual(getSpeciesCatches(bulbasaur)[0].encounters, 0, "A failed save leaves the stored catch as it was")
         XCTAssertThrowsError(try update.handle(UpdateCatchCommand(catchId: CatchID(rawValue: UUID()), change: .encounters(1))))
     }
 
     func test_updateCatch_setsAndClearsNicknameGenderNatureAndIVs() throws {
-        log(bulbasaur, ball: "poke", on: day(1))
-        let id = speciesCatches(bulbasaur)[0].id
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        let id = getSpeciesCatches(bulbasaur)[0].id
         let update = UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon)
         let ivs = IndividualValues().setting(31, for: .speed)
 
@@ -76,7 +76,7 @@ final class CatchHandlerTests: XCTestCase {
         try update.handle(UpdateCatchCommand(catchId: id, change: .nature(.jolly)))
         try update.handle(UpdateCatchCommand(catchId: id, change: .ivs(ivs)))
 
-        let updated = speciesCatches(bulbasaur)[0]
+        let updated = getSpeciesCatches(bulbasaur)[0]
         XCTAssertEqual(updated.nickname, "Sprout", "Nicknames are trimmed")
         XCTAssertEqual(updated.gender, .male)
         XCTAssertEqual(updated.nature, .jolly)
@@ -86,31 +86,31 @@ final class CatchHandlerTests: XCTestCase {
         try update.handle(UpdateCatchCommand(catchId: id, change: .gender(nil)))
         try update.handle(UpdateCatchCommand(catchId: id, change: .nature(nil)))
 
-        let cleared = speciesCatches(bulbasaur)[0]
+        let cleared = getSpeciesCatches(bulbasaur)[0]
         XCTAssertNil(cleared.nickname, "A blank nickname removes it")
         XCTAssertNil(cleared.gender)
         XCTAssertNil(cleared.nature)
     }
 
     func test_evolveCatch_movesItToTheTarget_andBackClearsTheOrigin() throws {
-        log(bulbasaur, ball: "poke", on: day(1))
-        let id = speciesCatches(bulbasaur)[0].id
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        let id = getSpeciesCatches(bulbasaur)[0].id
         let evolve = EvolveCatchHandler(catchRepository: catches, pokemonRepository: pokemon)
 
         try evolve.handle(EvolveCatchCommand(catchId: id, targetNumber: venusaur))
-        XCTAssertTrue(speciesCatches(bulbasaur).isEmpty)
-        XCTAssertEqual(speciesCatches(venusaur).first?.evolvedFrom, bulbasaur)
+        XCTAssertTrue(getSpeciesCatches(bulbasaur).isEmpty)
+        XCTAssertEqual(getSpeciesCatches(venusaur).first?.evolvedFrom, bulbasaur)
         XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtBall, "none")
         XCTAssertEqual(pokemon.get(number: venusaur)?.caughtBall, "poke")
 
         try evolve.handle(EvolveCatchCommand(catchId: id, targetNumber: bulbasaur))
-        XCTAssertNil(speciesCatches(bulbasaur).first?.evolvedFrom)
+        XCTAssertNil(getSpeciesCatches(bulbasaur).first?.evolvedFrom)
     }
 
     func test_catchDetails_includeEvolutionTargets_positionAndLuck() {
-        log(bulbasaur, ball: "poke", on: day(1))
-        log(bulbasaur, ball: "great", on: day(2))
-        let second = speciesCatches(bulbasaur)[1].id
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        log(bulbasaur, ball: "great", on: makeDay(2))
+        let second = getSpeciesCatches(bulbasaur)[1].id
         try? UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(UpdateCatchCommand(catchId: second, change: .encounters(8192)))
         let evolutions = Evolutions(evolvesFrom: [-1, 0, 1])
 
@@ -125,8 +125,8 @@ final class CatchHandlerTests: XCTestCase {
     }
 
     func test_statistics_mapRecordsToSummaries() {
-        log(bulbasaur, ball: "poke", on: day(1))
-        let id = speciesCatches(bulbasaur)[0].id
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        let id = getSpeciesCatches(bulbasaur)[0].id
         try? UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(UpdateCatchCommand(catchId: id, change: .encounters(42)))
 
         let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon).handle(GetCatchStatisticsQuery())

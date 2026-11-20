@@ -1,7 +1,7 @@
 import Foundation
 
 enum PokedexRegions {
-    static func numbers(inRegion region: Int) -> Range<Int>? {
+    static func getNumbers(inRegion region: Int) -> Range<Int>? {
         switch region {
         case 0: return 0..<151
         case 1: return 151..<251

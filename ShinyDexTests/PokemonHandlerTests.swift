@@ -10,7 +10,7 @@ final class PokemonHandlerTests: XCTestCase {
         catches = InMemoryCatchRepository()
     }
 
-    private func details(_ number: Int) -> PokemonDetails? {
+    private func getDetails(_ number: Int) -> PokemonDetails? {
         return GetPokemonDetailsHandler(pokemonRepository: pokemon, catchRepository: catches, odds: OddsService(), probability: ProbabilityService())
             .handle(GetPokemonDetailsQuery(number: number))
     }
@@ -22,13 +22,13 @@ final class PokemonHandlerTests: XCTestCase {
         change.handle(ChangeEncountersCommand(number: 0, change: .increment))
         change.handle(ChangeEncountersCommand(number: 0, change: .increment))
         change.handle(ChangeEncountersCommand(number: 0, change: .decrement))
-        XCTAssertEqual(details(0)?.encounters, 9)
+        XCTAssertEqual(getDetails(0)?.encounters, 9)
 
         change.handle(ChangeEncountersCommand(number: 0, change: .set(0)))
         change.handle(ChangeEncountersCommand(number: 0, change: .decrement))
         change.handle(ChangeEncountersCommand(number: 1, change: .set(-4)))
-        XCTAssertEqual(details(0)?.encounters, 0)
-        XCTAssertEqual(details(1)?.encounters, 0)
+        XCTAssertEqual(getDetails(0)?.encounters, 0)
+        XCTAssertEqual(getDetails(1)?.encounters, 0)
     }
 
     func test_details_countOnlyCatchesThatWereCaught_andCalculateOdds() {
@@ -37,12 +37,12 @@ final class PokemonHandlerTests: XCTestCase {
         catches.insert(Catch(pokemon: bulbasaur, caughtBall: CatchRules.noBall, caughtDate: nil, isFailed: true))
         catches.save()
 
-        let result = details(0)
+        let result = getDetails(0)
 
         XCTAssertEqual(result?.catchCount, 1)
         XCTAssertEqual(result?.shinyOdds, 8192)
         XCTAssertEqual(result?.chainThreshold, 0)
-        XCTAssertNil(details(99))
+        XCTAssertNil(getDetails(99))
     }
 
     func test_previewSelectingAGame_setsItsGeneration_andDropsWhatTheGameLacks() {

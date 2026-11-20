@@ -3,65 +3,51 @@ import XCTest
 
 class SerebiiLocationLinkProviderTests: XCTestCase {
 
-	var locationUrlService: SerebiiLocationLinkProvider!
+    var locationUrlService: SerebiiLocationLinkProvider!
 
     override func setUpWithError() throws {
-		try super.setUpWithError()
+        try super.setUpWithError()
         locationUrlService = SerebiiLocationLinkProvider()
-
     }
 
     override func tearDownWithError() throws {
         locationUrlService = nil
-		try super.tearDownWithError()
+        try super.tearDownWithError()
     }
-
 
     func test_validGeneration_returns() {
-        // Arrange
-		let expected = "https://serebii.net/pokedex-dp/093.shtml"
-		let (name, number, generation) = ("Gastly", 92, 4)
+        let expected = "https://serebii.net/pokedex-dp/093.shtml"
+        let (name, number, generation) = ("Gastly", 92, 4)
 
-		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+        let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-		// Assert
-		XCTAssertEqual(actual, expected)
+        XCTAssertEqual(actual, expected)
     }
 
-	func test_pokemonNotInGeneration_returnsEarliestPossibleGeneration() {
-		// Arrange
-		let expected = "https://serebii.net/pokedex-bw/496.shtml"
-		let (name, number, generation) = ("Snivy", 495, 1)
+    func test_pokemonNotInGeneration_returnsEarliestPossibleGeneration() {
+        let expected = "https://serebii.net/pokedex-bw/496.shtml"
+        let (name, number, generation) = ("Snivy", 495, 1)
 
-		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+        let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-		// Assert
-		XCTAssertEqual(actual, expected)
-	}
+        XCTAssertEqual(actual, expected)
+    }
 
-	func test_generationIs8_pokemonNameIsPartOfUrl() {
-		// Arrange
-		let expected = "https://serebii.net/pokedex-swsh/charmander"
-		let (name, number, generation) = ("Charmander", 5, 8)
+    func test_generationIs8_pokemonNameIsPartOfUrl() {
+        let expected = "https://serebii.net/pokedex-swsh/charmander"
+        let (name, number, generation) = ("Charmander", 5, 8)
 
-		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+        let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-		// Assert
-		XCTAssertEqual(actual, expected)
-	}
+        XCTAssertEqual(actual, expected)
+    }
 
-	func test_invalidDexNumber_returnsDefaultGeneration() {
-		// Arrange
-		let expected = "https://serebii.net/pokedex-sm/2001.shtml"
-		let (name, number, generation) = ("Charmander", 2000, 5)
+    func test_invalidDexNumber_returnsDefaultGeneration() {
+        let expected = "https://serebii.net/pokedex-sm/2001.shtml"
+        let (name, number, generation) = ("Charmander", 2000, 5)
 
-		// Act
-		let actual = locationUrlService.locationURL(forPokemonNamed: name, number: number, generation: generation)
+        let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-		// Assert
-		XCTAssertEqual(actual, expected)
-	}
+        XCTAssertEqual(actual, expected)
+    }
 }

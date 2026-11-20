@@ -62,8 +62,8 @@ struct JourneyCatchLinks {
         self.evolutions = evolutions
     }
 
-    func linkable(for entry: JourneyEntry, in journey: Journey, as role: JourneyCatchRole = .target) -> [Catch] {
-        let line = Set(evolutions.line(of: entry.number)).union([entry.number])
+    func findLinkableCatches(for entry: JourneyEntry, in journey: Journey, as role: JourneyCatchRole = .target) -> [Catch] {
+        let line = Set(evolutions.getLine(of: entry.number)).union([entry.number])
         switch role {
         case .target:
             return catches

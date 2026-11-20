@@ -21,7 +21,7 @@ final class PrepareDataHandler {
 
     func handle(_ command: PrepareDataCommand) {
         let allPokemon = pokemonRepository.getAll()
-        let names = resourceLoader.lines(ofTextResource: "allGens")
+        let names = resourceLoader.loadLines(ofTextResource: "allGens")
         if allPokemon.isEmpty {
             insertPokemon(names: names, from: 0)
             insertInitialMoves()
@@ -41,15 +41,15 @@ final class PrepareDataHandler {
     }
 
     private func insertInitialMoves() {
-        guard let data = resourceLoader.data(ofResource: "initialActiveMoves", withExtension: "json"),
+        guard let data = resourceLoader.loadData(ofResource: "initialActiveMoves", withExtension: "json"),
               let moves = try? JSONDecoder().decode([ActiveMove].self, from: data) else { return }
         moveRepository.insert(ActiveMoves(moves: moves, pressureActive: false))
     }
 
     private func backfillCatchesIfNeeded() {
-        guard !keyValueStore.bool(forKey: PrepareDataHandler.catchBackfillCompletedKey) else { return }
-        let existingCounts = CatchRules.countsByNumber(catchRepository.getAll().filter { !$0.isFailed })
-        let pokemonToBackfill = CatchRules.pokemonToBackfill(from: pokemonRepository.getAll(), existingCounts: existingCounts)
+        guard !keyValueStore.getBool(forKey: PrepareDataHandler.catchBackfillCompletedKey) else { return }
+        let existingCounts = CatchRules.countByNumber(catchRepository.getAll().filter { !$0.isFailed })
+        let pokemonToBackfill = CatchRules.findPokemonToBackfill(from: pokemonRepository.getAll(), existingCounts: existingCounts)
         for pokemon in pokemonToBackfill {
             catchRepository.insert(Catch(pokemon: pokemon, caughtBall: pokemon.caughtBall, caughtDate: nil))
         }

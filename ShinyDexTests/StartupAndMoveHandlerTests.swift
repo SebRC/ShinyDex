@@ -42,7 +42,7 @@ final class StartupAndMoveHandlerTests: XCTestCase {
         XCTAssertEqual(pokemon.getAll().count, 3)
         XCTAssertEqual(catches.getAll().map { $0.number }, [1])
         XCTAssertEqual(catches.getAll().first?.caughtBall, "dusk")
-        XCTAssertTrue(keyValueStore.bool(forKey: "didBackfillCatches_v1"))
+        XCTAssertTrue(keyValueStore.getBool(forKey: "didBackfillCatches_v1"))
         XCTAssertNil(moves.getActiveMoves(), "Moves are only filled on first launch")
     }
 

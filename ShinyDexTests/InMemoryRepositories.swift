@@ -169,7 +169,7 @@ final class InMemoryMoveRepository: MoveRepository {
 final class InMemoryKeyValueStore: KeyValueStore {
     private(set) var values = [String: Bool]()
 
-    func bool(forKey key: String) -> Bool {
+    func getBool(forKey key: String) -> Bool {
         return values[key] ?? false
     }
 
@@ -182,11 +182,11 @@ final class StubResourceLoader: ResourceLoader {
     var textResources = [String: [String]]()
     var dataResources = [String: Data]()
 
-    func lines(ofTextResource name: String) -> [String] {
+    func loadLines(ofTextResource name: String) -> [String] {
         return textResources[name] ?? []
     }
 
-    func data(ofResource name: String, withExtension fileExtension: String) -> Data? {
+    func loadData(ofResource name: String, withExtension fileExtension: String) -> Data? {
         return dataResources["\(name).\(fileExtension)"]
     }
 }

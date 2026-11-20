@@ -20,7 +20,7 @@ final class CoreDataCatchRepository: CatchRepository {
     }
 
     func get(id: UUID) -> Catch? {
-        return object(for: id).map(makeCatch)
+        return fetchObject(for: id).map(makeCatch)
     }
 
     func insert(_ caught: Catch) {
@@ -30,13 +30,13 @@ final class CoreDataCatchRepository: CatchRepository {
     }
 
     func update(_ caught: Catch) {
-        if let catchEntity = object(for: caught.id) {
+        if let catchEntity = fetchObject(for: caught.id) {
             write(caught, to: catchEntity)
         }
     }
 
     func delete(_ caught: Catch) {
-        if let catchEntity = object(for: caught.id) {
+        if let catchEntity = fetchObject(for: caught.id) {
             managedContext.delete(catchEntity)
         }
     }
@@ -54,15 +54,15 @@ final class CoreDataCatchRepository: CatchRepository {
         }
     }
 
-    private func object(for id: UUID) -> NSManagedObject? {
-        if let known = Self.identities.object(for: id, in: managedContext) {
+    private func fetchObject(for id: UUID) -> NSManagedObject? {
+        if let known = Self.identities.getObject(for: id, in: managedContext) {
             return known
         }
         return fetch(predicate: NSPredicate(format: "id == %@", id as CVarArg)).first
     }
 
     private func makeCatch(from catchEntity: NSManagedObject) -> Catch {
-        let id = catchEntity.value(forKey: "id") as? UUID ?? Self.identities.key(for: catchEntity.objectID) ?? UUID()
+        let id = catchEntity.value(forKey: "id") as? UUID ?? Self.identities.getKey(for: catchEntity.objectID) ?? UUID()
         Self.identities.record(id, for: catchEntity.objectID)
         let evolvedFrom = catchEntity.value(forKey: "evolvedFrom") as? Int ?? -1
         return Catch(
