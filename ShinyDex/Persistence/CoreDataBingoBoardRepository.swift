@@ -89,9 +89,10 @@ final class CoreDataBingoBoardRepository: BingoBoardRepository {
 struct StoredBingoCell: Codable {
     let number: Int?
     let catchId: UUID?
+    let form: String?
 
     static func encode(_ cells: [BingoCell]) -> String {
-        let stored = cells.map { StoredBingoCell(number: $0.number, catchId: $0.catchId) }
+        let stored = cells.map { StoredBingoCell(number: $0.number, catchId: $0.catchId, form: $0.formId) }
         let data = (try? JSONEncoder().encode(stored)) ?? Data()
         return String(data: data, encoding: .utf8) ?? "[]"
     }
@@ -99,7 +100,7 @@ struct StoredBingoCell: Codable {
     static func decode(_ json: String?) -> [BingoCell]? {
         guard let json = json, !json.isEmpty else { return [] }
         guard let stored = try? JSONDecoder().decode([StoredBingoCell].self, from: Data(json.utf8)) else { return nil }
-        return stored.map { BingoCell(number: $0.number, catchId: $0.catchId) }
+        return stored.map { BingoCell(number: $0.number, catchId: $0.catchId, formId: $0.form) }
     }
 
     static func hasUnreadableCells(_ json: String?) -> Bool {

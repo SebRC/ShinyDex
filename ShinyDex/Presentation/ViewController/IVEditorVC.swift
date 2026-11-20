@@ -55,7 +55,7 @@ class IVEditorVC: UIViewController {
         let card = UIView()
         card.backgroundColor = Color.Grey800
         card.layer.cornerRadius = 14
-        let sprite = UIImageView(image: UIImage(named: caught.pokemonName.lowercased()))
+        let sprite = UIImageView(image: caught.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.isAccessibilityElement = false

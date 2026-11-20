@@ -44,8 +44,8 @@ class CatchCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(pokemonName: String, title: String, subtitle: String, ball: String, isFailed: Bool = false) {
-        sprite.image = UIImage(named: pokemonName.lowercased())
+    func configure(pokemonName: String, formId: String? = nil, title: String, subtitle: String, ball: String, isFailed: Bool = false) {
+        sprite.image = PokemonSprites.makeImage(pokemonName: pokemonName, formId: formId)
         sprite.alpha = isFailed ? 0.55 : 1
         titleLabel.text = title
         titleLabel.textColor = isFailed ? Color.Grey300 : Color.Grey200

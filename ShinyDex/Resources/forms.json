@@ -1,0 +1,1516 @@
+[
+  {
+    "number": 18,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 19,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 25,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 26,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 27,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 36,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 37,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 49,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 50,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 51,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      },
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 52,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 57,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 58,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 73,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 74,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 75,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 76,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 77,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 78,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 79,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 82,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 87,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 88,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 99,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 100,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 102,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 104,
+    "forms": [
+      {
+        "id": "alola",
+        "name": "Alolan"
+      }
+    ]
+  },
+  {
+    "number": 109,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 121,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 127,
+    "forms": [
+      {
+        "id": "paldea-combat",
+        "name": "Paldean Combat Breed"
+      },
+      {
+        "id": "paldea-blaze",
+        "name": "Paldean Blaze Breed"
+      },
+      {
+        "id": "paldea-aqua",
+        "name": "Paldean Aqua Breed"
+      }
+    ]
+  },
+  {
+    "number": 143,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 144,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 145,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 156,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 193,
+    "forms": [
+      {
+        "id": "paldea",
+        "name": "Paldean"
+      }
+    ]
+  },
+  {
+    "number": 198,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 200,
+    "forms": [
+      {
+        "id": "b",
+        "name": "B"
+      },
+      {
+        "id": "c",
+        "name": "C"
+      },
+      {
+        "id": "d",
+        "name": "D"
+      },
+      {
+        "id": "e",
+        "name": "E"
+      },
+      {
+        "id": "exclamation",
+        "name": "!"
+      },
+      {
+        "id": "f",
+        "name": "F"
+      },
+      {
+        "id": "g",
+        "name": "G"
+      },
+      {
+        "id": "h",
+        "name": "H"
+      },
+      {
+        "id": "i",
+        "name": "I"
+      },
+      {
+        "id": "j",
+        "name": "J"
+      },
+      {
+        "id": "k",
+        "name": "K"
+      },
+      {
+        "id": "l",
+        "name": "L"
+      },
+      {
+        "id": "m",
+        "name": "M"
+      },
+      {
+        "id": "n",
+        "name": "N"
+      },
+      {
+        "id": "o",
+        "name": "O"
+      },
+      {
+        "id": "p",
+        "name": "P"
+      },
+      {
+        "id": "q",
+        "name": "Q"
+      },
+      {
+        "id": "question",
+        "name": "?"
+      },
+      {
+        "id": "r",
+        "name": "R"
+      },
+      {
+        "id": "s",
+        "name": "S"
+      },
+      {
+        "id": "t",
+        "name": "T"
+      },
+      {
+        "id": "u",
+        "name": "U"
+      },
+      {
+        "id": "v",
+        "name": "V"
+      },
+      {
+        "id": "w",
+        "name": "W"
+      },
+      {
+        "id": "x",
+        "name": "X"
+      },
+      {
+        "id": "y",
+        "name": "Y"
+      },
+      {
+        "id": "z",
+        "name": "Z"
+      }
+    ],
+    "defaultName": "A"
+  },
+  {
+    "number": 210,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 214,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 221,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 262,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 263,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 385,
+    "forms": [
+      {
+        "id": "attack",
+        "name": "Attack"
+      },
+      {
+        "id": "defense",
+        "name": "Defense"
+      },
+      {
+        "id": "speed",
+        "name": "Speed"
+      }
+    ],
+    "defaultName": "Normal"
+  },
+  {
+    "number": 411,
+    "forms": [
+      {
+        "id": "sandy",
+        "name": "Sandy Cloak"
+      },
+      {
+        "id": "trash",
+        "name": "Trash Cloak"
+      }
+    ],
+    "defaultName": "Plant Cloak"
+  },
+  {
+    "number": 412,
+    "forms": [
+      {
+        "id": "sandy",
+        "name": "Sandy Cloak"
+      },
+      {
+        "id": "trash",
+        "name": "Trash Cloak"
+      }
+    ],
+    "defaultName": "Plant Cloak"
+  },
+  {
+    "number": 421,
+    "forms": [
+      {
+        "id": "east",
+        "name": "East Sea"
+      }
+    ],
+    "defaultName": "West Sea"
+  },
+  {
+    "number": 422,
+    "forms": [
+      {
+        "id": "east",
+        "name": "East Sea"
+      }
+    ],
+    "defaultName": "West Sea"
+  },
+  {
+    "number": 478,
+    "forms": [
+      {
+        "id": "fan",
+        "name": "Fan"
+      },
+      {
+        "id": "frost",
+        "name": "Frost"
+      },
+      {
+        "id": "heat",
+        "name": "Heat"
+      },
+      {
+        "id": "mow",
+        "name": "Mow"
+      },
+      {
+        "id": "wash",
+        "name": "Wash"
+      }
+    ]
+  },
+  {
+    "number": 482,
+    "forms": [
+      {
+        "id": "origin",
+        "name": "Origin"
+      }
+    ],
+    "defaultName": "Altered"
+  },
+  {
+    "number": 483,
+    "forms": [
+      {
+        "id": "origin",
+        "name": "Origin"
+      }
+    ],
+    "defaultName": "Altered"
+  },
+  {
+    "number": 486,
+    "forms": [
+      {
+        "id": "origin",
+        "name": "Origin"
+      }
+    ],
+    "defaultName": "Altered"
+  },
+  {
+    "number": 491,
+    "forms": [
+      {
+        "id": "sky",
+        "name": "Sky"
+      }
+    ],
+    "defaultName": "Land"
+  },
+  {
+    "number": 502,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 548,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 549,
+    "forms": [
+      {
+        "id": "blue-striped",
+        "name": "Blue-Striped"
+      },
+      {
+        "id": "white-striped",
+        "name": "White-Striped"
+      }
+    ],
+    "defaultName": "Red-Striped"
+  },
+  {
+    "number": 553,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 554,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 561,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 569,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 570,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 584,
+    "forms": [
+      {
+        "id": "autumn",
+        "name": "Autumn"
+      },
+      {
+        "id": "summer",
+        "name": "Summer"
+      },
+      {
+        "id": "winter",
+        "name": "Winter"
+      }
+    ],
+    "defaultName": "Spring"
+  },
+  {
+    "number": 585,
+    "forms": [
+      {
+        "id": "autumn",
+        "name": "Autumn"
+      },
+      {
+        "id": "summer",
+        "name": "Summer"
+      },
+      {
+        "id": "winter",
+        "name": "Winter"
+      }
+    ],
+    "defaultName": "Spring"
+  },
+  {
+    "number": 617,
+    "forms": [
+      {
+        "id": "galar",
+        "name": "Galarian"
+      }
+    ]
+  },
+  {
+    "number": 627,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 640,
+    "forms": [
+      {
+        "id": "therian",
+        "name": "Therian"
+      }
+    ],
+    "defaultName": "Incarnate"
+  },
+  {
+    "number": 641,
+    "forms": [
+      {
+        "id": "therian",
+        "name": "Therian"
+      }
+    ],
+    "defaultName": "Incarnate"
+  },
+  {
+    "number": 644,
+    "forms": [
+      {
+        "id": "therian",
+        "name": "Therian"
+      }
+    ],
+    "defaultName": "Incarnate"
+  },
+  {
+    "number": 645,
+    "forms": [
+      {
+        "id": "black",
+        "name": "Black"
+      },
+      {
+        "id": "white",
+        "name": "White"
+      }
+    ]
+  },
+  {
+    "number": 665,
+    "forms": [
+      {
+        "id": "archipelago",
+        "name": "Archipelago"
+      },
+      {
+        "id": "continental",
+        "name": "Continental"
+      },
+      {
+        "id": "elegant",
+        "name": "Elegant"
+      },
+      {
+        "id": "fancy",
+        "name": "Fancy"
+      },
+      {
+        "id": "garden",
+        "name": "Garden"
+      },
+      {
+        "id": "high-plains",
+        "name": "High Plains"
+      },
+      {
+        "id": "icy-snow",
+        "name": "Icy Snow"
+      },
+      {
+        "id": "jungle",
+        "name": "Jungle"
+      },
+      {
+        "id": "marine",
+        "name": "Marine"
+      },
+      {
+        "id": "modern",
+        "name": "Modern"
+      },
+      {
+        "id": "monsoon",
+        "name": "Monsoon"
+      },
+      {
+        "id": "ocean",
+        "name": "Ocean"
+      },
+      {
+        "id": "poke-ball",
+        "name": "Poké Ball"
+      },
+      {
+        "id": "polar",
+        "name": "Polar"
+      },
+      {
+        "id": "river",
+        "name": "River"
+      },
+      {
+        "id": "sandstorm",
+        "name": "Sandstorm"
+      },
+      {
+        "id": "savanna",
+        "name": "Savanna"
+      },
+      {
+        "id": "sun",
+        "name": "Sun"
+      },
+      {
+        "id": "tundra",
+        "name": "Tundra"
+      }
+    ],
+    "defaultName": "Meadow"
+  },
+  {
+    "number": 668,
+    "forms": [
+      {
+        "id": "blue",
+        "name": "Blue Flower"
+      },
+      {
+        "id": "orange",
+        "name": "Orange Flower"
+      },
+      {
+        "id": "white",
+        "name": "White Flower"
+      },
+      {
+        "id": "yellow",
+        "name": "Yellow Flower"
+      }
+    ],
+    "defaultName": "Red Flower"
+  },
+  {
+    "number": 669,
+    "forms": [
+      {
+        "id": "blue",
+        "name": "Blue Flower"
+      },
+      {
+        "id": "orange",
+        "name": "Orange Flower"
+      },
+      {
+        "id": "white",
+        "name": "White Flower"
+      },
+      {
+        "id": "yellow",
+        "name": "Yellow Flower"
+      }
+    ],
+    "defaultName": "Red Flower"
+  },
+  {
+    "number": 670,
+    "forms": [
+      {
+        "id": "blue",
+        "name": "Blue Flower"
+      },
+      {
+        "id": "orange",
+        "name": "Orange Flower"
+      },
+      {
+        "id": "white",
+        "name": "White Flower"
+      },
+      {
+        "id": "yellow",
+        "name": "Yellow Flower"
+      }
+    ],
+    "defaultName": "Red Flower"
+  },
+  {
+    "number": 704,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 705,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 709,
+    "forms": [
+      {
+        "id": "large",
+        "name": "Large Size"
+      },
+      {
+        "id": "small",
+        "name": "Small Size"
+      },
+      {
+        "id": "super",
+        "name": "Super Size"
+      }
+    ],
+    "defaultName": "Average Size"
+  },
+  {
+    "number": 712,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 717,
+    "forms": [
+      {
+        "id": "10",
+        "name": "10% Forme"
+      }
+    ],
+    "defaultName": "50% Forme"
+  },
+  {
+    "number": 719,
+    "forms": [
+      {
+        "id": "unbound",
+        "name": "Unbound"
+      }
+    ],
+    "defaultName": "Confined"
+  },
+  {
+    "number": 723,
+    "forms": [
+      {
+        "id": "hisui",
+        "name": "Hisuian"
+      }
+    ]
+  },
+  {
+    "number": 740,
+    "forms": [
+      {
+        "id": "pau",
+        "name": "Pa'u Style"
+      },
+      {
+        "id": "pom-pom",
+        "name": "Pom-Pom Style"
+      },
+      {
+        "id": "sensu",
+        "name": "Sensu Style"
+      }
+    ],
+    "defaultName": "Baile Style"
+  },
+  {
+    "number": 744,
+    "forms": [
+      {
+        "id": "dusk",
+        "name": "Dusk"
+      },
+      {
+        "id": "midnight",
+        "name": "Midnight"
+      }
+    ],
+    "defaultName": "Midday"
+  },
+  {
+    "number": 773,
+    "forms": [
+      {
+        "id": "blue",
+        "name": "Blue Core"
+      },
+      {
+        "id": "green",
+        "name": "Green Core"
+      },
+      {
+        "id": "indigo",
+        "name": "Indigo Core"
+      },
+      {
+        "id": "orange",
+        "name": "Orange Core"
+      },
+      {
+        "id": "red",
+        "name": "Red Core"
+      },
+      {
+        "id": "violet",
+        "name": "Violet Core"
+      },
+      {
+        "id": "yellow",
+        "name": "Yellow Core"
+      }
+    ],
+    "defaultName": "Meteor"
+  },
+  {
+    "number": 799,
+    "forms": [
+      {
+        "id": "dawn",
+        "name": "Dawn Wings"
+      },
+      {
+        "id": "dusk",
+        "name": "Dusk Mane"
+      }
+    ]
+  },
+  {
+    "number": 800,
+    "forms": [
+      {
+        "id": "original",
+        "name": "Original Color"
+      }
+    ]
+  },
+  {
+    "number": 848,
+    "forms": [
+      {
+        "id": "low-key",
+        "name": "Low Key"
+      }
+    ],
+    "defaultName": "Amped"
+  },
+  {
+    "number": 868,
+    "forms": [
+      {
+        "id": "caramel-swirl-berry",
+        "name": "Caramel Swirl · Berry Sweet"
+      },
+      {
+        "id": "caramel-swirl-clover",
+        "name": "Caramel Swirl · Clover Sweet"
+      },
+      {
+        "id": "caramel-swirl-flower",
+        "name": "Caramel Swirl · Flower Sweet"
+      },
+      {
+        "id": "caramel-swirl-love",
+        "name": "Caramel Swirl · Love Sweet"
+      },
+      {
+        "id": "caramel-swirl-plain",
+        "name": "Caramel Swirl · Plain Sweet"
+      },
+      {
+        "id": "caramel-swirl-ribbon",
+        "name": "Caramel Swirl · Ribbon Sweet"
+      },
+      {
+        "id": "caramel-swirl-star",
+        "name": "Caramel Swirl · Star Sweet"
+      },
+      {
+        "id": "caramel-swirl-strawberry",
+        "name": "Caramel Swirl · Strawberry Sweet"
+      },
+      {
+        "id": "lemon-cream-berry",
+        "name": "Lemon Cream · Berry Sweet"
+      },
+      {
+        "id": "lemon-cream-clover",
+        "name": "Lemon Cream · Clover Sweet"
+      },
+      {
+        "id": "lemon-cream-flower",
+        "name": "Lemon Cream · Flower Sweet"
+      },
+      {
+        "id": "lemon-cream-love",
+        "name": "Lemon Cream · Love Sweet"
+      },
+      {
+        "id": "lemon-cream-plain",
+        "name": "Lemon Cream · Plain Sweet"
+      },
+      {
+        "id": "lemon-cream-ribbon",
+        "name": "Lemon Cream · Ribbon Sweet"
+      },
+      {
+        "id": "lemon-cream-star",
+        "name": "Lemon Cream · Star Sweet"
+      },
+      {
+        "id": "lemon-cream-strawberry",
+        "name": "Lemon Cream · Strawberry Sweet"
+      },
+      {
+        "id": "matcha-cream-berry",
+        "name": "Matcha Cream · Berry Sweet"
+      },
+      {
+        "id": "matcha-cream-clover",
+        "name": "Matcha Cream · Clover Sweet"
+      },
+      {
+        "id": "matcha-cream-flower",
+        "name": "Matcha Cream · Flower Sweet"
+      },
+      {
+        "id": "matcha-cream-love",
+        "name": "Matcha Cream · Love Sweet"
+      },
+      {
+        "id": "matcha-cream-plain",
+        "name": "Matcha Cream · Plain Sweet"
+      },
+      {
+        "id": "matcha-cream-ribbon",
+        "name": "Matcha Cream · Ribbon Sweet"
+      },
+      {
+        "id": "matcha-cream-star",
+        "name": "Matcha Cream · Star Sweet"
+      },
+      {
+        "id": "matcha-cream-strawberry",
+        "name": "Matcha Cream · Strawberry Sweet"
+      },
+      {
+        "id": "mint-cream-berry",
+        "name": "Mint Cream · Berry Sweet"
+      },
+      {
+        "id": "mint-cream-clover",
+        "name": "Mint Cream · Clover Sweet"
+      },
+      {
+        "id": "mint-cream-flower",
+        "name": "Mint Cream · Flower Sweet"
+      },
+      {
+        "id": "mint-cream-love",
+        "name": "Mint Cream · Love Sweet"
+      },
+      {
+        "id": "mint-cream-plain",
+        "name": "Mint Cream · Plain Sweet"
+      },
+      {
+        "id": "mint-cream-ribbon",
+        "name": "Mint Cream · Ribbon Sweet"
+      },
+      {
+        "id": "mint-cream-star",
+        "name": "Mint Cream · Star Sweet"
+      },
+      {
+        "id": "mint-cream-strawberry",
+        "name": "Mint Cream · Strawberry Sweet"
+      },
+      {
+        "id": "rainbow-swirl-berry",
+        "name": "Rainbow Swirl · Berry Sweet"
+      },
+      {
+        "id": "rainbow-swirl-clover",
+        "name": "Rainbow Swirl · Clover Sweet"
+      },
+      {
+        "id": "rainbow-swirl-flower",
+        "name": "Rainbow Swirl · Flower Sweet"
+      },
+      {
+        "id": "rainbow-swirl-love",
+        "name": "Rainbow Swirl · Love Sweet"
+      },
+      {
+        "id": "rainbow-swirl-plain",
+        "name": "Rainbow Swirl · Plain Sweet"
+      },
+      {
+        "id": "rainbow-swirl-ribbon",
+        "name": "Rainbow Swirl · Ribbon Sweet"
+      },
+      {
+        "id": "rainbow-swirl-star",
+        "name": "Rainbow Swirl · Star Sweet"
+      },
+      {
+        "id": "rainbow-swirl-strawberry",
+        "name": "Rainbow Swirl · Strawberry Sweet"
+      },
+      {
+        "id": "ruby-cream-berry",
+        "name": "Ruby Cream · Berry Sweet"
+      },
+      {
+        "id": "ruby-cream-clover",
+        "name": "Ruby Cream · Clover Sweet"
+      },
+      {
+        "id": "ruby-cream-flower",
+        "name": "Ruby Cream · Flower Sweet"
+      },
+      {
+        "id": "ruby-cream-love",
+        "name": "Ruby Cream · Love Sweet"
+      },
+      {
+        "id": "ruby-cream-plain",
+        "name": "Ruby Cream · Plain Sweet"
+      },
+      {
+        "id": "ruby-cream-ribbon",
+        "name": "Ruby Cream · Ribbon Sweet"
+      },
+      {
+        "id": "ruby-cream-star",
+        "name": "Ruby Cream · Star Sweet"
+      },
+      {
+        "id": "ruby-cream-strawberry",
+        "name": "Ruby Cream · Strawberry Sweet"
+      },
+      {
+        "id": "ruby-swirl-berry",
+        "name": "Ruby Swirl · Berry Sweet"
+      },
+      {
+        "id": "ruby-swirl-clover",
+        "name": "Ruby Swirl · Clover Sweet"
+      },
+      {
+        "id": "ruby-swirl-flower",
+        "name": "Ruby Swirl · Flower Sweet"
+      },
+      {
+        "id": "ruby-swirl-love",
+        "name": "Ruby Swirl · Love Sweet"
+      },
+      {
+        "id": "ruby-swirl-plain",
+        "name": "Ruby Swirl · Plain Sweet"
+      },
+      {
+        "id": "ruby-swirl-ribbon",
+        "name": "Ruby Swirl · Ribbon Sweet"
+      },
+      {
+        "id": "ruby-swirl-star",
+        "name": "Ruby Swirl · Star Sweet"
+      },
+      {
+        "id": "ruby-swirl-strawberry",
+        "name": "Ruby Swirl · Strawberry Sweet"
+      },
+      {
+        "id": "salted-cream-berry",
+        "name": "Salted Cream · Berry Sweet"
+      },
+      {
+        "id": "salted-cream-clover",
+        "name": "Salted Cream · Clover Sweet"
+      },
+      {
+        "id": "salted-cream-flower",
+        "name": "Salted Cream · Flower Sweet"
+      },
+      {
+        "id": "salted-cream-love",
+        "name": "Salted Cream · Love Sweet"
+      },
+      {
+        "id": "salted-cream-plain",
+        "name": "Salted Cream · Plain Sweet"
+      },
+      {
+        "id": "salted-cream-ribbon",
+        "name": "Salted Cream · Ribbon Sweet"
+      },
+      {
+        "id": "salted-cream-star",
+        "name": "Salted Cream · Star Sweet"
+      },
+      {
+        "id": "salted-cream-strawberry",
+        "name": "Salted Cream · Strawberry Sweet"
+      },
+      {
+        "id": "vanilla-cream-berry",
+        "name": "Vanilla Cream · Berry Sweet"
+      },
+      {
+        "id": "vanilla-cream-clover",
+        "name": "Vanilla Cream · Clover Sweet"
+      },
+      {
+        "id": "vanilla-cream-flower",
+        "name": "Vanilla Cream · Flower Sweet"
+      },
+      {
+        "id": "vanilla-cream-love",
+        "name": "Vanilla Cream · Love Sweet"
+      },
+      {
+        "id": "vanilla-cream-plain",
+        "name": "Vanilla Cream · Plain Sweet"
+      },
+      {
+        "id": "vanilla-cream-ribbon",
+        "name": "Vanilla Cream · Ribbon Sweet"
+      },
+      {
+        "id": "vanilla-cream-star",
+        "name": "Vanilla Cream · Star Sweet"
+      }
+    ],
+    "defaultName": "Vanilla Cream · Strawberry Sweet"
+  },
+  {
+    "number": 891,
+    "forms": [
+      {
+        "id": "rapid-strike",
+        "name": "Rapid Strike"
+      }
+    ],
+    "defaultName": "Single Strike"
+  },
+  {
+    "number": 892,
+    "forms": [
+      {
+        "id": "dada",
+        "name": "Dada"
+      }
+    ]
+  },
+  {
+    "number": 897,
+    "forms": [
+      {
+        "id": "ice-rider",
+        "name": "Ice Rider"
+      },
+      {
+        "id": "shadow-rider",
+        "name": "Shadow Rider"
+      }
+    ]
+  },
+  {
+    "number": 904,
+    "forms": [
+      {
+        "id": "therian",
+        "name": "Therian"
+      }
+    ],
+    "defaultName": "Incarnate"
+  },
+  {
+    "number": 924,
+    "forms": [
+      {
+        "id": "four",
+        "name": "Family of Four"
+      }
+    ],
+    "defaultName": "Family of Three"
+  },
+  {
+    "number": 930,
+    "forms": [
+      {
+        "id": "blue",
+        "name": "Blue Plumage"
+      },
+      {
+        "id": "yellow",
+        "name": "Yellow Plumage"
+      },
+      {
+        "id": "white",
+        "name": "White Plumage"
+      }
+    ],
+    "defaultName": "Green Plumage"
+  },
+  {
+    "number": 977,
+    "forms": [
+      {
+        "id": "droopy",
+        "name": "Droopy"
+      },
+      {
+        "id": "stretchy",
+        "name": "Stretchy"
+      }
+    ],
+    "defaultName": "Curly"
+  },
+  {
+    "number": 981,
+    "forms": [
+      {
+        "id": "three-segment",
+        "name": "Three-Segment"
+      }
+    ],
+    "defaultName": "Two-Segment"
+  },
+  {
+    "number": 998,
+    "forms": [
+      {
+        "id": "roaming",
+        "name": "Roaming"
+      }
+    ],
+    "defaultName": "Chest"
+  }
+]

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 extension CatchSummary {
     fileprivate static let dateFormatter: DateFormatter = {
@@ -10,6 +10,18 @@ extension CatchSummary {
 
     var ballName: String {
         return "\(caughtBall.capitalizingFirstLetter()) Ball"
+    }
+
+    var speciesTitle: String {
+        return PokemonSprites.makeTitle(pokemonName: pokemonName, formName: formName)
+    }
+
+    var spriteImage: UIImage? {
+        return PokemonSprites.makeImage(pokemonName: pokemonName, formId: formId)
+    }
+
+    var spriteAssetName: String {
+        return PokemonSprites.makeAssetName(pokemonName: pokemonName, formId: formId)
     }
 
     var formattedCaughtDate: String? {

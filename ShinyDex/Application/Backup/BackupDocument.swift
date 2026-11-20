@@ -36,6 +36,7 @@ struct BackupDocument: Codable {
         let gender: Gender?
         let nature: Nature?
         let ivs: String?
+        let formId: String?
     }
 
     struct HuntRecord: Codable {
@@ -51,6 +52,7 @@ struct BackupDocument: Codable {
         let number: Int
         let catchId: UUID?
         let phaseCatchIds: [UUID]
+        let formId: String?
     }
 
     struct JourneyRecord: Codable {
@@ -64,6 +66,7 @@ struct BackupDocument: Codable {
     struct BingoCellRecord: Codable {
         let number: Int?
         let catchId: UUID?
+        let formId: String?
     }
 
     struct BingoBoardRecord: Codable {
@@ -151,18 +154,18 @@ extension BackupDocument {
             CatchRecord(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                         isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed,
                         evs: $0.evs.isEmpty ? nil : $0.evs.encoded, evolvedFrom: $0.evolvedFrom, nickname: $0.nickname,
-                        gender: $0.gender, nature: $0.nature, ivs: $0.ivs.isEmpty ? nil : $0.ivs.encoded)
+                        gender: $0.gender, nature: $0.nature, ivs: $0.ivs.isEmpty ? nil : $0.ivs.encoded, formId: $0.formId)
         }
         self.hunts = hunts.map {
             HuntRecord(id: $0.id, name: $0.name, pokemonNumbers: $0.indexes, priority: $0.priority, isCollapsed: $0.isCollapsed)
         }
         self.journeys = journeys.map { journey in
             JourneyRecord(id: journey.id, name: journey.name, createdDate: journey.createdDate, priority: journey.priority,
-                          entries: journey.entries.map { JourneyEntryRecord(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds) })
+                          entries: journey.entries.map { JourneyEntryRecord(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds, formId: $0.formId) })
         }
         self.bingoBoards = bingoBoards.map { board in
             BingoBoardRecord(id: board.id, name: board.name, createdDate: board.createdDate, priority: board.priority, size: board.size,
-                             cells: board.cells.map { BingoCellRecord(number: $0.number, catchId: $0.catchId) })
+                             cells: board.cells.map { BingoCellRecord(number: $0.number, catchId: $0.catchId, formId: $0.formId) })
         }
         self.activeMoves = activeMoves.map { activeMoves in
             ActiveMovesRecord(moves: activeMoves.moves.map { MoveRecord(name: $0.name, maxPP: $0.maxPP, remainingPP: $0.remainingPP, type: $0.type) },
@@ -174,7 +177,7 @@ extension BackupDocument {
         return catches.map {
             Catch(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                   isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed, evs: EffortValues(encoded: $0.evs),
-                  evolvedFrom: $0.evolvedFrom, nickname: $0.nickname, gender: $0.gender, nature: $0.nature, ivs: IndividualValues(encoded: $0.ivs))
+                  evolvedFrom: $0.evolvedFrom, nickname: $0.nickname, gender: $0.gender, nature: $0.nature, ivs: IndividualValues(encoded: $0.ivs), formId: $0.formId)
         }
     }
 
@@ -185,14 +188,14 @@ extension BackupDocument {
     func makeJourneys() -> [Journey] {
         return journeys.map { journey in
             Journey(id: journey.id, name: journey.name, createdDate: journey.createdDate, priority: journey.priority,
-                    entries: journey.entries.map { JourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds) })
+                    entries: journey.entries.map { JourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds, formId: $0.formId) })
         }
     }
 
     func makeBingoBoards() -> [BingoBoard] {
         return bingoBoards.map { board in
             BingoBoard(id: board.id, name: board.name, createdDate: board.createdDate, priority: board.priority, size: board.size,
-                       cells: board.cells.map { BingoCell(number: $0.number, catchId: $0.catchId) })
+                       cells: board.cells.map { BingoCell(number: $0.number, catchId: $0.catchId, formId: $0.formId) })
         }
     }
 

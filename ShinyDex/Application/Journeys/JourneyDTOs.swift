@@ -24,6 +24,8 @@ struct JourneyEntryDetails: Equatable {
     let linkedCatch: CatchSummary?
     let linkableCatchCount: Int
     let phases: [CatchSummary]
+    let formId: String?
+    let formName: String?
 }
 
 struct JourneyTimelineStep: Equatable {
@@ -67,7 +69,7 @@ struct JourneyCatchLinks {
         switch role {
         case .target:
             return catches
-                .filter { !$0.isFailed && line.contains($0.number) && (!journey.isLinked($0) || $0.id == entry.catchId) }
+                .filter { !$0.isFailed && line.contains($0.number) && $0.matchesForm(entry.formId) && (!journey.isLinked($0) || $0.id == entry.catchId) }
                 .sorted { ($0.number == entry.number ? 0 : 1, $0.caughtDate ?? .distantPast) < ($1.number == entry.number ? 0 : 1, $1.caughtDate ?? .distantPast) }
         case .phase:
             return catches

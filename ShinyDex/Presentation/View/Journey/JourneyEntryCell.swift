@@ -63,8 +63,8 @@ final class JourneyEntryCell: UITableViewCell {
     func configure(entry: JourneyEntryDetails, phasesExpanded: Bool) {
         let linked = entry.linkedCatch
         let linkableCount = entry.linkableCatchCount
-        let name = entry.pokemonName ?? "Unknown"
-        sprite.image = entry.pokemonName.flatMap { UIImage(named: $0.lowercased()) }
+        let name = entry.pokemonName.map { PokemonSprites.makeTitle(pokemonName: $0, formName: entry.formName) } ?? "Unknown"
+        sprite.image = entry.pokemonName.flatMap { PokemonSprites.makeImage(pokemonName: $0, formId: entry.formId) }
         nameLabel.text = name
         sprite.alpha = linked == nil ? 0.4 : 1
         nameLabel.textColor = linked == nil ? Color.Grey300 : Color.Grey100

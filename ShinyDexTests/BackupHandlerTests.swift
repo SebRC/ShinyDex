@@ -49,6 +49,7 @@ final class BackupHandlerTests: XCTestCase {
         caught.gender = .female
         caught.nature = .timid
         caught.ivs = IndividualValues(encoded: "31,,31,0,31,31")
+        caught.formId = "east"
         return caught
     }
 
@@ -62,9 +63,11 @@ final class BackupHandlerTests: XCTestCase {
         let journey = Journey(name: "Kanto", priority: 0, numbers: [0, 3])
         journey.entries[0].catchId = caught.id
         journey.entries[1].phaseCatchIds = [UUID()]
+        journey.entries[1].formId = "alola"
         journeys.save(journey)
         let board = BingoBoard(name: "Starters", priority: 0, size: .three, numbers: [0, 3])
         board.link(caught.id, at: 0)
+        board.setForm("galar", at: 1)
         bingoBoards.save(board)
         moves.insert(ActiveMoves(moves: [ActiveMove(name: "False Swipe", maxPP: 64, remainingPP: 12, type: "Normal")], pressureActive: true))
         let venusaur = pokemon.get(number: 2)!
@@ -115,6 +118,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(caught.gender, .female)
         XCTAssertEqual(caught.nature, .timid)
         XCTAssertEqual(caught.ivs, seeded.caught.ivs)
+        XCTAssertEqual(caught.formId, "east")
         XCTAssertTrue(try XCTUnwrap(backup.catches.first { $0.id != seeded.caught.id }).isFailed)
 
         let hunt = try XCTUnwrap(backup.hunts.first)

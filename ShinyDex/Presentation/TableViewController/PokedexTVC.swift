@@ -194,7 +194,7 @@ class PokedexTVC: UITableViewController {
     }
     
     fileprivate func setCellImage(pokemonCell: PokemonCell, pokemon: PokedexEntry) {
-        pokemonCell.sprite.image = UIImage(named: pokemon.name.lowercased())
+        pokemonCell.sprite.image = PokemonSprites.makeImage(pokemonName: pokemon.name)
     }
     
     fileprivate func setPokemonCellProperties(pokemonCell: PokemonCell, pokemon: PokedexEntry) {

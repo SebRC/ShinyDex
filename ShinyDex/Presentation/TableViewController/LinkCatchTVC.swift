@@ -68,8 +68,9 @@ class LinkCatchTVC: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
 		let caught = catches[indexPath.row]
 		let outcome = caught.isFailed ? "Got away" : caught.ballName
-		let title = [caught.nickname] + (caught.number == target.number ? [outcome, caught.game.displayName] : [caught.pokemonName, outcome])
+		let title = [caught.nickname] + (caught.number == target.number ? [caught.formName, outcome, caught.game.displayName] : [caught.speciesTitle, outcome])
 		cell.configure(pokemonName: caught.pokemonName,
+					   formId: caught.formId,
 					   title: title.compactMap { $0 }.joined(separator: " · "),
 					   subtitle: ["\(caught.encounters.grouped) encounters", caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
 					   ball: caught.caughtBall,

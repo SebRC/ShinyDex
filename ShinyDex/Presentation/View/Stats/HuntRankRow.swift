@@ -9,12 +9,12 @@ final class HuntRankRow: UIControl {
         rankLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .bold)
         rankLabel.text = "#\(rank)"
         rankLabel.setContentHuggingPriority(.required, for: .horizontal)
-        let sprite = UIImageView(image: UIImage(named: hunt.pokemonName.lowercased()))
+        let sprite = UIImageView(image: hunt.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.alpha = hunt.isFailed ? 0.55 : 1
         let nameLabel = UILabel(fontSize: 15, weight: .medium)
-        nameLabel.text = hunt.nickname ?? hunt.pokemonName
+        nameLabel.text = hunt.nickname ?? hunt.speciesTitle
         let detailLabel = UILabel(fontSize: 12, color: Color.Grey400)
         detailLabel.text = [hunt.isFailed ? "Got away" : hunt.game.displayName, hunt.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
         let labels = UIStackView(arrangedSubviews: [nameLabel, detailLabel])

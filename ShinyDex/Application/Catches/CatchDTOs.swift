@@ -17,6 +17,8 @@ struct CatchSummary: Equatable {
     let gender: Gender?
     let nature: Nature?
     let ivs: IndividualValues
+    let formId: String?
+    let formName: String?
 }
 
 struct NamedPokemon: Equatable {
@@ -32,13 +34,16 @@ struct CatchDetails: Equatable {
     let chanceOfFindingSooner: Double?
     let position: Int?
     let speciesCatchCount: Int
+    let formChoices: FormChoices?
 }
 
 struct CatchSummaryMapper {
     let namesByNumber: [Int: String]
+    let forms: PokemonForms
 
-    init(allPokemon: [Pokemon]) {
+    init(allPokemon: [Pokemon], forms: PokemonForms) {
         namesByNumber = Dictionary(allPokemon.map { ($0.number, $0.name) }, uniquingKeysWith: { first, _ in first })
+        self.forms = forms
     }
 
     func makeSummary(of caught: Catch) -> CatchSummary? {
@@ -59,6 +64,8 @@ struct CatchSummaryMapper {
             nickname: caught.nickname,
             gender: caught.gender,
             nature: caught.nature,
-            ivs: caught.ivs)
+            ivs: caught.ivs,
+            formId: caught.formId,
+            formName: forms.findForm(caught.formId, of: caught.number)?.name)
     }
 }

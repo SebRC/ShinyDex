@@ -214,9 +214,9 @@ class ShinyTrackerVC: UIViewController {
         let huntMethod = pokemon.settings.huntMethod
         let canBeCombinedWithCharm = huntMethod != .Gen2Breeding && huntMethod != .Pokeradar
         if (pokemon.settings.isShinyCharmActive && canBeCombinedWithCharm) {
-            return UIImage(named: "\(huntMethod.rawValue) + Charm")
+            return PixelArt.makeCenteredImage(named: "\(huntMethod.rawValue) + Charm")
         }
-        return UIImage(named: huntMethod.rawValue)
+        return PixelArt.makeCenteredImage(named: huntMethod.rawValue)
     }
 
     fileprivate func setSprite() {

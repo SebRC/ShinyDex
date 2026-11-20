@@ -15,6 +15,28 @@ struct PokemonSummary: Equatable {
     let encounters: Int
 }
 
+struct FormChoice: Equatable {
+    let id: String
+    let name: String
+}
+
+struct FormChoices: Equatable {
+    static let standardName = "Standard"
+
+    let defaultName: String
+    let forms: [FormChoice]
+
+    init?(_ speciesForms: SpeciesForms?) {
+        guard let speciesForms = speciesForms, !speciesForms.alternates.isEmpty else { return nil }
+        defaultName = speciesForms.defaultName ?? FormChoices.standardName
+        forms = speciesForms.alternates.map { FormChoice(id: $0.id, name: $0.name) }
+    }
+
+    func findName(of formId: String?) -> String {
+        return forms.first { $0.id == formId }?.name ?? defaultName
+    }
+}
+
 struct PokemonDetails: Equatable {
     let number: Int
     let name: String

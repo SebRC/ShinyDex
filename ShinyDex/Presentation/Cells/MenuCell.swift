@@ -1,6 +1,8 @@
 import UIKit
 
 class MenuCell: UITableViewCell {
+	static let regionImageSize = CGSize(width: 112, height: 47)
+
 	static let reuseIdentifier = "menuCell"
 
 	let generationImage = UIImageView()
@@ -38,8 +40,8 @@ class MenuCell: UITableViewCell {
 		row.alignment = .center
 		row.spacing = 10
 		contentView.addAutoLayoutSubviews(row)
-		imageWidth = generationImage.widthAnchor.constraint(equalToConstant: 112)
-		imageHeight = generationImage.heightAnchor.constraint(equalToConstant: 47)
+		imageWidth = generationImage.widthAnchor.constraint(equalToConstant: MenuCell.regionImageSize.width)
+		imageHeight = generationImage.heightAnchor.constraint(equalToConstant: MenuCell.regionImageSize.height)
 		NSLayoutConstraint.activate([
 			row.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: -4),
 			row.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
@@ -60,8 +62,8 @@ class MenuCell: UITableViewCell {
 		subtitleLabel.text = subtitle
 		generationImage.image = image
 		let isRegion = progress != nil
-		imageWidth.constant = isRegion ? 112 : 56
-		imageHeight.constant = isRegion ? 47 : 56
+		imageWidth.constant = isRegion ? MenuCell.regionImageSize.width : 56
+		imageHeight.constant = isRegion ? MenuCell.regionImageSize.height : 56
 		progressBar.isHidden = !isRegion
 		progressBar.progress = progress ?? 0
 		accessibilityLabel = "\(title), \(subtitle)"

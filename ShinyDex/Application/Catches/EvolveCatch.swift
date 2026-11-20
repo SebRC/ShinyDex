@@ -6,10 +6,12 @@ struct EvolveCatchCommand {
 }
 
 final class EvolveCatchHandler {
+    private let forms: PokemonForms
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms()) {
+        self.forms = forms
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
     }
@@ -18,6 +20,7 @@ final class EvolveCatchHandler {
         guard let caught = catchRepository.get(id: command.catchId.rawValue) else { throw CatchUpdateError.notFound }
         let previousNumber = caught.number
         let originalNumber = caught.evolvedFrom ?? caught.number
+        caught.formId = forms.carryOver(caught.formId, to: command.targetNumber)
         caught.number = command.targetNumber
         caught.evolvedFrom = originalNumber == command.targetNumber ? nil : originalNumber
         catchRepository.update(caught)

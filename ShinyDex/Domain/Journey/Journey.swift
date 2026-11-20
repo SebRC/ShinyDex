@@ -5,12 +5,14 @@ struct JourneyEntry: Equatable {
     var number: Int
     var catchId: UUID?
     var phaseCatchIds: [UUID]
+    var formId: String?
 
-    init(id: UUID = UUID(), number: Int, catchId: UUID? = nil, phaseCatchIds: [UUID] = []) {
+    init(id: UUID = UUID(), number: Int, catchId: UUID? = nil, phaseCatchIds: [UUID] = [], formId: String? = nil) {
         self.id = id
         self.number = number
         self.catchId = catchId
         self.phaseCatchIds = phaseCatchIds
+        self.formId = formId
     }
 }
 
@@ -38,7 +40,7 @@ class Journey {
     }
 
     func findLinkedCatch(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> Catch? {
-        guard let catchId = entry.catchId, let caught = catchesById[catchId], !caught.isFailed else { return nil }
+        guard let catchId = entry.catchId, let caught = catchesById[catchId], !caught.isFailed, caught.matchesForm(entry.formId) else { return nil }
         return caught
     }
 
@@ -77,6 +79,13 @@ class Journey {
               !entries.contains(where: { $0.catchId == catchId || $0.phaseCatchIds.contains(catchId) }) else { return false }
         entries[index].phaseCatchIds.append(catchId)
         return true
+    }
+
+    func setForm(_ formId: String?, ofEntry entryId: UUID) {
+        guard let index = entries.firstIndex(where: { $0.id == entryId }) else { return }
+        guard entries[index].formId != formId else { return }
+        entries[index].formId = formId
+        entries[index].catchId = nil
     }
 
     func removePhase(_ catchId: UUID, fromEntry entryId: UUID) {

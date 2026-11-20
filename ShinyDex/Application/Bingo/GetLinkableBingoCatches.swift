@@ -6,12 +6,14 @@ struct GetLinkableBingoCatchesQuery {
 }
 
 final class GetLinkableBingoCatchesHandler {
+    private let forms: PokemonForms
     private let bingoBoardRepository: BingoBoardRepository
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let evolutions: Evolutions
 
-    init(bingoBoardRepository: BingoBoardRepository, catchRepository: CatchRepository, pokemonRepository: PokemonRepository, evolutions: Evolutions) {
+    init(bingoBoardRepository: BingoBoardRepository, catchRepository: CatchRepository, pokemonRepository: PokemonRepository, evolutions: Evolutions, forms: PokemonForms = PokemonForms()) {
+        self.forms = forms
         self.bingoBoardRepository = bingoBoardRepository
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
@@ -20,7 +22,7 @@ final class GetLinkableBingoCatchesHandler {
 
     func handle(_ query: GetLinkableBingoCatchesQuery) -> [CatchSummary] {
         guard let board = bingoBoardRepository.find(query.boardId) else { return [] }
-        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll())
+        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms)
         let links = BingoCatchLinks(catches: catchRepository.getAll(), evolutions: evolutions)
         return links.findLinkableCatches(at: query.cellIndex, in: board).compactMap(mapper.makeSummary)
     }

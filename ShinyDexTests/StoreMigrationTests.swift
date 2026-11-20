@@ -40,8 +40,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 7")
     }
 
-    func test_reopeningVersion8_keepsAllData() throws {
+    func test_upgradeFromVersion8_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 8")
+    }
+
+    func test_reopeningVersion9_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 9")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -98,6 +102,7 @@ final class StoreMigrationTests: XCTestCase {
             "game": Games.Scarlet.rawValue, "huntMethod": HuntMethod.Masuda.rawValue, "isShinyCharmActive": true,
             "isFailed": true, "evs": "0,0,0,252,4,252", "evolvedFrom": 280,
             "nickname": "Kirlia fan", "gender": Gender.female.rawValue, "nature": Nature.modest.rawValue, "ivs": "31,0,31,31,31,",
+            "form": "east",
         ])
         insert("JourneyEntity", into: context, values: [
             "id": journeyId, "name": "Hoenn favourites", "createdDate": journeyCreatedDate, "priority": 1,
@@ -204,6 +209,7 @@ final class StoreMigrationTests: XCTestCase {
             XCTAssertNil(caught.nature, file: file, line: line)
             XCTAssertTrue(caught.ivs.isEmpty, file: file, line: line)
         }
+        XCTAssertEqual(caught.formId, oldAttributes["form"] != nil ? "east" : nil, file: file, line: line)
     }
 
     private func assertJourney(in context: NSManagedObjectContext, file: StaticString, line: UInt) {

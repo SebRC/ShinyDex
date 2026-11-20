@@ -16,6 +16,8 @@ class PokeballModalVC: UIViewController {
     fileprivate var hasCatches = false
     fileprivate var caughtBall: String?
     fileprivate var caughtDate = Date()
+    fileprivate var formChoices: FormChoices?
+    fileprivate var selectedFormId: String?
 
     fileprivate let summaryView = UIView()
     fileprivate let datePicker = UIDatePicker()
@@ -24,6 +26,8 @@ class PokeballModalVC: UIViewController {
     fileprivate let outcomeControl = UISegmentedControl(items: ["Caught", "Got away"])
     fileprivate let failedView = UIView()
     fileprivate let dateCaptionLabel = UILabel(fontSize: 15, color: Color.Grey400)
+    fileprivate let spriteView = UIImageView()
+    fileprivate let formButton = UIButton(type: .system)
 
     init(container: AppContainer, number: Int, pokemonName: String, onFinish: @escaping (PokeballPickerResult) -> Void) {
         self.container = container
@@ -42,6 +46,7 @@ class PokeballModalVC: UIViewController {
         let details = container.getPokemonDetails.handle(GetPokemonDetailsQuery(number: number))
         hasCatches = (details?.catchCount ?? 0) > 0
         caughtBall = details?.caughtBall
+        formChoices = container.getPokemonForms.handle(GetPokemonFormsQuery(number: number))
         view.backgroundColor = Color.Grey900
         title = "Log a catch"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
@@ -76,7 +81,7 @@ class PokeballModalVC: UIViewController {
         summaryView.backgroundColor = Color.Grey800
         summaryView.layer.cornerRadius = CornerRadius.standard
 
-        let spriteView = UIImageView(image: UIImage(named: pokemonName.lowercased()))
+        spriteView.image = PokemonSprites.makeImage(pokemonName: pokemonName, formId: selectedFormId)
         spriteView.contentMode = .scaleAspectFit
         spriteView.layer.magnificationFilter = .nearest
         spriteView.isAccessibilityElement = false
@@ -85,6 +90,14 @@ class PokeballModalVC: UIViewController {
         dateCaptionLabel.text = "Date caught"
 
         let labels = UIStackView(arrangedSubviews: [nameLabel, dateCaptionLabel])
+        if formChoices != nil {
+            formButton.tintColor = Color.Orange500
+            formButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+            formButton.contentHorizontalAlignment = .leading
+            formButton.addTarget(self, action: #selector(formButtonPressed), for: .touchUpInside)
+            updateFormButton()
+            labels.insertArrangedSubview(formButton, at: 1)
+        }
         labels.axis = .vertical
         labels.spacing = 2
 
@@ -120,6 +133,24 @@ class PokeballModalVC: UIViewController {
         ])
     }
 
+    fileprivate func updateFormButton() {
+        guard let choices = formChoices else { return }
+        let formName = choices.findName(of: selectedFormId)
+        formButton.setTitle("\(formName) ▾", for: .normal)
+        formButton.accessibilityLabel = "Form"
+        formButton.accessibilityValue = formName
+        spriteView.image = PokemonSprites.makeImage(pokemonName: pokemonName, formId: selectedFormId)
+    }
+
+    @objc fileprivate func formButtonPressed() {
+        guard let choices = formChoices else { return }
+        let picker = FormPicker.make(pokemonName: pokemonName, choices: choices, selectedFormId: selectedFormId) { [weak self] formId in
+            self?.selectedFormId = formId
+            self?.updateFormButton()
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
     @objc fileprivate func dateChanged() {
         caughtDate = datePicker.date
     }
@@ -147,7 +178,7 @@ class PokeballModalVC: UIViewController {
         }
         gridView.onSelect = { [weak self] index in
             guard let self = self else { return }
-            self.container.logCatch.handle(LogCatchCommand(number: self.number, outcome: .caught(ball: self.ballGrid.ballNames[index]), date: self.caughtDate))
+            self.container.logCatch.handle(LogCatchCommand(number: self.number, outcome: .caught(ball: self.ballGrid.ballNames[index]), date: self.caughtDate, formId: self.selectedFormId))
             Haptics.playSuccess()
             self.finish(.loggedCatch)
         }
@@ -202,7 +233,7 @@ class PokeballModalVC: UIViewController {
     }
 
     @objc fileprivate func logFailedPressed() {
-        container.logCatch.handle(LogCatchCommand(number: number, outcome: .gotAway, date: caughtDate))
+        container.logCatch.handle(LogCatchCommand(number: number, outcome: .gotAway, date: caughtDate, formId: selectedFormId))
         Haptics.tap()
         finish(.loggedFailed)
     }

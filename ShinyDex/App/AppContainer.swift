@@ -6,6 +6,7 @@ final class AppContainer {
     let keyValueStore: KeyValueStore
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
+    let forms: PokemonForms
 
     let pokemonRepository: PokemonRepository
     let catchRepository: CatchRepository
@@ -21,6 +22,7 @@ final class AppContainer {
         self.keyValueStore = keyValueStore
         self.locationLinkProvider = locationLinkProvider
         evolutions = EvolutionsLoader.load(from: resourceLoader)
+        forms = PokemonFormsLoader.load(from: resourceLoader)
 
         let context = coreDataStack.viewContext
         pokemonRepository = CoreDataPokemonRepository(managedContext: context)
@@ -45,6 +47,7 @@ final class AppContainer {
     var applyHuntSettingsToAll: ApplyHuntSettingsToAllHandler { ApplyHuntSettingsToAllHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var changeEncounters: ChangeEncountersHandler { ChangeEncountersHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var setIncrement: SetIncrementHandler { SetIncrementHandler(pokemonRepository: pokemonRepository) }
+    var getPokemonForms: GetPokemonFormsHandler { GetPokemonFormsHandler(forms: forms) }
     var getLocationLink: GetLocationLinkHandler { GetLocationLinkHandler(pokemonRepository: pokemonRepository, locationLinkProvider: locationLinkProvider) }
 
     // MARK: Hunts
@@ -60,21 +63,21 @@ final class AppContainer {
 
     // MARK: Catches
 
-    var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
-    var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
-    var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
+    var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
+    var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
+    var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
-    var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
-    var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
-    var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
+    var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
+    var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
+    var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
     var removeLatestCatch: RemoveLatestCatchHandler { RemoveLatestCatchHandler(catchRepository: catchRepository, deleteCatch: deleteCatch) }
 
     // MARK: Journeys
 
     var getJourneys: GetJourneysHandler { GetJourneysHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
-    var getJourneyDetails: GetJourneyDetailsHandler { GetJourneyDetailsHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
-    var getLinkableCatches: GetLinkableCatchesHandler { GetLinkableCatchesHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
+    var getJourneyDetails: GetJourneyDetailsHandler { GetJourneyDetailsHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
+    var getLinkableCatches: GetLinkableCatchesHandler { GetLinkableCatchesHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
     var createJourney: CreateJourneyHandler { CreateJourneyHandler(journeyRepository: journeyRepository) }
     var updateJourney: UpdateJourneyHandler { UpdateJourneyHandler(journeyRepository: journeyRepository) }
     var deleteJourney: DeleteJourneyHandler { DeleteJourneyHandler(journeyRepository: journeyRepository) }
@@ -82,8 +85,8 @@ final class AppContainer {
     // MARK: Bingo
 
     var getBingoBoards: GetBingoBoardsHandler { GetBingoBoardsHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository) }
-    var getBingoBoardDetails: GetBingoBoardDetailsHandler { GetBingoBoardDetailsHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
-    var getLinkableBingoCatches: GetLinkableBingoCatchesHandler { GetLinkableBingoCatchesHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions) }
+    var getBingoBoardDetails: GetBingoBoardDetailsHandler { GetBingoBoardDetailsHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
+    var getLinkableBingoCatches: GetLinkableBingoCatchesHandler { GetLinkableBingoCatchesHandler(bingoBoardRepository: bingoBoardRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
     var createBingoBoard: CreateBingoBoardHandler { CreateBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
     var updateBingoBoard: UpdateBingoBoardHandler { UpdateBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
     var deleteBingoBoard: DeleteBingoBoardHandler { DeleteBingoBoardHandler(bingoBoardRepository: bingoBoardRepository) }
@@ -102,7 +105,7 @@ final class AppContainer {
 
     // MARK: Menu and startup
 
-    var getMenuSummary: GetMenuSummaryHandler { GetMenuSummaryHandler(getHunts: getHunts, getJourneys: getJourneys, getBingoBoards: getBingoBoards, catchRepository: catchRepository) }
+    var getMenuSummary: GetMenuSummaryHandler { GetMenuSummaryHandler(getHunts: getHunts, getJourneys: getJourneys, getBingoBoards: getBingoBoards, getCatches: getCatches, catchRepository: catchRepository) }
     var prepareData: PrepareDataHandler { PrepareDataHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, moveRepository: moveRepository, resourceLoader: resourceLoader, keyValueStore: keyValueStore) }
 
     static func makeLive() -> AppContainer {

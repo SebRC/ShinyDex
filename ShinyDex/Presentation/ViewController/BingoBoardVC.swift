@@ -196,6 +196,9 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         else if (cell.linkableCatchCount > 0) {
             actions.append(SquareAction(title: "Link a catch", symbolName: "link") { [weak self] in self?.pickCatch(for: cell) })
         }
+        if let number = cell.number, let choices = container.getPokemonForms.handle(GetPokemonFormsQuery(number: number)) {
+            actions.append(SquareAction(title: "Form: \(choices.findName(of: cell.formId))", symbolName: "square.stack.3d.up") { [weak self] in self?.pickForm(for: cell, from: choices) })
+        }
         actions.append(SquareAction(title: "Change Pokémon", symbolName: "arrow.triangle.2.circlepath") { [weak self] in self?.presentPlacementPicker(at: index) })
         actions.append(SquareAction(title: "Remove from board", symbolName: "trash", isDestructive: true) { [weak self] in self?.update(.clear(at: index)) })
         return actions
@@ -219,6 +222,13 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
 
     fileprivate func getLinkableCatches(for cell: BingoCellDetails) -> [CatchSummary] {
         return container.getLinkableBingoCatches.handle(GetLinkableBingoCatchesQuery(boardId: boardId, cellIndex: cell.index))
+    }
+
+    fileprivate func pickForm(for cell: BingoCellDetails, from choices: FormChoices) {
+        let picker = FormPicker.make(pokemonName: cell.pokemonName, choices: choices, selectedFormId: cell.formId) { [weak self] formId in
+            self?.update(.setForm(at: cell.index, formId: formId))
+        }
+        navigationController?.pushViewController(picker, animated: true)
     }
 
     fileprivate func pickCatch(for cell: BingoCellDetails) {

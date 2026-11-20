@@ -3,18 +3,33 @@ import UIKit
 struct PickerOption {
 	let title: String
 	var subtitle: String? = nil
+	var image: UIImage? = nil
 }
 
 class OptionPickerTVC: UITableViewController {
+	fileprivate static let imageSize = CGSize(width: 68, height: 56)
+
 	fileprivate let options: [PickerOption]
 	fileprivate let selectedIndex: Int?
-	fileprivate let clearTitle: String
+	fileprivate let clearOption: PickerOption
+	fileprivate let isClearOptionMuted: Bool
 	fileprivate let onPick: (Int?) -> Void
 
 	init(title: String, options: [PickerOption], selectedIndex: Int?, clearTitle: String = "Unknown", onPick: @escaping (Int?) -> Void) {
 		self.options = options
 		self.selectedIndex = selectedIndex
-		self.clearTitle = clearTitle
+		clearOption = PickerOption(title: clearTitle)
+		isClearOptionMuted = true
+		self.onPick = onPick
+		super.init(style: .insetGrouped)
+		self.title = title
+	}
+
+	init(title: String, options: [PickerOption], selectedIndex: Int?, defaultOption: PickerOption, onPick: @escaping (Int?) -> Void) {
+		self.options = options
+		self.selectedIndex = selectedIndex
+		clearOption = defaultOption
+		isClearOptionMuted = false
 		self.onPick = onPick
 		super.init(style: .insetGrouped)
 		self.title = title
@@ -45,9 +60,11 @@ class OptionPickerTVC: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
 		let optionIndex = indexPath.row - 1
-		let option = optionIndex >= 0 ? options[optionIndex] : PickerOption(title: clearTitle)
+		let option = optionIndex >= 0 ? options[optionIndex] : clearOption
 		cell.textLabel?.text = option.title
-		cell.textLabel?.textColor = optionIndex >= 0 ? Color.Grey200 : Color.Grey400
+		cell.textLabel?.textColor = optionIndex < 0 && isClearOptionMuted ? Color.Grey400 : Color.Grey200
+		cell.imageView?.image = option.image?.resized(to: OptionPickerTVC.imageSize)
+		cell.imageView?.layer.magnificationFilter = .nearest
 		cell.detailTextLabel?.text = option.subtitle
 		cell.detailTextLabel?.textColor = Color.Grey400
 		cell.backgroundColor = Color.Grey800

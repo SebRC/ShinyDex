@@ -18,7 +18,7 @@ final class RecordCard: UIControl {
         titleRow.spacing = 5
         titleRow.alignment = .center
 
-        let sprite = UIImageView(image: UIImage(named: caught.pokemonName.lowercased()))
+        let sprite = UIImageView(image: caught.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         let encountersLabel = UILabel(fontSize: 22, weight: .bold, color: Color.Grey100)
@@ -27,7 +27,7 @@ final class RecordCard: UIControl {
         encountersLabel.adjustsFontSizeToFitWidth = true
         encountersLabel.minimumScaleFactor = 0.6
         let detailLabel = UILabel(fontSize: 12, color: Color.Grey400)
-        detailLabel.text = [caught.pokemonName, caught.isFailed ? "got away" : nil, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
+        detailLabel.text = [caught.speciesTitle, caught.isFailed ? "got away" : nil, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
         detailLabel.adjustsFontSizeToFitWidth = true
         detailLabel.minimumScaleFactor = 0.8
 
