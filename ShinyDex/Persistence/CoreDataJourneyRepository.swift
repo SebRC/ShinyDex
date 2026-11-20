@@ -89,9 +89,10 @@ struct StoredJourneyEntry: Codable {
     let id: UUID
     let number: Int
     let catchId: UUID?
+    let phaseCatchIds: [UUID]?
 
     static func encode(_ entries: [JourneyEntry]) -> String {
-        let stored = entries.map { StoredJourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId) }
+        let stored = entries.map { StoredJourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds.isEmpty ? nil : $0.phaseCatchIds) }
         let data = (try? JSONEncoder().encode(stored)) ?? Data()
         return String(data: data, encoding: .utf8) ?? "[]"
     }
@@ -99,7 +100,7 @@ struct StoredJourneyEntry: Codable {
     static func decode(_ json: String?) -> [JourneyEntry]? {
         guard let json = json, !json.isEmpty else { return [] }
         guard let stored = try? JSONDecoder().decode([StoredJourneyEntry].self, from: Data(json.utf8)) else { return nil }
-        return stored.map { JourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId) }
+        return stored.map { JourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds ?? []) }
     }
 
     static func hasUnreadableEntries(_ json: String?) -> Bool {

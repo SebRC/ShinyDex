@@ -7,6 +7,8 @@ struct UpdateJourneyCommand {
         case removeEntry(JourneyEntryID)
         case moveEntry(from: Int, to: Int)
         case link(entry: JourneyEntryID, catchId: CatchID?)
+        case addPhase(entry: JourneyEntryID, catchId: CatchID)
+        case removePhase(entry: JourneyEntryID, catchId: CatchID)
     }
 
     let journeyId: JourneyID
@@ -35,6 +37,10 @@ final class UpdateJourneyHandler {
         case .link(let entryId, let catchId):
             guard let index = journey.entries.firstIndex(where: { $0.id == entryId.rawValue }) else { return }
             journey.entries[index].catchId = catchId?.rawValue
+        case .addPhase(let entryId, let catchId):
+            guard journey.addPhase(catchId.rawValue, toEntry: entryId.rawValue) else { return }
+        case .removePhase(let entryId, let catchId):
+            journey.removePhase(catchId.rawValue, fromEntry: entryId.rawValue)
         }
         journeyRepository.save(journey)
     }

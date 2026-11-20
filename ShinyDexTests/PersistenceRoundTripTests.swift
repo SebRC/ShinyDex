@@ -192,6 +192,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         let journey = Journey(name: "Kanto dream team", priority: 2, numbers: [0, 3, 6])
         let catchId = UUID()
         journey.entries[1].catchId = catchId
+        journey.entries[2].phaseCatchIds = [UUID(), UUID()]
         XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
 
         try store.reopen()

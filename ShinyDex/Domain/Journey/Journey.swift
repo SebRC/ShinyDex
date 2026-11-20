@@ -4,11 +4,13 @@ struct JourneyEntry: Equatable {
 	let id: UUID
 	var number: Int
 	var catchId: UUID?
+	var phaseCatchIds: [UUID]
 
-	init(id: UUID = UUID(), number: Int, catchId: UUID? = nil) {
+	init(id: UUID = UUID(), number: Int, catchId: UUID? = nil, phaseCatchIds: [UUID] = []) {
 		self.id = id
 		self.number = number
 		self.catchId = catchId
+		self.phaseCatchIds = phaseCatchIds
 	}
 }
 
@@ -44,22 +46,45 @@ class Journey {
 		return entries.filter { linkedCatch(for: $0, in: catchesById) != nil }.count
 	}
 
-	func timeline(in catchesById: [UUID: Catch]) -> [(entry: JourneyEntry, caught: Catch)] {
-		let linked = entries.enumerated().compactMap { position, entry in
-			linkedCatch(for: entry, in: catchesById).map { (position: position, entry: entry, caught: $0) }
+	func phases(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> [Catch] {
+		return entry.phaseCatchIds.compactMap { catchesById[$0] }
+	}
+
+	func phaseCount(in catchesById: [UUID: Catch]) -> Int {
+		return entries.reduce(0) { $0 + phases(for: $1, in: catchesById).count }
+	}
+
+	func timeline(in catchesById: [UUID: Catch]) -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] {
+		let steps = entries.flatMap { entry -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] in
+			let phaseSteps = phases(for: entry, in: catchesById).map { (entry: entry, caught: $0, isPhase: true) }
+			let targetStep = linkedCatch(for: entry, in: catchesById).map { [(entry: entry, caught: $0, isPhase: false)] } ?? []
+			return phaseSteps + targetStep
 		}
-		let sorted = linked.sorted { first, second in
-			switch (first.caught.caughtDate, second.caught.caughtDate) {
+		let sorted = steps.enumerated().sorted { first, second in
+			switch (first.element.caught.caughtDate, second.element.caught.caughtDate) {
 			case let (firstDate?, secondDate?) where firstDate != secondDate: return firstDate < secondDate
 			case (.some, nil): return true
 			case (nil, .some): return false
-			default: return first.position < second.position
+			default: return first.offset < second.offset
 			}
 		}
-		return sorted.map { (entry: $0.entry, caught: $0.caught) }
+		return sorted.map { $0.element }
 	}
 
 	func isLinked(_ caught: Catch) -> Bool {
-		return entries.contains { $0.catchId == caught.id }
+		return entries.contains { $0.catchId == caught.id || $0.phaseCatchIds.contains(caught.id) }
+	}
+
+	@discardableResult
+	func addPhase(_ catchId: UUID, toEntry entryId: UUID) -> Bool {
+		guard let index = entries.firstIndex(where: { $0.id == entryId }),
+			  !entries.contains(where: { $0.catchId == catchId || $0.phaseCatchIds.contains(catchId) }) else { return false }
+		entries[index].phaseCatchIds.append(catchId)
+		return true
+	}
+
+	func removePhase(_ catchId: UUID, fromEntry entryId: UUID) {
+		guard let index = entries.firstIndex(where: { $0.id == entryId }) else { return }
+		entries[index].phaseCatchIds.removeAll { $0 == catchId }
 	}
 }
