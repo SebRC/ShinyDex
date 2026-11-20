@@ -48,8 +48,4 @@ class HuntPickerCell: UITableViewCell {
         iconImageView.image = hunt.members.first.flatMap { UIImage(named: $0.name.lowercased()) }
         accessibilityLabel = "\(hunt.name), \(subtitleLabel.text ?? "")"
     }
-
-    func setImageSide(_ side: CGFloat) {
-        imageSizeConstraints.forEach { $0.constant = side }
-    }
 }

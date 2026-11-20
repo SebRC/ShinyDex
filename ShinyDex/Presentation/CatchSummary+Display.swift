@@ -15,8 +15,4 @@ extension CatchSummary {
     var formattedCaughtDate: String? {
         return caughtDate.map { CatchSummary.dateFormatter.string(from: $0) }
     }
-
-    var caughtDateText: String {
-        return formattedCaughtDate ?? "Logged before catch history"
-    }
 }

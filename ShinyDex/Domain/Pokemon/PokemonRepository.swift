@@ -5,5 +5,4 @@ protocol PokemonRepository {
     func get(number: Int) -> Pokemon?
     func insert(_ pokemon: Pokemon)
     func save(_ pokemon: Pokemon)
-    func deleteAll()
 }

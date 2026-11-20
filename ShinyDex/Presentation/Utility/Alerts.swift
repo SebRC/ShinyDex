@@ -68,10 +68,3 @@ fileprivate class TextFieldValidator: NSObject {
         onChange(textField.text ?? "")
     }
 }
-
-extension UIButton {
-    func applyCancelStyle() {
-        backgroundColor = Color.Grey700
-        setTitleColor(Color.Grey200, for: .normal)
-    }
-}

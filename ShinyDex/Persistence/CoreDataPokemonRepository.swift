@@ -43,17 +43,6 @@ final class CoreDataPokemonRepository: PokemonRepository {
         write(pokemon, to: pokemonEntity)
     }
 
-    func deleteAll() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "PokemonEntity")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        do {
-            try managedContext.execute(deleteRequest)
-        }
-        catch let error as NSError {
-            print("An error ocurred when deleting all entities: \(error.localizedDescription)")
-        }
-    }
-
     private func fetchObject(for number: Int) -> NSManagedObject? {
         if let known = Self.identities.getObject(for: number, in: managedContext) {
             return known

@@ -76,9 +76,8 @@ class JourneyTests: XCTestCase {
         let catches = indexById([caughtPhase, fledPhase])
 
         XCTAssertEqual(journey.getPhases(for: journey.entries[0], in: catches).map { $0.id }, [caughtPhase.id, fledPhase.id])
-        XCTAssertEqual(journey.countPhases(in: catches), 2)
-        XCTAssertEqual(journey.countCaught(in: catches), 0)
-        XCTAssertEqual(journey.countPhases(in: indexById([fledPhase])), 1, "A deleted catch drops out of the phases")
+                XCTAssertEqual(journey.countCaught(in: catches), 0)
+        XCTAssertEqual(journey.getPhases(for: journey.entries[0], in: indexById([fledPhase])).map { $0.id }, [fledPhase.id], "A deleted catch drops out of the phases")
     }
 
     func test_aCatchIsLinkedOncePerJourney_asTargetOrPhase() {

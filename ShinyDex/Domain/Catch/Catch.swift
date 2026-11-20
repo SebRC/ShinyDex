@@ -55,23 +55,6 @@ class Catch {
         self.ivs = IndividualValues()
     }
 
-    func restore(from saved: Catch) {
-        caughtBall = saved.caughtBall
-        game = saved.game
-        huntMethod = saved.huntMethod
-        encounters = saved.encounters
-        isShinyCharmActive = saved.isShinyCharmActive
-        caughtDate = saved.caughtDate
-        isFailed = saved.isFailed
-        evs = saved.evs
-        evolvedFrom = saved.evolvedFrom
-        number = saved.number
-        nickname = saved.nickname
-        gender = saved.gender
-        nature = saved.nature
-        ivs = saved.ivs
-    }
-
     static func normalizeNickname(_ nickname: String?) -> String? {
         guard let trimmed = nickname?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else { return nil }
         return String(trimmed.prefix(maximumNicknameLength))

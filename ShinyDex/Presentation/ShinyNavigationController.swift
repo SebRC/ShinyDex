@@ -72,12 +72,6 @@ extension UIButton {
     }
 }
 
-extension UITableView {
-    func findIndexPath(containing view: UIView) -> IndexPath? {
-        return indexPathForRow(at: view.convert(CGPoint(x: view.bounds.midX, y: view.bounds.midY), to: self))
-    }
-}
-
 extension UIView {
     func addAutoLayoutSubviews(_ views: UIView...) {
         for view in views {

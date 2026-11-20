@@ -50,10 +50,6 @@ class Journey {
         return entry.phaseCatchIds.compactMap { catchesById[$0] }
     }
 
-    func countPhases(in catchesById: [UUID: Catch]) -> Int {
-        return entries.reduce(0) { $0 + getPhases(for: $1, in: catchesById).count }
-    }
-
     func makeTimeline(in catchesById: [UUID: Catch]) -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] {
         let steps = entries.flatMap { entry -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] in
             let phaseSteps = getPhases(for: entry, in: catchesById).map { (entry: entry, caught: $0, isPhase: true) }

@@ -33,7 +33,6 @@ class GameSettingsContainer: UIView {
     fileprivate let shinyOddsLabel = UILabel(fontSize: 44, weight: .bold, color: Color.Orange500)
     fileprivate let oddsSummaryLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
     fileprivate let gameImageView = UIImageView()
-    fileprivate let gameSubtitle = UILabel(fontSize: 13, color: Color.Grey400)
     fileprivate let methodsCard = GameSettingsContainer.makeCardStack()
     fileprivate let unavailableHeader = GameSettingsContainer.makeSectionHeader("")
     fileprivate let unavailableCard = GameSettingsContainer.makeCardStack()
@@ -143,15 +142,11 @@ class GameSettingsContainer: UIView {
         gameImageView.contentMode = .scaleAspectFit
         gameImageView.layer.magnificationFilter = .nearest
         gameImageView.isAccessibilityElement = false
-        gameSubtitle.text = "Tap to change"
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 14, weight: .semibold))
         chevron.tintColor = Color.Grey500
         chevron.setContentHuggingPriority(.required, for: .horizontal)
 
-        let labels = UIStackView(arrangedSubviews: [gameTitle, gameSubtitle])
-        labels.axis = .vertical
-        labels.spacing = 2
-        let row = UIStackView(arrangedSubviews: [gameImageView, labels, chevron])
+        let row = UIStackView(arrangedSubviews: [gameImageView, gameTitle, chevron])
         row.alignment = .center
         row.spacing = 12
         row.isUserInteractionEnabled = false
@@ -287,12 +282,6 @@ class GameSettingsContainer: UIView {
         applyToAllButton.setTitleColor(Color.Orange500, for: .normal)
         applyToAllButton.layer.borderColor = Color.Orange500.cgColor
         applyToAllButton.backgroundColor = .clear
-    }
-
-    func setCellColors() {
-        for cell in gameSettingsCells! {
-            cell.setUIColors()
-        }
     }
 
     @objc fileprivate func switchPressed(_ sender: UISwitch) {

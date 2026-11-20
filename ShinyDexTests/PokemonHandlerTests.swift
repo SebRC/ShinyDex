@@ -78,18 +78,15 @@ final class PokemonHandlerTests: XCTestCase {
         }
     }
 
-    func test_pokedex_listsARegionWithCatchCounts_andOtherwiseOnlyCaughtPokemon() {
+    func test_pokedex_listsTheRegionWithCatchCounts() {
         let ivysaur = pokemon.get(number: 1)!
-        ivysaur.caughtBall = "great"
-        pokemon.save(ivysaur)
         catches.insert(Catch(pokemon: ivysaur, caughtBall: "great", caughtDate: nil))
         catches.save()
         let handler = GetPokedexHandler(pokemonRepository: pokemon, catchRepository: catches)
 
-        let caughtList = handler.handle(GetPokedexQuery(region: 99))
+        let kanto = handler.handle(GetPokedexQuery(region: 0))
 
-        XCTAssertFalse(caughtList.isRegion)
-        XCTAssertEqual(caughtList.entries.map { $0.name }, ["Ivysaur"])
-        XCTAssertEqual(caughtList.entries.first?.catchCount, 1)
+        XCTAssertEqual(kanto.entries.map { $0.name }, ["Bulbasaur", "Ivysaur", "Venusaur"])
+        XCTAssertEqual(kanto.entries.map { $0.catchCount }, [0, 1, 0])
     }
 }
