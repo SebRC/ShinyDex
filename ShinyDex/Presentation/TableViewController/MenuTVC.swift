@@ -14,10 +14,11 @@ class MenuTVC: UITableViewController {
         case stats
         case journeys
         case bingo
+        case oddsSimulator
     }
 
     fileprivate let sections: [(title: String, rows: [Int])] = [
-        ("Tracking", [10, 11, 14, 13, 15, 12]),
+        ("Tracking", [10, 11, 14, 13, 16, 15, 12]),
         ("Pokédex", Array(0...9))
     ]
 
@@ -68,6 +69,7 @@ class MenuTVC: UITableViewController {
         case 13: return .stats
         case 14: return .journeys
         case 15: return .bingo
+        case 16: return .oddsSimulator
         default: return .pokedex(generation: index)
         }
     }
@@ -131,6 +133,8 @@ class MenuTVC: UITableViewController {
             return summary.caughtCount == 1 ? "1 shiny caught" : "\(summary.caughtCount.grouped) shinies caught"
         case 12:
             return "Track PP during battles"
+        case 16:
+            return "Chances for any game and method"
         case 13:
             guard let average = summary.averageEncounters else { return "Averages, balls, records and more" }
             return "\(average.grouped) encounters per shiny on average"
@@ -176,6 +180,8 @@ class MenuTVC: UITableViewController {
             viewController = JourneysTVC(container: container)
         case .bingo:
             viewController = BingoBoardsTVC(container: container)
+        case .oddsSimulator:
+            viewController = OddsSimulatorVC(container: container)
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -200,6 +206,8 @@ class MenuTVC: UITableViewController {
             return UIImage.makeSymbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
         case 15:
             return UIImage.makeSymbol("square.grid.3x3.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+        case 16:
+            return UIImage.makeSymbol("percent", pointSize: 20, weight: .bold)?.padded(to: MenuTVC.iconSize)
         default:
             return PixelArt.makeCenteredImage(named: "gen1")
         }

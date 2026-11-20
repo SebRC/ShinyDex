@@ -48,6 +48,7 @@ final class AppContainer {
     var changeEncounters: ChangeEncountersHandler { ChangeEncountersHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var setIncrement: SetIncrementHandler { SetIncrementHandler(pokemonRepository: pokemonRepository) }
     var getPokemonForms: GetPokemonFormsHandler { GetPokemonFormsHandler(forms: forms) }
+    var simulateOdds: SimulateOddsHandler { SimulateOddsHandler(odds: odds, probability: probability) }
     var getLocationLink: GetLocationLinkHandler { GetLocationLinkHandler(pokemonRepository: pokemonRepository, locationLinkProvider: locationLinkProvider) }
 
     // MARK: Hunts
