@@ -15,7 +15,6 @@ class OddsServiceTests: XCTestCase {
     }
 
     func test_differentMethods_defaultOddsForChosenService() throws {
-        // Arrange
 		let pokemon = Pokemon()
 		pokemon.generation = 4
 		pokemon.encounters = 0

@@ -15,15 +15,12 @@ class BundleResourceLoaderTests: XCTestCase {
     }
 
     func test_pokeballText_returnsListOfPokeballs() throws {
-        // Arrange
         let expectedList = ["poke", "none", "beast", "cherish", "dive", "dream", "dusk", "fast", "friend", "great",
         "heal", "heavy", "level", "love", "lure", "luxury", "master", "moon", "nest", "net", "park",
         "premier", "quick", "repeat", "safari", "sport", "timer", "ultra"]
 
-        // Act
         let actualList = resourceLoader.loadLines(ofTextResource: "pokeballs")
 
-        // Assert
         XCTAssertEqual(actualList, expectedList)
     }
 }

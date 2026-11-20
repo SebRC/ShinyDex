@@ -8,7 +8,6 @@ class SerebiiLocationLinkProviderTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         locationUrlService = SerebiiLocationLinkProvider()
-
     }
 
     override func tearDownWithError() throws {
@@ -16,52 +15,39 @@ class SerebiiLocationLinkProviderTests: XCTestCase {
         try super.tearDownWithError()
     }
 
-
     func test_validGeneration_returns() {
-        // Arrange
         let expected = "https://serebii.net/pokedex-dp/093.shtml"
         let (name, number, generation) = ("Gastly", 92, 4)
 
-        // Act
         let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-        // Assert
         XCTAssertEqual(actual, expected)
     }
 
     func test_pokemonNotInGeneration_returnsEarliestPossibleGeneration() {
-        // Arrange
         let expected = "https://serebii.net/pokedex-bw/496.shtml"
         let (name, number, generation) = ("Snivy", 495, 1)
 
-        // Act
         let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-        // Assert
         XCTAssertEqual(actual, expected)
     }
 
     func test_generationIs8_pokemonNameIsPartOfUrl() {
-        // Arrange
         let expected = "https://serebii.net/pokedex-swsh/charmander"
         let (name, number, generation) = ("Charmander", 5, 8)
 
-        // Act
         let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-        // Assert
         XCTAssertEqual(actual, expected)
     }
 
     func test_invalidDexNumber_returnsDefaultGeneration() {
-        // Arrange
         let expected = "https://serebii.net/pokedex-sm/2001.shtml"
         let (name, number, generation) = ("Charmander", 2000, 5)
 
-        // Act
         let actual = locationUrlService.makeLocationURL(forPokemonNamed: name, number: number, generation: generation)
 
-        // Assert
         XCTAssertEqual(actual, expected)
     }
 }

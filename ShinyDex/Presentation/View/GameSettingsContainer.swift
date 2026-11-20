@@ -4,8 +4,7 @@ class GameSettingsContainer: UIView {
     var switchStateService = SwitchStateService()
     var settings: HuntSettings!
     var shinyOdds = 0
-    // The Pokémon these settings belong to; nil when editing settings to apply to every Pokémon.
-    var subjectName: String?
+    var pokemonName: String?
     var preview: ((HuntSettings) -> HuntSettingsPreview)?
     var onSettingsChanged: ((HuntSettings) -> Void)?
     var gameSettingsCells: [GameSettingsCell]?
@@ -267,7 +266,7 @@ class GameSettingsContainer: UIView {
     }
 
     func setExplanationLabelText() {
-        explanationLabel.text = subjectName.map { "Changes here apply to \($0) straight away. Apply to All gives every Pokémon the same game and hunt settings." }
+        explanationLabel.text = pokemonName.map { "Changes here apply to \($0) straight away. Apply to All gives every Pokémon the same game and hunt settings." }
             ?? "These settings don't change any Pokémon on their own. Apply to All gives every Pokémon this game and these hunt settings."
     }
 

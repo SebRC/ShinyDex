@@ -27,10 +27,8 @@ class SwitchStateServiceTests: XCTestCase {
             let huntMethodSwitch = UISwitch()
             huntMethodSwitch.isOn = false
 
-            // Act
             switchStateService.resolveHuntMethodSwitchState(settings: pokemon.settings, huntMethodSwitch: huntMethodSwitch, huntMethod: huntMethodCase.value)
 
-            // Assert
             XCTAssertTrue(huntMethodSwitch.isOn)
             XCTAssertTrue(huntMethodSwitch.isEnabled)
         }
@@ -39,7 +37,6 @@ class SwitchStateServiceTests: XCTestCase {
     fileprivate let gameDoesNotHaveMethodCases: [Games: HuntMethod] = [.Ruby: .Gen2Breeding, .Crystal: .Masuda, .SoulSilver: .Pokeradar, .Sun: .ChainFishing, .Y: .DexNav, .AlphaSapphire: .FriendSafari, .Sword: .SosChaining, .Shield: .Lure]
     
     func test_gameDoesNotHaveMethod_switchIsDisabled() throws {
-        // Arrange
         let pokemon = PokemonFixture()
         
         for huntMethodCase in gameDoesNotHaveMethodCases {
@@ -48,10 +45,8 @@ class SwitchStateServiceTests: XCTestCase {
             let huntMethodSwitch = UISwitch()
             huntMethodSwitch.isOn = true
 
-            // Act
             switchStateService.resolveHuntMethodSwitchState(settings: pokemon.settings, huntMethodSwitch: huntMethodSwitch, huntMethod: huntMethodCase.value)
 
-            // Assert
             XCTAssertFalse(huntMethodSwitch.isOn)
             XCTAssertFalse(huntMethodSwitch.isEnabled)
         }
