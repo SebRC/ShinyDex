@@ -19,7 +19,7 @@ class PokemonSpriteView: UIView {
 			self?.showTapToPlayStill()
 		}
 		addSubview(imageView)
-		tapRecognizer.addTarget(self, action: #selector(playOnce))
+		tapRecognizer.addTarget(self, action: #selector(playAnimationOnce))
 		addGestureRecognizer(tapRecognizer)
 	}
 
@@ -33,8 +33,8 @@ class PokemonSpriteView: UIView {
 		imageView.image = nil
 		if let asset = NSDataAsset(name: name) {
 			if let sprite = FLAnimatedImage(animatedGIFData: asset.data) {
-				// HGSS sprites are encoded to play once, so they wait for a tap; the others loop forever.
-				if sprite.loopCount == 0 && !UIAccessibility.isReduceMotionEnabled {
+				let loopsForever = sprite.loopCount == 0
+				if loopsForever && !UIAccessibility.isReduceMotionEnabled {
 					imageView.animatedImage = sprite
 				}
 				else {
@@ -69,7 +69,7 @@ class PokemonSpriteView: UIView {
 		imageView.image = sprite.posterImage
 	}
 
-	@objc fileprivate func playOnce() {
+	@objc func playAnimationOnce() {
 		guard let sprite = tapToPlaySprite, imageView.animatedImage == nil else { return }
 		imageView.animatedImage = sprite
 	}

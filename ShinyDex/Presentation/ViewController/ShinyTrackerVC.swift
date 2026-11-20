@@ -16,6 +16,7 @@ class ShinyTrackerVC: UIViewController {
     fileprivate let oddsTile = StatTileView(caption: "Shiny odds")
     fileprivate let probabilityTile = StatTileView(caption: "Chance so far")
     fileprivate var addToHuntButton: UIBarButtonItem!
+    fileprivate var hasAppeared = false
 
     fileprivate let container: AppContainer
     fileprivate var pokemon: PokemonDetails
@@ -52,6 +53,14 @@ class ShinyTrackerVC: UIViewController {
         super.viewWillAppear(animated)
         reloadPokemon()
         setCaughtStatus()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if (!hasAppeared && !UIAccessibility.isReduceMotionEnabled) {
+            spriteView.playAnimationOnce()
+        }
+        hasAppeared = true
     }
 
     fileprivate func reloadPokemon() {
