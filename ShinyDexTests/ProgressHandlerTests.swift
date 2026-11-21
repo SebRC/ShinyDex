@@ -7,8 +7,9 @@ final class ProgressHandlerTests: XCTestCase {
     private var hunts: InMemoryHuntRepository!
     private var ledgers: InMemoryEncounterLedgerRepository!
     private var goals: InMemoryYearlyGoalRepository!
+    private var days: InMemoryDailyEncountersRepository!
+    private var now: Date!
     private let bulbasaur = 0, charmander = 1, squirtle = 2
-    private let now = DateComponents(calendar: Calendar(identifier: .gregorian), timeZone: TimeZone(identifier: "UTC"), year: 2026, month: 7, day: 2, hour: 12).date!
     private var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "UTC")!
@@ -21,10 +22,17 @@ final class ProgressHandlerTests: XCTestCase {
         hunts = InMemoryHuntRepository()
         ledgers = InMemoryEncounterLedgerRepository()
         goals = InMemoryYearlyGoalRepository()
+        days = InMemoryDailyEncountersRepository()
+        now = makeDate(day: 2, hour: 12)
+    }
+
+    private func makeDate(day: Int, hour: Int) -> Date {
+        return DateComponents(calendar: calendar, timeZone: calendar.timeZone, year: 2026, month: 7, day: day, hour: hour).date!
     }
 
     private var changeEncountersHandler: ChangeEncountersHandler {
-        return ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: catches, ledgerRepository: ledgers, odds: OddsService(), makeCurrentDate: { self.now })
+        return ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: catches, ledgerRepository: ledgers, dailyEncountersRepository: days, odds: OddsService(),
+                                       calendar: calendar, makeCurrentDate: { self.now })
     }
 
     private func changeEncounters(_ change: ChangeEncountersCommand.Change, of number: Int, times: Int = 1) {
@@ -39,7 +47,7 @@ final class ProgressHandlerTests: XCTestCase {
     }
 
     private func getStatistics() -> CatchStatistics {
-        return GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: ledgers, yearlyGoalRepository: goals,
+        return GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: ledgers, yearlyGoalRepository: goals, dailyEncountersRepository: days,
                                          calendar: calendar, makeCurrentDate: { self.now })
             .handle(GetCatchStatisticsQuery())
     }
@@ -100,6 +108,60 @@ final class ProgressHandlerTests: XCTestCase {
 
         XCTAssertEqual(getStatistics().streaks?.current, 0)
         XCTAssertEqual(getStatistics().streaks?.longest, 5)
+    }
+
+    // MARK: Encounters today
+
+    func test_withNoEncountersToday_theStatsShowZero() {
+        XCTAssertEqual(getStatistics().encountersToday, 0)
+    }
+
+    func test_encountersAcrossEveryHunt_countTowardsToday() {
+        SetIncrementHandler(pokemonRepository: pokemon).handle(SetIncrementCommand(number: charmander, increment: 3))
+
+        changeEncounters(.increment, of: bulbasaur, times: 4)
+        changeEncounters(.increment, of: charmander, times: 2)
+
+        XCTAssertEqual(getStatistics().encountersToday, 10)
+    }
+
+    func test_todayCountsLikeTheStreaks_whenTypingOrTakingOneOff() {
+        changeEncounters(.set(50), of: bulbasaur)
+        changeEncounters(.set(10), of: bulbasaur)
+        changeEncounters(.decrement, of: bulbasaur, times: 2)
+
+        XCTAssertEqual(getStatistics().encountersToday, 48)
+    }
+
+    func test_aNewDay_startsFromZero_andKeepsYesterdaysCount() {
+        changeEncounters(.increment, of: bulbasaur, times: 6)
+        now = makeDate(day: 3, hour: 0)
+
+        XCTAssertEqual(getStatistics().encountersToday, 0)
+
+        changeEncounters(.increment, of: bulbasaur)
+        XCTAssertEqual(getStatistics().encountersToday, 1)
+        XCTAssertEqual(days.getAll(), [DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 2), count: 6),
+                                       DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 3), count: 1)])
+    }
+
+    func test_takingOneOffToday_neverGoesBelowZero() {
+        changeEncounters(.increment, of: bulbasaur, times: 3)
+        now = makeDate(day: 3, hour: 9)
+
+        changeEncounters(.decrement, of: bulbasaur)
+
+        XCTAssertEqual(getStatistics().encountersToday, 0)
+        XCTAssertEqual(getStatistics().streaks?.current, 2)
+    }
+
+    func test_changesThatCountNothing_leaveTodayUntouched() {
+        changeEncounters(.increment, of: bulbasaur, times: 2)
+        log(bulbasaur)
+
+        changeEncounters(.decrement, of: bulbasaur)
+
+        XCTAssertEqual(getStatistics().encountersToday, 2)
     }
 
     // MARK: Logging shinies

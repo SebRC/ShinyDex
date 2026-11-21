@@ -17,7 +17,7 @@ final class PokemonHandlerTests: XCTestCase {
 
     func test_changeEncounters_incrementsByTheStoredIncrement_andNeverGoesBelowZero() {
         SetIncrementHandler(pokemonRepository: pokemon).handle(SetIncrementCommand(number: 0, increment: 5))
-        let change = ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: InMemoryCatchRepository(), ledgerRepository: InMemoryEncounterLedgerRepository(), odds: OddsService())
+        let change = ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: InMemoryCatchRepository(), ledgerRepository: InMemoryEncounterLedgerRepository(), dailyEncountersRepository: InMemoryDailyEncountersRepository(), odds: OddsService())
 
         change.handle(ChangeEncountersCommand(number: 0, change: .increment))
         change.handle(ChangeEncountersCommand(number: 0, change: .increment))

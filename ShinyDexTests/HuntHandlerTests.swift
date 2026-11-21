@@ -47,7 +47,7 @@ final class HuntHandlerTests: XCTestCase {
         let id = create("Starters", [0, 3])
         SetIncrementHandler(pokemonRepository: pokemon).handle(SetIncrementCommand(number: 3, increment: 3))
 
-        IncrementAllInHuntHandler(huntRepository: hunts, changeEncounters: ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: InMemoryCatchRepository(), ledgerRepository: InMemoryEncounterLedgerRepository(), odds: OddsService()))
+        IncrementAllInHuntHandler(huntRepository: hunts, changeEncounters: ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: InMemoryCatchRepository(), ledgerRepository: InMemoryEncounterLedgerRepository(), dailyEncountersRepository: InMemoryDailyEncountersRepository(), odds: OddsService()))
             .handle(IncrementAllInHuntCommand(huntId: id))
 
         XCTAssertEqual(getAllHunts().first?.members.map { $0.encounters }, [1, 3])

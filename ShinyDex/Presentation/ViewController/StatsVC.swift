@@ -56,6 +56,7 @@ class StatsVC: UIViewController {
         }
         addOverview(stats)
         addGoal(stats)
+        addEncountersToday(stats)
         addStreaks(stats)
         addYears(stats)
         addFullOddsLuck(stats)
@@ -154,6 +155,17 @@ class StatsVC: UIViewController {
             Haptics.playSuccess()
             self.reload()
         }
+    }
+
+    fileprivate func addEncountersToday(_ stats: CatchStatistics) {
+        let tile = StatsVC.makeTile(caption: "Encounters", value: stats.encountersToday.grouped, detail: "Across all hunts since midnight") { [weak self] in
+            self?.showEncounterHistory()
+        }
+        addSection("Today", tile)
+    }
+
+    fileprivate func showEncounterHistory() {
+        navigationController?.pushViewController(EncounterHistoryTVC(container: container), animated: true)
     }
 
     fileprivate func addStreaks(_ stats: CatchStatistics) {

@@ -42,6 +42,9 @@ final class CoreDataBackupRepository: BackupRepository {
         if let yearlyGoals = backup.yearlyGoals {
             stageYearlyGoals(yearlyGoals, in: context)
         }
+        if let dailyEncounters = backup.dailyEncounters {
+            CoreDataDailyEncountersRepository(managedContext: context).replaceAll(with: dailyEncounters)
+        }
         if context.hasChanges {
             try context.save()
         }

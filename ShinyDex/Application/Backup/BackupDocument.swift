@@ -102,6 +102,11 @@ struct BackupDocument: Codable {
         let target: Int
     }
 
+    struct DailyEncountersRecord: Codable {
+        let day: String
+        let count: Int
+    }
+
     private struct FormatHeader: Decodable {
         let formatVersion: Int
     }
@@ -116,6 +121,7 @@ struct BackupDocument: Codable {
     let activeMoves: ActiveMovesRecord?
     let encounterLedger: EncounterLedgerRecord?
     let yearlyGoals: [YearlyGoalRecord]?
+    let dailyEncounters: [DailyEncountersRecord]?
 
     func encode() throws -> Data {
         let encoder = JSONEncoder()
@@ -158,7 +164,7 @@ extension BingoBoardSize: Codable {}
 
 extension BackupDocument {
     init(pokemon: [Pokemon], catches: [Catch], hunts: [Hunt], journeys: [Journey], bingoBoards: [BingoBoard], activeMoves: ActiveMoves?,
-         encounterLedger: EncounterLedger?, yearlyGoals: [YearlyGoal], createdDate: Date) {
+         encounterLedger: EncounterLedger?, yearlyGoals: [YearlyGoal], dailyEncounters: [DailyEncounters], createdDate: Date) {
         formatVersion = BackupDocument.currentFormatVersion
         self.createdDate = createdDate
         self.pokemon = pokemon.map {
@@ -189,6 +195,7 @@ extension BackupDocument {
         }
         self.encounterLedger = encounterLedger.map { EncounterLedgerRecord(total: $0.total, trackedSince: $0.trackedSince) }
         self.yearlyGoals = yearlyGoals.map { YearlyGoalRecord(year: $0.year, target: $0.target) }
+        self.dailyEncounters = dailyEncounters.map { DailyEncountersRecord(day: $0.day.isoDate, count: $0.count) }
     }
 
     func makeCatches() -> [Catch] {
@@ -227,6 +234,12 @@ extension BackupDocument {
 
     func makeEncounterLedger() -> EncounterLedger? {
         return encounterLedger.map { EncounterLedger(total: $0.total, trackedSince: $0.trackedSince) }
+    }
+
+    func makeDailyEncounters() -> [DailyEncounters]? {
+        return dailyEncounters.map { records in
+            records.compactMap { record in EncounterDay(isoDate: record.day).map { DailyEncounters(day: $0, count: record.count) } }
+        }
     }
 
     func makeYearlyGoals() -> [YearlyGoal]? {

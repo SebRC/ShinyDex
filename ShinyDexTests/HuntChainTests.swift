@@ -17,7 +17,7 @@ final class HuntChainTests: XCTestCase {
     }
 
     private func changeEncounters(_ change: ChangeEncountersCommand.Change, of number: Int = 0) {
-        ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: InMemoryCatchRepository(), ledgerRepository: InMemoryEncounterLedgerRepository(), odds: OddsService()).handle(ChangeEncountersCommand(number: number, change: change))
+        ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: InMemoryCatchRepository(), ledgerRepository: InMemoryEncounterLedgerRepository(), dailyEncountersRepository: InMemoryDailyEncountersRepository(), odds: OddsService()).handle(ChangeEncountersCommand(number: number, change: change))
     }
 
     private func changeChain(_ change: ChangeChainCommand.Change, of number: Int = 0) {

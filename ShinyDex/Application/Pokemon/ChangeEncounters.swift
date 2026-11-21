@@ -15,15 +15,19 @@ final class ChangeEncountersHandler {
     private let pokemonRepository: PokemonRepository
     private let catchRepository: CatchRepository
     private let ledgerRepository: EncounterLedgerRepository
+    private let dailyEncountersRepository: DailyEncountersRepository
     private let odds: OddsService
+    private let calendar: Calendar
     private let makeCurrentDate: () -> Date
 
-    init(pokemonRepository: PokemonRepository, catchRepository: CatchRepository, ledgerRepository: EncounterLedgerRepository, odds: OddsService,
-         makeCurrentDate: @escaping () -> Date = Date.init) {
+    init(pokemonRepository: PokemonRepository, catchRepository: CatchRepository, ledgerRepository: EncounterLedgerRepository,
+         dailyEncountersRepository: DailyEncountersRepository, odds: OddsService, calendar: Calendar = .current, makeCurrentDate: @escaping () -> Date = Date.init) {
         self.pokemonRepository = pokemonRepository
         self.catchRepository = catchRepository
         self.ledgerRepository = ledgerRepository
+        self.dailyEncountersRepository = dailyEncountersRepository
         self.odds = odds
+        self.calendar = calendar
         self.makeCurrentDate = makeCurrentDate
     }
 
@@ -46,14 +50,25 @@ final class ChangeEncountersHandler {
 
     private func recordInLedger(_ change: ChangeEncountersCommand.Change, from previousEncounters: Int, to encounters: Int) {
         guard encounters != previousEncounters else { return }
-        let ledger = ledgerRepository.get() ?? EncounterLedger(startingOn: makeCurrentDate())
+        let now = makeCurrentDate()
+        let ledger = ledgerRepository.get() ?? EncounterLedger(startingOn: now)
+        let countedChange: Int
         switch change {
         case .increment, .set:
-            ledger.count(encounters - previousEncounters)
+            countedChange = ledger.count(encounters - previousEncounters)
         case .decrement:
             let totalAtLatestFind = DryStreaks.findLatestLedgerTotalAtFind(in: catchRepository.getAll()) ?? 0
-            ledger.uncount(previousEncounters - encounters, keepingAtLeast: totalAtLatestFind)
+            countedChange = ledger.uncount(previousEncounters - encounters, keepingAtLeast: totalAtLatestFind)
         }
         ledgerRepository.save(ledger)
+        recordForToday(countedChange, now: now)
+    }
+
+    private func recordForToday(_ countedChange: Int, now: Date) {
+        guard countedChange != 0 else { return }
+        let today = EncounterDay(containing: now, calendar: calendar)
+        var encounters = dailyEncountersRepository.get(day: today) ?? DailyEncounters(day: today, count: 0)
+        encounters.record(countedChange)
+        dailyEncountersRepository.save(encounters)
     }
 }

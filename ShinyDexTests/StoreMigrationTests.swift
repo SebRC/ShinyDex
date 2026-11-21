@@ -52,8 +52,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 10")
     }
 
-    func test_reopeningVersion11_keepsAllData() throws {
+    func test_upgradeFromVersion11_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 11")
+    }
+
+    func test_reopeningVersion12_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 12")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -125,6 +129,9 @@ final class StoreMigrationTests: XCTestCase {
 
         insert("EncounterLedgerEntity", into: context, values: [
             "total": 4500, "trackedSince": journeyCreatedDate,
+        ])
+        insert("DailyEncounterEntity", into: context, values: [
+            "day": "2026-11-21", "count": 77,
         ])
         insert("YearlyGoalEntity", into: context, values: [
             "year": 2026, "target": 25,
@@ -241,6 +248,9 @@ final class StoreMigrationTests: XCTestCase {
             XCTAssertNil(ledger, "Streaks start untracked after an upgrade", file: file, line: line)
             XCTAssertEqual(goals, [], file: file, line: line)
         }
+        let days = CoreDataDailyEncountersRepository(managedContext: context).getAll()
+        let expectedDays = oldModel.entitiesByName["DailyEncounterEntity"] != nil ? [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 21), count: 77)] : []
+        XCTAssertEqual(days, expectedDays, file: file, line: line)
     }
 
     private func assertJourney(in context: NSManagedObjectContext, file: StaticString, line: UInt) {

@@ -24,7 +24,8 @@ final class RestoreBackupHandler {
             bingoBoards: document.makeBingoBoards(),
             activeMoves: document.makeActiveMoves(),
             encounterLedger: document.makeEncounterLedger(),
-            yearlyGoals: document.makeYearlyGoals())
+            yearlyGoals: document.makeYearlyGoals(),
+            dailyEncounters: document.makeDailyEncounters())
         try backupRepository.replaceAll(with: backup)
     }
 

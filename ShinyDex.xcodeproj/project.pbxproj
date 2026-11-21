@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000E /* EncounterHistoryTests.swift */; };
+		B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000C /* EncounterHistoryTVC.swift */; };
+		B1870000000000000000000B /* DailyEncountersChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000A /* DailyEncountersChartView.swift */; };
+		B18700000000000000000009 /* GetEncounterHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000008 /* GetEncounterHistory.swift */; };
 		2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */; };
 		AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F002 /* HuntRankingView.swift */; };
 		AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F001 /* HuntRankRow.swift */; };
@@ -292,6 +296,9 @@
 		B1860000000000000000000A /* PPPresetPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18600000000000000000009 /* PPPresetPickerTVC.swift */; };
 		B1860000000000000000000C /* PPPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000B /* PPPresetTests.swift */; };
 		B1860000000000000000000E /* ppPresets.json in Resources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000D /* ppPresets.json */; };
+		B18700000000000000000002 /* EncounterDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000001 /* EncounterDay.swift */; };
+		B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000003 /* DailyEncountersRepository.swift */; };
+		B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,6 +312,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B1870000000000000000000E /* EncounterHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTests.swift; sourceTree = "<group>"; };
+		B1870000000000000000000C /* EncounterHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTVC.swift; sourceTree = "<group>"; };
+		B1870000000000000000000A /* DailyEncountersChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEncountersChartView.swift; sourceTree = "<group>"; };
+		B18700000000000000000008 /* GetEncounterHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEncounterHistory.swift; sourceTree = "<group>"; };
 		AB52DE5E000000000000F001 /* HuntRankRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankRow.swift; sourceTree = "<group>"; };
 		AB52DE5E000000000000F002 /* HuntRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankingView.swift; sourceTree = "<group>"; };
 		0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyDateRow.swift; sourceTree = "<group>"; };
@@ -606,6 +617,10 @@
 		B18600000000000000000009 /* PPPresetPickerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPresetPickerTVC.swift; sourceTree = "<group>"; };
 		B1860000000000000000000B /* PPPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPresetTests.swift; sourceTree = "<group>"; };
 		B1860000000000000000000D /* ppPresets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ppPresets.json; sourceTree = "<group>"; };
+		B18700000000000000000001 /* EncounterDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterDay.swift; sourceTree = "<group>"; };
+		B18700000000000000000003 /* DailyEncountersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEncountersRepository.swift; sourceTree = "<group>"; };
+		B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDailyEncountersRepository.swift; sourceTree = "<group>"; };
+		B18700000000000000000007 /* ShinyDex 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 12.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -630,6 +645,7 @@
 		CCF9CB8C702F7D88075BC906 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
+				B1870000000000000000000A /* DailyEncountersChartView.swift */,
 				B17700000000000000000015 /* GoalProgressCard.swift */,
 				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
 				AB52DE5E000000000000F002 /* HuntRankingView.swift */,
@@ -940,6 +956,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B1870000000000000000000E /* EncounterHistoryTests.swift */,
 				B1860000000000000000000B /* PPPresetTests.swift */,
 				B17700000000000000000019 /* ProgressHandlerTests.swift */,
 				B17700000000000000000017 /* DryStreaksTests.swift */,
@@ -1089,6 +1106,7 @@
 		B10C0A00000000000000310C /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */,
 				B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */,
 				B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */,
 				BAC0B000000000000000000F /* CoreDataBackupRepository.swift */,
@@ -1128,6 +1146,7 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B1870000000000000000000C /* EncounterHistoryTVC.swift */,
 				B18600000000000000000009 /* PPPresetPickerTVC.swift */,
 				B12600000000000000000009 /* BingoTemplatePickerTVC.swift */,
 				B1B60A000000000000000015 /* BingoBoardsTVC.swift */,
@@ -1332,6 +1351,8 @@
 		B17700000000000000000001 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				B18700000000000000000003 /* DailyEncountersRepository.swift */,
+				B18700000000000000000001 /* EncounterDay.swift */,
 				B1770000000000000000000D /* YearlyGoalProgress.swift */,
 				B1770000000000000000000B /* YearlyGoalRepository.swift */,
 				B17700000000000000000009 /* YearlyGoal.swift */,
@@ -1345,6 +1366,7 @@
 		B17700000000000000000002 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				B18700000000000000000008 /* GetEncounterHistory.swift */,
 				B1770000000000000000000F /* SetYearlyGoal.swift */,
 			);
 			path = Progress;
@@ -1501,6 +1523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */,
 				B1860000000000000000000C /* PPPresetTests.swift in Sources */,
 				B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */,
 				B17700000000000000000018 /* DryStreaksTests.swift in Sources */,
@@ -1553,6 +1576,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */,
+				B1870000000000000000000B /* DailyEncountersChartView.swift in Sources */,
+				B18700000000000000000009 /* GetEncounterHistory.swift in Sources */,
+				B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */,
+				B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */,
+				B18700000000000000000002 /* EncounterDay.swift in Sources */,
 				B1860000000000000000000A /* PPPresetPickerTVC.swift in Sources */,
 				B18600000000000000000008 /* PPPresetsLoader.swift in Sources */,
 				B18600000000000000000006 /* ApplyPPPreset.swift in Sources */,
@@ -2048,8 +2077,9 @@
 				F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */,
 				F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */,
 				B1770000000000000000001B /* ShinyDex 11.xcdatamodel */,
+				B18700000000000000000007 /* ShinyDex 12.xcdatamodel */,
 			);
-			currentVersion = B1770000000000000000001B /* ShinyDex 11.xcdatamodel */;
+			currentVersion = B18700000000000000000007 /* ShinyDex 12.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

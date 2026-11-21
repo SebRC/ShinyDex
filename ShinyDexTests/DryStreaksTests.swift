@@ -52,6 +52,41 @@ final class DryStreaksTests: XCTestCase {
         XCTAssertEqual(ledger.total, 50)
     }
 
+    func test_ledger_reportsHowMuchItActuallyChanged() {
+        let ledger = makeLedger(total: 105)
+
+        XCTAssertEqual(ledger.count(5), 5)
+        XCTAssertEqual(ledger.count(-3), 0)
+        XCTAssertEqual(ledger.uncount(20, keepingAtLeast: 100), -10)
+    }
+
+    // MARK: Days
+
+    func test_encounterDay_followsTheCalendarsTimeZone() {
+        var tokyo = Calendar(identifier: .gregorian)
+        tokyo.timeZone = TimeZone(identifier: "Asia/Tokyo")!
+        let lateEvening = makeDate(year: 2026, month: 3, day: 1, hour: 20)
+
+        XCTAssertEqual(EncounterDay(containing: lateEvening, calendar: calendar), EncounterDay(year: 2026, month: 3, day: 1))
+        XCTAssertEqual(EncounterDay(containing: lateEvening, calendar: tokyo), EncounterDay(year: 2026, month: 3, day: 2))
+    }
+
+    func test_encounterDay_roundTripsThroughItsIsoDate() {
+        let day = EncounterDay(year: 2026, month: 3, day: 7)
+
+        XCTAssertEqual(day.isoDate, "2026-03-07")
+        XCTAssertEqual(EncounterDay(isoDate: "2026-03-07"), day)
+        XCTAssertNil(EncounterDay(isoDate: "not a day"))
+    }
+
+    func test_dailyEncounters_neverGoBelowZero() {
+        var encounters = DailyEncounters(day: EncounterDay(year: 2026, month: 3, day: 7), count: 2)
+
+        encounters.record(-5)
+
+        XCTAssertEqual(encounters.count, 0)
+    }
+
     // MARK: Streaks
 
     func test_withoutTrackedShinies_bothStreaksAreEverythingCounted() {

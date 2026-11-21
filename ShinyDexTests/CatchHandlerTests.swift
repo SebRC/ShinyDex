@@ -129,7 +129,7 @@ final class CatchHandlerTests: XCTestCase {
         let id = getSpeciesCatches(bulbasaur)[0].id
         try? UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(UpdateCatchCommand(catchId: id, change: .encounters(42)))
 
-        let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository(), yearlyGoalRepository: InMemoryYearlyGoalRepository()).handle(GetCatchStatisticsQuery())
+        let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository(), yearlyGoalRepository: InMemoryYearlyGoalRepository(), dailyEncountersRepository: InMemoryDailyEncountersRepository()).handle(GetCatchStatisticsQuery())
 
         XCTAssertEqual(statistics.foundCount, 1)
         XCTAssertEqual(statistics.shortestHunts.first?.pokemonName, "Bulbasaur")

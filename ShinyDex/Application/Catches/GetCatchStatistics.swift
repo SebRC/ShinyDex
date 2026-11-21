@@ -50,6 +50,7 @@ struct CatchStatistics: Equatable {
     }
 
     let currentYear: Int
+    let encountersToday: Int
     let goal: Goal?
     let streaks: Streaks?
     let foundCount: Int
@@ -82,16 +83,18 @@ final class GetCatchStatisticsHandler {
     private let pokemonRepository: PokemonRepository
     private let ledgerRepository: EncounterLedgerRepository
     private let yearlyGoalRepository: YearlyGoalRepository
+    private let dailyEncountersRepository: DailyEncountersRepository
     private let calendar: Calendar
     private let makeCurrentDate: () -> Date
 
     init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, ledgerRepository: EncounterLedgerRepository, yearlyGoalRepository: YearlyGoalRepository,
-         calendar: Calendar = .current, forms: PokemonForms = PokemonForms(), makeCurrentDate: @escaping () -> Date = Date.init) {
+         dailyEncountersRepository: DailyEncountersRepository, calendar: Calendar = .current, forms: PokemonForms = PokemonForms(), makeCurrentDate: @escaping () -> Date = Date.init) {
         self.forms = forms
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
         self.ledgerRepository = ledgerRepository
         self.yearlyGoalRepository = yearlyGoalRepository
+        self.dailyEncountersRepository = dailyEncountersRepository
         self.calendar = calendar
         self.makeCurrentDate = makeCurrentDate
     }
@@ -104,6 +107,7 @@ final class GetCatchStatisticsHandler {
         let currentYear = calendar.component(.year, from: now)
         return CatchStatistics(
             currentYear: currentYear,
+            encountersToday: dailyEncountersRepository.get(day: EncounterDay(containing: now, calendar: calendar))?.count ?? 0,
             goal: makeGoal(for: currentYear, catches: catches, now: now),
             streaks: ledgerRepository.get().map { GetCatchStatisticsHandler.makeStreaks(DryStreaks(ledger: $0, catches: catches)) },
             foundCount: stats.foundCount,
