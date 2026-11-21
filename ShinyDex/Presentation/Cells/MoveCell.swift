@@ -8,8 +8,8 @@ class MoveCell: UITableViewCell {
     var onIncrement: (() -> Void)?
     var onDecrement: (() -> Void)?
 
-    let decrementButton = UIButton.makeSymbolButton("minus.circle.fill", pointSize: MoveCell.symbolSize)
-    let incrementButton = UIButton.makeSymbolButton("plus.circle.fill", pointSize: MoveCell.symbolSize)
+    let decrementButton = UIButton.makeCounterButton(symbolName: "minus.circle.fill", role: .primary, pointSize: MoveCell.symbolSize)
+    let incrementButton = UIButton.makeCounterButton(symbolName: "plus.circle.fill", role: .secondary, pointSize: MoveCell.symbolSize)
     fileprivate let typeIconView = TypeIconView(size: 36)
     fileprivate let nameLabel = UILabel(style: .body, weight: .semibold, lines: 2)
     fileprivate let typeLabel = UILabel(style: .subheadline, color: Color.textTertiary)

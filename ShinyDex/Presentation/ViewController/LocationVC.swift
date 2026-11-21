@@ -23,8 +23,8 @@ class LocationVC: UIViewController, WKNavigationDelegate {
 		navigationItem.largeTitleDisplayMode = .never
 
 		navigationItem.rightBarButtonItems = [
-			UIBarButtonItem(image: UIImage(systemName: "chevron.right.circle.fill"), style: .plain, target: self, action: #selector(goForward)),
-			UIBarButtonItem(image: UIImage(systemName: "chevron.left.circle.fill"), style: .plain, target: self, action: #selector(goBack))
+			UIBarButtonItem(image: UIImage(systemName: "chevron.right"), style: .plain, target: self, action: #selector(goForward)),
+			UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(goBack))
 		]
 		navigationItem.rightBarButtonItems?[0].accessibilityLabel = "Forward"
 		navigationItem.rightBarButtonItems?[1].accessibilityLabel = "Back a page"

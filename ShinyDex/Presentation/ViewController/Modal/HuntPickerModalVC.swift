@@ -63,6 +63,11 @@ class HuntPickerModalVC: UITableViewController {
         return Section(rawValue: section) == .newHunt ? 1 : hunts.count
     }
 
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return SectionHeaderView.make(for: tableView, title: self.tableView(tableView, titleForHeaderInSection: section))
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return Section(rawValue: section) == .hunts ? "Your hunts" : nil
     }

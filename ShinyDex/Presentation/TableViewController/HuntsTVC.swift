@@ -47,17 +47,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
 
     fileprivate static func makeCreateHuntButton() -> UIButton {
-        var configuration = UIButton.Configuration.filled()
-        configuration.baseBackgroundColor = Color.accent
-        configuration.baseForegroundColor = Color.background
-        configuration.cornerStyle = .fixed
-        configuration.background.cornerRadius = CornerRadius.large
-        configuration.image = UIImage.makeSymbol("plus.circle.fill", pointSize: 20, weight: .semibold)
-        configuration.imagePadding = 8
-        var title = AttributedString("Create Hunt")
-        title.font = UIFont.make(.body, weight: .bold)
-        configuration.attributedTitle = title
-        let button = UIButton(configuration: configuration)
+        let button = UIButton.make(.primary, title: "Create Hunt", symbolName: "plus.circle.fill", symbolSize: 20, cornerRadius: CornerRadius.large)
         button.layer.shadowColor = Color.accent.cgColor
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 10

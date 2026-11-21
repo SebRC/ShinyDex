@@ -144,6 +144,11 @@ class CatchDetailTVC: UITableViewController {
         }
     }
 
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return SectionHeaderView.make(for: tableView, title: self.tableView(tableView, titleForHeaderInSection: section))
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch Section(rawValue: section)! {
         case .details: return "Details"

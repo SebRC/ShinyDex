@@ -1,11 +1,11 @@
 import UIKit
 
 class ShinyTrackerVC: UIViewController {
-    fileprivate let plusButton = UIButton(type: .system)
-    fileprivate let minusButton = UIButton(type: .system)
-    fileprivate let breakChainButton = UIButton(type: .system)
-    fileprivate let chainMinusButton = UIButton(type: .system)
-    fileprivate let chainPlusButton = UIButton(type: .system)
+    fileprivate let plusButton = UIButton.make(.primary, title: "1", symbolName: "plus", typeStyle: .title1, symbolSize: 26, cornerRadius: CornerRadius.large)
+    fileprivate let minusButton = UIButton.make(.secondary, symbolName: "minus", symbolSize: 28, cornerRadius: CornerRadius.large)
+    fileprivate let breakChainButton = UIButton.make(.secondary, symbolName: "arrow.counterclockwise", symbolSize: 20, cornerRadius: CornerRadius.large)
+    fileprivate let chainMinusButton = UIButton.make(.secondary, symbolName: "minus", symbolSize: 20, cornerRadius: CornerRadius.large)
+    fileprivate let chainPlusButton = UIButton.make(.tinted, title: "Chain", symbolName: "link", typeStyle: .body, symbolSize: 18, cornerRadius: CornerRadius.large)
     fileprivate let chainRow = UIStackView()
     fileprivate let buttonStrip = ButtonStrip()
     fileprivate let spriteView = PokemonSpriteView()
@@ -17,8 +17,8 @@ class ShinyTrackerVC: UIViewController {
     fileprivate let caughtBallView = UIImageView()
     fileprivate let caughtLabel = UILabel(style: .footnote, weight: .semibold, color: Color.accent)
     fileprivate let caughtRow = UIStackView()
-    fileprivate let oddsTile = StatTileView(caption: "Shiny odds")
-    fileprivate let probabilityTile = StatTileView(caption: "Chance so far")
+    fileprivate let oddsTile = StatTile(caption: "Shiny odds")
+    fileprivate let probabilityTile = StatTile(caption: "Chance so far")
     fileprivate var addToHuntButton: UIBarButtonItem!
     fileprivate var hasAppeared = false
 
@@ -78,7 +78,6 @@ class ShinyTrackerVC: UIViewController {
         view.backgroundColor = Color.background
 
         setUpHeroView()
-        setUpCounterButtons()
 
         let stats = UIStackView(arrangedSubviews: [oddsTile, probabilityTile])
         stats.distribution = .fillEqually
@@ -163,47 +162,10 @@ class ShinyTrackerVC: UIViewController {
         heroView.isAccessibilityElement = true
     }
 
-    fileprivate func setUpCounterButtons() {
-        minusButton.backgroundColor = Color.surface
-        minusButton.layer.cornerRadius = CornerRadius.large
-        minusButton.tintColor = Color.textPrimary
-        minusButton.setImage(UIImage.makeSymbol("minus", pointSize: 28, weight: .bold), for: .normal)
-
-        breakChainButton.backgroundColor = Color.surface
-        breakChainButton.layer.cornerRadius = CornerRadius.large
-        breakChainButton.tintColor = Color.textPrimary
-        breakChainButton.setImage(UIImage.makeSymbol("arrow.counterclockwise", pointSize: 20, weight: .bold), for: .normal)
-
-        chainMinusButton.backgroundColor = Color.surface
-        chainMinusButton.layer.cornerRadius = CornerRadius.large
-        chainMinusButton.tintColor = Color.textPrimary
-        chainMinusButton.setImage(UIImage.makeSymbol("minus", pointSize: 20, weight: .bold), for: .normal)
-
-        chainPlusButton.backgroundColor = Color.surface
-        chainPlusButton.layer.cornerRadius = CornerRadius.large
-        chainPlusButton.layer.borderWidth = 1.5
-        chainPlusButton.layer.borderColor = Color.accent.cgColor
-        chainPlusButton.tintColor = Color.accent
-        chainPlusButton.setImage(UIImage.makeSymbol("link", pointSize: 18, weight: .bold), for: .normal)
-        chainPlusButton.titleLabel?.font = UIFont.make(.body, weight: .bold)
-        chainPlusButton.setTitleColor(Color.accent, for: .normal)
-        chainPlusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-        chainPlusButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
-
-        plusButton.backgroundColor = Color.accent
-        plusButton.layer.cornerRadius = CornerRadius.large
-        plusButton.tintColor = Color.background
-        plusButton.setImage(UIImage.makeSymbol("plus", pointSize: 26, weight: .bold), for: .normal)
-        plusButton.titleLabel?.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
-        plusButton.setTitleColor(Color.background, for: .normal)
-        plusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-        plusButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
-    }
-
     fileprivate func setUpNavigationItems() {
-        addToHuntButton = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addToHuntPressed))
+        addToHuntButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(addToHuntPressed))
         addToHuntButton.isEnabled = isAddToHuntButtonEnabled()
-        let catchesButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: #selector(catchesButtonPressed))
+        let catchesButton = UIBarButtonItem(image: UIImage(systemName: "sparkles.rectangle.stack"), style: .plain, target: self, action: #selector(catchesButtonPressed))
         catchesButton.accessibilityLabel = "Catches"
         navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton]
     }
@@ -276,8 +238,8 @@ class ShinyTrackerVC: UIViewController {
     fileprivate func resolveEncounterDetails() {
         probabilityTile.setValue(String(format: "%.2f%%", pokemon.probability))
         let luck = HuntLuckText(pokemon: pokemon)
-        probabilityTile.setDetail(luck.chanceDetail)
-        oddsTile.setDetail(luck.oddsDetail)
+        probabilityTile.setDetail(luck.chanceDetail, isEmphasized: true)
+        oddsTile.setDetail(luck.oddsDetail, isEmphasized: true)
         setCounterText(HuntCounterText(pokemon: pokemon))
         setOddsLabelText()
         minusButton.isEnabled = isMinusButtonEnabled()
@@ -285,7 +247,7 @@ class ShinyTrackerVC: UIViewController {
         breakChainButton.isEnabled = pokemon.chain > 0
         chainMinusButton.isEnabled = pokemon.chain > 0
         let chainLabel = HuntCounterText.makeChainLabel(for: pokemon.settings)
-        chainPlusButton.setTitle(chainLabel, for: .normal)
+        chainPlusButton.setStyledTitle(chainLabel, typeStyle: .body)
         chainPlusButton.accessibilityLabel = "Grow the \(chainLabel.lowercased()) by one"
         updateIncrementAccessibility()
     }
@@ -447,66 +409,7 @@ class ShinyTrackerVC: UIViewController {
     fileprivate func setIncrementImage() {
         let symbolName = pokemon.increment > 50 ? "plus.circle" : "\(pokemon.increment).circle"
         buttonStrip.incrementButton.iconView.image = UIImage.makeSymbol(symbolName, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
-        plusButton.setTitle("\(pokemon.increment)", for: .normal)
+        plusButton.setStyledTitle("\(pokemon.increment)", typeStyle: .title1)
         updateIncrementAccessibility()
-    }
-}
-
-fileprivate class StatTileView: UIView {
-    fileprivate let captionLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
-    fileprivate let valueLabel = UILabel(style: .title2, weight: .semibold, lines: 2)
-    fileprivate let detailLabel = UILabel(style: .caption1, weight: .semibold, color: Color.accent, lines: 2)
-    fileprivate var value: String?
-
-    init(caption: String) {
-        super.init(frame: .zero)
-        backgroundColor = Color.surface
-        layer.cornerRadius = CornerRadius.standard
-        isAccessibilityElement = true
-        accessibilityLabel = caption
-        captionLabel.text = caption.uppercased()
-        valueLabel.adjustsFontSizeToFitWidth = true
-        valueLabel.minimumScaleFactor = 0.6
-
-        detailLabel.adjustsFontSizeToFitWidth = true
-        detailLabel.minimumScaleFactor = 0.8
-        detailLabel.isHidden = true
-
-        let stack = UIStackView(arrangedSubviews: [captionLabel, valueLabel, detailLabel])
-        stack.axis = .vertical
-        stack.spacing = 2
-        addAutoLayoutSubviews(stack)
-        stack.pinEdges(to: self, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14))
-        heightAnchor.constraint(greaterThanOrEqualToConstant: 68).isActive = true
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func setValue(_ value: String) {
-        valueLabel.font = UIFont.make(.title2, weight: .semibold, monospacedDigits: true)
-        valueLabel.textColor = Color.textPrimary
-        valueLabel.text = value
-        self.value = value
-        updateAccessibilityValue()
-    }
-
-    func setDetail(_ detail: String?) {
-        detailLabel.text = detail
-        detailLabel.isHidden = detail == nil
-        updateAccessibilityValue()
-    }
-
-    fileprivate func updateAccessibilityValue() {
-        accessibilityValue = [value, detailLabel.isHidden ? nil : detailLabel.text].compactMap { $0 }.joined(separator: ", ")
-    }
-
-    func setMessage(_ message: String) {
-        valueLabel.font = UIFont.make(.subheadline)
-        valueLabel.textColor = Color.textSecondary
-        valueLabel.text = message
-        value = message
-        updateAccessibilityValue()
     }
 }
