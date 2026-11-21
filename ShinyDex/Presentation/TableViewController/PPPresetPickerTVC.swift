@@ -55,6 +55,11 @@ class PPPresetPickerTVC: UITableViewController, UISearchResultsUpdating {
         return sections[section].presets.count
     }
 
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return SectionHeaderView.make(for: tableView, title: self.tableView(tableView, titleForHeaderInSection: section))
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].game
     }

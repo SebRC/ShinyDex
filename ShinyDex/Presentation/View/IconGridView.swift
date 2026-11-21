@@ -193,7 +193,7 @@ class GridPickerVC: UIViewController {
 
 fileprivate class GridHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "gridHeader"
-    let label = UILabel(style: .footnote, color: Color.textTertiary)
+    let label = SectionHeaderLabel(horizontalInset: 0)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

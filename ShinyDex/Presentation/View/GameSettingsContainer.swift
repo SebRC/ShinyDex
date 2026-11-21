@@ -19,7 +19,7 @@ class GameSettingsContainer: UIView {
     let chainFishingCell = GameSettingsCell(title: "Chain fishing", description: "Only available in X, Y, Omega Ruby and Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.ChainFishing.rawValue), tag: 4)
     let dexNavCell = GameSettingsCell(title: "DexNav", description: "Only available in Omega Ruby & Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.DexNav.rawValue), tag: 5)
     let friendSafariCell = GameSettingsCell(title: "Friend Safari", description: "Only available in X and Y", icon: PixelArt.makeCenteredImage(named: HuntMethod.FriendSafari.rawValue), tag: 6)
-    let applyToAllButton = UIButton(type: .system)
+    let applyToAllButton = UIButton.make(.tinted, title: "Apply to All Pokémon", symbolName: "square.stack.3d.down.right", symbolSize: 16)
     let explanationLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
     fileprivate lazy var explanationFooter: UIView = {
         let wrapper = UIView()
@@ -54,13 +54,6 @@ class GameSettingsContainer: UIView {
         let charmCard = GameSettingsContainer.makeCardStack()
         charmCard.stack.addArrangedSubview(shinyCharmCell)
 
-        applyToAllButton.setTitle("Apply to All Pokémon", for: .normal)
-        applyToAllButton.titleLabel?.font = UIFont.make(.body, weight: .semibold)
-        applyToAllButton.setImage(UIImage.makeSymbol("square.stack.3d.down.right", pointSize: 16, weight: .semibold), for: .normal)
-        applyToAllButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-        applyToAllButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
-        applyToAllButton.layer.cornerRadius = CornerRadius.standard
-        applyToAllButton.layer.borderWidth = 1.5
         applyToAllButton.addTarget(self, action: #selector(applyToAllPressed), for: .touchUpInside)
 
         let stack = UIStackView(arrangedSubviews: [
@@ -101,9 +94,7 @@ class GameSettingsContainer: UIView {
     }
 
     fileprivate static func makeSectionHeader(_ text: String) -> SectionHeaderLabel {
-        let label = SectionHeaderLabel()
-        label.text = text.uppercased()
-        return label
+        return SectionHeaderLabel(text: text)
     }
 
     fileprivate func makeOddsCard() -> UIView {
@@ -278,10 +269,6 @@ class GameSettingsContainer: UIView {
 
     func setUIColors() {
         backgroundColor = .clear
-        applyToAllButton.tintColor = Color.accent
-        applyToAllButton.setTitleColor(Color.accent, for: .normal)
-        applyToAllButton.layer.borderColor = Color.accent.cgColor
-        applyToAllButton.backgroundColor = .clear
     }
 
     @objc fileprivate func switchPressed(_ sender: UISwitch) {
@@ -413,29 +400,5 @@ class SettingsCard: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class SectionHeaderLabel: UILabel {
-    fileprivate let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
-
-    init() {
-        super.init(frame: .zero)
-        font = UIFont.make(.footnote, weight: .semibold)
-        textColor = Color.textTertiary
-        accessibilityTraits = .header
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func drawText(in rect: CGRect) {
-        super.drawText(in: rect.inset(by: insets))
-    }
-
-    override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + insets.left + insets.right, height: size.height)
     }
 }

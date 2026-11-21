@@ -36,8 +36,10 @@ class PPCounterTVC: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.register(MoveCell.self, forCellReuseIdentifier: MoveCell.moveReuseIdentifier)
-        restoreAllButton = UIBarButtonItem(title: "Restore All", style: .plain, target: self, action: #selector(restoreAllPressed))
-        let presetsButton = UIBarButtonItem(title: "Presets", style: .plain, target: self, action: #selector(presetsPressed))
+        restoreAllButton = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(restoreAllPressed))
+        restoreAllButton.accessibilityLabel = "Restore all PP"
+        let presetsButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet.rectangle"), style: .plain, target: self, action: #selector(presetsPressed))
+        presetsButton.accessibilityLabel = "Presets"
         navigationItem.rightBarButtonItems = [restoreAllButton, presetsButton]
         setUpPressureCell()
         updateRestoreAllButton()
@@ -65,6 +67,11 @@ class PPCounterTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Section(rawValue: section) == .pressure ? 1 : activeMoves.count
+    }
+
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return SectionHeaderView.make(for: tableView, title: self.tableView(tableView, titleForHeaderInSection: section))
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

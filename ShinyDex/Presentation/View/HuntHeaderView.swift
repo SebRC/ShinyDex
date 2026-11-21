@@ -11,7 +11,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
     fileprivate let chevronImageView = UIImageView(image: UIImage(systemName: "chevron.down"))
     fileprivate let nameLabel = UILabel()
     fileprivate let encountersLabel = UILabel()
-    fileprivate let incrementAllButton = UIButton(type: .system)
+    fileprivate let incrementAllButton = UIButton.make(.pill, title: "All", symbolName: "plus", typeStyle: .subheadline, symbolSize: 13)
     fileprivate var isCollapsed = false
 
     override init(reuseIdentifier: String?) {
@@ -32,6 +32,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
         encountersLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         encountersLabel.adjustsFontForContentSizeCategory = true
         encountersLabel.textColor = Color.textTertiary
+        encountersLabel.numberOfLines = 0
 
         let labels = UIStackView(arrangedSubviews: [nameLabel, encountersLabel])
         labels.axis = .vertical
@@ -49,17 +50,6 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
         toggleControl.accessibilityTraits = .button
         toggleControl.accessibilityHint = "Shows or hides the Pokémon in this hunt."
 
-        var configuration = UIButton.Configuration.filled()
-        configuration.baseBackgroundColor = Color.accent
-        configuration.baseForegroundColor = Color.background
-        configuration.cornerStyle = .capsule
-        configuration.image = UIImage.makeSymbol("plus", pointSize: 13, weight: .bold)
-        configuration.imagePadding = 4
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 14)
-        var title = AttributedString("All")
-        title.font = UIFont.make(.subheadline, weight: .bold)
-        configuration.attributedTitle = title
-        incrementAllButton.configuration = configuration
         incrementAllButton.setContentHuggingPriority(.required, for: .horizontal)
         incrementAllButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         incrementAllButton.addTarget(self, action: #selector(incrementAllPressed), for: .touchUpInside)

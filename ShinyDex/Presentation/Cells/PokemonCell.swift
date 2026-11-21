@@ -9,8 +9,8 @@ class PokemonCell: UITableViewCell {
     let sprite = UIImageView()
     let pokemonName = UILabel(style: .body, weight: .semibold)
     let pokemonNumber = UILabel(style: .footnote, color: Color.textTertiary)
-    let caughtButton = PokemonCell.makeRoundButton(symbol: PokemonCell.logCatchSymbol, tint: Color.accent, background: Color.accentSubtle)
-    let addToCurrentHuntButton = PokemonCell.makeRoundButton(symbol: "plus", tint: Color.textPrimary, background: Color.surfaceRaised)
+    let caughtButton = UIButton.makeRoundButton(.tinted, symbolName: PokemonCell.logCatchSymbol, diameter: PokemonCell.buttonSize)
+    let addToCurrentHuntButton = UIButton.makeRoundButton(.secondary, symbolName: "plus", diameter: PokemonCell.buttonSize)
 
     static let logCatchSymbol = UIImage(systemName: "sparkles") != nil ? "sparkles" : "star.fill"
     fileprivate static let buttonSize: CGFloat = 38
@@ -70,15 +70,6 @@ class PokemonCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    fileprivate static func makeRoundButton(symbol: String, tint: UIColor, background: UIColor) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage.makeSymbol(symbol, pointSize: 16, weight: .bold), for: .normal)
-        button.tintColor = tint
-        button.backgroundColor = background
-        button.layer.cornerRadius = buttonSize / 2
-        return button
     }
 
     func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool) {

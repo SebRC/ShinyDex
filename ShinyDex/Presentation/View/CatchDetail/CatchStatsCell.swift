@@ -3,8 +3,8 @@ import UIKit
 final class CatchStatsCell: UITableViewCell {
     static let reuseIdentifier = "catchStatsCell"
 
-    fileprivate let encountersValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
-    fileprivate let oddsValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
+    fileprivate let encountersTile = StatTile(caption: "Encounters")
+    fileprivate let oddsTile = StatTile(caption: "Odds")
     fileprivate let luckLabel = UILabel(style: .subheadline, weight: .medium, color: Color.accent, lines: 0)
     fileprivate let luckRow = UIStackView()
     fileprivate let luckBanner = UIView()
@@ -15,8 +15,8 @@ final class CatchStatsCell: UITableViewCell {
         selectionStyle = .none
 
         let tiles = UIStackView(arrangedSubviews: [
-            CatchStatsCell.makeTile(caption: "ENCOUNTERS", value: encountersValue),
-            CatchStatsCell.makeTile(caption: "ODDS", value: oddsValue)
+            encountersTile,
+            oddsTile
         ])
         tiles.distribution = .fillEqually
         tiles.spacing = 12
@@ -50,29 +50,9 @@ final class CatchStatsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    fileprivate static func makeTile(caption: String, value: UILabel) -> UIView {
-        let tile = UIView()
-        tile.backgroundColor = Color.surface
-        tile.layer.cornerRadius = CornerRadius.standard
-        tile.isAccessibilityElement = true
-        let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
-        captionLabel.text = caption
-        value.font = UIFont.make(.title2, weight: .bold, monospacedDigits: true)
-        value.adjustsFontSizeToFitWidth = true
-        value.minimumScaleFactor = 0.6
-        let stack = UIStackView(arrangedSubviews: [captionLabel, value])
-        stack.axis = .vertical
-        stack.spacing = 2
-        tile.addAutoLayoutSubviews(stack)
-        stack.pinEdges(to: tile, insets: UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14))
-        return tile
-    }
-
     func configure(encounters: String, odds: String, luck: String?) {
-        encountersValue.text = encounters
-        oddsValue.text = odds
-        encountersValue.superview?.superview?.accessibilityLabel = "Encounters \(encounters)"
-        oddsValue.superview?.superview?.accessibilityLabel = "Odds \(odds)"
+        encountersTile.setValue(encounters)
+        oddsTile.setValue(odds)
         luckLabel.text = luck
         luckBanner.isHidden = luck == nil
     }

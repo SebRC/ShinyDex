@@ -40,12 +40,12 @@ class MenuTVC: UITableViewController {
         title = "Menu"
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.hidesBackButton = true
-        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"), style: .plain, target: self, action: #selector(settingsPressed))
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsPressed))
         settingsButton.accessibilityLabel = "Settings"
         navigationItem.rightBarButtonItem = settingsButton
 
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseIdentifier)
@@ -83,21 +83,7 @@ class MenuTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = sections[section].title
-        label.font = UIFont.preferredFont(forTextStyle: .title3).withWeight(.bold)
-        label.adjustsFontForContentSizeCategory = true
-        label.textColor = Color.Grey200
-        label.accessibilityTraits = .header
-        let container = UIView()
-        container.addAutoLayoutSubviews(label)
-        NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: container.layoutMarginsGuide.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: container.layoutMarginsGuide.trailingAnchor),
-            label.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-            label.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -8)
-        ])
-        return container
+        return SectionHeaderView.make(for: tableView, title: sections[section].title)
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -223,9 +209,9 @@ class MenuTVC: UITableViewController {
         return UIGraphicsImageRenderer(size: canvas.size, format: format).image { context in
             context.cgContext.interpolationQuality = .none
             sprite.draw(in: spriteRect)
-            Color.Grey800.setFill()
+            Color.surface.setFill()
             UIBezierPath(ovalIn: badge).fill()
-            let symbol = UIImage.makeSymbol(badgeSymbolName, pointSize: 13, weight: .bold)?.withTintColor(Color.Orange500, renderingMode: .alwaysOriginal)
+            let symbol = UIImage.makeSymbol(badgeSymbolName, pointSize: 13, weight: .bold)?.withTintColor(Color.accent, renderingMode: .alwaysOriginal)
             if let symbol = symbol {
                 symbol.draw(at: CGPoint(x: badge.midX - symbol.size.width / 2, y: badge.midY - symbol.size.height / 2))
             }

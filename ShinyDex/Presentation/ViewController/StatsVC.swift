@@ -89,12 +89,10 @@ class StatsVC: UIViewController {
     // MARK: Sections
 
     fileprivate func addSection(_ title: String, _ content: UIView, footnote: String? = nil) {
-        let header = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
-        header.text = title.uppercased()
-        header.accessibilityTraits = .header
+        let header = SectionHeaderLabel(text: title, horizontalInset: 4)
         let headerWrapper = UIView()
         headerWrapper.addAutoLayoutSubviews(header)
-        header.pinEdges(to: headerWrapper, insets: UIEdgeInsets(top: 18, left: 4, bottom: 0, right: 4))
+        header.pinEdges(to: headerWrapper, insets: UIEdgeInsets(top: 18, left: 0, bottom: 0, right: 0))
         stack.addArrangedSubview(headerWrapper)
         stack.addArrangedSubview(content)
         if let footnote = footnote {
@@ -110,16 +108,16 @@ class StatsVC: UIViewController {
     fileprivate func addOverview(_ stats: CatchStatistics) {
         let average = stats.averageEncounters.map { $0.grouped } ?? "–"
         let grid = UIStackView(arrangedSubviews: [
-            makeRow(StatsVC.makeTile(caption: "Shinies found", value: stats.foundCount.grouped, highlighted: true),
-                StatsVC.makeTile(caption: "Species caught", value: stats.caughtSpeciesCount.grouped)),
-            makeRow(StatsVC.makeTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRatePercent.map { "\($0)% catch rate" }) { [weak self] in
+            makeRow(StatTile(caption: "Shinies found", value: stats.foundCount.grouped, isValueEmphasized: true),
+                StatTile(caption: "Species caught", value: stats.caughtSpeciesCount.grouped)),
+            makeRow(StatTile(caption: "Caught", value: stats.caughtCount.grouped, detail: stats.catchRatePercent.map { "\($0)% catch rate" }) { [weak self] in
                     self?.showCollection()
                 },
-                StatsVC.makeTile(caption: "Got away", value: stats.failedCount.grouped) { [weak self] in
+                StatTile(caption: "Got away", value: stats.failedCount.grouped) { [weak self] in
                     self?.showCollection(filter: .gotAway)
                 }),
-            makeRow(StatsVC.makeTile(caption: "Encounters", value: stats.totalEncounters.grouped),
-                StatsVC.makeTile(caption: "Avg per shiny", value: average))
+            makeRow(StatTile(caption: "Encounters", value: stats.totalEncounters.grouped),
+                StatTile(caption: "Avg per shiny", value: average))
         ])
         grid.axis = .vertical
         grid.spacing = 10
@@ -132,7 +130,7 @@ class StatsVC: UIViewController {
     fileprivate func addGoal(_ stats: CatchStatistics) {
         let year = stats.currentYear
         guard let goal = stats.goal else {
-            let tile = StatsVC.makeTile(caption: "\(year) goal", value: "Not set", detail: "Tap to choose how many shinies to find") { [weak self] in
+            let tile = StatTile(caption: "\(year) goal", value: "Not set", detail: "Tap to choose how many shinies to find") { [weak self] in
                 self?.editGoal(year: year, target: nil)
             }
             addSection("Yearly goal", tile)
@@ -160,7 +158,7 @@ class StatsVC: UIViewController {
 
     fileprivate func addYearInReview(_ stats: CatchStatistics) {
         let year = stats.currentYear
-        let tile = StatsVC.makeTile(caption: "Year in review", value: "Your \(year)", highlighted: true, detail: "Your year of hunting, card by card") { [weak self] in
+        let tile = StatTile(caption: "Year in review", value: "Your \(year)", detail: "Your year of hunting, card by card", isValueEmphasized: true) { [weak self] in
             guard let self = self else { return }
             self.navigationController?.pushViewController(YearInReviewVC(container: self.container), animated: true)
         }
@@ -168,7 +166,7 @@ class StatsVC: UIViewController {
     }
 
     fileprivate func addEncountersToday(_ stats: CatchStatistics) {
-        let tile = StatsVC.makeTile(caption: "Encounters", value: stats.encountersToday.grouped, detail: "Across all hunts since midnight") { [weak self] in
+        let tile = StatTile(caption: "Encounters", value: stats.encountersToday.grouped, detail: "Across all hunts since midnight") { [weak self] in
             self?.showEncounterHistory()
         }
         addSection("Today", tile)
@@ -179,8 +177,8 @@ class StatsVC: UIViewController {
     }
 
     fileprivate func addStreaks(_ stats: CatchStatistics) {
-        let row = makeRow(StatsVC.makeTile(caption: "Current", value: stats.streaks.map { $0.current.grouped } ?? "–"),
-                          StatsVC.makeTile(caption: "Longest", value: stats.streaks.map { $0.longest.grouped } ?? "–"))
+        let row = makeRow(StatTile(caption: "Current", value: stats.streaks.map { $0.current.grouped } ?? "–"),
+                          StatTile(caption: "Longest", value: stats.streaks.map { $0.longest.grouped } ?? "–"))
         let footnote = stats.streaks.map { "Encounters across all hunts without a shiny, counted since \(StatsVC.formatDay($0.trackedSince))." }
             ?? "Encounters across all hunts without a shiny, counted from your next encounter on."
         addSection("Dry streaks", row, footnote: footnote)
@@ -340,42 +338,4 @@ class StatsVC: UIViewController {
         addSection("Natures", chart, footnote: footnote)
     }
 
-    fileprivate static func makeTile(caption: String, value: String, highlighted: Bool = false, detail: String? = nil, onTap: (() -> Void)? = nil) -> UIView {
-        let tile: UIView = onTap.map { TappableTile(onTap: $0) } ?? UIView()
-        tile.backgroundColor = Color.surface
-        tile.layer.cornerRadius = CornerRadius.standard
-        tile.isAccessibilityElement = true
-        tile.accessibilityLabel = caption
-        tile.accessibilityValue = value
-        let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
-        captionLabel.text = caption.uppercased()
-        let valueLabel = UILabel(style: .title1, weight: .bold, color: highlighted ? Color.accent : Color.textPrimary)
-        valueLabel.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
-        valueLabel.text = value
-        valueLabel.adjustsFontSizeToFitWidth = true
-        valueLabel.minimumScaleFactor = 0.6
-        let stack = UIStackView(arrangedSubviews: [captionLabel, valueLabel])
-        stack.axis = .vertical
-        stack.spacing = 2
-        if let detail = detail {
-            let detailLabel = UILabel(style: .caption1, color: Color.textTertiary)
-            detailLabel.text = detail
-            stack.addArrangedSubview(detailLabel)
-            tile.accessibilityValue = "\(value), \(detail)"
-        }
-        stack.isUserInteractionEnabled = false
-        tile.addAutoLayoutSubviews(stack)
-        stack.pinEdges(to: tile, insets: UIEdgeInsets(top: 12, left: 14, bottom: 12, right: 14))
-        if (onTap != nil) {
-            let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-            chevron.tintColor = Color.textQuaternary
-            tile.addAutoLayoutSubviews(chevron)
-            NSLayoutConstraint.activate([
-                chevron.topAnchor.constraint(equalTo: tile.topAnchor, constant: 13),
-                chevron.trailingAnchor.constraint(equalTo: tile.trailingAnchor, constant: -12)
-            ])
-            tile.accessibilityTraits = .button
-        }
-        return tile
-    }
 }

@@ -250,17 +250,17 @@ fileprivate class CollectionHeader: UICollectionReusableView {
 
     var onSortChanged: ((Int) -> Void)?
 
-    fileprivate let shiniesValue = UILabel(style: .title2, weight: .bold, color: Color.accent)
-    fileprivate let speciesValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
-    fileprivate let encountersValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
+    fileprivate let shiniesTile = StatTile(caption: "Shinies")
+    fileprivate let speciesTile = StatTile(caption: "Species")
+    fileprivate let encountersTile = StatTile(caption: "Encounters")
     fileprivate let sortControl = UISegmentedControl(items: ["Dex order", "Recent"])
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         let tiles = UIStackView(arrangedSubviews: [
-            CollectionHeader.makeTile(caption: "SHINIES", value: shiniesValue),
-            CollectionHeader.makeTile(caption: "SPECIES", value: speciesValue),
-            CollectionHeader.makeTile(caption: "ENCOUNTERS", value: encountersValue)
+            shiniesTile,
+            speciesTile,
+            encountersTile
         ])
         tiles.distribution = .fillEqually
         tiles.spacing = 10
@@ -283,36 +283,11 @@ fileprivate class CollectionHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    fileprivate static func makeTile(caption: String, value: UILabel) -> UIView {
-        let tile = UIView()
-        tile.backgroundColor = Color.surface
-        tile.layer.cornerRadius = CornerRadius.standard
-        tile.isAccessibilityElement = true
-        tile.accessibilityLabel = caption.capitalized
-        let captionLabel = UILabel(style: .caption2, weight: .semibold, color: Color.textTertiary)
-        captionLabel.text = caption
-        captionLabel.adjustsFontSizeToFitWidth = true
-        captionLabel.minimumScaleFactor = 0.8
-        value.font = UIFont.make(.title2, weight: .bold, monospacedDigits: true)
-        value.adjustsFontSizeToFitWidth = true
-        value.minimumScaleFactor = 0.6
-        let stack = UIStackView(arrangedSubviews: [captionLabel, value])
-        stack.axis = .vertical
-        stack.spacing = 2
-        tile.addAutoLayoutSubviews(stack)
-        stack.pinEdges(to: tile, insets: UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12))
-        return tile
-    }
-
     func configure(shiniesCaption: String, shinies: Int, species: Int, encounters: Int, sortIndex: Int) {
-        (shiniesValue.superview as? UIStackView)?.arrangedSubviews.compactMap { $0 as? UILabel }.first?.text = shiniesCaption
-        shiniesValue.superview?.superview?.accessibilityLabel = shiniesCaption.capitalized
-        shiniesValue.text = shinies.grouped
-        speciesValue.text = species.grouped
-        encountersValue.text = encounters.grouped
-        shiniesValue.superview?.superview?.accessibilityValue = shinies.grouped
-        speciesValue.superview?.superview?.accessibilityValue = species.grouped
-        encountersValue.superview?.superview?.accessibilityValue = encounters.grouped
+        shiniesTile.setCaption(shiniesCaption.capitalized)
+        shiniesTile.setValue(shinies.grouped, isEmphasized: true)
+        speciesTile.setValue(species.grouped)
+        encountersTile.setValue(encounters.grouped)
         sortControl.selectedSegmentIndex = sortIndex
     }
 
