@@ -38,7 +38,7 @@ class GameSettingsHostVC: UIViewController {
         gameSettingsContainer.resolveUIObjectsState()
         gameSettingsContainer.setExplanationLabelText()
         gameSettingsContainer.setGame(coverPokemon: GamesList.games[gameSettingsContainer.settings.game]?.coverPokemon ?? "charizard")
-        gameSettingsContainer.onApplyToAll = { [weak self] in self?.confirmApplyToAll() }
+        gameSettingsContainer.onApply = { [weak self] region in self?.confirmApply(toRegion: region) }
         gameSettingsContainer.gameButton.addTarget(self, action: #selector(gameButtonPressed), for: .touchUpInside)
 
         contentStack.axis = .vertical
@@ -73,14 +73,20 @@ class GameSettingsHostVC: UIViewController {
         navigationController?.pushViewController(selector, animated: true)
     }
 
-    fileprivate func confirmApplyToAll() {
+    fileprivate func confirmApply(toRegion region: Int?) {
         let settings = gameSettingsContainer.settings!
-        presentDestructiveConfirmation(title: "Apply to all Pokémon?",
-                                       message: "Every Pokémon will use \(settings.game.displayName) and these hunt settings. Their current settings will be replaced.",
-                                       destructiveTitle: "Apply to All") { [weak self] in
+        let pokemon = region.map { "\(TextResolver().getGenTitle(gen: $0)) Pokémon" } ?? "Pokémon"
+        presentDestructiveConfirmation(title: "Apply to all \(pokemon)?",
+                                       message: "Every \(pokemon) will use \(settings.game.displayName) and these hunt settings. Their current settings will be replaced. Catches aren't changed.",
+                                       destructiveTitle: "Apply") { [weak self] in
             guard let self = self else { return }
-            self.container.applyHuntSettingsToAll.handle(ApplyHuntSettingsToAllCommand(settings: self.gameSettingsContainer.settings))
-            self.popupHandler.showPopup(text: "Game Settings have been applied to all Pokémon.")
+            if let region = region {
+                self.container.applyHuntSettingsToRegion.handle(ApplyHuntSettingsToRegionCommand(settings: settings, region: region))
+            }
+            else {
+                self.container.applyHuntSettingsToAll.handle(ApplyHuntSettingsToAllCommand(settings: settings))
+            }
+            self.popupHandler.showPopup(text: "Game Settings have been applied to all \(pokemon).")
         }
     }
 }

@@ -1,6 +1,12 @@
 import Foundation
 
 enum PokedexRegions {
+    static let all = 0...9
+
+    static func findGeneration(ofRegion region: Int) -> Int {
+        return region < 8 ? region + 1 : region
+    }
+
     static func getNumbers(inRegion region: Int) -> Range<Int>? {
         switch region {
         case 0: return 0..<151

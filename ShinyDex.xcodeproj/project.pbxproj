@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20300000000000000000002 /* ApplyHuntSettingsToRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20300000000000000000001 /* ApplyHuntSettingsToRegion.swift */; };
 		B20200000000000000000027 /* TechniquesInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000026 /* TechniquesInfoTVC.swift */; };
 		B20200000000000000000025 /* LocationsOverviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000024 /* LocationsOverviewTests.swift */; };
 		B20200000000000000000023 /* LocationsOverviewTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000022 /* LocationsOverviewTVC.swift */; };
@@ -355,6 +356,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20300000000000000000001 /* ApplyHuntSettingsToRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyHuntSettingsToRegion.swift; sourceTree = "<group>"; };
 		B20200000000000000000026 /* TechniquesInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechniquesInfoTVC.swift; sourceTree = "<group>"; };
 		B20200000000000000000024 /* LocationsOverviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsOverviewTests.swift; sourceTree = "<group>"; };
 		B20200000000000000000022 /* LocationsOverviewTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsOverviewTVC.swift; sourceTree = "<group>"; };
@@ -1007,6 +1009,7 @@
 				C4A1A0000000000000000001 /* ChangeChain.swift */,
 				F0A1B2000000000000000003 /* GetPokemonForms.swift */,
 				759D1CE442FD135517E1ED30 /* ApplyHuntSettingsToAll.swift */,
+				B20300000000000000000001 /* ApplyHuntSettingsToRegion.swift */,
 				78B33A2D5D2A2AD856B1FE1B /* ChangeEncounters.swift */,
 				683E4E0867F1440ECDEABCDE /* GetAllPokemon.swift */,
 				32FF33EC46495387BCA5DB6F /* GetPokedex.swift */,
@@ -1981,6 +1984,7 @@
 				976627DD6264F773CE23D3E8 /* MoveDTOs.swift in Sources */,
 				96624B9C26634EDD92B48B0E /* SaveActiveMoves.swift in Sources */,
 				49C204CB0C817E202B2D51F2 /* ApplyHuntSettingsToAll.swift in Sources */,
+				B20300000000000000000002 /* ApplyHuntSettingsToRegion.swift in Sources */,
 				3C9354204D03675060E599D5 /* ChangeEncounters.swift in Sources */,
 				EB45740CE883690975FF3ED3 /* GetAllPokemon.swift in Sources */,
 				FA0FEB2EFCC708447BE8E5E3 /* GetPokedex.swift in Sources */,
