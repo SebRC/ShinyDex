@@ -90,4 +90,26 @@ final class PokemonHandlerTests: XCTestCase {
         XCTAssertEqual(kanto.entries.map { $0.name }, ["Bulbasaur", "Ivysaur", "Venusaur"])
         XCTAssertEqual(kanto.entries.map { $0.catchCount }, [0, 1, 0])
     }
+
+    func test_pokedex_filtersByStatus_andKeepsTheRegionTotals() {
+        catches.insert(Catch(pokemon: pokemon.get(number: 1)!, caughtBall: "great", caughtDate: nil))
+        catches.insert(Catch(pokemon: pokemon.get(number: 2)!, caughtBall: "none", caughtDate: nil, isFailed: true))
+        catches.save()
+        let venusaur = pokemon.get(number: 2)!
+        venusaur.isBeingHunted = true
+        pokemon.save(venusaur)
+        let handler = GetPokedexHandler(pokemonRepository: pokemon, catchRepository: catches)
+
+        func names(_ filter: PokedexFilter) -> [String] {
+            return handler.handle(GetPokedexQuery(region: 0, filter: filter)).entries.map { $0.name }
+        }
+
+        XCTAssertEqual(names(.all), ["Bulbasaur", "Ivysaur", "Venusaur"])
+        XCTAssertEqual(names(.notCaught), ["Bulbasaur", "Venusaur"], "One that got away doesn't count as caught")
+        XCTAssertEqual(names(.caught), ["Ivysaur"])
+        XCTAssertEqual(names(.inHunt), ["Venusaur"])
+        let caughtOnly = handler.handle(GetPokedexQuery(region: 0, filter: .caught))
+        XCTAssertEqual(caughtOnly.caughtCount, 1)
+        XCTAssertEqual(caughtOnly.totalCount, 3)
+    }
 }
