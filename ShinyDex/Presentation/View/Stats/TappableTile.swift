@@ -15,7 +15,7 @@ final class TappableTile: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : Color.Grey800
+            backgroundColor = isHighlighted ? Color.surfaceRaised : Color.surface
         }
     }
 

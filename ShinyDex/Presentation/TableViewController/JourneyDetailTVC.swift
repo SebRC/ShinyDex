@@ -56,8 +56,8 @@ class JourneyDetailTVC: UITableViewController {
         moreButton.accessibilityLabel = "More"
         navigationItem.rightBarButtonItems = [moreButton, addButton]
 
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 72
         tableView.register(JourneyEntryCell.self, forCellReuseIdentifier: JourneyEntryCell.reuseIdentifier)
@@ -207,7 +207,7 @@ class JourneyDetailTVC: UITableViewController {
             self?.pickCatch(for: entry)
             done(true)
         }
-        link.backgroundColor = Color.Orange500
+        link.backgroundColor = Color.accent
         return UISwipeActionsConfiguration(actions: [link])
     }
 
@@ -235,7 +235,7 @@ class JourneyDetailTVC: UITableViewController {
         sheet.addAction(UIAlertAction(title: "Log a phase", style: .default) { [weak self] _ in self?.logPhase(for: entry) })
         sheet.addAction(UIAlertAction(title: "Remove from journey", style: .destructive) { [weak self] _ in self?.remove(entry) })
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sheet.view.tintColor = Color.Orange500
+        sheet.view.tintColor = Color.accent
         if let cell = tableView.cellForRow(at: indexPath) {
             sheet.popoverPresentationController?.sourceView = cell
             sheet.popoverPresentationController?.sourceRect = cell.bounds
@@ -349,7 +349,7 @@ class JourneyDetailTVC: UITableViewController {
         }
         sheet.addAction(UIAlertAction(title: "Delete journey", style: .destructive) { [weak self] _ in self?.confirmDelete() })
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sheet.view.tintColor = Color.Orange500
+        sheet.view.tintColor = Color.accent
         sheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItems?.first
         present(sheet, animated: true)
     }

@@ -81,7 +81,7 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 14
-            section.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 11, bottom: 16, trailing: 11)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 15, bottom: 16, trailing: 15)
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: IconGridView.headerKind, alignment: .top)
             header.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
@@ -169,7 +169,7 @@ class GridPickerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         gridView.onSelect = { [weak self] index in
             guard let self = self else { return }
             Haptics.tap()
@@ -193,7 +193,7 @@ class GridPickerVC: UIViewController {
 
 fileprivate class GridHeaderView: UICollectionReusableView {
     static let reuseIdentifier = "gridHeader"
-    let label = UILabel(fontSize: 13, color: Color.Grey400)
+    let label = UILabel(style: .footnote, color: Color.textTertiary)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -212,12 +212,12 @@ fileprivate class GridHeaderView: UICollectionReusableView {
 fileprivate class ActionCell: UICollectionViewCell {
     static let reuseIdentifier = "gridActionCell"
 
-    fileprivate let label = UILabel(fontSize: 17)
+    fileprivate let label = UILabel(style: .body)
     fileprivate let icon = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = Color.Grey800
+        contentView.backgroundColor = Color.surface
         contentView.layer.cornerRadius = CornerRadius.standard
         let row = UIStackView(arrangedSubviews: [icon, label])
         row.spacing = 8
@@ -236,7 +236,7 @@ fileprivate class ActionCell: UICollectionViewCell {
     }
 
     func configure(action: IconGridAction) {
-        let color = action.isDestructive ? Color.Danger400 : Color.Grey200
+        let color = action.isDestructive ? Color.danger : Color.textPrimary
         label.text = action.title
         label.textColor = color
         icon.image = UIImage.makeSymbol(action.symbol, pointSize: 16, weight: .semibold)
@@ -246,7 +246,7 @@ fileprivate class ActionCell: UICollectionViewCell {
 
     override var isHighlighted: Bool {
         didSet {
-            contentView.backgroundColor = isHighlighted ? Color.Grey700 : Color.Grey800
+            contentView.backgroundColor = isHighlighted ? Color.surfaceRaised : Color.surface
         }
     }
 }

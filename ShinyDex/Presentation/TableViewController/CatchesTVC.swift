@@ -20,8 +20,8 @@ class CatchesTVC: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "\(pokemonName) catches"
-		tableView.backgroundColor = Color.Grey900
-		tableView.separatorColor = Color.Grey700
+		tableView.backgroundColor = Color.background
+		tableView.separatorColor = Color.separator
 		tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
 	}
 

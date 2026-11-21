@@ -25,8 +25,8 @@ class EncounterHistoryTVC: UITableViewController {
         super.viewDidLoad()
         title = "Encounter history"
         navigationItem.largeTitleDisplayMode = .never
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.allowsSelection = false
         setUpPeriodControl()
     }
@@ -38,9 +38,9 @@ class EncounterHistoryTVC: UITableViewController {
 
     fileprivate func setUpPeriodControl() {
         periodControl.selectedSegmentIndex = EncounterPeriod.allCases.firstIndex(of: period) ?? 0
-        periodControl.selectedSegmentTintColor = Color.Orange500
-        periodControl.setTitleTextAttributes([.foregroundColor: Color.Grey200], for: .normal)
-        periodControl.setTitleTextAttributes([.foregroundColor: Color.Grey900], for: .selected)
+        periodControl.selectedSegmentTintColor = Color.accent
+        periodControl.setTitleTextAttributes([.foregroundColor: Color.textPrimary], for: .normal)
+        periodControl.setTitleTextAttributes([.foregroundColor: Color.background], for: .selected)
         periodControl.addTarget(self, action: #selector(periodChanged), for: .valueChanged)
         let header = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 52))
         header.addAutoLayoutSubviews(periodControl)
@@ -149,7 +149,7 @@ class EncounterHistoryTVC: UITableViewController {
 
     fileprivate func makeChartCell(entries: [EncounterHistory.Entry]) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let lastIndex = entries.count - 1
         let bars = entries.enumerated().map { index, entry in
             EncounterHistoryChartView.Bar(label: makeChartLabel(for: entry.start, stepsFromCurrent: lastIndex - index),
@@ -165,7 +165,7 @@ class EncounterHistoryTVC: UITableViewController {
 
     fileprivate func makeCalendarCell(weeks: [[EncounterHistory.Entry?]]) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let calendarView = HuntingCalendarView(weeks: weeks)
         cell.contentView.addAutoLayoutSubviews(calendarView)
         calendarView.pinEdges(to: cell.contentView)
@@ -190,10 +190,10 @@ class EncounterHistoryTVC: UITableViewController {
 
     fileprivate func makeValueCell(title: String, value: String) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
-        cell.textLabel?.textColor = Color.Grey200
-        cell.detailTextLabel?.textColor = Color.Grey400
-        cell.detailTextLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 17, weight: .regular)
+        cell.backgroundColor = Color.surface
+        cell.textLabel?.textColor = Color.textPrimary
+        cell.detailTextLabel?.textColor = Color.textTertiary
+        cell.detailTextLabel?.font = UIFont.make(.body, weight: .regular, monospacedDigits: true)
         cell.textLabel?.text = title
         cell.detailTextLabel?.text = value
         return cell

@@ -42,8 +42,8 @@ class OptionPickerTVC: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.largeTitleDisplayMode = .never
-		tableView.backgroundColor = Color.Grey900
-		tableView.separatorColor = Color.Grey700
+		tableView.backgroundColor = Color.background
+		tableView.separatorColor = Color.separator
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -62,16 +62,16 @@ class OptionPickerTVC: UITableViewController {
 		let optionIndex = indexPath.row - 1
 		let option = optionIndex >= 0 ? options[optionIndex] : clearOption
 		cell.textLabel?.text = option.title
-		cell.textLabel?.textColor = optionIndex < 0 && isClearOptionMuted ? Color.Grey400 : Color.Grey200
+		cell.textLabel?.textColor = optionIndex < 0 && isClearOptionMuted ? Color.textTertiary : Color.textPrimary
 		cell.imageView?.image = option.image?.resized(to: OptionPickerTVC.imageSize)
 		cell.imageView?.layer.magnificationFilter = .nearest
 		cell.detailTextLabel?.text = option.subtitle
-		cell.detailTextLabel?.textColor = Color.Grey400
-		cell.backgroundColor = Color.Grey800
+		cell.detailTextLabel?.textColor = Color.textTertiary
+		cell.backgroundColor = Color.surface
 		let selectedBackground = UIView()
-		selectedBackground.backgroundColor = Color.Grey700
+		selectedBackground.backgroundColor = Color.surfaceRaised
 		cell.selectedBackgroundView = selectedBackground
-		cell.tintColor = Color.Orange500
+		cell.tintColor = Color.accent
 		cell.accessoryType = (optionIndex >= 0 ? optionIndex : nil) == selectedIndex ? .checkmark : .none
 		return cell
 	}

@@ -3,9 +3,9 @@ import UIKit
 final class CatchStatsCell: UITableViewCell {
     static let reuseIdentifier = "catchStatsCell"
 
-    fileprivate let encountersValue = UILabel(fontSize: 24, weight: .bold, color: Color.Grey100)
-    fileprivate let oddsValue = UILabel(fontSize: 24, weight: .bold, color: Color.Grey100)
-    fileprivate let luckLabel = UILabel(fontSize: 15, weight: .medium, color: Color.Orange500, lines: 0)
+    fileprivate let encountersValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
+    fileprivate let oddsValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
+    fileprivate let luckLabel = UILabel(style: .subheadline, weight: .medium, color: Color.accent, lines: 0)
     fileprivate let luckRow = UIStackView()
     fileprivate let luckBanner = UIView()
 
@@ -22,7 +22,7 @@ final class CatchStatsCell: UITableViewCell {
         tiles.spacing = 12
 
         let star = UIImageView(image: UIImage.makeSymbol("star.fill", pointSize: 14))
-        star.tintColor = Color.Orange500
+        star.tintColor = Color.accent
         star.contentMode = .center
         star.setContentHuggingPriority(.required, for: .horizontal)
         star.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -34,7 +34,7 @@ final class CatchStatsCell: UITableViewCell {
         luckRow.alignment = .center
         luckRow.isLayoutMarginsRelativeArrangement = true
         luckRow.layoutMargins = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
-        luckBanner.backgroundColor = Color.Orange900
+        luckBanner.backgroundColor = Color.accentSubtle
         luckBanner.layer.cornerRadius = CornerRadius.standard
         luckBanner.addAutoLayoutSubviews(luckRow)
         luckRow.pinEdges(to: luckBanner)
@@ -52,12 +52,12 @@ final class CatchStatsCell: UITableViewCell {
 
     fileprivate static func makeTile(caption: String, value: UILabel) -> UIView {
         let tile = UIView()
-        tile.backgroundColor = Color.Grey800
+        tile.backgroundColor = Color.surface
         tile.layer.cornerRadius = CornerRadius.standard
         tile.isAccessibilityElement = true
-        let captionLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         captionLabel.text = caption
-        value.font = UIFont.monospacedDigitSystemFont(ofSize: 24, weight: .bold)
+        value.font = UIFont.make(.title2, weight: .bold, monospacedDigits: true)
         value.adjustsFontSizeToFitWidth = true
         value.minimumScaleFactor = 0.6
         let stack = UIStackView(arrangedSubviews: [captionLabel, value])

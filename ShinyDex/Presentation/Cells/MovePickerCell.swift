@@ -25,7 +25,7 @@ class TypeIconView: UIView {
 
 	func setType(_ type: String) {
 		imageView.image = UIImage(named: type.lowercased())
-		backgroundColor = MoveTypes.colors[type] ?? Color.Grey600
+		backgroundColor = MoveTypes.colors[type] ?? Color.inactive
 	}
 }
 
@@ -33,15 +33,15 @@ class MovePickerCell: UITableViewCell {
 	static let reuseIdentifier = "movePickerCell"
 
 	fileprivate let typeIconView = TypeIconView(size: 36)
-	fileprivate let nameLabel = UILabel(fontSize: 17, weight: .semibold)
-	fileprivate let detailLabel = UILabel(fontSize: 15, color: Color.Grey400)
-	fileprivate let inUseLabel = UILabel(fontSize: 15, color: Color.Grey500)
+	fileprivate let nameLabel = UILabel(style: .body, weight: .semibold)
+	fileprivate let detailLabel = UILabel(style: .subheadline, color: Color.textTertiary)
+	fileprivate let inUseLabel = UILabel(style: .subheadline, color: Color.textQuaternary)
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		backgroundColor = Color.Grey800
+		backgroundColor = Color.surface
 		let selectedBackground = UIView()
-		selectedBackground.backgroundColor = Color.Grey700
+		selectedBackground.backgroundColor = Color.surfaceRaised
 		selectedBackgroundView = selectedBackground
 		inUseLabel.text = "In use"
 		inUseLabel.setContentHuggingPriority(.required, for: .horizontal)

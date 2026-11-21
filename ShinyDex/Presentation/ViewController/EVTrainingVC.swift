@@ -6,8 +6,8 @@ class EVTrainingVC: UIViewController {
     fileprivate let container: AppContainer
     fileprivate let catchId: CatchID
     fileprivate var caught: CatchSummary
-    fileprivate let totalLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
-    fileprivate let remainingLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let totalLabel = UILabel(style: .largeTitle, weight: .bold, color: Color.textPrimary)
+    fileprivate let remainingLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let totalBar = UIProgressView(progressViewStyle: .default)
     fileprivate let stepControl = UISegmentedControl(items: EVTrainingVC.steps.map { "+\($0)" })
     fileprivate var rows = [EVStatRow]()
@@ -28,7 +28,7 @@ class EVTrainingVC: UIViewController {
         super.viewDidLoad()
         title = "EV training"
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetPressed))
         navigationItem.rightBarButtonItem = resetButton
 
@@ -37,7 +37,7 @@ class EVTrainingVC: UIViewController {
         let stack = UIStackView(arrangedSubviews: [makeTotalCard(), makeStepSection(), makeStatsCard()])
         stack.axis = .vertical
         stack.spacing = 16
-        let footnote = UILabel(fontSize: 12, color: Color.Grey500, lines: 0)
+        let footnote = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
         footnote.text = "Each stat can have up to 252 EVs, and a Pokémon up to 510 in total. Tap a number to type an exact value."
         stack.addArrangedSubview(footnote)
 
@@ -47,8 +47,8 @@ class EVTrainingVC: UIViewController {
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 12),
             stack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
-            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 16),
-            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -16)
+            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: Spacing.screenMargin),
+            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -Spacing.screenMargin)
         ])
         refresh()
     }
@@ -57,18 +57,18 @@ class EVTrainingVC: UIViewController {
 
     fileprivate func makeTotalCard() -> UIView {
         let card = UIView()
-        card.backgroundColor = Color.Grey800
-        card.layer.cornerRadius = 14
+        card.backgroundColor = Color.surface
+        card.layer.cornerRadius = CornerRadius.standard
         let sprite = UIImageView(image: caught.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.isAccessibilityElement = false
-        let caption = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        let caption = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         caption.text = "TOTAL EVS"
-        totalLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 34, weight: .bold)
-        totalBar.progressTintColor = Color.Orange500
-        totalBar.trackTintColor = Color.Grey700
-        totalBar.layer.cornerRadius = 3
+        totalLabel.font = UIFont.make(.largeTitle, weight: .bold, monospacedDigits: true)
+        totalBar.progressTintColor = Color.accent
+        totalBar.trackTintColor = Color.surfaceRaised
+        totalBar.layer.cornerRadius = CornerRadius.tiny
         totalBar.clipsToBounds = true
 
         let labels = UIStackView(arrangedSubviews: [caption, totalLabel, remainingLabel])
@@ -92,16 +92,16 @@ class EVTrainingVC: UIViewController {
     }
 
     fileprivate func makeStepSection() -> UIView {
-        let caption = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+        let caption = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
         caption.text = "EACH TAP ADDS"
         stepControl.selectedSegmentIndex = 0
-        stepControl.selectedSegmentTintColor = Color.Orange500
-        stepControl.backgroundColor = Color.Grey800
-        stepControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .bold)], for: .selected)
-        stepControl.setTitleTextAttributes([.foregroundColor: Color.Grey300, .font: UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .medium)], for: .normal)
+        stepControl.selectedSegmentTintColor = Color.accent
+        stepControl.backgroundColor = Color.surface
+        stepControl.setTitleTextAttributes([.foregroundColor: Color.background, .font: UIFont.make(.subheadline, weight: .bold, monospacedDigits: true)], for: .selected)
+        stepControl.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.subheadline, weight: .medium, monospacedDigits: true)], for: .normal)
         stepControl.heightAnchor.constraint(equalToConstant: 34).isActive = true
         stepControl.accessibilityLabel = "EVs per tap"
-        let hint = UILabel(fontSize: 12, color: Color.Grey500, lines: 0)
+        let hint = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
         hint.text = "1–3 per knockout · 8 with a Power item · 10 per vitamin"
         let stack = UIStackView(arrangedSubviews: [caption, stepControl, hint])
         stack.axis = .vertical
@@ -111,8 +111,8 @@ class EVTrainingVC: UIViewController {
 
     fileprivate func makeStatsCard() -> UIView {
         let card = UIView()
-        card.backgroundColor = Color.Grey800
-        card.layer.cornerRadius = 14
+        card.backgroundColor = Color.surface
+        card.layer.cornerRadius = CornerRadius.standard
         let list = UIStackView()
         list.axis = .vertical
         list.spacing = 14
@@ -199,21 +199,21 @@ fileprivate class EVStatRow: UIView {
     init(stat: Stat) {
         self.stat = stat
         super.init(frame: .zero)
-        let nameLabel = UILabel(fontSize: 15, weight: .semibold)
+        let nameLabel = UILabel(style: .subheadline, weight: .semibold)
         nameLabel.text = stat.name
-        valueButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .bold)
-        valueButton.setTitleColor(Color.Grey100, for: .normal)
+        valueButton.titleLabel?.font = UIFont.make(.subheadline, weight: .bold, monospacedDigits: true)
+        valueButton.setTitleColor(Color.textPrimary, for: .normal)
         valueButton.contentHorizontalAlignment = .right
         valueButton.addTarget(self, action: #selector(valueTapped), for: .touchUpInside)
-        bar.trackTintColor = Color.Grey700
-        bar.layer.cornerRadius = 3
+        bar.trackTintColor = Color.surfaceRaised
+        bar.layer.cornerRadius = CornerRadius.tiny
         bar.clipsToBounds = true
 
         for (button, symbol, direction) in [(minusButton, "minus", -1), (plusButton, "plus", 1)] {
             button.setImage(UIImage.makeSymbol(symbol, pointSize: 15, weight: .bold), for: .normal)
-            button.tintColor = Color.Grey200
-            button.backgroundColor = Color.Grey700
-            button.layer.cornerRadius = 18
+            button.tintColor = Color.textPrimary
+            button.backgroundColor = Color.surfaceRaised
+            button.layer.cornerRadius = CornerRadius.capsule(height: 36)
             button.tag = direction
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
             button.widthAnchor.constraint(equalToConstant: 36).isActive = true
@@ -244,7 +244,7 @@ fileprivate class EVStatRow: UIView {
         valueButton.accessibilityLabel = "\(stat.name), \(value) EVs"
         valueButton.accessibilityHint = "Type an exact value."
         bar.progress = Float(value) / Float(EffortValues.maximumPerStat)
-        bar.progressTintColor = value >= EffortValues.maximumPerStat ? Color.Orange500 : Color.Success500
+        bar.progressTintColor = value >= EffortValues.maximumPerStat ? Color.accent : Color.success
         minusButton.isEnabled = value > 0
         plusButton.isEnabled = canIncrease
         minusButton.alpha = minusButton.isEnabled ? 1 : 0.4

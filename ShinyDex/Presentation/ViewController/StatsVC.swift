@@ -18,7 +18,7 @@ class StatsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Stats"
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         stack.axis = .vertical
         stack.spacing = 6
         huntRanking.onSelect = { [weak self] hunt in
@@ -30,8 +30,8 @@ class StatsVC: UIViewController {
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 8),
             stack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
-            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 16),
-            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -16)
+            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: Spacing.screenMargin),
+            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -Spacing.screenMargin)
         ])
     }
 
@@ -89,7 +89,7 @@ class StatsVC: UIViewController {
     // MARK: Sections
 
     fileprivate func addSection(_ title: String, _ content: UIView, footnote: String? = nil) {
-        let header = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+        let header = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
         header.text = title.uppercased()
         header.accessibilityTraits = .header
         let headerWrapper = UIView()
@@ -98,7 +98,7 @@ class StatsVC: UIViewController {
         stack.addArrangedSubview(headerWrapper)
         stack.addArrangedSubview(content)
         if let footnote = footnote {
-            let label = UILabel(fontSize: 12, color: Color.Grey500, lines: 0)
+            let label = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
             label.text = footnote
             let wrapper = UIView()
             wrapper.addAutoLayoutSubviews(label)
@@ -214,7 +214,7 @@ class StatsVC: UIViewController {
     fileprivate func addFullOddsLuck(_ stats: CatchStatistics) {
         guard let lifetimeLuck = stats.lifetimeLuck else { return }
         let card = UIView()
-        card.backgroundColor = Color.Grey800
+        card.backgroundColor = Color.surface
         card.layer.cornerRadius = CornerRadius.standard
         card.clipsToBounds = true
         let list = UIStackView()
@@ -259,7 +259,7 @@ class StatsVC: UIViewController {
     fileprivate func addLuckiestDates(_ stats: CatchStatistics) {
         guard !stats.luckiestDates.isEmpty else { return }
         let card = UIView()
-        card.backgroundColor = Color.Grey800
+        card.backgroundColor = Color.surface
         card.layer.cornerRadius = CornerRadius.standard
         card.clipsToBounds = true
         let list = UIStackView()
@@ -309,7 +309,7 @@ class StatsVC: UIViewController {
     fileprivate func addUsage(title: String, rows: [UsageRow], total: Int) {
         guard !rows.isEmpty else { return }
         let card = UIView()
-        card.backgroundColor = Color.Grey800
+        card.backgroundColor = Color.surface
         card.layer.cornerRadius = CornerRadius.standard
         card.clipsToBounds = true
         let list = UIStackView()
@@ -342,15 +342,15 @@ class StatsVC: UIViewController {
 
     fileprivate static func makeTile(caption: String, value: String, highlighted: Bool = false, detail: String? = nil, onTap: (() -> Void)? = nil) -> UIView {
         let tile: UIView = onTap.map { TappableTile(onTap: $0) } ?? UIView()
-        tile.backgroundColor = Color.Grey800
+        tile.backgroundColor = Color.surface
         tile.layer.cornerRadius = CornerRadius.standard
         tile.isAccessibilityElement = true
         tile.accessibilityLabel = caption
         tile.accessibilityValue = value
-        let captionLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         captionLabel.text = caption.uppercased()
-        let valueLabel = UILabel(fontSize: 26, weight: .bold, color: highlighted ? Color.Orange500 : Color.Grey100)
-        valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 26, weight: .bold)
+        let valueLabel = UILabel(style: .title1, weight: .bold, color: highlighted ? Color.accent : Color.textPrimary)
+        valueLabel.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
         valueLabel.text = value
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.6
@@ -358,7 +358,7 @@ class StatsVC: UIViewController {
         stack.axis = .vertical
         stack.spacing = 2
         if let detail = detail {
-            let detailLabel = UILabel(fontSize: 12, color: Color.Grey400)
+            let detailLabel = UILabel(style: .caption1, color: Color.textTertiary)
             detailLabel.text = detail
             stack.addArrangedSubview(detailLabel)
             tile.accessibilityValue = "\(value), \(detail)"
@@ -368,7 +368,7 @@ class StatsVC: UIViewController {
         stack.pinEdges(to: tile, insets: UIEdgeInsets(top: 12, left: 14, bottom: 12, right: 14))
         if (onTap != nil) {
             let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-            chevron.tintColor = Color.Grey500
+            chevron.tintColor = Color.textQuaternary
             tile.addAutoLayoutSubviews(chevron)
             NSLayoutConstraint.activate([
                 chevron.topAnchor.constraint(equalTo: tile.topAnchor, constant: 13),

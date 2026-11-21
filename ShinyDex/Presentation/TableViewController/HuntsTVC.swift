@@ -39,7 +39,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.register(HuntHeaderView.self, forHeaderFooterViewReuseIdentifier: HuntHeaderView.reuseIdentifier)
         tableView.estimatedSectionHeaderHeight = 64
         tableView.sectionHeaderHeight = UITableView.automaticDimension
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         navigationItem.title = "Hunts"
         createHuntButton.accessibilityLabel = "Create hunt"
         moreButton.accessibilityLabel = "More"
@@ -48,16 +48,17 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     fileprivate static func makeCreateHuntButton() -> UIButton {
         var configuration = UIButton.Configuration.filled()
-        configuration.baseBackgroundColor = Color.Orange500
-        configuration.baseForegroundColor = Color.Grey900
-        configuration.cornerStyle = .large
+        configuration.baseBackgroundColor = Color.accent
+        configuration.baseForegroundColor = Color.background
+        configuration.cornerStyle = .fixed
+        configuration.background.cornerRadius = CornerRadius.large
         configuration.image = UIImage.makeSymbol("plus.circle.fill", pointSize: 20, weight: .semibold)
         configuration.imagePadding = 8
         var title = AttributedString("Create Hunt")
-        title.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        title.font = UIFont.make(.body, weight: .bold)
         configuration.attributedTitle = title
         let button = UIButton(configuration: configuration)
-        button.layer.shadowColor = Color.Orange500.cgColor
+        button.layer.shadowColor = Color.accent.cgColor
         button.layer.shadowOpacity = 0.25
         button.layer.shadowRadius = 10
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -107,8 +108,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     fileprivate func setColors() {
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
     }
     
     fileprivate func setEncounters() {
@@ -123,7 +124,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let label = (tableView.tableHeaderView as? UILabel) ?? UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = Color.Grey400
+        label.textColor = Color.textTertiary
         label.text = totalEncounters == 1 ? "1 encounter across all hunts" : "\(totalEncounters.grouped) encounters across all hunts"
         label.accessibilityTraits = .header
         let height = label.font.lineHeight + 8
@@ -279,7 +280,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         deleteAction.title = "Remove"
         deleteAction.image = UIImage(systemName: "minus.circle.fill")
-        deleteAction.backgroundColor = .systemRed
+        deleteAction.backgroundColor = Color.danger
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 
@@ -299,7 +300,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
     }
     
     fileprivate func clearAllHunts() {

@@ -30,7 +30,7 @@ class BackupSettingsView: UIView {
     fileprivate static func makeSeparator() -> UIView {
         let line = UIView()
         let hairline = UIView()
-        hairline.backgroundColor = Color.Grey700
+        hairline.backgroundColor = Color.separator
         line.addAutoLayoutSubviews(hairline)
         NSLayoutConstraint.activate([
             line.heightAnchor.constraint(equalToConstant: 1),
@@ -45,18 +45,18 @@ class BackupSettingsView: UIView {
 
 class BackupActionRow: UIControl {
     fileprivate let iconImageView = UIImageView()
-    fileprivate let titleLabel = UILabel(fontSize: 17, weight: .semibold, color: Color.Grey200)
-    fileprivate let descriptionLabel = UILabel(fontSize: 13, color: Color.Grey400, lines: 0)
+    fileprivate let titleLabel = UILabel(style: .body, weight: .semibold, color: Color.textPrimary)
+    fileprivate let descriptionLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
 
     init(title: String, description: String, symbolName: String) {
         super.init(frame: .zero)
         titleLabel.text = title
         descriptionLabel.text = description
         iconImageView.image = UIImage.makeSymbol(symbolName, pointSize: 20, weight: .medium)
-        iconImageView.tintColor = Color.Orange500
+        iconImageView.tintColor = Color.accent
         iconImageView.contentMode = .center
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 13, weight: .semibold))
-        chevron.tintColor = Color.Grey500
+        chevron.tintColor = Color.textQuaternary
         chevron.setContentHuggingPriority(.required, for: .horizontal)
 
         let labels = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
@@ -81,7 +81,7 @@ class BackupActionRow: UIControl {
 
     func setDescription(_ description: String, isWarning: Bool = false) {
         descriptionLabel.text = description
-        descriptionLabel.textColor = isWarning ? Color.Orange500 : Color.Grey400
+        descriptionLabel.textColor = isWarning ? Color.danger : Color.textTertiary
         accessibilityHint = description
     }
 
@@ -90,6 +90,6 @@ class BackupActionRow: UIControl {
     }
 
     override var isHighlighted: Bool {
-        didSet { backgroundColor = isHighlighted ? Color.Grey700 : .clear }
+        didSet { backgroundColor = isHighlighted ? Color.surfaceRaised : .clear }
     }
 }

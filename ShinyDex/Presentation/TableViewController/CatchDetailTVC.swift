@@ -68,8 +68,8 @@ class CatchDetailTVC: UITableViewController {
         super.viewDidLoad()
         title = caught.isFailed ? "\(caught.pokemonName) (got away)" : caught.pokemonName
         navigationItem.largeTitleDisplayMode = .never
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 56
         tableView.register(CatchHeroCell.self, forCellReuseIdentifier: CatchHeroCell.reuseIdentifier)
@@ -197,14 +197,14 @@ class CatchDetailTVC: UITableViewController {
 
     fileprivate func makeDeleteCell() -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         cell.selectedBackgroundView = selectedBackground
         cell.textLabel?.text = caught.isFailed ? "Delete Entry" : "Delete Catch"
-        cell.textLabel?.textColor = .systemRed
+        cell.textLabel?.textColor = Color.danger
         cell.textLabel?.textAlignment = .center
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        cell.textLabel?.font = UIFont.make(.body, weight: .semibold)
         cell.accessibilityTraits = .button
         return cell
     }
@@ -219,12 +219,12 @@ class CatchDetailTVC: UITableViewController {
 
     fileprivate func makeAboutCell(for row: AboutRow) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         cell.selectedBackgroundView = selectedBackground
-        cell.textLabel?.textColor = Color.Grey200
-        cell.detailTextLabel?.textColor = Color.Grey400
+        cell.textLabel?.textColor = Color.textPrimary
+        cell.detailTextLabel?.textColor = Color.textTertiary
         cell.accessoryType = .disclosureIndicator
         let symbol: String
         switch row {
@@ -246,26 +246,26 @@ class CatchDetailTVC: UITableViewController {
             symbol = "leaf.fill"
         case .ivs:
             cell.textLabel?.text = "IVs"
-            let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.Grey400])
-            ivsText.append(caught.ivs.makeColoredSummary(unknownColor: Color.Grey400))
+            let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.textTertiary])
+            ivsText.append(caught.ivs.makeColoredSummary(unknownColor: Color.textTertiary))
             cell.detailTextLabel?.attributedText = ivsText
             symbol = "chart.bar.fill"
         }
         cell.imageView?.image = UIImage.makeSymbol(symbol, pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
-        cell.imageView?.tintColor = Color.Orange500
+        cell.imageView?.tintColor = Color.accent
         return cell
     }
 
     fileprivate func makeTrainingCell(for row: TrainingRow) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         cell.selectedBackgroundView = selectedBackground
-        cell.textLabel?.textColor = Color.Grey200
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 17)
-        cell.detailTextLabel?.textColor = Color.Grey400
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
+        cell.textLabel?.textColor = Color.textPrimary
+        cell.textLabel?.font = UIFont.make(.body)
+        cell.detailTextLabel?.textColor = Color.textTertiary
+        cell.detailTextLabel?.font = UIFont.make(.footnote)
         cell.accessoryType = .disclosureIndicator
         let iconSize = CGSize(width: 30, height: 30)
         switch row {
@@ -280,23 +280,23 @@ class CatchDetailTVC: UITableViewController {
             cell.detailTextLabel?.text = origin + names.joined(separator: ", ")
             cell.imageView?.image = UIImage.makeSymbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: iconSize)
         }
-        cell.imageView?.tintColor = Color.Orange500
+        cell.imageView?.tintColor = Color.accent
         return cell
     }
 
     fileprivate func makeDetailCell(for row: Row) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) ?? UITableViewCell(style: .value1, reuseIdentifier: cellIdentifier)
         cell.textLabel?.text = row.title
-        cell.textLabel?.textColor = Color.Grey200
+        cell.textLabel?.textColor = Color.textPrimary
         cell.detailTextLabel?.text = row.value
-        cell.detailTextLabel?.textColor = Color.Grey400
-        cell.backgroundColor = Color.Grey800
+        cell.detailTextLabel?.textColor = Color.textTertiary
+        cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         cell.selectedBackgroundView = selectedBackground
         let iconSize = CGSize(width: 30, height: 30)
         cell.imageView?.image = row.image.map { row.isSymbol ? $0.padded(to: iconSize) : $0.resized(to: iconSize) }
-        cell.imageView?.tintColor = Color.Orange500
+        cell.imageView?.tintColor = Color.accent
         cell.imageView?.layer.magnificationFilter = .nearest
         cell.accessoryType = .disclosureIndicator
         return cell
@@ -409,7 +409,7 @@ class CatchDetailTVC: UITableViewController {
         alert.addAction(UIAlertAction(title: "Evolve", style: .default) { [weak self] _ in
             self?.evolve(into: target)
         })
-        alert.view.tintColor = Color.Orange500
+        alert.view.tintColor = Color.accent
         present(alert, animated: true)
     }
 

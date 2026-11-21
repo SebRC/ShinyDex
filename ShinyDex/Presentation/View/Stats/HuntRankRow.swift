@@ -5,28 +5,28 @@ final class HuntRankRow: UIControl {
 
     init(rank: Int, hunt: CatchSummary) {
         super.init(frame: .zero)
-        let rankLabel = UILabel(fontSize: 13, weight: .bold, color: rank == 1 ? Color.Orange500 : Color.Grey500)
-        rankLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .bold)
+        let rankLabel = UILabel(style: .footnote, weight: .bold, color: rank == 1 ? Color.accent : Color.textQuaternary)
+        rankLabel.font = UIFont.make(.footnote, weight: .bold, monospacedDigits: true)
         rankLabel.text = "#\(rank)"
         rankLabel.setContentHuggingPriority(.required, for: .horizontal)
         let sprite = UIImageView(image: hunt.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.alpha = hunt.isFailed ? 0.55 : 1
-        let nameLabel = UILabel(fontSize: 15, weight: .medium)
+        let nameLabel = UILabel(style: .subheadline, weight: .medium)
         nameLabel.text = hunt.nickname ?? hunt.speciesTitle
-        let detailLabel = UILabel(fontSize: 12, color: Color.Grey400)
+        let detailLabel = UILabel(style: .caption1, color: Color.textTertiary)
         detailLabel.text = [hunt.isFailed ? "Got away" : hunt.game.displayName, hunt.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
         let labels = UIStackView(arrangedSubviews: [nameLabel, detailLabel])
         labels.axis = .vertical
         labels.spacing = 1
-        let encountersLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey300)
-        encountersLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+        let encountersLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textSecondary)
+        encountersLabel.font = UIFont.make(.footnote, weight: .semibold, monospacedDigits: true)
         encountersLabel.text = hunt.encounters.grouped
         encountersLabel.setContentHuggingPriority(.required, for: .horizontal)
         encountersLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-        chevron.tintColor = Color.Grey500
+        chevron.tintColor = Color.textQuaternary
         chevron.setContentHuggingPriority(.required, for: .horizontal)
         let layout = UIStackView(arrangedSubviews: [rankLabel, sprite, labels, encountersLabel, chevron])
         layout.alignment = .center
@@ -52,7 +52,7 @@ final class HuntRankRow: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : .clear
+            backgroundColor = isHighlighted ? Color.surfaceRaised : .clear
         }
     }
 

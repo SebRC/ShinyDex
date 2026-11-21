@@ -20,8 +20,8 @@ class JourneysTVC: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
         addButton.accessibilityLabel = "New journey"
         navigationItem.rightBarButtonItem = addButton
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 110
         tableView.register(JourneyCell.self, forCellReuseIdentifier: JourneyCell.reuseIdentifier)
@@ -68,7 +68,7 @@ class JourneysTVC: UITableViewController {
             self?.rename(journey)
             done(true)
         }
-        rename.backgroundColor = Color.Grey600
+        rename.backgroundColor = Color.inactive
         return UISwipeActionsConfiguration(actions: [delete, rename])
     }
 
@@ -117,22 +117,22 @@ fileprivate class JourneyCell: UITableViewCell {
     static let reuseIdentifier = "journeyCell"
     fileprivate static let maximumSprites = 6
 
-    fileprivate let nameLabel = UILabel(fontSize: 20, weight: .semibold)
-    fileprivate let progressLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let nameLabel = UILabel(style: .title3, weight: .semibold)
+    fileprivate let progressLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let progressBar = UIProgressView(progressViewStyle: .default)
     fileprivate let sprites = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         accessoryType = .disclosureIndicator
-        progressLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
-        progressBar.progressTintColor = Color.Orange500
-        progressBar.trackTintColor = Color.Grey700
-        progressBar.layer.cornerRadius = 2
+        progressLabel.font = UIFont.make(.footnote, weight: .regular, monospacedDigits: true)
+        progressBar.progressTintColor = Color.accent
+        progressBar.trackTintColor = Color.surfaceRaised
+        progressBar.layer.cornerRadius = CornerRadius.tiny
         progressBar.clipsToBounds = true
         sprites.spacing = 2
         sprites.alignment = .center
@@ -161,7 +161,7 @@ fileprivate class JourneyCell: UITableViewCell {
         nameLabel.text = name
         let total = members.count
         progressLabel.text = total == 0 ? "No Pokémon yet" : (caught == total ? "Complete · all \(total) caught" : "\(caught) of \(total) caught")
-        progressLabel.textColor = total > 0 && caught == total ? Color.Orange500 : Color.Grey400
+        progressLabel.textColor = total > 0 && caught == total ? Color.accent : Color.textTertiary
         progressBar.progress = total == 0 ? 0 : Float(caught) / Float(total)
 
         for view in sprites.arrangedSubviews {
@@ -177,7 +177,7 @@ fileprivate class JourneyCell: UITableViewCell {
             sprites.addArrangedSubview(sprite)
         }
         if (members.count > JourneyCell.maximumSprites) {
-            let more = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+            let more = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
             more.text = "+\(members.count - JourneyCell.maximumSprites)"
             sprites.addArrangedSubview(more)
         }

@@ -25,8 +25,8 @@ class RearrangeHuntsTVC: UITableViewController {
 		saveButton.isEnabled = false
 		navigationItem.rightBarButtonItem = saveButton
 
-		tableView.backgroundColor = Color.Grey900
-		tableView.separatorColor = Color.Grey700
+		tableView.backgroundColor = Color.background
+		tableView.separatorColor = Color.separator
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 68
 		tableView.register(HuntPickerCell.self, forCellReuseIdentifier: HuntPickerCell.reuseIdentifier)

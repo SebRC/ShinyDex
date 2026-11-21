@@ -15,10 +15,10 @@ class BingoSquareCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         spriteView.contentMode = .scaleAspectFit
         spriteView.layer.magnificationFilter = .nearest
-        addIcon.tintColor = Color.Grey600
+        addIcon.tintColor = Color.inactive
         addIcon.contentMode = .center
-        obtainedBadge.tintColor = Color.Orange500
-        linkableBadge.tintColor = Color.Grey400
+        obtainedBadge.tintColor = Color.accent
+        linkableBadge.tintColor = Color.textTertiary
         contentView.addAutoLayoutSubviews(spriteView, addIcon, obtainedBadge, linkableBadge)
         spriteView.pinEdges(to: contentView, insets: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))
         NSLayoutConstraint.activate([
@@ -44,8 +44,8 @@ class BingoSquareCell: UICollectionViewCell {
         addIcon.isHidden = cell.isFilled
         obtainedBadge.isHidden = !isObtained
         linkableBadge.isHidden = isObtained || cell.linkableCatchCount == 0
-        contentView.backgroundColor = cell.isInCompletedLine ? Color.Orange900 : Color.Grey800
-        contentView.layer.borderColor = (isObtained ? Color.Orange500 : Color.Grey700).cgColor
+        contentView.backgroundColor = cell.isInCompletedLine ? Color.accentSubtle : Color.surface
+        contentView.layer.borderColor = (isObtained ? Color.accent : Color.surfaceRaised).cgColor
         accessibilityLabel = makeAccessibilityLabel(for: cell)
         accessibilityTraits = .button
     }

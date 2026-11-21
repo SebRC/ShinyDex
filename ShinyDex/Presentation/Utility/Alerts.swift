@@ -11,7 +11,7 @@ extension UIViewController {
             Haptics.playWarning()
             onConfirm()
         })
-        alert.view.tintColor = Color.Orange500
+        alert.view.tintColor = Color.accent
         present(alert, animated: true)
     }
 
@@ -46,7 +46,7 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(saveAction)
         alert.preferredAction = saveAction
-        alert.view.tintColor = Color.Orange500
+        alert.view.tintColor = Color.accent
         present(alert, animated: true)
     }
 }

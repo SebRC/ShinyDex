@@ -5,19 +5,19 @@ final class LuckyDateRow: UIControl {
 
     init(rank: Int, title: String, count: Int) {
         super.init(frame: .zero)
-        let rankLabel = UILabel(fontSize: 13, weight: .bold, color: rank == 1 ? Color.Orange500 : Color.Grey500)
-        rankLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .bold)
+        let rankLabel = UILabel(style: .footnote, weight: .bold, color: rank == 1 ? Color.accent : Color.textQuaternary)
+        rankLabel.font = UIFont.make(.footnote, weight: .bold, monospacedDigits: true)
         rankLabel.text = "#\(rank)"
         rankLabel.setContentHuggingPriority(.required, for: .horizontal)
-        let titleLabel = UILabel(fontSize: 15, weight: .medium)
+        let titleLabel = UILabel(style: .subheadline, weight: .medium)
         titleLabel.text = title
-        let countLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey300)
-        countLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+        let countLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textSecondary)
+        countLabel.font = UIFont.make(.footnote, weight: .semibold, monospacedDigits: true)
         countLabel.text = "\(count) shinies"
         countLabel.setContentHuggingPriority(.required, for: .horizontal)
         countLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-        chevron.tintColor = Color.Grey500
+        chevron.tintColor = Color.textQuaternary
         chevron.setContentHuggingPriority(.required, for: .horizontal)
         let layout = UIStackView(arrangedSubviews: [rankLabel, titleLabel, countLabel, chevron])
         layout.alignment = .center
@@ -35,7 +35,7 @@ final class LuckyDateRow: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : .clear
+            backgroundColor = isHighlighted ? Color.surfaceRaised : .clear
         }
     }
 

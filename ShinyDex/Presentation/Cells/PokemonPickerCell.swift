@@ -4,21 +4,21 @@ class PokemonPickerCell: UITableViewCell {
     static let reuseIdentifier = "pokemonPickerCell"
 
     let spriteImageView = UIImageView()
-    let nameLabel = UILabel(fontSize: 17, weight: .semibold)
-    let numberLabel = UILabel(fontSize: 15, color: Color.Grey400)
+    let nameLabel = UILabel(style: .body, weight: .semibold)
+    let numberLabel = UILabel(style: .subheadline, color: Color.textTertiary)
     fileprivate let selectionView = UIImageView()
-    fileprivate let inHuntLabel = UILabel(fontSize: 13, color: Color.Grey500)
+    fileprivate let inHuntLabel = UILabel(style: .footnote, color: Color.textQuaternary)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         spriteImageView.contentMode = .scaleAspectFit
         spriteImageView.layer.magnificationFilter = .nearest
         spriteImageView.isAccessibilityElement = false
-        numberLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .regular)
+        numberLabel.font = UIFont.make(.subheadline, weight: .regular, monospacedDigits: true)
         selectionView.contentMode = .center
         selectionView.setContentHuggingPriority(.required, for: .horizontal)
         inHuntLabel.text = "In a hunt"
@@ -58,7 +58,7 @@ class PokemonPickerCell: UITableViewCell {
         inHuntLabel.isHidden = !isInOtherHunt
         selectionView.isHidden = isInOtherHunt
         selectionView.image = UIImage.makeSymbol(isSelected ? "checkmark.circle.fill" : "circle", pointSize: 24, weight: .regular)
-        selectionView.tintColor = isSelected ? Color.Orange500 : Color.Grey600
+        selectionView.tintColor = isSelected ? Color.accent : Color.inactive
         selectionStyle = isInOtherHunt ? .none : .default
 
         accessibilityLabel = "\(pokemon.name), number \(pokemon.number + 1)"

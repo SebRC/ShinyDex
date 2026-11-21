@@ -40,7 +40,7 @@ enum MilestoneCelebration {
     }
 
     fileprivate static func glow(_ target: UIView, isMajor: Bool) {
-        target.layer.shadowColor = Color.Orange500.cgColor
+        target.layer.shadowColor = Color.accent.cgColor
         target.layer.shadowOffset = .zero
         target.layer.shadowRadius = isMajor ? 18 : 10
         let animation = CAKeyframeAnimation(keyPath: "shadowOpacity")
@@ -56,7 +56,7 @@ enum MilestoneCelebration {
         emitter.emitterPosition = center
         emitter.emitterShape = .circle
         emitter.emitterSize = CGSize(width: min(target.bounds.width, 120), height: target.bounds.height / 2)
-        emitter.emitterCells = [makeSparkleCell(color: Color.Orange500, count: count), makeSparkleCell(color: Color.Orange200, count: count / 2)].compactMap { $0 }
+        emitter.emitterCells = [makeSparkleCell(color: Color.accent, count: count), makeSparkleCell(color: Color.Orange200, count: count / 2)].compactMap { $0 }
         emitter.beginTime = CACurrentMediaTime()
         host.layer.addSublayer(emitter)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
@@ -120,11 +120,11 @@ enum MilestoneCelebration {
 fileprivate final class PaddedPillLabel: UIView {
     init(text: String) {
         super.init(frame: .zero)
-        backgroundColor = Color.Orange500
-        layer.cornerRadius = 13
+        backgroundColor = Color.accent
+        layer.cornerRadius = CornerRadius.capsule(height: 26)
         isUserInteractionEnabled = false
         isAccessibilityElement = false
-        let label = UILabel(fontSize: 14, weight: .bold, color: Color.Grey900)
+        let label = UILabel(style: .subheadline, weight: .bold, color: Color.background)
         label.text = text
         addAutoLayoutSubviews(label)
         label.pinEdges(to: self, insets: UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12))

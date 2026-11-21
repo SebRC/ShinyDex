@@ -31,8 +31,8 @@ class PPCounterTVC: UITableViewController {
             return clamped
         }
         pressureSwitch.isOn = moveSet.pressureActive
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.register(MoveCell.self, forCellReuseIdentifier: MoveCell.moveReuseIdentifier)
@@ -44,17 +44,17 @@ class PPCounterTVC: UITableViewController {
     }
 
     fileprivate func setUpPressureCell() {
-        pressureCell.backgroundColor = Color.Grey800
+        pressureCell.backgroundColor = Color.surface
         pressureCell.selectionStyle = .none
         pressureCell.textLabel?.text = "Pressure"
-        pressureCell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        pressureCell.textLabel?.textColor = Color.Grey200
+        pressureCell.textLabel?.font = UIFont.make(.body, weight: .semibold)
+        pressureCell.textLabel?.textColor = Color.textPrimary
         pressureCell.detailTextLabel?.text = "Each use of a move costs 2 PP"
-        pressureCell.detailTextLabel?.font = UIFont.systemFont(ofSize: 15)
-        pressureCell.detailTextLabel?.textColor = Color.Grey400
+        pressureCell.detailTextLabel?.font = UIFont.make(.subheadline)
+        pressureCell.detailTextLabel?.textColor = Color.textTertiary
         pressureCell.imageView?.image = UIImage.makeSymbol("bolt.fill", pointSize: 20)
-        pressureCell.imageView?.tintColor = Color.Orange500
-        pressureSwitch.onTintColor = Color.Orange500
+        pressureCell.imageView?.tintColor = Color.accent
+        pressureSwitch.onTintColor = Color.accent
         pressureSwitch.addTarget(self, action: #selector(switchPressed), for: .valueChanged)
         pressureCell.accessoryView = pressureSwitch
     }

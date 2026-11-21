@@ -6,11 +6,11 @@ class ToastView: UIView {
 
 	init(text: String) {
 		super.init(frame: .zero)
-		backgroundColor = Color.Grey800
+		backgroundColor = Color.surface
 		layer.cornerRadius = CornerRadius.standard
 		addShadow()
 
-		iconImageView.tintColor = Color.Success300
+		iconImageView.tintColor = Color.success
 		iconImageView.contentMode = .scaleAspectFit
 		iconImageView.setContentHuggingPriority(.required, for: .horizontal)
 		iconImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .headline)

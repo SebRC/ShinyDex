@@ -5,28 +5,28 @@ final class TimelineCell: UITableViewCell {
 
     fileprivate let topRail = UIView()
     fileprivate let bottomRail = UIView()
-    fileprivate let dot = UILabel(fontSize: 12, weight: .bold, color: Color.Grey900)
-    fileprivate let dateLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Orange500)
-    fileprivate let gapLabel = UILabel(fontSize: 12, color: Color.Grey500)
+    fileprivate let dot = UILabel(style: .caption1, weight: .bold, color: Color.background)
+    fileprivate let dateLabel = UILabel(style: .footnote, weight: .semibold, color: Color.accent)
+    fileprivate let gapLabel = UILabel(style: .caption1, color: Color.textQuaternary)
     fileprivate let sprite = UIImageView()
-    fileprivate let nameLabel = UILabel(fontSize: 17, weight: .semibold)
-    fileprivate let detailLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let nameLabel = UILabel(style: .body, weight: .semibold)
+    fileprivate let detailLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let ballView = UIImageView()
 
     fileprivate static let dotSize: CGFloat = 24
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         for rail in [topRail, bottomRail] {
-            rail.backgroundColor = Color.Grey600
+            rail.backgroundColor = Color.inactive
         }
-        dot.backgroundColor = Color.Orange500
+        dot.backgroundColor = Color.accent
         dot.textAlignment = .center
-        dot.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .bold)
+        dot.font = UIFont.make(.caption1, weight: .bold, monospacedDigits: true)
         dot.layer.cornerRadius = TimelineCell.dotSize / 2
         dot.clipsToBounds = true
         sprite.contentMode = .scaleAspectFit
@@ -81,14 +81,14 @@ final class TimelineCell: UITableViewCell {
     func configure(catchNumber: Int?, step: JourneyTimelineStep, previousDate: Date?, isFirst: Bool, isLast: Bool) {
         let caught = step.caught
         if let catchNumber = catchNumber {
-            dot.font = UIFont.monospacedDigitSystemFont(ofSize: 12, weight: .bold)
+            dot.font = UIFont.make(.caption1, weight: .bold, monospacedDigits: true)
             dot.text = "\(catchNumber)"
-            dot.backgroundColor = Color.Orange500
+            dot.backgroundColor = Color.accent
         }
         else {
-            let sparkle = UIImage.makeSymbol("sparkle", pointSize: 11, weight: .bold)?.withTintColor(Color.Grey900, renderingMode: .alwaysOriginal)
+            let sparkle = UIImage.makeSymbol("sparkle", pointSize: 11, weight: .bold)?.withTintColor(Color.background, renderingMode: .alwaysOriginal)
             dot.attributedText = sparkle.map { NSAttributedString(attachment: NSTextAttachment(image: $0)) }
-            dot.backgroundColor = Color.Grey500
+            dot.backgroundColor = Color.textQuaternary
         }
         dot.textAlignment = .center
         topRail.isHidden = isFirst

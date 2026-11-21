@@ -33,8 +33,8 @@ class LinkCatchTVC: UITableViewController {
 		super.viewDidLoad()
 		title = role == .target ? "Link a catch" : "Log a phase"
 		navigationItem.largeTitleDisplayMode = .never
-		tableView.backgroundColor = Color.Grey900
-		tableView.separatorColor = Color.Grey700
+		tableView.backgroundColor = Color.background
+		tableView.separatorColor = Color.separator
 		tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
 		if (catches.isEmpty) {
 			let message = role == .target
@@ -76,7 +76,7 @@ class LinkCatchTVC: UITableViewController {
 					   ball: caught.caughtBall,
 					   isFailed: caught.isFailed)
 		cell.accessoryType = caught.id == target.linkedCatchId ? .checkmark : .none
-		cell.tintColor = Color.Orange500
+		cell.tintColor = Color.accent
 		return cell
 	}
 

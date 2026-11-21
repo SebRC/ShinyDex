@@ -15,21 +15,21 @@ final class UsageRowView: UIControl {
         let icon = UIImageView(image: row.image)
         icon.contentMode = .scaleAspectFit
         icon.layer.magnificationFilter = .nearest
-        let titleLabel = UILabel(fontSize: 15, weight: .medium)
+        let titleLabel = UILabel(style: .subheadline, weight: .medium)
         titleLabel.text = row.title
-        let countLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey300)
-        countLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold)
+        let countLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textSecondary)
+        countLabel.font = UIFont.make(.footnote, weight: .semibold, monospacedDigits: true)
         let percent = total > 0 ? Int((Double(row.count) / Double(total) * 100).rounded()) : 0
         countLabel.text = "\(row.count) · \(percent)%"
         countLabel.setContentHuggingPriority(.required, for: .horizontal)
         countLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
         let track = UIView()
-        track.backgroundColor = Color.Grey700
-        track.layer.cornerRadius = 3
+        track.backgroundColor = Color.surfaceRaised
+        track.layer.cornerRadius = CornerRadius.tiny
         let fill = UIView()
-        fill.backgroundColor = Color.Orange500
-        fill.layer.cornerRadius = 3
+        fill.backgroundColor = Color.accent
+        fill.layer.cornerRadius = CornerRadius.tiny
         track.addAutoLayoutSubviews(fill)
 
         let titleRow = UIStackView(arrangedSubviews: [titleLabel, countLabel])
@@ -38,7 +38,7 @@ final class UsageRowView: UIControl {
         labels.axis = .vertical
         labels.spacing = 6
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-        chevron.tintColor = Color.Grey500
+        chevron.tintColor = Color.textQuaternary
         chevron.setContentHuggingPriority(.required, for: .horizontal)
         let layout = UIStackView(arrangedSubviews: [icon, labels, chevron])
         layout.alignment = .center
@@ -64,7 +64,7 @@ final class UsageRowView: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : .clear
+            backgroundColor = isHighlighted ? Color.surfaceRaised : .clear
         }
     }
 

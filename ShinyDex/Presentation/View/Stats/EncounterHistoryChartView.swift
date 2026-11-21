@@ -28,8 +28,8 @@ final class EncounterHistoryChartView: UIView {
 
     fileprivate static func makeColumn(_ bar: Bar, maxCount: Int) -> UIView {
         let barView = UIView()
-        barView.backgroundColor = bar.count == 0 ? Color.Grey700 : bar.isCurrent ? Color.Orange500 : Color.Orange700
-        barView.layer.cornerRadius = 2
+        barView.backgroundColor = bar.count == 0 ? Color.surfaceRaised : bar.isCurrent ? Color.accent : Color.Orange700
+        barView.layer.cornerRadius = CornerRadius.tiny
         barView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         let barArea = UIView()
         barArea.addAutoLayoutSubviews(barView)
@@ -45,7 +45,7 @@ final class EncounterHistoryChartView: UIView {
             barView.heightAnchor.constraint(equalToConstant: max(2, barAreaHeight * fraction))
         ])
 
-        let label = UILabel(fontSize: 10, weight: .semibold, color: bar.isCurrent ? Color.Orange500 : Color.Grey500)
+        let label = UILabel(style: .caption2, weight: .semibold, color: bar.isCurrent ? Color.accent : Color.textQuaternary)
         label.text = bar.label ?? " "
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true

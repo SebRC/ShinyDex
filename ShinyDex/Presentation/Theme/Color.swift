@@ -51,4 +51,21 @@ class Color {
     static var Info700 = UIColor(netHex: 0x0B658C)
     static var Info800 = UIColor(netHex: 0x084A66)
     static var Info900 = UIColor(netHex: 0x06374D)
+
+    // MARK: Semantic
+
+    static let background = Grey900
+    static let surface = Grey800
+    static let surfaceRaised = Grey700
+    static let separator = Grey700
+    static let inactive = Grey600
+    static let textPrimary = Grey100
+    static let textSecondary = Grey300
+    static let textTertiary = Grey400
+    static let textQuaternary = Grey500
+    static let accent = Orange500
+    static let accentSubtle = Orange900
+    static let onAccent = Grey900
+    static let danger = Danger400
+    static let success = Success400
 }

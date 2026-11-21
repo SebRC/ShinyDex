@@ -7,27 +7,27 @@ class PokemonCell: UITableViewCell {
     var onAddToHuntPressed: (() -> Void)?
 
     let sprite = UIImageView()
-    let pokemonName = UILabel(fontSize: 17, weight: .semibold)
-    let pokemonNumber = UILabel(fontSize: 13, color: Color.Grey400)
-    let caughtButton = PokemonCell.makeRoundButton(symbol: PokemonCell.logCatchSymbol, tint: Color.Orange500, background: Color.Orange900)
-    let addToCurrentHuntButton = PokemonCell.makeRoundButton(symbol: "plus", tint: Color.Grey200, background: Color.Grey700)
+    let pokemonName = UILabel(style: .body, weight: .semibold)
+    let pokemonNumber = UILabel(style: .footnote, color: Color.textTertiary)
+    let caughtButton = PokemonCell.makeRoundButton(symbol: PokemonCell.logCatchSymbol, tint: Color.accent, background: Color.accentSubtle)
+    let addToCurrentHuntButton = PokemonCell.makeRoundButton(symbol: "plus", tint: Color.textPrimary, background: Color.surfaceRaised)
 
     static let logCatchSymbol = UIImage(systemName: "sparkles") != nil ? "sparkles" : "star.fill"
     fileprivate static let buttonSize: CGFloat = 38
     fileprivate let statusIcon = UIImageView()
-    fileprivate let statusLabel = UILabel(fontSize: 13, weight: .medium)
+    fileprivate let statusLabel = UILabel(style: .footnote, weight: .medium)
     fileprivate let statusRow = UIStackView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.isAccessibilityElement = false
-        pokemonNumber.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
+        pokemonNumber.font = UIFont.make(.footnote, weight: .regular, monospacedDigits: true)
         caughtButton.addTarget(self, action: #selector(caughtPressed), for: .touchUpInside)
         addToCurrentHuntButton.addTarget(self, action: #selector(addToHuntPressed), for: .touchUpInside)
         statusIcon.contentMode = .scaleAspectFit
@@ -85,14 +85,14 @@ class PokemonCell: UITableViewCell {
         if (catchCount > 0) {
             statusIcon.image = UIImage(named: caughtBall)
             statusIcon.tintColor = nil
-            statusLabel.textColor = Color.Orange500
+            statusLabel.textColor = Color.accent
             statusLabel.text = catchCount == 1 ? "Caught" : "Caught ×\(catchCount)"
             statusRow.isHidden = false
         }
         else if (isBeingHunted) {
             statusIcon.image = UIImage.makeSymbol("scope", pointSize: 11, weight: .bold)
-            statusIcon.tintColor = Color.Grey400
-            statusLabel.textColor = Color.Grey400
+            statusIcon.tintColor = Color.textTertiary
+            statusLabel.textColor = Color.textTertiary
             statusLabel.text = "In a hunt"
             statusRow.isHidden = false
         }

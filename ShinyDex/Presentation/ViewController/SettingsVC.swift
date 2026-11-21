@@ -25,7 +25,7 @@ class GameSettingsHostVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         navigationItem.largeTitleDisplayMode = .never
 
         gameSettingsContainer.preview = { [container, chain] settings in
@@ -51,8 +51,8 @@ class GameSettingsHostVC: UIViewController {
         NSLayoutConstraint.activate([
             contentStack.topAnchor.constraint(equalTo: content.topAnchor, constant: 8),
             contentStack.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -8),
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 8),
-            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -8)
+            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 12),
+            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -12)
         ])
     }
 
@@ -147,7 +147,7 @@ class SettingsVC: GameSettingsHostVC {
             self?.updateAutomaticBackupStatus()
         })
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sheet.view.tintColor = Color.Orange500
+        sheet.view.tintColor = Color.accent
         sheet.popoverPresentationController?.sourceView = backupSettingsView.automaticRow
         sheet.popoverPresentationController?.sourceRect = backupSettingsView.automaticRow.bounds
         present(sheet, animated: true)
@@ -243,7 +243,7 @@ class SettingsVC: GameSettingsHostVC {
     fileprivate func presentBackupError(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
-        alert.view.tintColor = Color.Orange500
+        alert.view.tintColor = Color.accent
         present(alert, animated: true)
     }
 

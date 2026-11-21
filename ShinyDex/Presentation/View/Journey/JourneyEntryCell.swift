@@ -4,8 +4,8 @@ final class JourneyEntryCell: UITableViewCell {
     static let reuseIdentifier = "journeyEntryCell"
 
     fileprivate let sprite = UIImageView()
-    fileprivate let nameLabel = UILabel(fontSize: 17, weight: .semibold)
-    fileprivate let statusLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let nameLabel = UILabel(style: .body, weight: .semibold)
+    fileprivate let statusLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let phasesButton = UIButton(type: .system)
     fileprivate let ballView = UIImageView()
     fileprivate let statusIcon = UIImageView()
@@ -14,9 +14,9 @@ final class JourneyEntryCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
@@ -28,8 +28,8 @@ final class JourneyEntryCell: UITableViewCell {
         let statusRow = UIStackView(arrangedSubviews: [ballView, statusLabel])
         statusRow.spacing = 4
         statusRow.alignment = .center
-        phasesButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
-        phasesButton.tintColor = Color.Orange500
+        phasesButton.titleLabel?.font = UIFont.make(.footnote, weight: .semibold)
+        phasesButton.tintColor = Color.accent
         phasesButton.semanticContentAttribute = .forceRightToLeft
         phasesButton.contentHorizontalAlignment = .leading
         phasesButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
@@ -67,7 +67,7 @@ final class JourneyEntryCell: UITableViewCell {
         sprite.image = entry.pokemonName.flatMap { PokemonSprites.makeImage(pokemonName: $0, formId: entry.formId) }
         nameLabel.text = name
         sprite.alpha = linked == nil ? 0.4 : 1
-        nameLabel.textColor = linked == nil ? Color.Grey300 : Color.Grey100
+        nameLabel.textColor = linked == nil ? Color.textSecondary : Color.textPrimary
 
         if let linked = linked {
             var parts = [linked.ballName, linked.game.displayName]
@@ -78,18 +78,18 @@ final class JourneyEntryCell: UITableViewCell {
                 parts.insert("as \(linked.pokemonName)", at: 0)
             }
             statusLabel.text = parts.joined(separator: " · ")
-            statusLabel.textColor = Color.Grey400
+            statusLabel.textColor = Color.textTertiary
             ballView.image = UIImage(named: linked.caughtBall)
             ballView.isHidden = false
             statusIcon.image = UIImage.makeSymbol("checkmark.seal.fill", pointSize: 22, weight: .semibold)
-            statusIcon.tintColor = Color.Orange500
+            statusIcon.tintColor = Color.accent
         }
         else {
             statusLabel.text = linkableCount == 0 ? "Not caught yet" : (linkableCount == 1 ? "Not linked · 1 catch you can link" : "Not linked · \(linkableCount) catches you can link")
-            statusLabel.textColor = linkableCount == 0 ? Color.Grey500 : Color.Grey300
+            statusLabel.textColor = linkableCount == 0 ? Color.textQuaternary : Color.textSecondary
             ballView.isHidden = true
             statusIcon.image = UIImage.makeSymbol(linkableCount == 0 ? "circle" : "link", pointSize: 18, weight: .semibold)
-            statusIcon.tintColor = Color.Grey500
+            statusIcon.tintColor = Color.textQuaternary
         }
         phaseCount = entry.phases.count
         phasesButton.setTitle(phaseCount == 1 ? "1 phase" : "\(phaseCount) phases", for: .normal)

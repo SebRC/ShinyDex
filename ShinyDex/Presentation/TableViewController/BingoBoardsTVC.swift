@@ -20,8 +20,8 @@ class BingoBoardsTVC: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
         addButton.accessibilityLabel = "New bingo board"
         navigationItem.rightBarButtonItem = addButton
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.register(BingoBoardCell.self, forCellReuseIdentifier: BingoBoardCell.reuseIdentifier)
@@ -67,7 +67,7 @@ class BingoBoardsTVC: UITableViewController {
             self?.rename(board)
             done(true)
         }
-        rename.backgroundColor = Color.Grey600
+        rename.backgroundColor = Color.inactive
         return UISwipeActionsConfiguration(actions: [delete, rename])
     }
 
@@ -163,7 +163,7 @@ class BingoBoardsTVC: UITableViewController {
     fileprivate func presentSheet(_ sheet: UIAlertController) {
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         sheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        sheet.view.tintColor = Color.Orange500
+        sheet.view.tintColor = Color.accent
         present(sheet, animated: true)
     }
 
@@ -180,26 +180,26 @@ class BingoBoardsTVC: UITableViewController {
 fileprivate class BingoBoardCell: UITableViewCell {
     static let reuseIdentifier = "bingoBoardCell"
 
-    fileprivate let sizeBadge = UILabel(fontSize: 15, weight: .bold, color: Color.Orange500)
-    fileprivate let nameLabel = UILabel(fontSize: 20, weight: .semibold)
-    fileprivate let progressLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let sizeBadge = UILabel(style: .subheadline, weight: .bold, color: Color.accent)
+    fileprivate let nameLabel = UILabel(style: .title3, weight: .semibold)
+    fileprivate let progressLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let progressBar = UIProgressView(progressViewStyle: .default)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         accessoryType = .disclosureIndicator
         sizeBadge.textAlignment = .center
-        sizeBadge.backgroundColor = Color.Grey900
+        sizeBadge.backgroundColor = Color.background
         sizeBadge.layer.cornerRadius = CornerRadius.standard
         sizeBadge.clipsToBounds = true
-        progressLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
-        progressBar.progressTintColor = Color.Orange500
-        progressBar.trackTintColor = Color.Grey700
-        progressBar.layer.cornerRadius = 2
+        progressLabel.font = UIFont.make(.footnote, weight: .regular, monospacedDigits: true)
+        progressBar.progressTintColor = Color.accent
+        progressBar.trackTintColor = Color.surfaceRaised
+        progressBar.layer.cornerRadius = CornerRadius.tiny
         progressBar.clipsToBounds = true
 
         let textStack = UIStackView(arrangedSubviews: [nameLabel, progressLabel, progressBar])
@@ -228,7 +228,7 @@ fileprivate class BingoBoardCell: UITableViewCell {
         sizeBadge.text = board.size.title
         nameLabel.text = board.name
         progressLabel.text = BingoProgressText.make(obtained: board.obtainedCount, total: board.size.cellCount, filled: board.filledCount, lines: board.completedLineCount)
-        progressLabel.textColor = board.completedLineCount > 0 ? Color.Orange500 : Color.Grey400
+        progressLabel.textColor = board.completedLineCount > 0 ? Color.accent : Color.textTertiary
         progressBar.progress = Float(board.obtainedCount) / Float(board.size.cellCount)
         accessibilityLabel = "\(board.name), \(board.size.title) board, \(progressLabel.text ?? "")"
         accessibilityTraits = .button

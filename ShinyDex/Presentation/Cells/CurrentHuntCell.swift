@@ -7,27 +7,27 @@ class CurrentHuntCell: UITableViewCell {
     var onDecrement: (() -> Void)?
 
     let sprite = UIImageView()
-    let nameLabel = UILabel(fontSize: 17, weight: .semibold)
-    let encountersLabel = UILabel(fontSize: 26, weight: .bold)
-    fileprivate let encountersCaption = UILabel(fontSize: 13, color: Color.Grey400)
+    let nameLabel = UILabel(style: .body, weight: .semibold)
+    let encountersLabel = UILabel(style: .title1, weight: .bold)
+    fileprivate let encountersCaption = UILabel(style: .footnote, color: Color.textTertiary)
     let minusButton = UIButton.makeSymbolButton("minus.circle.fill", pointSize: 32)
     let plusButton = UIButton.makeSymbolButton("plus.circle.fill", pointSize: 44)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         accessoryType = .none
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.isAccessibilityElement = false
-        encountersLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 26, weight: .bold)
+        encountersLabel.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
         encountersLabel.adjustsFontSizeToFitWidth = true
         encountersLabel.minimumScaleFactor = 0.6
-        minusButton.tintColor = Color.Grey500
-        plusButton.tintColor = Color.Orange500
+        minusButton.tintColor = Color.textQuaternary
+        plusButton.tintColor = Color.accent
         minusButton.addTarget(self, action: #selector(decrementPressed), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(incrementPressed), for: .touchUpInside)
 

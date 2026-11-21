@@ -24,7 +24,7 @@ class PokeballModalVC: UIViewController {
     fileprivate let gridView = IconGridView(columns: 4)
     fileprivate let outcomeControl = UISegmentedControl(items: ["Caught", "Got away"])
     fileprivate let failedView = UIView()
-    fileprivate let dateCaptionLabel = UILabel(fontSize: 15, color: Color.Grey400)
+    fileprivate let dateCaptionLabel = UILabel(style: .subheadline, color: Color.textTertiary)
     fileprivate let spriteView = UIImageView()
     fileprivate let formButton = UIButton(type: .system)
 
@@ -46,7 +46,7 @@ class PokeballModalVC: UIViewController {
         hasCatches = (details?.catchCount ?? 0) > 0
         caughtBall = details?.caughtBall
         formChoices = container.getPokemonForms.handle(GetPokemonFormsQuery(number: number))
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         title = "Log a catch"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
         setUpSummaryView()
@@ -58,8 +58,8 @@ class PokeballModalVC: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             summaryView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 12),
-            summaryView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            summaryView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            summaryView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Spacing.screenMargin),
+            summaryView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Spacing.screenMargin),
             outcomeControl.topAnchor.constraint(equalTo: summaryView.bottomAnchor, constant: 12),
             outcomeControl.leadingAnchor.constraint(equalTo: summaryView.leadingAnchor),
             outcomeControl.trailingAnchor.constraint(equalTo: summaryView.trailingAnchor),
@@ -77,21 +77,21 @@ class PokeballModalVC: UIViewController {
     // MARK: Summary
 
     fileprivate func setUpSummaryView() {
-        summaryView.backgroundColor = Color.Grey800
+        summaryView.backgroundColor = Color.surface
         summaryView.layer.cornerRadius = CornerRadius.standard
 
         spriteView.image = PokemonSprites.makeImage(pokemonName: pokemonName, formId: selectedFormId)
         spriteView.contentMode = .scaleAspectFit
         spriteView.layer.magnificationFilter = .nearest
         spriteView.isAccessibilityElement = false
-        let nameLabel = UILabel(fontSize: 20, weight: .semibold)
+        let nameLabel = UILabel(style: .title3, weight: .semibold)
         nameLabel.text = pokemonName
         dateCaptionLabel.text = "Date caught"
 
         let labels = UIStackView(arrangedSubviews: [nameLabel, dateCaptionLabel])
         if formChoices != nil {
-            formButton.tintColor = Color.Orange500
-            formButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+            formButton.tintColor = Color.accent
+            formButton.titleLabel?.font = UIFont.make(.subheadline, weight: .semibold)
             formButton.contentHorizontalAlignment = .leading
             formButton.addTarget(self, action: #selector(formButtonPressed), for: .touchUpInside)
             updateFormButton()
@@ -104,7 +104,7 @@ class PokeballModalVC: UIViewController {
         datePicker.preferredDatePickerStyle = .compact
         datePicker.maximumDate = Date()
         datePicker.date = caughtDate
-        datePicker.tintColor = Color.Orange500
+        datePicker.tintColor = Color.accent
         datePicker.accessibilityLabel = "Date caught"
         datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         datePicker.setContentHuggingPriority(.required, for: .horizontal)
@@ -168,26 +168,26 @@ class PokeballModalVC: UIViewController {
 
     fileprivate func setUpOutcomeControl() {
         outcomeControl.selectedSegmentIndex = 0
-        outcomeControl.selectedSegmentTintColor = Color.Orange500
-        outcomeControl.backgroundColor = Color.Grey800
-        outcomeControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 14, weight: .semibold)], for: .selected)
-        outcomeControl.setTitleTextAttributes([.foregroundColor: Color.Grey300, .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .normal)
+        outcomeControl.selectedSegmentTintColor = Color.accent
+        outcomeControl.backgroundColor = Color.surface
+        outcomeControl.setTitleTextAttributes([.foregroundColor: Color.background, .font: UIFont.make(.subheadline, weight: .semibold)], for: .selected)
+        outcomeControl.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.subheadline, weight: .medium)], for: .normal)
         outcomeControl.addTarget(self, action: #selector(outcomeChanged), for: .valueChanged)
     }
 
     fileprivate func setUpFailedView() {
         failedView.isHidden = true
         let icon = UIImageView(image: UIImage.makeSymbol("wind", pointSize: 34, weight: .medium))
-        icon.tintColor = Color.Grey400
+        icon.tintColor = Color.textTertiary
         icon.contentMode = .center
-        let explanation = UILabel(fontSize: 15, color: Color.Grey300, lines: 0)
+        let explanation = UILabel(style: .subheadline, color: Color.textSecondary, lines: 0)
         explanation.textAlignment = .center
         explanation.text = "For a shiny that fled or fainted before you could catch it. It counts towards your stats, but not your collection or Pokédex."
         let logButton = UIButton(type: .system)
         logButton.setTitle("Log as got away", for: .normal)
-        logButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        logButton.setTitleColor(Color.Grey900, for: .normal)
-        logButton.backgroundColor = Color.Orange500
+        logButton.titleLabel?.font = UIFont.make(.body, weight: .semibold)
+        logButton.setTitleColor(Color.background, for: .normal)
+        logButton.backgroundColor = Color.accent
         logButton.layer.cornerRadius = CornerRadius.standard
         logButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         logButton.addTarget(self, action: #selector(logFailedPressed), for: .touchUpInside)

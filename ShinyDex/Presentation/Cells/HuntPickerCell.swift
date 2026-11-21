@@ -3,16 +3,16 @@ import UIKit
 class HuntPickerCell: UITableViewCell {
     static let reuseIdentifier = "huntPickerCell"
 
-    let nameLabel = UILabel(fontSize: 17, weight: .semibold, lines: 2)
-    let subtitleLabel = UILabel(fontSize: 15, color: Color.Grey400)
+    let nameLabel = UILabel(style: .body, weight: .semibold, lines: 2)
+    let subtitleLabel = UILabel(style: .subheadline, color: Color.textTertiary)
     let iconImageView = UIImageView()
     fileprivate var imageSizeConstraints = [NSLayoutConstraint]()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.layer.magnificationFilter = .nearest
