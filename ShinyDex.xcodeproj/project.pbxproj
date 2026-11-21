@@ -285,6 +285,13 @@
 		B17700000000000000000016 /* GoalProgressCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000015 /* GoalProgressCard.swift */; };
 		B17700000000000000000018 /* DryStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000017 /* DryStreaksTests.swift */; };
 		B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000019 /* ProgressHandlerTests.swift */; };
+		B18600000000000000000002 /* PPPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18600000000000000000001 /* PPPreset.swift */; };
+		B18600000000000000000004 /* GetPPPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18600000000000000000003 /* GetPPPresets.swift */; };
+		B18600000000000000000006 /* ApplyPPPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18600000000000000000005 /* ApplyPPPreset.swift */; };
+		B18600000000000000000008 /* PPPresetsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18600000000000000000007 /* PPPresetsLoader.swift */; };
+		B1860000000000000000000A /* PPPresetPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18600000000000000000009 /* PPPresetPickerTVC.swift */; };
+		B1860000000000000000000C /* PPPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000B /* PPPresetTests.swift */; };
+		B1860000000000000000000E /* ppPresets.json in Resources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000D /* ppPresets.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -592,6 +599,13 @@
 		B17700000000000000000017 /* DryStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DryStreaksTests.swift; sourceTree = "<group>"; };
 		B17700000000000000000019 /* ProgressHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHandlerTests.swift; sourceTree = "<group>"; };
 		B1770000000000000000001B /* ShinyDex 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 11.xcdatamodel"; sourceTree = "<group>"; };
+		B18600000000000000000001 /* PPPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPreset.swift; sourceTree = "<group>"; };
+		B18600000000000000000003 /* GetPPPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPPPresets.swift; sourceTree = "<group>"; };
+		B18600000000000000000005 /* ApplyPPPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyPPPreset.swift; sourceTree = "<group>"; };
+		B18600000000000000000007 /* PPPresetsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPresetsLoader.swift; sourceTree = "<group>"; };
+		B18600000000000000000009 /* PPPresetPickerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPresetPickerTVC.swift; sourceTree = "<group>"; };
+		B1860000000000000000000B /* PPPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPresetTests.swift; sourceTree = "<group>"; };
+		B1860000000000000000000D /* ppPresets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ppPresets.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -773,6 +787,7 @@
 		4F60E2E8AF9E20E12E2233F3 /* Moves */ = {
 			isa = PBXGroup;
 			children = (
+				B18600000000000000000001 /* PPPreset.swift */,
 				96E2FE4326B2FE9F005E1D46 /* ActiveMove.swift */,
 				96E2FE4726B30029005E1D46 /* ActiveMoves.swift */,
 				969BEF8926B1B55200FDF445 /* Move.swift */,
@@ -786,6 +801,8 @@
 		5C73315A869DA9BC7B088F6D /* Moves */ = {
 			isa = PBXGroup;
 			children = (
+				B18600000000000000000005 /* ApplyPPPreset.swift */,
+				B18600000000000000000003 /* GetPPPresets.swift */,
 				62C6ADE756573C8E15C1872B /* GetActiveMoves.swift */,
 				7F38366A50CF3D75831C7500 /* GetMoveOptions.swift */,
 				9772D44DFCFD54C5311B8229 /* MoveDTOs.swift */,
@@ -889,6 +906,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B18600000000000000000007 /* PPPresetsLoader.swift */,
 				B12600000000000000000007 /* BingoTemplatesLoader.swift */,
 				F0A1B2000000000000000005 /* PokemonFormsLoader.swift */,
 				213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */,
@@ -922,6 +940,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B1860000000000000000000B /* PPPresetTests.swift */,
 				B17700000000000000000019 /* ProgressHandlerTests.swift */,
 				B17700000000000000000017 /* DryStreaksTests.swift */,
 				B1260000000000000000000D /* BingoTemplateTests.swift */,
@@ -1109,6 +1128,7 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B18600000000000000000009 /* PPPresetPickerTVC.swift */,
 				B12600000000000000000009 /* BingoTemplatePickerTVC.swift */,
 				B1B60A000000000000000015 /* BingoBoardsTVC.swift */,
 				70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */,
@@ -1163,6 +1183,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B1860000000000000000000D /* ppPresets.json */,
 				B1260000000000000000000B /* bingoTemplates.json */,
 				F0A1B2000000000000000009 /* forms.json */,
 				9625741926B308350056B09C /* initialActiveMoves.json */,
@@ -1419,6 +1440,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1860000000000000000000E /* ppPresets.json in Resources */,
 				B1260000000000000000000C /* bingoTemplates.json in Resources */,
 				F0A1B200000000000000000A /* forms.json in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
@@ -1479,6 +1501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1860000000000000000000C /* PPPresetTests.swift in Sources */,
 				B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */,
 				B17700000000000000000018 /* DryStreaksTests.swift in Sources */,
 				B1260000000000000000000E /* BingoTemplateTests.swift in Sources */,
@@ -1530,6 +1553,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1860000000000000000000A /* PPPresetPickerTVC.swift in Sources */,
+				B18600000000000000000008 /* PPPresetsLoader.swift in Sources */,
+				B18600000000000000000006 /* ApplyPPPreset.swift in Sources */,
+				B18600000000000000000004 /* GetPPPresets.swift in Sources */,
+				B18600000000000000000002 /* PPPreset.swift in Sources */,
 				B17700000000000000000016 /* GoalProgressCard.swift in Sources */,
 				B17700000000000000000014 /* CoreDataYearlyGoalRepository.swift in Sources */,
 				B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */,
