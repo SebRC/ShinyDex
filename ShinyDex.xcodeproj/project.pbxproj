@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1960000000000000000000A /* MilestoneCelebration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000009 /* MilestoneCelebration.swift */; };
+		B19600000000000000000008 /* EncounterMilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000007 /* EncounterMilestoneTests.swift */; };
+		B19600000000000000000006 /* MilestoneText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000005 /* MilestoneText.swift */; };
+		B19600000000000000000004 /* ReachedMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000003 /* ReachedMilestone.swift */; };
+		B19600000000000000000002 /* EncounterMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000001 /* EncounterMilestone.swift */; };
 		B1950000000000000000000E /* AutomaticBackupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1950000000000000000000D /* AutomaticBackupTests.swift */; };
 		B1950000000000000000000C /* BookmarkedBackupFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1950000000000000000000B /* BookmarkedBackupFolder.swift */; };
 		B1950000000000000000000A /* GetAutomaticBackupStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000009 /* GetAutomaticBackupStatus.swift */; };
@@ -329,6 +334,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B19600000000000000000009 /* MilestoneCelebration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneCelebration.swift; sourceTree = "<group>"; };
+		B19600000000000000000007 /* EncounterMilestoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterMilestoneTests.swift; sourceTree = "<group>"; };
+		B19600000000000000000005 /* MilestoneText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneText.swift; sourceTree = "<group>"; };
+		B19600000000000000000003 /* ReachedMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachedMilestone.swift; sourceTree = "<group>"; };
+		B19600000000000000000001 /* EncounterMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterMilestone.swift; sourceTree = "<group>"; };
 		B1950000000000000000000D /* AutomaticBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticBackupTests.swift; sourceTree = "<group>"; };
 		B1950000000000000000000B /* BookmarkedBackupFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedBackupFolder.swift; sourceTree = "<group>"; };
 		B19500000000000000000009 /* GetAutomaticBackupStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAutomaticBackupStatus.swift; sourceTree = "<group>"; };
@@ -930,6 +940,7 @@
 		74800DB66393B78C353B2B60 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				B19600000000000000000003 /* ReachedMilestone.swift */,
 				C4A1A0000000000000000001 /* ChangeChain.swift */,
 				F0A1B2000000000000000003 /* GetPokemonForms.swift */,
 				759D1CE442FD135517E1ED30 /* ApplyHuntSettingsToAll.swift */,
@@ -994,6 +1005,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B19600000000000000000007 /* EncounterMilestoneTests.swift */,
 				B1950000000000000000000D /* AutomaticBackupTests.swift */,
 				B19100000000000000000003 /* HuntLuckTextTests.swift */,
 				B19000000000000000000005 /* HuntingDayStreaksTests.swift */,
@@ -1227,6 +1239,8 @@
 		E8811AC4641D3747098C7826 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				B19600000000000000000009 /* MilestoneCelebration.swift */,
+				B19600000000000000000005 /* MilestoneText.swift */,
 				B19100000000000000000001 /* HuntLuckText.swift */,
 				C4A1A0000000000000000003 /* HuntCounterText.swift */,
 				F0A1B2000000000000000101 /* FormPicker.swift */,
@@ -1400,6 +1414,7 @@
 		B17700000000000000000001 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				B19600000000000000000001 /* EncounterMilestone.swift */,
 				B19000000000000000000001 /* HuntingDayStreaks.swift */,
 				B18700000000000000000003 /* DailyEncountersRepository.swift */,
 				B18700000000000000000001 /* EncounterDay.swift */,
@@ -1574,6 +1589,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B19600000000000000000008 /* EncounterMilestoneTests.swift in Sources */,
 				B1950000000000000000000E /* AutomaticBackupTests.swift in Sources */,
 				B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */,
 				B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */,
@@ -1631,6 +1647,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1960000000000000000000A /* MilestoneCelebration.swift in Sources */,
+				B19600000000000000000006 /* MilestoneText.swift in Sources */,
+				B19600000000000000000004 /* ReachedMilestone.swift in Sources */,
+				B19600000000000000000002 /* EncounterMilestone.swift in Sources */,
 				B1950000000000000000000C /* BookmarkedBackupFolder.swift in Sources */,
 				B1950000000000000000000A /* GetAutomaticBackupStatus.swift in Sources */,
 				B19500000000000000000008 /* TurnOffAutomaticBackups.swift in Sources */,

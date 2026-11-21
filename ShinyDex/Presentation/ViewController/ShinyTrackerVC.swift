@@ -323,9 +323,12 @@ class ShinyTrackerVC: UIViewController {
     }
 
     fileprivate func changeEncounters(_ change: ChangeEncountersCommand.Change) {
-        container.changeEncounters.handle(ChangeEncountersCommand(number: pokemon.number, change: change))
+        let milestone = container.changeEncounters.handle(ChangeEncountersCommand(number: pokemon.number, change: change))
         reloadPokemon()
         resolveEncounterDetails()
+        if let milestone = milestone {
+            MilestoneCelebration.play(milestone, on: encountersValueLabel, in: view, labelAnchor: heroView)
+        }
     }
 
     @objc fileprivate func chainPlusPressed() {
