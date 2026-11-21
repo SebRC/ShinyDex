@@ -120,13 +120,7 @@ class SettingsVC: GameSettingsHostVC {
     }
 
     @objc fileprivate func restorePressed() {
-        let picker: UIDocumentPickerViewController
-        if #available(iOS 14.0, *) {
-            picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.json], asCopy: true)
-        }
-        else {
-            picker = UIDocumentPickerViewController(documentTypes: ["public.json"], in: .import)
-        }
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.json], asCopy: true)
         picker.delegate = self
         picker.allowsMultipleSelection = false
         present(picker, animated: true)

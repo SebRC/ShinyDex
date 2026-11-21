@@ -21,7 +21,6 @@ class PokeballModalVC: UIViewController {
 
     fileprivate let summaryView = UIView()
     fileprivate let datePicker = UIDatePicker()
-    fileprivate let dateButton = UIButton(type: .system)
     fileprivate let gridView = IconGridView(columns: 4)
     fileprivate let outcomeControl = UISegmentedControl(items: ["Caught", "Got away"])
     fileprivate let failedView = UIView()
@@ -101,28 +100,17 @@ class PokeballModalVC: UIViewController {
         labels.axis = .vertical
         labels.spacing = 2
 
-        let dateControl: UIView
-        if #available(iOS 14.0, *) {
-            datePicker.datePickerMode = .date
-            datePicker.preferredDatePickerStyle = .compact
-            datePicker.maximumDate = Date()
-            datePicker.date = caughtDate
-            datePicker.tintColor = Color.Orange500
-            datePicker.accessibilityLabel = "Date caught"
-            datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
-            dateControl = datePicker
-        }
-        else {
-            dateButton.tintColor = Color.Orange500
-            dateButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-            dateButton.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
-            updateDateButton()
-            dateControl = dateButton
-        }
-        dateControl.setContentHuggingPriority(.required, for: .horizontal)
-        dateControl.setContentCompressionResistancePriority(.required, for: .horizontal)
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .compact
+        datePicker.maximumDate = Date()
+        datePicker.date = caughtDate
+        datePicker.tintColor = Color.Orange500
+        datePicker.accessibilityLabel = "Date caught"
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        datePicker.setContentHuggingPriority(.required, for: .horizontal)
+        datePicker.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        let row = UIStackView(arrangedSubviews: [spriteView, labels, dateControl])
+        let row = UIStackView(arrangedSubviews: [spriteView, labels, datePicker])
         row.alignment = .center
         row.spacing = 12
         summaryView.addAutoLayoutSubviews(row)
@@ -153,18 +141,6 @@ class PokeballModalVC: UIViewController {
 
     @objc fileprivate func dateChanged() {
         caughtDate = datePicker.date
-    }
-
-    fileprivate func updateDateButton() {
-        let title = Calendar.current.isDateInToday(caughtDate) ? "Today" : DateFormatter.localizedString(from: caughtDate, dateStyle: .medium, timeStyle: .none)
-        dateButton.setTitle(title, for: .normal)
-    }
-
-    @objc fileprivate func dateButtonPressed() {
-        present(CatchDatePickerVC.makeNavigationController(initialDate: caughtDate) { [weak self] date in
-            self?.caughtDate = date
-            self?.updateDateButton()
-        }, animated: true)
     }
 
     // MARK: Grid

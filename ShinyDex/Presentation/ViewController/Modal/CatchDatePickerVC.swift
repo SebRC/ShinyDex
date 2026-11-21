@@ -30,9 +30,7 @@ class CatchDatePickerVC: UIViewController {
         navigationController?.navigationBar.tintColor = Color.Orange500
 
         datePicker.datePickerMode = .date
-        if #available(iOS 14.0, *) {
-            datePicker.preferredDatePickerStyle = .inline
-        }
+        datePicker.preferredDatePickerStyle = .inline
         datePicker.maximumDate = Date()
         datePicker.date = min(initialDate, Date())
         datePicker.tintColor = Color.Orange500

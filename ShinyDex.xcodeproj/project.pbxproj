@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1890000000000000000000A /* YearInReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000009 /* YearInReviewTests.swift */; };
+		B18900000000000000000008 /* YearInReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000007 /* YearInReviewVC.swift */; };
+		B18900000000000000000006 /* YearInReviewCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000005 /* YearInReviewCards.swift */; };
+		B18900000000000000000004 /* YearInReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000003 /* YearInReviewCardView.swift */; };
+		B18900000000000000000002 /* GetYearInReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000001 /* GetYearInReview.swift */; };
 		B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000E /* EncounterHistoryTests.swift */; };
 		B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000C /* EncounterHistoryTVC.swift */; };
 		B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000A /* EncounterHistoryChartView.swift */; };
@@ -312,6 +317,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B18900000000000000000009 /* YearInReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewTests.swift; sourceTree = "<group>"; };
+		B18900000000000000000007 /* YearInReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewVC.swift; sourceTree = "<group>"; };
+		B18900000000000000000005 /* YearInReviewCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCards.swift; sourceTree = "<group>"; };
+		B18900000000000000000003 /* YearInReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCardView.swift; sourceTree = "<group>"; };
+		B18900000000000000000001 /* GetYearInReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYearInReview.swift; sourceTree = "<group>"; };
 		B1870000000000000000000E /* EncounterHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTests.swift; sourceTree = "<group>"; };
 		B1870000000000000000000C /* EncounterHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTVC.swift; sourceTree = "<group>"; };
 		B1870000000000000000000A /* EncounterHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryChartView.swift; sourceTree = "<group>"; };
@@ -645,6 +655,8 @@
 		CCF9CB8C702F7D88075BC906 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
+				B18900000000000000000005 /* YearInReviewCards.swift */,
+				B18900000000000000000003 /* YearInReviewCardView.swift */,
 				B1870000000000000000000A /* EncounterHistoryChartView.swift */,
 				B17700000000000000000015 /* GoalProgressCard.swift */,
 				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
@@ -956,6 +968,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B18900000000000000000009 /* YearInReviewTests.swift */,
 				B1870000000000000000000E /* EncounterHistoryTests.swift */,
 				B1860000000000000000000B /* PPPresetTests.swift */,
 				B17700000000000000000019 /* ProgressHandlerTests.swift */,
@@ -1236,6 +1249,7 @@
 		F7A8A1B1849F45879A824E2A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B18900000000000000000007 /* YearInReviewVC.swift */,
 				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A0000000000000000E6 /* EVTrainingVC.swift */,
@@ -1366,6 +1380,7 @@
 		B17700000000000000000002 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				B18900000000000000000001 /* GetYearInReview.swift */,
 				B18700000000000000000008 /* GetEncounterHistory.swift */,
 				B1770000000000000000000F /* SetYearlyGoal.swift */,
 			);
@@ -1523,6 +1538,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1890000000000000000000A /* YearInReviewTests.swift in Sources */,
 				B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */,
 				B1860000000000000000000C /* PPPresetTests.swift in Sources */,
 				B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */,
@@ -1576,6 +1592,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B18900000000000000000008 /* YearInReviewVC.swift in Sources */,
+				B18900000000000000000006 /* YearInReviewCards.swift in Sources */,
+				B18900000000000000000004 /* YearInReviewCardView.swift in Sources */,
+				B18900000000000000000002 /* GetYearInReview.swift in Sources */,
 				B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */,
 				B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */,
 				B18700000000000000000009 /* GetEncounterHistory.swift in Sources */,
@@ -1834,7 +1854,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVU6FF2PL3;
 				INFOPLIST_FILE = ShinyDexTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1856,7 +1876,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVU6FF2PL3;
 				INFOPLIST_FILE = ShinyDexTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1921,7 +1941,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1976,7 +1996,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
