@@ -5,12 +5,12 @@ final class RecordCard: UIControl {
 
     init(title: String, symbol: String, caught: CatchSummary) {
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
 
         let symbolView = UIImageView(image: UIImage.makeSymbol(symbol, pointSize: 12, weight: .bold))
-        symbolView.tintColor = Color.Orange500
-        let titleLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        symbolView.tintColor = Color.accent
+        let titleLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         titleLabel.text = title.uppercased()
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.minimumScaleFactor = 0.8
@@ -21,12 +21,12 @@ final class RecordCard: UIControl {
         let sprite = UIImageView(image: caught.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
-        let encountersLabel = UILabel(fontSize: 22, weight: .bold, color: Color.Grey100)
-        encountersLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .bold)
+        let encountersLabel = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
+        encountersLabel.font = UIFont.make(.title2, weight: .bold, monospacedDigits: true)
         encountersLabel.text = caught.encounters.grouped
         encountersLabel.adjustsFontSizeToFitWidth = true
         encountersLabel.minimumScaleFactor = 0.6
-        let detailLabel = UILabel(fontSize: 12, color: Color.Grey400)
+        let detailLabel = UILabel(style: .caption1, color: Color.textTertiary)
         detailLabel.text = [caught.speciesTitle, caught.isFailed ? "got away" : nil, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
         detailLabel.adjustsFontSizeToFitWidth = true
         detailLabel.minimumScaleFactor = 0.8
@@ -55,7 +55,7 @@ final class RecordCard: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : Color.Grey800
+            backgroundColor = isHighlighted ? Color.surfaceRaised : Color.surface
         }
     }
 

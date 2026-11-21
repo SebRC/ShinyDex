@@ -6,20 +6,20 @@ final class GoalProgressCard: UIControl {
     init(year: Int, goal: CatchStatistics.Goal, onTap: @escaping () -> Void) {
         self.onTap = onTap
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
         addTarget(self, action: #selector(tapped), for: .touchUpInside)
 
-        let captionLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         captionLabel.text = "SHINIES FOUND IN \(year)"
-        let valueLabel = UILabel(fontSize: 26, weight: .bold, color: goal.isReached ? Color.Orange500 : Color.Grey100)
-        valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 26, weight: .bold)
+        let valueLabel = UILabel(style: .title1, weight: .bold, color: goal.isReached ? Color.accent : Color.textPrimary)
+        valueLabel.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
         valueLabel.text = "\(goal.foundCount.grouped) / \(goal.target.grouped)"
         let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.progressTintColor = Color.Orange500
-        progressView.trackTintColor = Color.Grey700
+        progressView.progressTintColor = Color.accent
+        progressView.trackTintColor = Color.surfaceRaised
         progressView.progress = Float(min(Double(goal.foundCount) / Double(goal.target), 1))
-        let paceLabel = UILabel(fontSize: 12, color: Color.Grey400)
+        let paceLabel = UILabel(style: .caption1, color: Color.textTertiary)
         paceLabel.text = GoalProgressCard.describePace(of: goal)
 
         let stack = UIStackView(arrangedSubviews: [captionLabel, valueLabel, progressView, paceLabel])
@@ -32,7 +32,7 @@ final class GoalProgressCard: UIControl {
         stack.pinEdges(to: self, insets: UIEdgeInsets(top: 12, left: 14, bottom: 12, right: 14))
 
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-        chevron.tintColor = Color.Grey500
+        chevron.tintColor = Color.textQuaternary
         addAutoLayoutSubviews(chevron)
         NSLayoutConstraint.activate([
             chevron.topAnchor.constraint(equalTo: topAnchor, constant: 13),
@@ -51,7 +51,7 @@ final class GoalProgressCard: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : Color.Grey800
+            backgroundColor = isHighlighted ? Color.surfaceRaised : Color.surface
         }
     }
 

@@ -8,10 +8,10 @@ class OddsSimulatorVC: UIViewController {
     fileprivate let contentStack = UIStackView()
     fileprivate let gameSettingsContainer = GameSettingsContainer()
     fileprivate let encountersField = UITextField()
-    fileprivate let chanceLabel = UILabel(fontSize: 44, weight: .bold, color: Color.Orange500)
-    fileprivate let chanceCaptionLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
+    fileprivate let chanceLabel = UILabel(style: .display, weight: .bold, color: Color.accent)
+    fileprivate let chanceCaptionLabel = UILabel(style: .subheadline, color: Color.textTertiary, lines: 0)
     fileprivate let milestonesStack = UIStackView()
-    fileprivate let chainNoteLabel = UILabel(fontSize: 13, color: Color.Grey400, lines: 0)
+    fileprivate let chainNoteLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
     fileprivate var settings: HuntSettings
     fileprivate var encounters = OddsSimulatorVC.defaultEncounters
 
@@ -31,7 +31,7 @@ class OddsSimulatorVC: UIViewController {
         super.viewDidLoad()
         title = "Odds Simulator"
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         setUpGameSettings()
         contentStack.axis = .vertical
         contentStack.spacing = 16
@@ -44,8 +44,8 @@ class OddsSimulatorVC: UIViewController {
         NSLayoutConstraint.activate([
             contentStack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 8),
             contentStack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -8),
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 8),
-            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -8)
+            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 12),
+            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -12)
         ])
         refresh()
     }
@@ -60,7 +60,7 @@ class OddsSimulatorVC: UIViewController {
         card.stack.layoutMargins = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
         card.stack.spacing = 10
         card.stack.addArrangedSubview(makeEncountersRow())
-        chanceLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 44, weight: .bold)
+        chanceLabel.font = UIFont.make(.display, weight: .bold, monospacedDigits: true)
         chanceLabel.adjustsFontSizeToFitWidth = true
         chanceLabel.minimumScaleFactor = 0.6
         card.stack.addArrangedSubview(chanceLabel)
@@ -81,14 +81,14 @@ class OddsSimulatorVC: UIViewController {
     }
 
     fileprivate func makeEncountersRow() -> UIView {
-        let label = UILabel(fontSize: 17, weight: .semibold, color: Color.Grey200)
+        let label = UILabel(style: .body, weight: .semibold, color: Color.textPrimary)
         label.text = "Encounters"
         encountersField.text = String(encounters)
         encountersField.keyboardType = .numberPad
         encountersField.textAlignment = .right
-        encountersField.font = UIFont.monospacedDigitSystemFont(ofSize: 20, weight: .semibold)
-        encountersField.textColor = Color.Grey100
-        encountersField.tintColor = Color.Orange500
+        encountersField.font = UIFont.make(.title3, weight: .semibold, monospacedDigits: true)
+        encountersField.textColor = Color.textPrimary
+        encountersField.tintColor = Color.accent
         encountersField.accessibilityLabel = "Encounters"
         encountersField.addTarget(self, action: #selector(encountersChanged), for: .editingChanged)
         encountersField.inputAccessoryView = makeKeyboardToolbar()
@@ -101,7 +101,7 @@ class OddsSimulatorVC: UIViewController {
 
     fileprivate func makeKeyboardToolbar() -> UIToolbar {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
-        toolbar.tintColor = Color.Orange500
+        toolbar.tintColor = Color.accent
         toolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
@@ -110,10 +110,10 @@ class OddsSimulatorVC: UIViewController {
     }
 
     fileprivate func makeMilestoneRow(_ milestone: ChanceMilestone) -> UIView {
-        let percentLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Grey200)
+        let percentLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.textPrimary)
         percentLabel.text = "\(milestone.percent)% chance"
-        let encountersLabel = UILabel(fontSize: 15, color: Color.Grey300)
-        encountersLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .regular)
+        let encountersLabel = UILabel(style: .subheadline, color: Color.textSecondary)
+        encountersLabel.font = UIFont.make(.subheadline, weight: .regular, monospacedDigits: true)
         encountersLabel.text = milestone.encounters.map { "\($0.grouped) encounters" } ?? "Out of reach"
         encountersLabel.textAlignment = .right
         let row = UIStackView(arrangedSubviews: [percentLabel, encountersLabel])

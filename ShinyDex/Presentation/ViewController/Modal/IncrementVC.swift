@@ -29,8 +29,8 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
     fileprivate let customField = UITextField()
     fileprivate let customMinus = UIButton(type: .system)
     fileprivate let customPlus = UIButton(type: .system)
-    fileprivate let descriptionLabel = UILabel(fontSize: 15, color: Color.Grey300, lines: 0)
-    fileprivate let previewLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Orange500, lines: 0)
+    fileprivate let descriptionLabel = UILabel(style: .subheadline, color: Color.textSecondary, lines: 0)
+    fileprivate let previewLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.accent, lines: 0)
 
     fileprivate var selectedPresetIndex: Int?
     fileprivate var customValue = 7
@@ -50,7 +50,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Encounters per tap"
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
         saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(confirmPressed))
         navigationItem.rightBarButtonItem = saveButton
@@ -94,10 +94,10 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         stack.addArrangedSubview(customCard)
 
         let descriptionCard = UIView()
-        descriptionCard.backgroundColor = Color.Grey800
+        descriptionCard.backgroundColor = Color.surface
         descriptionCard.layer.cornerRadius = CornerRadius.standard
         let infoIcon = UIImageView(image: UIImage.makeSymbol("info.circle", pointSize: 15, weight: .semibold))
-        infoIcon.tintColor = Color.Grey400
+        infoIcon.tintColor = Color.textTertiary
         infoIcon.setContentHuggingPriority(.required, for: .horizontal)
         let descriptionRow = UIStackView(arrangedSubviews: [infoIcon, descriptionLabel])
         descriptionRow.spacing = 10
@@ -117,19 +117,19 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 16),
             stack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
-            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 16),
-            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -16)
+            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: Spacing.screenMargin),
+            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -Spacing.screenMargin)
         ])
     }
 
     fileprivate func setUpCustomCard() {
-        customCard.backgroundColor = Color.Grey800
+        customCard.backgroundColor = Color.surface
         customCard.layer.cornerRadius = CornerRadius.standard
         for (button, symbol, label) in [(customMinus, "minus", "Decrease"), (customPlus, "plus", "Increase")] {
             button.setImage(UIImage.makeSymbol(symbol, pointSize: 20, weight: .bold), for: .normal)
-            button.tintColor = Color.Grey200
-            button.backgroundColor = Color.Grey700
-            button.layer.cornerRadius = 22
+            button.tintColor = Color.textPrimary
+            button.backgroundColor = Color.surfaceRaised
+            button.layer.cornerRadius = CornerRadius.capsule(height: 44)
             button.accessibilityLabel = label
             button.widthAnchor.constraint(equalToConstant: 56).isActive = true
             button.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -140,12 +140,12 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         customField.delegate = self
         customField.keyboardType = .numberPad
         customField.textAlignment = .center
-        customField.font = UIFont.monospacedDigitSystemFont(ofSize: 30, weight: .bold)
-        customField.textColor = Color.Grey100
+        customField.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
+        customField.textColor = Color.textPrimary
         customField.accessibilityLabel = "Custom encounters per tap"
         customField.addTarget(self, action: #selector(customFieldChanged), for: .editingChanged)
 
-        let rangeLabel = UILabel(fontSize: 12, color: Color.Grey500)
+        let rangeLabel = UILabel(style: .caption1, color: Color.textQuaternary)
         rangeLabel.text = "1–\(IncrementVC.maximumIncrement)"
         rangeLabel.textAlignment = .center
         let fieldStack = UIStackView(arrangedSubviews: [customField, rangeLabel])
@@ -224,11 +224,11 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
             ?? "Set your own number of encounters per tap, from 1 to \(IncrementVC.maximumIncrement)."
         if let increment = getIncrement() {
             previewLabel.text = increment == 1 ? "Each tap on + adds 1 encounter" : "Each tap on + adds \(increment) encounters"
-            previewLabel.textColor = Color.Orange500
+            previewLabel.textColor = Color.accent
         }
         else {
             previewLabel.text = "Enter a number from 1 to \(IncrementVC.maximumIncrement)"
-            previewLabel.textColor = Color.Danger400
+            previewLabel.textColor = Color.danger
         }
         saveButton.isEnabled = getIncrement() != nil
     }
@@ -250,25 +250,25 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 }
 
 fileprivate class IncrementTile: UIControl {
-    fileprivate let valueLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
-    fileprivate let captionLabel = UILabel(fontSize: 13, weight: .medium, color: Color.Grey400)
+    fileprivate let valueLabel = UILabel(style: .largeTitle, weight: .bold, color: Color.textPrimary)
+    fileprivate let captionLabel = UILabel(style: .footnote, weight: .medium, color: Color.textTertiary)
 
     var isChosen = false {
         didSet {
             layer.borderWidth = isChosen ? 2 : 0
-            backgroundColor = isChosen ? Color.Orange900 : Color.Grey800
-            valueLabel.textColor = isChosen ? Color.Orange500 : Color.Grey100
-            captionLabel.textColor = isChosen ? Color.Orange400 : Color.Grey400
+            backgroundColor = isChosen ? Color.accentSubtle : Color.surface
+            valueLabel.textColor = isChosen ? Color.accent : Color.textPrimary
+            captionLabel.textColor = isChosen ? Color.Orange400 : Color.textTertiary
             accessibilityTraits = isChosen ? [.button, .selected] : .button
         }
     }
 
     init(valueText: String, label: String, isWide: Bool) {
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
-        layer.cornerRadius = 14
-        layer.borderColor = Color.Orange500.cgColor
-        valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: isWide ? 22 : 34, weight: .bold)
+        backgroundColor = Color.surface
+        layer.cornerRadius = CornerRadius.standard
+        layer.borderColor = Color.accent.cgColor
+        valueLabel.font = UIFont.make(isWide ? .title2 : .largeTitle, weight: .bold, monospacedDigits: true)
         valueLabel.textAlignment = .center
         captionLabel.textAlignment = .center
         captionLabel.adjustsFontSizeToFitWidth = true
@@ -279,8 +279,8 @@ fileprivate class IncrementTile: UIControl {
         let stack: UIStackView
         if (isWide) {
             let icon = UIImageView(image: UIImage.makeSymbol("slider.horizontal.3", pointSize: 17, weight: .semibold))
-            icon.tintColor = Color.Grey400
-            captionLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            icon.tintColor = Color.textTertiary
+            captionLabel.font = UIFont.make(.body, weight: .semibold)
             stack = UIStackView(arrangedSubviews: [icon, captionLabel, UIView(), valueLabel])
             stack.spacing = 10
             stack.alignment = .center

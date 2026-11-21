@@ -22,8 +22,8 @@ class BingoTemplatePickerTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,14 +37,14 @@ class BingoTemplatePickerTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let template = templates[indexPath.row]
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         cell.selectedBackgroundView = selectedBackground
         cell.textLabel?.text = template.name
-        cell.textLabel?.textColor = Color.Grey200
+        cell.textLabel?.textColor = Color.textPrimary
         cell.detailTextLabel?.text = BingoTemplatePickerTVC.makeSubtitle(for: template, size: size)
-        cell.detailTextLabel?.textColor = Color.Grey400
+        cell.detailTextLabel?.textColor = Color.textTertiary
         cell.imageView?.image = template.coverPokemonName
             .flatMap { PokemonSprites.makeImage(pokemonName: $0, formId: template.coverFormId) }?
             .resized(to: BingoTemplatePickerTVC.spriteSize)

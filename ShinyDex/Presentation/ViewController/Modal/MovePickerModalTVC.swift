@@ -37,8 +37,8 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 		navigationItem.hidesSearchBarWhenScrolling = false
 		definesPresentationContext = true
 
-		tableView.backgroundColor = Color.Grey900
-		tableView.separatorColor = Color.Grey700
+		tableView.backgroundColor = Color.background
+		tableView.separatorColor = Color.separator
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
 		tableView.keyboardDismissMode = .onDrag

@@ -49,11 +49,11 @@ class PokedexTVC: UITableViewController {
     }
     
     fileprivate func setUIColors() {
-        tableView.separatorColor = Color.Grey700
-        tableView.backgroundColor = Color.Grey900
+        tableView.separatorColor = Color.separator
+        tableView.backgroundColor = Color.background
         
-        searchController.searchBar.backgroundColor = Color.Grey900
-        searchController.searchBar.barTintColor = Color.Grey800
+        searchController.searchBar.backgroundColor = Color.background
+        searchController.searchBar.barTintColor = Color.surface
     }
     
     fileprivate func setUpSearchController() {
@@ -70,9 +70,9 @@ class PokedexTVC: UITableViewController {
     
     fileprivate func setUpFilterControl() {
         filterControl.selectedSegmentIndex = PokedexFilter.allCases.firstIndex(of: PokedexTVC.selectedFilter) ?? 0
-        filterControl.selectedSegmentTintColor = Color.Orange500
-        filterControl.setTitleTextAttributes([.foregroundColor: Color.Grey200, .font: UIFont.systemFont(ofSize: 13, weight: .semibold)], for: .normal)
-        filterControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 13, weight: .bold)], for: .selected)
+        filterControl.selectedSegmentTintColor = Color.accent
+        filterControl.setTitleTextAttributes([.foregroundColor: Color.textPrimary, .font: UIFont.make(.footnote, weight: .semibold)], for: .normal)
+        filterControl.setTitleTextAttributes([.foregroundColor: Color.background, .font: UIFont.make(.footnote, weight: .bold)], for: .selected)
         filterControl.addTarget(self, action: #selector(filterChanged), for: .valueChanged)
         filterControl.accessibilityLabel = "Filter"
     }
@@ -284,7 +284,7 @@ class PokedexTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
     }
 }
 
@@ -312,16 +312,16 @@ class PokedexHeaderView: UIView {
 }
 
 class DexProgressView: UIView {
-    fileprivate let titleLabel = UILabel(fontSize: 15, weight: .semibold)
-    fileprivate let percentLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Orange500)
+    fileprivate let titleLabel = UILabel(style: .subheadline, weight: .semibold)
+    fileprivate let percentLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.accent)
     fileprivate let bar = UIProgressView(progressViewStyle: .default)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        percentLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .semibold)
-        bar.progressTintColor = Color.Orange500
-        bar.trackTintColor = Color.Grey800
-        bar.layer.cornerRadius = 3
+        percentLabel.font = UIFont.make(.subheadline, weight: .semibold, monospacedDigits: true)
+        bar.progressTintColor = Color.accent
+        bar.trackTintColor = Color.surface
+        bar.layer.cornerRadius = CornerRadius.tiny
         bar.clipsToBounds = true
         let labels = UIStackView(arrangedSubviews: [titleLabel, UIView(), percentLabel])
         let stack = UIStackView(arrangedSubviews: [labels, bar])

@@ -95,7 +95,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         title = filter?.title ?? "Collection"
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
@@ -130,7 +130,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 11, bottom: 24, trailing: 11)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 24, trailing: 15)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(150))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: CollectionTVC.headerKind, alignment: .top)
         header.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
@@ -250,9 +250,9 @@ fileprivate class CollectionHeader: UICollectionReusableView {
 
     var onSortChanged: ((Int) -> Void)?
 
-    fileprivate let shiniesValue = UILabel(fontSize: 22, weight: .bold, color: Color.Orange500)
-    fileprivate let speciesValue = UILabel(fontSize: 22, weight: .bold, color: Color.Grey100)
-    fileprivate let encountersValue = UILabel(fontSize: 22, weight: .bold, color: Color.Grey100)
+    fileprivate let shiniesValue = UILabel(style: .title2, weight: .bold, color: Color.accent)
+    fileprivate let speciesValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
+    fileprivate let encountersValue = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
     fileprivate let sortControl = UISegmentedControl(items: ["Dex order", "Recent"])
 
     override init(frame: CGRect) {
@@ -265,10 +265,10 @@ fileprivate class CollectionHeader: UICollectionReusableView {
         tiles.distribution = .fillEqually
         tiles.spacing = 10
 
-        sortControl.selectedSegmentTintColor = Color.Orange500
-        sortControl.backgroundColor = Color.Grey800
-        sortControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 14, weight: .semibold)], for: .selected)
-        sortControl.setTitleTextAttributes([.foregroundColor: Color.Grey300, .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .normal)
+        sortControl.selectedSegmentTintColor = Color.accent
+        sortControl.backgroundColor = Color.surface
+        sortControl.setTitleTextAttributes([.foregroundColor: Color.background, .font: UIFont.make(.subheadline, weight: .semibold)], for: .selected)
+        sortControl.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.subheadline, weight: .medium)], for: .normal)
         sortControl.addTarget(self, action: #selector(sortChanged), for: .valueChanged)
 
         let stack = UIStackView(arrangedSubviews: [tiles, sortControl])
@@ -285,15 +285,15 @@ fileprivate class CollectionHeader: UICollectionReusableView {
 
     fileprivate static func makeTile(caption: String, value: UILabel) -> UIView {
         let tile = UIView()
-        tile.backgroundColor = Color.Grey800
+        tile.backgroundColor = Color.surface
         tile.layer.cornerRadius = CornerRadius.standard
         tile.isAccessibilityElement = true
         tile.accessibilityLabel = caption.capitalized
-        let captionLabel = UILabel(fontSize: 11, weight: .semibold, color: Color.Grey400)
+        let captionLabel = UILabel(style: .caption2, weight: .semibold, color: Color.textTertiary)
         captionLabel.text = caption
         captionLabel.adjustsFontSizeToFitWidth = true
         captionLabel.minimumScaleFactor = 0.8
-        value.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .bold)
+        value.font = UIFont.make(.title2, weight: .bold, monospacedDigits: true)
         value.adjustsFontSizeToFitWidth = true
         value.minimumScaleFactor = 0.6
         let stack = UIStackView(arrangedSubviews: [captionLabel, value])
@@ -327,14 +327,14 @@ fileprivate class CollectionCard: UICollectionViewCell {
     fileprivate let glowView = GlowView()
     fileprivate let spriteView = UIImageView()
     fileprivate let ballView = UIImageView()
-    fileprivate let nameLabel = UILabel(fontSize: 14, weight: .semibold)
-    fileprivate let speciesLabel = UILabel(fontSize: 11, weight: .medium, color: Color.Grey300)
-    fileprivate let dateLabel = UILabel(fontSize: 11, color: Color.Grey400)
+    fileprivate let nameLabel = UILabel(style: .subheadline, weight: .semibold)
+    fileprivate let speciesLabel = UILabel(style: .caption2, weight: .medium, color: Color.textSecondary)
+    fileprivate let dateLabel = UILabel(style: .caption2, color: Color.textTertiary)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = Color.Grey800
-        contentView.layer.cornerRadius = 14
+        contentView.backgroundColor = Color.surface
+        contentView.layer.cornerRadius = CornerRadius.standard
         contentView.clipsToBounds = true
         isAccessibilityElement = true
         accessibilityTraits = .button
@@ -390,7 +390,7 @@ fileprivate class CollectionCard: UICollectionViewCell {
     override var isHighlighted: Bool {
         didSet {
             UIView.animate(withDuration: 0.15) {
-                self.contentView.backgroundColor = self.isHighlighted ? Color.Grey700 : Color.Grey800
+                self.contentView.backgroundColor = self.isHighlighted ? Color.surfaceRaised : Color.surface
                 self.transform = self.isHighlighted ? CGAffineTransform(scaleX: 0.96, y: 0.96) : .identity
             }
         }
@@ -401,7 +401,7 @@ fileprivate class CollectionCard: UICollectionViewCell {
         spriteView.alpha = caught.isFailed ? 0.55 : 1
         glowView.isHidden = caught.isFailed
         ballView.image = caught.isFailed ? UIImage.makeSymbol("wind", pointSize: 14, weight: .semibold) : UIImage(named: caught.caughtBall)
-        ballView.tintColor = Color.Grey400
+        ballView.tintColor = Color.textTertiary
         ballView.contentMode = caught.isFailed ? .center : .scaleAspectFit
         nameLabel.text = caught.nickname ?? caught.speciesTitle
         speciesLabel.text = caught.speciesTitle

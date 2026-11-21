@@ -15,7 +15,7 @@ final class PeriodChartView: UIView {
         let maxCount = bars.map { $0.foundCount }.max() ?? 0
         luckiestBars = maxCount > 0 ? bars.filter { $0.foundCount == maxCount } : []
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
 
         let columns = UIStackView(arrangedSubviews: bars.map { bar -> UIView in
@@ -36,16 +36,16 @@ final class PeriodChartView: UIView {
 
     fileprivate static func makeColumn(_ bar: Bar, maxCount: Int) -> UIView {
         let isLuckiest = bar.foundCount == maxCount
-        let countLabel = UILabel(fontSize: 11, weight: .semibold, color: isLuckiest ? Color.Grey100 : Color.Grey400)
-        countLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 11, weight: .semibold)
+        let countLabel = UILabel(style: .caption2, weight: .semibold, color: isLuckiest ? Color.textPrimary : Color.textTertiary)
+        countLabel.font = UIFont.make(.caption2, weight: .semibold, monospacedDigits: true)
         countLabel.text = bar.foundCount > 0 ? String(bar.foundCount) : " "
         countLabel.textAlignment = .center
         countLabel.adjustsFontSizeToFitWidth = true
         countLabel.minimumScaleFactor = 0.6
 
         let barView = UIView()
-        barView.backgroundColor = bar.foundCount == 0 ? Color.Grey700 : isLuckiest ? Color.Orange500 : Color.Orange800
-        barView.layer.cornerRadius = 4
+        barView.backgroundColor = bar.foundCount == 0 ? Color.surfaceRaised : isLuckiest ? Color.accent : Color.Orange800
+        barView.layer.cornerRadius = CornerRadius.tiny
         barView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         let barArea = UIView()
         barArea.addAutoLayoutSubviews(barView)
@@ -58,7 +58,7 @@ final class PeriodChartView: UIView {
             barView.heightAnchor.constraint(equalToConstant: max(3, barAreaHeight * fraction))
         ])
 
-        let label = UILabel(fontSize: 11, weight: .semibold, color: isLuckiest ? Color.Orange500 : Color.Grey400)
+        let label = UILabel(style: .caption2, weight: .semibold, color: isLuckiest ? Color.accent : Color.textTertiary)
         label.text = bar.label
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true

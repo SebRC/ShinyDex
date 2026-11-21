@@ -12,22 +12,22 @@ final class JourneyHeaderView: UIView {
         }
     }
 
-    fileprivate let countLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
-    fileprivate let detailLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let countLabel = UILabel(style: .largeTitle, weight: .bold, color: Color.textPrimary)
+    fileprivate let detailLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let progressBar = UIProgressView(progressViewStyle: .default)
     fileprivate let modeControl = UISegmentedControl()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         let card = UIView()
-        card.backgroundColor = Color.Grey800
-        card.layer.cornerRadius = 14
-        let caption = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        card.backgroundColor = Color.surface
+        card.layer.cornerRadius = CornerRadius.standard
+        let caption = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         caption.text = "CAUGHT"
-        countLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 34, weight: .bold)
-        progressBar.progressTintColor = Color.Orange500
-        progressBar.trackTintColor = Color.Grey700
-        progressBar.layer.cornerRadius = 3
+        countLabel.font = UIFont.make(.largeTitle, weight: .bold, monospacedDigits: true)
+        progressBar.progressTintColor = Color.accent
+        progressBar.trackTintColor = Color.surfaceRaised
+        progressBar.layer.cornerRadius = CornerRadius.tiny
         progressBar.clipsToBounds = true
         let cardStack = UIStackView(arrangedSubviews: [caption, countLabel, detailLabel, progressBar])
         cardStack.axis = .vertical
@@ -37,10 +37,10 @@ final class JourneyHeaderView: UIView {
         cardStack.pinEdges(to: card, insets: UIEdgeInsets(top: 14, left: 16, bottom: 16, right: 16))
         card.isAccessibilityElement = true
 
-        modeControl.selectedSegmentTintColor = Color.Orange500
-        modeControl.backgroundColor = Color.Grey800
-        modeControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 14, weight: .semibold)], for: .selected)
-        modeControl.setTitleTextAttributes([.foregroundColor: Color.Grey300, .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .normal)
+        modeControl.selectedSegmentTintColor = Color.accent
+        modeControl.backgroundColor = Color.surface
+        modeControl.setTitleTextAttributes([.foregroundColor: Color.background, .font: UIFont.make(.subheadline, weight: .semibold)], for: .selected)
+        modeControl.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.subheadline, weight: .medium)], for: .normal)
         modeControl.addTarget(self, action: #selector(modeChanged), for: .valueChanged)
 
         let stack = UIStackView(arrangedSubviews: [card, modeControl])
@@ -67,14 +67,14 @@ final class JourneyHeaderView: UIView {
         let phasesText = phases == 0 ? nil : (phases == 1 ? "1 phase" : "\(phases.grouped) phases")
         if (total > 0 && caught == total) {
             detailLabel.text = ["Journey complete", phasesText].compactMap { $0 }.joined(separator: " · ")
-            detailLabel.textColor = Color.Orange500
+            detailLabel.textColor = Color.accent
         }
         else {
             let remaining = total - caught
             let remainingText = remaining == 1 ? "1 to go" : "\(remaining) to go"
             let firstCatchText = firstCatch.map { "first catch \(DateFormatter.localizedString(from: $0, dateStyle: .medium, timeStyle: .none))" }
             detailLabel.text = [remainingText, phasesText, firstCatchText].compactMap { $0 }.joined(separator: " · ")
-            detailLabel.textColor = Color.Grey400
+            detailLabel.textColor = Color.textTertiary
         }
         progressBar.progress = total == 0 ? 0 : Float(caught) / Float(total)
         countLabel.superview?.superview?.accessibilityLabel = "\(caught) of \(total) caught, \(detailLabel.text ?? "")"

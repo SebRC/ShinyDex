@@ -11,24 +11,24 @@ class MoveCell: UITableViewCell {
     let decrementButton = UIButton.makeSymbolButton("minus.circle.fill", pointSize: MoveCell.symbolSize)
     let incrementButton = UIButton.makeSymbolButton("plus.circle.fill", pointSize: MoveCell.symbolSize)
     fileprivate let typeIconView = TypeIconView(size: 36)
-    fileprivate let nameLabel = UILabel(fontSize: 19, weight: .semibold, lines: 2)
-    fileprivate let typeLabel = UILabel(fontSize: 15, color: Color.Grey400)
-    fileprivate let ppLabel = UILabel(fontSize: 15, weight: .semibold)
+    fileprivate let nameLabel = UILabel(style: .body, weight: .semibold, lines: 2)
+    fileprivate let typeLabel = UILabel(style: .subheadline, color: Color.textTertiary)
+    fileprivate let ppLabel = UILabel(style: .subheadline, weight: .semibold)
     fileprivate let ppBar = UIProgressView(progressViewStyle: .default)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         decrementButton.addTarget(self, action: #selector(decrementPressed), for: .touchUpInside)
         incrementButton.addTarget(self, action: #selector(incrementPressed), for: .touchUpInside)
-        ppLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .semibold)
+        ppLabel.font = UIFont.make(.subheadline, weight: .semibold, monospacedDigits: true)
         ppLabel.setContentHuggingPriority(.required, for: .horizontal)
         ppLabel.textAlignment = .right
-        ppBar.trackTintColor = Color.Grey700
-        ppBar.layer.cornerRadius = 3
+        ppBar.trackTintColor = Color.surfaceRaised
+        ppBar.layer.cornerRadius = CornerRadius.tiny
         ppBar.clipsToBounds = true
         ppBar.isAccessibilityElement = false
 
@@ -78,9 +78,9 @@ class MoveCell: UITableViewCell {
 
         let fraction = move.maxPP > 0 ? min(1, Float(move.remainingPP) / Float(move.maxPP)) : 0
         ppBar.progress = fraction
-        let stateColor: UIColor = move.remainingPP == 0 ? Color.Danger400 : (fraction <= 0.25 ? Color.Orange500 : Color.Grey200)
+        let stateColor: UIColor = move.remainingPP == 0 ? Color.danger : (fraction <= 0.25 ? Color.accent : Color.textPrimary)
         ppLabel.textColor = stateColor
-        ppBar.progressTintColor = move.remainingPP == 0 ? Color.Danger400 : (fraction <= 0.25 ? Color.Orange500 : Color.Success500)
+        ppBar.progressTintColor = move.remainingPP == 0 ? Color.danger : (fraction <= 0.25 ? Color.accent : Color.success)
 
         incrementButton.isEnabled = move.remainingPP < move.maxPP
         decrementButton.isEnabled = move.remainingPP > 0

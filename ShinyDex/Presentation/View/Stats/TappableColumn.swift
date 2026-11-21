@@ -6,7 +6,7 @@ final class TappableColumn: UIControl {
     init(content: UIView, onTap: @escaping () -> Void) {
         self.onTap = onTap
         super.init(frame: .zero)
-        layer.cornerRadius = 8
+        layer.cornerRadius = CornerRadius.small
         content.isUserInteractionEnabled = false
         content.isAccessibilityElement = false
         addAutoLayoutSubviews(content)
@@ -24,7 +24,7 @@ final class TappableColumn: UIControl {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Color.Grey700 : .clear
+            backgroundColor = isHighlighted ? Color.surfaceRaised : .clear
         }
     }
 

@@ -5,15 +5,15 @@ class PokeballCell: UICollectionViewCell {
 
 	fileprivate let tileView = UIView()
 	fileprivate let pokeballImageView = UIImageView()
-	fileprivate let nameLabel = UILabel(fontSize: 13, color: Color.Grey300, lines: 2)
+	fileprivate let nameLabel = UILabel(style: .footnote, color: Color.textSecondary, lines: 2)
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		isAccessibilityElement = true
 		accessibilityTraits = .button
-		tileView.backgroundColor = Color.Grey800
-		tileView.layer.cornerRadius = 14
-		tileView.layer.borderColor = Color.Orange500.cgColor
+		tileView.backgroundColor = Color.surface
+		tileView.layer.cornerRadius = CornerRadius.standard
+		tileView.layer.borderColor = Color.accent.cgColor
 		pokeballImageView.contentMode = .scaleAspectFit
 		pokeballImageView.layer.magnificationFilter = .nearest
 		nameLabel.textAlignment = .center
@@ -45,7 +45,7 @@ class PokeballCell: UICollectionViewCell {
 
 	override var isHighlighted: Bool {
 		didSet {
-			tileView.backgroundColor = isHighlighted ? Color.Grey700 : Color.Grey800
+			tileView.backgroundColor = isHighlighted ? Color.surfaceRaised : Color.surface
 		}
 	}
 

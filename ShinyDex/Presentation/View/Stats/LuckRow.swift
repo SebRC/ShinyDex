@@ -10,16 +10,16 @@ final class LuckRow: UIControl {
         let difference = Double(luck.foundCount) - luck.expectedShinies
         let isLucky = difference >= 0
 
-        let titleLabel = UILabel(fontSize: 15, weight: .semibold, color: isEmphasized ? Color.Orange500 : Color.Grey100)
+        let titleLabel = UILabel(style: .subheadline, weight: .semibold, color: isEmphasized ? Color.accent : Color.textPrimary)
         titleLabel.text = title
         titleLabel.setContentHuggingPriority(.required, for: .horizontal)
-        let comparisonLabel = UILabel(fontSize: 13, color: Color.Grey300)
-        comparisonLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
+        let comparisonLabel = UILabel(style: .footnote, color: Color.textSecondary)
+        comparisonLabel.font = UIFont.make(.footnote, weight: .regular, monospacedDigits: true)
         comparisonLabel.text = "\(expected) expected · \(luck.foundCount) found"
         comparisonLabel.adjustsFontSizeToFitWidth = true
         comparisonLabel.minimumScaleFactor = 0.8
-        let differenceLabel = UILabel(fontSize: 13, weight: .bold, color: isLucky ? Color.Success400 : Color.Danger300)
-        differenceLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .bold)
+        let differenceLabel = UILabel(style: .footnote, weight: .bold, color: isLucky ? Color.success : Color.danger)
+        differenceLabel.font = UIFont.make(.footnote, weight: .bold, monospacedDigits: true)
         differenceLabel.text = (isLucky ? "+" : "−") + LuckRow.formatOneDecimal(abs(difference))
         differenceLabel.setContentHuggingPriority(.required, for: .horizontal)
         differenceLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -33,7 +33,7 @@ final class LuckRow: UIControl {
         accessibilityLabel = "\(title): \(expected) expected, \(luck.foundCount) found, \(isLucky ? "luckier" : "unluckier") than expected"
         if onTap != nil {
             let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
-            chevron.tintColor = Color.Grey500
+            chevron.tintColor = Color.textQuaternary
             chevron.setContentHuggingPriority(.required, for: .horizontal)
             layout.addArrangedSubview(chevron)
             addTarget(self, action: #selector(handleTap), for: .touchUpInside)
@@ -49,7 +49,7 @@ final class LuckRow: UIControl {
     override var isHighlighted: Bool {
         didSet {
             guard onTap != nil else { return }
-            backgroundColor = isHighlighted ? Color.Grey700 : .clear
+            backgroundColor = isHighlighted ? Color.surfaceRaised : .clear
         }
     }
 

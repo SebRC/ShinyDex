@@ -22,7 +22,7 @@ class NaturePickerVC: UIViewController {
         super.viewDidLoad()
         title = "Nature"
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearPressed))
         clearButton.isEnabled = selected != nil
         navigationItem.rightBarButtonItem = clearButton
@@ -30,7 +30,7 @@ class NaturePickerVC: UIViewController {
         let grid = UIStackView(arrangedSubviews: [makeColumnHeaders()] + Nature.grid.enumerated().map { makeRow(raising: Nature.gridStats[$0.offset], natures: $0.element) })
         grid.axis = .vertical
         grid.spacing = NaturePickerVC.spacing
-        let footnote = UILabel(fontSize: 12, color: Color.Grey500, lines: 0)
+        let footnote = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
         footnote.text = "Each row raises a stat by 10% and each column lowers one. Natures on the diagonal are neutral."
         let stack = UIStackView(arrangedSubviews: [grid, footnote])
         stack.axis = .vertical
@@ -44,8 +44,8 @@ class NaturePickerVC: UIViewController {
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 12),
             stack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
-            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 16),
-            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -16)
+            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: Spacing.screenMargin),
+            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -Spacing.screenMargin)
         ])
     }
 
@@ -54,12 +54,12 @@ class NaturePickerVC: UIViewController {
     fileprivate func makeColumnHeaders() -> UIView {
         let corner = UIView()
         corner.widthAnchor.constraint(equalToConstant: NaturePickerVC.headerWidth).isActive = true
-        let labels = Nature.gridStats.map { makeHeaderLabel(text: "−\($0.shortName)", color: Color.Grey400) }
+        let labels = Nature.gridStats.map { makeHeaderLabel(text: "−\($0.shortName)", color: Color.textTertiary) }
         return makeGridRow(header: corner, cells: labels)
     }
 
     fileprivate func makeRow(raising stat: Stat, natures: [Nature]) -> UIView {
-        let header = makeHeaderLabel(text: "+\(stat.shortName)", color: Color.Orange500)
+        let header = makeHeaderLabel(text: "+\(stat.shortName)", color: Color.accent)
         header.widthAnchor.constraint(equalToConstant: NaturePickerVC.headerWidth).isActive = true
         let buttons = natures.map(makeButton)
         return makeGridRow(header: header, cells: buttons)
@@ -76,7 +76,7 @@ class NaturePickerVC: UIViewController {
     }
 
     fileprivate func makeHeaderLabel(text: String, color: UIColor) -> UILabel {
-        let label = UILabel(fontSize: 12, weight: .bold, color: color)
+        let label = UILabel(style: .caption1, weight: .bold, color: color)
         label.text = text
         label.textAlignment = .center
         label.isAccessibilityElement = false
@@ -87,16 +87,16 @@ class NaturePickerVC: UIViewController {
         let isSelected = nature == selected
         let button = UIButton(type: .custom)
         button.setTitle(nature.name, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        button.titleLabel?.font = UIFont.make(.footnote, weight: .semibold)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = 0.6
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
-        button.setTitleColor(isSelected ? Color.Grey900 : (nature.isNeutral ? Color.Grey400 : Color.Grey200), for: .normal)
-        button.backgroundColor = isSelected ? Color.Orange500 : (nature.isNeutral ? Color.Grey900 : Color.Grey800)
+        button.setTitleColor(isSelected ? Color.background : (nature.isNeutral ? Color.textTertiary : Color.textPrimary), for: .normal)
+        button.backgroundColor = isSelected ? Color.accent : (nature.isNeutral ? Color.background : Color.surface)
         button.layer.cornerRadius = CornerRadius.standard
         if (nature.isNeutral && !isSelected) {
             button.layer.borderWidth = 1
-            button.layer.borderColor = Color.Grey700.cgColor
+            button.layer.borderColor = Color.surfaceRaised.cgColor
         }
         button.heightAnchor.constraint(equalToConstant: NaturePickerVC.cellHeight).isActive = true
         button.accessibilityLabel = makeAccessibilityDescription(of: nature)

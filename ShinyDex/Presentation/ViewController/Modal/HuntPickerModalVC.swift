@@ -31,8 +31,8 @@ class HuntPickerModalVC: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
         hunts = container.getHunts.handle(GetHuntsQuery())
 
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
         tableView.register(HuntPickerCell.self, forCellReuseIdentifier: HuntPickerCell.reuseIdentifier)
@@ -40,18 +40,18 @@ class HuntPickerModalVC: UITableViewController {
     }
 
     fileprivate func setUpNewHuntCell() {
-        newHuntCell.backgroundColor = Color.Grey800
+        newHuntCell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         newHuntCell.selectedBackgroundView = selectedBackground
         newHuntCell.imageView?.image = UIImage.makeSymbol("plus.circle.fill", pointSize: 28)
-        newHuntCell.imageView?.tintColor = Color.Orange500
+        newHuntCell.imageView?.tintColor = Color.accent
         newHuntCell.textLabel?.text = "New hunt"
-        newHuntCell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        newHuntCell.textLabel?.textColor = Color.Orange500
+        newHuntCell.textLabel?.font = UIFont.make(.body, weight: .semibold)
+        newHuntCell.textLabel?.textColor = Color.accent
         newHuntCell.detailTextLabel?.text = "Start a new hunt with \(pokemonName)"
-        newHuntCell.detailTextLabel?.font = UIFont.systemFont(ofSize: 15)
-        newHuntCell.detailTextLabel?.textColor = Color.Grey400
+        newHuntCell.detailTextLabel?.font = UIFont.make(.subheadline)
+        newHuntCell.detailTextLabel?.textColor = Color.textTertiary
         newHuntCell.accessibilityTraits = .button
     }
 

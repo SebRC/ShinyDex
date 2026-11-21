@@ -2,8 +2,8 @@ import UIKit
 
 class GameSettingsCell: UIView {
 	let iconImageView = UIImageView()
-	let titleLabel = UILabel(fontSize: 17, weight: .semibold)
-	let descriptionLabel = UILabel(fontSize: 13, color: Color.Grey400, lines: 0)
+	let titleLabel = UILabel(style: .body, weight: .semibold)
+	let descriptionLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
 	let actionSwitch = UISwitch()
 
 	init(title: String, description: String, icon: UIImage?, tag: Int) {
@@ -47,7 +47,7 @@ class GameSettingsCell: UIView {
 
 	func setUIColors() {
 		backgroundColor = .clear
-		titleLabel.textColor = Color.Grey200
-		actionSwitch.onTintColor = Color.Orange500
+		titleLabel.textColor = Color.textPrimary
+		actionSwitch.onTintColor = Color.accent
 	}
 }

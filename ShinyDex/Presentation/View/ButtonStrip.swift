@@ -4,7 +4,7 @@ class ActionButton: UIControl {
     static let iconSize: CGFloat = 28
 
     let iconView = UIImageView()
-    fileprivate let captionLabel = UILabel(fontSize: 11, weight: .medium, color: Color.Grey400)
+    fileprivate let captionLabel = UILabel(style: .caption2, weight: .medium, color: Color.textTertiary)
 
     init(caption: String) {
         super.init(frame: .zero)
@@ -12,7 +12,7 @@ class ActionButton: UIControl {
         accessibilityTraits = .button
         accessibilityLabel = caption
         iconView.contentMode = .scaleAspectFit
-        iconView.tintColor = Color.Grey200
+        iconView.tintColor = Color.textPrimary
         iconView.layer.magnificationFilter = .nearest
         captionLabel.text = caption
         captionLabel.textAlignment = .center
@@ -63,7 +63,7 @@ class ButtonStrip: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
 
         updateEncountersButton.iconView.image = UIImage.makeSymbol("pencil", pointSize: ButtonStrip.symbolPointSize, weight: .medium)
@@ -72,7 +72,7 @@ class ButtonStrip: UIView {
         locationButton.iconView.image = UIImage(named: "town-map")
         pokeballButton.iconView.image = UIImage.makeSymbol(PokemonCell.logCatchSymbol, pointSize: ButtonStrip.symbolPointSize, weight: .medium)
         pokeballButton.iconView.contentMode = .center
-        pokeballButton.iconView.tintColor = Color.Orange500
+        pokeballButton.iconView.tintColor = Color.accent
 
         let stack = UIStackView(arrangedSubviews: [updateEncountersButton, incrementButton, methodButton, locationButton, pokeballButton])
         stack.distribution = .fillEqually

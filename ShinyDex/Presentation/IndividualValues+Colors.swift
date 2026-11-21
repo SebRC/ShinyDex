@@ -1,9 +1,9 @@
 import UIKit
 
 extension IndividualValues {
-    fileprivate static let lowColor = Color.Danger400
-    fileprivate static let middleColor = Color.Orange500
-    fileprivate static let highColor = Color.Success400
+    fileprivate static let lowColor = Color.danger
+    fileprivate static let middleColor = Color.accent
+    fileprivate static let highColor = Color.success
 
     static func getColor(for value: Int) -> UIColor {
         let fraction = CGFloat(value - range.lowerBound) / CGFloat(range.upperBound - range.lowerBound)

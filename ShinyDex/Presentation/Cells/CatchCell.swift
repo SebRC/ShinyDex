@@ -5,15 +5,15 @@ class CatchCell: UITableViewCell {
     static let height: CGFloat = 72
 
     fileprivate let sprite = UIImageView()
-    fileprivate let titleLabel = UILabel(fontSize: 17, weight: .semibold)
-    fileprivate let subtitleLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let titleLabel = UILabel(style: .body, weight: .semibold)
+    fileprivate let subtitleLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let ballImageView = UIImageView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         selectedBackgroundView = selectedBackground
         accessoryType = .disclosureIndicator
         for imageView in [sprite, ballImageView] {
@@ -48,10 +48,10 @@ class CatchCell: UITableViewCell {
         sprite.image = PokemonSprites.makeImage(pokemonName: pokemonName, formId: formId)
         sprite.alpha = isFailed ? 0.55 : 1
         titleLabel.text = title
-        titleLabel.textColor = isFailed ? Color.Grey300 : Color.Grey200
+        titleLabel.textColor = isFailed ? Color.textSecondary : Color.textPrimary
         subtitleLabel.text = subtitle
         ballImageView.image = isFailed ? UIImage.makeSymbol("wind", pointSize: 20, weight: .semibold) : UIImage(named: ball)
-        ballImageView.tintColor = Color.Grey500
+        ballImageView.tintColor = Color.textQuaternary
         ballImageView.contentMode = isFailed ? .center : .scaleAspectFit
         accessibilityLabel = "\(title), \(subtitle)"
     }

@@ -24,22 +24,22 @@ class CatchDatePickerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Caught date"
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePressed))
-        navigationController?.navigationBar.tintColor = Color.Orange500
+        navigationController?.navigationBar.tintColor = Color.accent
 
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
         datePicker.maximumDate = Date()
         datePicker.date = min(initialDate, Date())
-        datePicker.tintColor = Color.Orange500
+        datePicker.tintColor = Color.accent
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(datePicker)
         NSLayoutConstraint.activate([
             datePicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            datePicker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            datePicker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+            datePicker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Spacing.screenMargin),
+            datePicker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Spacing.screenMargin)
         ])
     }
 

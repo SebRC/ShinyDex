@@ -5,7 +5,7 @@ class EmptyStateView: UIView {
 		super.init(frame: .zero)
 
 		let imageView = UIImageView(image: UIImage(systemName: symbolName))
-		imageView.tintColor = Color.Orange500
+		imageView.tintColor = Color.accent
 		imageView.contentMode = .scaleAspectFit
 		imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 44, weight: .regular)
 		imageView.isAccessibilityElement = false
@@ -14,7 +14,7 @@ class EmptyStateView: UIView {
 		titleLabel.text = title
 		titleLabel.font = UIFont.preferredFont(forTextStyle: .title2).withWeight(.semibold)
 		titleLabel.adjustsFontForContentSizeCategory = true
-		titleLabel.textColor = Color.Grey200
+		titleLabel.textColor = Color.textPrimary
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 0
 
@@ -22,7 +22,7 @@ class EmptyStateView: UIView {
 		messageLabel.text = message
 		messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
 		messageLabel.adjustsFontForContentSizeCategory = true
-		messageLabel.textColor = Color.Grey400
+		messageLabel.textColor = Color.textTertiary
 		messageLabel.textAlignment = .center
 		messageLabel.numberOfLines = 0
 

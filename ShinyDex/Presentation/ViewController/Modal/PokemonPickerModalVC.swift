@@ -74,8 +74,8 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
 
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         tableView.keyboardDismissMode = .onDrag
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 64
@@ -96,11 +96,11 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
     fileprivate let nameCell = UITableViewCell(style: .default, reuseIdentifier: nil)
 
     fileprivate func setUpNameCell() {
-        nameCell.backgroundColor = Color.Grey800
+        nameCell.backgroundColor = Color.surface
         nameCell.selectionStyle = .none
         textField.delegate = self
-        textField.font = UIFont.systemFont(ofSize: 17)
-        textField.textColor = Color.Grey200
+        textField.font = UIFont.make(.body)
+        textField.textColor = Color.textPrimary
         textField.returnKeyType = .done
         textField.autocapitalizationType = .words
         textField.clearButtonMode = .whileEditing
@@ -241,7 +241,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 
     fileprivate func updateNamePlaceholder() {
         let fallback = defaultName
-        textField.attributedPlaceholder = NSAttributedString(string: fallback, attributes: [.foregroundColor: Color.Grey500])
+        textField.attributedPlaceholder = NSAttributedString(string: fallback, attributes: [.foregroundColor: Color.textQuaternary])
     }
 
     @objc fileprivate func nameChanged() {
@@ -289,12 +289,12 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
 
     fileprivate let scrollView = UIScrollView()
     fileprivate let stack = UIStackView()
-    fileprivate let emptyLabel = UILabel(fontSize: 15, color: Color.Grey500)
+    fileprivate let emptyLabel = UILabel(style: .subheadline, color: Color.textQuaternary)
     fileprivate var pokemon = [PokemonSummary]()
 
     init() {
         super.init(style: .default, reuseIdentifier: nil)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         selectionStyle = .none
         emptyLabel.text = "Tap Pokémon below to add them."
         scrollView.showsHorizontalScrollIndicator = false
@@ -339,8 +339,8 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
     fileprivate func makeChip(for pokemon: PokemonSummary, tag: Int) -> UIView {
         let chip = UIButton(type: .custom)
         chip.tag = tag
-        chip.backgroundColor = Color.Grey900
-        chip.layer.cornerRadius = 12
+        chip.backgroundColor = Color.background
+        chip.layer.cornerRadius = CornerRadius.standard
         chip.setImage(PokemonSprites.makeImage(pokemonName: pokemon.name), for: .normal)
         chip.imageView?.contentMode = .scaleAspectFit
         chip.imageView?.layer.magnificationFilter = .nearest
@@ -350,7 +350,7 @@ fileprivate class SelectedPokemonCell: UITableViewCell {
         chip.addTarget(self, action: #selector(chipPressed(_:)), for: .touchUpInside)
 
         let badge = UIImageView(image: UIImage.makeSymbol("xmark.circle.fill", pointSize: 16, weight: .semibold))
-        badge.tintColor = Color.Grey400
+        badge.tintColor = Color.textTertiary
         badge.isUserInteractionEnabled = false
         chip.addAutoLayoutSubviews(badge)
         NSLayoutConstraint.activate([

@@ -20,7 +20,7 @@ class GameSettingsContainer: UIView {
     let dexNavCell = GameSettingsCell(title: "DexNav", description: "Only available in Omega Ruby & Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.DexNav.rawValue), tag: 5)
     let friendSafariCell = GameSettingsCell(title: "Friend Safari", description: "Only available in X and Y", icon: PixelArt.makeCenteredImage(named: HuntMethod.FriendSafari.rawValue), tag: 6)
     let applyToAllButton = UIButton(type: .system)
-    let explanationLabel = UILabel(fontSize: 13, color: Color.Grey400, lines: 0)
+    let explanationLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
     fileprivate lazy var explanationFooter: UIView = {
         let wrapper = UIView()
         wrapper.addAutoLayoutSubviews(explanationLabel)
@@ -28,15 +28,15 @@ class GameSettingsContainer: UIView {
         return wrapper
     }()
     let gameButton = UIControl()
-    let gameTitle = UILabel(fontSize: 17, weight: .semibold)
+    let gameTitle = UILabel(style: .body, weight: .semibold)
 
-    fileprivate let shinyOddsLabel = UILabel(fontSize: 44, weight: .bold, color: Color.Orange500)
-    fileprivate let oddsSummaryLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
+    fileprivate let shinyOddsLabel = UILabel(style: .display, weight: .bold, color: Color.accent)
+    fileprivate let oddsSummaryLabel = UILabel(style: .subheadline, color: Color.textTertiary, lines: 0)
     fileprivate let gameImageView = UIImageView()
     fileprivate let methodsCard = GameSettingsContainer.makeCardStack()
     fileprivate let unavailableHeader = GameSettingsContainer.makeSectionHeader("")
     fileprivate let unavailableCard = GameSettingsContainer.makeCardStack()
-    fileprivate let noMethodsLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
+    fileprivate let noMethodsLabel = UILabel(style: .subheadline, color: Color.textTertiary, lines: 0)
     fileprivate var methodCells: [GameSettingsCell] {
         return [genTwoBreedingCell, masudaCell, pokeradarCell, chainFishingCell, friendSafariCell, dexNavCell, sosChainCell, lureCell]
     }
@@ -55,7 +55,7 @@ class GameSettingsContainer: UIView {
         charmCard.stack.addArrangedSubview(shinyCharmCell)
 
         applyToAllButton.setTitle("Apply to All Pokémon", for: .normal)
-        applyToAllButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        applyToAllButton.titleLabel?.font = UIFont.make(.body, weight: .semibold)
         applyToAllButton.setImage(UIImage.makeSymbol("square.stack.3d.down.right", pointSize: 16, weight: .semibold), for: .normal)
         applyToAllButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
         applyToAllButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
@@ -108,21 +108,21 @@ class GameSettingsContainer: UIView {
 
     fileprivate func makeOddsCard() -> UIView {
         let card = UIView()
-        card.backgroundColor = Color.Grey800
-        card.layer.cornerRadius = 14
+        card.backgroundColor = Color.surface
+        card.layer.cornerRadius = CornerRadius.standard
         card.layer.borderWidth = 1
-        card.layer.borderColor = Color.Orange500.withAlphaComponent(0.35).cgColor
+        card.layer.borderColor = Color.accent.withAlphaComponent(0.35).cgColor
 
         let sparkle = UIImageView(image: UIImage(systemName: "sparkles") ?? UIImage(systemName: "star.fill"))
-        sparkle.tintColor = Color.Orange500
+        sparkle.tintColor = Color.accent
         sparkle.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 13, weight: .bold)
-        let caption = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
+        let caption = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
         caption.text = "SHINY ODDS"
         let captionRow = UIStackView(arrangedSubviews: [sparkle, caption])
         captionRow.spacing = 6
         captionRow.alignment = .center
 
-        shinyOddsLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 44, weight: .bold)
+        shinyOddsLabel.font = UIFont.make(.display, weight: .bold, monospacedDigits: true)
         shinyOddsLabel.adjustsFontSizeToFitWidth = true
         shinyOddsLabel.minimumScaleFactor = 0.6
         shinyOddsLabel.textAlignment = .center
@@ -143,7 +143,7 @@ class GameSettingsContainer: UIView {
         gameImageView.layer.magnificationFilter = .nearest
         gameImageView.isAccessibilityElement = false
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 14, weight: .semibold))
-        chevron.tintColor = Color.Grey500
+        chevron.tintColor = Color.textQuaternary
         chevron.setContentHuggingPriority(.required, for: .horizontal)
 
         let row = UIStackView(arrangedSubviews: [gameImageView, gameTitle, chevron])
@@ -165,7 +165,7 @@ class GameSettingsContainer: UIView {
     }
 
     @objc fileprivate func highlightGame() {
-        gameButton.backgroundColor = Color.Grey700
+        gameButton.backgroundColor = Color.surfaceRaised
     }
 
     @objc fileprivate func unhighlightGame() {
@@ -211,7 +211,7 @@ class GameSettingsContainer: UIView {
     fileprivate static func makeSeparator() -> UIView {
         let line = UIView()
         let hairline = UIView()
-        hairline.backgroundColor = Color.Grey700
+        hairline.backgroundColor = Color.separator
         line.addAutoLayoutSubviews(hairline)
         NSLayoutConstraint.activate([
             line.heightAnchor.constraint(equalToConstant: 1),
@@ -278,9 +278,9 @@ class GameSettingsContainer: UIView {
 
     func setUIColors() {
         backgroundColor = .clear
-        applyToAllButton.tintColor = Color.Orange500
-        applyToAllButton.setTitleColor(Color.Orange500, for: .normal)
-        applyToAllButton.layer.borderColor = Color.Orange500.cgColor
+        applyToAllButton.tintColor = Color.accent
+        applyToAllButton.setTitleColor(Color.accent, for: .normal)
+        applyToAllButton.layer.borderColor = Color.accent.cgColor
         applyToAllButton.backgroundColor = .clear
     }
 
@@ -403,7 +403,7 @@ class SettingsCard: UIView {
 
     init() {
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
         clipsToBounds = true
         stack.axis = .vertical
@@ -421,8 +421,8 @@ class SectionHeaderLabel: UILabel {
 
     init() {
         super.init(frame: .zero)
-        font = UIFont.systemFont(ofSize: 13, weight: .semibold)
-        textColor = Color.Grey400
+        font = UIFont.make(.footnote, weight: .semibold)
+        textColor = Color.textTertiary
         accessibilityTraits = .header
     }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B19800000000000000000004 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19800000000000000000003 /* Spacing.swift */; };
+		B19800000000000000000002 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19800000000000000000001 /* Typography.swift */; };
 		B1960000000000000000000A /* MilestoneCelebration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000009 /* MilestoneCelebration.swift */; };
 		B19600000000000000000008 /* EncounterMilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000007 /* EncounterMilestoneTests.swift */; };
 		B19600000000000000000006 /* MilestoneText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000005 /* MilestoneText.swift */; };
@@ -334,6 +336,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B19800000000000000000003 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
+		B19800000000000000000001 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		B19600000000000000000009 /* MilestoneCelebration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneCelebration.swift; sourceTree = "<group>"; };
 		B19600000000000000000007 /* EncounterMilestoneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterMilestoneTests.swift; sourceTree = "<group>"; };
 		B19600000000000000000005 /* MilestoneText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneText.swift; sourceTree = "<group>"; };
@@ -794,6 +798,8 @@
 		25BD7A27DB9F3B7B969F5C2D /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				B19800000000000000000003 /* Spacing.swift */,
+				B19800000000000000000001 /* Typography.swift */,
 				515C856C2A3B468300AC439D /* Color.swift */,
 			);
 			name = Theme;
@@ -1647,6 +1653,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B19800000000000000000004 /* Spacing.swift in Sources */,
+				B19800000000000000000002 /* Typography.swift in Sources */,
 				B1960000000000000000000A /* MilestoneCelebration.swift in Sources */,
 				B19600000000000000000006 /* MilestoneText.swift in Sources */,
 				B19600000000000000000004 /* ReachedMilestone.swift in Sources */,

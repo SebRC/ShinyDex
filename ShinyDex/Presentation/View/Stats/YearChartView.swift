@@ -5,7 +5,7 @@ final class YearChartView: UIView {
 
     init(years: [CatchStatistics.Year], onSelectYear: @escaping (Int) -> Void) {
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
 
         let scrollView = UIScrollView()
@@ -38,15 +38,15 @@ final class YearChartView: UIView {
     }
 
     fileprivate static func makeColumn(_ year: CatchStatistics.Year, maxAverage: Int) -> UIView {
-        let valueLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey200)
+        let valueLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textPrimary)
         valueLabel.text = year.averageEncounters.map { $0.grouped } ?? "–"
         valueLabel.textAlignment = .center
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.7
 
         let bar = UIView()
-        bar.backgroundColor = year.averageEncounters == nil ? Color.Grey700 : Color.Orange500
-        bar.layer.cornerRadius = 6
+        bar.backgroundColor = year.averageEncounters == nil ? Color.surfaceRaised : Color.accent
+        bar.layer.cornerRadius = CornerRadius.tiny
         bar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         let barArea = UIView()
         barArea.addAutoLayoutSubviews(bar)
@@ -59,10 +59,10 @@ final class YearChartView: UIView {
             bar.heightAnchor.constraint(equalToConstant: max(4, barAreaHeight * fraction))
         ])
 
-        let yearLabel = UILabel(fontSize: 13, weight: .semibold)
+        let yearLabel = UILabel(style: .footnote, weight: .semibold)
         yearLabel.text = String(year.year)
         yearLabel.textAlignment = .center
-        let countLabel = UILabel(fontSize: 11, color: Color.Grey400)
+        let countLabel = UILabel(style: .caption2, color: Color.textTertiary)
         countLabel.text = year.foundCount == 1 ? "1 shiny" : "\(year.foundCount) shinies"
         countLabel.textAlignment = .center
 

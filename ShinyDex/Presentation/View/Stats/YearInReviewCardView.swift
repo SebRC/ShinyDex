@@ -24,11 +24,11 @@ final class YearInReviewCardView: UIView {
 
     init(content: Content, footer: String) {
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
-        layer.cornerRadius = 20
+        backgroundColor = Color.surface
+        layer.cornerRadius = CornerRadius.large
         clipsToBounds = true
 
-        let eyebrowLabel = UILabel(fontSize: 13, weight: .bold, color: Color.Orange500)
+        let eyebrowLabel = UILabel(style: .footnote, weight: .bold, color: Color.accent)
         eyebrowLabel.text = content.eyebrow.uppercased()
         eyebrowLabel.textAlignment = .center
 
@@ -43,7 +43,7 @@ final class YearInReviewCardView: UIView {
         else if let image = content.image {
             let imageView = UIImageView(image: image)
             imageView.contentMode = content.isPixelArt ? .scaleAspectFit : .center
-            imageView.tintColor = Color.Orange500
+            imageView.tintColor = Color.accent
             if content.isPixelArt {
                 imageView.layer.magnificationFilter = .nearest
             }
@@ -54,21 +54,21 @@ final class YearInReviewCardView: UIView {
             stack.addArrangedSubview(imageView)
         }
 
-        let headlineLabel = UILabel(fontSize: 52, weight: .heavy, color: Color.Grey100)
-        headlineLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 52, weight: .heavy)
+        let headlineLabel = UILabel(style: .hero, weight: .heavy, color: Color.textPrimary)
+        headlineLabel.font = UIFont.make(.hero, weight: .heavy, monospacedDigits: true)
         headlineLabel.text = content.headline
         headlineLabel.textAlignment = .center
         headlineLabel.adjustsFontSizeToFitWidth = true
         headlineLabel.minimumScaleFactor = 0.4
         stack.addArrangedSubview(headlineLabel)
 
-        let titleLabel = UILabel(fontSize: 20, weight: .semibold, color: Color.Grey200, lines: 0)
+        let titleLabel = UILabel(style: .title3, weight: .semibold, color: Color.textPrimary, lines: 0)
         titleLabel.text = content.title
         titleLabel.textAlignment = .center
         stack.addArrangedSubview(titleLabel)
 
         if let message = content.message {
-            let messageLabel = UILabel(fontSize: 15, color: Color.Grey400, lines: 0)
+            let messageLabel = UILabel(style: .subheadline, color: Color.textTertiary, lines: 0)
             messageLabel.text = message
             messageLabel.textAlignment = .center
             stack.setCustomSpacing(12, after: titleLabel)
@@ -84,7 +84,7 @@ final class YearInReviewCardView: UIView {
             rows.widthAnchor.constraint(equalTo: stack.widthAnchor).isActive = true
         }
 
-        let footerLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey500)
+        let footerLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textQuaternary)
         footerLabel.text = footer
         footerLabel.textAlignment = .center
 
@@ -137,9 +137,9 @@ final class YearInReviewCardView: UIView {
     }
 
     fileprivate static func makeRow(_ row: Row) -> UIView {
-        let titleLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Grey400)
+        let titleLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.textTertiary)
         titleLabel.text = row.title
-        let valueLabel = UILabel(fontSize: 17, weight: .semibold, color: Color.Grey100)
+        let valueLabel = UILabel(style: .body, weight: .semibold, color: Color.textPrimary)
         valueLabel.text = row.value
         valueLabel.textAlignment = .right
         valueLabel.adjustsFontSizeToFitWidth = true

@@ -6,30 +6,30 @@ class MenuCell: UITableViewCell {
 	static let reuseIdentifier = "menuCell"
 
 	let generationImage = UIImageView()
-	let generationLabel = UILabel(fontSize: 20, weight: .semibold)
-	fileprivate let subtitleLabel = UILabel(fontSize: 13, color: Color.Grey400)
+	let generationLabel = UILabel(style: .title3, weight: .semibold)
+	fileprivate let subtitleLabel = UILabel(style: .footnote, color: Color.textTertiary)
 	fileprivate let progressBar = UIProgressView(progressViewStyle: .default)
 	fileprivate var imageWidth: NSLayoutConstraint!
 	fileprivate var imageHeight: NSLayoutConstraint!
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		backgroundColor = Color.Grey800
+		backgroundColor = Color.surface
 		let selectedBackground = UIView()
-		selectedBackground.backgroundColor = Color.Grey700
+		selectedBackground.backgroundColor = Color.surfaceRaised
 		selectedBackgroundView = selectedBackground
 		accessoryType = .disclosureIndicator
 		generationImage.contentMode = .scaleAspectFit
 		generationImage.layer.magnificationFilter = .nearest
 		generationImage.isAccessibilityElement = false
-		generationImage.tintColor = Color.Orange500
+		generationImage.tintColor = Color.accent
 		generationLabel.adjustsFontSizeToFitWidth = true
 		generationLabel.minimumScaleFactor = 0.8
 		subtitleLabel.adjustsFontSizeToFitWidth = true
 		subtitleLabel.minimumScaleFactor = 0.8
-		progressBar.progressTintColor = Color.Orange500
-		progressBar.trackTintColor = Color.Grey700
-		progressBar.layer.cornerRadius = 2
+		progressBar.progressTintColor = Color.accent
+		progressBar.trackTintColor = Color.surfaceRaised
+		progressBar.layer.cornerRadius = CornerRadius.tiny
 		progressBar.clipsToBounds = true
 
 		let labels = UIStackView(arrangedSubviews: [generationLabel, subtitleLabel, progressBar])

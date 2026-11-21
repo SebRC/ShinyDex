@@ -4,8 +4,8 @@ class IVEditorVC: UIViewController {
     fileprivate let container: AppContainer
     fileprivate let catchId: CatchID
     fileprivate var caught: CatchSummary
-    fileprivate let perfectLabel = UILabel(fontSize: 34, weight: .bold, color: Color.Grey100)
-    fileprivate let summaryLabel = UILabel(fontSize: 13, color: Color.Grey400)
+    fileprivate let perfectLabel = UILabel(style: .largeTitle, weight: .bold, color: Color.textPrimary)
+    fileprivate let summaryLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate var rows = [IVStatRow]()
     fileprivate var resetButton: UIBarButtonItem!
 
@@ -24,7 +24,7 @@ class IVEditorVC: UIViewController {
         super.viewDidLoad()
         title = "IVs"
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetPressed))
         navigationItem.rightBarButtonItem = resetButton
 
@@ -33,7 +33,7 @@ class IVEditorVC: UIViewController {
         let stack = UIStackView(arrangedSubviews: [makeSummaryCard(), makeStatsCard()])
         stack.axis = .vertical
         stack.spacing = 16
-        let footnote = UILabel(fontSize: 12, color: Color.Grey500, lines: 0)
+        let footnote = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
         footnote.text = "Each stat has an IV from 0 to 31. Tap a number to type an exact value, or leave it empty if you don't know it."
         stack.addArrangedSubview(footnote)
 
@@ -43,8 +43,8 @@ class IVEditorVC: UIViewController {
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 12),
             stack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
-            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 16),
-            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -16)
+            stack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: Spacing.screenMargin),
+            stack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -Spacing.screenMargin)
         ])
         refresh()
     }
@@ -53,16 +53,16 @@ class IVEditorVC: UIViewController {
 
     fileprivate func makeSummaryCard() -> UIView {
         let card = UIView()
-        card.backgroundColor = Color.Grey800
-        card.layer.cornerRadius = 14
+        card.backgroundColor = Color.surface
+        card.layer.cornerRadius = CornerRadius.standard
         let sprite = UIImageView(image: caught.spriteImage)
         sprite.contentMode = .scaleAspectFit
         sprite.layer.magnificationFilter = .nearest
         sprite.isAccessibilityElement = false
-        let caption = UILabel(fontSize: 12, weight: .semibold, color: Color.Grey400)
+        let caption = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
         caption.text = "PERFECT IVS"
-        perfectLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 34, weight: .bold)
-        summaryLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 13, weight: .regular)
+        perfectLabel.font = UIFont.make(.largeTitle, weight: .bold, monospacedDigits: true)
+        summaryLabel.font = UIFont.make(.footnote, weight: .regular, monospacedDigits: true)
 
         let labels = UIStackView(arrangedSubviews: [caption, perfectLabel, summaryLabel])
         labels.axis = .vertical
@@ -81,8 +81,8 @@ class IVEditorVC: UIViewController {
 
     fileprivate func makeStatsCard() -> UIView {
         let card = UIView()
-        card.backgroundColor = Color.Grey800
-        card.layer.cornerRadius = 14
+        card.backgroundColor = Color.surface
+        card.layer.cornerRadius = CornerRadius.standard
         let list = UIStackView()
         list.axis = .vertical
         list.spacing = 14
@@ -142,7 +142,7 @@ class IVEditorVC: UIViewController {
     fileprivate func refresh() {
         let ivs = caught.ivs
         perfectLabel.text = "\(ivs.perfectCount) / \(Stat.allCases.count)"
-        summaryLabel.attributedText = ivs.makeColoredSummary(unknownColor: Color.Grey400)
+        summaryLabel.attributedText = ivs.makeColoredSummary(unknownColor: Color.textTertiary)
         perfectLabel.superview?.superview?.superview?.accessibilityLabel = "Perfect IVs \(ivs.perfectCount) of \(Stat.allCases.count), \(ivs.summary)"
         for row in rows {
             row.update(value: ivs[row.stat])
@@ -164,21 +164,21 @@ fileprivate class IVStatRow: UIView {
     init(stat: Stat) {
         self.stat = stat
         super.init(frame: .zero)
-        let nameLabel = UILabel(fontSize: 15, weight: .semibold)
+        let nameLabel = UILabel(style: .subheadline, weight: .semibold)
         nameLabel.text = stat.name
-        valueButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .bold)
-        valueButton.setTitleColor(Color.Grey100, for: .normal)
+        valueButton.titleLabel?.font = UIFont.make(.subheadline, weight: .bold, monospacedDigits: true)
+        valueButton.setTitleColor(Color.textPrimary, for: .normal)
         valueButton.contentHorizontalAlignment = .right
         valueButton.addTarget(self, action: #selector(valueTapped), for: .touchUpInside)
-        bar.trackTintColor = Color.Grey700
-        bar.layer.cornerRadius = 3
+        bar.trackTintColor = Color.surfaceRaised
+        bar.layer.cornerRadius = CornerRadius.tiny
         bar.clipsToBounds = true
 
         for (button, symbol, direction) in [(minusButton, "minus", -1), (plusButton, "plus", 1)] {
             button.setImage(UIImage.makeSymbol(symbol, pointSize: 15, weight: .bold), for: .normal)
-            button.tintColor = Color.Grey200
-            button.backgroundColor = Color.Grey700
-            button.layer.cornerRadius = 18
+            button.tintColor = Color.textPrimary
+            button.backgroundColor = Color.surfaceRaised
+            button.layer.cornerRadius = CornerRadius.capsule(height: 36)
             button.tag = direction
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
             button.widthAnchor.constraint(equalToConstant: 36).isActive = true
@@ -207,7 +207,7 @@ fileprivate class IVStatRow: UIView {
     func update(value: Int?) {
         let maximum = IndividualValues.range.upperBound
         valueButton.setTitle(value.map { "\($0) / \(maximum)" } ?? "Unknown", for: .normal)
-        valueButton.setTitleColor(value.map(IndividualValues.getColor(for:)) ?? Color.Grey400, for: .normal)
+        valueButton.setTitleColor(value.map(IndividualValues.getColor(for:)) ?? Color.textTertiary, for: .normal)
         valueButton.accessibilityLabel = "\(stat.name), \(value.map { "\($0) IV" } ?? "unknown IV")"
         valueButton.accessibilityHint = "Type an exact value."
         bar.progress = Float(value ?? 0) / Float(maximum)

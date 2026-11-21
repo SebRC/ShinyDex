@@ -7,13 +7,13 @@ final class CatchHeroCell: UITableViewCell {
     fileprivate static let glowSide: CGFloat = 280
     fileprivate let glowView = GlowView(intensity: 0.35)
     fileprivate let spriteView = PokemonSpriteView()
-    fileprivate let badgeLabel = UILabel(fontSize: 13, weight: .bold, color: Color.Grey900)
+    fileprivate let badgeLabel = UILabel(style: .footnote, weight: .bold, color: Color.background)
     fileprivate let badge = UIView()
     fileprivate let badgeIcon = UIImageView()
-    fileprivate let nameLabel = UILabel(fontSize: 30, weight: .bold, color: Color.Grey100)
-    fileprivate let speciesLabel = UILabel(fontSize: 17, weight: .semibold, color: Color.Grey300)
-    fileprivate let dateLabel = UILabel(fontSize: 15, color: Color.Grey400)
-    fileprivate let positionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Orange500)
+    fileprivate let nameLabel = UILabel(style: .title1, weight: .bold, color: Color.textPrimary)
+    fileprivate let speciesLabel = UILabel(style: .body, weight: .semibold, color: Color.textSecondary)
+    fileprivate let dateLabel = UILabel(style: .subheadline, color: Color.textTertiary)
+    fileprivate let positionLabel = UILabel(style: .footnote, weight: .semibold, color: Color.accent)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,7 +21,7 @@ final class CatchHeroCell: UITableViewCell {
         selectionStyle = .none
 
 
-        badge.layer.cornerRadius = 11
+        badge.layer.cornerRadius = CornerRadius.capsule(height: 22)
         badgeIcon.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 11, weight: .bold)
         let badgeContent = UIStackView(arrangedSubviews: [badgeIcon, badgeLabel])
         badgeContent.spacing = 4
@@ -66,9 +66,9 @@ final class CatchHeroCell: UITableViewCell {
     }
 
     func configure(pokemonName: String, spriteAssetName: String, nickname: String?, genderSymbol: String?, dateText: String, positionText: String?, isFailed: Bool) {
-        badge.backgroundColor = isFailed ? Color.Grey600 : Color.Orange500
+        badge.backgroundColor = isFailed ? Color.inactive : Color.accent
         badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
-        badgeLabel.textColor = isFailed ? Color.Grey100 : Color.Grey900
+        badgeLabel.textColor = isFailed ? Color.textPrimary : Color.background
         badgeIcon.image = UIImage(systemName: isFailed ? "wind" : PokemonCell.logCatchSymbol)
         badgeIcon.tintColor = badgeLabel.textColor
         glowView.isHidden = isFailed

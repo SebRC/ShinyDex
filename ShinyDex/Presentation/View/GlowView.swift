@@ -11,7 +11,7 @@ class GlowView: UIView {
         isUserInteractionEnabled = false
         let gradient = layer as! CAGradientLayer
         gradient.type = .radial
-        gradient.colors = [Color.Orange500.withAlphaComponent(intensity).cgColor, Color.Orange500.withAlphaComponent(0).cgColor]
+        gradient.colors = [Color.accent.withAlphaComponent(intensity).cgColor, Color.accent.withAlphaComponent(0).cgColor]
         gradient.startPoint = CGPoint(x: 0.5, y: 0.5)
         gradient.endPoint = CGPoint(x: 1, y: 1)
     }

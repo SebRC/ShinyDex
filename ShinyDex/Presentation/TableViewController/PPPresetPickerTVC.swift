@@ -27,12 +27,12 @@ class PPPresetPickerTVC: UITableViewController, UISearchResultsUpdating {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        tableView.backgroundColor = Color.Grey900
-        tableView.separatorColor = Color.Grey700
+        tableView.backgroundColor = Color.background
+        tableView.separatorColor = Color.separator
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Pokémon or games"
-        searchController.searchBar.tintColor = Color.Orange500
+        searchController.searchBar.tintColor = Color.accent
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -62,16 +62,16 @@ class PPPresetPickerTVC: UITableViewController, UISearchResultsUpdating {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let preset = sections[indexPath.section].presets[indexPath.row]
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.backgroundColor = Color.Grey800
+        cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = Color.Grey700
+        selectedBackground.backgroundColor = Color.surfaceRaised
         cell.selectedBackgroundView = selectedBackground
         cell.textLabel?.text = "\(preset.pokemonName) · Lv. \(preset.level)"
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        cell.textLabel?.textColor = Color.Grey200
+        cell.textLabel?.font = UIFont.make(.body, weight: .semibold)
+        cell.textLabel?.textColor = Color.textPrimary
         cell.detailTextLabel?.text = PPPresetPickerTVC.makeDetail(for: preset)
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
-        cell.detailTextLabel?.textColor = Color.Grey400
+        cell.detailTextLabel?.font = UIFont.make(.subheadline)
+        cell.detailTextLabel?.textColor = Color.textTertiary
         cell.detailTextLabel?.numberOfLines = 0
         cell.imageView?.image = PokemonSprites.makeImage(pokemonName: preset.pokemonName)?.resized(to: PPPresetPickerTVC.spriteSize)
         cell.imageView?.layer.magnificationFilter = .nearest

@@ -6,8 +6,8 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     fileprivate let container: AppContainer
     fileprivate let boardId: BingoBoardID
     fileprivate var board: BingoBoardDetails
-    fileprivate let progressLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Grey400)
-    fileprivate let hintLabel = UILabel(fontSize: 13, color: Color.Grey500, lines: 0)
+    fileprivate let progressLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.textTertiary)
+    fileprivate let hintLabel = UILabel(style: .footnote, color: Color.textQuaternary, lines: 0)
     fileprivate let layout = UICollectionViewFlowLayout()
     fileprivate lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     fileprivate var shuffleButton: UIBarButtonItem!
@@ -28,7 +28,7 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         shuffleButton = UIBarButtonItem(image: UIImage(systemName: "shuffle"), style: .plain, target: self, action: #selector(shufflePressed))
         shuffleButton.accessibilityLabel = "Shuffle Pokémon into random squares"
         fillButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(fillPressed))
@@ -39,7 +39,7 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     }
 
     fileprivate func setUpLayout() {
-        progressLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: .semibold)
+        progressLabel.font = UIFont.make(.subheadline, weight: .semibold, monospacedDigits: true)
         progressLabel.textAlignment = .center
         progressLabel.adjustsFontSizeToFitWidth = true
         hintLabel.textAlignment = .center
@@ -104,7 +104,7 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     fileprivate func render() {
         title = board.name
         progressLabel.text = BingoProgressText.make(obtained: board.obtainedCount, total: board.cells.count, filled: board.filledCount, lines: board.completedLineCount)
-        progressLabel.textColor = board.completedLineCount > 0 ? Color.Orange500 : Color.Grey400
+        progressLabel.textColor = board.completedLineCount > 0 ? Color.accent : Color.textTertiary
         shuffleButton.isEnabled = board.filledCount > 1
         fillButton.isEnabled = board.emptyCount > 0
         collectionView.reloadData()
@@ -212,7 +212,7 @@ class BingoBoardVC: UIViewController, UICollectionViewDataSource, UICollectionVi
             sheet.addAction(UIAlertAction(title: action.title, style: action.isDestructive ? .destructive : .default) { _ in action.perform() })
         }
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sheet.view.tintColor = Color.Orange500
+        sheet.view.tintColor = Color.accent
         if let square = collectionView.cellForItem(at: indexPath) {
             sheet.popoverPresentationController?.sourceView = square
             sheet.popoverPresentationController?.sourceRect = square.bounds

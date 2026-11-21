@@ -20,14 +20,14 @@ class ShinyNavigationController: UINavigationController {
 
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = Color.Grey900
+        appearance.backgroundColor = Color.background
         appearance.shadowColor = .clear
-        appearance.titleTextAttributes = [.foregroundColor: Color.Orange500]
-        appearance.largeTitleTextAttributes = [.foregroundColor: Color.Orange500]
+        appearance.titleTextAttributes = [.foregroundColor: Color.accent]
+        appearance.largeTitleTextAttributes = [.foregroundColor: Color.accent]
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
         navigationBar.compactAppearance = appearance
-        navigationBar.tintColor = Color.Orange500
+        navigationBar.tintColor = Color.accent
         navigationBar.prefersLargeTitles = true
     }
 
@@ -66,7 +66,7 @@ extension UIButton {
     static func makeSymbolButton(_ name: String, pointSize: CGFloat, accessibilityLabel: String? = nil) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(UIImage.makeSymbol(name, pointSize: pointSize), for: .normal)
-        button.tintColor = Color.Grey200
+        button.tintColor = Color.textPrimary
         button.accessibilityLabel = accessibilityLabel
         return button
     }
@@ -91,9 +91,10 @@ extension UIView {
 }
 
 extension UILabel {
-    convenience init(fontSize: CGFloat, weight: UIFont.Weight = .regular, color: UIColor = Color.Grey200, lines: Int = 1) {
+    convenience init(style: TypeStyle, weight: UIFont.Weight = .regular, color: UIColor = Color.textPrimary, lines: Int = 1) {
         self.init()
-        font = UIFont.systemFont(ofSize: fontSize, weight: weight)
+        font = UIFont.make(style, weight: weight)
+        adjustsFontForContentSizeCategory = true
         textColor = color
         numberOfLines = lines
     }

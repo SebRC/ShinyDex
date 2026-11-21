@@ -1,7 +1,7 @@
 import UIKit
 
 final class HuntingCalendarView: UIView {
-    fileprivate static let levelColors = [Color.Grey700, Color.Orange800, Color.Orange700, Color.Orange600, Color.Orange500]
+    fileprivate static let levelColors = [Color.surfaceRaised, Color.Orange800, Color.Orange700, Color.Orange600, Color.accent]
     fileprivate static let cellSpacing: CGFloat = 3
 
     init(weeks: [[EncounterHistory.Entry?]]) {
@@ -42,13 +42,13 @@ final class HuntingCalendarView: UIView {
     fileprivate static func makeColumn(_ week: [EncounterHistory.Entry?], maxCount: Int) -> UIView {
         let cells = week.map { entry -> UIView in
             let cell = UIView()
-            cell.layer.cornerRadius = 2
+            cell.layer.cornerRadius = CornerRadius.tiny
             cell.heightAnchor.constraint(equalTo: cell.widthAnchor).isActive = true
             guard let entry = entry else { return cell }
             cell.backgroundColor = levelColors[findLevel(of: entry.count, maxCount: maxCount)]
             if Calendar.current.isDateInToday(entry.start) {
                 cell.layer.borderWidth = 1
-                cell.layer.borderColor = Color.Grey200.cgColor
+                cell.layer.borderColor = Color.textPrimary.cgColor
             }
             return cell
         }
@@ -73,7 +73,7 @@ final class HuntingCalendarView: UIView {
             let month = Calendar.current.component(.month, from: firstDay)
             defer { previousMonth = month }
             guard previousMonth != nil, month != previousMonth else { continue }
-            let label = UILabel(fontSize: 10, weight: .semibold, color: Color.Grey500)
+            let label = UILabel(style: .caption2, weight: .semibold, color: Color.textQuaternary)
             label.text = formatter.string(from: firstDay)
             container.addAutoLayoutSubviews(label)
             NSLayoutConstraint.activate([
@@ -84,14 +84,14 @@ final class HuntingCalendarView: UIView {
     }
 
     fileprivate static func makeLegend() -> UIView {
-        let less = UILabel(fontSize: 10, weight: .semibold, color: Color.Grey500)
+        let less = UILabel(style: .caption2, weight: .semibold, color: Color.textQuaternary)
         less.text = "Less"
-        let more = UILabel(fontSize: 10, weight: .semibold, color: Color.Grey500)
+        let more = UILabel(style: .caption2, weight: .semibold, color: Color.textQuaternary)
         more.text = "More"
         let swatches = levelColors.map { color -> UIView in
             let swatch = UIView()
             swatch.backgroundColor = color
-            swatch.layer.cornerRadius = 2
+            swatch.layer.cornerRadius = CornerRadius.tiny
             NSLayoutConstraint.activate([
                 swatch.widthAnchor.constraint(equalToConstant: 10),
                 swatch.heightAnchor.constraint(equalToConstant: 10)

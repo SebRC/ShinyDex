@@ -1,7 +1,7 @@
 import UIKit
 
 class LoadingVC: UIViewController {
-	fileprivate let loadingLabel = UILabel(fontSize: 35, color: Color.Orange500)
+	fileprivate let loadingLabel = UILabel(style: .largeTitle, color: Color.accent)
 	fileprivate let activityIndicator = UIActivityIndicatorView(style: .large)
 	fileprivate let container: AppContainer
 
@@ -17,11 +17,11 @@ class LoadingVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationController?.isNavigationBarHidden = true
-		view.backgroundColor = Color.Grey900
+		view.backgroundColor = Color.background
 
 		loadingLabel.text = "Loading…"
 		loadingLabel.textAlignment = .center
-		activityIndicator.color = Color.Orange500
+		activityIndicator.color = Color.accent
 		activityIndicator.startAnimating()
 
 		let stack = UIStackView(arrangedSubviews: [activityIndicator, loadingLabel])

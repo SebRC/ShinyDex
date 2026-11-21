@@ -20,14 +20,14 @@ class YearInReviewVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
         navigationItem.largeTitleDisplayMode = .never
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
         pages.axis = .horizontal
-        pageControl.currentPageIndicatorTintColor = Color.Orange500
-        pageControl.pageIndicatorTintColor = Color.Grey600
+        pageControl.currentPageIndicatorTintColor = Color.accent
+        pageControl.pageIndicatorTintColor = Color.inactive
         pageControl.addTarget(self, action: #selector(pageControlChanged), for: .valueChanged)
 
         view.addAutoLayoutSubviews(scrollView, pageControl)

@@ -11,11 +11,11 @@ class ShinyTrackerVC: UIViewController {
     fileprivate let spriteView = PokemonSpriteView()
     fileprivate let heroView = UIView()
     fileprivate let methodIconView = UIImageView()
-    fileprivate let encountersCaptionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
-    fileprivate let encountersValueLabel = UILabel(fontSize: 56, weight: .bold, color: Color.Grey100)
-    fileprivate let encountersDetailLabel = UILabel(fontSize: 15, color: Color.Grey400)
+    fileprivate let encountersCaptionLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
+    fileprivate let encountersValueLabel = UILabel(style: .hero, weight: .bold, color: Color.textPrimary)
+    fileprivate let encountersDetailLabel = UILabel(style: .subheadline, color: Color.textTertiary)
     fileprivate let caughtBallView = UIImageView()
-    fileprivate let caughtLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Orange500)
+    fileprivate let caughtLabel = UILabel(style: .footnote, weight: .semibold, color: Color.accent)
     fileprivate let caughtRow = UIStackView()
     fileprivate let oddsTile = StatTileView(caption: "Shiny odds")
     fileprivate let probabilityTile = StatTileView(caption: "Chance so far")
@@ -75,7 +75,7 @@ class ShinyTrackerVC: UIViewController {
     fileprivate func layOutViews() {
         title = pokemon.name
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = Color.Grey900
+        view.backgroundColor = Color.background
 
         setUpHeroView()
         setUpCounterButtons()
@@ -121,18 +121,18 @@ class ShinyTrackerVC: UIViewController {
         ])
         for row in [heroView, stats, buttonStrip, controls] as [UIView] {
             NSLayoutConstraint.activate([
-                row.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-                row.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
+                row.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Spacing.screenMargin),
+                row.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Spacing.screenMargin)
             ])
         }
     }
 
     fileprivate func setUpHeroView() {
-        heroView.backgroundColor = Color.Grey800
+        heroView.backgroundColor = Color.surface
         heroView.layer.cornerRadius = CornerRadius.standard
         methodIconView.contentMode = .scaleAspectFit
         methodIconView.layer.magnificationFilter = .nearest
-        encountersValueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 56, weight: .bold)
+        encountersValueLabel.font = UIFont.make(.hero, weight: .bold, monospacedDigits: true)
         encountersValueLabel.adjustsFontSizeToFitWidth = true
         encountersValueLabel.minimumScaleFactor = 0.5
         encountersValueLabel.textAlignment = .center
@@ -164,38 +164,38 @@ class ShinyTrackerVC: UIViewController {
     }
 
     fileprivate func setUpCounterButtons() {
-        minusButton.backgroundColor = Color.Grey800
-        minusButton.layer.cornerRadius = 20
-        minusButton.tintColor = Color.Grey200
+        minusButton.backgroundColor = Color.surface
+        minusButton.layer.cornerRadius = CornerRadius.large
+        minusButton.tintColor = Color.textPrimary
         minusButton.setImage(UIImage.makeSymbol("minus", pointSize: 28, weight: .bold), for: .normal)
 
-        breakChainButton.backgroundColor = Color.Grey800
-        breakChainButton.layer.cornerRadius = 16
-        breakChainButton.tintColor = Color.Grey200
+        breakChainButton.backgroundColor = Color.surface
+        breakChainButton.layer.cornerRadius = CornerRadius.large
+        breakChainButton.tintColor = Color.textPrimary
         breakChainButton.setImage(UIImage.makeSymbol("arrow.counterclockwise", pointSize: 20, weight: .bold), for: .normal)
 
-        chainMinusButton.backgroundColor = Color.Grey800
-        chainMinusButton.layer.cornerRadius = 16
-        chainMinusButton.tintColor = Color.Grey200
+        chainMinusButton.backgroundColor = Color.surface
+        chainMinusButton.layer.cornerRadius = CornerRadius.large
+        chainMinusButton.tintColor = Color.textPrimary
         chainMinusButton.setImage(UIImage.makeSymbol("minus", pointSize: 20, weight: .bold), for: .normal)
 
-        chainPlusButton.backgroundColor = Color.Grey800
-        chainPlusButton.layer.cornerRadius = 16
+        chainPlusButton.backgroundColor = Color.surface
+        chainPlusButton.layer.cornerRadius = CornerRadius.large
         chainPlusButton.layer.borderWidth = 1.5
-        chainPlusButton.layer.borderColor = Color.Orange500.cgColor
-        chainPlusButton.tintColor = Color.Orange500
+        chainPlusButton.layer.borderColor = Color.accent.cgColor
+        chainPlusButton.tintColor = Color.accent
         chainPlusButton.setImage(UIImage.makeSymbol("link", pointSize: 18, weight: .bold), for: .normal)
-        chainPlusButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        chainPlusButton.setTitleColor(Color.Orange500, for: .normal)
+        chainPlusButton.titleLabel?.font = UIFont.make(.body, weight: .bold)
+        chainPlusButton.setTitleColor(Color.accent, for: .normal)
         chainPlusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
         chainPlusButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
 
-        plusButton.backgroundColor = Color.Orange500
-        plusButton.layer.cornerRadius = 20
-        plusButton.tintColor = Color.Grey900
+        plusButton.backgroundColor = Color.accent
+        plusButton.layer.cornerRadius = CornerRadius.large
+        plusButton.tintColor = Color.background
         plusButton.setImage(UIImage.makeSymbol("plus", pointSize: 26, weight: .bold), for: .normal)
-        plusButton.titleLabel?.font = UIFont.monospacedDigitSystemFont(ofSize: 30, weight: .bold)
-        plusButton.setTitleColor(Color.Grey900, for: .normal)
+        plusButton.titleLabel?.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
+        plusButton.setTitleColor(Color.background, for: .normal)
         plusButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
         plusButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
     }
@@ -384,7 +384,7 @@ class ShinyTrackerVC: UIViewController {
         sheet.addAction(UIAlertAction(title: "Set \(chainLabel.lowercased())", style: .default) { [weak self] _ in self?.presentChainInput(label: chainLabel) })
         sheet.addAction(UIAlertAction(title: "Set encounters", style: .default) { [weak self] _ in self?.presentEncountersInput() })
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sheet.view.tintColor = Color.Orange500
+        sheet.view.tintColor = Color.accent
         sheet.popoverPresentationController?.sourceView = buttonStrip.updateEncountersButton
         sheet.popoverPresentationController?.sourceRect = buttonStrip.updateEncountersButton.bounds
         present(sheet, animated: true)
@@ -453,14 +453,14 @@ class ShinyTrackerVC: UIViewController {
 }
 
 fileprivate class StatTileView: UIView {
-    fileprivate let captionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
-    fileprivate let valueLabel = UILabel(fontSize: 22, weight: .semibold, lines: 2)
-    fileprivate let detailLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Orange500, lines: 2)
+    fileprivate let captionLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textTertiary)
+    fileprivate let valueLabel = UILabel(style: .title2, weight: .semibold, lines: 2)
+    fileprivate let detailLabel = UILabel(style: .caption1, weight: .semibold, color: Color.accent, lines: 2)
     fileprivate var value: String?
 
     init(caption: String) {
         super.init(frame: .zero)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
         isAccessibilityElement = true
         accessibilityLabel = caption
@@ -485,8 +485,8 @@ fileprivate class StatTileView: UIView {
     }
 
     func setValue(_ value: String) {
-        valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
-        valueLabel.textColor = Color.Grey100
+        valueLabel.font = UIFont.make(.title2, weight: .semibold, monospacedDigits: true)
+        valueLabel.textColor = Color.textPrimary
         valueLabel.text = value
         self.value = value
         updateAccessibilityValue()
@@ -503,8 +503,8 @@ fileprivate class StatTileView: UIView {
     }
 
     func setMessage(_ message: String) {
-        valueLabel.font = UIFont.systemFont(ofSize: 14)
-        valueLabel.textColor = Color.Grey300
+        valueLabel.font = UIFont.make(.subheadline)
+        valueLabel.textColor = Color.textSecondary
         valueLabel.text = message
         value = message
         updateAccessibilityValue()

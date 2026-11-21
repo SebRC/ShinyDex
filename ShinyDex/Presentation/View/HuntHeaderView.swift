@@ -17,21 +17,21 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         let background = UIView()
-        background.backgroundColor = Color.Grey900
+        background.backgroundColor = Color.background
         backgroundView = background
 
-        chevronImageView.tintColor = Color.Orange500
+        chevronImageView.tintColor = Color.accent
         chevronImageView.contentMode = .scaleAspectFit
         chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .headline, scale: .medium)
 
         nameLabel.font = UIFont.preferredFont(forTextStyle: .title3).withWeight(.semibold)
         nameLabel.adjustsFontForContentSizeCategory = true
-        nameLabel.textColor = Color.Grey200
+        nameLabel.textColor = Color.textPrimary
         nameLabel.numberOfLines = 1
 
         encountersLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         encountersLabel.adjustsFontForContentSizeCategory = true
-        encountersLabel.textColor = Color.Grey400
+        encountersLabel.textColor = Color.textTertiary
 
         let labels = UIStackView(arrangedSubviews: [nameLabel, encountersLabel])
         labels.axis = .vertical
@@ -50,14 +50,14 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
         toggleControl.accessibilityHint = "Shows or hides the Pokémon in this hunt."
 
         var configuration = UIButton.Configuration.filled()
-        configuration.baseBackgroundColor = Color.Orange500
-        configuration.baseForegroundColor = Color.Grey900
+        configuration.baseBackgroundColor = Color.accent
+        configuration.baseForegroundColor = Color.background
         configuration.cornerStyle = .capsule
         configuration.image = UIImage.makeSymbol("plus", pointSize: 13, weight: .bold)
         configuration.imagePadding = 4
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 14)
         var title = AttributedString("All")
-        title.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        title.font = UIFont.make(.subheadline, weight: .bold)
         configuration.attributedTitle = title
         incrementAllButton.configuration = configuration
         incrementAllButton.setContentHuggingPriority(.required, for: .horizontal)

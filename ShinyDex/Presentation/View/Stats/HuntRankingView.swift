@@ -33,20 +33,20 @@ final class HuntRankingView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Color.Grey800
+        backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
         clipsToBounds = true
 
         rankingControl.selectedSegmentIndex = Ranking.longest.rawValue
-        rankingControl.selectedSegmentTintColor = Color.Orange500
-        rankingControl.backgroundColor = Color.Grey700
-        rankingControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 14, weight: .semibold)], for: .selected)
-        rankingControl.setTitleTextAttributes([.foregroundColor: Color.Grey300, .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .normal)
+        rankingControl.selectedSegmentTintColor = Color.accent
+        rankingControl.backgroundColor = Color.surfaceRaised
+        rankingControl.setTitleTextAttributes([.foregroundColor: Color.background, .font: UIFont.make(.subheadline, weight: .semibold)], for: .selected)
+        rankingControl.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.subheadline, weight: .medium)], for: .normal)
         rankingControl.addTarget(self, action: #selector(rankingChanged), for: .valueChanged)
 
         rows.axis = .vertical
-        lengthButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        lengthButton.tintColor = Color.Orange500
+        lengthButton.titleLabel?.font = UIFont.make(.subheadline, weight: .semibold)
+        lengthButton.tintColor = Color.accent
         lengthButton.addTarget(self, action: #selector(lengthPressed), for: .touchUpInside)
 
         let rankingControlWrapper = UIView()
