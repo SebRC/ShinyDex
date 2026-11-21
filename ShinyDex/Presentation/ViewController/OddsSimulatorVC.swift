@@ -30,7 +30,7 @@ class OddsSimulatorVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Odds Simulator"
-        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.largeTitleDisplayMode = .always
         view.backgroundColor = Color.background
         setUpGameSettings()
         contentStack.axis = .vertical
@@ -83,7 +83,7 @@ class OddsSimulatorVC: UIViewController {
     fileprivate func makeEncountersRow() -> UIView {
         let label = UILabel(style: .body, weight: .semibold, color: Color.textPrimary)
         label.text = "Encounters"
-        encountersField.text = String(encounters)
+        encountersField.text = encounters.grouped
         encountersField.keyboardType = .numberPad
         encountersField.textAlignment = .right
         encountersField.font = UIFont.make(.title3, weight: .semibold, monospacedDigits: true)
@@ -91,6 +91,7 @@ class OddsSimulatorVC: UIViewController {
         encountersField.tintColor = Color.accent
         encountersField.accessibilityLabel = "Encounters"
         encountersField.addTarget(self, action: #selector(encountersChanged), for: .editingChanged)
+        encountersField.addTarget(self, action: #selector(encountersEditingEnded), for: .editingDidEnd)
         encountersField.inputAccessoryView = makeKeyboardToolbar()
         encountersField.setContentHuggingPriority(.defaultLow, for: .horizontal)
         let row = UIStackView(arrangedSubviews: [label, encountersField])
@@ -120,6 +121,10 @@ class OddsSimulatorVC: UIViewController {
         row.isAccessibilityElement = true
         row.accessibilityLabel = "\(milestone.percent)% chance by \(encountersLabel.text ?? "")"
         return row
+    }
+
+    @objc fileprivate func encountersEditingEnded() {
+        encountersField.text = encounters.grouped
     }
 
     @objc fileprivate func encountersChanged() {

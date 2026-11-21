@@ -6,6 +6,8 @@
 - Name branches after the Trello task as `<task id>-<task name>`, with spaces in the name replaced by underscores. For example, task 123 "Create agent definitions" becomes `123-Create_agent_definitions`.
 - Never commit, push, or open a PR without asking first.
 - Keep commit messages short: one or two sentences, phrased as an action, e.g. "Add view for pokeball selection" or "Update pods".
+- New Trello cards go in the New list on the Shinydex board, numbered after the highest existing card, using the board's "Item Goals / Outcome" template.
+- Verify UI changes in the simulator with screenshots before calling them done.
 
 ## Project structure
 
@@ -42,3 +44,14 @@ ShinyDexTests/     Domain, handler (in-memory repositories), persistence round-t
 ## UI
 
 - Build all UI programmatically. Storyboards and xibs are legacy; don't add new ones or extend existing ones, and prefer replacing them when touching that code.
+- Support iOS 18 and later. Don't add `#available` checks or fallbacks for older versions.
+- Use the design tokens, never raw values:
+  - Fonts: `UILabel(style:weight:color:)` or `UIFont.make(_:weight:monospacedDigits:)` with a `TypeStyle`. No `systemFont(ofSize:)`. Fonts scale with Dynamic Type, so avoid fixed heights around text.
+  - Colours: the semantic `Color` tokens (`background`, `surface`, `surfaceRaised`, `separator`, `textPrimary`…`textQuaternary`, `accent`, `accentSubtle`, `onAccent`, `danger`, `success`). Raw `Grey`/`Orange` shades only for chart gradients.
+  - Corners: `CornerRadius.tiny/small/standard/large` or `capsule(height:)`.
+  - Spacing: `Spacing.screenMargin` (20) for screen edges, the `Spacing` scale elsewhere.
+- Reuse the shared components instead of building one-offs:
+  - Section titles: `SectionHeaderLabel` in stacks, `SectionHeaderView.make(for:title:)` in tables.
+  - Stat tiles: `StatTile`.
+  - Buttons: `UIButton.make(_:)` with `.primary`, `.secondary`, `.tinted`, `.destructive` or `.pill`. Round buttons use `makeRoundButton`, counter buttons use `makeCounterButton`, where the most used action is `.primary`.
+- Navigation: screens opened from the menu use large titles, screens opened from inside a feature use inline titles. Bar buttons are outlined SF Symbols with an accessibility label. Text buttons only for words like Reset or Cancel.

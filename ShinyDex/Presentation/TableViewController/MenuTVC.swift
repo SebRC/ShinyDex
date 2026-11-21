@@ -2,7 +2,6 @@ import UIKit
 
 class MenuTVC: UITableViewController {
     fileprivate static let huntSymbolName = "scope"
-    fileprivate static let collectionBadgeSymbolName = "sparkle"
     fileprivate static let collectionSymbolName = "sparkles"
     fileprivate static let iconSize = CGSize(width: 56, height: 56)
 
@@ -37,7 +36,7 @@ class MenuTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Menu"
+        title = "ShinyDex"
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.hidesBackButton = true
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingsPressed))
@@ -97,13 +96,7 @@ class MenuTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseIdentifier, for: indexPath) as! MenuCell
         let index = getMenuIndex(for: indexPath)
-        var image = makeMenuImage(for: index)
-        if (index == 10), let firstHuntPokemonName = summary?.firstHuntPokemonName {
-            image = makeBadgedSprite(pokemonName: firstHuntPokemonName, formId: nil, badgeSymbolName: MenuTVC.huntSymbolName)
-        }
-        if (index == 11), let latestCatchPokemonName = summary?.latestCatchPokemonName {
-            image = makeBadgedSprite(pokemonName: latestCatchPokemonName, formId: summary?.latestCatchFormId, badgeSymbolName: MenuTVC.collectionBadgeSymbolName)
-        }
+        let image = makeMenuImage(for: index)
         cell.configure(title: textResolver.getGenTitle(gen: index), subtitle: getSubtitle(for: index), image: image, progress: getProgress(for: index))
         return cell
     }
@@ -185,36 +178,17 @@ class MenuTVC: UITableViewController {
         case 11:
             return UIImage.makeSymbol(MenuTVC.collectionSymbolName, pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 12:
-            return UIImage.makeSymbol("bolt.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+            return UIImage.makeSymbol("bolt.fill", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 13:
-            return UIImage.makeSymbol("chart.bar.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+            return UIImage.makeSymbol("chart.bar.fill", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 14:
-            return UIImage.makeSymbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+            return UIImage.makeSymbol("map.fill", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 15:
-            return UIImage.makeSymbol("square.grid.3x3.fill", pointSize: 20, weight: .medium)?.padded(to: CGSize(width: 56, height: 56))
+            return UIImage.makeSymbol("square.grid.3x3.fill", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 16:
-            return UIImage.makeSymbol("percent", pointSize: 20, weight: .bold)?.padded(to: MenuTVC.iconSize)
+            return UIImage.makeSymbol("percent", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         default:
             return PixelArt.makeCenteredImage(named: "gen1")
-        }
-    }
-
-    fileprivate func makeBadgedSprite(pokemonName: String, formId: String?, badgeSymbolName: String) -> UIImage? {
-        guard let sprite = PokemonSprites.makeImage(pokemonName: pokemonName, formId: formId) else { return nil }
-        let canvas = CGRect(origin: .zero, size: MenuTVC.iconSize)
-        let spriteRect = canvas.insetBy(dx: 0, dy: (canvas.height - canvas.width * sprite.size.height / sprite.size.width) / 2)
-        let badge = MenuTVC.makeBadgeRect(touching: sprite, drawnIn: spriteRect, within: canvas)
-        let format = UIGraphicsImageRendererFormat.default()
-        format.scale = UIScreen.main.scale
-        return UIGraphicsImageRenderer(size: canvas.size, format: format).image { context in
-            context.cgContext.interpolationQuality = .none
-            sprite.draw(in: spriteRect)
-            Color.surface.setFill()
-            UIBezierPath(ovalIn: badge).fill()
-            let symbol = UIImage.makeSymbol(badgeSymbolName, pointSize: 13, weight: .bold)?.withTintColor(Color.accent, renderingMode: .alwaysOriginal)
-            if let symbol = symbol {
-                symbol.draw(at: CGPoint(x: badge.midX - symbol.size.width / 2, y: badge.midY - symbol.size.height / 2))
-            }
         }
     }
 

@@ -10,9 +10,6 @@ struct MenuSummary: Equatable {
 
     let huntCount: Int
     let huntEncounters: Int
-    let firstHuntPokemonName: String?
-    let latestCatchPokemonName: String?
-    let latestCatchFormId: String?
     let caughtCount: Int
     let averageEncounters: Int?
     let journeyCount: Int
@@ -26,14 +23,12 @@ final class GetMenuSummaryHandler {
     private let getHunts: GetHuntsHandler
     private let getJourneys: GetJourneysHandler
     private let getBingoBoards: GetBingoBoardsHandler
-    private let getCatches: GetCatchesHandler
     private let catchRepository: CatchRepository
 
-    init(getHunts: GetHuntsHandler, getJourneys: GetJourneysHandler, getBingoBoards: GetBingoBoardsHandler, getCatches: GetCatchesHandler, catchRepository: CatchRepository) {
+    init(getHunts: GetHuntsHandler, getJourneys: GetJourneysHandler, getBingoBoards: GetBingoBoardsHandler, catchRepository: CatchRepository) {
         self.getHunts = getHunts
         self.getJourneys = getJourneys
         self.getBingoBoards = getBingoBoards
-        self.getCatches = getCatches
         self.catchRepository = catchRepository
     }
 
@@ -49,16 +44,9 @@ final class GetMenuSummaryHandler {
             guard let range = PokedexRegions.getNumbers(inRegion: region) else { continue }
             regionProgress[region] = MenuSummary.RegionProgress(caught: range.filter { (catchCounts[$0] ?? 0) > 0 }.count, total: range.count)
         }
-        let latestCatch = getCatches.handle(GetCatchesQuery(scope: .collection, includingFailed: false))
-            .enumerated()
-            .max { ($0.element.caughtDate ?? .distantPast, $0.offset) < ($1.element.caughtDate ?? .distantPast, $1.offset) }?
-            .element
         return MenuSummary(
             huntCount: hunts.count,
             huntEncounters: hunts.reduce(0) { $0 + $1.totalEncounters },
-            firstHuntPokemonName: hunts.first?.members.first?.name,
-            latestCatchPokemonName: latestCatch?.pokemonName,
-            latestCatchFormId: latestCatch?.formId,
             caughtCount: caught.count,
             averageEncounters: CatchStats(catches: allCatches).averageEncounters,
             journeyCount: journeys.count,
