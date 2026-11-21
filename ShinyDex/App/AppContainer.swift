@@ -8,6 +8,7 @@ final class AppContainer {
     let evolutions: Evolutions
     let forms: PokemonForms
     let bingoTemplates: BingoTemplates
+    let ppPresets: PPPresets
 
     let pokemonRepository: PokemonRepository
     let catchRepository: CatchRepository
@@ -26,6 +27,7 @@ final class AppContainer {
         self.locationLinkProvider = locationLinkProvider
         evolutions = EvolutionsLoader.load(from: resourceLoader)
         forms = PokemonFormsLoader.load(from: resourceLoader)
+        ppPresets = PPPresetsLoader.load(from: resourceLoader)
         bingoTemplates = BingoTemplatesLoader.load(from: resourceLoader, pokemonNames: resourceLoader.loadLines(ofTextResource: "allGens"), forms: forms)
 
         let context = coreDataStack.viewContext
@@ -110,6 +112,8 @@ final class AppContainer {
     var getActiveMoves: GetActiveMovesHandler { GetActiveMovesHandler(moveRepository: moveRepository) }
     var saveActiveMoves: SaveActiveMovesHandler { SaveActiveMovesHandler(moveRepository: moveRepository) }
     var getMoveOptions: GetMoveOptionsHandler { GetMoveOptionsHandler(resourceLoader: resourceLoader) }
+    var getPPPresets: GetPPPresetsHandler { GetPPPresetsHandler(presets: ppPresets, getMoveOptions: getMoveOptions) }
+    var applyPPPreset: ApplyPPPresetHandler { ApplyPPPresetHandler(presets: ppPresets, getMoveOptions: getMoveOptions, moveRepository: moveRepository) }
 
     // MARK: Backup
 

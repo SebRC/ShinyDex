@@ -37,7 +37,8 @@ class PPCounterTVC: UITableViewController {
         tableView.estimatedRowHeight = 100
         tableView.register(MoveCell.self, forCellReuseIdentifier: MoveCell.moveReuseIdentifier)
         restoreAllButton = UIBarButtonItem(title: "Restore All", style: .plain, target: self, action: #selector(restoreAllPressed))
-        navigationItem.rightBarButtonItem = restoreAllButton
+        let presetsButton = UIBarButtonItem(title: "Presets", style: .plain, target: self, action: #selector(presetsPressed))
+        navigationItem.rightBarButtonItems = [restoreAllButton, presetsButton]
         setUpPressureCell()
         updateRestoreAllButton()
     }
@@ -137,6 +138,34 @@ class PPCounterTVC: UITableViewController {
 
     fileprivate func save() {
         container.saveActiveMoves.handle(SaveActiveMovesCommand(moves: ActiveMoveSet(slots: activeMoves, pressureActive: pressureSwitch.isOn)))
+    }
+
+    @objc fileprivate func presetsPressed() {
+        let picker = PPPresetPickerTVC(presets: container.getPPPresets.handle(GetPPPresetsQuery()))
+        picker.onPick = { [weak self, weak picker] preset in
+            guard let picker = picker else { return }
+            self?.confirmApplying(preset, from: picker)
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func confirmApplying(_ preset: PPPresetSummary, from picker: UIViewController) {
+        let presenter = picker.presentedViewController ?? picker
+        presenter.presentDestructiveConfirmation(title: "Track \(preset.pokemonName)'s moves?",
+                                                 message: "Your tracked moves and their PP are replaced with the moves of the Lv. \(preset.level) \(preset.pokemonName) in \(preset.onlyIn ?? preset.game).",
+                                                 destructiveTitle: "Replace") { [weak self] in
+            guard let self = self, self.container.applyPPPreset.handle(ApplyPPPresetCommand(presetId: preset.id)) else { return }
+            self.reloadMoves()
+            self.navigationController?.popToViewController(self, animated: true)
+        }
+    }
+
+    fileprivate func reloadMoves() {
+        let moveSet = container.getActiveMoves.handle(GetActiveMovesQuery())
+        activeMoves = moveSet.slots
+        pressureSwitch.isOn = moveSet.pressureActive
+        tableView.reloadData()
+        updateRestoreAllButton()
     }
 
     @objc fileprivate func switchPressed() {

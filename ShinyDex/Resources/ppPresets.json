@@ -1,0 +1,3042 @@
+[
+    {
+        "id": "red-blue-articuno-50",
+        "game": "Red / Blue",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "peck",
+            "ice-beam"
+        ]
+    },
+    {
+        "id": "red-blue-zapdos-50",
+        "game": "Red / Blue",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "thunder-shock",
+            "drill-peck"
+        ]
+    },
+    {
+        "id": "red-blue-moltres-50",
+        "game": "Red / Blue",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "peck",
+            "fire-spin"
+        ]
+    },
+    {
+        "id": "red-blue-mewtwo-70",
+        "game": "Red / Blue",
+        "onlyIn": null,
+        "pokemon": "Mewtwo",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "swift",
+            "barrier",
+            "psychic",
+            "recover"
+        ]
+    },
+    {
+        "id": "yellow-articuno-50",
+        "game": "Yellow",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "peck",
+            "ice-beam"
+        ]
+    },
+    {
+        "id": "yellow-zapdos-50",
+        "game": "Yellow",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "thunder-shock",
+            "drill-peck"
+        ]
+    },
+    {
+        "id": "yellow-moltres-50",
+        "game": "Yellow",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "peck",
+            "fire-spin"
+        ]
+    },
+    {
+        "id": "yellow-mewtwo-70",
+        "game": "Yellow",
+        "onlyIn": null,
+        "pokemon": "Mewtwo",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "swift",
+            "barrier",
+            "psychic",
+            "recover"
+        ]
+    },
+    {
+        "id": "gold-silver-raikou-40-roaming",
+        "game": "Gold / Silver",
+        "onlyIn": null,
+        "pokemon": "Raikou",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "leer",
+            "thunder-shock",
+            "roar",
+            "quick-attack"
+        ]
+    },
+    {
+        "id": "gold-silver-entei-40-roaming",
+        "game": "Gold / Silver",
+        "onlyIn": null,
+        "pokemon": "Entei",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "leer",
+            "ember",
+            "roar",
+            "fire-spin"
+        ]
+    },
+    {
+        "id": "gold-silver-suicune-40-roaming",
+        "game": "Gold / Silver",
+        "onlyIn": null,
+        "pokemon": "Suicune",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "leer",
+            "water-gun",
+            "roar",
+            "gust"
+        ]
+    },
+    {
+        "id": "silver-lugia-40",
+        "game": "Gold / Silver",
+        "onlyIn": "Silver",
+        "pokemon": "Lugia",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "aeroblast",
+            "safeguard",
+            "gust",
+            "recover"
+        ]
+    },
+    {
+        "id": "gold-lugia-70",
+        "game": "Gold / Silver",
+        "onlyIn": "Gold",
+        "pokemon": "Lugia",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "hydro-pump",
+            "rain-dance",
+            "swift"
+        ]
+    },
+    {
+        "id": "gold-ho-oh-40",
+        "game": "Gold / Silver",
+        "onlyIn": "Gold",
+        "pokemon": "Ho-Oh",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "sacred-fire",
+            "safeguard",
+            "gust",
+            "recover"
+        ]
+    },
+    {
+        "id": "silver-ho-oh-70",
+        "game": "Gold / Silver",
+        "onlyIn": "Silver",
+        "pokemon": "Ho-Oh",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "fire-blast",
+            "sunny-day",
+            "swift"
+        ]
+    },
+    {
+        "id": "crystal-raikou-40-roaming",
+        "game": "Crystal",
+        "onlyIn": null,
+        "pokemon": "Raikou",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "leer",
+            "thunder-shock",
+            "roar",
+            "quick-attack"
+        ]
+    },
+    {
+        "id": "crystal-entei-40-roaming",
+        "game": "Crystal",
+        "onlyIn": null,
+        "pokemon": "Entei",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "leer",
+            "ember",
+            "roar",
+            "fire-spin"
+        ]
+    },
+    {
+        "id": "crystal-suicune-40",
+        "game": "Crystal",
+        "onlyIn": null,
+        "pokemon": "Suicune",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "leer",
+            "bubble-beam",
+            "rain-dance",
+            "gust"
+        ]
+    },
+    {
+        "id": "crystal-lugia-60",
+        "game": "Crystal",
+        "onlyIn": null,
+        "pokemon": "Lugia",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "gust",
+            "recover",
+            "hydro-pump",
+            "rain-dance"
+        ]
+    },
+    {
+        "id": "crystal-ho-oh-60",
+        "game": "Crystal",
+        "onlyIn": null,
+        "pokemon": "Ho-Oh",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "gust",
+            "recover",
+            "fire-blast",
+            "sunny-day"
+        ]
+    },
+    {
+        "id": "crystal-celebi-30",
+        "game": "Crystal",
+        "onlyIn": null,
+        "pokemon": "Celebi",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "heal-bell",
+            "safeguard",
+            "ancient-power",
+            "future-sight"
+        ]
+    },
+    {
+        "id": "ruby-sapphire-regirock-40",
+        "game": "Ruby / Sapphire",
+        "onlyIn": null,
+        "pokemon": "Regirock",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "rock-throw",
+            "curse",
+            "superpower",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "ruby-sapphire-regice-40",
+        "game": "Ruby / Sapphire",
+        "onlyIn": null,
+        "pokemon": "Regice",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "icy-wind",
+            "curse",
+            "superpower",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "ruby-sapphire-registeel-40",
+        "game": "Ruby / Sapphire",
+        "onlyIn": null,
+        "pokemon": "Registeel",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "metal-claw",
+            "curse",
+            "superpower",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "sapphire-latias-40-roaming",
+        "game": "Ruby / Sapphire",
+        "onlyIn": "Sapphire",
+        "pokemon": "Latias",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "water-sport",
+            "refresh",
+            "mist-ball",
+            "psychic"
+        ]
+    },
+    {
+        "id": "ruby-latias-50",
+        "game": "Ruby / Sapphire",
+        "onlyIn": "Ruby",
+        "pokemon": "Latias",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "mist-ball",
+            "psychic",
+            "recover",
+            "charm"
+        ]
+    },
+    {
+        "id": "ruby-latios-40-roaming",
+        "game": "Ruby / Sapphire",
+        "onlyIn": "Ruby",
+        "pokemon": "Latios",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "protect",
+            "refresh",
+            "luster-purge",
+            "psychic"
+        ]
+    },
+    {
+        "id": "sapphire-latios-50",
+        "game": "Ruby / Sapphire",
+        "onlyIn": "Sapphire",
+        "pokemon": "Latios",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "luster-purge",
+            "psychic",
+            "recover",
+            "dragon-dance"
+        ]
+    },
+    {
+        "id": "sapphire-kyogre-45",
+        "game": "Ruby / Sapphire",
+        "onlyIn": "Sapphire",
+        "pokemon": "Kyogre",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "body-slam",
+            "calm-mind",
+            "ice-beam",
+            "hydro-pump"
+        ]
+    },
+    {
+        "id": "ruby-groudon-45",
+        "game": "Ruby / Sapphire",
+        "onlyIn": "Ruby",
+        "pokemon": "Groudon",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "slash",
+            "bulk-up",
+            "earthquake",
+            "fire-blast"
+        ]
+    },
+    {
+        "id": "ruby-sapphire-rayquaza-70",
+        "game": "Ruby / Sapphire",
+        "onlyIn": null,
+        "pokemon": "Rayquaza",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "fly",
+            "rest",
+            "extreme-speed",
+            "outrage"
+        ]
+    },
+    {
+        "id": "emerald-mew-30",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Mew",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "pound",
+            "transform",
+            "mega-punch",
+            "metronome"
+        ]
+    },
+    {
+        "id": "emerald-lugia-70",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Lugia",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "hydro-pump",
+            "rain-dance",
+            "swift"
+        ]
+    },
+    {
+        "id": "emerald-ho-oh-70",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Ho-Oh",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "fire-blast",
+            "sunny-day",
+            "swift"
+        ]
+    },
+    {
+        "id": "emerald-regirock-40",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Regirock",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "rock-throw",
+            "curse",
+            "superpower",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "emerald-regice-40",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Regice",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "icy-wind",
+            "curse",
+            "superpower",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "emerald-registeel-40",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Registeel",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "metal-claw",
+            "curse",
+            "superpower",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "emerald-latias-40-roaming",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Latias",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "water-sport",
+            "refresh",
+            "mist-ball",
+            "psychic"
+        ]
+    },
+    {
+        "id": "emerald-latias-50",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Latias",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "mist-ball",
+            "psychic",
+            "recover",
+            "charm"
+        ]
+    },
+    {
+        "id": "emerald-latios-40-roaming",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Latios",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "protect",
+            "refresh",
+            "luster-purge",
+            "psychic"
+        ]
+    },
+    {
+        "id": "emerald-latios-50",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Latios",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "luster-purge",
+            "psychic",
+            "recover",
+            "dragon-dance"
+        ]
+    },
+    {
+        "id": "emerald-kyogre-70",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Kyogre",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "hydro-pump",
+            "rest",
+            "sheer-cold",
+            "double-edge"
+        ]
+    },
+    {
+        "id": "emerald-groudon-70",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Groudon",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "fire-blast",
+            "rest",
+            "fissure",
+            "solar-beam"
+        ]
+    },
+    {
+        "id": "emerald-rayquaza-70",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Rayquaza",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "fly",
+            "rest",
+            "extreme-speed",
+            "outrage"
+        ]
+    },
+    {
+        "id": "emerald-deoxys-30",
+        "game": "Emerald",
+        "onlyIn": null,
+        "pokemon": "Deoxys",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "knock-off",
+            "pursuit",
+            "psychic",
+            "swift"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-articuno-50",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "mist",
+            "agility",
+            "mind-reader",
+            "ice-beam"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-zapdos-50",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "thunder-wave",
+            "agility",
+            "detect",
+            "drill-peck"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-moltres-50",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "fire-spin",
+            "agility",
+            "endure",
+            "flamethrower"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-mewtwo-70",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Mewtwo",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "swift",
+            "recover",
+            "safeguard",
+            "psychic"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-raikou-50-roaming",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Raikou",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "thunder-shock",
+            "roar",
+            "quick-attack",
+            "spark"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-entei-50-roaming",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Entei",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "ember",
+            "roar",
+            "fire-spin",
+            "stomp"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-suicune-50-roaming",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Suicune",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "bubble-beam",
+            "rain-dance",
+            "gust",
+            "aurora-beam"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-lugia-70",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Lugia",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "hydro-pump",
+            "rain-dance",
+            "swift"
+        ]
+    },
+    {
+        "id": "firered-leafgreen-ho-oh-70",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": null,
+        "pokemon": "Ho-Oh",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "fire-blast",
+            "sunny-day",
+            "swift"
+        ]
+    },
+    {
+        "id": "firered-deoxys-30",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": "FireRed",
+        "pokemon": "Deoxys",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "taunt",
+            "pursuit",
+            "psychic",
+            "superpower"
+        ]
+    },
+    {
+        "id": "leafgreen-deoxys-30",
+        "game": "FireRed / LeafGreen",
+        "onlyIn": "LeafGreen",
+        "pokemon": "Deoxys",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "knock-off",
+            "spikes",
+            "psychic",
+            "snatch"
+        ]
+    },
+    {
+        "id": "diamond-pearl-uxie-50",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Uxie",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "confusion",
+            "yawn",
+            "future-sight",
+            "amnesia"
+        ]
+    },
+    {
+        "id": "diamond-pearl-mesprit-50-roaming",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Mesprit",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "confusion",
+            "lucky-chant",
+            "future-sight",
+            "charm"
+        ]
+    },
+    {
+        "id": "diamond-pearl-azelf-50",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Azelf",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "confusion",
+            "uproar",
+            "future-sight",
+            "nasty-plot"
+        ]
+    },
+    {
+        "id": "diamond-dialga-47",
+        "game": "Diamond / Pearl",
+        "onlyIn": "Diamond",
+        "pokemon": "Dialga",
+        "level": 47,
+        "roaming": false,
+        "moves": [
+            "metal-claw",
+            "ancient-power",
+            "dragon-claw",
+            "roar-of-time"
+        ]
+    },
+    {
+        "id": "pearl-palkia-47",
+        "game": "Diamond / Pearl",
+        "onlyIn": "Pearl",
+        "pokemon": "Palkia",
+        "level": 47,
+        "roaming": false,
+        "moves": [
+            "water-pulse",
+            "ancient-power",
+            "dragon-claw",
+            "spacial-rend"
+        ]
+    },
+    {
+        "id": "diamond-pearl-heatran-70",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Heatran",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "scary-face",
+            "lava-plume",
+            "fire-spin",
+            "iron-head"
+        ]
+    },
+    {
+        "id": "diamond-pearl-regigigas-70",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Regigigas",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "confuse-ray",
+            "stomp",
+            "superpower",
+            "zen-headbutt"
+        ]
+    },
+    {
+        "id": "diamond-pearl-cresselia-50-roaming",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Cresselia",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "mist",
+            "aurora-beam",
+            "future-sight",
+            "slash"
+        ]
+    },
+    {
+        "id": "diamond-pearl-darkrai-40",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Darkrai",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "quick-attack",
+            "hypnosis",
+            "pursuit",
+            "nightmare"
+        ]
+    },
+    {
+        "id": "diamond-pearl-shaymin-30",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Shaymin",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "defense-curl",
+            "magical-leaf",
+            "leech-seed",
+            "synthesis"
+        ]
+    },
+    {
+        "id": "diamond-pearl-arceus-80",
+        "game": "Diamond / Pearl",
+        "onlyIn": null,
+        "pokemon": "Arceus",
+        "level": 80,
+        "roaming": false,
+        "moves": [
+            "refresh",
+            "future-sight",
+            "recover",
+            "hyper-beam"
+        ]
+    },
+    {
+        "id": "platinum-articuno-60-roaming",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 60,
+        "roaming": true,
+        "moves": [
+            "agility",
+            "ice-beam",
+            "reflect",
+            "roost"
+        ]
+    },
+    {
+        "id": "platinum-zapdos-60-roaming",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 60,
+        "roaming": true,
+        "moves": [
+            "charge",
+            "agility",
+            "discharge",
+            "roost"
+        ]
+    },
+    {
+        "id": "platinum-moltres-60-roaming",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 60,
+        "roaming": true,
+        "moves": [
+            "flamethrower",
+            "safeguard",
+            "air-slash",
+            "roost"
+        ]
+    },
+    {
+        "id": "platinum-uxie-50",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Uxie",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "swift",
+            "yawn",
+            "future-sight",
+            "amnesia"
+        ]
+    },
+    {
+        "id": "platinum-mesprit-50-roaming",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Mesprit",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "swift",
+            "lucky-chant",
+            "future-sight",
+            "charm"
+        ]
+    },
+    {
+        "id": "platinum-azelf-50",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Azelf",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "swift",
+            "uproar",
+            "future-sight",
+            "nasty-plot"
+        ]
+    },
+    {
+        "id": "platinum-dialga-70",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Dialga",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "roar-of-time",
+            "heal-block",
+            "earth-power",
+            "slash"
+        ]
+    },
+    {
+        "id": "platinum-palkia-70",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Palkia",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "spacial-rend",
+            "heal-block",
+            "earth-power",
+            "slash"
+        ]
+    },
+    {
+        "id": "platinum-heatran-50",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Heatran",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "metal-sound",
+            "crunch",
+            "scary-face",
+            "lava-plume"
+        ]
+    },
+    {
+        "id": "platinum-regigigas-1",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Regigigas",
+        "level": 1,
+        "roaming": false,
+        "moves": [
+            "dizzy-punch",
+            "knock-off",
+            "confuse-ray",
+            "foresight"
+        ]
+    },
+    {
+        "id": "platinum-giratina-47",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Giratina",
+        "level": 47,
+        "roaming": false,
+        "moves": [
+            "ominous-wind",
+            "ancient-power",
+            "dragon-claw",
+            "shadow-force"
+        ]
+    },
+    {
+        "id": "platinum-cresselia-50-roaming",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Cresselia",
+        "level": 50,
+        "roaming": true,
+        "moves": [
+            "mist",
+            "aurora-beam",
+            "future-sight",
+            "slash"
+        ]
+    },
+    {
+        "id": "platinum-darkrai-50",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Darkrai",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "hypnosis",
+            "feint-attack",
+            "nightmare",
+            "double-team"
+        ]
+    },
+    {
+        "id": "platinum-shaymin-30",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Shaymin",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "growth",
+            "magical-leaf",
+            "leech-seed",
+            "synthesis"
+        ]
+    },
+    {
+        "id": "platinum-arceus-80",
+        "game": "Platinum",
+        "onlyIn": null,
+        "pokemon": "Arceus",
+        "level": 80,
+        "roaming": false,
+        "moves": [
+            "refresh",
+            "future-sight",
+            "recover",
+            "hyper-beam"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-articuno-50",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "ancient-power",
+            "agility",
+            "ice-beam",
+            "reflect"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-zapdos-50",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "ancient-power",
+            "charge",
+            "agility",
+            "discharge"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-moltres-50",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "ancient-power",
+            "flamethrower",
+            "safeguard",
+            "air-slash"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-mewtwo-70",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Mewtwo",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "psycho-cut",
+            "amnesia",
+            "power-swap",
+            "guard-swap"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-raikou-40-roaming",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Raikou",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "roar",
+            "quick-attack",
+            "spark",
+            "reflect"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-entei-40-roaming",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Entei",
+        "level": 40,
+        "roaming": true,
+        "moves": [
+            "roar",
+            "fire-spin",
+            "stomp",
+            "flamethrower"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-suicune-40",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Suicune",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "rain-dance",
+            "gust",
+            "aurora-beam",
+            "mist"
+        ]
+    },
+    {
+        "id": "soulsilver-lugia-45",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "SoulSilver",
+        "pokemon": "Lugia",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "extrasensory",
+            "rain-dance",
+            "hydro-pump",
+            "aeroblast"
+        ]
+    },
+    {
+        "id": "heartgold-lugia-70",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "HeartGold",
+        "pokemon": "Lugia",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "aeroblast",
+            "punishment",
+            "ancient-power",
+            "safeguard"
+        ]
+    },
+    {
+        "id": "heartgold-ho-oh-45",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "HeartGold",
+        "pokemon": "Ho-Oh",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "extrasensory",
+            "sunny-day",
+            "fire-blast",
+            "sacred-fire"
+        ]
+    },
+    {
+        "id": "soulsilver-ho-oh-70",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "SoulSilver",
+        "pokemon": "Ho-Oh",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "sacred-fire",
+            "punishment",
+            "ancient-power",
+            "safeguard"
+        ]
+    },
+    {
+        "id": "heartgold-latias-35-roaming",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "HeartGold",
+        "pokemon": "Latias",
+        "level": 35,
+        "roaming": true,
+        "moves": [
+            "dragon-breath",
+            "water-sport",
+            "refresh",
+            "mist-ball"
+        ]
+    },
+    {
+        "id": "soulsilver-latios-35-roaming",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "SoulSilver",
+        "pokemon": "Latios",
+        "level": 35,
+        "roaming": true,
+        "moves": [
+            "dragon-breath",
+            "protect",
+            "refresh",
+            "luster-purge"
+        ]
+    },
+    {
+        "id": "heartgold-kyogre-50",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "HeartGold",
+        "pokemon": "Kyogre",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "aqua-ring",
+            "ice-beam",
+            "ancient-power",
+            "water-spout"
+        ]
+    },
+    {
+        "id": "soulsilver-groudon-50",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": "SoulSilver",
+        "pokemon": "Groudon",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "rest",
+            "earthquake",
+            "ancient-power",
+            "eruption"
+        ]
+    },
+    {
+        "id": "heartgold-soulsilver-rayquaza-50",
+        "game": "HeartGold / SoulSilver",
+        "onlyIn": null,
+        "pokemon": "Rayquaza",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "rest",
+            "air-slash",
+            "ancient-power",
+            "outrage"
+        ]
+    },
+    {
+        "id": "black-white-victini-15",
+        "game": "Black / White",
+        "onlyIn": null,
+        "pokemon": "Victini",
+        "level": 15,
+        "roaming": false,
+        "moves": [
+            "confusion",
+            "incinerate",
+            "quick-attack",
+            "endure"
+        ]
+    },
+    {
+        "id": "black-white-cobalion-42",
+        "game": "Black / White",
+        "onlyIn": null,
+        "pokemon": "Cobalion",
+        "level": 42,
+        "roaming": false,
+        "moves": [
+            "helping-hand",
+            "retaliate",
+            "iron-head",
+            "sacred-sword"
+        ]
+    },
+    {
+        "id": "black-white-terrakion-42",
+        "game": "Black / White",
+        "onlyIn": null,
+        "pokemon": "Terrakion",
+        "level": 42,
+        "roaming": false,
+        "moves": [
+            "helping-hand",
+            "retaliate",
+            "rock-slide",
+            "sacred-sword"
+        ]
+    },
+    {
+        "id": "black-white-virizion-42",
+        "game": "Black / White",
+        "onlyIn": null,
+        "pokemon": "Virizion",
+        "level": 42,
+        "roaming": false,
+        "moves": [
+            "helping-hand",
+            "retaliate",
+            "giga-drain",
+            "sacred-sword"
+        ]
+    },
+    {
+        "id": "black-tornadus-40",
+        "game": "Black / White",
+        "onlyIn": "Black",
+        "pokemon": "Tornadus",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "revenge",
+            "air-cutter",
+            "extrasensory",
+            "agility"
+        ]
+    },
+    {
+        "id": "white-thundurus-40",
+        "game": "Black / White",
+        "onlyIn": "White",
+        "pokemon": "Thundurus",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "revenge",
+            "shock-wave",
+            "heal-block",
+            "agility"
+        ]
+    },
+    {
+        "id": "black-reshiram-50",
+        "game": "Black / White",
+        "onlyIn": "Black",
+        "pokemon": "Reshiram",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "dragon-breath",
+            "slash",
+            "extrasensory",
+            "fusion-flare"
+        ]
+    },
+    {
+        "id": "white-zekrom-50",
+        "game": "Black / White",
+        "onlyIn": "White",
+        "pokemon": "Zekrom",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "dragon-breath",
+            "slash",
+            "zen-headbutt",
+            "fusion-bolt"
+        ]
+    },
+    {
+        "id": "black-white-landorus-70",
+        "game": "Black / White",
+        "onlyIn": null,
+        "pokemon": "Landorus",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "rock-slide",
+            "earthquake",
+            "sandstorm",
+            "fissure"
+        ]
+    },
+    {
+        "id": "black-white-kyurem-75",
+        "game": "Black / White",
+        "onlyIn": null,
+        "pokemon": "Kyurem",
+        "level": 75,
+        "roaming": false,
+        "moves": [
+            "glaciate",
+            "dragon-pulse",
+            "imprison",
+            "endeavor"
+        ]
+    },
+    {
+        "id": "black-2-white-2-regirock-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Regirock",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "iron-defense",
+            "charge-beam",
+            "lock-on",
+            "zap-cannon"
+        ]
+    },
+    {
+        "id": "black-2-white-2-regice-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Regice",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "amnesia",
+            "charge-beam",
+            "lock-on",
+            "zap-cannon"
+        ]
+    },
+    {
+        "id": "black-2-white-2-registeel-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Registeel",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "amnesia",
+            "charge-beam",
+            "lock-on",
+            "zap-cannon"
+        ]
+    },
+    {
+        "id": "white-2-latias-68",
+        "game": "Black 2 / White 2",
+        "onlyIn": "White 2",
+        "pokemon": "Latias",
+        "level": 68,
+        "roaming": false,
+        "moves": [
+            "psycho-shift",
+            "charm",
+            "psychic",
+            "heal-pulse"
+        ]
+    },
+    {
+        "id": "black-2-latios-68",
+        "game": "Black 2 / White 2",
+        "onlyIn": "Black 2",
+        "pokemon": "Latios",
+        "level": 68,
+        "roaming": false,
+        "moves": [
+            "psycho-shift",
+            "dragon-dance",
+            "psychic",
+            "heal-pulse"
+        ]
+    },
+    {
+        "id": "black-2-white-2-uxie-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Uxie",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "future-sight",
+            "amnesia",
+            "extrasensory",
+            "flail"
+        ]
+    },
+    {
+        "id": "black-2-white-2-mesprit-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Mesprit",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "future-sight",
+            "charm",
+            "extrasensory",
+            "copycat"
+        ]
+    },
+    {
+        "id": "black-2-white-2-azelf-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Azelf",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "future-sight",
+            "nasty-plot",
+            "extrasensory",
+            "last-resort"
+        ]
+    },
+    {
+        "id": "black-2-white-2-heatran-68",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Heatran",
+        "level": 68,
+        "roaming": false,
+        "moves": [
+            "scary-face",
+            "lava-plume",
+            "fire-spin",
+            "iron-head"
+        ]
+    },
+    {
+        "id": "black-2-white-2-regigigas-68",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Regigigas",
+        "level": 68,
+        "roaming": false,
+        "moves": [
+            "revenge",
+            "wide-guard",
+            "zen-headbutt",
+            "payback"
+        ]
+    },
+    {
+        "id": "black-2-white-2-cresselia-68",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Cresselia",
+        "level": 68,
+        "roaming": false,
+        "moves": [
+            "future-sight",
+            "slash",
+            "moonlight",
+            "psycho-cut"
+        ]
+    },
+    {
+        "id": "black-2-white-2-cobalion-45",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Cobalion",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "helping-hand",
+            "retaliate",
+            "iron-head",
+            "sacred-sword"
+        ]
+    },
+    {
+        "id": "black-2-white-2-cobalion-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Cobalion",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "sacred-sword",
+            "swords-dance",
+            "quick-guard",
+            "work-up"
+        ]
+    },
+    {
+        "id": "black-2-white-2-terrakion-45",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Terrakion",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "helping-hand",
+            "retaliate",
+            "rock-slide",
+            "sacred-sword"
+        ]
+    },
+    {
+        "id": "black-2-white-2-terrakion-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Terrakion",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "sacred-sword",
+            "swords-dance",
+            "quick-guard",
+            "work-up"
+        ]
+    },
+    {
+        "id": "black-2-white-2-virizion-45",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Virizion",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "helping-hand",
+            "retaliate",
+            "giga-drain",
+            "sacred-sword"
+        ]
+    },
+    {
+        "id": "black-2-white-2-virizion-65",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Virizion",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "sacred-sword",
+            "swords-dance",
+            "quick-guard",
+            "work-up"
+        ]
+    },
+    {
+        "id": "white-2-reshiram-70",
+        "game": "Black 2 / White 2",
+        "onlyIn": "White 2",
+        "pokemon": "Reshiram",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "extrasensory",
+            "fusion-flare",
+            "dragon-pulse",
+            "imprison"
+        ]
+    },
+    {
+        "id": "black-2-zekrom-70",
+        "game": "Black 2 / White 2",
+        "onlyIn": "Black 2",
+        "pokemon": "Zekrom",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "zen-headbutt",
+            "fusion-bolt",
+            "dragon-claw",
+            "imprison"
+        ]
+    },
+    {
+        "id": "black-2-white-2-kyurem-70",
+        "game": "Black 2 / White 2",
+        "onlyIn": null,
+        "pokemon": "Kyurem",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "scary-face",
+            "glaciate",
+            "dragon-pulse",
+            "imprison"
+        ]
+    },
+    {
+        "id": "x-y-articuno-70",
+        "game": "X / Y",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "ice-beam",
+            "reflect",
+            "hail",
+            "tailwind"
+        ]
+    },
+    {
+        "id": "x-y-zapdos-70",
+        "game": "X / Y",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "agility",
+            "discharge",
+            "rain-dance",
+            "light-screen"
+        ]
+    },
+    {
+        "id": "x-y-moltres-70",
+        "game": "X / Y",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "safeguard",
+            "air-slash",
+            "sunny-day",
+            "heat-wave"
+        ]
+    },
+    {
+        "id": "x-y-mewtwo-70",
+        "game": "X / Y",
+        "onlyIn": null,
+        "pokemon": "Mewtwo",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "recover",
+            "psychic",
+            "barrier",
+            "aura-sphere"
+        ]
+    },
+    {
+        "id": "x-xerneas-50",
+        "game": "X / Y",
+        "onlyIn": "X",
+        "pokemon": "Xerneas",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "gravity",
+            "geomancy",
+            "moonblast",
+            "megahorn"
+        ]
+    },
+    {
+        "id": "y-yveltal-50",
+        "game": "X / Y",
+        "onlyIn": "Y",
+        "pokemon": "Yveltal",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "snarl",
+            "oblivion-wing",
+            "disable",
+            "dark-pulse"
+        ]
+    },
+    {
+        "id": "x-y-zygarde-70",
+        "game": "X / Y",
+        "onlyIn": null,
+        "pokemon": "Zygarde",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "crunch",
+            "earthquake",
+            "camouflage",
+            "dragon-pulse"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-raikou-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Raikou",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "spark",
+            "reflect",
+            "crunch",
+            "thunder-fang"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-entei-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Entei",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "stomp",
+            "flamethrower",
+            "swagger",
+            "fire-fang"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-suicune-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Suicune",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "aurora-beam",
+            "mist",
+            "mirror-coat",
+            "ice-fang"
+        ]
+    },
+    {
+        "id": "alpha-sapphire-lugia-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Alpha Sapphire",
+        "pokemon": "Lugia",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "rain-dance",
+            "hydro-pump",
+            "aeroblast",
+            "punishment"
+        ]
+    },
+    {
+        "id": "omega-ruby-ho-oh-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Omega Ruby",
+        "pokemon": "Ho-Oh",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "sunny-day",
+            "fire-blast",
+            "sacred-fire",
+            "punishment"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-regirock-40",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Regirock",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "bulldoze",
+            "curse",
+            "ancient-power",
+            "iron-defense"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-regice-40",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Regice",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "bulldoze",
+            "curse",
+            "ancient-power",
+            "amnesia"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-registeel-40",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Registeel",
+        "level": 40,
+        "roaming": false,
+        "moves": [
+            "curse",
+            "ancient-power",
+            "iron-defense",
+            "amnesia"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-latias-30",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Latias",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "heal-pulse",
+            "dragon-breath",
+            "mist-ball",
+            "psycho-shift"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-latios-30",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Latios",
+        "level": 30,
+        "roaming": false,
+        "moves": [
+            "heal-pulse",
+            "dragon-breath",
+            "luster-purge",
+            "psycho-shift"
+        ]
+    },
+    {
+        "id": "alpha-sapphire-kyogre-45",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Alpha Sapphire",
+        "pokemon": "Kyogre",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "body-slam",
+            "aqua-ring",
+            "ice-beam",
+            "origin-pulse"
+        ]
+    },
+    {
+        "id": "omega-ruby-groudon-45",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Omega Ruby",
+        "pokemon": "Groudon",
+        "level": 45,
+        "roaming": false,
+        "moves": [
+            "lava-plume",
+            "rest",
+            "earthquake",
+            "precipice-blades"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-rayquaza-70",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Rayquaza",
+        "level": 70,
+        "roaming": false,
+        "moves": [
+            "extreme-speed",
+            "dragon-pulse",
+            "dragon-dance",
+            "fly"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-deoxys-80",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Deoxys",
+        "level": 80,
+        "roaming": false,
+        "moves": [
+            "cosmic-power",
+            "recover",
+            "psycho-boost",
+            "hyper-beam"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-uxie-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Uxie",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "yawn",
+            "future-sight",
+            "amnesia",
+            "extrasensory"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-mesprit-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Mesprit",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "lucky-chant",
+            "future-sight",
+            "charm",
+            "extrasensory"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-azelf-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Azelf",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "uproar",
+            "future-sight",
+            "nasty-plot",
+            "extrasensory"
+        ]
+    },
+    {
+        "id": "alpha-sapphire-dialga-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Alpha Sapphire",
+        "pokemon": "Dialga",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "aura-sphere",
+            "iron-tail",
+            "roar-of-time",
+            "flash-cannon"
+        ]
+    },
+    {
+        "id": "omega-ruby-palkia-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Omega Ruby",
+        "pokemon": "Palkia",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "aura-sphere",
+            "aqua-tail",
+            "spacial-rend",
+            "hydro-pump"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-heatran-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Heatran",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "metal-sound",
+            "crunch",
+            "scary-face",
+            "lava-plume"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-regigigas-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Regigigas",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "foresight",
+            "revenge",
+            "wide-guard",
+            "zen-headbutt"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-giratina-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Giratina",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "aura-sphere",
+            "shadow-claw",
+            "shadow-force",
+            "hex"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-cresselia-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Cresselia",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "mist",
+            "aurora-beam",
+            "future-sight",
+            "slash"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-cobalion-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Cobalion",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "retaliate",
+            "iron-head",
+            "sacred-sword",
+            "swords-dance"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-terrakion-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Terrakion",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "retaliate",
+            "rock-slide",
+            "sacred-sword",
+            "swords-dance"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-virizion-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Virizion",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "retaliate",
+            "giga-drain",
+            "sacred-sword",
+            "swords-dance"
+        ]
+    },
+    {
+        "id": "omega-ruby-tornadus-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Omega Ruby",
+        "pokemon": "Tornadus",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "extrasensory",
+            "agility",
+            "air-slash",
+            "crunch"
+        ]
+    },
+    {
+        "id": "alpha-sapphire-thundurus-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Alpha Sapphire",
+        "pokemon": "Thundurus",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "heal-block",
+            "agility",
+            "discharge",
+            "crunch"
+        ]
+    },
+    {
+        "id": "omega-ruby-reshiram-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Omega Ruby",
+        "pokemon": "Reshiram",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "dragon-breath",
+            "slash",
+            "extrasensory",
+            "fusion-flare"
+        ]
+    },
+    {
+        "id": "alpha-sapphire-zekrom-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": "Alpha Sapphire",
+        "pokemon": "Zekrom",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "dragon-breath",
+            "slash",
+            "zen-headbutt",
+            "fusion-bolt"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-landorus-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Landorus",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "extrasensory",
+            "swords-dance",
+            "earth-power",
+            "rock-slide"
+        ]
+    },
+    {
+        "id": "omega-ruby-alpha-sapphire-kyurem-50",
+        "game": "Omega Ruby / Alpha Sapphire",
+        "onlyIn": null,
+        "pokemon": "Kyurem",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "dragon-breath",
+            "slash",
+            "scary-face",
+            "glaciate"
+        ]
+    },
+    {
+        "id": "sun-moon-tapu-koko-60",
+        "game": "Sun / Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Koko",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "discharge",
+            "agility",
+            "electro-ball"
+        ]
+    },
+    {
+        "id": "sun-moon-tapu-lele-60",
+        "game": "Sun / Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Lele",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "extrasensory",
+            "flatter",
+            "moonblast"
+        ]
+    },
+    {
+        "id": "sun-moon-tapu-bulu-60",
+        "game": "Sun / Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Bulu",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "zen-headbutt",
+            "megahorn",
+            "skull-bash"
+        ]
+    },
+    {
+        "id": "sun-moon-tapu-fini-60",
+        "game": "Sun / Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Fini",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "muddy-water",
+            "aqua-ring",
+            "hydro-pump"
+        ]
+    },
+    {
+        "id": "sun-solgaleo-55",
+        "game": "Sun / Moon",
+        "onlyIn": "Sun",
+        "pokemon": "Solgaleo",
+        "level": 55,
+        "roaming": false,
+        "moves": [
+            "morning-sun",
+            "crunch",
+            "metal-burst",
+            "solar-beam"
+        ]
+    },
+    {
+        "id": "moon-lunala-55",
+        "game": "Sun / Moon",
+        "onlyIn": "Moon",
+        "pokemon": "Lunala",
+        "level": 55,
+        "roaming": false,
+        "moves": [
+            "moonlight",
+            "night-daze",
+            "magic-coat",
+            "moonblast"
+        ]
+    },
+    {
+        "id": "sun-moon-necrozma-75",
+        "game": "Sun / Moon",
+        "onlyIn": null,
+        "pokemon": "Necrozma",
+        "level": 75,
+        "roaming": false,
+        "moves": [
+            "stealth-rock",
+            "iron-defense",
+            "wring-out",
+            "prismatic-laser"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-articuno-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Articuno",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "agility",
+            "freeze-dry",
+            "reflect",
+            "hail"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-zapdos-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Zapdos",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "charge",
+            "agility",
+            "discharge",
+            "rain-dance"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-moltres-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Moltres",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "flamethrower",
+            "safeguard",
+            "air-slash",
+            "sunny-day"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-mewtwo-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Mewtwo",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "power-swap",
+            "guard-swap",
+            "recover",
+            "psychic"
+        ]
+    },
+    {
+        "id": "ultra-sun-raikou-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Raikou",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "reflect",
+            "crunch",
+            "thunder-fang",
+            "discharge"
+        ]
+    },
+    {
+        "id": "ultra-moon-entei-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Entei",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "flamethrower",
+            "swagger",
+            "fire-fang",
+            "lava-plume"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-suicune-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Suicune",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "mist",
+            "mirror-coat",
+            "ice-fang",
+            "tailwind"
+        ]
+    },
+    {
+        "id": "ultra-moon-lugia-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Lugia",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "hydro-pump",
+            "aeroblast",
+            "punishment",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "ultra-sun-ho-oh-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Ho-Oh",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "fire-blast",
+            "sacred-fire",
+            "punishment",
+            "ancient-power"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-regirock-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Regirock",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "stone-edge",
+            "hammer-arm",
+            "lock-on",
+            "zap-cannon"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-regice-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Regice",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "ice-beam",
+            "hammer-arm",
+            "lock-on",
+            "zap-cannon"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-registeel-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Registeel",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "flash-cannon",
+            "hammer-arm",
+            "lock-on",
+            "zap-cannon"
+        ]
+    },
+    {
+        "id": "ultra-moon-latias-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Latias",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "zen-headbutt",
+            "guard-split",
+            "psychic",
+            "dragon-pulse"
+        ]
+    },
+    {
+        "id": "ultra-sun-latios-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Latios",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "zen-headbutt",
+            "power-split",
+            "psychic",
+            "dragon-pulse"
+        ]
+    },
+    {
+        "id": "ultra-moon-kyogre-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Kyogre",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "ice-beam",
+            "origin-pulse",
+            "calm-mind",
+            "muddy-water"
+        ]
+    },
+    {
+        "id": "ultra-sun-groudon-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Groudon",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "earthquake",
+            "precipice-blades",
+            "bulk-up",
+            "solar-beam"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-rayquaza-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Rayquaza",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "rest",
+            "extreme-speed",
+            "dragon-pulse",
+            "dragon-dance"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-uxie-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Uxie",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "yawn",
+            "future-sight",
+            "amnesia",
+            "extrasensory"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-mesprit-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Mesprit",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "lucky-chant",
+            "future-sight",
+            "charm",
+            "extrasensory"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-azelf-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Azelf",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "uproar",
+            "future-sight",
+            "nasty-plot",
+            "extrasensory"
+        ]
+    },
+    {
+        "id": "ultra-sun-dialga-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Dialga",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "aura-sphere",
+            "iron-tail",
+            "roar-of-time",
+            "flash-cannon"
+        ]
+    },
+    {
+        "id": "ultra-moon-palkia-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Palkia",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "aura-sphere",
+            "aqua-tail",
+            "spacial-rend",
+            "hydro-pump"
+        ]
+    },
+    {
+        "id": "ultra-sun-heatran-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Heatran",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "crunch",
+            "scary-face",
+            "lava-plume",
+            "fire-spin"
+        ]
+    },
+    {
+        "id": "ultra-moon-regigigas-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Regigigas",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "foresight",
+            "revenge",
+            "wide-guard",
+            "zen-headbutt"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-giratina-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Giratina",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "aura-sphere",
+            "shadow-claw",
+            "shadow-force",
+            "hex"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-cresselia-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Cresselia",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "aurora-beam",
+            "future-sight",
+            "slash",
+            "moonlight"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-cobalion-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Cobalion",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "swords-dance",
+            "quick-guard",
+            "work-up",
+            "metal-burst"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-terrakion-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Terrakion",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "swords-dance",
+            "quick-guard",
+            "work-up",
+            "stone-edge"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-virizion-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Virizion",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "swords-dance",
+            "quick-guard",
+            "work-up",
+            "leaf-blade"
+        ]
+    },
+    {
+        "id": "ultra-sun-tornadus-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Tornadus",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "air-slash",
+            "crunch",
+            "tailwind",
+            "rain-dance"
+        ]
+    },
+    {
+        "id": "ultra-moon-thundurus-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Thundurus",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "discharge",
+            "crunch",
+            "charge",
+            "nasty-plot"
+        ]
+    },
+    {
+        "id": "ultra-sun-reshiram-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Reshiram",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "slash",
+            "extrasensory",
+            "fusion-flare",
+            "dragon-pulse"
+        ]
+    },
+    {
+        "id": "ultra-moon-zekrom-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Zekrom",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "slash",
+            "zen-headbutt",
+            "fusion-bolt",
+            "dragon-claw"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-landorus-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Landorus",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "earth-power",
+            "rock-slide",
+            "earthquake",
+            "sandstorm"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-kyurem-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Kyurem",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "slash",
+            "scary-face",
+            "glaciate",
+            "dragon-pulse"
+        ]
+    },
+    {
+        "id": "ultra-sun-xerneas-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Sun",
+        "pokemon": "Xerneas",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "megahorn",
+            "night-slash",
+            "horn-leech",
+            "psych-up"
+        ]
+    },
+    {
+        "id": "ultra-moon-yveltal-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": "Ultra Moon",
+        "pokemon": "Yveltal",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "dark-pulse",
+            "foul-play",
+            "phantom-force",
+            "psychic"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-zygarde-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Zygarde",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "haze",
+            "crunch",
+            "earthquake",
+            "camouflage"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-tapu-koko-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Koko",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "discharge",
+            "agility",
+            "electro-ball"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-tapu-lele-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Lele",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "extrasensory",
+            "flatter",
+            "moonblast"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-tapu-bulu-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Bulu",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "zen-headbutt",
+            "megahorn",
+            "skull-bash"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-tapu-fini-60",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Tapu Fini",
+        "level": 60,
+        "roaming": false,
+        "moves": [
+            "natures-madness",
+            "muddy-water",
+            "aqua-ring",
+            "hydro-pump"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-necrozma-65",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Necrozma",
+        "level": 65,
+        "roaming": false,
+        "moves": [
+            "autotomize",
+            "photon-geyser",
+            "stealth-rock",
+            "iron-defense"
+        ]
+    },
+    {
+        "id": "ultra-sun-ultra-moon-magearna-50",
+        "game": "Ultra Sun / Ultra Moon",
+        "onlyIn": null,
+        "pokemon": "Magearna",
+        "level": 50,
+        "roaming": false,
+        "moves": [
+            "mirror-shot",
+            "mind-reader",
+            "flash-cannon",
+            "fleur-cannon"
+        ]
+    }
+]
