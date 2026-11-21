@@ -275,6 +275,9 @@ class ShinyTrackerVC: UIViewController {
 
     fileprivate func resolveEncounterDetails() {
         probabilityTile.setValue(String(format: "%.2f%%", pokemon.probability))
+        let luck = HuntLuckText(pokemon: pokemon)
+        probabilityTile.setDetail(luck.chanceDetail)
+        oddsTile.setDetail(luck.oddsDetail)
         setCounterText(HuntCounterText(pokemon: pokemon))
         setOddsLabelText()
         minusButton.isEnabled = isMinusButtonEnabled()
@@ -449,6 +452,8 @@ class ShinyTrackerVC: UIViewController {
 fileprivate class StatTileView: UIView {
     fileprivate let captionLabel = UILabel(fontSize: 13, weight: .semibold, color: Color.Grey400)
     fileprivate let valueLabel = UILabel(fontSize: 22, weight: .semibold, lines: 2)
+    fileprivate let detailLabel = UILabel(fontSize: 12, weight: .semibold, color: Color.Orange500, lines: 2)
+    fileprivate var value: String?
 
     init(caption: String) {
         super.init(frame: .zero)
@@ -460,7 +465,11 @@ fileprivate class StatTileView: UIView {
         valueLabel.adjustsFontSizeToFitWidth = true
         valueLabel.minimumScaleFactor = 0.6
 
-        let stack = UIStackView(arrangedSubviews: [captionLabel, valueLabel])
+        detailLabel.adjustsFontSizeToFitWidth = true
+        detailLabel.minimumScaleFactor = 0.8
+        detailLabel.isHidden = true
+
+        let stack = UIStackView(arrangedSubviews: [captionLabel, valueLabel, detailLabel])
         stack.axis = .vertical
         stack.spacing = 2
         addAutoLayoutSubviews(stack)
@@ -476,13 +485,25 @@ fileprivate class StatTileView: UIView {
         valueLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 22, weight: .semibold)
         valueLabel.textColor = Color.Grey100
         valueLabel.text = value
-        accessibilityValue = value
+        self.value = value
+        updateAccessibilityValue()
+    }
+
+    func setDetail(_ detail: String?) {
+        detailLabel.text = detail
+        detailLabel.isHidden = detail == nil
+        updateAccessibilityValue()
+    }
+
+    fileprivate func updateAccessibilityValue() {
+        accessibilityValue = [value, detailLabel.isHidden ? nil : detailLabel.text].compactMap { $0 }.joined(separator: ", ")
     }
 
     func setMessage(_ message: String) {
         valueLabel.font = UIFont.systemFont(ofSize: 14)
         valueLabel.textColor = Color.Grey300
         valueLabel.text = message
-        accessibilityValue = message
+        value = message
+        updateAccessibilityValue()
     }
 }
