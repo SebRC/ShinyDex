@@ -9,8 +9,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return hunts.reduce(0) { $0 + $1.totalEncounters }
     }
 
-    fileprivate let createHuntButton = UIButton(type: .system)
-    fileprivate let rearrangeHuntsButton = UIButton.makeSymbolButton("arrow.up.arrow.down", pointSize: 18)
+    fileprivate let createHuntButton = HuntsTVC.makeCreateHuntButton()
+    fileprivate let rearrangeHuntsButton = HuntsTVC.makeRearrangeHuntsButton()
     fileprivate let tableView = UITableView(frame: .zero, style: .insetGrouped)
     fileprivate var clearCurrentHuntButton: UIBarButtonItem!
 
@@ -45,36 +45,54 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         createHuntButton.accessibilityLabel = "Create hunt"
         rearrangeHuntsButton.accessibilityLabel = "Rearrange hunts"
         clearCurrentHuntButton.accessibilityLabel = "Clear all hunts"
-        createHuntButton.layer.cornerRadius = CornerRadius.standard
-        rearrangeHuntsButton.layer.cornerRadius = CornerRadius.standard
         rearrangeHuntsButton.isEnabled = hunts.count > 1
         setRearrangeButtonState()
         setClearHuntButtonState()
+    }
+
+    fileprivate static func makeCreateHuntButton() -> UIButton {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = Color.Orange500
+        configuration.baseForegroundColor = Color.Grey900
+        configuration.cornerStyle = .large
+        configuration.image = UIImage.makeSymbol("plus.circle.fill", pointSize: 20, weight: .semibold)
+        configuration.imagePadding = 8
+        var title = AttributedString("Create Hunt")
+        title.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        configuration.attributedTitle = title
+        let button = UIButton(configuration: configuration)
+        button.layer.shadowColor = Color.Orange500.cgColor
+        button.layer.shadowOpacity = 0.25
+        button.layer.shadowRadius = 10
+        button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        return button
+    }
+
+    fileprivate static func makeRearrangeHuntsButton() -> UIButton {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = Color.Grey800
+        configuration.baseForegroundColor = Color.Grey200
+        configuration.cornerStyle = .large
+        configuration.image = UIImage.makeSymbol("arrow.up.arrow.down", pointSize: 18, weight: .semibold)
+        return UIButton(configuration: configuration)
     }
 
     fileprivate func layOutViews() {
         clearCurrentHuntButton = UIBarButtonItem(image: UIImage(systemName: "xmark.rectangle.fill"), style: .plain, target: self, action: #selector(clearCurrentHuntPressed))
         navigationItem.rightBarButtonItem = clearCurrentHuntButton
 
-        createHuntButton.setTitle("Create Hunt", for: .normal)
-        createHuntButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        createHuntButton.setImage(UIImage.makeSymbol("plus", pointSize: 18, weight: .semibold), for: .normal)
-        createHuntButton.tintColor = Color.Grey200
-        createHuntButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-        createHuntButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
-        rearrangeHuntsButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold), forImageIn: .normal)
         createHuntButton.addTarget(self, action: #selector(createHuntButtonPressed), for: .touchUpInside)
         rearrangeHuntsButton.addTarget(self, action: #selector(rearrangePressed), for: .touchUpInside)
 
-        view.addAutoLayoutSubviews(createHuntButton, rearrangeHuntsButton, tableView)
+        view.addAutoLayoutSubviews(tableView, createHuntButton, rearrangeHuntsButton)
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             createHuntButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
-            createHuntButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            createHuntButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             createHuntButton.heightAnchor.constraint(equalToConstant: 52),
-            createHuntButton.trailingAnchor.constraint(equalTo: rearrangeHuntsButton.leadingAnchor, constant: -20),
+            createHuntButton.trailingAnchor.constraint(equalTo: rearrangeHuntsButton.leadingAnchor, constant: -10),
 
-            rearrangeHuntsButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            rearrangeHuntsButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             rearrangeHuntsButton.centerYAnchor.constraint(equalTo: createHuntButton.centerYAnchor),
             rearrangeHuntsButton.widthAnchor.constraint(equalToConstant: 52),
             rearrangeHuntsButton.heightAnchor.constraint(equalToConstant: 52),
@@ -106,10 +124,6 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     fileprivate func setColors() {
         tableView.backgroundColor = Color.Grey900
         tableView.separatorColor = Color.Grey700
-        createHuntButton.backgroundColor = Color.Grey800
-        createHuntButton.setTitleColor(Color.Grey200, for: .normal)
-        rearrangeHuntsButton.backgroundColor = Color.Grey800
-        rearrangeHuntsButton.tintColor = Color.Grey200
     }
     
     fileprivate func setEncounters() {
