@@ -19,7 +19,7 @@ final class BackupPersistenceTests: XCTestCase {
     }
 
     private func makeContainer() -> AppContainer {
-        return AppContainer(coreDataStack: store.stack, resourceLoader: StubResourceLoader(), keyValueStore: InMemoryKeyValueStore(), locationLinkProvider: SerebiiLocationLinkProvider())
+        return AppContainer(coreDataStack: store.stack, resourceLoader: StubResourceLoader(), keyValueStore: InMemoryKeyValueStore(), locationLinkProvider: SerebiiLocationLinkProvider(), backupFolder: InMemoryBackupFolder())
     }
 
     private func logCatch(_ number: Int, ball: String, in container: AppContainer) -> Catch {

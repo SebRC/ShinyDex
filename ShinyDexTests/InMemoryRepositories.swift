@@ -238,6 +238,7 @@ final class InMemoryDailyEncountersRepository: DailyEncountersRepository {
 
 final class InMemoryKeyValueStore: KeyValueStore {
     private(set) var values = [String: Bool]()
+    private(set) var dates = [String: Date]()
 
     func getBool(forKey key: String) -> Bool {
         return values[key] ?? false
@@ -245,6 +246,45 @@ final class InMemoryKeyValueStore: KeyValueStore {
 
     func set(_ value: Bool, forKey key: String) {
         values[key] = value
+    }
+
+    func getDate(forKey key: String) -> Date? {
+        return dates[key]
+    }
+
+    func set(_ date: Date?, forKey key: String) {
+        dates[key] = date
+    }
+}
+
+final class InMemoryBackupFolder: BackupFolder {
+    private(set) var files = [String: Data]()
+    private(set) var name: String?
+    var failsToWrite = false
+
+    func choose(_ url: URL) throws {
+        name = url.lastPathComponent
+    }
+
+    func forget() {
+        name = nil
+    }
+
+    func write(_ file: BackupFile) throws {
+        if failsToWrite { throw BackupFolderError.unreachable }
+        files[file.fileName] = file.data
+    }
+
+    func listFileNames() throws -> [String] {
+        return Array(files.keys)
+    }
+
+    func deleteFile(named fileName: String) throws {
+        files[fileName] = nil
+    }
+
+    func addFile(named fileName: String) {
+        files[fileName] = Data()
     }
 }
 

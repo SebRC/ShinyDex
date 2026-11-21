@@ -16,6 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		self.window = window
 	}
 
+	func sceneDidBecomeActive(_ scene: UIScene) {
+		(UIApplication.shared.delegate as? AppDelegate)?.container.runAutomaticBackup.handle(RunAutomaticBackupCommand())
+	}
+
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		(UIApplication.shared.delegate as? AppDelegate)?.container.coreDataStack.saveIfNeeded()
 	}
