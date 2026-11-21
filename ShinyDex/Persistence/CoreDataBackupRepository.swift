@@ -36,6 +36,12 @@ final class CoreDataBackupRepository: BackupRepository {
         if let activeMoves = backup.activeMoves {
             CoreDataMoveRepository(managedContext: context).save(activeMoves)
         }
+        if let encounterLedger = backup.encounterLedger {
+            CoreDataEncounterLedgerRepository(managedContext: context).save(encounterLedger)
+        }
+        if let yearlyGoals = backup.yearlyGoals {
+            stageYearlyGoals(yearlyGoals, in: context)
+        }
         if context.hasChanges {
             try context.save()
         }
@@ -72,6 +78,13 @@ final class CoreDataBackupRepository: BackupRepository {
         for journey in journeys {
             guard repository.save(journey) else { throw BackupRestoreError.saveFailed }
         }
+    }
+
+    private func stageYearlyGoals(_ goals: [YearlyGoal], in context: NSManagedObjectContext) {
+        let repository = CoreDataYearlyGoalRepository(managedContext: context)
+        let restoredYears = Set(goals.map { $0.year })
+        repository.getAll().filter { !restoredYears.contains($0.year) }.forEach { repository.delete(year: $0.year) }
+        goals.forEach(repository.save)
     }
 
     private func stageBingoBoards(_ boards: [BingoBoard], in context: NSManagedObjectContext) throws {

@@ -86,7 +86,8 @@ final class InMemoryCatchRepository: CatchRepository {
         return Catch(id: caught.id, number: caught.number, caughtBall: caught.caughtBall, game: caught.game, huntMethod: caught.huntMethod,
                      encounters: caught.encounters, isShinyCharmActive: caught.isShinyCharmActive, caughtDate: caught.caughtDate,
                      isFailed: caught.isFailed, evs: caught.evs, evolvedFrom: caught.evolvedFrom,
-                     nickname: caught.nickname, gender: caught.gender, nature: caught.nature, ivs: caught.ivs, formId: caught.formId)
+                     nickname: caught.nickname, gender: caught.gender, nature: caught.nature, ivs: caught.ivs, formId: caught.formId,
+                     encounterTotalAtFind: caught.encounterTotalAtFind)
     }
 }
 
@@ -183,6 +184,35 @@ final class InMemoryMoveRepository: MoveRepository {
 
     func save(_ activeMoves: ActiveMoves) {
         stored = activeMoves
+    }
+}
+
+final class InMemoryEncounterLedgerRepository: EncounterLedgerRepository {
+    private(set) var stored: EncounterLedger?
+
+    func get() -> EncounterLedger? {
+        return stored.map { EncounterLedger(total: $0.total, trackedSince: $0.trackedSince) }
+    }
+
+    func save(_ ledger: EncounterLedger) {
+        stored = EncounterLedger(total: ledger.total, trackedSince: ledger.trackedSince)
+    }
+}
+
+final class InMemoryYearlyGoalRepository: YearlyGoalRepository {
+    private(set) var stored = [YearlyGoal]()
+
+    func getAll() -> [YearlyGoal] {
+        return stored.sorted { $0.year < $1.year }
+    }
+
+    func save(_ goal: YearlyGoal) {
+        stored.removeAll { $0.year == goal.year }
+        stored.append(goal)
+    }
+
+    func delete(year: Int) {
+        stored.removeAll { $0.year == year }
     }
 }
 

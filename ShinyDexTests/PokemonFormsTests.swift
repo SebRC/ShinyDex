@@ -27,7 +27,7 @@ final class PokemonFormsTests: XCTestCase {
     }
 
     private func logCatch(_ number: Int, formId: String? = nil) -> Catch {
-        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon, forms: forms)
+        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository(), forms: forms)
             .handle(LogCatchCommand(number: number, outcome: .caught(ball: "poke"), date: Date(), formId: formId))
         return catches.getAll().last!
     }

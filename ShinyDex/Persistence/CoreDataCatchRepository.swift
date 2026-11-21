@@ -81,7 +81,8 @@ final class CoreDataCatchRepository: CatchRepository {
             gender: (catchEntity.value(forKey: "gender") as? String).flatMap(Gender.init(rawValue:)),
             nature: (catchEntity.value(forKey: "nature") as? String).flatMap(Nature.init(rawValue:)),
             ivs: IndividualValues(encoded: catchEntity.value(forKey: "ivs") as? String),
-            formId: catchEntity.value(forKey: "form") as? String)
+            formId: catchEntity.value(forKey: "form") as? String,
+            encounterTotalAtFind: catchEntity.value(forKey: "encounterTotalAtFind") as? Int)
     }
 
     private func write(_ caught: Catch, to catchEntity: NSManagedObject) {
@@ -101,6 +102,7 @@ final class CoreDataCatchRepository: CatchRepository {
         catchEntity.setValue(caught.nature?.rawValue, forKey: "nature")
         catchEntity.setValue(caught.ivs.isEmpty ? nil : caught.ivs.encoded, forKey: "ivs")
         catchEntity.setValue(caught.formId, forKey: "form")
+        catchEntity.setValue(caught.encounterTotalAtFind, forKey: "encounterTotalAtFind")
     }
 
     private func fetch(predicate: NSPredicate?) -> [NSManagedObject] {

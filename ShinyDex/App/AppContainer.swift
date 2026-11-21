@@ -15,6 +15,8 @@ final class AppContainer {
     let journeyRepository: JourneyRepository
     let bingoBoardRepository: BingoBoardRepository
     let moveRepository: MoveRepository
+    let encounterLedgerRepository: EncounterLedgerRepository
+    let yearlyGoalRepository: YearlyGoalRepository
     let backupRepository: BackupRepository
 
     init(coreDataStack: CoreDataStack, resourceLoader: ResourceLoader, keyValueStore: KeyValueStore, locationLinkProvider: LocationLinkProvider) {
@@ -33,6 +35,8 @@ final class AppContainer {
         journeyRepository = CoreDataJourneyRepository(managedContext: context)
         bingoBoardRepository = CoreDataBingoBoardRepository(managedContext: context)
         moveRepository = CoreDataMoveRepository(managedContext: context)
+        encounterLedgerRepository = CoreDataEncounterLedgerRepository(managedContext: context)
+        yearlyGoalRepository = CoreDataYearlyGoalRepository(managedContext: context)
         backupRepository = CoreDataBackupRepository(managedContext: context)
     }
 
@@ -47,7 +51,7 @@ final class AppContainer {
     var previewHuntSettings: PreviewHuntSettingsHandler { PreviewHuntSettingsHandler(odds: odds) }
     var saveHuntSettings: SaveHuntSettingsHandler { SaveHuntSettingsHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var applyHuntSettingsToAll: ApplyHuntSettingsToAllHandler { ApplyHuntSettingsToAllHandler(pokemonRepository: pokemonRepository, odds: odds) }
-    var changeEncounters: ChangeEncountersHandler { ChangeEncountersHandler(pokemonRepository: pokemonRepository, odds: odds) }
+    var changeEncounters: ChangeEncountersHandler { ChangeEncountersHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, ledgerRepository: encounterLedgerRepository, odds: odds) }
     var changeChain: ChangeChainHandler { ChangeChainHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var setIncrement: SetIncrementHandler { SetIncrementHandler(pokemonRepository: pokemonRepository) }
     var getPokemonForms: GetPokemonFormsHandler { GetPokemonFormsHandler(forms: forms) }
@@ -69,13 +73,17 @@ final class AppContainer {
 
     var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
     var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
-    var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
+    var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, forms: forms) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
-    var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
+    var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms) }
     var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
     var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
     var removeLatestCatch: RemoveLatestCatchHandler { RemoveLatestCatchHandler(catchRepository: catchRepository, deleteCatch: deleteCatch) }
+
+    // MARK: Progress
+
+    var setYearlyGoal: SetYearlyGoalHandler { SetYearlyGoalHandler(yearlyGoalRepository: yearlyGoalRepository) }
 
     // MARK: Journeys
 
@@ -105,7 +113,7 @@ final class AppContainer {
 
     // MARK: Backup
 
-    var exportBackup: ExportBackupHandler { ExportBackupHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, huntRepository: huntRepository, journeyRepository: journeyRepository, bingoBoardRepository: bingoBoardRepository, moveRepository: moveRepository) }
+    var exportBackup: ExportBackupHandler { ExportBackupHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, huntRepository: huntRepository, journeyRepository: journeyRepository, bingoBoardRepository: bingoBoardRepository, moveRepository: moveRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository) }
     var getBackupSummary: GetBackupSummaryHandler { GetBackupSummaryHandler() }
     var restoreBackup: RestoreBackupHandler { RestoreBackupHandler(backupRepository: backupRepository, pokemonRepository: pokemonRepository) }
 

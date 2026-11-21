@@ -42,6 +42,8 @@ final class BackupPersistenceTests: XCTestCase {
         let venusaur = container.pokemonRepository.get(number: 2)!
         venusaur.encounters = 777
         container.pokemonRepository.save(venusaur)
+        container.encounterLedgerRepository.save(EncounterLedger(total: 2000, trackedSince: Date(timeIntervalSince1970: 1_600_000_000)))
+        container.setYearlyGoal.handle(SetYearlyGoalCommand(year: 2026, target: 40))
         let backupData = try container.exportBackup.handle(ExportBackupQuery()).data
 
         _ = logCatch(3, ball: "dive", in: container)
@@ -53,6 +55,9 @@ final class BackupPersistenceTests: XCTestCase {
         container.bingoBoardRepository.save(BingoBoard(name: "Extra", priority: 1, size: .four))
         venusaur.encounters = 5
         container.pokemonRepository.save(venusaur)
+        container.encounterLedgerRepository.save(EncounterLedger(total: 9999, trackedSince: Date()))
+        container.setYearlyGoal.handle(SetYearlyGoalCommand(year: 2026, target: nil))
+        container.setYearlyGoal.handle(SetYearlyGoalCommand(year: 2027, target: 5))
 
         try container.restoreBackup.handle(RestoreBackupCommand(data: backupData))
         try store.reopen()
@@ -69,6 +74,9 @@ final class BackupPersistenceTests: XCTestCase {
         XCTAssertEqual(reopened.pokemonRepository.get(number: 1)?.caughtBall, "ultra")
         XCTAssertEqual(reopened.pokemonRepository.get(number: 3)?.caughtBall, CatchRules.noBall)
         XCTAssertEqual(reopened.pokemonRepository.get(number: 3)?.caughtDescription, "Not Caught")
+        XCTAssertEqual(reopened.encounterLedgerRepository.get()?.total, 2000)
+        XCTAssertEqual(reopened.encounterLedgerRepository.get()?.trackedSince, Date(timeIntervalSince1970: 1_600_000_000))
+        XCTAssertEqual(reopened.yearlyGoalRepository.getAll(), [YearlyGoal(year: 2026, target: 40)])
     }
 
     func test_restore_thatFailsPartWay_leavesTheStoreUntouched() throws {

@@ -18,6 +18,8 @@ final class BackupHandlerTests: XCTestCase {
     private var journeys: InMemoryJourneyRepository!
     private var bingoBoards: InMemoryBingoBoardRepository!
     private var moves: InMemoryMoveRepository!
+    private var ledgers: InMemoryEncounterLedgerRepository!
+    private var goals: InMemoryYearlyGoalRepository!
     private var backups: RecordingBackupRepository!
     private let exportDate = DateComponents(calendar: Calendar(identifier: .gregorian), timeZone: TimeZone(identifier: "UTC"), year: 2026, month: 11, day: 20, hour: 9, minute: 15, second: 30).date!
 
@@ -28,12 +30,15 @@ final class BackupHandlerTests: XCTestCase {
         journeys = InMemoryJourneyRepository()
         bingoBoards = InMemoryBingoBoardRepository()
         moves = InMemoryMoveRepository()
+        ledgers = InMemoryEncounterLedgerRepository()
+        goals = InMemoryYearlyGoalRepository()
         backups = RecordingBackupRepository()
     }
 
     private func export() throws -> BackupFile {
         return try ExportBackupHandler(pokemonRepository: pokemon, catchRepository: catches, huntRepository: hunts, journeyRepository: journeys,
-                                       bingoBoardRepository: bingoBoards, moveRepository: moves, makeCurrentDate: { self.exportDate })
+                                       bingoBoardRepository: bingoBoards, moveRepository: moves, ledgerRepository: ledgers,
+                                       yearlyGoalRepository: goals, makeCurrentDate: { self.exportDate })
             .handle(ExportBackupQuery())
     }
 
@@ -50,6 +55,7 @@ final class BackupHandlerTests: XCTestCase {
         caught.nature = .timid
         caught.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         caught.formId = "east"
+        caught.encounterTotalAtFind = 900
         return caught
     }
 
@@ -70,6 +76,9 @@ final class BackupHandlerTests: XCTestCase {
         board.setForm("galar", at: 1)
         bingoBoards.save(board)
         moves.insert(ActiveMoves(moves: [ActiveMove(name: "False Swipe", maxPP: 64, remainingPP: 12, type: "Normal")], pressureActive: true))
+        ledgers.save(EncounterLedger(total: 1500, trackedSince: exportDate))
+        goals.save(YearlyGoal(year: 2025, target: 12))
+        goals.save(YearlyGoal(year: 2026, target: 30))
         let venusaur = pokemon.get(number: 2)!
         venusaur.encounters = 4321
         venusaur.isBeingHunted = true
@@ -119,6 +128,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(caught.nature, .timid)
         XCTAssertEqual(caught.ivs, seeded.caught.ivs)
         XCTAssertEqual(caught.formId, "east")
+        XCTAssertEqual(caught.encounterTotalAtFind, 900)
         XCTAssertTrue(try XCTUnwrap(backup.catches.first { $0.id != seeded.caught.id }).isFailed)
 
         let hunt = try XCTUnwrap(backup.hunts.first)
@@ -143,6 +153,30 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertTrue(activeMoves.pressureActive)
         XCTAssertEqual(activeMoves.moves.map { $0.name }, ["False Swipe"])
         XCTAssertEqual(activeMoves.moves.first?.remainingPP, 12)
+
+        let ledger = try XCTUnwrap(backup.encounterLedger)
+        XCTAssertEqual(ledger.total, 1500)
+        XCTAssertEqual(ledger.trackedSince, exportDate)
+        XCTAssertEqual(backup.yearlyGoals, [YearlyGoal(year: 2025, target: 12), YearlyGoal(year: 2026, target: 30)])
+    }
+
+    func test_restore_ofABackupFromBeforeStreaksAndGoals_leavesThemAlone() throws {
+        _ = seedEverything()
+        var json = try XCTUnwrap(JSONSerialization.jsonObject(with: try export().data) as? [String: Any])
+        json["encounterLedger"] = nil
+        json["yearlyGoals"] = nil
+        json["catches"] = (json["catches"] as? [[String: Any]])?.map { record in
+            var record = record
+            record["encounterTotalAtFind"] = nil
+            return record
+        }
+
+        try restore(try JSONSerialization.data(withJSONObject: json))
+
+        let backup = try XCTUnwrap(backups.restored)
+        XCTAssertNil(backup.encounterLedger, "A missing ledger keeps the current one")
+        XCTAssertNil(backup.yearlyGoals, "Missing goals keep the current ones")
+        XCTAssertTrue(backup.catches.allSatisfy { $0.encounterTotalAtFind == nil })
     }
 
     // MARK: Pokémon hunt state

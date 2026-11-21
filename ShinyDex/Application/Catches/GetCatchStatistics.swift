@@ -35,6 +35,23 @@ struct CatchStatistics: Equatable {
         let count: Int
     }
 
+    struct Goal: Equatable {
+        let target: Int
+        let foundCount: Int
+        let expectedByNow: Int
+        let isReached: Bool
+        let aheadOfPace: Int
+    }
+
+    struct Streaks: Equatable {
+        let current: Int
+        let longest: Int
+        let trackedSince: Date
+    }
+
+    let currentYear: Int
+    let goal: Goal?
+    let streaks: Streaks?
     let foundCount: Int
     let caughtCount: Int
     let failedCount: Int
@@ -63,19 +80,32 @@ final class GetCatchStatisticsHandler {
     private let forms: PokemonForms
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
+    private let ledgerRepository: EncounterLedgerRepository
+    private let yearlyGoalRepository: YearlyGoalRepository
     private let calendar: Calendar
+    private let makeCurrentDate: () -> Date
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, calendar: Calendar = .current, forms: PokemonForms = PokemonForms()) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, ledgerRepository: EncounterLedgerRepository, yearlyGoalRepository: YearlyGoalRepository,
+         calendar: Calendar = .current, forms: PokemonForms = PokemonForms(), makeCurrentDate: @escaping () -> Date = Date.init) {
         self.forms = forms
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
+        self.ledgerRepository = ledgerRepository
+        self.yearlyGoalRepository = yearlyGoalRepository
         self.calendar = calendar
+        self.makeCurrentDate = makeCurrentDate
     }
 
     func handle(_ query: GetCatchStatisticsQuery) -> CatchStatistics {
-        let stats = CatchStats(catches: catchRepository.getAll(), calendar: calendar)
+        let catches = catchRepository.getAll()
+        let stats = CatchStats(catches: catches, calendar: calendar)
         let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms)
+        let now = makeCurrentDate()
+        let currentYear = calendar.component(.year, from: now)
         return CatchStatistics(
+            currentYear: currentYear,
+            goal: makeGoal(for: currentYear, catches: catches, now: now),
+            streaks: ledgerRepository.get().map { GetCatchStatisticsHandler.makeStreaks(DryStreaks(ledger: $0, catches: catches)) },
             foundCount: stats.foundCount,
             caughtCount: stats.caughtCount,
             failedCount: stats.failedCount,
@@ -98,6 +128,17 @@ final class GetCatchStatisticsHandler {
             unknownNatureCount: stats.unknownNatureCount,
             shortestHunts: stats.shortestHunts.compactMap(mapper.makeSummary),
             longestHunts: stats.longestHunts.compactMap(mapper.makeSummary))
+    }
+
+    private func makeGoal(for year: Int, catches: [Catch], now: Date) -> CatchStatistics.Goal? {
+        guard let goal = yearlyGoalRepository.getAll().first(where: { $0.year == year }) else { return nil }
+        let progress = YearlyGoalProgress(goal: goal, catches: catches, now: now, calendar: calendar)
+        return CatchStatistics.Goal(target: goal.target, foundCount: progress.foundCount, expectedByNow: progress.expectedByNow,
+                                    isReached: progress.isReached, aheadOfPace: progress.aheadOfPace)
+    }
+
+    private static func makeStreaks(_ streaks: DryStreaks) -> CatchStatistics.Streaks {
+        return CatchStatistics.Streaks(current: streaks.current, longest: streaks.longest, trackedSince: streaks.trackedSince)
     }
 
     private static func mapLuck(_ luck: CatchStats.Luck) -> CatchStatistics.Luck {

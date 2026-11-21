@@ -7,4 +7,6 @@ struct Backup {
     let journeys: [Journey]
     let bingoBoards: [BingoBoard]
     let activeMoves: ActiveMoves?
+    var encounterLedger: EncounterLedger? = nil
+    var yearlyGoals: [YearlyGoal]? = nil
 }
