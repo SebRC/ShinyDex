@@ -218,10 +218,16 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
 
     fileprivate func incrementAllInHunt(_ section: Int) {
-        container.incrementAllInHunt.handle(IncrementAllInHuntCommand(huntId: hunts[section].id))
+        let milestones = container.incrementAllInHunt.handle(IncrementAllInHuntCommand(huntId: hunts[section].id))
         reloadHunts()
         updateSummary()
         reloadData(duration: 0.2)
+        MilestoneCelebration.announce(milestones)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+            for milestone in milestones {
+                self?.animate(milestone, inSection: section)
+            }
+        }
     }
 
     fileprivate func decrementEncounters(at indexPath: IndexPath) {
@@ -237,10 +243,21 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     fileprivate func changeEncounters(at indexPath: IndexPath, _ change: ChangeEncountersCommand.Change) {
         let number = hunts[indexPath.section].members[indexPath.row].number
-        container.changeEncounters.handle(ChangeEncountersCommand(number: number, change: change))
+        let milestone = container.changeEncounters.handle(ChangeEncountersCommand(number: number, change: change))
         reloadHunts()
         updateSummary()
         reloadSectionKeepingHeader(indexPath)
+        if let milestone = milestone {
+            MilestoneCelebration.announce([milestone])
+            animate(milestone, inSection: indexPath.section)
+        }
+    }
+
+    fileprivate func animate(_ milestone: ReachedMilestone, inSection section: Int) {
+        guard hunts.indices.contains(section),
+              let row = hunts[section].members.firstIndex(where: { $0.number == milestone.number }),
+              let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? CurrentHuntCell else { return }
+        MilestoneCelebration.animate(milestone, on: cell.encountersLabel, in: view)
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

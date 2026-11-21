@@ -13,9 +13,10 @@ final class IncrementAllInHuntHandler {
         self.changeEncounters = changeEncounters
     }
 
-    func handle(_ command: IncrementAllInHuntCommand) {
-        guard let hunt = huntRepository.getAll().first(where: { $0.id == command.huntId.rawValue }) else { return }
-        for number in hunt.indexes {
+    @discardableResult
+    func handle(_ command: IncrementAllInHuntCommand) -> [ReachedMilestone] {
+        guard let hunt = huntRepository.getAll().first(where: { $0.id == command.huntId.rawValue }) else { return [] }
+        return hunt.indexes.compactMap { number in
             changeEncounters.handle(ChangeEncountersCommand(number: number, change: .increment))
         }
     }

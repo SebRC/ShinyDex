@@ -31,14 +31,15 @@ final class ChangeEncountersHandler {
         self.makeCurrentDate = makeCurrentDate
     }
 
-    func handle(_ command: ChangeEncountersCommand) {
-        guard let pokemon = pokemonRepository.get(number: command.number) else { return }
+    @discardableResult
+    func handle(_ command: ChangeEncountersCommand) -> ReachedMilestone? {
+        guard let pokemon = pokemonRepository.get(number: command.number) else { return nil }
         let previousEncounters = pokemon.encounters
         switch command.change {
         case .increment:
             pokemon.encounters += pokemon.increment
         case .decrement:
-            guard pokemon.encounters > 0 else { return }
+            guard pokemon.encounters > 0 else { return nil }
             pokemon.encounters -= 1
         case .set(let encounters):
             pokemon.encounters = max(encounters, 0)
@@ -46,6 +47,10 @@ final class ChangeEncountersHandler {
         pokemon.shinyOdds = odds.getShinyOdds(pokemon: pokemon)
         pokemonRepository.save(pokemon)
         recordInLedger(command.change, from: previousEncounters, to: pokemon.encounters)
+        guard command.change == .increment else { return nil }
+        let milestone = EncounterMilestone.findCrossed(from: previousEncounters, to: pokemon.encounters, shinyOdds: pokemon.shinyOdds,
+                                                       countsTowardsOdds: !pokemon.huntConfiguration.usesChain)
+        return milestone.map { ReachedMilestone(number: pokemon.number, pokemonName: pokemon.name, milestone: $0) }
     }
 
     private func recordInLedger(_ change: ChangeEncountersCommand.Change, from previousEncounters: Int, to encounters: Int) {
