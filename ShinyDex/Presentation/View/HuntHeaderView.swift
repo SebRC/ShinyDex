@@ -49,9 +49,19 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
         toggleControl.accessibilityTraits = .button
         toggleControl.accessibilityHint = "Shows or hides the Pokémon in this hunt."
 
-        incrementAllButton.setImage(UIImage(systemName: "plus.square.fill.on.square.fill"), for: .normal)
-        incrementAllButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(textStyle: .title2), forImageIn: .normal)
-        incrementAllButton.tintColor = Color.Grey200
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = Color.Orange500
+        configuration.baseForegroundColor = Color.Grey900
+        configuration.cornerStyle = .capsule
+        configuration.image = UIImage.makeSymbol("plus", pointSize: 13, weight: .bold)
+        configuration.imagePadding = 4
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 12, bottom: 7, trailing: 14)
+        var title = AttributedString("All")
+        title.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        configuration.attributedTitle = title
+        incrementAllButton.configuration = configuration
+        incrementAllButton.setContentHuggingPriority(.required, for: .horizontal)
+        incrementAllButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         incrementAllButton.addTarget(self, action: #selector(incrementAllPressed), for: .touchUpInside)
 
         for subview in [toggleControl, incrementAllButton] {
@@ -73,8 +83,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
 
             incrementAllButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
             incrementAllButton.centerYAnchor.constraint(equalTo: toggleControl.centerYAnchor),
-            incrementAllButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 44),
-            incrementAllButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+            incrementAllButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 34)
         ])
 
         toggleControl.addInteraction(UIContextMenuInteraction(delegate: self))
@@ -120,7 +129,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
             guard let self = self else { return nil }
             return UIMenu(children: [
                 UIAction(title: "Rename", image: UIImage(systemName: "pencil")) { [weak self] _ in self?.onRename?() },
-                UIAction(title: "Count encounter for all", image: UIImage(systemName: "plus.square.on.square")) { [weak self] _ in self?.incrementAllPressed() },
+                UIAction(title: "Count encounter for all", image: UIImage(systemName: "plus")) { [weak self] _ in self?.incrementAllPressed() },
                 UIAction(title: self.isCollapsed ? "Expand" : "Collapse",
                          image: UIImage(systemName: self.isCollapsed ? "chevron.down" : "chevron.right")) { [weak self] _ in self?.onToggleCollapse?() }
             ])
