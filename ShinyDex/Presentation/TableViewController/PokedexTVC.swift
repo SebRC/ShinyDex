@@ -6,6 +6,9 @@ class PokedexTVC: UITableViewController {
     fileprivate let container: AppContainer
     fileprivate var filteredPokemon = [PokedexEntry]()
     fileprivate var slicedPokemon = [PokedexEntry]()
+    fileprivate var pokedex = Pokedex.empty
+    fileprivate static var selectedFilter = PokedexFilter.all
+    fileprivate let filterControl = UISegmentedControl(items: ["All", "Not caught", "Caught", "In a hunt"])
     let textResolver = TextResolver()
     var generation = 0
     var popupHandler = PopupHandler()
@@ -31,6 +34,7 @@ class PokedexTVC: UITableViewController {
         searchController.searchBar.delegate = self
         
         setUpSearchController()
+        setUpFilterControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,12 +68,29 @@ class PokedexTVC: UITableViewController {
         definesPresentationContext = true
     }
     
+    fileprivate func setUpFilterControl() {
+        filterControl.selectedSegmentIndex = PokedexFilter.allCases.firstIndex(of: PokedexTVC.selectedFilter) ?? 0
+        filterControl.selectedSegmentTintColor = Color.Orange500
+        filterControl.setTitleTextAttributes([.foregroundColor: Color.Grey200, .font: UIFont.systemFont(ofSize: 13, weight: .semibold)], for: .normal)
+        filterControl.setTitleTextAttributes([.foregroundColor: Color.Grey900, .font: UIFont.systemFont(ofSize: 13, weight: .bold)], for: .selected)
+        filterControl.addTarget(self, action: #selector(filterChanged), for: .valueChanged)
+        filterControl.accessibilityLabel = "Filter"
+    }
+
+    @objc fileprivate func filterChanged() {
+        PokedexTVC.selectedFilter = PokedexFilter.allCases[filterControl.selectedSegmentIndex]
+        Haptics.tap()
+        reloadPokedex()
+        tableView.reloadData()
+        updateEmptyState()
+    }
+
     fileprivate func setTitle() {
         navigationItem.title = textResolver.getGenTitle(gen: generation)
     }
     
     fileprivate func reloadPokedex() {
-        let pokedex = container.getPokedex.handle(GetPokedexQuery(region: generation))
+        pokedex = container.getPokedex.handle(GetPokedexQuery(region: generation, filter: PokedexTVC.selectedFilter))
         slicedPokemon = pokedex.entries
         if (isFiltering()) {
             filterContentForSearchText(searchController.searchBar.text ?? "")
@@ -81,14 +102,13 @@ class PokedexTVC: UITableViewController {
     }
 
     fileprivate func updateProgressHeader() {
-        guard !slicedPokemon.isEmpty else {
+        guard pokedex.totalCount > 0 else {
             tableView.tableHeaderView = nil
             return
         }
-        let caught = slicedPokemon.filter { $0.catchCount > 0 }.count
-        let header = (tableView.tableHeaderView as? DexProgressView) ?? DexProgressView()
-        header.set(caught: caught, total: slicedPokemon.count)
-        header.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 64)
+        let header = (tableView.tableHeaderView as? PokedexHeaderView) ?? PokedexHeaderView(filterControl: filterControl)
+        header.progressView.set(caught: pokedex.caughtCount, total: pokedex.totalCount)
+        header.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 112)
         tableView.tableHeaderView = header
     }
 
@@ -164,17 +184,32 @@ class PokedexTVC: UITableViewController {
     }
 
     fileprivate func updateEmptyState() {
-        let showsNoResults = isFiltering() && filteredPokemon.isEmpty
-        if (showsNoResults) {
+        if (isFiltering() && filteredPokemon.isEmpty) {
             tableView.backgroundView = EmptyStateView(symbolName: "magnifyingglass",
                                                       title: "No results",
                                                       message: "No Pokémon match \u{201C}\(searchController.searchBar.text ?? "")\u{201D}.")
+        }
+        else if (!isFiltering() && slicedPokemon.isEmpty && pokedex.totalCount > 0) {
+            tableView.backgroundView = makeEmptyFilterView()
         }
         else {
             tableView.backgroundView = nil
         }
     }
     
+    fileprivate func makeEmptyFilterView() -> UIView {
+        switch PokedexTVC.selectedFilter {
+        case .notCaught:
+            return EmptyStateView(symbolName: "trophy.fill", title: "All caught!", message: "Every Pokémon in this Pokédex has been caught as a shiny.")
+        case .caught:
+            return EmptyStateView(symbolName: "sparkles", title: "None caught yet", message: "Shinies you catch from this Pokédex will show up here.")
+        case .inHunt:
+            return EmptyStateView(symbolName: "scope", title: "No hunts here", message: "None of these Pokémon are in a hunt. Add one with the + button next to it.")
+        case .all:
+            return EmptyStateView(symbolName: "magnifyingglass", title: "No Pokémon", message: "This Pokédex is empty.")
+        }
+    }
+
     func isFiltering() -> Bool {
         return searchController.isActive && !isSearchBarEmpty()
     }
@@ -250,6 +285,29 @@ class PokedexTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = Color.Grey800
+    }
+}
+
+class PokedexHeaderView: UIView {
+    let progressView = DexProgressView()
+
+    init(filterControl: UISegmentedControl) {
+        super.init(frame: .zero)
+        addAutoLayoutSubviews(progressView, filterControl)
+        NSLayoutConstraint.activate([
+            progressView.topAnchor.constraint(equalTo: topAnchor),
+            progressView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            progressView.heightAnchor.constraint(equalToConstant: 64),
+            filterControl.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 4),
+            filterControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            filterControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            filterControl.heightAnchor.constraint(equalToConstant: 34)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
