@@ -4,14 +4,23 @@ final class YearInReviewCardView: UIView {
     struct Content {
         var eyebrow: String
         var image: UIImage?
+        var podiumImages: [UIImage] = []
         var isPixelArt = true
         var headline: String
         var title: String
         var message: String?
-        var rows: [(title: String, value: String)] = []
+        var rows: [Row] = []
+    }
+
+    struct Row {
+        var image: UIImage?
+        let title: String
+        let value: String
     }
 
     fileprivate static let imageSize: CGFloat = 150
+    fileprivate static let podiumWinnerSize: CGFloat = 110
+    fileprivate static let podiumRunnerUpSize: CGFloat = 76
 
     init(content: Content, footer: String) {
         super.init(frame: .zero)
@@ -28,7 +37,10 @@ final class YearInReviewCardView: UIView {
         stack.alignment = .center
         stack.spacing = 8
 
-        if let image = content.image {
+        if !content.podiumImages.isEmpty {
+            stack.addArrangedSubview(YearInReviewCardView.makePodium(content.podiumImages))
+        }
+        else if let image = content.image {
             let imageView = UIImageView(image: image)
             imageView.contentMode = content.isPixelArt ? .scaleAspectFit : .center
             imageView.tintColor = Color.Orange500
@@ -102,7 +114,29 @@ final class YearInReviewCardView: UIView {
         }
     }
 
-    fileprivate static func makeRow(_ row: (title: String, value: String)) -> UIView {
+    fileprivate static func makePodium(_ rankedImages: [UIImage]) -> UIView {
+        let imageViews = rankedImages.enumerated().map { rank, image -> UIImageView in
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.layer.magnificationFilter = .nearest
+            let size = rank == 0 ? podiumWinnerSize : podiumRunnerUpSize
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: size),
+                imageView.heightAnchor.constraint(equalToConstant: size)
+            ])
+            return imageView
+        }
+        var podiumOrder = imageViews
+        if podiumOrder.count > 1 {
+            podiumOrder.swapAt(0, 1)
+        }
+        let podium = UIStackView(arrangedSubviews: podiumOrder)
+        podium.alignment = .bottom
+        podium.spacing = 4
+        return podium
+    }
+
+    fileprivate static func makeRow(_ row: Row) -> UIView {
         let titleLabel = UILabel(fontSize: 15, weight: .semibold, color: Color.Grey400)
         titleLabel.text = row.title
         let valueLabel = UILabel(fontSize: 17, weight: .semibold, color: Color.Grey100)
@@ -112,8 +146,20 @@ final class YearInReviewCardView: UIView {
         valueLabel.minimumScaleFactor = 0.6
         titleLabel.setContentHuggingPriority(.required, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-        let row = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
-        row.spacing = 12
-        return row
+        let rowView = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
+        rowView.spacing = 12
+        rowView.alignment = .center
+        if let image = row.image {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            imageView.layer.magnificationFilter = .nearest
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 36),
+                imageView.heightAnchor.constraint(equalToConstant: 36)
+            ])
+            rowView.insertArrangedSubview(imageView, at: 0)
+            rowView.setCustomSpacing(8, after: imageView)
+        }
+        return rowView
     }
 }

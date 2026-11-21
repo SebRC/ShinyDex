@@ -181,8 +181,20 @@ final class YearInReviewTests: XCTestCase {
 
         XCTAssertEqual(review.bestMonthForShinies, YearInReview.MonthCount(month: 3, count: 2))
         XCTAssertEqual(review.favouriteGame?.key, .Scarlet)
-        XCTAssertEqual(review.favouriteBall?.key, "ultra")
+        XCTAssertEqual(review.topBalls.map { $0.key }, ["ultra", "poke"])
         XCTAssertEqual(review.favouriteMethod?.key, .Encounters)
+    }
+
+    func test_topBalls_areTheThreeMostUsed_leavingOutCatchesThatGotAway() {
+        for (index, ball) in ["ultra", "ultra", "ultra", "great", "great", "poke", "luxury", "dusk"].enumerated() {
+            logCatch(bulbasaur, encounters: 10, on: makeDate(month: 1, day: index + 1), ball: ball)
+        }
+        logCatch(bulbasaur, encounters: 10, on: makeDate(month: 2, day: 1), ball: "luxury", isFailed: true)
+
+        let review = getReview(year: 2026)
+
+        XCTAssertEqual(review.topBalls.map { $0.key }, ["ultra", "great", "dusk"])
+        XCTAssertEqual(review.topBalls.map { $0.count }, [3, 2, 1])
     }
 
     func test_emptyYear_hasNoHighlights() {
@@ -195,5 +207,6 @@ final class YearInReviewTests: XCTestCase {
         XCTAssertNil(review.luckiestHunt)
         XCTAssertNil(review.fullOddsLuck)
         XCTAssertNil(review.favouriteGame)
+        XCTAssertTrue(review.topBalls.isEmpty)
     }
 }
