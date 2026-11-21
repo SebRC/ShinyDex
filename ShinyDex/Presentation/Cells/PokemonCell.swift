@@ -72,12 +72,19 @@ class PokemonCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool) {
+    func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool, shinyLockedGame: Games? = nil) {
         if (catchCount > 0) {
             statusIcon.image = UIImage(named: caughtBall)
             statusIcon.tintColor = nil
             statusLabel.textColor = Color.accent
             statusLabel.text = catchCount == 1 ? "Caught" : "Caught ×\(catchCount)"
+            statusRow.isHidden = false
+        }
+        else if let game = shinyLockedGame {
+            statusIcon.image = UIImage.makeSymbol("lock.fill", pointSize: 11, weight: .bold)
+            statusIcon.tintColor = Color.danger
+            statusLabel.textColor = Color.danger
+            statusLabel.text = "Shiny locked in \(game.displayName)"
             statusRow.isHidden = false
         }
         else if (isBeingHunted) {

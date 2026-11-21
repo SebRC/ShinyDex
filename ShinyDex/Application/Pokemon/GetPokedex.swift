@@ -18,6 +18,7 @@ struct PokedexEntry: Equatable {
     let caughtBall: String
     let isBeingHunted: Bool
     let catchCount: Int
+    var shinyLockedGame: Games? = nil
 }
 
 struct Pokedex: Equatable {
@@ -31,10 +32,12 @@ struct Pokedex: Equatable {
 final class GetPokedexHandler {
     private let pokemonRepository: PokemonRepository
     private let catchRepository: CatchRepository
+    private let availability: GameAvailability
 
-    init(pokemonRepository: PokemonRepository, catchRepository: CatchRepository) {
+    init(pokemonRepository: PokemonRepository, catchRepository: CatchRepository, availability: GameAvailability = GameAvailability()) {
         self.pokemonRepository = pokemonRepository
         self.catchRepository = catchRepository
+        self.availability = availability
     }
 
     func handle(_ query: GetPokedexQuery) -> Pokedex {
@@ -44,11 +47,17 @@ final class GetPokedexHandler {
         }
         let catchCounts = CatchRules.countByNumber(catchRepository.getAll().filter { !$0.isFailed })
         let regionEntries = allPokemon[range].map { pokemon in
-            PokedexEntry(number: pokemon.number, name: pokemon.name, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, catchCount: catchCounts[pokemon.number] ?? 0)
+            PokedexEntry(number: pokemon.number, name: pokemon.name, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, catchCount: catchCounts[pokemon.number] ?? 0,
+                         shinyLockedGame: findShinyLockedGame(of: pokemon))
         }
         return Pokedex(entries: regionEntries.filter { GetPokedexHandler.matches($0, query.filter) },
                        caughtCount: regionEntries.filter { $0.catchCount > 0 }.count,
                        totalCount: regionEntries.count)
+    }
+
+    private func findShinyLockedGame(of pokemon: Pokemon) -> Games? {
+        let game = pokemon.huntConfiguration.game
+        return availability.findAvailability(of: pokemon.number, in: game) == .shinyLocked ? game : nil
     }
 
     private static func matches(_ entry: PokedexEntry, _ filter: PokedexFilter) -> Bool {

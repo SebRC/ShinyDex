@@ -5,7 +5,9 @@ enum GameSelector {
 					 pokemonName: String? = nil, caption: String = "Hunting in", onSelect: @escaping (Games) -> Void) -> GridPickerVC {
 		let items = choices.map(makeItem)
 		let currentIndex = choices.firstIndex { $0.game == selectedGame }
-		let legend = pokemonName.map { AvailabilityLegendView(pokemonName: $0, showsApproximation: choices.contains { $0.isApproximate }) }
+		let legend = pokemonName.map {
+			AvailabilityLegendView(pokemonName: $0, showsShinyLock: choices.contains { $0.availability == .shinyLocked }, showsApproximation: choices.contains { $0.isApproximate })
+		}
 		return GridPickerVC(title: "Game", caption: caption, items: items, columns: 3, currentIndex: currentIndex, legend: legend) { index in
 			onSelect(choices[index].game)
 		}
@@ -17,6 +19,7 @@ enum GameSelector {
 		let availabilityText: String?
 		switch choice.availability {
 		case .catchable: availabilityText = choice.isApproximate ? "Catchable" : nil
+		case .shinyLocked: availabilityText = "Shiny locked"
 		case .tradeOnly: availabilityText = "Trade only"
 		case .unavailable: availabilityText = "Not in game"
 		}
@@ -28,7 +31,7 @@ enum GameSelector {
 }
 
 final class AvailabilityLegendView: UIView {
-	init(pokemonName: String, showsApproximation: Bool) {
+	init(pokemonName: String, showsShinyLock: Bool, showsApproximation: Bool) {
 		super.init(frame: .zero)
 		backgroundColor = Color.surface
 		layer.cornerRadius = CornerRadius.standard
@@ -40,6 +43,10 @@ final class AvailabilityLegendView: UIView {
 			AvailabilityLegendView.makeRow(symbolName: "eye.slash.fill", tint: Color.textQuaternary, title: "Not shown",
 										   detail: "Games where \(pokemonName) can't exist")
 		])
+		if showsShinyLock {
+			rows.insertArrangedSubview(AvailabilityLegendView.makeRow(symbolName: "lock.fill", tint: Color.danger, title: "Shiny locked",
+																	  detail: "Dimmed. The only ways to get \(pokemonName) here can't be shiny"), at: 2)
+		}
 		if showsApproximation {
 			rows.addArrangedSubview(AvailabilityLegendView.makeRow(symbolName: "questionmark.circle.fill", tint: Color.textQuaternary, title: "≈ Approximate",
 																   detail: "The game data is incomplete, so double-check before hunting"))

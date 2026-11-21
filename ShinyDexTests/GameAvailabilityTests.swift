@@ -7,7 +7,7 @@ final class GameAvailabilityTests: XCTestCase {
     private func makeAvailability() -> GameAvailability {
         let resources = StubResourceLoader()
         resources.dataResources["gameAvailability.json"] = Data("""
-        {"Red":{"catchable":[1],"tradeOnly":[37,65],"approximate":false},
+        {"Red":{"catchable":[1],"shinyLocked":[150],"tradeOnly":[37,65],"approximate":false},
          "Scarlet":{"catchable":[906],"tradeOnly":[1],"approximate":true},
          "Not a game":{"catchable":[1],"tradeOnly":[],"approximate":false}}
         """.utf8)
@@ -29,6 +29,7 @@ final class GameAvailabilityTests: XCTestCase {
         XCTAssertEqual(availability.findAvailability(of: bulbasaur, in: .Red), .catchable)
         XCTAssertEqual(availability.findAvailability(of: vulpix, in: .Red), .tradeOnly)
         XCTAssertEqual(availability.findAvailability(of: alakazam, in: .Red), .tradeOnly)
+        XCTAssertEqual(availability.findAvailability(of: 149, in: .Red), .shinyLocked)
         XCTAssertEqual(availability.findAvailability(of: 150, in: .Red), .unavailable)
         XCTAssertTrue(availability.isApproximate(.Scarlet))
         XCTAssertFalse(availability.isApproximate(.Red))
@@ -68,8 +69,18 @@ final class GameAvailabilityTests: XCTestCase {
         XCTAssertEqual(availability.findAvailability(of: vulpix, in: .Red), .tradeOnly, "Blue exclusive")
         XCTAssertEqual(availability.findAvailability(of: vulpix, in: .Blue), .catchable)
         XCTAssertEqual(availability.findAvailability(of: 171, in: .Gold), .catchable, "Pichu by breeding")
-        XCTAssertEqual(availability.findAvailability(of: 888, in: .Sword), .tradeOnly, "Zamazenta is Shield only")
+        XCTAssertEqual(availability.findAvailability(of: 888, in: .Sword), .shinyLocked, "Zamazenta can only come from its locked encounter in Shield")
         XCTAssertEqual(availability.findAvailability(of: chikorita, in: .LetsGoPikachu), .unavailable)
         XCTAssertTrue(availability.isApproximate(.Scarlet))
+        XCTAssertEqual(availability.findAvailability(of: 643, in: .White), .shinyLocked, "Zekrom")
+        XCTAssertEqual(availability.findAvailability(of: 643, in: .Black), .shinyLocked, "Zekrom can only be traded in from games where it's locked")
+        XCTAssertEqual(availability.findAvailability(of: 643, in: .X), .tradeOnly, "Zekrom can be traded in from Alpha Sapphire")
+        XCTAssertEqual(availability.findAvailability(of: 645, in: .Black), .catchable, "Kyurem isn't locked in Black")
+        XCTAssertEqual(availability.findAvailability(of: 150, in: .Red), .tradeOnly, "Mew is event only, not locked")
+        XCTAssertEqual(availability.findAvailability(of: 643, in: .Black2), .shinyLocked, "Zekrom")
+        XCTAssertEqual(availability.findAvailability(of: 642, in: .White2), .shinyLocked, "Reshiram")
+        XCTAssertEqual(availability.findAvailability(of: 493, in: .Black), .shinyLocked, "Victini")
+        XCTAssertEqual(availability.findAvailability(of: 772, in: .Sun), .shinyLocked, "Silvally evolves from a locked Type: Null")
+        XCTAssertEqual(availability.findAvailability(of: 20, in: .Gold), .catchable, "Spearow is wild too")
     }
 }

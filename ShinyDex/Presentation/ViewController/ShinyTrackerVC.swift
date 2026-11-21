@@ -195,6 +195,17 @@ class ShinyTrackerVC: UIViewController {
         navigationController?.pushViewController(CatchesTVC(container: container, number: pokemon.number, pokemonName: pokemon.name), animated: true)
     }
 
+    fileprivate var shinyLockedGame: Games? {
+        let game = pokemon.settings.game
+        let choices = container.getGameChoices.handle(GetGameChoicesQuery(number: pokemon.number, keeping: game))
+        return choices.first(where: { $0.game == game })?.availability == .shinyLocked ? game : nil
+    }
+
+    fileprivate func showShinyLockWarningIfNeeded() {
+        guard let game = shinyLockedGame else { return }
+        oddsTile.setWarning("Shiny locked in \(game.displayName)")
+    }
+
     fileprivate func setCaughtStatus() {
         let catchCount = pokemon.catchCount
         caughtBallView.image = UIImage(named: pokemon.caughtBall)
@@ -240,6 +251,7 @@ class ShinyTrackerVC: UIViewController {
         let luck = HuntLuckText(pokemon: pokemon)
         probabilityTile.setDetail(luck.chanceDetail, isEmphasized: true)
         oddsTile.setDetail(luck.oddsDetail, isEmphasized: true)
+        showShinyLockWarningIfNeeded()
         setCounterText(HuntCounterText(pokemon: pokemon))
         setOddsLabelText()
         minusButton.isEnabled = isMinusButtonEnabled()
@@ -320,6 +332,16 @@ class ShinyTrackerVC: UIViewController {
     }
 
     @objc fileprivate func addToHuntPressed() {
+        guard let game = shinyLockedGame else {
+            showHuntPicker()
+            return
+        }
+        presentShinyLockWarning(pokemonName: pokemon.name, game: game) { [weak self] in
+            self?.showHuntPicker()
+        }
+    }
+
+    fileprivate func showHuntPicker() {
         let picker = HuntPickerModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] huntName in
             guard let self = self else { return }
             self.reloadPokemon()
@@ -395,8 +417,10 @@ class ShinyTrackerVC: UIViewController {
     }
 
     @objc fileprivate func locationButtonPressed() {
-        guard let url = container.getLocationLink.handle(GetLocationLinkQuery(number: pokemon.number)) else { return }
-        navigationController?.pushViewController(LocationVC(url: url), animated: true)
+        let overview = LocationsOverviewTVC(container: container, number: pokemon.number) { [weak self] in
+            self?.gameSettingsChanged()
+        }
+        navigationController?.pushViewController(overview, animated: true)
     }
 
     fileprivate func gameSettingsChanged() {

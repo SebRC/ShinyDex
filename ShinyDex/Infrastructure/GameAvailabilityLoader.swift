@@ -3,6 +3,7 @@ import Foundation
 enum GameAvailabilityLoader {
     private struct StoredGame: Decodable {
         let catchable: [Int]
+        let shinyLocked: [Int]?
         let tradeOnly: [Int]
         let approximate: Bool
     }
@@ -14,7 +15,8 @@ enum GameAvailabilityLoader {
         }
         let dataByGame = Dictionary(uniqueKeysWithValues: stored.compactMap { gameName, game in
             Games(rawValue: gameName).map {
-                ($0, GameAvailability.GameData(catchable: Set(game.catchable.map { $0 - 1 }), tradeOnly: Set(game.tradeOnly.map { $0 - 1 }), isApproximate: game.approximate))
+                ($0, GameAvailability.GameData(catchable: Set(game.catchable.map { $0 - 1 }), shinyLocked: Set((game.shinyLocked ?? []).map { $0 - 1 }),
+                                          tradeOnly: Set(game.tradeOnly.map { $0 - 1 }), isApproximate: game.approximate))
             }
         })
         return GameAvailability(dataByGame: dataByGame)

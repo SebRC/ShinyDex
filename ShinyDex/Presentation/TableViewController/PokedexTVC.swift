@@ -148,6 +148,16 @@ class PokedexTVC: UITableViewController {
     }
     
     fileprivate func addToHuntPressed(pokemon: PokedexEntry) {
+        guard let game = pokemon.shinyLockedGame else {
+            showHuntPicker(for: pokemon)
+            return
+        }
+        presentShinyLockWarning(pokemonName: pokemon.name, game: game) { [weak self] in
+            self?.showHuntPicker(for: pokemon)
+        }
+    }
+
+    fileprivate func showHuntPicker(for pokemon: PokedexEntry) {
         let picker = HuntPickerModalVC(container: container, number: pokemon.number, pokemonName: pokemon.name) { [weak self] huntName in
             guard let self = self else { return }
             self.reloadPokedex()
@@ -236,7 +246,7 @@ class PokedexTVC: UITableViewController {
         let catchCount = pokemon.catchCount
         pokemonCell.pokemonName.text = pokemon.name
         pokemonCell.pokemonNumber.text = String(format: "#%03d", pokemon.number + 1)
-        pokemonCell.setStatus(catchCount: catchCount, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted)
+        pokemonCell.setStatus(catchCount: catchCount, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, shinyLockedGame: pokemon.shinyLockedGame)
 
         pokemonCell.caughtButton.accessibilityLabel = "Log a catch of \(pokemon.name)"
         pokemonCell.caughtButton.accessibilityValue = catchCount == 0 ? "Not caught" : (catchCount == 1 ? "Caught once" : "Caught \(catchCount) times")

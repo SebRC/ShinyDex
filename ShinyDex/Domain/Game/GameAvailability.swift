@@ -2,6 +2,7 @@ import Foundation
 
 enum PokemonAvailability: Equatable {
     case catchable
+    case shinyLocked
     case tradeOnly
     case unavailable
 }
@@ -9,6 +10,7 @@ enum PokemonAvailability: Equatable {
 struct GameAvailability {
     struct GameData: Equatable {
         let catchable: Set<Int>
+        var shinyLocked: Set<Int> = []
         let tradeOnly: Set<Int>
         let isApproximate: Bool
     }
@@ -28,6 +30,7 @@ struct GameAvailability {
         guard isReleased(number, in: game) else { return .unavailable }
         guard let data = dataByGame[game] else { return .catchable }
         if data.catchable.contains(number) { return .catchable }
+        if data.shinyLocked.contains(number) { return .shinyLocked }
         return data.tradeOnly.contains(number) ? .tradeOnly : .unavailable
     }
 

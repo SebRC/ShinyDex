@@ -78,3 +78,15 @@ extension UIViewController {
                                        onConfirm: onConfirm)
     }
 }
+
+extension UIViewController {
+    func presentShinyLockWarning(pokemonName: String, game: Games, onContinue: @escaping () -> Void) {
+        let alert = UIAlertController(title: "\(pokemonName) is shiny locked",
+                                      message: "Every way to get \(pokemonName) in \(game.displayName) is shiny locked, so it can't be shiny there. Change its game in hunt settings to hunt it somewhere else.",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Add Anyway", style: .default) { _ in onContinue() })
+        alert.view.tintColor = Color.accent
+        present(alert, animated: true)
+    }
+}
