@@ -5,6 +5,7 @@ final class AppContainer {
     let resourceLoader: ResourceLoader
     let keyValueStore: KeyValueStore
     let backupFolder: BackupFolder
+    let gameAvailability: GameAvailability
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -31,6 +32,7 @@ final class AppContainer {
         evolutions = EvolutionsLoader.load(from: resourceLoader)
         forms = PokemonFormsLoader.load(from: resourceLoader)
         ppPresets = PPPresetsLoader.load(from: resourceLoader)
+        gameAvailability = GameAvailabilityLoader.load(from: resourceLoader)
         bingoTemplates = BingoTemplatesLoader.load(from: resourceLoader, pokemonNames: resourceLoader.loadLines(ofTextResource: "allGens"), forms: forms)
 
         let context = coreDataStack.viewContext
@@ -54,6 +56,7 @@ final class AppContainer {
     var getPokemonDetails: GetPokemonDetailsHandler { GetPokemonDetailsHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, odds: odds, probability: probability) }
     var getAllPokemon: GetAllPokemonHandler { GetAllPokemonHandler(pokemonRepository: pokemonRepository) }
     var getPokedex: GetPokedexHandler { GetPokedexHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository) }
+    var getGameChoices: GetGameChoicesHandler { GetGameChoicesHandler(availability: gameAvailability) }
     var previewHuntSettings: PreviewHuntSettingsHandler { PreviewHuntSettingsHandler(odds: odds) }
     var saveHuntSettings: SaveHuntSettingsHandler { SaveHuntSettingsHandler(pokemonRepository: pokemonRepository, odds: odds) }
     var applyHuntSettingsToAll: ApplyHuntSettingsToAllHandler { ApplyHuntSettingsToAllHandler(pokemonRepository: pokemonRepository, odds: odds) }
