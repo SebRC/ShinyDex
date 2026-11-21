@@ -42,9 +42,7 @@ class MovePickerModalTVC: UITableViewController, UISearchResultsUpdating {
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
 		tableView.keyboardDismissMode = .onDrag
-		if #available(iOS 15.0, *) {
-			tableView.sectionHeaderTopPadding = 0
-		}
+		tableView.sectionHeaderTopPadding = 0
 		tableView.register(MovePickerCell.self, forCellReuseIdentifier: MovePickerCell.reuseIdentifier)
 	}
 

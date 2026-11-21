@@ -87,6 +87,7 @@ final class AppContainer {
 
     // MARK: Progress
 
+    var getYearInReview: GetYearInReviewHandler { GetYearInReviewHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
     var getEncounterHistory: GetEncounterHistoryHandler { GetEncounterHistoryHandler(dailyEncountersRepository: dailyEncountersRepository) }
     var setYearlyGoal: SetYearlyGoalHandler { SetYearlyGoalHandler(yearlyGoalRepository: yearlyGoalRepository) }
 

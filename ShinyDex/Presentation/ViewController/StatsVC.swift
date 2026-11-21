@@ -54,6 +54,7 @@ class StatsVC: UIViewController {
             empty.heightAnchor.constraint(equalToConstant: 420).isActive = true
             return
         }
+        addYearInReview(stats)
         addOverview(stats)
         addGoal(stats)
         addEncountersToday(stats)
@@ -155,6 +156,15 @@ class StatsVC: UIViewController {
             Haptics.playSuccess()
             self.reload()
         }
+    }
+
+    fileprivate func addYearInReview(_ stats: CatchStatistics) {
+        let year = stats.currentYear
+        let tile = StatsVC.makeTile(caption: "Year in review", value: "Your \(year)", highlighted: true, detail: "Your year of hunting, card by card") { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.pushViewController(YearInReviewVC(container: self.container), animated: true)
+        }
+        stack.addArrangedSubview(tile)
     }
 
     fileprivate func addEncountersToday(_ stats: CatchStatistics) {
