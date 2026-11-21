@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000003 /* HuntLuckTextTests.swift */; };
 		B19100000000000000000002 /* HuntLuckText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000001 /* HuntLuckText.swift */; };
+		B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000005 /* HuntingDayStreaksTests.swift */; };
+		B19000000000000000000004 /* HuntingCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000003 /* HuntingCalendarView.swift */; };
+		B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000001 /* HuntingDayStreaks.swift */; };
 		B1890000000000000000000A /* YearInReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000009 /* YearInReviewTests.swift */; };
 		B18900000000000000000008 /* YearInReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000007 /* YearInReviewVC.swift */; };
 		B18900000000000000000006 /* YearInReviewCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000005 /* YearInReviewCards.swift */; };
@@ -321,6 +324,9 @@
 /* Begin PBXFileReference section */
 		B19100000000000000000003 /* HuntLuckTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckTextTests.swift; sourceTree = "<group>"; };
 		B19100000000000000000001 /* HuntLuckText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckText.swift; sourceTree = "<group>"; };
+		B19000000000000000000005 /* HuntingDayStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaksTests.swift; sourceTree = "<group>"; };
+		B19000000000000000000003 /* HuntingCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingCalendarView.swift; sourceTree = "<group>"; };
+		B19000000000000000000001 /* HuntingDayStreaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaks.swift; sourceTree = "<group>"; };
 		B18900000000000000000009 /* YearInReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewTests.swift; sourceTree = "<group>"; };
 		B18900000000000000000007 /* YearInReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewVC.swift; sourceTree = "<group>"; };
 		B18900000000000000000005 /* YearInReviewCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCards.swift; sourceTree = "<group>"; };
@@ -659,6 +665,7 @@
 		CCF9CB8C702F7D88075BC906 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
+				B19000000000000000000003 /* HuntingCalendarView.swift */,
 				B18900000000000000000005 /* YearInReviewCards.swift */,
 				B18900000000000000000003 /* YearInReviewCardView.swift */,
 				B1870000000000000000000A /* EncounterHistoryChartView.swift */,
@@ -973,6 +980,7 @@
 			isa = PBXGroup;
 			children = (
 				B19100000000000000000003 /* HuntLuckTextTests.swift */,
+				B19000000000000000000005 /* HuntingDayStreaksTests.swift */,
 				B18900000000000000000009 /* YearInReviewTests.swift */,
 				B1870000000000000000000E /* EncounterHistoryTests.swift */,
 				B1860000000000000000000B /* PPPresetTests.swift */,
@@ -1371,6 +1379,7 @@
 		B17700000000000000000001 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
+				B19000000000000000000001 /* HuntingDayStreaks.swift */,
 				B18700000000000000000003 /* DailyEncountersRepository.swift */,
 				B18700000000000000000001 /* EncounterDay.swift */,
 				B1770000000000000000000D /* YearlyGoalProgress.swift */,
@@ -1545,6 +1554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */,
+				B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */,
 				B1890000000000000000000A /* YearInReviewTests.swift in Sources */,
 				B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */,
 				B1860000000000000000000C /* PPPresetTests.swift in Sources */,
@@ -1600,6 +1610,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B19100000000000000000002 /* HuntLuckText.swift in Sources */,
+				B19000000000000000000004 /* HuntingCalendarView.swift in Sources */,
+				B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */,
 				B18900000000000000000008 /* YearInReviewVC.swift in Sources */,
 				B18900000000000000000006 /* YearInReviewCards.swift in Sources */,
 				B18900000000000000000004 /* YearInReviewCardView.swift in Sources */,

@@ -14,17 +14,25 @@ struct EncounterHistory: Equatable {
         let count: Int
     }
 
+    struct DayStreaks: Equatable {
+        let current: Int
+        let longest: Int
+    }
+
     let period: EncounterPeriod
     let recent: [Entry]
     let recorded: [Entry]
     let busiest: Entry?
     let averagePerActivePeriod: Int?
     let trackedSince: Date?
+    let dayStreaks: DayStreaks
+    let calendarWeeks: [[Entry?]]
 }
 
 final class GetEncounterHistoryHandler {
     static let recentDayCount = 30
     static let recentMonthCount = 12
+    static let calendarWeekCount = 26
 
     private let dailyEncountersRepository: DailyEncountersRepository
     private let calendar: Calendar
@@ -37,7 +45,8 @@ final class GetEncounterHistoryHandler {
     }
 
     func handle(_ query: GetEncounterHistoryQuery) -> EncounterHistory {
-        let trackedDays = dailyEncountersRepository.getAll().compactMap { encounters in
+        let storedDays = dailyEncountersRepository.getAll()
+        let trackedDays = storedDays.compactMap { encounters in
             makeStartOfDay(encounters.day).map { EncounterHistory.Entry(start: $0, count: encounters.count) }
         }
         let component = GetEncounterHistoryHandler.makeCalendarComponent(for: query.period)
@@ -47,12 +56,29 @@ final class GetEncounterHistoryHandler {
             .map { EncounterHistory.Entry(start: $0.key, count: $0.value) }
             .sorted { $0.start > $1.start }
         let trackedSince = trackedDays.map { $0.start }.min()
+        let streaks = HuntingDayStreaks(days: storedDays, today: EncounterDay(containing: makeCurrentDate(), calendar: calendar), calendar: calendar)
+        let countsByDay = Dictionary(trackedDays.map { ($0.start, $0.count) }, uniquingKeysWith: +)
         return EncounterHistory(period: query.period,
                                 recent: makeRecent(of: query.period, countsByPeriodStart: countsByPeriodStart, trackedSince: trackedSince),
                                 recorded: recorded,
                                 busiest: recorded.max { $0.count < $1.count || ($0.count == $1.count && $0.start < $1.start) },
                                 averagePerActivePeriod: GetEncounterHistoryHandler.calculateAverage(of: recorded),
-                                trackedSince: trackedSince)
+                                trackedSince: trackedSince,
+                                dayStreaks: EncounterHistory.DayStreaks(current: streaks.current, longest: streaks.longest),
+                                calendarWeeks: makeCalendarWeeks(countsByDay: countsByDay))
+    }
+
+    private func makeCalendarWeeks(countsByDay: [Date: Int]) -> [[EncounterHistory.Entry?]] {
+        let today = calendar.startOfDay(for: makeCurrentDate())
+        let currentWeekStart = findStart(of: .weekOfYear, containing: today)
+        let weekCount = GetEncounterHistoryHandler.calendarWeekCount
+        guard let firstWeekStart = calendar.date(byAdding: .day, value: -7 * (weekCount - 1), to: currentWeekStart) else { return [] }
+        return (0..<weekCount).map { week in
+            (0..<7).map { weekday in
+                guard let date = calendar.date(byAdding: .day, value: week * 7 + weekday, to: firstWeekStart), date <= today else { return nil }
+                return EncounterHistory.Entry(start: date, count: countsByDay[date] ?? 0)
+            }
+        }
     }
 
     private func makeRecent(of period: EncounterPeriod, countsByPeriodStart: [Date: Int], trackedSince: Date?) -> [EncounterHistory.Entry] {
@@ -81,7 +107,7 @@ final class GetEncounterHistoryHandler {
     }
 
     private func makeStartOfDay(_ day: EncounterDay) -> Date? {
-        return calendar.date(from: DateComponents(year: day.year, month: day.month, day: day.day)).map(calendar.startOfDay)
+        return day.makeDate(in: calendar).map(calendar.startOfDay)
     }
 
     private static func makeCalendarComponent(for period: EncounterPeriod) -> Calendar.Component {
