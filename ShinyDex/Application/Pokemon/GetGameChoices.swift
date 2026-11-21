@@ -8,6 +8,7 @@ struct GetGameChoicesQuery {
 struct GameChoice: Equatable {
     enum Availability: Equatable {
         case catchable
+        case shinyLocked
         case tradeOnly
         case unavailable
     }
@@ -38,6 +39,7 @@ final class GetGameChoicesHandler {
     private static func map(_ availability: PokemonAvailability) -> GameChoice.Availability {
         switch availability {
         case .catchable: return .catchable
+        case .shinyLocked: return .shinyLocked
         case .tradeOnly: return .tradeOnly
         case .unavailable: return .unavailable
         }

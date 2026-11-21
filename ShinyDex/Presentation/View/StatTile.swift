@@ -92,6 +92,14 @@ final class StatTile: UIControl {
         updateAccessibilityValue()
     }
 
+    func setWarning(_ warning: String) {
+        detailLabel.text = warning
+        detailLabel.textColor = Color.danger
+        detailLabel.font = UIFont.make(.caption1, weight: .semibold)
+        detailLabel.isHidden = false
+        updateAccessibilityValue()
+    }
+
     fileprivate func updateAccessibilityValue() {
         accessibilityValue = [valueLabel.text, detailLabel.isHidden ? nil : detailLabel.text].compactMap { $0 }.joined(separator: ", ")
     }

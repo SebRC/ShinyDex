@@ -112,4 +112,16 @@ final class PokemonHandlerTests: XCTestCase {
         XCTAssertEqual(caughtOnly.caughtCount, 1)
         XCTAssertEqual(caughtOnly.totalCount, 3)
     }
+
+    func test_pokedex_marksPokemonThatAreShinyLockedInTheirGame() {
+        let venusaur = pokemon.get(number: 2)!
+        venusaur.game = .Red
+        pokemon.save(venusaur)
+        let availability = GameAvailability(dataByGame: [.Red: GameAvailability.GameData(catchable: [0, 1], shinyLocked: [2], tradeOnly: [], isApproximate: false)])
+        let handler = GetPokedexHandler(pokemonRepository: pokemon, catchRepository: catches, availability: availability)
+
+        let kanto = handler.handle(GetPokedexQuery(region: 0))
+
+        XCTAssertEqual(kanto.entries.map { $0.shinyLockedGame }, [nil, nil, .Red])
+    }
 }

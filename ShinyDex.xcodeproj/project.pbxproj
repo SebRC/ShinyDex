@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20200000000000000000027 /* TechniquesInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000026 /* TechniquesInfoTVC.swift */; };
+		B20200000000000000000025 /* LocationsOverviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000024 /* LocationsOverviewTests.swift */; };
+		B20200000000000000000023 /* LocationsOverviewTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000022 /* LocationsOverviewTVC.swift */; };
+		B20200000000000000000021 /* GetLocationsOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000020 /* GetLocationsOverview.swift */; };
+		B2020000000000000000000C /* PokemonLocationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2020000000000000000000B /* PokemonLocationsTests.swift */; };
+		B2020000000000000000000A /* pokemonLocations.json in Resources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000009 /* pokemonLocations.json */; };
+		B20200000000000000000008 /* LocationsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000007 /* LocationsTVC.swift */; };
+		B20200000000000000000006 /* GetPokemonLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000005 /* GetPokemonLocations.swift */; };
+		B20200000000000000000004 /* PokemonLocationsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000003 /* PokemonLocationsLoader.swift */; };
+		B20200000000000000000002 /* PokemonLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000001 /* PokemonLocations.swift */; };
 		B1760000000000000000000A /* GameAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000009 /* GameAvailabilityTests.swift */; };
 		B17600000000000000000008 /* gameAvailability.json in Resources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000007 /* gameAvailability.json */; };
 		B17600000000000000000006 /* GetGameChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000005 /* GetGameChoices.swift */; };
@@ -345,6 +355,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20200000000000000000026 /* TechniquesInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechniquesInfoTVC.swift; sourceTree = "<group>"; };
+		B20200000000000000000024 /* LocationsOverviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsOverviewTests.swift; sourceTree = "<group>"; };
+		B20200000000000000000022 /* LocationsOverviewTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsOverviewTVC.swift; sourceTree = "<group>"; };
+		B20200000000000000000020 /* GetLocationsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationsOverview.swift; sourceTree = "<group>"; };
+		B2020000000000000000000B /* PokemonLocationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLocationsTests.swift; sourceTree = "<group>"; };
+		B20200000000000000000009 /* pokemonLocations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pokemonLocations.json; sourceTree = "<group>"; };
+		B20200000000000000000007 /* LocationsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsTVC.swift; sourceTree = "<group>"; };
+		B20200000000000000000005 /* GetPokemonLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPokemonLocations.swift; sourceTree = "<group>"; };
+		B20200000000000000000003 /* PokemonLocationsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLocationsLoader.swift; sourceTree = "<group>"; };
+		B20200000000000000000001 /* PokemonLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLocations.swift; sourceTree = "<group>"; };
 		B17600000000000000000009 /* GameAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAvailabilityTests.swift; sourceTree = "<group>"; };
 		B17600000000000000000007 /* gameAvailability.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gameAvailability.json; sourceTree = "<group>"; };
 		B17600000000000000000005 /* GetGameChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGameChoices.swift; sourceTree = "<group>"; };
@@ -708,6 +728,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2020000000000000000AAA2 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				B20200000000000000000020 /* GetLocationsOverview.swift */,
+				B20200000000000000000005 /* GetPokemonLocations.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		B2020000000000000000AAA1 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				B20200000000000000000001 /* PokemonLocations.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		CCF9CB8C702F7D88075BC906 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
@@ -902,6 +939,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B2020000000000000000AAA2 /* Locations */,
 				B17700000000000000000002 /* Progress */,
 				0DD551700000000000000003 /* Odds */,
 				BAC0B0000000000000000018 /* Backup */,
@@ -995,6 +1033,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B20200000000000000000003 /* PokemonLocationsLoader.swift */,
 				B17600000000000000000003 /* GameAvailabilityLoader.swift */,
 				B1950000000000000000000B /* BookmarkedBackupFolder.swift */,
 				B18600000000000000000007 /* PPPresetsLoader.swift */,
@@ -1031,6 +1070,8 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B2020000000000000000000B /* PokemonLocationsTests.swift */,
+				B20200000000000000000024 /* LocationsOverviewTests.swift */,
 				B17600000000000000000009 /* GameAvailabilityTests.swift */,
 				B20100000000000000000003 /* OnThisDayTests.swift */,
 				B19600000000000000000007 /* EncounterMilestoneTests.swift */,
@@ -1231,6 +1272,9 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B20200000000000000000022 /* LocationsOverviewTVC.swift */,
+				B20200000000000000000007 /* LocationsTVC.swift */,
+				B20200000000000000000026 /* TechniquesInfoTVC.swift */,
 				B1870000000000000000000C /* EncounterHistoryTVC.swift */,
 				B18600000000000000000009 /* PPPresetPickerTVC.swift */,
 				B12600000000000000000009 /* BingoTemplatePickerTVC.swift */,
@@ -1291,6 +1335,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B20200000000000000000009 /* pokemonLocations.json */,
 				B17600000000000000000007 /* gameAvailability.json */,
 				B1860000000000000000000D /* ppPresets.json */,
 				B1260000000000000000000B /* bingoTemplates.json */,
@@ -1306,6 +1351,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B2020000000000000000AAA1 /* Location */,
 				B17700000000000000000001 /* Progress */,
 				BAC0B0000000000000000017 /* Backup */,
 				B1B60A000000000000000001 /* Bingo */,
@@ -1561,6 +1607,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2020000000000000000000A /* pokemonLocations.json in Resources */,
 				B17600000000000000000008 /* gameAvailability.json in Resources */,
 				B1860000000000000000000E /* ppPresets.json in Resources */,
 				B1260000000000000000000C /* bingoTemplates.json in Resources */,
@@ -1623,6 +1670,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2020000000000000000000C /* PokemonLocationsTests.swift in Sources */,
+				B20200000000000000000025 /* LocationsOverviewTests.swift in Sources */,
 				B1760000000000000000000A /* GameAvailabilityTests.swift in Sources */,
 				B20100000000000000000004 /* OnThisDayTests.swift in Sources */,
 				B19600000000000000000008 /* EncounterMilestoneTests.swift in Sources */,
@@ -1683,6 +1732,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20200000000000000000008 /* LocationsTVC.swift in Sources */,
+				B20200000000000000000027 /* TechniquesInfoTVC.swift in Sources */,
+				B20200000000000000000023 /* LocationsOverviewTVC.swift in Sources */,
+				B20200000000000000000021 /* GetLocationsOverview.swift in Sources */,
+				B20200000000000000000006 /* GetPokemonLocations.swift in Sources */,
+				B20200000000000000000004 /* PokemonLocationsLoader.swift in Sources */,
+				B20200000000000000000002 /* PokemonLocations.swift in Sources */,
 				B17600000000000000000006 /* GetGameChoices.swift in Sources */,
 				B17600000000000000000004 /* GameAvailabilityLoader.swift in Sources */,
 				B17600000000000000000002 /* GameAvailability.swift in Sources */,

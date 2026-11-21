@@ -6,6 +6,7 @@ final class AppContainer {
     let keyValueStore: KeyValueStore
     let backupFolder: BackupFolder
     let gameAvailability: GameAvailability
+    lazy var pokemonLocations = PokemonLocationsLoader.load(from: resourceLoader)
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -55,7 +56,9 @@ final class AppContainer {
 
     var getPokemonDetails: GetPokemonDetailsHandler { GetPokemonDetailsHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, odds: odds, probability: probability) }
     var getAllPokemon: GetAllPokemonHandler { GetAllPokemonHandler(pokemonRepository: pokemonRepository) }
-    var getPokedex: GetPokedexHandler { GetPokedexHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository) }
+    var getPokedex: GetPokedexHandler { GetPokedexHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, availability: gameAvailability) }
+    var getPokemonLocations: GetPokemonLocationsHandler { GetPokemonLocationsHandler(pokemonRepository: pokemonRepository, locations: pokemonLocations, availability: gameAvailability, evolutions: evolutions) }
+    var getLocationsOverview: GetLocationsOverviewHandler { GetLocationsOverviewHandler(pokemonRepository: pokemonRepository, getPokemonLocations: getPokemonLocations, getGameChoices: getGameChoices) }
     var getGameChoices: GetGameChoicesHandler { GetGameChoicesHandler(availability: gameAvailability) }
     var previewHuntSettings: PreviewHuntSettingsHandler { PreviewHuntSettingsHandler(odds: odds) }
     var saveHuntSettings: SaveHuntSettingsHandler { SaveHuntSettingsHandler(pokemonRepository: pokemonRepository, odds: odds) }
