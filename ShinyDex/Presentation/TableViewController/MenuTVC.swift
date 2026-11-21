@@ -24,6 +24,11 @@ class MenuTVC: UITableViewController {
     let textResolver = TextResolver()
     fileprivate let container: AppContainer
     fileprivate var summary: MenuSummary?
+    fileprivate var onThisDay = [OnThisDayCatch]()
+
+    fileprivate var showsOnThisDay: Bool {
+        return !onThisDay.isEmpty
+    }
 
     init(container: AppContainer) {
         self.container = container
@@ -48,16 +53,23 @@ class MenuTVC: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80
         tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseIdentifier)
+        tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         summary = container.getMenuSummary.handle(GetMenuSummaryQuery())
+        onThisDay = container.getOnThisDay.handle(GetOnThisDayQuery())
         tableView.reloadData()
     }
 
+    fileprivate func findMenuSection(for section: Int) -> Int? {
+        guard showsOnThisDay else { return section }
+        return section == 0 ? nil : section - 1
+    }
+
     fileprivate func getMenuIndex(for indexPath: IndexPath) -> Int {
-        return sections[indexPath.section].rows[indexPath.row]
+        return sections[findMenuSection(for: indexPath.section) ?? 0].rows[indexPath.row]
     }
 
     fileprivate func getDestination(for index: Int) -> Destination {
@@ -74,15 +86,15 @@ class MenuTVC: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return sections.count + (showsOnThisDay ? 1 : 0)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].rows.count
+        return findMenuSection(for: section).map { sections[$0].rows.count } ?? onThisDay.count
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return SectionHeaderView.make(for: tableView, title: sections[section].title)
+        return SectionHeaderView.make(for: tableView, title: findMenuSection(for: section).map { sections[$0].title } ?? "On this day")
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -93,11 +105,29 @@ class MenuTVC: UITableViewController {
         return 52
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return findMenuSection(for: indexPath.section) == nil ? CatchCell.height : UITableView.automaticDimension
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard findMenuSection(for: indexPath.section) != nil else {
+            return makeOnThisDayCell(for: onThisDay[indexPath.row], at: indexPath)
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseIdentifier, for: indexPath) as! MenuCell
         let index = getMenuIndex(for: indexPath)
         let image = makeMenuImage(for: index)
         cell.configure(title: textResolver.getGenTitle(gen: index), subtitle: getSubtitle(for: index), image: image, progress: getProgress(for: index))
+        return cell
+    }
+
+    fileprivate func makeOnThisDayCell(for memory: OnThisDayCatch, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
+        let caught = memory.caught
+        let when = memory.yearsAgo == 1 ? "1 year ago" : "\(memory.yearsAgo) years ago"
+        let details = [when, caught.encounters > 0 ? "\(caught.encounters.grouped) encounters" : nil].compactMap { $0 }
+        cell.configure(pokemonName: caught.pokemonName, formId: caught.formId, title: caught.nickname ?? caught.speciesTitle,
+                       subtitle: details.joined(separator: " · "), ball: caught.caughtBall, isFailed: caught.isFailed)
+        cell.accessibilityLabel = [caught.nickname ?? caught.speciesTitle, caught.isFailed ? "got away" : nil, details.joined(separator: ", ")].compactMap { $0 }.joined(separator: ", ")
         return cell
     }
 
@@ -143,6 +173,11 @@ class MenuTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard findMenuSection(for: indexPath.section) != nil else {
+            guard let detail = CatchDetailTVC(container: container, catchId: onThisDay[indexPath.row].caught.id) else { return }
+            navigationController?.pushViewController(detail, animated: true)
+            return
+        }
         let viewController: UIViewController
         switch getDestination(for: getMenuIndex(for: indexPath)) {
         case .pokedex(let generation):

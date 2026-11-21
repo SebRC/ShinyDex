@@ -133,6 +133,7 @@ final class AppContainer {
 
     // MARK: Menu and startup
 
+    var getOnThisDay: GetOnThisDayHandler { GetOnThisDayHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
     var getMenuSummary: GetMenuSummaryHandler { GetMenuSummaryHandler(getHunts: getHunts, getJourneys: getJourneys, getBingoBoards: getBingoBoards, catchRepository: catchRepository) }
     var prepareData: PrepareDataHandler { PrepareDataHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, moveRepository: moveRepository, resourceLoader: resourceLoader, keyValueStore: keyValueStore) }
 
