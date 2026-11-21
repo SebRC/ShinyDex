@@ -21,9 +21,10 @@ class Catch {
     var nature: Nature?
     var ivs: IndividualValues
     var formId: String?
+    var encounterTotalAtFind: Int?
 
     init(id: UUID, number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool, evs: EffortValues, evolvedFrom: Int?,
-         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil) {
+         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil) {
         self.id = id
         self.number = number
         self.caughtBall = caughtBall
@@ -40,6 +41,7 @@ class Catch {
         self.nature = nature
         self.ivs = ivs
         self.formId = formId
+        self.encounterTotalAtFind = encounterTotalAtFind
     }
 
     init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool = false) {

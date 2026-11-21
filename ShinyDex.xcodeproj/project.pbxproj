@@ -273,6 +273,18 @@
 		B1260000000000000000000A /* BingoTemplatePickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12600000000000000000009 /* BingoTemplatePickerTVC.swift */; };
 		B1260000000000000000000C /* bingoTemplates.json in Resources */ = {isa = PBXBuildFile; fileRef = B1260000000000000000000B /* bingoTemplates.json */; };
 		B1260000000000000000000E /* BingoTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1260000000000000000000D /* BingoTemplateTests.swift */; };
+		B17700000000000000000004 /* EncounterLedger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000003 /* EncounterLedger.swift */; };
+		B17700000000000000000006 /* EncounterLedgerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000005 /* EncounterLedgerRepository.swift */; };
+		B17700000000000000000008 /* DryStreaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000007 /* DryStreaks.swift */; };
+		B1770000000000000000000A /* YearlyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000009 /* YearlyGoal.swift */; };
+		B1770000000000000000000C /* YearlyGoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000B /* YearlyGoalRepository.swift */; };
+		B1770000000000000000000E /* YearlyGoalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000D /* YearlyGoalProgress.swift */; };
+		B17700000000000000000010 /* SetYearlyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000F /* SetYearlyGoal.swift */; };
+		B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */; };
+		B17700000000000000000014 /* CoreDataYearlyGoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */; };
+		B17700000000000000000016 /* GoalProgressCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000015 /* GoalProgressCard.swift */; };
+		B17700000000000000000018 /* DryStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000017 /* DryStreaksTests.swift */; };
+		B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000019 /* ProgressHandlerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -567,6 +579,19 @@
 		B12600000000000000000009 /* BingoTemplatePickerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoTemplatePickerTVC.swift; sourceTree = "<group>"; };
 		B1260000000000000000000B /* bingoTemplates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bingoTemplates.json; sourceTree = "<group>"; };
 		B1260000000000000000000D /* BingoTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BingoTemplateTests.swift; sourceTree = "<group>"; };
+		B17700000000000000000003 /* EncounterLedger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterLedger.swift; sourceTree = "<group>"; };
+		B17700000000000000000005 /* EncounterLedgerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterLedgerRepository.swift; sourceTree = "<group>"; };
+		B17700000000000000000007 /* DryStreaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DryStreaks.swift; sourceTree = "<group>"; };
+		B17700000000000000000009 /* YearlyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyGoal.swift; sourceTree = "<group>"; };
+		B1770000000000000000000B /* YearlyGoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyGoalRepository.swift; sourceTree = "<group>"; };
+		B1770000000000000000000D /* YearlyGoalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyGoalProgress.swift; sourceTree = "<group>"; };
+		B1770000000000000000000F /* SetYearlyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetYearlyGoal.swift; sourceTree = "<group>"; };
+		B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEncounterLedgerRepository.swift; sourceTree = "<group>"; };
+		B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataYearlyGoalRepository.swift; sourceTree = "<group>"; };
+		B17700000000000000000015 /* GoalProgressCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressCard.swift; sourceTree = "<group>"; };
+		B17700000000000000000017 /* DryStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DryStreaksTests.swift; sourceTree = "<group>"; };
+		B17700000000000000000019 /* ProgressHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHandlerTests.swift; sourceTree = "<group>"; };
+		B1770000000000000000001B /* ShinyDex 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 11.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -591,6 +616,7 @@
 		CCF9CB8C702F7D88075BC906 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
+				B17700000000000000000015 /* GoalProgressCard.swift */,
 				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
 				AB52DE5E000000000000F002 /* HuntRankingView.swift */,
 				AB52DE5E000000000000F001 /* HuntRankRow.swift */,
@@ -772,6 +798,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B17700000000000000000002 /* Progress */,
 				0DD551700000000000000003 /* Odds */,
 				BAC0B0000000000000000018 /* Backup */,
 				B1B60A000000000000000006 /* Bingo */,
@@ -895,6 +922,8 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B17700000000000000000019 /* ProgressHandlerTests.swift */,
+				B17700000000000000000017 /* DryStreaksTests.swift */,
 				B1260000000000000000000D /* BingoTemplateTests.swift */,
 				C4A1A0000000000000000005 /* HuntChainTests.swift */,
 				0DD551700000000000000008 /* OddsSimulatorTests.swift */,
@@ -1041,6 +1070,8 @@
 		B10C0A00000000000000310C /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */,
+				B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */,
 				BAC0B000000000000000000F /* CoreDataBackupRepository.swift */,
 				B1B60A000000000000000013 /* CoreDataBingoBoardRepository.swift */,
 				B10C0A000000000000003101 /* CoreDataCatchRepository.swift */,
@@ -1145,6 +1176,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B17700000000000000000001 /* Progress */,
 				BAC0B0000000000000000017 /* Backup */,
 				B1B60A000000000000000001 /* Bingo */,
 				12288E1CD133403AE92AAABC /* Shared */,
@@ -1274,6 +1306,27 @@
 				0DD551700000000000000004 /* SimulateOdds.swift */,
 			);
 			path = Odds;
+			sourceTree = "<group>";
+		};
+		B17700000000000000000001 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				B1770000000000000000000D /* YearlyGoalProgress.swift */,
+				B1770000000000000000000B /* YearlyGoalRepository.swift */,
+				B17700000000000000000009 /* YearlyGoal.swift */,
+				B17700000000000000000007 /* DryStreaks.swift */,
+				B17700000000000000000005 /* EncounterLedgerRepository.swift */,
+				B17700000000000000000003 /* EncounterLedger.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		B17700000000000000000002 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				B1770000000000000000000F /* SetYearlyGoal.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1426,6 +1479,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */,
+				B17700000000000000000018 /* DryStreaksTests.swift in Sources */,
 				B1260000000000000000000E /* BingoTemplateTests.swift in Sources */,
 				C4A1A0000000000000000006 /* HuntChainTests.swift in Sources */,
 				0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */,
@@ -1475,6 +1530,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17700000000000000000016 /* GoalProgressCard.swift in Sources */,
+				B17700000000000000000014 /* CoreDataYearlyGoalRepository.swift in Sources */,
+				B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */,
+				B17700000000000000000010 /* SetYearlyGoal.swift in Sources */,
+				B1770000000000000000000E /* YearlyGoalProgress.swift in Sources */,
+				B1770000000000000000000C /* YearlyGoalRepository.swift in Sources */,
+				B1770000000000000000000A /* YearlyGoal.swift in Sources */,
+				B17700000000000000000008 /* DryStreaks.swift in Sources */,
+				B17700000000000000000006 /* EncounterLedgerRepository.swift in Sources */,
+				B17700000000000000000004 /* EncounterLedger.swift in Sources */,
 				B1260000000000000000000A /* BingoTemplatePickerTVC.swift in Sources */,
 				B12600000000000000000008 /* BingoTemplatesLoader.swift in Sources */,
 				B12600000000000000000006 /* CreateGeneratedBingoBoard.swift in Sources */,
@@ -1954,8 +2019,9 @@
 				B1B60A000000000000000022 /* ShinyDex 8.xcdatamodel */,
 				F0E3D9000000000000000001 /* ShinyDex 9.xcdatamodel */,
 				F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */,
+				B1770000000000000000001B /* ShinyDex 11.xcdatamodel */,
 			);
-			currentVersion = F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */;
+			currentVersion = B1770000000000000000001B /* ShinyDex 11.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

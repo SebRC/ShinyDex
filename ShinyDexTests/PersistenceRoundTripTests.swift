@@ -28,6 +28,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         original.gender = .female
         original.nature = .timid
         original.ivs = IndividualValues(encoded: "31,,31,0,31,31")
+        original.encounterTotalAtFind = 98_765
         let repository = CoreDataCatchRepository(managedContext: store.context)
         repository.insert(original)
         XCTAssertTrue(repository.save())
@@ -52,6 +53,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(caught.gender, .female)
         XCTAssertEqual(caught.nature, .timid)
         XCTAssertEqual(caught.ivs, original.ivs)
+        XCTAssertEqual(caught.encounterTotalAtFind, 98_765)
     }
 
     func test_catch_withOptionalFieldsEmpty_survivesSaveAndReload() throws {
@@ -442,6 +444,38 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(Set(moves[0].keys), ["name", "maxPP", "remainingPP", "type"])
         XCTAssertEqual(moves[0]["name"] as? String, "Spore")
         XCTAssertEqual(moves[0]["remainingPP"] as? Int, 17)
+    }
+
+    // MARK: Progress
+
+    func test_encounterLedger_survivesSaveAndReload_inASingleRow() throws {
+        XCTAssertNil(CoreDataEncounterLedgerRepository(managedContext: store.context).get())
+        let ledger = EncounterLedger(startingOn: makeDate(2))
+        ledger.count(1500)
+        CoreDataEncounterLedgerRepository(managedContext: store.context).save(ledger)
+        ledger.count(25)
+        CoreDataEncounterLedgerRepository(managedContext: store.context).save(ledger)
+
+        try store.reopen()
+        let reloaded = try XCTUnwrap(CoreDataEncounterLedgerRepository(managedContext: store.context).get())
+
+        XCTAssertEqual(reloaded.total, 1525)
+        XCTAssertEqual(reloaded.trackedSince, makeDate(2))
+        XCTAssertEqual(fetchRawRows("EncounterLedgerEntity").count, 1)
+    }
+
+    func test_yearlyGoals_survivesSaveAndReload_withOneRowPerYear() throws {
+        let repository = CoreDataYearlyGoalRepository(managedContext: store.context)
+        repository.save(YearlyGoal(year: 2026, target: 20))
+        repository.save(YearlyGoal(year: 2025, target: 10))
+        repository.save(YearlyGoal(year: 2026, target: 35))
+
+        try store.reopen()
+        XCTAssertEqual(CoreDataYearlyGoalRepository(managedContext: store.context).getAll(), [YearlyGoal(year: 2025, target: 10), YearlyGoal(year: 2026, target: 35)])
+
+        CoreDataYearlyGoalRepository(managedContext: store.context).delete(year: 2025)
+        try store.reopen()
+        XCTAssertEqual(CoreDataYearlyGoalRepository(managedContext: store.context).getAll(), [YearlyGoal(year: 2026, target: 35)])
     }
 
     // MARK: Data safety

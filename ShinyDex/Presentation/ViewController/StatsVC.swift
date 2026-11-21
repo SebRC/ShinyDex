@@ -55,6 +55,8 @@ class StatsVC: UIViewController {
             return
         }
         addOverview(stats)
+        addGoal(stats)
+        addStreaks(stats)
         addYears(stats)
         addFullOddsLuck(stats)
         addLuckiestPeriods(stats)
@@ -123,6 +125,50 @@ class StatsVC: UIViewController {
             ? "Averages use the \(stats.catchesWithEncounters) catches with encounters logged."
             : nil
         addSection("Overview", grid, footnote: footnote)
+    }
+
+    fileprivate func addGoal(_ stats: CatchStatistics) {
+        let year = stats.currentYear
+        guard let goal = stats.goal else {
+            let tile = StatsVC.makeTile(caption: "\(year) goal", value: "Not set", detail: "Tap to choose how many shinies to find") { [weak self] in
+                self?.editGoal(year: year, target: nil)
+            }
+            addSection("Yearly goal", tile)
+            return
+        }
+        let card = GoalProgressCard(year: year, goal: goal) { [weak self] in
+            self?.editGoal(year: year, target: goal.target)
+        }
+        addSection("Yearly goal", card, footnote: "Counts every shiny found this year, including ones that got away.")
+    }
+
+    fileprivate func editGoal(year: Int, target: Int?) {
+        presentTextInput(title: "\(year) goal",
+                         message: "How many shinies do you want to find this year? Leave it empty to remove the goal.",
+                         text: target.map(String.init),
+                         placeholder: "Shinies",
+                         keyboardType: .numberPad,
+                         isValid: { $0.isEmpty || (Int($0) ?? 0) > 0 }) { [weak self] value in
+            guard let self = self else { return }
+            self.container.setYearlyGoal.handle(SetYearlyGoalCommand(year: year, target: Int(value)))
+            Haptics.playSuccess()
+            self.reload()
+        }
+    }
+
+    fileprivate func addStreaks(_ stats: CatchStatistics) {
+        let row = makeRow(StatsVC.makeTile(caption: "Current", value: stats.streaks.map { $0.current.grouped } ?? "–"),
+                          StatsVC.makeTile(caption: "Longest", value: stats.streaks.map { $0.longest.grouped } ?? "–"))
+        let footnote = stats.streaks.map { "Encounters across all hunts without a shiny, counted since \(StatsVC.formatDay($0.trackedSince))." }
+            ?? "Encounters across all hunts without a shiny, counted from your next encounter on."
+        addSection("Dry streaks", row, footnote: footnote)
+    }
+
+    fileprivate static func formatDay(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
     }
 
     fileprivate func makeRow(_ views: UIView...) -> UIStackView {

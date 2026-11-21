@@ -44,8 +44,16 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 8")
     }
 
-    func test_reopeningVersion9_keepsAllData() throws {
+    func test_upgradeFromVersion9_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 9")
+    }
+
+    func test_upgradeFromVersion10_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 10")
+    }
+
+    func test_reopeningVersion11_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 11")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -71,6 +79,7 @@ final class StoreMigrationTests: XCTestCase {
         if oldModel.entitiesByName["BingoBoardEntity"] != nil {
             assertBingoBoard(in: context, file: file, line: line)
         }
+        assertProgress(in: context, oldModel: oldModel, file: file, line: line)
 
         try stack.close()
     }
@@ -102,7 +111,7 @@ final class StoreMigrationTests: XCTestCase {
             "game": Games.Scarlet.rawValue, "huntMethod": HuntMethod.Masuda.rawValue, "isShinyCharmActive": true,
             "isFailed": true, "evs": "0,0,0,252,4,252", "evolvedFrom": 280,
             "nickname": "Kirlia fan", "gender": Gender.female.rawValue, "nature": Nature.modest.rawValue, "ivs": "31,0,31,31,31,",
-            "form": "east",
+            "form": "east", "encounterTotalAtFind": 4000,
         ])
         insert("JourneyEntity", into: context, values: [
             "id": journeyId, "name": "Hoenn favourites", "createdDate": journeyCreatedDate, "priority": 1,
@@ -112,6 +121,13 @@ final class StoreMigrationTests: XCTestCase {
         insert("BingoBoardEntity", into: context, values: [
             "id": bingoBoardId, "name": "Paldea bingo", "createdDate": journeyCreatedDate, "priority": 2, "size": 3,
             "cells": #"[{"number":279,"catchId":"\#(catchId.uuidString)"},{"number":280},{},{},{},{},{},{},{}]"#,
+        ])
+
+        insert("EncounterLedgerEntity", into: context, values: [
+            "total": 4500, "trackedSince": journeyCreatedDate,
+        ])
+        insert("YearlyGoalEntity", into: context, values: [
+            "year": 2026, "target": 25,
         ])
 
         try context.save()
@@ -211,6 +227,20 @@ final class StoreMigrationTests: XCTestCase {
             XCTAssertTrue(caught.ivs.isEmpty, file: file, line: line)
         }
         XCTAssertEqual(caught.formId, oldAttributes["form"] != nil ? "east" : nil, file: file, line: line)
+        XCTAssertEqual(caught.encounterTotalAtFind, oldAttributes["encounterTotalAtFind"] != nil ? 4000 : nil, file: file, line: line)
+    }
+
+    private func assertProgress(in context: NSManagedObjectContext, oldModel: NSManagedObjectModel, file: StaticString, line: UInt) {
+        let ledger = CoreDataEncounterLedgerRepository(managedContext: context).get()
+        let goals = CoreDataYearlyGoalRepository(managedContext: context).getAll()
+        if oldModel.entitiesByName["EncounterLedgerEntity"] != nil {
+            XCTAssertEqual(ledger?.total, 4500, file: file, line: line)
+            XCTAssertEqual(ledger?.trackedSince, journeyCreatedDate, file: file, line: line)
+            XCTAssertEqual(goals, [YearlyGoal(year: 2026, target: 25)], file: file, line: line)
+        } else {
+            XCTAssertNil(ledger, "Streaks start untracked after an upgrade", file: file, line: line)
+            XCTAssertEqual(goals, [], file: file, line: line)
+        }
     }
 
     private func assertJourney(in context: NSManagedObjectContext, file: StaticString, line: UInt) {

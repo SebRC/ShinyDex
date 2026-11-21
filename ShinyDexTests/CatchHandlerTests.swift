@@ -16,7 +16,7 @@ final class CatchHandlerTests: XCTestCase {
     }
 
     private func log(_ number: Int, ball: String, on date: Date) {
-        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(LogCatchCommand(number: number, outcome: .caught(ball: ball), date: date))
+        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository()).handle(LogCatchCommand(number: number, outcome: .caught(ball: ball), date: date))
     }
 
     private func getSpeciesCatches(_ number: Int) -> [CatchSummary] {
@@ -33,7 +33,7 @@ final class CatchHandlerTests: XCTestCase {
     }
 
     func test_gotAway_isRecorded_butDoesNotMarkThePokemonCaught() {
-        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(LogCatchCommand(number: ivysaur, outcome: .gotAway, date: makeDay(1)))
+        LogCatchHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository()).handle(LogCatchCommand(number: ivysaur, outcome: .gotAway, date: makeDay(1)))
 
         XCTAssertEqual(getSpeciesCatches(ivysaur).map { $0.isFailed }, [true])
         XCTAssertEqual(pokemon.get(number: ivysaur)?.caughtBall, "none")
@@ -129,7 +129,7 @@ final class CatchHandlerTests: XCTestCase {
         let id = getSpeciesCatches(bulbasaur)[0].id
         try? UpdateCatchHandler(catchRepository: catches, pokemonRepository: pokemon).handle(UpdateCatchCommand(catchId: id, change: .encounters(42)))
 
-        let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon).handle(GetCatchStatisticsQuery())
+        let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository(), yearlyGoalRepository: InMemoryYearlyGoalRepository()).handle(GetCatchStatisticsQuery())
 
         XCTAssertEqual(statistics.foundCount, 1)
         XCTAssertEqual(statistics.shortestHunts.first?.pokemonName, "Bulbasaur")

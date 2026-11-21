@@ -38,6 +38,7 @@ struct BackupDocument: Codable {
         let nature: Nature?
         let ivs: String?
         let formId: String?
+        let encounterTotalAtFind: Int?
     }
 
     struct HuntRecord: Codable {
@@ -91,6 +92,16 @@ struct BackupDocument: Codable {
         let pressureActive: Bool
     }
 
+    struct EncounterLedgerRecord: Codable {
+        let total: Int
+        let trackedSince: Date
+    }
+
+    struct YearlyGoalRecord: Codable {
+        let year: Int
+        let target: Int
+    }
+
     private struct FormatHeader: Decodable {
         let formatVersion: Int
     }
@@ -103,6 +114,8 @@ struct BackupDocument: Codable {
     let journeys: [JourneyRecord]
     let bingoBoards: [BingoBoardRecord]
     let activeMoves: ActiveMovesRecord?
+    let encounterLedger: EncounterLedgerRecord?
+    let yearlyGoals: [YearlyGoalRecord]?
 
     func encode() throws -> Data {
         let encoder = JSONEncoder()
@@ -144,7 +157,8 @@ extension Nature: Codable {}
 extension BingoBoardSize: Codable {}
 
 extension BackupDocument {
-    init(pokemon: [Pokemon], catches: [Catch], hunts: [Hunt], journeys: [Journey], bingoBoards: [BingoBoard], activeMoves: ActiveMoves?, createdDate: Date) {
+    init(pokemon: [Pokemon], catches: [Catch], hunts: [Hunt], journeys: [Journey], bingoBoards: [BingoBoard], activeMoves: ActiveMoves?,
+         encounterLedger: EncounterLedger?, yearlyGoals: [YearlyGoal], createdDate: Date) {
         formatVersion = BackupDocument.currentFormatVersion
         self.createdDate = createdDate
         self.pokemon = pokemon.map {
@@ -155,7 +169,8 @@ extension BackupDocument {
             CatchRecord(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                         isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed,
                         evs: $0.evs.isEmpty ? nil : $0.evs.encoded, evolvedFrom: $0.evolvedFrom, nickname: $0.nickname,
-                        gender: $0.gender, nature: $0.nature, ivs: $0.ivs.isEmpty ? nil : $0.ivs.encoded, formId: $0.formId)
+                        gender: $0.gender, nature: $0.nature, ivs: $0.ivs.isEmpty ? nil : $0.ivs.encoded, formId: $0.formId,
+                        encounterTotalAtFind: $0.encounterTotalAtFind)
         }
         self.hunts = hunts.map {
             HuntRecord(id: $0.id, name: $0.name, pokemonNumbers: $0.indexes, priority: $0.priority, isCollapsed: $0.isCollapsed)
@@ -172,13 +187,16 @@ extension BackupDocument {
             ActiveMovesRecord(moves: activeMoves.moves.map { MoveRecord(name: $0.name, maxPP: $0.maxPP, remainingPP: $0.remainingPP, type: $0.type) },
                               pressureActive: activeMoves.pressureActive)
         }
+        self.encounterLedger = encounterLedger.map { EncounterLedgerRecord(total: $0.total, trackedSince: $0.trackedSince) }
+        self.yearlyGoals = yearlyGoals.map { YearlyGoalRecord(year: $0.year, target: $0.target) }
     }
 
     func makeCatches() -> [Catch] {
         return catches.map {
             Catch(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                   isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed, evs: EffortValues(encoded: $0.evs),
-                  evolvedFrom: $0.evolvedFrom, nickname: $0.nickname, gender: $0.gender, nature: $0.nature, ivs: IndividualValues(encoded: $0.ivs), formId: $0.formId)
+                  evolvedFrom: $0.evolvedFrom, nickname: $0.nickname, gender: $0.gender, nature: $0.nature, ivs: IndividualValues(encoded: $0.ivs), formId: $0.formId,
+                  encounterTotalAtFind: $0.encounterTotalAtFind)
         }
     }
 
@@ -205,5 +223,13 @@ extension BackupDocument {
             ActiveMoves(moves: record.moves.map { ActiveMove(name: $0.name, maxPP: $0.maxPP, remainingPP: $0.remainingPP, type: $0.type) },
                         pressureActive: record.pressureActive)
         }
+    }
+
+    func makeEncounterLedger() -> EncounterLedger? {
+        return encounterLedger.map { EncounterLedger(total: $0.total, trackedSince: $0.trackedSince) }
+    }
+
+    func makeYearlyGoals() -> [YearlyGoal]? {
+        return yearlyGoals.map { records in records.map { YearlyGoal(year: $0.year, target: $0.target) } }
     }
 }
