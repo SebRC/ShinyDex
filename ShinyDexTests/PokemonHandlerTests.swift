@@ -79,6 +79,16 @@ final class PokemonHandlerTests: XCTestCase {
         }
     }
 
+    func test_applyHuntSettingsToRegion_onlyChangesPokemonFromThatRegion() {
+        let repository = InMemoryPokemonRepository(names: Array(repeating: "Pokémon", count: 160))
+        ApplyHuntSettingsToRegionHandler(pokemonRepository: repository, odds: OddsService())
+            .handle(ApplyHuntSettingsToRegionCommand(settings: HuntSettings(game: .Crystal, generation: 2, huntMethod: .Encounters, isShinyCharmActive: false), region: 1))
+
+        XCTAssertTrue((151..<160).allSatisfy { repository.get(number: $0)?.game == .Crystal })
+        XCTAssertTrue((0..<151).allSatisfy { repository.get(number: $0)?.game != .Crystal })
+        XCTAssertEqual(repository.get(number: 151)?.shinyOdds, 8192)
+    }
+
     func test_pokedex_listsTheRegionWithCatchCounts() {
         let ivysaur = pokemon.get(number: 1)!
         catches.insert(Catch(pokemon: ivysaur, caughtBall: "great", caughtDate: nil))

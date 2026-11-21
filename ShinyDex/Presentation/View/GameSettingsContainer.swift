@@ -8,7 +8,7 @@ class GameSettingsContainer: UIView {
     var preview: ((HuntSettings) -> HuntSettingsPreview)?
     var onSettingsChanged: ((HuntSettings) -> Void)?
     var gameSettingsCells: [GameSettingsCell]?
-    var onApplyToAll: (() -> Void)?
+    var onApply: ((Int?) -> Void)?
 
     let shinyCharmCell = GameSettingsCell(title: "Shiny Charm", description: "Available from generation 5 and onwards", icon: PixelArt.makeCenteredImage(named: "Charm"), tag: 3)
     let lureCell = GameSettingsCell(title: "Lure", description: "Only available in Let's Go Pikachu & Eevee.", icon: PixelArt.makeCenteredImage(named: HuntMethod.Lure.rawValue), tag: 8)
@@ -19,7 +19,7 @@ class GameSettingsContainer: UIView {
     let chainFishingCell = GameSettingsCell(title: "Chain fishing", description: "Only available in X, Y, Omega Ruby and Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.ChainFishing.rawValue), tag: 4)
     let dexNavCell = GameSettingsCell(title: "DexNav", description: "Only available in Omega Ruby & Alpha Sapphire", icon: PixelArt.makeCenteredImage(named: HuntMethod.DexNav.rawValue), tag: 5)
     let friendSafariCell = GameSettingsCell(title: "Friend Safari", description: "Only available in X and Y", icon: PixelArt.makeCenteredImage(named: HuntMethod.FriendSafari.rawValue), tag: 6)
-    let applyToAllButton = UIButton.make(.tinted, title: "Apply to All Pokémon", symbolName: "square.stack.3d.down.right", symbolSize: 16)
+    let applyButton = UIButton.make(.tinted, title: "Apply to Other Pokémon", symbolName: "square.stack.3d.down.right", symbolSize: 16)
     let explanationLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
     fileprivate lazy var explanationFooter: UIView = {
         let wrapper = UIView()
@@ -54,7 +54,10 @@ class GameSettingsContainer: UIView {
         let charmCard = GameSettingsContainer.makeCardStack()
         charmCard.stack.addArrangedSubview(shinyCharmCell)
 
-        applyToAllButton.addTarget(self, action: #selector(applyToAllPressed), for: .touchUpInside)
+        applyButton.menu = UIMenu(children: [UIDeferredMenuElement.uncached { [weak self] completion in
+            completion(self?.makeApplyMenuItems() ?? [])
+        }])
+        applyButton.showsMenuAsPrimaryAction = true
 
         let stack = UIStackView(arrangedSubviews: [
             oddsCard,
@@ -62,7 +65,7 @@ class GameSettingsContainer: UIView {
             GameSettingsContainer.makeSectionHeader("Shiny Charm"), charmCard,
             GameSettingsContainer.makeSectionHeader("Hunt method"), methodsCard,
             unavailableHeader, unavailableCard,
-            applyToAllButton, explanationFooter
+            applyButton, explanationFooter
         ])
         stack.axis = .vertical
         stack.spacing = 6
@@ -71,14 +74,14 @@ class GameSettingsContainer: UIView {
         stack.setCustomSpacing(20, after: charmCard)
         stack.setCustomSpacing(20, after: methodsCard)
         stack.setCustomSpacing(24, after: unavailableCard)
-        stack.setCustomSpacing(8, after: applyToAllButton)
+        stack.setCustomSpacing(8, after: applyButton)
         addAutoLayoutSubviews(stack)
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
-            applyToAllButton.heightAnchor.constraint(equalToConstant: 50)
+            applyButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         setUIColors()
     }
@@ -252,8 +255,8 @@ class GameSettingsContainer: UIView {
     }
 
     func setExplanationLabelText() {
-        explanationLabel.text = pokemonName.map { "Changes here apply to \($0) straight away. Apply to All gives every Pokémon the same game and hunt settings." }
-            ?? "These settings don't change any Pokémon on their own. Apply to All gives every Pokémon this game and these hunt settings."
+        explanationLabel.text = pokemonName.map { "Changes here apply to \($0) straight away. Apply to Other Pokémon gives every Pokémon, or every Pokémon from one region, the same game and hunt settings." }
+            ?? "These settings don't change any Pokémon on their own. Apply to Other Pokémon gives every Pokémon, or every Pokémon from one region, this game and these hunt settings."
     }
 
     func updateUI(updatedSettings: HuntSettings, coverPokemon: String) {
@@ -380,8 +383,18 @@ class GameSettingsContainer: UIView {
         switchStateService.resolveHuntMethodSwitchState(settings: settings, huntMethodSwitch: dexNavCell.actionSwitch, huntMethod: .DexNav)
     }
 
-    @objc fileprivate func applyToAllPressed() {
-        onApplyToAll?()
+    fileprivate func makeApplyMenuItems() -> [UIMenuElement] {
+        let gameGeneration = GamesList.games[settings.game]?.generation ?? 0
+        let all = UIAction(title: "All Pokémon", image: UIImage(systemName: "square.stack.3d.down.right")) { [weak self] _ in self?.onApply?(nil) }
+        let regions = PokedexRegions.all.map { region -> UIAction in
+            let action = UIAction(title: "\(TextResolver().getGenTitle(gen: region)) Pokémon") { [weak self] _ in self?.onApply?(region) }
+            if PokedexRegions.findGeneration(ofRegion: region) > gameGeneration {
+                action.attributes = .disabled
+                action.subtitle = "Not in \(settings.game.displayName)"
+            }
+            return action
+        }
+        return [all, UIMenu(title: "Region", options: .displayInline, children: regions)]
     }
 }
 

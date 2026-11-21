@@ -125,10 +125,10 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
 
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return SectionHeaderView.make(for: tableView, title: self.tableView(tableView, titleForHeaderInSection: section))
+        return SectionHeaderView.make(for: tableView, title: makeHeaderTitle(for: section))
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    fileprivate func makeHeaderTitle(for section: Int) -> String? {
         switch Section(rawValue: section)! {
         case .name: return showsName ? "Name" : nil
         case .selected: return makeSelectionTitle()
@@ -231,7 +231,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
         tableView.beginUpdates()
         tableView.endUpdates()
         if let header = tableView.headerView(forSection: Section.selected.rawValue) as? SectionHeaderView {
-            header.configure(title: tableView(tableView, titleForHeaderInSection: Section.selected.rawValue))
+            header.configure(title: makeHeaderTitle(for: Section.selected.rawValue))
         }
     }
 

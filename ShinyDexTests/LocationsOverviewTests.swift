@@ -45,6 +45,24 @@ final class LocationsOverviewTests: XCTestCase {
         XCTAssertEqual(overview.bestGames.map { $0.game }, [.Red, .Yellow])
     }
 
+    func test_huntingGame_isPickedOut_whenThePokemonCanBeCaughtThere() throws {
+        let repository = InMemoryPokemonRepository(names: ["A", "B", "C", "Pichu", "Pikachu"])
+        let pikachuPokemon = try XCTUnwrap(repository.get(number: pikachu))
+        pikachuPokemon.huntConfiguration = pikachuPokemon.huntConfiguration.selecting(.Gold)
+        repository.save(pikachuPokemon)
+        let gameAvailability = GameAvailability(dataByGame: [.Blue: GameAvailability.GameData(catchable: [], tradeOnly: [pikachu], isApproximate: false)])
+        let getLocations = GetPokemonLocationsHandler(pokemonRepository: repository, locations: PokemonLocations(), availability: gameAvailability,
+                                                      evolutions: Evolutions(evolvesFrom: []))
+        let handler = GetLocationsOverviewHandler(pokemonRepository: repository, getPokemonLocations: getLocations,
+                                                  getGameChoices: GetGameChoicesHandler(availability: gameAvailability))
+
+        XCTAssertEqual(try XCTUnwrap(handler.handle(GetLocationsOverviewQuery(number: pikachu))).huntingGameSummary?.game, .Gold)
+
+        pikachuPokemon.huntConfiguration = pikachuPokemon.huntConfiguration.selecting(.Blue)
+        repository.save(pikachuPokemon)
+        XCTAssertNil(try XCTUnwrap(handler.handle(GetLocationsOverviewQuery(number: pikachu))).huntingGameSummary, "Trade only in Blue")
+    }
+
     func test_smallTechniqueGains_areLeftOut() throws {
         let handler = makeHandler(locations: [.Gold: [pikachu: [makeEncounter(area: "Route 2", rate: 30, staticRate: 33)]]], availability: [:])
         let overview = try XCTUnwrap(handler.handle(GetLocationsOverviewQuery(number: pikachu)))

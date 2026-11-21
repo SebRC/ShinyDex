@@ -165,7 +165,7 @@ class OddsSimulatorVC: UIViewController {
             self?.settings = settings
             self?.refresh()
         }
-        gameSettingsContainer.applyToAllButton.isHidden = true
+        gameSettingsContainer.applyButton.isHidden = true
         gameSettingsContainer.setGame(coverPokemon: GamesList.games[settings.game]?.coverPokemon ?? "charizard")
         gameSettingsContainer.resolveUIObjectsState()
         gameSettingsContainer.setShinyOddsLabelText()

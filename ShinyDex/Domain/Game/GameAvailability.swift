@@ -22,8 +22,8 @@ struct GameAvailability {
     }
 
     static func findIntroducedGeneration(of number: Int) -> Int? {
-        guard let region = (0...9).first(where: { PokedexRegions.getNumbers(inRegion: $0)?.contains(number) == true }) else { return nil }
-        return region < 8 ? region + 1 : region
+        guard let region = PokedexRegions.all.first(where: { PokedexRegions.getNumbers(inRegion: $0)?.contains(number) == true }) else { return nil }
+        return PokedexRegions.findGeneration(ofRegion: region)
     }
 
     func findAvailability(of number: Int, in game: Games) -> PokemonAvailability {

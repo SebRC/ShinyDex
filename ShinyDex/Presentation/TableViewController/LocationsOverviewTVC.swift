@@ -5,6 +5,7 @@ class LocationsOverviewTVC: UITableViewController {
         let title: String
         let footer: String?
         let games: [LocationsOverview.GameSummary]
+        var tagsHuntingGame = true
     }
 
     fileprivate static let bestGameCount = 3
@@ -51,6 +52,9 @@ class LocationsOverviewTVC: UITableViewController {
     fileprivate func makeSections() -> [Section] {
         guard let overview = overview else { return [] }
         var sections = [Section]()
+        if let huntingGame = overview.huntingGameSummary {
+            sections.append(Section(title: "Your hunt game", footer: nil, games: [huntingGame], tagsHuntingGame: false))
+        }
         let bestGames = Array(overview.bestGames.prefix(LocationsOverviewTVC.bestGameCount))
         if !bestGames.isEmpty {
             sections.append(Section(title: "Best odds", footer: "Rates are per encounter, with the lead technique that helps most.", games: bestGames))
@@ -82,8 +86,9 @@ class LocationsOverviewTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameLocationCell.reuseIdentifier, for: indexPath) as! GameLocationCell
-        let summary = sections[indexPath.section].games[indexPath.row]
-        cell.configure(summary: summary, isHuntingGame: summary.game == overview?.huntingGame)
+        let section = sections[indexPath.section]
+        let summary = section.games[indexPath.row]
+        cell.configure(summary: summary, isHuntingGame: section.tagsHuntingGame && summary.game == overview?.huntingGame)
         return cell
     }
 

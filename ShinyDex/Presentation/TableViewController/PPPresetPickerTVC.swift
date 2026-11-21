@@ -57,10 +57,10 @@ class PPPresetPickerTVC: UITableViewController, UISearchResultsUpdating {
 
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return SectionHeaderView.make(for: tableView, title: self.tableView(tableView, titleForHeaderInSection: section))
+        return SectionHeaderView.make(for: tableView, title: makeHeaderTitle(for: section))
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    fileprivate func makeHeaderTitle(for section: Int) -> String? {
         return sections[section].game
     }
 

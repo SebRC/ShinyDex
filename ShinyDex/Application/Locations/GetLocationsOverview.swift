@@ -45,6 +45,10 @@ struct LocationsOverview: Equatable {
     let huntingGame: Games
     let games: [GameSummary]
 
+    var huntingGameSummary: GameSummary? {
+        return games.first { $0.game == huntingGame && $0.availability == .catchable }
+    }
+
     var bestGames: [GameSummary] {
         return games.enumerated()
             .filter { $0.element.availability == .catchable && $0.element.bestPlace != nil }
