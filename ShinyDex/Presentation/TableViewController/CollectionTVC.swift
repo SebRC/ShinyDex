@@ -218,9 +218,30 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        showDetails(of: visibleEntries[indexPath.item])
+    }
+
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let indexPath = indexPaths.first, indexPaths.count == 1 else { return nil }
         let entry = visibleEntries[indexPath.item]
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+            UIMenu(children: [
+                UIAction(title: "View Details", image: UIImage(systemName: "info.circle")) { _ in self?.showDetails(of: entry) },
+                UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in self?.confirmDelete(entry) }
+            ])
+        }
+    }
+
+    fileprivate func showDetails(of entry: Entry) {
         guard let detail = CatchDetailTVC(container: container, catchId: entry.id) else { return }
         navigationController?.pushViewController(detail, animated: true)
+    }
+
+    fileprivate func confirmDelete(_ entry: Entry) {
+        presentDeleteCatchConfirmation(for: entry) { [weak self] in
+            self?.container.deleteCatch.handle(DeleteCatchCommand(catchId: entry.id))
+            self?.reloadEntries()
+        }
     }
 }
 

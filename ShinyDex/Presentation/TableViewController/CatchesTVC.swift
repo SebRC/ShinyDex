@@ -69,29 +69,43 @@ class CatchesTVC: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		guard let detail = CatchDetailTVC(container: container, catchId: catches[indexPath.row].id) else { return }
-		navigationController?.pushViewController(detail, animated: true)
+		showDetails(of: catches[indexPath.row])
 	}
 
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completion in
 			guard let self = self else { return completion(false) }
-			let caught = self.catches[indexPath.row]
-			let description = caught.isFailed ? "The \(self.pokemonName) that got away in" : "The \(caught.ballName) \(self.pokemonName) from"
-			self.presentDestructiveConfirmation(title: caught.isFailed ? "Delete this entry?" : "Delete this catch?",
-												message: "\(description) \(caught.game.displayName) will be removed. This can't be undone.",
-												destructiveTitle: "Delete") { [weak self] in
-				guard let self = self, let index = self.catches.firstIndex(where: { $0.id == caught.id }) else { return }
-				self.container.deleteCatch.handle(DeleteCatchCommand(catchId: caught.id))
-				self.catches.remove(at: index)
-				self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-				self.updateEmptyState()
-			}
+			self.confirmDelete(self.catches[indexPath.row])
 			completion(false)
 		}
 		deleteAction.image = UIImage(systemName: "trash")
 		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
 		configuration.performsFirstActionWithFullSwipe = false
 		return configuration
+	}
+
+	override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+		let caught = catches[indexPath.row]
+		return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+			UIMenu(children: [
+				UIAction(title: "View Details", image: UIImage(systemName: "info.circle")) { _ in self?.showDetails(of: caught) },
+				UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in self?.confirmDelete(caught) }
+			])
+		}
+	}
+
+	fileprivate func showDetails(of caught: CatchSummary) {
+		guard let detail = CatchDetailTVC(container: container, catchId: caught.id) else { return }
+		navigationController?.pushViewController(detail, animated: true)
+	}
+
+	fileprivate func confirmDelete(_ caught: CatchSummary) {
+		presentDeleteCatchConfirmation(for: caught) { [weak self] in
+			guard let self = self, let index = self.catches.firstIndex(where: { $0.id == caught.id }) else { return }
+			self.container.deleteCatch.handle(DeleteCatchCommand(catchId: caught.id))
+			self.catches.remove(at: index)
+			self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+			self.updateEmptyState()
+		}
 	}
 }
