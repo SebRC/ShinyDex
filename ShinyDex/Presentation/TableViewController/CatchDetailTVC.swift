@@ -7,6 +7,7 @@ class CatchDetailTVC: UITableViewController {
         case about
         case details
         case training
+        case delete
     }
 
     fileprivate enum AboutRow: CaseIterable {
@@ -157,6 +158,7 @@ class CatchDetailTVC: UITableViewController {
         case .details: return UITableView.automaticDimension
         case .about: return aboutRows.isEmpty ? 4 : UITableView.automaticDimension
         case .training: return trainingRows.isEmpty ? 4 : UITableView.automaticDimension
+        case .delete: return 24
         default: return 4
         }
     }
@@ -188,6 +190,30 @@ class CatchDetailTVC: UITableViewController {
             return makeTrainingCell(for: trainingRows[indexPath.row])
         case .details:
             return makeDetailCell(for: rows[indexPath.row])
+        case .delete:
+            return makeDeleteCell()
+        }
+    }
+
+    fileprivate func makeDeleteCell() -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        cell.backgroundColor = Color.Grey800
+        let selectedBackground = UIView()
+        selectedBackground.backgroundColor = Color.Grey700
+        cell.selectedBackgroundView = selectedBackground
+        cell.textLabel?.text = caught.isFailed ? "Delete Entry" : "Delete Catch"
+        cell.textLabel?.textColor = .systemRed
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        cell.accessibilityTraits = .button
+        return cell
+    }
+
+    fileprivate func confirmDelete() {
+        presentDeleteCatchConfirmation(for: caught) { [weak self] in
+            guard let self = self else { return }
+            self.container.deleteCatch.handle(DeleteCatchCommand(catchId: self.catchId))
+            self.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -278,11 +304,15 @@ class CatchDetailTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let section = Section(rawValue: indexPath.section)
-        return section == .details || section == .about || section == .training
+        return section == .details || section == .about || section == .training || section == .delete
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if (Section(rawValue: indexPath.section) == .delete) {
+            confirmDelete()
+            return
+        }
         if (Section(rawValue: indexPath.section) == .about) {
             switch aboutRows[indexPath.row] {
             case .form:

@@ -51,6 +51,24 @@ final class CatchHandlerTests: XCTestCase {
         XCTAssertFalse(remove.handle(RemoveLatestCatchCommand(number: bulbasaur)))
     }
 
+    func test_deleteCatch_removesOnlyThatCatch_andKeepsTheLatestBallOnThePokemon() {
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        log(bulbasaur, ball: "great", on: makeDay(4))
+        log(bulbasaur, ball: "dusk", on: makeDay(9))
+        let delete = DeleteCatchHandler(catchRepository: catches, pokemonRepository: pokemon)
+
+        delete.handle(DeleteCatchCommand(catchId: getSpeciesCatches(bulbasaur)[1].id))
+        XCTAssertEqual(getSpeciesCatches(bulbasaur).map { $0.caughtBall }, ["poke", "dusk"])
+        XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtBall, "dusk")
+
+        delete.handle(DeleteCatchCommand(catchId: getSpeciesCatches(bulbasaur)[1].id))
+        XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtBall, "poke", "Deleting the newest falls back to the next latest ball")
+
+        delete.handle(DeleteCatchCommand(catchId: getSpeciesCatches(bulbasaur)[0].id))
+        XCTAssertTrue(getSpeciesCatches(bulbasaur).isEmpty)
+        XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtDescription, "Not Caught")
+    }
+
     func test_updateCatch_changesTheCatch_andFailsCleanlyWhenTheSaveFails() throws {
         log(bulbasaur, ball: "poke", on: makeDay(1))
         let id = getSpeciesCatches(bulbasaur)[0].id

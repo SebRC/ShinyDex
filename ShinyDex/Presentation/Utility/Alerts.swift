@@ -68,3 +68,13 @@ fileprivate class TextFieldValidator: NSObject {
         onChange(textField.text ?? "")
     }
 }
+
+extension UIViewController {
+    func presentDeleteCatchConfirmation(for caught: CatchSummary, onConfirm: @escaping () -> Void) {
+        let description = caught.isFailed ? "The \(caught.speciesTitle) that got away in" : "The \(caught.ballName) \(caught.speciesTitle) from"
+        presentDestructiveConfirmation(title: caught.isFailed ? "Delete this entry?" : "Delete this catch?",
+                                       message: "\(description) \(caught.game.displayName) will be removed. This can't be undone.",
+                                       destructiveTitle: "Delete",
+                                       onConfirm: onConfirm)
+    }
+}
