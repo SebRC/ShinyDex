@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20100000000000000000004 /* OnThisDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000003 /* OnThisDayTests.swift */; };
+		B20100000000000000000002 /* GetOnThisDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* GetOnThisDay.swift */; };
 		B19900000000000000000006 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000005 /* ButtonStyles.swift */; };
 		B19900000000000000000004 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000003 /* SectionHeader.swift */; };
 		B19900000000000000000002 /* StatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000001 /* StatTile.swift */; };
@@ -338,6 +340,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20100000000000000000003 /* OnThisDayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayTests.swift; sourceTree = "<group>"; };
+		B20100000000000000000001 /* GetOnThisDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOnThisDay.swift; sourceTree = "<group>"; };
 		B19900000000000000000005 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		B19900000000000000000003 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		B19900000000000000000001 /* StatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTile.swift; sourceTree = "<group>"; };
@@ -1014,6 +1018,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B20100000000000000000003 /* OnThisDayTests.swift */,
 				B19600000000000000000007 /* EncounterMilestoneTests.swift */,
 				B1950000000000000000000D /* AutomaticBackupTests.swift */,
 				B19100000000000000000003 /* HuntLuckTextTests.swift */,
@@ -1192,6 +1197,7 @@
 		C28708F586654470EEAB0AC2 /* Catches */ = {
 			isa = PBXGroup;
 			children = (
+				B20100000000000000000001 /* GetOnThisDay.swift */,
 				2E95EBB23771B54EDBE87E9E /* CatchDTOs.swift */,
 				29D7FCD9A18484BFA27089B2 /* CaughtBallSync.swift */,
 				6C8AA5035B24F6F53B7896E3 /* DeleteCatch.swift */,
@@ -1601,6 +1607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20100000000000000000004 /* OnThisDayTests.swift in Sources */,
 				B19600000000000000000008 /* EncounterMilestoneTests.swift in Sources */,
 				B1950000000000000000000E /* AutomaticBackupTests.swift in Sources */,
 				B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */,
@@ -1659,6 +1666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20100000000000000000002 /* GetOnThisDay.swift in Sources */,
 				B19900000000000000000006 /* ButtonStyles.swift in Sources */,
 				B19900000000000000000004 /* SectionHeader.swift in Sources */,
 				B19900000000000000000002 /* StatTile.swift in Sources */,
