@@ -435,11 +435,11 @@ class CatchDetailTVC: UITableViewController {
     }
 
     fileprivate func showGamePicker() {
-        let games = Games.allCases
-        let items = games.map { IconGridItem(title: $0.displayName, image: GamesList.games[$0].flatMap { PixelArt.makeCenteredImage(named: $0.coverPokemon) }) }
-        showPicker(title: "Game", caption: "Caught in", items: items, columns: 3, currentIndex: games.firstIndex(of: caught.game)) { [weak self] index in
-            self?.save(.game(games[index]))
+        let choices = container.getGameChoices.handle(GetGameChoicesQuery(number: caught.number, keeping: caught.game))
+        let picker = GameSelector.make(choices: choices, selectedGame: caught.game, pokemonName: caught.pokemonName, caption: "Caught in") { [weak self] game in
+            self?.save(.game(game))
         }
+        navigationController?.pushViewController(picker, animated: true)
     }
 
     fileprivate func showMethodPicker() {

@@ -10,6 +10,8 @@ struct IconGridItem {
     let title: String
     let image: UIImage?
     var accessibilityLabel: String? = nil
+    var isDimmed = false
+    var detail: String? = nil
 }
 
 class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -44,6 +46,7 @@ class IconGridView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeLayout())
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
+        collectionView.contentInset.bottom = Spacing.extraLarge
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PokeballCell.self, forCellWithReuseIdentifier: PokeballCell.reuseIdentifier)
@@ -152,8 +155,11 @@ class GridPickerVC: UIViewController {
     let gridView: IconGridView
     fileprivate let onPick: (Int) -> Void
 
-    init(title: String, caption: String, items: [IconGridItem], columns: Int = 4, currentIndex: Int?, onPick: @escaping (Int) -> Void) {
+    fileprivate let legend: UIView?
+
+    init(title: String, caption: String, items: [IconGridItem], columns: Int = 4, currentIndex: Int?, legend: UIView? = nil, onPick: @escaping (Int) -> Void) {
         gridView = IconGridView(columns: columns)
+        self.legend = legend
         self.onPick = onPick
         super.init(nibName: nil, bundle: nil)
         self.title = title
@@ -177,8 +183,21 @@ class GridPickerVC: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
         view.addAutoLayoutSubviews(gridView)
+        let gridTop: NSLayoutYAxisAnchor
+        if let legend = legend {
+            view.addAutoLayoutSubviews(legend)
+            NSLayoutConstraint.activate([
+                legend.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Spacing.small),
+                legend.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.screenMargin),
+                legend.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.screenMargin)
+            ])
+            gridTop = legend.bottomAnchor
+        }
+        else {
+            gridTop = view.safeAreaLayoutGuide.topAnchor
+        }
         NSLayoutConstraint.activate([
-            gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            gridView.topAnchor.constraint(equalTo: gridTop, constant: 8),
             gridView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             gridView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             gridView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

@@ -62,7 +62,9 @@ class GameSettingsHostVC: UIViewController {
     }
 
     @objc fileprivate func gameButtonPressed() {
-        let selector = GameSelector.make(selectedGame: gameSettingsContainer.settings.game) { [weak self] game in
+        let currentGame = gameSettingsContainer.settings.game
+        let choices = container.getGameChoices.handle(GetGameChoicesQuery(number: pokemonNumber, keeping: currentGame))
+        let selector = GameSelector.make(choices: choices, selectedGame: currentGame, pokemonName: gameSettingsContainer.pokemonName) { [weak self] game in
             guard let self = self else { return }
             let preview = self.container.previewHuntSettings.handle(PreviewHuntSettingsQuery(settings: self.gameSettingsContainer.settings, chain: self.chain, selectingGame: game))
             self.save(preview.settings)

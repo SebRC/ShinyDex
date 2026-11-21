@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1760000000000000000000A /* GameAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000009 /* GameAvailabilityTests.swift */; };
+		B17600000000000000000008 /* gameAvailability.json in Resources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000007 /* gameAvailability.json */; };
+		B17600000000000000000006 /* GetGameChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000005 /* GetGameChoices.swift */; };
+		B17600000000000000000004 /* GameAvailabilityLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000003 /* GameAvailabilityLoader.swift */; };
+		B17600000000000000000002 /* GameAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000001 /* GameAvailability.swift */; };
 		B20100000000000000000004 /* OnThisDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000003 /* OnThisDayTests.swift */; };
 		B20100000000000000000002 /* GetOnThisDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* GetOnThisDay.swift */; };
 		B19900000000000000000006 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000005 /* ButtonStyles.swift */; };
@@ -340,6 +345,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B17600000000000000000009 /* GameAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAvailabilityTests.swift; sourceTree = "<group>"; };
+		B17600000000000000000007 /* gameAvailability.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gameAvailability.json; sourceTree = "<group>"; };
+		B17600000000000000000005 /* GetGameChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGameChoices.swift; sourceTree = "<group>"; };
+		B17600000000000000000003 /* GameAvailabilityLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAvailabilityLoader.swift; sourceTree = "<group>"; };
+		B17600000000000000000001 /* GameAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAvailability.swift; sourceTree = "<group>"; };
 		B20100000000000000000003 /* OnThisDayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayTests.swift; sourceTree = "<group>"; };
 		B20100000000000000000001 /* GetOnThisDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOnThisDay.swift; sourceTree = "<group>"; };
 		B19900000000000000000005 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
@@ -853,6 +863,7 @@
 		4AD4FFC37F71B6C1DBB4547E /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				B17600000000000000000001 /* GameAvailability.swift */,
 				51FC43E72887371F004EA69C /* Game.swift */,
 				51FC43E528873621004EA69C /* Games.swift */,
 			);
@@ -953,6 +964,7 @@
 		74800DB66393B78C353B2B60 /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				B17600000000000000000005 /* GetGameChoices.swift */,
 				B19600000000000000000003 /* ReachedMilestone.swift */,
 				C4A1A0000000000000000001 /* ChangeChain.swift */,
 				F0A1B2000000000000000003 /* GetPokemonForms.swift */,
@@ -983,6 +995,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B17600000000000000000003 /* GameAvailabilityLoader.swift */,
 				B1950000000000000000000B /* BookmarkedBackupFolder.swift */,
 				B18600000000000000000007 /* PPPresetsLoader.swift */,
 				B12600000000000000000007 /* BingoTemplatesLoader.swift */,
@@ -1018,6 +1031,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B17600000000000000000009 /* GameAvailabilityTests.swift */,
 				B20100000000000000000003 /* OnThisDayTests.swift */,
 				B19600000000000000000007 /* EncounterMilestoneTests.swift */,
 				B1950000000000000000000D /* AutomaticBackupTests.swift */,
@@ -1277,6 +1291,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B17600000000000000000007 /* gameAvailability.json */,
 				B1860000000000000000000D /* ppPresets.json */,
 				B1260000000000000000000B /* bingoTemplates.json */,
 				F0A1B2000000000000000009 /* forms.json */,
@@ -1546,6 +1561,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17600000000000000000008 /* gameAvailability.json in Resources */,
 				B1860000000000000000000E /* ppPresets.json in Resources */,
 				B1260000000000000000000C /* bingoTemplates.json in Resources */,
 				F0A1B200000000000000000A /* forms.json in Resources */,
@@ -1607,6 +1623,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1760000000000000000000A /* GameAvailabilityTests.swift in Sources */,
 				B20100000000000000000004 /* OnThisDayTests.swift in Sources */,
 				B19600000000000000000008 /* EncounterMilestoneTests.swift in Sources */,
 				B1950000000000000000000E /* AutomaticBackupTests.swift in Sources */,
@@ -1666,6 +1683,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B17600000000000000000006 /* GetGameChoices.swift in Sources */,
+				B17600000000000000000004 /* GameAvailabilityLoader.swift in Sources */,
+				B17600000000000000000002 /* GameAvailability.swift in Sources */,
 				B20100000000000000000002 /* GetOnThisDay.swift in Sources */,
 				B19900000000000000000006 /* ButtonStyles.swift in Sources */,
 				B19900000000000000000004 /* SectionHeader.swift in Sources */,
