@@ -65,6 +65,10 @@ final class CatchHeroCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func playSpriteAnimationOnce() {
+        spriteView.playAnimationOnce()
+    }
+
     func configure(pokemonName: String, spriteAssetName: String, nickname: String?, genderSymbol: String?, dateText: String, positionText: String?, isFailed: Bool) {
         badge.backgroundColor = isFailed ? Color.inactive : Color.accent
         badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"

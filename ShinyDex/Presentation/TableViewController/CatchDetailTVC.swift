@@ -51,6 +51,7 @@ class CatchDetailTVC: UITableViewController {
     fileprivate let cellIdentifier = "catchDetailCell"
     fileprivate var rows = [Row]()
     fileprivate var positionText: String?
+    fileprivate var hasAppeared = false
 
     init?(container: AppContainer, catchId: CatchID) {
         guard let details = container.getCatchDetails.handle(GetCatchDetailsQuery(catchId: catchId)) else { return nil }
@@ -75,6 +76,15 @@ class CatchDetailTVC: UITableViewController {
         tableView.register(CatchHeroCell.self, forCellReuseIdentifier: CatchHeroCell.reuseIdentifier)
         tableView.register(CatchStatsCell.self, forCellReuseIdentifier: CatchStatsCell.reuseIdentifier)
         reloadRows()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !hasAppeared && !UIAccessibility.isReduceMotionEnabled {
+            let heroCell = tableView.cellForRow(at: IndexPath(row: 0, section: Section.hero.rawValue)) as? CatchHeroCell
+            heroCell?.playSpriteAnimationOnce()
+        }
+        hasAppeared = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
