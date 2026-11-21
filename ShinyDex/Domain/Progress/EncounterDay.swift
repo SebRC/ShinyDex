@@ -22,6 +22,15 @@ struct EncounterDay: Hashable, Comparable {
         self.init(year: parts[0], month: parts[1], day: parts[2])
     }
 
+    func makeDate(in calendar: Calendar) -> Date? {
+        return calendar.date(from: DateComponents(year: year, month: month, day: day))
+    }
+
+    func adding(days: Int, calendar: Calendar) -> EncounterDay {
+        guard let date = makeDate(in: calendar), let shifted = calendar.date(byAdding: .day, value: days, to: date) else { return self }
+        return EncounterDay(containing: shifted, calendar: calendar)
+    }
+
     var isoDate: String {
         return String(format: "%04d-%02d-%02d", year, month, day)
     }

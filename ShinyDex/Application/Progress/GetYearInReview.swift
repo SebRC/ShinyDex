@@ -44,11 +44,13 @@ struct YearInReview: Equatable {
     let fullOddsLuck: CatchStatistics.Luck?
     let bestMonthForShinies: MonthCount?
     let favouriteGame: CatchStatistics.Usage<Games>?
-    let favouriteBall: CatchStatistics.Usage<String>?
+    let topBalls: [CatchStatistics.Usage<String>]
     let favouriteMethod: CatchStatistics.Usage<HuntMethod>?
 }
 
 final class GetYearInReviewHandler {
+    static let topBallCount = 3
+
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let yearlyGoalRepository: YearlyGoalRepository
@@ -107,7 +109,7 @@ final class GetYearInReviewHandler {
             bestMonthForShinies: stats.months.filter { $0.foundCount > 0 }.max { $0.foundCount < $1.foundCount || ($0.foundCount == $1.foundCount && $0.period > $1.period) }
                 .map { YearInReview.MonthCount(month: $0.period, count: $0.foundCount) },
             favouriteGame: stats.gameUsage.first.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
-            favouriteBall: stats.ballUsage.first.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
+            topBalls: stats.ballUsage.prefix(GetYearInReviewHandler.topBallCount).map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             favouriteMethod: stats.methodUsage.first.map { CatchStatistics.Usage(key: $0.key, count: $0.count) })
     }
 

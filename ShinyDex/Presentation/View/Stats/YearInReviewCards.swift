@@ -19,6 +19,7 @@ struct YearInReviewCards {
             review.unluckiestHunt.map(makeUnluckiestHunt),
             makeFullOddsLuck(),
             makeBestMonth(),
+            makeTopBalls(),
             makeFavourites()
         ].compactMap { $0 }
     }
@@ -132,21 +133,33 @@ struct YearInReviewCards {
     }
 
     fileprivate func makeFavourites() -> YearInReviewCardView.Content? {
-        var rows = [(title: String, value: String)]()
+        var rows = [YearInReviewCardView.Row]()
         if let game = review.favouriteGame {
-            rows.append(("Game", "\(game.key.displayName) · \(game.count.grouped)"))
-        }
-        if let ball = review.favouriteBall {
-            rows.append(("Ball", "\(BallGrid.getDisplayName(of: ball.key)) Ball · \(ball.count.grouped)"))
+            rows.append(YearInReviewCardView.Row(title: "Game", value: "\(game.key.displayName) · \(game.count.grouped)"))
         }
         if let method = review.favouriteMethod {
-            rows.append(("Method", "\(method.key.rawValue) · \(method.count.grouped)"))
+            rows.append(YearInReviewCardView.Row(title: "Method", value: "\(method.key.rawValue) · \(method.count.grouped)"))
         }
         guard !rows.isEmpty else { return nil }
         return YearInReviewCardView.Content(eyebrow: "Favourites",
-                                            image: review.favouriteBall.flatMap { UIImage(named: $0.key) },
+                                            image: review.favouriteGame.flatMap { GamesList.games[$0.key] }.flatMap { PixelArt.makeCenteredImage(named: $0.coverPokemon) },
                                             headline: "\(review.year)",
                                             title: "Your go-to picks",
+                                            message: nil,
+                                            rows: rows)
+    }
+
+    fileprivate func makeTopBalls() -> YearInReviewCardView.Content? {
+        guard let topBall = review.topBalls.first else { return nil }
+        let rows = review.topBalls.enumerated().map { index, ball in
+            YearInReviewCardView.Row(image: UIImage(named: ball.key),
+                                     title: "\(index + 1). \(BallGrid.getDisplayName(of: ball.key)) Ball",
+                                     value: ball.count == 1 ? "1 catch" : "\(ball.count.grouped) catches")
+        }
+        return YearInReviewCardView.Content(eyebrow: review.topBalls.count == 1 ? "Top Poké Ball" : "Top \(review.topBalls.count) Poké Balls",
+                                            podiumImages: review.topBalls.compactMap { UIImage(named: $0.key) },
+                                            headline: "\(BallGrid.getDisplayName(of: topBall.key)) Ball",
+                                            title: "your most used ball",
                                             message: nil,
                                             rows: rows)
     }

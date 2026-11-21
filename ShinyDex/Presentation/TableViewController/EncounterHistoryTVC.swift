@@ -2,7 +2,7 @@ import UIKit
 
 class EncounterHistoryTVC: UITableViewController {
     fileprivate enum Section: Int, CaseIterable {
-        case recent, summary, periods
+        case recent, calendar, summary, periods
     }
 
     fileprivate static let labelledDayInterval = 7
@@ -79,6 +79,10 @@ class EncounterHistoryTVC: UITableViewController {
             rows.append(("Average per active \(singularName)", average.grouped))
         }
         rows.append(("Active \(pluralName)", history.recorded.count.grouped))
+        if period == .day {
+            rows.append(("Current streak", EncounterHistoryTVC.formatDays(history.dayStreaks.current)))
+            rows.append(("Longest streak", EncounterHistoryTVC.formatDays(history.dayStreaks.longest)))
+        }
         return rows
     }
 
@@ -94,38 +98,46 @@ class EncounterHistoryTVC: UITableViewController {
         return singularName + "s"
     }
 
+    fileprivate var sections: [Section] {
+        guard history != nil else { return [] }
+        return Section.allCases.filter { $0 != .calendar || period == .day }
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return history == nil ? 0 : Section.allCases.count
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Section(rawValue: section)! {
-        case .recent: return 1
+        switch sections[section] {
+        case .recent, .calendar: return 1
         case .summary: return summaryRows.count
         case .periods: return history?.recorded.count ?? 0
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch Section(rawValue: section)! {
+        switch sections[section] {
         case .recent:
             let count = history?.recent.count ?? 0
             return period == .year ? "By year" : "Last \(count) \(count == 1 ? singularName : pluralName)"
+        case .calendar: return "Hunting calendar"
         case .summary: return "Summary"
         case .periods: return pluralName.capitalized
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard Section(rawValue: section) == .recent, let trackedSince = history?.trackedSince else { return nil }
+        guard sections[section] == .recent, let trackedSince = history?.trackedSince else { return nil }
         return "Tracked since \(DateFormatter.localizedString(from: trackedSince, dateStyle: .medium, timeStyle: .none))."
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let history = history else { return UITableViewCell() }
-        switch Section(rawValue: indexPath.section)! {
+        switch sections[indexPath.section] {
         case .recent:
             return makeChartCell(entries: history.recent)
+        case .calendar:
+            return makeCalendarCell(weeks: history.calendarWeeks)
         case .summary:
             let row = summaryRows[indexPath.row]
             return makeValueCell(title: row.title, value: row.value)
@@ -149,6 +161,19 @@ class EncounterHistoryTVC: UITableViewController {
         cell.contentView.addAutoLayoutSubviews(chart)
         chart.pinEdges(to: cell.contentView)
         return cell
+    }
+
+    fileprivate func makeCalendarCell(weeks: [[EncounterHistory.Entry?]]) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        cell.backgroundColor = Color.Grey800
+        let calendarView = HuntingCalendarView(weeks: weeks)
+        cell.contentView.addAutoLayoutSubviews(calendarView)
+        calendarView.pinEdges(to: cell.contentView)
+        return cell
+    }
+
+    fileprivate static func formatDays(_ count: Int) -> String {
+        return count == 1 ? "1 day" : "\(count.grouped) days"
     }
 
     fileprivate func makeChartLabel(for start: Date, stepsFromCurrent: Int) -> String? {

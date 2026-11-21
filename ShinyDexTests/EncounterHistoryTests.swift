@@ -105,6 +105,36 @@ final class EncounterHistoryTests: XCTestCase {
         XCTAssertEqual(history.trackedSince, makeDate(month: 6, day: 20))
     }
 
+    // MARK: Calendar and streaks
+
+    func test_dayStreaks_comeFromTheTrackedDays() {
+        record(10, day: 6)
+        record(10, day: 8)
+        record(10, day: 9)
+
+        let history = getHistory(now: makeDate(day: 10, hour: 12))
+
+        XCTAssertEqual(history.dayStreaks, EncounterHistory.DayStreaks(current: 2, longest: 2))
+    }
+
+    func test_calendar_isWholeWeeks_endingThisWeek_withFutureDaysEmpty() {
+        var mondayCalendar = calendar
+        mondayCalendar.firstWeekday = 2
+        record(42, day: 8)
+        let handler = GetEncounterHistoryHandler(dailyEncountersRepository: days, calendar: mondayCalendar, makeCurrentDate: { self.makeDate(day: 8, hour: 12) })
+
+        let weeks = handler.handle(GetEncounterHistoryQuery()).calendarWeeks
+
+        XCTAssertEqual(weeks.count, GetEncounterHistoryHandler.calendarWeekCount)
+        XCTAssertTrue(weeks.allSatisfy { $0.count == 7 })
+        let thisWeek = weeks.last!
+        XCTAssertEqual(thisWeek[0], entry(makeDate(day: 6), 0))
+        XCTAssertEqual(thisWeek[2], entry(makeDate(day: 8), 42))
+        XCTAssertNil(thisWeek[3])
+        XCTAssertNil(thisWeek[6])
+        XCTAssertEqual(weeks.first?.first, entry(makeDate(month: 1, day: 12), 0))
+    }
+
     // MARK: Months
 
     func test_months_sumTheirDays() {
