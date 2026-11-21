@@ -98,6 +98,8 @@ class SettingsVC: GameSettingsHostVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
+        contentStack.insertArrangedSubview(SettingsVC.makeGroupTitle("Hunt defaults"), at: 0)
+        contentStack.addArrangedSubview(SettingsVC.makeGroupTitle("Backup & data"))
         contentStack.addArrangedSubview(backupSettingsView)
         backupSettingsView.exportRow.addTarget(self, action: #selector(exportPressed), for: .touchUpInside)
         backupSettingsView.restoreRow.addTarget(self, action: #selector(restorePressed), for: .touchUpInside)
@@ -107,6 +109,16 @@ class SettingsVC: GameSettingsHostVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateAutomaticBackupStatus()
+    }
+
+    fileprivate static func makeGroupTitle(_ title: String) -> UIView {
+        let label = UILabel(style: .title3, weight: .bold)
+        label.text = title
+        label.accessibilityTraits = .header
+        let wrapper = UIView()
+        wrapper.addAutoLayoutSubviews(label)
+        label.pinEdges(to: wrapper, insets: UIEdgeInsets(top: Spacing.small, left: Spacing.small, bottom: 0, right: Spacing.small))
+        return wrapper
     }
 
     // MARK: Automatic backups

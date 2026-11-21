@@ -71,8 +71,12 @@ class MoveCell: UITableViewCell {
     }
 
     func configure(move: MoveSlot) {
-        nameLabel.text = move.name
-        typeLabel.text = move.type
+        let isPlaceholder = move.isPlaceholder
+        [ppBar, ppLabel, decrementButton, incrementButton].forEach { $0.isHidden = isPlaceholder }
+        typeIconView.isHidden = isPlaceholder
+        nameLabel.textColor = isPlaceholder ? Color.textTertiary : Color.textPrimary
+        nameLabel.text = isPlaceholder ? "Choose a move" : move.name
+        typeLabel.text = isPlaceholder ? "Tap to pick one, or use a preset" : move.type
         typeIconView.setType(move.type)
         ppLabel.text = "\(move.remainingPP)/\(move.maxPP) PP"
 
@@ -86,6 +90,11 @@ class MoveCell: UITableViewCell {
         decrementButton.isEnabled = move.remainingPP > 0
         incrementButton.accessibilityLabel = "Restore PP for \(move.name)"
         decrementButton.accessibilityLabel = "Use \(move.name)"
+        guard !isPlaceholder else {
+            accessibilityLabel = "Empty move slot. Tap to choose a move"
+            accessibilityCustomActions = nil
+            return
+        }
         accessibilityLabel = "\(move.name), \(move.type), \(move.remainingPP) of \(move.maxPP) PP"
         accessibilityCustomActions = [
             UIAccessibilityCustomAction(name: "Use move", target: self, selector: #selector(decrementAction)),

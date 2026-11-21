@@ -65,4 +65,9 @@ final class StartupAndMoveHandlerTests: XCTestCase {
         XCTAssertEqual(options.map { $0.name }, ["Absorb", "Vine whip"])
         XCTAssertEqual(options.first?.pp, 25)
     }
+
+    func test_moveSlots_namedNone_arePlaceholders() {
+        XCTAssertTrue(MoveSlot(name: "None", maxPP: 35, remainingPP: 35, type: "Normal").isPlaceholder)
+        XCTAssertFalse(MoveSlot(name: "Roar of time", maxPP: 5, remainingPP: 5, type: "Dragon").isPlaceholder)
+    }
 }

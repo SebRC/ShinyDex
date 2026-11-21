@@ -7,8 +7,6 @@ class BackupSettingsView: UIView {
 
     init() {
         super.init(frame: .zero)
-        let header = SectionHeaderLabel()
-        header.text = "BACKUP"
         let card = SettingsCard()
         card.stack.addArrangedSubview(automaticRow)
         card.stack.addArrangedSubview(BackupSettingsView.makeSeparator())
@@ -16,7 +14,7 @@ class BackupSettingsView: UIView {
         card.stack.addArrangedSubview(BackupSettingsView.makeSeparator())
         card.stack.addArrangedSubview(restoreRow)
 
-        let stack = UIStackView(arrangedSubviews: [header, card])
+        let stack = UIStackView(arrangedSubviews: [card])
         stack.axis = .vertical
         stack.spacing = 6
         addAutoLayoutSubviews(stack)

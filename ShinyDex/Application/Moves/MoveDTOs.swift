@@ -24,6 +24,10 @@ extension MoveSlot {
         self.init(name: move.name, maxPP: move.maxPP, remainingPP: move.remainingPP, type: move.type)
     }
 
+    var isPlaceholder: Bool {
+        return activeMove.isPlaceholder
+    }
+
     var activeMove: ActiveMove {
         return ActiveMove(name: name, maxPP: maxPP, remainingPP: remainingPP, type: type)
     }
