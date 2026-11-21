@@ -11,11 +11,12 @@ final class ExportBackupHandler {
     private let moveRepository: MoveRepository
     private let ledgerRepository: EncounterLedgerRepository
     private let yearlyGoalRepository: YearlyGoalRepository
+    private let dailyEncountersRepository: DailyEncountersRepository
     private let makeCurrentDate: () -> Date
 
     init(pokemonRepository: PokemonRepository, catchRepository: CatchRepository, huntRepository: HuntRepository, journeyRepository: JourneyRepository,
          bingoBoardRepository: BingoBoardRepository, moveRepository: MoveRepository, ledgerRepository: EncounterLedgerRepository,
-         yearlyGoalRepository: YearlyGoalRepository, makeCurrentDate: @escaping () -> Date = Date.init) {
+         yearlyGoalRepository: YearlyGoalRepository, dailyEncountersRepository: DailyEncountersRepository, makeCurrentDate: @escaping () -> Date = Date.init) {
         self.pokemonRepository = pokemonRepository
         self.catchRepository = catchRepository
         self.huntRepository = huntRepository
@@ -24,6 +25,7 @@ final class ExportBackupHandler {
         self.moveRepository = moveRepository
         self.ledgerRepository = ledgerRepository
         self.yearlyGoalRepository = yearlyGoalRepository
+        self.dailyEncountersRepository = dailyEncountersRepository
         self.makeCurrentDate = makeCurrentDate
     }
 
@@ -38,6 +40,7 @@ final class ExportBackupHandler {
             activeMoves: moveRepository.getActiveMoves(),
             encounterLedger: ledgerRepository.get(),
             yearlyGoals: yearlyGoalRepository.getAll(),
+            dailyEncounters: dailyEncountersRepository.getAll(),
             createdDate: createdDate)
         return BackupFile(fileName: ExportBackupHandler.makeFileName(for: createdDate), data: try document.encode())
     }

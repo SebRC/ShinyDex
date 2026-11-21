@@ -216,6 +216,26 @@ final class InMemoryYearlyGoalRepository: YearlyGoalRepository {
     }
 }
 
+final class InMemoryDailyEncountersRepository: DailyEncountersRepository {
+    private(set) var stored = [EncounterDay: DailyEncounters]()
+
+    func get(day: EncounterDay) -> DailyEncounters? {
+        return stored[day]
+    }
+
+    func getAll() -> [DailyEncounters] {
+        return stored.values.sorted { $0.day < $1.day }
+    }
+
+    func save(_ encounters: DailyEncounters) {
+        stored[encounters.day] = encounters
+    }
+
+    func replaceAll(with encounters: [DailyEncounters]) {
+        stored = Dictionary(encounters.map { ($0.day, $0) }, uniquingKeysWith: { _, last in last })
+    }
+}
+
 final class InMemoryKeyValueStore: KeyValueStore {
     private(set) var values = [String: Bool]()
 

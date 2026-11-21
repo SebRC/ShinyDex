@@ -478,6 +478,25 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(CoreDataYearlyGoalRepository(managedContext: store.context).getAll(), [YearlyGoal(year: 2026, target: 35)])
     }
 
+    func test_dailyEncounters_surviveSaveAndReload_withOneRowPerDay() throws {
+        let repository = CoreDataDailyEncountersRepository(managedContext: store.context)
+        let first = EncounterDay(year: 2026, month: 11, day: 20), second = EncounterDay(year: 2026, month: 11, day: 21)
+        repository.save(DailyEncounters(day: second, count: 4))
+        repository.save(DailyEncounters(day: first, count: 30))
+        repository.save(DailyEncounters(day: second, count: 9))
+
+        try store.reopen()
+        let reloaded = CoreDataDailyEncountersRepository(managedContext: store.context)
+
+        XCTAssertEqual(reloaded.getAll(), [DailyEncounters(day: first, count: 30), DailyEncounters(day: second, count: 9)])
+        XCTAssertEqual(reloaded.get(day: second)?.count, 9)
+        XCTAssertEqual(fetchRawRows("DailyEncounterEntity").map { $0.value(forKey: "day") as? String }.sorted { ($0 ?? "") < ($1 ?? "") }, ["2026-11-20", "2026-11-21"])
+
+        reloaded.replaceAll(with: [DailyEncounters(day: first, count: 1)])
+        try store.reopen()
+        XCTAssertEqual(CoreDataDailyEncountersRepository(managedContext: store.context).getAll(), [DailyEncounters(day: first, count: 1)])
+    }
+
     // MARK: Data safety
 
     func test_journey_withUnreadableStoredEntries_isNotOverwritten() throws {

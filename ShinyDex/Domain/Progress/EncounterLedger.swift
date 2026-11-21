@@ -13,11 +13,19 @@ final class EncounterLedger {
         self.init(total: 0, trackedSince: date)
     }
 
-    func count(_ encounters: Int) {
-        total += max(encounters, 0)
+    @discardableResult
+    func count(_ encounters: Int) -> Int {
+        return changeTotal(to: total + max(encounters, 0))
     }
 
-    func uncount(_ encounters: Int, keepingAtLeast floor: Int) {
-        total = max(total - max(encounters, 0), min(floor, total))
+    @discardableResult
+    func uncount(_ encounters: Int, keepingAtLeast floor: Int) -> Int {
+        return changeTotal(to: max(total - max(encounters, 0), min(floor, total)))
+    }
+
+    private func changeTotal(to newTotal: Int) -> Int {
+        let change = newTotal - total
+        total = newTotal
+        return change
     }
 }

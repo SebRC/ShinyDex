@@ -9,4 +9,5 @@ struct Backup {
     let activeMoves: ActiveMoves?
     var encounterLedger: EncounterLedger? = nil
     var yearlyGoals: [YearlyGoal]? = nil
+    var dailyEncounters: [DailyEncounters]? = nil
 }
