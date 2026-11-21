@@ -4,6 +4,7 @@ final class AppContainer {
     let coreDataStack: CoreDataStack
     let resourceLoader: ResourceLoader
     let keyValueStore: KeyValueStore
+    let backupFolder: BackupFolder
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -21,8 +22,9 @@ final class AppContainer {
     let dailyEncountersRepository: DailyEncountersRepository
     let backupRepository: BackupRepository
 
-    init(coreDataStack: CoreDataStack, resourceLoader: ResourceLoader, keyValueStore: KeyValueStore, locationLinkProvider: LocationLinkProvider) {
+    init(coreDataStack: CoreDataStack, resourceLoader: ResourceLoader, keyValueStore: KeyValueStore, locationLinkProvider: LocationLinkProvider, backupFolder: BackupFolder) {
         self.coreDataStack = coreDataStack
+        self.backupFolder = backupFolder
         self.resourceLoader = resourceLoader
         self.keyValueStore = keyValueStore
         self.locationLinkProvider = locationLinkProvider
@@ -123,6 +125,10 @@ final class AppContainer {
 
     var exportBackup: ExportBackupHandler { ExportBackupHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, huntRepository: huntRepository, journeyRepository: journeyRepository, bingoBoardRepository: bingoBoardRepository, moveRepository: moveRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository) }
     var getBackupSummary: GetBackupSummaryHandler { GetBackupSummaryHandler() }
+    var runAutomaticBackup: RunAutomaticBackupHandler { RunAutomaticBackupHandler(exportBackup: exportBackup, backupFolder: backupFolder, keyValueStore: keyValueStore) }
+    var getAutomaticBackupStatus: GetAutomaticBackupStatusHandler { GetAutomaticBackupStatusHandler(backupFolder: backupFolder, keyValueStore: keyValueStore) }
+    var chooseBackupFolder: ChooseBackupFolderHandler { ChooseBackupFolderHandler(backupFolder: backupFolder, keyValueStore: keyValueStore) }
+    var turnOffAutomaticBackups: TurnOffAutomaticBackupsHandler { TurnOffAutomaticBackupsHandler(backupFolder: backupFolder, keyValueStore: keyValueStore) }
     var restoreBackup: RestoreBackupHandler { RestoreBackupHandler(backupRepository: backupRepository, pokemonRepository: pokemonRepository) }
 
     // MARK: Menu and startup
@@ -143,6 +149,7 @@ final class AppContainer {
             coreDataStack: coreDataStack,
             resourceLoader: BundleResourceLoader(),
             keyValueStore: UserDefaultsStore(),
-            locationLinkProvider: SerebiiLocationLinkProvider())
+            locationLinkProvider: SerebiiLocationLinkProvider(),
+            backupFolder: BookmarkedBackupFolder())
     }
 }

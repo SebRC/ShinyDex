@@ -1,6 +1,7 @@
 import UIKit
 
 class BackupSettingsView: UIView {
+    let automaticRow = BackupActionRow(title: "Automatic backups", description: "", symbolName: "clock.arrow.circlepath")
     let exportRow = BackupActionRow(title: "Export backup", description: "Save catches, hunts, journeys and bingo boards to a file", symbolName: "square.and.arrow.up")
     let restoreRow = BackupActionRow(title: "Restore from backup", description: "Replace all current data with a backup file", symbolName: "arrow.counterclockwise")
 
@@ -9,6 +10,8 @@ class BackupSettingsView: UIView {
         let header = SectionHeaderLabel()
         header.text = "BACKUP"
         let card = SettingsCard()
+        card.stack.addArrangedSubview(automaticRow)
+        card.stack.addArrangedSubview(BackupSettingsView.makeSeparator())
         card.stack.addArrangedSubview(exportRow)
         card.stack.addArrangedSubview(BackupSettingsView.makeSeparator())
         card.stack.addArrangedSubview(restoreRow)
@@ -73,6 +76,12 @@ class BackupActionRow: UIControl {
         isAccessibilityElement = true
         accessibilityTraits = .button
         accessibilityLabel = title
+        accessibilityHint = description
+    }
+
+    func setDescription(_ description: String, isWarning: Bool = false) {
+        descriptionLabel.text = description
+        descriptionLabel.textColor = isWarning ? Color.Orange500 : Color.Grey400
         accessibilityHint = description
     }
 

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1950000000000000000000E /* AutomaticBackupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1950000000000000000000D /* AutomaticBackupTests.swift */; };
+		B1950000000000000000000C /* BookmarkedBackupFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1950000000000000000000B /* BookmarkedBackupFolder.swift */; };
+		B1950000000000000000000A /* GetAutomaticBackupStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000009 /* GetAutomaticBackupStatus.swift */; };
+		B19500000000000000000008 /* TurnOffAutomaticBackups.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000007 /* TurnOffAutomaticBackups.swift */; };
+		B19500000000000000000006 /* ChooseBackupFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000005 /* ChooseBackupFolder.swift */; };
+		B19500000000000000000004 /* RunAutomaticBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000003 /* RunAutomaticBackup.swift */; };
+		B19500000000000000000002 /* BackupFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000001 /* BackupFolder.swift */; };
 		B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000003 /* HuntLuckTextTests.swift */; };
 		B19100000000000000000002 /* HuntLuckText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000001 /* HuntLuckText.swift */; };
 		B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000005 /* HuntingDayStreaksTests.swift */; };
@@ -322,6 +329,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B1950000000000000000000D /* AutomaticBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticBackupTests.swift; sourceTree = "<group>"; };
+		B1950000000000000000000B /* BookmarkedBackupFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkedBackupFolder.swift; sourceTree = "<group>"; };
+		B19500000000000000000009 /* GetAutomaticBackupStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAutomaticBackupStatus.swift; sourceTree = "<group>"; };
+		B19500000000000000000007 /* TurnOffAutomaticBackups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnOffAutomaticBackups.swift; sourceTree = "<group>"; };
+		B19500000000000000000005 /* ChooseBackupFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBackupFolder.swift; sourceTree = "<group>"; };
+		B19500000000000000000003 /* RunAutomaticBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAutomaticBackup.swift; sourceTree = "<group>"; };
+		B19500000000000000000001 /* BackupFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupFolder.swift; sourceTree = "<group>"; };
 		B19100000000000000000003 /* HuntLuckTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckTextTests.swift; sourceTree = "<group>"; };
 		B19100000000000000000001 /* HuntLuckText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckText.swift; sourceTree = "<group>"; };
 		B19000000000000000000005 /* HuntingDayStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaksTests.swift; sourceTree = "<group>"; };
@@ -945,6 +959,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B1950000000000000000000B /* BookmarkedBackupFolder.swift */,
 				B18600000000000000000007 /* PPPresetsLoader.swift */,
 				B12600000000000000000007 /* BingoTemplatesLoader.swift */,
 				F0A1B2000000000000000005 /* PokemonFormsLoader.swift */,
@@ -979,6 +994,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B1950000000000000000000D /* AutomaticBackupTests.swift */,
 				B19100000000000000000003 /* HuntLuckTextTests.swift */,
 				B19000000000000000000005 /* HuntingDayStreaksTests.swift */,
 				B18900000000000000000009 /* YearInReviewTests.swift */,
@@ -1301,6 +1317,7 @@
 		FFEB6BB220ADEBFAFB386D38 /* Ports */ = {
 			isa = PBXGroup;
 			children = (
+				B19500000000000000000001 /* BackupFolder.swift */,
 				0D05946C93D560F974F136F6 /* ResourceLoader.swift */,
 				76301EB632A48CAFE83A452B /* KeyValueStore.swift */,
 				FE694C66BBFA0608E20E1FEC /* LocationLinkProvider.swift */,
@@ -1359,6 +1376,10 @@
 		BAC0B0000000000000000018 /* Backup */ = {
 			isa = PBXGroup;
 			children = (
+				B19500000000000000000009 /* GetAutomaticBackupStatus.swift */,
+				B19500000000000000000007 /* TurnOffAutomaticBackups.swift */,
+				B19500000000000000000005 /* ChooseBackupFolder.swift */,
+				B19500000000000000000003 /* RunAutomaticBackup.swift */,
 				BAC0B0000000000000000005 /* BackupDocument.swift */,
 				BAC0B0000000000000000007 /* BackupDTOs.swift */,
 				BAC0B0000000000000000009 /* ExportBackup.swift */,
@@ -1553,6 +1574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1950000000000000000000E /* AutomaticBackupTests.swift in Sources */,
 				B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */,
 				B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */,
 				B1890000000000000000000A /* YearInReviewTests.swift in Sources */,
@@ -1609,6 +1631,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1950000000000000000000C /* BookmarkedBackupFolder.swift in Sources */,
+				B1950000000000000000000A /* GetAutomaticBackupStatus.swift in Sources */,
+				B19500000000000000000008 /* TurnOffAutomaticBackups.swift in Sources */,
+				B19500000000000000000006 /* ChooseBackupFolder.swift in Sources */,
+				B19500000000000000000004 /* RunAutomaticBackup.swift in Sources */,
+				B19500000000000000000002 /* BackupFolder.swift in Sources */,
 				B19100000000000000000002 /* HuntLuckText.swift in Sources */,
 				B19000000000000000000004 /* HuntingCalendarView.swift in Sources */,
 				B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */,

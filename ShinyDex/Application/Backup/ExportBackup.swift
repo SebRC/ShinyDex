@@ -3,6 +3,8 @@ import Foundation
 struct ExportBackupQuery {}
 
 final class ExportBackupHandler {
+    static let backupFileNamePrefix = "ShinyDex Backup "
+
     private let pokemonRepository: PokemonRepository
     private let catchRepository: CatchRepository
     private let huntRepository: HuntRepository
@@ -45,10 +47,14 @@ final class ExportBackupHandler {
         return BackupFile(fileName: ExportBackupHandler.makeFileName(for: createdDate), data: try document.encode())
     }
 
+    static func isBackupFileName(_ fileName: String) -> Bool {
+        return fileName.hasPrefix(backupFileNamePrefix) && fileName.hasSuffix(".json")
+    }
+
     static func makeFileName(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd"
-        return "ShinyDex Backup \(formatter.string(from: date)).json"
+        return "\(backupFileNamePrefix)\(formatter.string(from: date)).json"
     }
 }

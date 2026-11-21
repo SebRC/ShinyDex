@@ -85,6 +85,7 @@ class GameSettingsHostVC: UIViewController {
 
 class SettingsVC: GameSettingsHostVC {
     fileprivate let backupSettingsView = BackupSettingsView()
+    fileprivate var backupFolderPicker: UIDocumentPickerViewController?
 
     init(container: AppContainer) {
         super.init(container: container, pokemon: nil)
@@ -100,6 +101,86 @@ class SettingsVC: GameSettingsHostVC {
         contentStack.addArrangedSubview(backupSettingsView)
         backupSettingsView.exportRow.addTarget(self, action: #selector(exportPressed), for: .touchUpInside)
         backupSettingsView.restoreRow.addTarget(self, action: #selector(restorePressed), for: .touchUpInside)
+        backupSettingsView.automaticRow.addTarget(self, action: #selector(automaticBackupsPressed), for: .touchUpInside)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateAutomaticBackupStatus()
+    }
+
+    // MARK: Automatic backups
+
+    fileprivate func updateAutomaticBackupStatus() {
+        let status = container.getAutomaticBackupStatus.handle(GetAutomaticBackupStatusQuery())
+        guard let folderName = status.folderName else {
+            backupSettingsView.automaticRow.setDescription("Off. Choose a folder, like one in iCloud Drive, for a weekly backup")
+            return
+        }
+        if status.lastBackupFailed {
+            backupSettingsView.automaticRow.setDescription("Couldn't save to \u{201C}\(folderName)\u{201D}. Tap to choose the folder again", isWarning: true)
+            return
+        }
+        let lastBackup = status.lastBackupDate.map { " · Last backup \(SettingsVC.formatRelativeDay($0))" } ?? ""
+        backupSettingsView.automaticRow.setDescription("Weekly to \u{201C}\(folderName)\u{201D}\(lastBackup)")
+    }
+
+    fileprivate static func formatRelativeDay(_ date: Date) -> String {
+        let calendar = Calendar.current
+        if calendar.isDateInToday(date) { return "today" }
+        if calendar.isDateInYesterday(date) { return "yesterday" }
+        let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: date), to: calendar.startOfDay(for: Date())).day ?? 0
+        return "\(days) days ago"
+    }
+
+    @objc fileprivate func automaticBackupsPressed() {
+        let status = container.getAutomaticBackupStatus.handle(GetAutomaticBackupStatusQuery())
+        guard status.isOn, !status.lastBackupFailed else {
+            chooseBackupFolder()
+            return
+        }
+        let sheet = UIAlertController(title: "Automatic backups", message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(UIAlertAction(title: "Back Up Now", style: .default) { [weak self] _ in self?.backUpNow() })
+        sheet.addAction(UIAlertAction(title: "Change Folder", style: .default) { [weak self] _ in self?.chooseBackupFolder() })
+        sheet.addAction(UIAlertAction(title: "Turn Off", style: .destructive) { [weak self] _ in
+            self?.container.turnOffAutomaticBackups.handle(TurnOffAutomaticBackupsCommand())
+            self?.updateAutomaticBackupStatus()
+        })
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        sheet.view.tintColor = Color.Orange500
+        sheet.popoverPresentationController?.sourceView = backupSettingsView.automaticRow
+        sheet.popoverPresentationController?.sourceRect = backupSettingsView.automaticRow.bounds
+        present(sheet, animated: true)
+    }
+
+    fileprivate func chooseBackupFolder() {
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.folder])
+        picker.delegate = self
+        picker.allowsMultipleSelection = false
+        backupFolderPicker = picker
+        present(picker, animated: true)
+    }
+
+    fileprivate func useBackupFolder(_ folderURL: URL) {
+        do {
+            try container.chooseBackupFolder.handle(ChooseBackupFolderCommand(folderURL: folderURL))
+            backUpNow()
+        }
+        catch {
+            presentBackupError(title: "Couldn't use that folder", message: "ShinyDex wasn't given access to the folder. Please choose another one.")
+        }
+    }
+
+    fileprivate func backUpNow() {
+        let outcome = container.runAutomaticBackup.handle(RunAutomaticBackupCommand(isForced: true))
+        updateAutomaticBackupStatus()
+        if outcome == .backedUp {
+            Haptics.playSuccess()
+            popupHandler.showPopup(text: "Backup saved.")
+        }
+        else {
+            presentBackupError(title: "Couldn't save backup", message: "The backup folder couldn't be reached. Try choosing it again.")
+        }
     }
 
     // MARK: Backup
@@ -184,7 +265,18 @@ class SettingsVC: GameSettingsHostVC {
 
 extension SettingsVC: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let fileURL = urls.first else { return }
-        confirmRestore(from: fileURL)
+        guard let url = urls.first else { return }
+        if controller === backupFolderPicker {
+            backupFolderPicker = nil
+            useBackupFolder(url)
+            return
+        }
+        confirmRestore(from: url)
+    }
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        if controller === backupFolderPicker {
+            backupFolderPicker = nil
+        }
     }
 }
