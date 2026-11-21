@@ -10,9 +10,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
 
     fileprivate let createHuntButton = HuntsTVC.makeCreateHuntButton()
-    fileprivate let rearrangeHuntsButton = HuntsTVC.makeRearrangeHuntsButton()
     fileprivate let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    fileprivate var clearCurrentHuntButton: UIBarButtonItem!
+    fileprivate let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: nil)
 
     init(container: AppContainer) {
         self.container = container
@@ -43,11 +42,8 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         view.backgroundColor = Color.Grey900
         navigationItem.title = "Hunts"
         createHuntButton.accessibilityLabel = "Create hunt"
-        rearrangeHuntsButton.accessibilityLabel = "Rearrange hunts"
-        clearCurrentHuntButton.accessibilityLabel = "Clear all hunts"
-        rearrangeHuntsButton.isEnabled = hunts.count > 1
-        setRearrangeButtonState()
-        setClearHuntButtonState()
+        moreButton.accessibilityLabel = "More"
+        updateMoreMenu()
     }
 
     fileprivate static func makeCreateHuntButton() -> UIButton {
@@ -68,34 +64,18 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return button
     }
 
-    fileprivate static func makeRearrangeHuntsButton() -> UIButton {
-        var configuration = UIButton.Configuration.filled()
-        configuration.baseBackgroundColor = Color.Grey800
-        configuration.baseForegroundColor = Color.Grey200
-        configuration.cornerStyle = .large
-        configuration.image = UIImage.makeSymbol("arrow.up.arrow.down", pointSize: 18, weight: .semibold)
-        return UIButton(configuration: configuration)
-    }
-
     fileprivate func layOutViews() {
-        clearCurrentHuntButton = UIBarButtonItem(image: UIImage(systemName: "xmark.rectangle.fill"), style: .plain, target: self, action: #selector(clearCurrentHuntPressed))
-        navigationItem.rightBarButtonItem = clearCurrentHuntButton
+        navigationItem.rightBarButtonItem = moreButton
 
         createHuntButton.addTarget(self, action: #selector(createHuntButtonPressed), for: .touchUpInside)
-        rearrangeHuntsButton.addTarget(self, action: #selector(rearrangePressed), for: .touchUpInside)
 
-        view.addAutoLayoutSubviews(tableView, createHuntButton, rearrangeHuntsButton)
+        view.addAutoLayoutSubviews(tableView, createHuntButton)
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             createHuntButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
             createHuntButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             createHuntButton.heightAnchor.constraint(equalToConstant: 52),
-            createHuntButton.trailingAnchor.constraint(equalTo: rearrangeHuntsButton.leadingAnchor, constant: -10),
-
-            rearrangeHuntsButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
-            rearrangeHuntsButton.centerYAnchor.constraint(equalTo: createHuntButton.centerYAnchor),
-            rearrangeHuntsButton.widthAnchor.constraint(equalToConstant: 52),
-            rearrangeHuntsButton.heightAnchor.constraint(equalToConstant: 52),
+            createHuntButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
 
             tableView.topAnchor.constraint(equalTo: createHuntButton.bottomAnchor, constant: 8),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -113,12 +93,17 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         reloadData()
     }
 
-    fileprivate func setRearrangeButtonState() {
-        rearrangeHuntsButton.isEnabled = hunts.count > 1
-    }
-    
-    fileprivate func setClearHuntButtonState() {
-        clearCurrentHuntButton.isEnabled = !hunts.isEmpty
+    fileprivate func updateMoreMenu() {
+        let rearrange = UIAction(title: "Rearrange hunts", image: UIImage(systemName: "line.3.horizontal"),
+                                 attributes: hunts.count > 1 ? [] : .disabled) { [weak self] _ in
+            self?.rearrangePressed()
+        }
+        let clear = UIAction(title: "Clear all hunts", image: UIImage(systemName: "trash"),
+                             attributes: hunts.isEmpty ? [.destructive, .disabled] : .destructive) { [weak self] _ in
+            self?.clearAllHuntsPressed()
+        }
+        moreButton.menu = UIMenu(children: [rearrange, UIMenu(options: .displayInline, children: [clear])])
+        moreButton.isEnabled = !hunts.isEmpty
     }
     
     fileprivate func setColors() {
@@ -271,8 +256,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
             self.updateSummary()
-            self.setClearHuntButtonState()
-            self.setRearrangeButtonState()
+            self.updateMoreMenu()
             self.reloadData()
             completionHandler(true)
         }
@@ -288,7 +272,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(tracker, animated: true)
     }
     
-    @objc fileprivate func clearCurrentHuntPressed() {
+    fileprivate func clearAllHuntsPressed() {
         presentDestructiveConfirmation(title: "Clear all hunts?",
                                        message: "Every hunt will be removed. Encounter counts are kept on each Pokémon.",
                                        destructiveTitle: "Clear Hunts") { [weak self] in
@@ -302,19 +286,17 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     fileprivate func clearAllHunts() {
-        clearCurrentHuntButton.isEnabled = false
         hunts.removeAll()
         reloadData()
         setEncounters()
-        setRearrangeButtonState()
+        updateMoreMenu()
     }
 
     fileprivate func huntsChanged() {
         reloadHunts()
         reloadData()
         setEncounters()
-        setClearHuntButtonState()
-        setRearrangeButtonState()
+        updateMoreMenu()
     }
 
     @objc fileprivate func createHuntButtonPressed() {
@@ -325,7 +307,7 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         present(createHunt.wrapInSheet(), animated: true)
     }
 
-    @objc fileprivate func rearrangePressed() {
+    fileprivate func rearrangePressed() {
         let rearrange = RearrangeHuntsTVC(container: container) { [weak self] in
             self?.huntsChanged()
         }
