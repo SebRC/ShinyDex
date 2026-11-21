@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000E /* EncounterHistoryTests.swift */; };
 		B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000C /* EncounterHistoryTVC.swift */; };
-		B1870000000000000000000B /* DailyEncountersChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000A /* DailyEncountersChartView.swift */; };
+		B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000A /* EncounterHistoryChartView.swift */; };
 		B18700000000000000000009 /* GetEncounterHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000008 /* GetEncounterHistory.swift */; };
 		2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */; };
 		AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F002 /* HuntRankingView.swift */; };
@@ -314,7 +314,7 @@
 /* Begin PBXFileReference section */
 		B1870000000000000000000E /* EncounterHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTests.swift; sourceTree = "<group>"; };
 		B1870000000000000000000C /* EncounterHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTVC.swift; sourceTree = "<group>"; };
-		B1870000000000000000000A /* DailyEncountersChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEncountersChartView.swift; sourceTree = "<group>"; };
+		B1870000000000000000000A /* EncounterHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryChartView.swift; sourceTree = "<group>"; };
 		B18700000000000000000008 /* GetEncounterHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEncounterHistory.swift; sourceTree = "<group>"; };
 		AB52DE5E000000000000F001 /* HuntRankRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankRow.swift; sourceTree = "<group>"; };
 		AB52DE5E000000000000F002 /* HuntRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankingView.swift; sourceTree = "<group>"; };
@@ -645,7 +645,7 @@
 		CCF9CB8C702F7D88075BC906 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
-				B1870000000000000000000A /* DailyEncountersChartView.swift */,
+				B1870000000000000000000A /* EncounterHistoryChartView.swift */,
 				B17700000000000000000015 /* GoalProgressCard.swift */,
 				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
 				AB52DE5E000000000000F002 /* HuntRankingView.swift */,
@@ -1577,7 +1577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */,
-				B1870000000000000000000B /* DailyEncountersChartView.swift in Sources */,
+				B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */,
 				B18700000000000000000009 /* GetEncounterHistory.swift in Sources */,
 				B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */,
 				B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */,
