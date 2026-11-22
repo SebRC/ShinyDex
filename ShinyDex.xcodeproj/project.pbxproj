@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20900000000000000000002 /* CollectionFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20900000000000000000001 /* CollectionFilterTests.swift */; };
 		B20800000000000000000008 /* CatchGendersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000007 /* CatchGendersTests.swift */; };
 		B20800000000000000000006 /* genders.json in Resources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000005 /* genders.json */; };
 		B20800000000000000000004 /* PokemonGendersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000003 /* PokemonGendersLoader.swift */; };
@@ -372,6 +373,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20900000000000000000001 /* CollectionFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionFilterTests.swift; sourceTree = "<group>"; };
 		B20800000000000000000007 /* CatchGendersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchGendersTests.swift; sourceTree = "<group>"; };
 		B20800000000000000000005 /* genders.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = genders.json; sourceTree = "<group>"; };
 		B20800000000000000000003 /* PokemonGendersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonGendersLoader.swift; sourceTree = "<group>"; };
@@ -1143,6 +1145,7 @@
 				B20600000000000000000008 /* CatchAbilitiesTests.swift */,
 				B2070000000000000000000C /* CatchMovesTests.swift */,
 				B20800000000000000000007 /* CatchGendersTests.swift */,
+				B20900000000000000000001 /* CollectionFilterTests.swift */,
 				B10C0A000000000000005807 /* IndividualValuesTests.swift */,
 				B10C0A0000000000000000C2 /* CatchStatsTests.swift */,
 				D22000000000000000000F03 /* CatchPeriodTests.swift */,
@@ -1756,6 +1759,7 @@
 				B20600000000000000000009 /* CatchAbilitiesTests.swift in Sources */,
 				B2070000000000000000000D /* CatchMovesTests.swift in Sources */,
 				B20800000000000000000008 /* CatchGendersTests.swift in Sources */,
+				B20900000000000000000002 /* CollectionFilterTests.swift in Sources */,
 				B10C0A000000000000005007 /* IndividualValuesTests.swift in Sources */,
 				B10C0A0000000000000000C1 /* CatchStatsTests.swift in Sources */,
 				D22000000000000000000B03 /* CatchPeriodTests.swift in Sources */,
