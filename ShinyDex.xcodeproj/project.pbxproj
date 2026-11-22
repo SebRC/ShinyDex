@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20500000000000000000005 /* EncounterDayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20500000000000000000004 /* EncounterDayTVC.swift */; };
+		B20500000000000000000003 /* GetEncounterDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20500000000000000000002 /* GetEncounterDay.swift */; };
 		B20300000000000000000002 /* ApplyHuntSettingsToRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20300000000000000000001 /* ApplyHuntSettingsToRegion.swift */; };
 		B20200000000000000000027 /* TechniquesInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000026 /* TechniquesInfoTVC.swift */; };
 		B20200000000000000000025 /* LocationsOverviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20200000000000000000024 /* LocationsOverviewTests.swift */; };
@@ -356,6 +358,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20500000000000000000004 /* EncounterDayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterDayTVC.swift; sourceTree = "<group>"; };
+		B20500000000000000000002 /* GetEncounterDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEncounterDay.swift; sourceTree = "<group>"; };
+		B20500000000000000000001 /* ShinyDex 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 13.xcdatamodel"; sourceTree = "<group>"; };
 		B20300000000000000000001 /* ApplyHuntSettingsToRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyHuntSettingsToRegion.swift; sourceTree = "<group>"; };
 		B20200000000000000000026 /* TechniquesInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechniquesInfoTVC.swift; sourceTree = "<group>"; };
 		B20200000000000000000024 /* LocationsOverviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsOverviewTests.swift; sourceTree = "<group>"; };
@@ -1279,6 +1284,7 @@
 				B20200000000000000000007 /* LocationsTVC.swift */,
 				B20200000000000000000026 /* TechniquesInfoTVC.swift */,
 				B1870000000000000000000C /* EncounterHistoryTVC.swift */,
+				B20500000000000000000004 /* EncounterDayTVC.swift */,
 				B18600000000000000000009 /* PPPresetPickerTVC.swift */,
 				B12600000000000000000009 /* BingoTemplatePickerTVC.swift */,
 				B1B60A000000000000000015 /* BingoBoardsTVC.swift */,
@@ -1515,6 +1521,7 @@
 			children = (
 				B18900000000000000000001 /* GetYearInReview.swift */,
 				B18700000000000000000008 /* GetEncounterHistory.swift */,
+				B20500000000000000000002 /* GetEncounterDay.swift */,
 				B1770000000000000000000F /* SetYearlyGoal.swift */,
 			);
 			path = Progress;
@@ -1769,8 +1776,10 @@
 				B18900000000000000000004 /* YearInReviewCardView.swift in Sources */,
 				B18900000000000000000002 /* GetYearInReview.swift in Sources */,
 				B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */,
+				B20500000000000000000005 /* EncounterDayTVC.swift in Sources */,
 				B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */,
 				B18700000000000000000009 /* GetEncounterHistory.swift in Sources */,
+				B20500000000000000000003 /* GetEncounterDay.swift in Sources */,
 				B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */,
 				B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */,
 				B18700000000000000000002 /* EncounterDay.swift in Sources */,
@@ -2270,8 +2279,9 @@
 				F0E3D9000000000000000002 /* ShinyDex 10.xcdatamodel */,
 				B1770000000000000000001B /* ShinyDex 11.xcdatamodel */,
 				B18700000000000000000007 /* ShinyDex 12.xcdatamodel */,
+				B20500000000000000000001 /* ShinyDex 13.xcdatamodel */,
 			);
-			currentVersion = B18700000000000000000007 /* ShinyDex 12.xcdatamodel */;
+			currentVersion = B20500000000000000000001 /* ShinyDex 13.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

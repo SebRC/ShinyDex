@@ -98,6 +98,7 @@ final class AppContainer {
 
     var getYearInReview: GetYearInReviewHandler { GetYearInReviewHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
     var getEncounterHistory: GetEncounterHistoryHandler { GetEncounterHistoryHandler(dailyEncountersRepository: dailyEncountersRepository) }
+    var getEncounterDay: GetEncounterDayHandler { GetEncounterDayHandler(dailyEncountersRepository: dailyEncountersRepository, pokemonRepository: pokemonRepository) }
     var setYearlyGoal: SetYearlyGoalHandler { SetYearlyGoalHandler(yearlyGoalRepository: yearlyGoalRepository) }
 
     // MARK: Journeys

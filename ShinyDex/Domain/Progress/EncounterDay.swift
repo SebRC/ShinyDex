@@ -43,13 +43,22 @@ struct EncounterDay: Hashable, Comparable {
 struct DailyEncounters: Equatable {
     let day: EncounterDay
     private(set) var count: Int
+    private(set) var countsByPokemon: [Int: Int]
 
-    init(day: EncounterDay, count: Int) {
+    init(day: EncounterDay, count: Int, countsByPokemon: [Int: Int] = [:]) {
         self.day = day
         self.count = max(count, 0)
+        self.countsByPokemon = countsByPokemon.filter { $0.value > 0 }
     }
 
-    mutating func record(_ change: Int) {
+    var unsplitCount: Int {
+        return max(count - countsByPokemon.values.reduce(0, +), 0)
+    }
+
+    mutating func record(_ change: Int, for number: Int? = nil) {
         count = max(count + change, 0)
+        guard let number = number else { return }
+        let pokemonCount = max((countsByPokemon[number] ?? 0) + change, 0)
+        countsByPokemon[number] = pokemonCount > 0 ? pokemonCount : nil
     }
 }

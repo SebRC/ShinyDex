@@ -44,7 +44,7 @@ final class BackupPersistenceTests: XCTestCase {
         container.pokemonRepository.save(venusaur)
         container.encounterLedgerRepository.save(EncounterLedger(total: 2000, trackedSince: Date(timeIntervalSince1970: 1_600_000_000)))
         container.setYearlyGoal.handle(SetYearlyGoalCommand(year: 2026, target: 40))
-        container.dailyEncountersRepository.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 33))
+        container.dailyEncountersRepository.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 33, countsByPokemon: [2: 33]))
         let backupData = try container.exportBackup.handle(ExportBackupQuery()).data
 
         _ = logCatch(3, ball: "dive", in: container)
@@ -79,7 +79,7 @@ final class BackupPersistenceTests: XCTestCase {
         XCTAssertEqual(reopened.encounterLedgerRepository.get()?.total, 2000)
         XCTAssertEqual(reopened.encounterLedgerRepository.get()?.trackedSince, Date(timeIntervalSince1970: 1_600_000_000))
         XCTAssertEqual(reopened.yearlyGoalRepository.getAll(), [YearlyGoal(year: 2026, target: 40)])
-        XCTAssertEqual(reopened.dailyEncountersRepository.getAll(), [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 33)])
+        XCTAssertEqual(reopened.dailyEncountersRepository.getAll(), [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 33, countsByPokemon: [2: 33])])
     }
 
     func test_restore_thatFailsPartWay_leavesTheStoreUntouched() throws {

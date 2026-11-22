@@ -46,14 +46,14 @@ final class ChangeEncountersHandler {
         }
         pokemon.shinyOdds = odds.getShinyOdds(pokemon: pokemon)
         pokemonRepository.save(pokemon)
-        recordInLedger(command.change, from: previousEncounters, to: pokemon.encounters)
+        recordInLedger(command.change, for: pokemon.number, from: previousEncounters, to: pokemon.encounters)
         guard command.change == .increment else { return nil }
         let milestone = EncounterMilestone.findCrossed(from: previousEncounters, to: pokemon.encounters, shinyOdds: pokemon.shinyOdds,
                                                        countsTowardsOdds: !pokemon.huntConfiguration.usesChain)
         return milestone.map { ReachedMilestone(number: pokemon.number, pokemonName: pokemon.name, milestone: $0) }
     }
 
-    private func recordInLedger(_ change: ChangeEncountersCommand.Change, from previousEncounters: Int, to encounters: Int) {
+    private func recordInLedger(_ change: ChangeEncountersCommand.Change, for number: Int, from previousEncounters: Int, to encounters: Int) {
         guard encounters != previousEncounters else { return }
         let now = makeCurrentDate()
         let ledger = ledgerRepository.get() ?? EncounterLedger(startingOn: now)
@@ -66,14 +66,14 @@ final class ChangeEncountersHandler {
             countedChange = ledger.uncount(previousEncounters - encounters, keepingAtLeast: totalAtLatestFind)
         }
         ledgerRepository.save(ledger)
-        recordForToday(countedChange, now: now)
+        recordForToday(countedChange, for: number, now: now)
     }
 
-    private func recordForToday(_ countedChange: Int, now: Date) {
+    private func recordForToday(_ countedChange: Int, for number: Int, now: Date) {
         guard countedChange != 0 else { return }
         let today = EncounterDay(containing: now, calendar: calendar)
         var encounters = dailyEncountersRepository.get(day: today) ?? DailyEncounters(day: today, count: 0)
-        encounters.record(countedChange)
+        encounters.record(countedChange, for: number)
         dailyEncountersRepository.save(encounters)
     }
 }

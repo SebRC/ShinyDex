@@ -141,8 +141,41 @@ final class ProgressHandlerTests: XCTestCase {
 
         changeEncounters(.increment, of: bulbasaur)
         XCTAssertEqual(getStatistics().encountersToday, 1)
-        XCTAssertEqual(days.getAll(), [DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 2), count: 6),
-                                       DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 3), count: 1)])
+        XCTAssertEqual(days.getAll(), [DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 2), count: 6, countsByPokemon: [bulbasaur: 6]),
+                                       DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 3), count: 1, countsByPokemon: [bulbasaur: 1])])
+    }
+
+    func test_todaysEncounters_areSplitByPokemon_andAddUpToTheTotal() {
+        SetIncrementHandler(pokemonRepository: pokemon).handle(SetIncrementCommand(number: charmander, increment: 3))
+
+        changeEncounters(.increment, of: bulbasaur, times: 4)
+        changeEncounters(.increment, of: charmander, times: 2)
+        changeEncounters(.set(50), of: squirtle)
+        changeEncounters(.set(10), of: squirtle)
+        changeEncounters(.decrement, of: squirtle, times: 2)
+
+        let today = days.get(day: EncounterDay(year: 2026, month: 7, day: 2))
+        XCTAssertEqual(today?.countsByPokemon, [bulbasaur: 4, charmander: 6, squirtle: 48])
+        XCTAssertEqual(today?.count, 58)
+        XCTAssertEqual(today?.unsplitCount, 0)
+    }
+
+    func test_encounterDay_listsEachPokemonsShare_mostEncountersFirst() {
+        days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 1), count: 40))
+        changeEncounters(.increment, of: bulbasaur, times: 1)
+        changeEncounters(.increment, of: squirtle, times: 3)
+        let handler = GetEncounterDayHandler(dailyEncountersRepository: days, pokemonRepository: pokemon, calendar: calendar)
+
+        let today = handler.handle(GetEncounterDayQuery(date: now))
+        XCTAssertEqual(today.total, 4)
+        XCTAssertEqual(today.pokemon, [EncounterDayBreakdown.PokemonShare(number: squirtle, name: "Squirtle", count: 3, sharePercent: 75),
+                                       EncounterDayBreakdown.PokemonShare(number: bulbasaur, name: "Bulbasaur", count: 1, sharePercent: 25)])
+        XCTAssertEqual(today.splitSince, makeDate(day: 2, hour: 0))
+
+        let yesterday = handler.handle(GetEncounterDayQuery(date: makeDate(day: 1, hour: 18)))
+        XCTAssertEqual(yesterday.total, 40)
+        XCTAssertTrue(yesterday.pokemon.isEmpty)
+        XCTAssertEqual(yesterday.unsplitCount, 40)
     }
 
     func test_takingOneOffToday_neverGoesBelowZero() {

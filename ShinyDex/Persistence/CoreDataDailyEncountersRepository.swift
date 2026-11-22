@@ -34,11 +34,24 @@ final class CoreDataDailyEncountersRepository: DailyEncountersRepository {
     private func write(_ encounters: DailyEncounters, to dayEntity: NSManagedObject) {
         dayEntity.setValue(encounters.day.isoDate, forKey: "day")
         dayEntity.setValue(encounters.count, forKey: "count")
+        dayEntity.setValue(CoreDataDailyEncountersRepository.encode(encounters.countsByPokemon), forKey: "pokemonCounts")
+    }
+
+    private static func encode(_ countsByPokemon: [Int: Int]) -> String? {
+        guard !countsByPokemon.isEmpty else { return nil }
+        let keyedByText = Dictionary(uniqueKeysWithValues: countsByPokemon.map { (String($0.key), $0.value) })
+        return (try? JSONEncoder().encode(keyedByText)).flatMap { String(data: $0, encoding: .utf8) }
+    }
+
+    private static func decode(_ text: String?) -> [Int: Int] {
+        guard let data = text?.data(using: .utf8), let keyedByText = try? JSONDecoder().decode([String: Int].self, from: data) else { return [:] }
+        return Dictionary(uniqueKeysWithValues: keyedByText.compactMap { key, value in Int(key).map { ($0, value) } })
     }
 
     private func makeDailyEncounters(from dayEntity: NSManagedObject) -> DailyEncounters? {
         guard let day = EncounterDay(isoDate: dayEntity.value(forKey: "day") as? String) else { return nil }
-        return DailyEncounters(day: day, count: dayEntity.value(forKey: "count") as? Int ?? 0)
+        return DailyEncounters(day: day, count: dayEntity.value(forKey: "count") as? Int ?? 0,
+                               countsByPokemon: CoreDataDailyEncountersRepository.decode(dayEntity.value(forKey: "pokemonCounts") as? String))
     }
 
     private func makeDayPredicate(_ day: EncounterDay) -> NSPredicate {
