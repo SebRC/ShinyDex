@@ -65,8 +65,9 @@ class StatsVC: UIViewController {
         addLuckiestDates(stats)
         addRecords(stats)
         addHuntRankings(stats)
-        addUsage(title: "Balls", rows: stats.ballUsage.prefix(8).map { usage in
-            UsageRow(title: "\(BallGrid.getDisplayName(of: usage.key)) Ball", image: UIImage(named: usage.key), count: usage.count, filter: .ball(usage.key))
+        let ballCounts = Dictionary(uniqueKeysWithValues: stats.ballUsage.map { ($0.key, $0.count) })
+        addUsageGrid(title: "Balls", noun: "balls", items: BallGrid(container: container).ballNames.map { ball in
+            UsageGridItem(title: BallGrid.getDisplayName(of: ball), image: UIImage(named: ball), count: ballCounts[ball] ?? 0, filter: .ball(ball))
         }, total: stats.caughtCount)
         addUsage(title: "Games", rows: stats.gameUsage.prefix(6).map { usage in
             UsageRow(title: usage.key.displayName, image: GamesList.games[usage.key].flatMap { PixelArt.makeCenteredImage(named: $0.coverPokemon) }, count: usage.count, filter: .game(usage.key))
@@ -75,6 +76,7 @@ class StatsVC: UIViewController {
             UsageRow(title: usage.key.rawValue, image: PixelArt.makeCenteredImage(named: usage.key.rawValue), count: usage.count, filter: .method(usage.key))
         }, total: stats.caughtCount)
         addNatures(stats)
+        addGenders(stats)
     }
 
     fileprivate func showCollection(filter: CollectionFilter? = nil) {
@@ -304,8 +306,26 @@ class StatsVC: UIViewController {
         addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged.")
     }
 
+    fileprivate func addUsageGrid(title: String, noun: String, items: [UsageGridItem], total: Int) {
+        guard total > 0 else { return }
+        let grid = UsageGridView(items: items) { [weak self] filter in
+            self?.showCollection(filter: filter)
+        }
+        let used = items.filter { $0.count > 0 }
+        var footnote = "\(used.count) of \(items.count) \(noun) used. Faded ones haven't caught a shiny yet."
+        if let mostUsed = used.max(by: { $0.count < $1.count }) {
+            let percent = Int((Double(mostUsed.count) / Double(total) * 100).rounded())
+            footnote = "Most used: \(mostUsed.title), with \(StatsVC.formatShinies(mostUsed.count)) (\(percent)%). " + footnote
+        }
+        addSection(title, grid, footnote: footnote)
+    }
+
     fileprivate func addUsage(title: String, rows: [UsageRow], total: Int) {
         guard !rows.isEmpty else { return }
+        addSection(title, makeUsageCard(rows: rows, total: total))
+    }
+
+    fileprivate func makeUsageCard(rows: [UsageRow], total: Int) -> UIView {
         let card = UIView()
         card.backgroundColor = Color.surface
         card.layer.cornerRadius = CornerRadius.standard
@@ -322,7 +342,29 @@ class StatsVC: UIViewController {
         }
         card.addAutoLayoutSubviews(list)
         list.pinEdges(to: card, insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-        addSection(title, card)
+        return card
+    }
+
+    fileprivate func addGenders(_ stats: CatchStatistics) {
+        guard stats.caughtCount > 0 else { return }
+        let content = UIStackView()
+        content.axis = .vertical
+        content.spacing = 10
+        if !stats.genderUsage.isEmpty {
+            let counts = Dictionary(uniqueKeysWithValues: stats.genderUsage.map { ($0.key, $0.count) })
+            content.addArrangedSubview(GenderRatioView(counts: counts) { [weak self] gender in
+                self?.showCollection(filter: .gender(gender))
+            })
+        }
+        if stats.unknownGenderCount > 0 {
+            content.addArrangedSubview(StatTile(caption: "No gender logged", value: stats.unknownGenderCount.grouped,
+                                                detail: stats.unknownGenderCount == 1 ? "Tap to log it" : "Tap to see them and log their genders") { [weak self] in
+                self?.showCollection(filter: .missingGender)
+            })
+        }
+        let footnote = stats.genderUsage.isEmpty ? nil
+            : "Species that are always one gender or genderless count as that, even when older catches didn't store it."
+        addSection("Genders", content, footnote: footnote)
     }
 
     fileprivate func addNatures(_ stats: CatchStatistics) {

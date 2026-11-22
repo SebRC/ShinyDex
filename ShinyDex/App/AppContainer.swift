@@ -89,9 +89,9 @@ final class AppContainer {
 
     // MARK: Catches
 
-    var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
+    var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, genders: genders) }
     var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, abilities: abilities, makeLearnsets: { [unowned self] in self.learnsets }, genders: genders) }
-    var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
+    var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms, genders: genders) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
     var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms, genders: genders, abilities: abilities) }
     var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets) }

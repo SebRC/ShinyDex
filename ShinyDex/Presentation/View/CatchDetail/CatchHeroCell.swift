@@ -69,7 +69,7 @@ final class CatchHeroCell: UITableViewCell {
         spriteView.playAnimationOnce()
     }
 
-    func configure(pokemonName: String, spriteAssetName: String, nickname: String?, genderSymbol: String?, dateText: String, positionText: String?, isFailed: Bool) {
+    func configure(pokemonName: String, spriteAssetName: String, nickname: String?, gender: Gender?, dateText: String, positionText: String?, isFailed: Bool) {
         badge.backgroundColor = isFailed ? Color.inactive : Color.accent
         badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
         badgeLabel.textColor = isFailed ? Color.textPrimary : Color.background
@@ -77,7 +77,12 @@ final class CatchHeroCell: UITableViewCell {
         badgeIcon.tintColor = badgeLabel.textColor
         glowView.isHidden = isFailed
         spriteView.setPokemon(named: spriteAssetName)
-        nameLabel.text = [nickname ?? pokemonName, genderSymbol].compactMap { $0 }.joined(separator: " ")
+        let name = NSMutableAttributedString(string: nickname ?? pokemonName, attributes: [.font: nameLabel.font as Any, .foregroundColor: nameLabel.textColor as Any])
+        if let gender = gender, gender.symbol != nil {
+            name.append(NSAttributedString(string: " "))
+            name.append(gender.makeColoredLabel(font: nameLabel.font))
+        }
+        nameLabel.attributedText = name
         speciesLabel.text = pokemonName
         speciesLabel.isHidden = nickname == nil
         dateLabel.text = dateText

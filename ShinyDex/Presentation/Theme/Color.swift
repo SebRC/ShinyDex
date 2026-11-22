@@ -68,4 +68,6 @@ class Color {
     static let onAccent = Grey900
     static let danger = Danger400
     static let success = Success400
+    static let male = Info400
+    static let female = Danger400
 }

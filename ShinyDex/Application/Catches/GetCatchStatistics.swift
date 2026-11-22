@@ -73,6 +73,8 @@ struct CatchStatistics: Equatable {
     let methodUsage: [Usage<HuntMethod>]
     let natureUsage: [Usage<Nature>]
     let unknownNatureCount: Int
+    var genderUsage: [Usage<Gender>] = []
+    var unknownGenderCount = 0
     let shortestHunts: [CatchSummary]
     let longestHunts: [CatchSummary]
 }
@@ -85,11 +87,14 @@ final class GetCatchStatisticsHandler {
     private let yearlyGoalRepository: YearlyGoalRepository
     private let dailyEncountersRepository: DailyEncountersRepository
     private let calendar: Calendar
+    private let genders: PokemonGenders
     private let makeCurrentDate: () -> Date
 
     init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, ledgerRepository: EncounterLedgerRepository, yearlyGoalRepository: YearlyGoalRepository,
-         dailyEncountersRepository: DailyEncountersRepository, calendar: Calendar = .current, forms: PokemonForms = PokemonForms(), makeCurrentDate: @escaping () -> Date = Date.init) {
+         dailyEncountersRepository: DailyEncountersRepository, calendar: Calendar = .current, forms: PokemonForms = PokemonForms(), genders: PokemonGenders = PokemonGenders(),
+         makeCurrentDate: @escaping () -> Date = Date.init) {
         self.forms = forms
+        self.genders = genders
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
         self.ledgerRepository = ledgerRepository
@@ -101,8 +106,8 @@ final class GetCatchStatisticsHandler {
 
     func handle(_ query: GetCatchStatisticsQuery) -> CatchStatistics {
         let catches = catchRepository.getAll()
-        let stats = CatchStats(catches: catches, calendar: calendar)
-        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms)
+        let stats = CatchStats(catches: catches, calendar: calendar, genders: genders)
+        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms, genders: genders)
         let now = makeCurrentDate()
         let currentYear = calendar.component(.year, from: now)
         return CatchStatistics(
@@ -130,6 +135,8 @@ final class GetCatchStatisticsHandler {
             methodUsage: stats.methodUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             natureUsage: stats.natureUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             unknownNatureCount: stats.unknownNatureCount,
+            genderUsage: stats.genderUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
+            unknownGenderCount: stats.unknownGenderCount,
             shortestHunts: stats.shortestHunts.compactMap(mapper.makeSummary),
             longestHunts: stats.longestHunts.compactMap(mapper.makeSummary))
     }

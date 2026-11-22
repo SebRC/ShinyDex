@@ -144,6 +144,25 @@ class CatchStatsTests: XCTestCase {
         XCTAssertEqual(stats.unknownNatureCount, 1)
     }
 
+    func test_genderUsage_countsFixedGenders_andCatchesWithoutGenderAsUnknown() {
+        let genders: [Gender?] = [.female, .female, .male, nil]
+        let catches = genders.map { gender -> Catch in
+            let caught = makeCatch(number: 1, encounters: 1, year: 2023)
+            caught.gender = gender
+            return caught
+        }
+        let genderlessSpecies = makeCatch(number: 80, encounters: 1, year: 2023)
+        let failed = makeCatch(ball: CatchRules.noBall, encounters: 1, year: 2023, isFailed: true)
+        failed.gender = .male
+
+        let stats = CatchStats(catches: catches + [genderlessSpecies, failed], calendar: calendar,
+                               genders: PokemonGenders(fixedGendersByNumber: [80: .genderless]))
+
+        XCTAssertEqual(stats.genderUsage.map { $0.key }, [.female, .genderless, .male])
+        XCTAssertEqual(stats.genderUsage.map { $0.count }, [2, 1, 1])
+        XCTAssertEqual(stats.unknownGenderCount, 1)
+    }
+
     func test_huntRankings_orderByEncounters_andLeaveOutHuntsWithoutEncounters() {
         let fastest = makeCatch(number: 1, encounters: 12, year: 2023)
         let middle = makeCatch(number: 3, encounters: 500, year: 2023)

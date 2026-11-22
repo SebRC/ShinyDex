@@ -94,10 +94,12 @@ struct CatchDetails: Equatable {
 struct CatchSummaryMapper {
     let namesByNumber: [Int: String]
     let forms: PokemonForms
+    let genders: PokemonGenders
 
-    init(allPokemon: [Pokemon], forms: PokemonForms) {
+    init(allPokemon: [Pokemon], forms: PokemonForms, genders: PokemonGenders = PokemonGenders()) {
         namesByNumber = Dictionary(allPokemon.map { ($0.number, $0.name) }, uniquingKeysWith: { first, _ in first })
         self.forms = forms
+        self.genders = genders
     }
 
     func makeSummary(of caught: Catch) -> CatchSummary? {
@@ -116,7 +118,7 @@ struct CatchSummaryMapper {
             evs: caught.evs,
             evolvedFrom: caught.evolvedFrom,
             nickname: caught.nickname,
-            gender: caught.gender,
+            gender: genders.resolve(caught.gender, for: caught.number),
             nature: caught.nature,
             ivs: caught.ivs,
             formId: caught.formId,
