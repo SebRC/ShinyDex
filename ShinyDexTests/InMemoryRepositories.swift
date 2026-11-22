@@ -87,7 +87,7 @@ final class InMemoryCatchRepository: CatchRepository {
                      encounters: caught.encounters, isShinyCharmActive: caught.isShinyCharmActive, caughtDate: caught.caughtDate,
                      isFailed: caught.isFailed, evs: caught.evs, evolvedFrom: caught.evolvedFrom,
                      nickname: caught.nickname, gender: caught.gender, nature: caught.nature, ivs: caught.ivs, formId: caught.formId,
-                     encounterTotalAtFind: caught.encounterTotalAtFind)
+                     encounterTotalAtFind: caught.encounterTotalAtFind, ability: caught.ability)
     }
 }
 

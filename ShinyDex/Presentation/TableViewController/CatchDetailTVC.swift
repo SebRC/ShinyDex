@@ -15,6 +15,7 @@ class CatchDetailTVC: UITableViewController {
         case nickname
         case gender
         case nature
+        case ability
         case ivs
     }
 
@@ -109,7 +110,7 @@ class CatchDetailTVC: UITableViewController {
         if (caught.isFailed) {
             rows.removeAll { $0.field == .ball }
         }
-        aboutRows = caught.isFailed ? [] : AboutRow.allCases.filter { $0 != .form || details.formChoices != nil }
+        aboutRows = caught.isFailed ? [] : AboutRow.allCases.filter { ($0 != .form || details.formChoices != nil) && ($0 != .ability || details.ability != nil) }
         trainingRows = caught.isFailed ? [] : [.evs]
         if (!caught.isFailed && !details.evolutionTargets.isEmpty) {
             trainingRows.append(.evolve)
@@ -259,6 +260,10 @@ class CatchDetailTVC: UITableViewController {
             cell.textLabel?.text = "Nature"
             cell.detailTextLabel?.text = caught.nature.map { "\($0.name) · \($0.effectSummary)" } ?? "Unknown"
             symbol = "leaf.fill"
+        case .ability:
+            cell.textLabel?.text = "Ability"
+            cell.detailTextLabel?.text = details.ability?.name ?? "Unknown"
+            symbol = "sparkles"
         case .ivs:
             cell.textLabel?.text = "IVs"
             let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.textTertiary])
@@ -338,6 +343,8 @@ class CatchDetailTVC: UITableViewController {
                 showGenderPicker()
             case .nature:
                 showNaturePicker()
+            case .ability:
+                showAbilityPicker()
             case .ivs:
                 navigationController?.pushViewController(IVEditorVC(container: container, caught: caught), animated: true)
             }
@@ -387,6 +394,15 @@ class CatchDetailTVC: UITableViewController {
         let options = genders.map { PickerOption(title: $0.name, subtitle: $0.symbol) }
         let picker = OptionPickerTVC(title: "Gender", options: options, selectedIndex: caught.gender.flatMap { genders.firstIndex(of: $0) }) { [weak self] index in
             self?.save(.gender(index.map { genders[$0] }))
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func showAbilityPicker() {
+        guard let choices = details.ability?.choices else { return }
+        let options = choices.map { PickerOption(title: $0.name, subtitle: $0.isHidden ? "Hidden ability" : nil) }
+        let picker = OptionPickerTVC(title: "Ability", options: options, selectedIndex: choices.firstIndex { $0.id == caught.ability }) { [weak self] index in
+            self?.save(.ability(index.map { choices[$0].id }))
         }
         navigationController?.pushViewController(picker, animated: true)
     }
