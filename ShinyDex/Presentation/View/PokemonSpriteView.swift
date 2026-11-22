@@ -1,5 +1,6 @@
 import UIKit
 import FLAnimatedImage
+import ImageIO
 
 class PokemonSpriteView: UIView {
 	var pointsPerPixel: CGFloat = 3 {
@@ -9,6 +10,7 @@ class PokemonSpriteView: UIView {
 	fileprivate let imageView = FLAnimatedImageView()
 	fileprivate let tapRecognizer = UITapGestureRecognizer()
 	fileprivate var tapToPlaySprite: FLAnimatedImage?
+	fileprivate var restingImage: UIImage?
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -29,6 +31,7 @@ class PokemonSpriteView: UIView {
 
 	func setPokemon(named name: String) {
 		tapToPlaySprite = nil
+		restingImage = nil
 		imageView.animatedImage = nil
 		imageView.image = nil
 		if let asset = NSDataAsset(name: name) {
@@ -39,6 +42,7 @@ class PokemonSpriteView: UIView {
 				}
 				else {
 					tapToPlaySprite = sprite
+					restingImage = PokemonSpriteView.makeLastFrame(of: asset.data)
 					showTapToPlayStill()
 				}
 			}
@@ -66,7 +70,14 @@ class PokemonSpriteView: UIView {
 	fileprivate func showTapToPlayStill() {
 		guard let sprite = tapToPlaySprite else { return }
 		imageView.animatedImage = nil
-		imageView.image = sprite.posterImage
+		imageView.image = restingImage ?? sprite.posterImage
+	}
+
+	fileprivate static func makeLastFrame(of gifData: Data) -> UIImage? {
+		guard let source = CGImageSourceCreateWithData(gifData as CFData, nil) else { return nil }
+		let frameCount = CGImageSourceGetCount(source)
+		guard frameCount > 1, let frame = CGImageSourceCreateImageAtIndex(source, frameCount - 1, nil) else { return nil }
+		return UIImage(cgImage: frame)
 	}
 
 	@objc func playAnimationOnce() {
