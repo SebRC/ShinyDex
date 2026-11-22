@@ -16,6 +16,7 @@ class CatchDetailTVC: UITableViewController {
         case gender
         case nature
         case ability
+        case moves
         case ivs
     }
 
@@ -264,6 +265,10 @@ class CatchDetailTVC: UITableViewController {
             cell.textLabel?.text = "Ability"
             cell.detailTextLabel?.text = details.ability?.name ?? "Unknown"
             symbol = "sparkles"
+        case .moves:
+            cell.textLabel?.text = "Moves"
+            cell.detailTextLabel?.text = details.moves.first.map { first in details.moves.count > 1 ? "\(first.name) +\(details.moves.count - 1)" : first.name } ?? "None"
+            symbol = "list.bullet"
         case .ivs:
             cell.textLabel?.text = "IVs"
             let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.textTertiary])
@@ -345,6 +350,8 @@ class CatchDetailTVC: UITableViewController {
                 showNaturePicker()
             case .ability:
                 showAbilityPicker()
+            case .moves:
+                navigationController?.pushViewController(CatchMovesTVC(container: container, catchId: caught.id), animated: true)
             case .ivs:
                 navigationController?.pushViewController(IVEditorVC(container: container, caught: caught), animated: true)
             }

@@ -28,6 +28,32 @@ struct AbilityChoice: Equatable {
     let isHidden: Bool
 }
 
+struct MoveChoice: Equatable {
+    let id: Int
+    let name: String
+    let type: String
+    let pp: Int
+}
+
+struct LearnableMoves: Equatable {
+    enum Method: Equatable {
+        case levelUp
+        case machine
+        case egg
+        case tutor
+    }
+
+    struct Section: Equatable {
+        let method: Method
+        let moves: [MoveChoice]
+    }
+
+    let pokemonName: String
+    let game: Games
+    let knownMoves: [MoveChoice]
+    let sections: [Section]
+}
+
 struct CatchAbility: Equatable {
     let name: String?
     let choices: [AbilityChoice]
@@ -48,6 +74,7 @@ struct CatchDetails: Equatable {
     let speciesCatchCount: Int
     let formChoices: FormChoices?
     var ability: CatchAbility? = nil
+    var moves: [MoveChoice] = []
 }
 
 struct CatchSummaryMapper {

@@ -40,6 +40,7 @@ struct BackupDocument: Codable {
         let formId: String?
         let encounterTotalAtFind: Int?
         var ability: String? = nil
+        var moves: [Int]? = nil
     }
 
     struct HuntRecord: Codable {
@@ -178,7 +179,7 @@ extension BackupDocument {
                         isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed,
                         evs: $0.evs.isEmpty ? nil : $0.evs.encoded, evolvedFrom: $0.evolvedFrom, nickname: $0.nickname,
                         gender: $0.gender, nature: $0.nature, ivs: $0.ivs.isEmpty ? nil : $0.ivs.encoded, formId: $0.formId,
-                        encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability)
+                        encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability, moves: $0.moves.isEmpty ? nil : $0.moves)
         }
         self.hunts = hunts.map {
             HuntRecord(id: $0.id, name: $0.name, pokemonNumbers: $0.indexes, priority: $0.priority, isCollapsed: $0.isCollapsed)
@@ -208,7 +209,7 @@ extension BackupDocument {
             Catch(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                   isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed, evs: EffortValues(encoded: $0.evs),
                   evolvedFrom: $0.evolvedFrom, nickname: $0.nickname, gender: $0.gender, nature: $0.nature, ivs: IndividualValues(encoded: $0.ivs), formId: $0.formId,
-                  encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability)
+                  encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability, moves: $0.moves ?? [])
         }
     }
 
