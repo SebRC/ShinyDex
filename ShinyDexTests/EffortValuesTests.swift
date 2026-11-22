@@ -2,10 +2,12 @@ import XCTest
 @testable import ShinyDex
 
 class EffortValuesTests: XCTestCase {
-	func test_adding_stopsAt252PerStat() {
+	func test_adding_stopsAt255PerStat_andCountsOver252AsWasted() {
 		let evs = EffortValues().adding(250, to: .attack).adding(10, to: .attack)
 
-		XCTAssertEqual(evs[.attack], 252)
+		XCTAssertEqual(evs[.attack], 255)
+		XCTAssertEqual(EffortValues.countWasted(of: evs[.attack]), 3)
+		XCTAssertEqual(EffortValues.countWasted(of: 252), 0)
 	}
 
 	func test_adding_stopsAt510Total() {
@@ -42,7 +44,7 @@ class EffortValuesTests: XCTestCase {
 		XCTAssertTrue(EffortValues(encoded: "a,0,0,0,0,0").isEmpty)
 
 		let clamped = EffortValues(encoded: "300,252,252,0,0,0")
-		XCTAssertEqual(clamped[.hp], 252)
+		XCTAssertEqual(clamped[.hp], 255)
 		XCTAssertEqual(clamped.total, 510)
 	}
 

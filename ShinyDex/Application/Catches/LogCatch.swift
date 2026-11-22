@@ -17,11 +17,15 @@ final class LogCatchHandler {
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let ledgerRepository: EncounterLedgerRepository
+    private let genders: PokemonGenders
+    private let abilities: PokemonAbilities
     private let makeCurrentDate: () -> Date
 
     init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, ledgerRepository: EncounterLedgerRepository, forms: PokemonForms = PokemonForms(),
-         makeCurrentDate: @escaping () -> Date = Date.init) {
+         genders: PokemonGenders = PokemonGenders(), abilities: PokemonAbilities = PokemonAbilities(), makeCurrentDate: @escaping () -> Date = Date.init) {
         self.forms = forms
+        self.genders = genders
+        self.abilities = abilities
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
         self.ledgerRepository = ledgerRepository
@@ -40,6 +44,8 @@ final class LogCatchHandler {
             found = Catch(pokemon: pokemon, caughtBall: CatchRules.noBall, caughtDate: command.date, isFailed: true, formId: formId)
         }
         found.encounterTotalAtFind = ledger.total
+        found.gender = genders.findFixedGender(of: command.number)
+        found.ability = abilities.findFixedAbility(of: command.number, formId: formId, in: found.game)
         catchRepository.insert(found)
         guard catchRepository.save() else { return }
         ledgerRepository.save(ledger)

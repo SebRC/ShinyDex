@@ -10,9 +10,12 @@ final class EvolveCatchHandler {
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let abilities: PokemonAbilities
+    private let genders: PokemonGenders
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms(), abilities: PokemonAbilities = PokemonAbilities()) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms(), abilities: PokemonAbilities = PokemonAbilities(),
+         genders: PokemonGenders = PokemonGenders()) {
         self.forms = forms
+        self.genders = genders
         self.abilities = abilities
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
@@ -26,6 +29,7 @@ final class EvolveCatchHandler {
         caught.formId = forms.carryOver(caught.formId, to: command.targetNumber)
         caught.ability = abilities.carryOver(caught.ability, from: previousForm, to: PokemonAbilities.Key(number: command.targetNumber, formId: caught.formId), in: caught.game)
         caught.number = command.targetNumber
+        caught.gender = genders.resolve(caught.gender, for: command.targetNumber)
         caught.evolvedFrom = originalNumber == command.targetNumber ? nil : originalNumber
         catchRepository.update(caught)
         guard catchRepository.save() else { throw CatchUpdateError.saveFailed }

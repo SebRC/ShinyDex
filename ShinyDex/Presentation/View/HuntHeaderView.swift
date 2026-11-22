@@ -29,7 +29,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
         nameLabel.textColor = Color.textPrimary
         nameLabel.numberOfLines = 1
 
-        encountersLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        encountersLabel.font = UIFont.make(.subheadline, monospacedDigits: true)
         encountersLabel.adjustsFontForContentSizeCategory = true
         encountersLabel.textColor = Color.textTertiary
         encountersLabel.numberOfLines = 0
@@ -63,7 +63,7 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
             toggleContent.topAnchor.constraint(equalTo: toggleControl.topAnchor, constant: 10),
             toggleContent.bottomAnchor.constraint(equalTo: toggleControl.bottomAnchor, constant: -10),
             toggleContent.leadingAnchor.constraint(equalTo: toggleControl.leadingAnchor),
-            toggleContent.trailingAnchor.constraint(lessThanOrEqualTo: toggleControl.trailingAnchor),
+            toggleContent.trailingAnchor.constraint(equalTo: toggleControl.trailingAnchor),
             chevronImageView.widthAnchor.constraint(equalToConstant: 22),
 
             toggleControl.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -81,6 +81,13 @@ class HuntHeaderView: UITableViewHeaderFooterView, UIContextMenuInteractionDeleg
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard encountersLabel.preferredMaxLayoutWidth != encountersLabel.bounds.width else { return }
+        encountersLabel.preferredMaxLayoutWidth = encountersLabel.bounds.width
+        super.layoutSubviews()
     }
 
     func configure(hunt: HuntSummary) {

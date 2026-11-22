@@ -192,7 +192,7 @@ class CatchDetailTVC: UITableViewController {
             cell.configure(pokemonName: caught.speciesTitle,
                            spriteAssetName: caught.spriteAssetName,
                            nickname: caught.nickname,
-                           genderSymbol: caught.gender?.symbol,
+                           genderSymbol: details.gender.value?.symbol,
                            dateText: caught.formattedCaughtDate.map { "\(verb) \($0)" } ?? "Logged before catch history",
                            positionText: positionText,
                            isFailed: caught.isFailed)
@@ -255,7 +255,12 @@ class CatchDetailTVC: UITableViewController {
             symbol = "tag.fill"
         case .gender:
             cell.textLabel?.text = "Gender"
-            cell.detailTextLabel?.text = caught.gender.map { [$0.symbol, $0.name].compactMap { $0 }.joined(separator: " ") } ?? "Unknown"
+            cell.detailTextLabel?.text = details.gender.value.map { [$0.symbol, $0.name].compactMap { $0 }.joined(separator: " ") } ?? "Unknown"
+            if details.gender.isFixed {
+                cell.accessoryType = .none
+                cell.selectionStyle = .none
+                cell.accessibilityHint = "\(caught.pokemonName) is always \(details.gender.value?.name.lowercased() ?? "")"
+            }
             symbol = "person.fill"
         case .nature:
             cell.textLabel?.text = "Nature"
@@ -265,6 +270,11 @@ class CatchDetailTVC: UITableViewController {
             cell.textLabel?.text = "Ability"
             cell.detailTextLabel?.text = details.ability?.name ?? "Unknown"
             symbol = "sparkles"
+            if details.ability?.isFixed == true {
+                cell.accessoryType = .none
+                cell.selectionStyle = .none
+                cell.accessibilityHint = "\(caught.pokemonName) can only have this ability in \(caught.game.displayName)"
+            }
         case .moves:
             cell.textLabel?.text = "Moves"
             cell.detailTextLabel?.text = details.moves.first.map { first in details.moves.count > 1 ? "\(first.name) +\(details.moves.count - 1)" : first.name } ?? "None"
@@ -345,11 +355,15 @@ class CatchDetailTVC: UITableViewController {
             case .nickname:
                 showNicknameEditor()
             case .gender:
-                showGenderPicker()
+                if !details.gender.isFixed {
+                    showGenderPicker()
+                }
             case .nature:
                 showNaturePicker()
             case .ability:
-                showAbilityPicker()
+                if details.ability?.isFixed == false {
+                    showAbilityPicker()
+                }
             case .moves:
                 navigationController?.pushViewController(CatchMovesTVC(container: container, catchId: caught.id), animated: true)
             case .ivs:
@@ -397,9 +411,9 @@ class CatchDetailTVC: UITableViewController {
     }
 
     fileprivate func showGenderPicker() {
-        let genders = Gender.allCases
+        let genders = details.gender.choices
         let options = genders.map { PickerOption(title: $0.name, subtitle: $0.symbol) }
-        let picker = OptionPickerTVC(title: "Gender", options: options, selectedIndex: caught.gender.flatMap { genders.firstIndex(of: $0) }) { [weak self] index in
+        let picker = OptionPickerTVC(title: "Gender", options: options, selectedIndex: details.gender.value.flatMap { genders.firstIndex(of: $0) }) { [weak self] index in
             self?.save(.gender(index.map { genders[$0] }))
         }
         navigationController?.pushViewController(picker, animated: true)

@@ -54,9 +54,22 @@ struct LearnableMoves: Equatable {
     let sections: [Section]
 }
 
+struct CatchGender: Equatable {
+    let value: Gender?
+    let choices: [Gender]
+
+    var isFixed: Bool {
+        return choices.count == 1
+    }
+}
+
 struct CatchAbility: Equatable {
     let name: String?
     let choices: [AbilityChoice]
+
+    var isFixed: Bool {
+        return choices.count == 1
+    }
 }
 
 struct NamedPokemon: Equatable {
@@ -75,6 +88,7 @@ struct CatchDetails: Equatable {
     let formChoices: FormChoices?
     var ability: CatchAbility? = nil
     var moves: [MoveChoice] = []
+    var gender = CatchGender(value: nil, choices: [.male, .female])
 }
 
 struct CatchSummaryMapper {

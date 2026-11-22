@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20800000000000000000008 /* CatchGendersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000007 /* CatchGendersTests.swift */; };
+		B20800000000000000000006 /* genders.json in Resources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000005 /* genders.json */; };
+		B20800000000000000000004 /* PokemonGendersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000003 /* PokemonGendersLoader.swift */; };
+		B20800000000000000000002 /* PokemonGenders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000001 /* PokemonGenders.swift */; };
 		B2070000000000000000000D /* CatchMovesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2070000000000000000000C /* CatchMovesTests.swift */; };
 		B2070000000000000000000B /* learnsets.json in Resources */ = {isa = PBXBuildFile; fileRef = B2070000000000000000000A /* learnsets.json */; };
 		B20700000000000000000009 /* CatchMovesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20700000000000000000008 /* CatchMovesTVC.swift */; };
@@ -368,6 +372,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20800000000000000000007 /* CatchGendersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchGendersTests.swift; sourceTree = "<group>"; };
+		B20800000000000000000005 /* genders.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = genders.json; sourceTree = "<group>"; };
+		B20800000000000000000003 /* PokemonGendersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonGendersLoader.swift; sourceTree = "<group>"; };
+		B20800000000000000000001 /* PokemonGenders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonGenders.swift; sourceTree = "<group>"; };
 		B2070000000000000000000C /* CatchMovesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchMovesTests.swift; sourceTree = "<group>"; };
 		B2070000000000000000000A /* learnsets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = learnsets.json; sourceTree = "<group>"; };
 		B20700000000000000000008 /* CatchMovesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchMovesTVC.swift; sourceTree = "<group>"; };
@@ -1010,6 +1018,7 @@
 			children = (
 				F0A1B2000000000000000001 /* PokemonForms.swift */,
 				B20600000000000000000002 /* PokemonAbilities.swift */,
+				B20800000000000000000001 /* PokemonGenders.swift */,
 				B10C0A0000000000000000E4 /* Evolutions.swift */,
 				76269D7B8EC297A0FA269D9A /* HuntConfiguration.swift */,
 				9648AE8C24AE110500E819CC /* HuntMethod.swift */,
@@ -1072,6 +1081,7 @@
 				B12600000000000000000007 /* BingoTemplatesLoader.swift */,
 				F0A1B2000000000000000005 /* PokemonFormsLoader.swift */,
 				B20600000000000000000004 /* PokemonAbilitiesLoader.swift */,
+				B20800000000000000000003 /* PokemonGendersLoader.swift */,
 				B20700000000000000000004 /* PokemonLearnsetsLoader.swift */,
 				213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */,
 				C6F1C056BAF4755A1AD1E2EC /* BundleResourceLoader.swift */,
@@ -1132,6 +1142,7 @@
 				B10C0A000000000000005808 /* CatchTraitsTests.swift */,
 				B20600000000000000000008 /* CatchAbilitiesTests.swift */,
 				B2070000000000000000000C /* CatchMovesTests.swift */,
+				B20800000000000000000007 /* CatchGendersTests.swift */,
 				B10C0A000000000000005807 /* IndividualValuesTests.swift */,
 				B10C0A0000000000000000C2 /* CatchStatsTests.swift */,
 				D22000000000000000000F03 /* CatchPeriodTests.swift */,
@@ -1380,6 +1391,7 @@
 				B1260000000000000000000B /* bingoTemplates.json */,
 				F0A1B2000000000000000009 /* forms.json */,
 				B20600000000000000000006 /* abilities.json */,
+				B20800000000000000000005 /* genders.json */,
 				B2070000000000000000000A /* learnsets.json */,
 				9625741926B308350056B09C /* initialActiveMoves.json */,
 				51818C5A26C0483500B95FF6 /* moves.json */,
@@ -1655,6 +1667,7 @@
 				B1260000000000000000000C /* bingoTemplates.json in Resources */,
 				F0A1B200000000000000000A /* forms.json in Resources */,
 				B20600000000000000000007 /* abilities.json in Resources */,
+				B20800000000000000000006 /* genders.json in Resources */,
 				B2070000000000000000000B /* learnsets.json in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
@@ -1742,6 +1755,7 @@
 				B10C0A000000000000005008 /* CatchTraitsTests.swift in Sources */,
 				B20600000000000000000009 /* CatchAbilitiesTests.swift in Sources */,
 				B2070000000000000000000D /* CatchMovesTests.swift in Sources */,
+				B20800000000000000000008 /* CatchGendersTests.swift in Sources */,
 				B10C0A000000000000005007 /* IndividualValuesTests.swift in Sources */,
 				B10C0A0000000000000000C1 /* CatchStatsTests.swift in Sources */,
 				D22000000000000000000B03 /* CatchPeriodTests.swift in Sources */,
@@ -1848,10 +1862,12 @@
 				F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */,
 				F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */,
 				B20600000000000000000005 /* PokemonAbilitiesLoader.swift in Sources */,
+				B20800000000000000000004 /* PokemonGendersLoader.swift in Sources */,
 				B20700000000000000000005 /* PokemonLearnsetsLoader.swift in Sources */,
 				F0A1B2000000000000000004 /* GetPokemonForms.swift in Sources */,
 				F0A1B2000000000000000002 /* PokemonForms.swift in Sources */,
 				B20600000000000000000003 /* PokemonAbilities.swift in Sources */,
+				B20800000000000000000002 /* PokemonGenders.swift in Sources */,
 				BAC0B0000000000000000002 /* Backup.swift in Sources */,
 				BAC0B0000000000000000004 /* BackupRepository.swift in Sources */,
 				BAC0B0000000000000000006 /* BackupDocument.swift in Sources */,

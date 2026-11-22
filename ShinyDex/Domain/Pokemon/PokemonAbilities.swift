@@ -42,11 +42,24 @@ struct PokemonAbilities {
         return ranges.last { $0.fromGeneration <= generation }?.abilities
     }
 
+    func findFixedAbility(of number: Int, formId: String?, in game: Games) -> String? {
+        guard let possible = findAbilities(of: number, formId: formId, in: game)?.all, possible.count == 1 else { return nil }
+        return possible.first
+    }
+
+    func resolve(_ abilityId: String?, of number: Int, formId: String?, in game: Games) -> String? {
+        return findFixedAbility(of: number, formId: formId, in: game) ?? abilityId
+    }
+
     func findName(of abilityId: String) -> String {
         return namesById[abilityId] ?? abilityId.split(separator: "-").map { $0.capitalized }.joined(separator: " ")
     }
 
     func carryOver(_ abilityId: String?, from source: Key, to target: Key, in game: Games) -> String? {
+        return resolve(findSameSlot(as: abilityId, from: source, to: target, in: game), of: target.number, formId: target.formId, in: game)
+    }
+
+    fileprivate func findSameSlot(as abilityId: String?, from source: Key, to target: Key, in game: Games) -> String? {
         guard let abilityId = abilityId,
               let targetAbilities = findAbilities(of: target.number, formId: target.formId, in: game) else { return abilityId }
         if targetAbilities.all.contains(abilityId) {

@@ -12,6 +12,7 @@ final class AppContainer {
     let evolutions: Evolutions
     let forms: PokemonForms
     let abilities: PokemonAbilities
+    let genders: PokemonGenders
     let bingoTemplates: BingoTemplates
     let ppPresets: PPPresets
 
@@ -35,6 +36,7 @@ final class AppContainer {
         evolutions = EvolutionsLoader.load(from: resourceLoader)
         forms = PokemonFormsLoader.load(from: resourceLoader)
         abilities = PokemonAbilitiesLoader.load(from: resourceLoader)
+        genders = PokemonGendersLoader.load(from: resourceLoader)
         ppPresets = PPPresetsLoader.load(from: resourceLoader)
         gameAvailability = GameAvailabilityLoader.load(from: resourceLoader)
         bingoTemplates = BingoTemplatesLoader.load(from: resourceLoader, pokemonNames: resourceLoader.loadLines(ofTextResource: "allGens"), forms: forms)
@@ -88,13 +90,13 @@ final class AppContainer {
     // MARK: Catches
 
     var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
-    var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, abilities: abilities, makeLearnsets: { [unowned self] in self.learnsets }) }
+    var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, abilities: abilities, makeLearnsets: { [unowned self] in self.learnsets }, genders: genders) }
     var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
-    var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms) }
+    var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms, genders: genders, abilities: abilities) }
     var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets) }
-    var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities) }
-    var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities) }
+    var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
+    var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
     var removeLatestCatch: RemoveLatestCatchHandler { RemoveLatestCatchHandler(catchRepository: catchRepository, deleteCatch: deleteCatch) }
 
