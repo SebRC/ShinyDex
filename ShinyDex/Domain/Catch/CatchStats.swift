@@ -53,12 +53,14 @@ struct CatchStats {
     let methodUsage: [Usage<HuntMethod>]
     let natureUsage: [Usage<Nature>]
     let unknownNatureCount: Int
+    let genderUsage: [Usage<Gender>]
+    let unknownGenderCount: Int
     let shortestHunts: [Catch]
     let longestHunts: [Catch]
 
     static let rankedHuntCount = 10
 
-    init(catches: [Catch], calendar: Calendar = .current) {
+    init(catches: [Catch], calendar: Calendar = .current, genders: PokemonGenders = PokemonGenders()) {
         let caught = catches.filter { !$0.isFailed }
         foundCount = catches.count
         caughtCount = caught.count
@@ -97,6 +99,9 @@ struct CatchStats {
         let natures = caught.compactMap { $0.nature }
         natureUsage = CatchStats.countUsage(of: natures, name: { $0.name })
         unknownNatureCount = caught.count - natures.count
+        let knownGenders = caught.compactMap { genders.resolve($0.gender, for: $0.number) }
+        genderUsage = CatchStats.countUsage(of: knownGenders, name: { $0.name })
+        unknownGenderCount = caught.count - knownGenders.count
 
         shortestHunts = Array(withEncounters.sorted { $0.encounters < $1.encounters }.prefix(CatchStats.rankedHuntCount))
         longestHunts = Array(withEncounters.sorted { $0.encounters > $1.encounters }.prefix(CatchStats.rankedHuntCount))

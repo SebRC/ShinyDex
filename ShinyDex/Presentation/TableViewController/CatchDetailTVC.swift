@@ -192,7 +192,7 @@ class CatchDetailTVC: UITableViewController {
             cell.configure(pokemonName: caught.speciesTitle,
                            spriteAssetName: caught.spriteAssetName,
                            nickname: caught.nickname,
-                           genderSymbol: details.gender.value?.symbol,
+                           gender: details.gender.value,
                            dateText: caught.formattedCaughtDate.map { "\(verb) \($0)" } ?? "Logged before catch history",
                            positionText: positionText,
                            isFailed: caught.isFailed)
@@ -255,7 +255,12 @@ class CatchDetailTVC: UITableViewController {
             symbol = "tag.fill"
         case .gender:
             cell.textLabel?.text = "Gender"
-            cell.detailTextLabel?.text = details.gender.value.map { [$0.symbol, $0.name].compactMap { $0 }.joined(separator: " ") } ?? "Unknown"
+            if let gender = details.gender.value {
+                cell.detailTextLabel?.attributedText = gender.makeColoredLabel(font: cell.detailTextLabel?.font ?? UIFont.make(.body), nameColor: Color.textTertiary)
+            }
+            else {
+                cell.detailTextLabel?.text = "Unknown"
+            }
             if details.gender.isFixed {
                 cell.accessoryType = .none
                 cell.selectionStyle = .none
@@ -412,7 +417,7 @@ class CatchDetailTVC: UITableViewController {
 
     fileprivate func showGenderPicker() {
         let genders = details.gender.choices
-        let options = genders.map { PickerOption(title: $0.name, subtitle: $0.symbol) }
+        let options = genders.map { PickerOption(title: $0.name, subtitle: $0.symbol, subtitleColor: $0.color) }
         let picker = OptionPickerTVC(title: "Gender", options: options, selectedIndex: details.gender.value.flatMap { genders.firstIndex(of: $0) }) { [weak self] index in
             self?.save(.gender(index.map { genders[$0] }))
         }

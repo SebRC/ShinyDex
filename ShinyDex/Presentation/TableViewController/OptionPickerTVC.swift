@@ -4,6 +4,7 @@ struct PickerOption {
 	let title: String
 	var subtitle: String? = nil
 	var image: UIImage? = nil
+	var subtitleColor: UIColor? = nil
 }
 
 class OptionPickerTVC: UITableViewController {
@@ -66,7 +67,7 @@ class OptionPickerTVC: UITableViewController {
 		cell.imageView?.image = option.image?.resized(to: OptionPickerTVC.imageSize)
 		cell.imageView?.layer.magnificationFilter = .nearest
 		cell.detailTextLabel?.text = option.subtitle
-		cell.detailTextLabel?.textColor = Color.textTertiary
+		cell.detailTextLabel?.textColor = option.subtitleColor ?? Color.textTertiary
 		cell.backgroundColor = Color.surface
 		let selectedBackground = UIView()
 		selectedBackground.backgroundColor = Color.surfaceRaised

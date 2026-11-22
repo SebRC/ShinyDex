@@ -6,13 +6,15 @@ enum CollectionFilter {
     case method(HuntMethod)
     case nature(Nature)
     case missingNature
+    case gender(Gender)
+    case missingGender
     case gotAway
     case period(CatchPeriod)
 
     var showsFailed: Bool {
         switch self {
         case .gotAway, .period: return true
-        case .ball, .game, .method, .nature, .missingNature: return false
+        case .ball, .game, .method, .nature, .missingNature, .gender, .missingGender: return false
         }
     }
 
@@ -21,9 +23,11 @@ enum CollectionFilter {
         return false
     }
 
-    var isMissingNature: Bool {
-        if case .missingNature = self { return true }
-        return false
+    var isMissingDetail: Bool {
+        switch self {
+        case .missingNature, .missingGender: return true
+        default: return false
+        }
     }
 
     var title: String {
@@ -33,6 +37,8 @@ enum CollectionFilter {
         case .method(let method): return method.rawValue
         case .nature(let nature): return nature.name
         case .missingNature: return "No nature logged"
+        case .gender(let gender): return gender.name
+        case .missingGender: return "No gender logged"
         case .gotAway: return "Got away"
         case .period(let period): return CollectionFilter.getTitle(of: period)
         }
@@ -60,6 +66,7 @@ enum CollectionFilter {
         switch self {
         case .gotAway: return "None got away"
         case .missingNature: return "All natures logged"
+        case .missingGender: return "All genders logged"
         default: return "Nothing here"
         }
     }
@@ -68,6 +75,7 @@ enum CollectionFilter {
         switch self {
         case .gotAway: return "Shinies you log as got away will show up here."
         case .missingNature: return "Every catch has a nature logged."
+        case .missingGender: return "Every catch has a gender logged."
         default: return "No catches in \(title) any more."
         }
     }
@@ -79,6 +87,8 @@ enum CollectionFilter {
         case .method(let method): return caught.huntMethod == method
         case .nature(let nature): return caught.nature == nature
         case .missingNature: return caught.nature == nil && !caught.isFailed
+        case .gender(let gender): return caught.gender == gender
+        case .missingGender: return caught.gender == nil && !caught.isFailed
         case .gotAway: return caught.isFailed
         case .period(let period): return caught.caughtDate.map { period.contains($0, calendar: .current) } ?? false
         }
@@ -195,7 +205,7 @@ class CollectionTVC: UIViewController, UICollectionViewDataSource, UICollectionV
         }
         let emptyMessage = filter?.emptyMessage ?? "Log a catch with the sparkles button next to a Pokémon in the Pokédex or on its tracker."
         collectionView.backgroundView = entries.isEmpty
-            ? EmptyStateView(symbolName: filter?.isMissingNature == true ? "checkmark.circle" : "sparkles",
+            ? EmptyStateView(symbolName: filter?.isMissingDetail == true ? "checkmark.circle" : "sparkles",
                              title: filter?.emptyTitle ?? "No shinies yet",
                              message: emptyMessage)
             : EmptyStateView(symbolName: "magnifyingglass",

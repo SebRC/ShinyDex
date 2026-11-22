@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21000000000000000000006 /* GenderRatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21000000000000000000005 /* GenderRatioView.swift */; };
+		3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA654D4858207C263458AB0B /* UsageRowView.swift */; };
+		B21000000000000000000004 /* Gender+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21000000000000000000003 /* Gender+Colors.swift */; };
+		B21000000000000000000002 /* UsageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21000000000000000000001 /* UsageGridView.swift */; };
 		B20900000000000000000002 /* CollectionFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20900000000000000000001 /* CollectionFilterTests.swift */; };
 		B20800000000000000000008 /* CatchGendersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000007 /* CatchGendersTests.swift */; };
 		B20800000000000000000006 /* genders.json in Resources */ = {isa = PBXBuildFile; fileRef = B20800000000000000000005 /* genders.json */; };
@@ -80,7 +84,6 @@
 		B243322F7989347710F03348 /* PeriodChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */; };
 		9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEDA61CC8AB213395372361 /* RecordCard.swift */; };
 		87477D2F5EA46112BA98BD66 /* TappableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */; };
-		3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA654D4858207C263458AB0B /* UsageRowView.swift */; };
 		91B7BE5138DB0F8FD50C7C6E /* YearChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CB9957CECCA901BA95C2F /* YearChartView.swift */; };
 		99A4CE46F802F46D05C4019B /* LuckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454668927CA4DEF8DD8A8F5A /* LuckRow.swift */; };
 		8BD1A9ED86CEDAEF08A5936A /* JourneyEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */; };
@@ -373,6 +376,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B21000000000000000000005 /* GenderRatioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderRatioView.swift; sourceTree = "<group>"; };
+		CA654D4858207C263458AB0B /* UsageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageRowView.swift; sourceTree = "<group>"; };
+		B21000000000000000000003 /* Gender+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gender+Colors.swift"; sourceTree = "<group>"; };
+		B21000000000000000000001 /* UsageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsageGridView.swift"; sourceTree = "<group>"; };
 		B20900000000000000000001 /* CollectionFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionFilterTests.swift; sourceTree = "<group>"; };
 		B20800000000000000000007 /* CatchGendersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchGendersTests.swift; sourceTree = "<group>"; };
 		B20800000000000000000005 /* genders.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = genders.json; sourceTree = "<group>"; };
@@ -449,7 +456,6 @@
 		9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodChartView.swift; sourceTree = "<group>"; };
 		2EEDA61CC8AB213395372361 /* RecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCard.swift; sourceTree = "<group>"; };
 		6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableColumn.swift; sourceTree = "<group>"; };
-		CA654D4858207C263458AB0B /* UsageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageRowView.swift; sourceTree = "<group>"; };
 		A65CB9957CECCA901BA95C2F /* YearChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearChartView.swift; sourceTree = "<group>"; };
 		454668927CA4DEF8DD8A8F5A /* LuckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckRow.swift; sourceTree = "<group>"; };
 		261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyEntryCell.swift; sourceTree = "<group>"; };
@@ -796,10 +802,12 @@
 				AB52DE5E000000000000F002 /* HuntRankingView.swift */,
 				AB52DE5E000000000000F001 /* HuntRankRow.swift */,
 				1D5A48736C9F55354A7736D7 /* NatureChartView.swift */,
+				B21000000000000000000001 /* UsageGridView.swift */,
+				B21000000000000000000005 /* GenderRatioView.swift */,
+				CA654D4858207C263458AB0B /* UsageRowView.swift */,
 				9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */,
 				2EEDA61CC8AB213395372361 /* RecordCard.swift */,
 				6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */,
-				CA654D4858207C263458AB0B /* UsageRowView.swift */,
 				A65CB9957CECCA901BA95C2F /* YearChartView.swift */,
 				454668927CA4DEF8DD8A8F5A /* LuckRow.swift */,
 			);
@@ -857,6 +865,7 @@
 				25BD7A27DB9F3B7B969F5C2D /* Theme */,
 				E8811AC4641D3747098C7826 /* Utility */,
 				52BF1598857635BFEA82CBE0 /* MoveTypes+Colors.swift */,
+				B21000000000000000000003 /* Gender+Colors.swift */,
 				B10C0A000000000000005902 /* IndividualValues+Colors.swift */,
 			);
 			name = Presentation;
@@ -1899,10 +1908,12 @@
 				AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */,
 				AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */,
 				A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */,
+				B21000000000000000000002 /* UsageGridView.swift in Sources */,
+				B21000000000000000000006 /* GenderRatioView.swift in Sources */,
+				3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */,
 				B243322F7989347710F03348 /* PeriodChartView.swift in Sources */,
 				9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */,
 				87477D2F5EA46112BA98BD66 /* TappableColumn.swift in Sources */,
-				3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */,
 				91B7BE5138DB0F8FD50C7C6E /* YearChartView.swift in Sources */,
 				99A4CE46F802F46D05C4019B /* LuckRow.swift in Sources */,
 				8BD1A9ED86CEDAEF08A5936A /* JourneyEntryCell.swift in Sources */,
@@ -2073,6 +2084,7 @@
 				DF7F62A9A9FF14DEBDFE8740 /* CatchSummary+Display.swift in Sources */,
 				1FA1B18140BC81F7BD758A68 /* FoundationExtensions.swift in Sources */,
 				993B357F56E2584D447C1F0E /* MoveTypes+Colors.swift in Sources */,
+				B21000000000000000000004 /* Gender+Colors.swift in Sources */,
 				B10C0A000000000000005102 /* IndividualValues+Colors.swift in Sources */,
 				070E2DD8A599C87AAD905B7E /* GlowView.swift in Sources */,
 			);

@@ -14,15 +14,17 @@ final class GetCatchesHandler {
     private let forms: PokemonForms
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
+    private let genders: PokemonGenders
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms()) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms(), genders: PokemonGenders = PokemonGenders()) {
         self.forms = forms
+        self.genders = genders
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
     }
 
     func handle(_ query: GetCatchesQuery) -> [CatchSummary] {
-        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms)
+        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms, genders: genders)
         let sorted: [Catch]
         switch query.scope {
         case .species(let number):
