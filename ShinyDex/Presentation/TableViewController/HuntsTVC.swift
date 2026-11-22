@@ -333,8 +333,14 @@ class HuntsTVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         UIView.performWithoutAnimation {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
-        if let header = tableView.headerView(forSection: indexPath.section) as? HuntHeaderView {
-            header.configure(hunt: hunts[indexPath.section])
+        guard let header = tableView.headerView(forSection: indexPath.section) as? HuntHeaderView else { return }
+        header.configure(hunt: hunts[indexPath.section])
+        let fittingHeight = header.systemLayoutSizeFitting(CGSize(width: header.bounds.width, height: UIView.layoutFittingCompressedSize.height),
+                                                           withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
+        if abs(fittingHeight - header.bounds.height) > 1 {
+            UIView.performWithoutAnimation {
+                tableView.performBatchUpdates(nil)
+            }
         }
     }
 }

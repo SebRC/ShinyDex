@@ -38,7 +38,7 @@ class EVTrainingVC: UIViewController {
         stack.axis = .vertical
         stack.spacing = 16
         let footnote = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
-        footnote.text = "Each stat can have up to 252 EVs, and a Pokémon up to 510 in total. Tap a number to type an exact value."
+        footnote.text = "Each stat counts up to 252 EVs and holds up to 255, so the last 3 are wasted. A Pokémon can have up to 510 in total. Tap a number to type an exact value."
         stack.addArrangedSubview(footnote)
 
         view.addAutoLayoutSubviews(scrollView)
@@ -240,11 +240,12 @@ fileprivate class EVStatRow: UIView {
     }
 
     func update(value: Int, canIncrease: Bool) {
-        valueButton.setTitle("\(value) / \(EffortValues.maximumPerStat)", for: .normal)
-        valueButton.accessibilityLabel = "\(stat.name), \(value) EVs"
+        let wasted = EffortValues.countWasted(of: value)
+        valueButton.setTitle(wasted > 0 ? "\(value) · \(wasted) wasted" : "\(value) / \(EffortValues.maximumUsefulPerStat)", for: .normal)
+        valueButton.accessibilityLabel = "\(stat.name), \(value) EVs" + (wasted > 0 ? ", \(wasted) wasted" : "")
         valueButton.accessibilityHint = "Type an exact value."
-        bar.progress = Float(value) / Float(EffortValues.maximumPerStat)
-        bar.progressTintColor = value >= EffortValues.maximumPerStat ? Color.accent : Color.success
+        bar.progress = Float(min(value, EffortValues.maximumUsefulPerStat)) / Float(EffortValues.maximumUsefulPerStat)
+        bar.progressTintColor = value >= EffortValues.maximumUsefulPerStat ? Color.accent : Color.success
         minusButton.isEnabled = value > 0
         plusButton.isEnabled = canIncrease
         minusButton.alpha = minusButton.isEnabled ? 1 : 0.4

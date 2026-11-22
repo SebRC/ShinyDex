@@ -13,6 +13,9 @@ final class CatchAbilitiesTests: XCTestCase {
                 PokemonAbilities.GenerationRange(fromGeneration: 3, abilities: AbilitySet(regular: ["overgrow"], hidden: nil)),
                 PokemonAbilities.GenerationRange(fromGeneration: 5, abilities: AbilitySet(regular: ["overgrow"], hidden: "chlorophyll"))
             ],
+            PokemonAbilities.Key(number: 1, formId: nil): [
+                PokemonAbilities.GenerationRange(fromGeneration: 3, abilities: AbilitySet(regular: ["thick-fat"], hidden: nil))
+            ],
             PokemonAbilities.Key(number: 2, formId: nil): [
                 PokemonAbilities.GenerationRange(fromGeneration: 3, abilities: AbilitySet(regular: ["overgrow"], hidden: nil)),
                 PokemonAbilities.GenerationRange(fromGeneration: 5, abilities: AbilitySet(regular: ["overgrow"], hidden: "chlorophyll"))
@@ -94,6 +97,36 @@ final class CatchAbilitiesTests: XCTestCase {
         let changed = PokemonAbilities.Key(number: venusaur, formId: "frost")
         XCTAssertEqual(abilities.carryOver("chlorophyll", from: PokemonAbilities.Key(number: venusaur, formId: nil), to: changed, in: .Sword), "snow-cloak")
         XCTAssertEqual(abilities.carryOver("overgrow", from: PokemonAbilities.Key(number: venusaur, formId: nil), to: changed, in: .Sword), "thick-fat")
+    }
+
+    func test_aSingleAbility_isAssigned_andCantBeChanged() throws {
+        let id = try logCatch(of: bulbasaur, in: .Platinum)
+        XCTAssertEqual(catches.get(id: id.rawValue)?.ability, "overgrow")
+
+        try update(id, .ability(nil))
+
+        let ability = getDetails(id)?.ability
+        XCTAssertEqual(ability?.name, "Overgrow")
+        XCTAssertEqual(ability?.isFixed, true)
+        XCTAssertEqual(catches.get(id: id.rawValue)?.ability, "overgrow")
+    }
+
+    func test_changingToAGameWithMoreAbilities_keepsTheAssignedOne() throws {
+        let id = try logCatch(of: bulbasaur, in: .Platinum)
+
+        try update(id, .game(.Sword))
+
+        XCTAssertEqual(catches.get(id: id.rawValue)?.ability, "overgrow")
+        XCTAssertEqual(getDetails(id)?.ability?.isFixed, false)
+    }
+
+    func test_evolvingIntoASpeciesWithOneAbility_takesIt() throws {
+        let id = try logCatch(of: bulbasaur, in: .Sword)
+        try update(id, .ability("chlorophyll"))
+
+        try EvolveCatchHandler(catchRepository: catches, pokemonRepository: pokemon, abilities: abilities).handle(EvolveCatchCommand(catchId: id, targetNumber: ivysaur))
+
+        XCTAssertEqual(catches.get(id: id.rawValue)?.ability, "thick-fat")
     }
 
     func test_bundledData_knowsAbilitiesAcrossGenerationsAndForms() {

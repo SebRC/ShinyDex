@@ -1,7 +1,8 @@
 import Foundation
 
 struct EffortValues: Equatable {
-	static let maximumPerStat = 252
+	static let maximumPerStat = 255
+	static let maximumUsefulPerStat = 252
 	static let maximumTotal = 510
 
 	fileprivate(set) var values: [Int]
@@ -37,6 +38,10 @@ struct EffortValues: Equatable {
 
 	subscript(stat: Stat) -> Int {
 		return values[stat.rawValue]
+	}
+
+	static func countWasted(of value: Int) -> Int {
+		return max(value - maximumUsefulPerStat, 0)
 	}
 
 	func adding(_ amount: Int, to stat: Stat) -> EffortValues {

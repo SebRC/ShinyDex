@@ -11,10 +11,13 @@ final class GetCatchDetailsHandler {
     private let evolutions: Evolutions
     private let abilities: PokemonAbilities
     private let makeLearnsets: () -> PokemonLearnsets
+    private let genders: PokemonGenders
 
     init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, evolutions: Evolutions, forms: PokemonForms = PokemonForms(),
-         abilities: PokemonAbilities = PokemonAbilities(), makeLearnsets: @escaping () -> PokemonLearnsets = { PokemonLearnsets() }) {
+         abilities: PokemonAbilities = PokemonAbilities(), makeLearnsets: @escaping () -> PokemonLearnsets = { PokemonLearnsets() },
+         genders: PokemonGenders = PokemonGenders()) {
         self.forms = forms
+        self.genders = genders
         self.makeLearnsets = makeLearnsets
         self.abilities = abilities
         self.catchRepository = catchRepository
@@ -41,7 +44,8 @@ final class GetCatchDetailsHandler {
             speciesCatchCount: speciesCatches.count,
             formChoices: FormChoices(forms.getForms(of: caught.number)),
             ability: makeAbility(of: caught),
-            moves: makeMoves(of: caught))
+            moves: makeMoves(of: caught),
+            gender: CatchGender(value: genders.resolve(caught.gender, for: caught.number), choices: genders.findPossibleGenders(of: caught.number)))
     }
 
     private func makeMoves(of caught: Catch) -> [MoveChoice] {
@@ -57,6 +61,7 @@ final class GetCatchDetailsHandler {
         let available = abilities.findAbilities(of: caught.number, formId: caught.formId, in: caught.game)
         let choices = (available?.regular ?? []).map { AbilityChoice(id: $0, name: abilities.findName(of: $0), isHidden: false) }
             + (available?.hidden.map { [AbilityChoice(id: $0, name: abilities.findName(of: $0), isHidden: true)] } ?? [])
-        return CatchAbility(name: caught.ability.map(abilities.findName), choices: choices)
+        let ability = abilities.resolve(caught.ability, of: caught.number, formId: caught.formId, in: caught.game)
+        return CatchAbility(name: ability.map(abilities.findName), choices: choices)
     }
 }
