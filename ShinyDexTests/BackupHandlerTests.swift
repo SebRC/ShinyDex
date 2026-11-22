@@ -82,7 +82,7 @@ final class BackupHandlerTests: XCTestCase {
         goals.save(YearlyGoal(year: 2025, target: 12))
         goals.save(YearlyGoal(year: 2026, target: 30))
         days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 19), count: 120))
-        days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 45))
+        days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 45, countsByPokemon: [2: 30, 150: 15]))
         let venusaur = pokemon.get(number: 2)!
         venusaur.encounters = 4321
         venusaur.isBeingHunted = true
@@ -163,7 +163,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(ledger.trackedSince, exportDate)
         XCTAssertEqual(backup.yearlyGoals, [YearlyGoal(year: 2025, target: 12), YearlyGoal(year: 2026, target: 30)])
         XCTAssertEqual(backup.dailyEncounters, [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 19), count: 120),
-                                                DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 45)])
+                                                DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 45, countsByPokemon: [2: 30, 150: 15])])
     }
 
     func test_restore_ofABackupFromBeforeStreaksAndGoals_leavesThemAlone() throws {

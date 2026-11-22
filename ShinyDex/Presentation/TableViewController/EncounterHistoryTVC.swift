@@ -27,7 +27,6 @@ class EncounterHistoryTVC: UITableViewController {
         navigationItem.largeTitleDisplayMode = .never
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
-        tableView.allowsSelection = false
         setUpPeriodControl()
     }
 
@@ -148,7 +147,15 @@ class EncounterHistoryTVC: UITableViewController {
             return makeValueCell(title: row.title, value: row.value)
         case .periods:
             let entry = history.recorded[indexPath.row]
-            return makeValueCell(title: formatPeriod(entry.start, relativeToNow: true), value: entry.count.grouped)
+            let cell = makeValueCell(title: formatPeriod(entry.start, relativeToNow: true), value: entry.count.grouped)
+            if period == .day {
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .default
+                let selectedBackground = UIView()
+                selectedBackground.backgroundColor = Color.surfaceRaised
+                cell.selectedBackgroundView = selectedBackground
+            }
+            return cell
         }
     }
 
@@ -201,7 +208,14 @@ class EncounterHistoryTVC: UITableViewController {
         cell.detailTextLabel?.font = UIFont.make(.body, weight: .regular, monospacedDigits: true)
         cell.textLabel?.text = title
         cell.detailTextLabel?.text = value
+        cell.selectionStyle = .none
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard period == .day, sections[indexPath.section] == .periods, let entry = history?.recorded[indexPath.row] else { return }
+        navigationController?.pushViewController(EncounterDayTVC(container: container, date: entry.start), animated: true)
     }
 
     fileprivate func formatPeriod(_ start: Date, relativeToNow: Bool = false) -> String {

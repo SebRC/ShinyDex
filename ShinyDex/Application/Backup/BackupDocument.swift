@@ -105,6 +105,7 @@ struct BackupDocument: Codable {
     struct DailyEncountersRecord: Codable {
         let day: String
         let count: Int
+        var pokemon: [String: Int]? = nil
     }
 
     private struct FormatHeader: Decodable {
@@ -195,7 +196,10 @@ extension BackupDocument {
         }
         self.encounterLedger = encounterLedger.map { EncounterLedgerRecord(total: $0.total, trackedSince: $0.trackedSince) }
         self.yearlyGoals = yearlyGoals.map { YearlyGoalRecord(year: $0.year, target: $0.target) }
-        self.dailyEncounters = dailyEncounters.map { DailyEncountersRecord(day: $0.day.isoDate, count: $0.count) }
+        self.dailyEncounters = dailyEncounters.map { encounters in
+            DailyEncountersRecord(day: encounters.day.isoDate, count: encounters.count,
+                                  pokemon: encounters.countsByPokemon.isEmpty ? nil : Dictionary(uniqueKeysWithValues: encounters.countsByPokemon.map { (String($0.key), $0.value) }))
+        }
     }
 
     func makeCatches() -> [Catch] {
@@ -238,7 +242,12 @@ extension BackupDocument {
 
     func makeDailyEncounters() -> [DailyEncounters]? {
         return dailyEncounters.map { records in
-            records.compactMap { record in EncounterDay(isoDate: record.day).map { DailyEncounters(day: $0, count: record.count) } }
+            records.compactMap { record in
+                EncounterDay(isoDate: record.day).map { day in
+                    let countsByPokemon = (record.pokemon ?? [:]).compactMap { key, value in Int(key).map { ($0, value) } }
+                    return DailyEncounters(day: day, count: record.count, countsByPokemon: Dictionary(countsByPokemon, uniquingKeysWith: +))
+                }
+            }
         }
     }
 

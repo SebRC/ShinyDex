@@ -56,8 +56,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 11")
     }
 
-    func test_reopeningVersion12_keepsAllData() throws {
+    func test_upgradeFromVersion12_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 12")
+    }
+
+    func test_reopeningVersion13_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 13")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -131,7 +135,7 @@ final class StoreMigrationTests: XCTestCase {
             "total": 4500, "trackedSince": journeyCreatedDate,
         ])
         insert("DailyEncounterEntity", into: context, values: [
-            "day": "2026-11-21", "count": 77,
+            "day": "2026-11-21", "count": 77, "pokemonCounts": #"{"279":70,"280":7}"#,
         ])
         insert("YearlyGoalEntity", into: context, values: [
             "year": 2026, "target": 25,
@@ -249,7 +253,9 @@ final class StoreMigrationTests: XCTestCase {
             XCTAssertEqual(goals, [], file: file, line: line)
         }
         let days = CoreDataDailyEncountersRepository(managedContext: context).getAll()
-        let expectedDays = oldModel.entitiesByName["DailyEncounterEntity"] != nil ? [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 21), count: 77)] : []
+        let dayEntity = oldModel.entitiesByName["DailyEncounterEntity"]
+        let expectedCountsByPokemon = dayEntity?.attributesByName["pokemonCounts"] != nil ? [279: 70, 280: 7] : [:]
+        let expectedDays = dayEntity != nil ? [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 21), count: 77, countsByPokemon: expectedCountsByPokemon)] : []
         XCTAssertEqual(days, expectedDays, file: file, line: line)
     }
 
