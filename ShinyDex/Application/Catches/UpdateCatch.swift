@@ -18,6 +18,7 @@ struct UpdateCatchCommand {
         case nature(Nature?)
         case ivs(IndividualValues)
         case form(String?)
+        case ability(String?)
     }
 
     let catchId: CatchID
@@ -28,9 +29,11 @@ final class UpdateCatchHandler {
     private let forms: PokemonForms
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
+    private let abilities: PokemonAbilities
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms()) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, forms: PokemonForms = PokemonForms(), abilities: PokemonAbilities = PokemonAbilities()) {
         self.forms = forms
+        self.abilities = abilities
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
     }
@@ -48,7 +51,11 @@ final class UpdateCatchHandler {
         case .gender(let gender): caught.gender = gender
         case .nature(let nature): caught.nature = nature
         case .ivs(let ivs): caught.ivs = ivs
-        case .form(let formId): caught.formId = forms.carryOver(formId, to: caught.number)
+        case .form(let formId):
+            let previousForm = PokemonAbilities.Key(number: caught.number, formId: caught.formId)
+            caught.formId = forms.carryOver(formId, to: caught.number)
+            caught.ability = abilities.carryOver(caught.ability, from: previousForm, to: PokemonAbilities.Key(number: caught.number, formId: caught.formId), in: caught.game)
+        case .ability(let ability): caught.ability = ability
         }
         catchRepository.update(caught)
         guard catchRepository.save() else { throw CatchUpdateError.saveFailed }

@@ -9,9 +9,12 @@ final class GetCatchDetailsHandler {
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let evolutions: Evolutions
+    private let abilities: PokemonAbilities
 
-    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, evolutions: Evolutions, forms: PokemonForms = PokemonForms()) {
+    init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, evolutions: Evolutions, forms: PokemonForms = PokemonForms(),
+         abilities: PokemonAbilities = PokemonAbilities()) {
         self.forms = forms
+        self.abilities = abilities
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
         self.evolutions = evolutions
@@ -34,6 +37,15 @@ final class GetCatchDetailsHandler {
             chanceOfFindingSooner: CatchOdds.calculateChanceOfFindingSooner(caught),
             position: position,
             speciesCatchCount: speciesCatches.count,
-            formChoices: FormChoices(forms.getForms(of: caught.number)))
+            formChoices: FormChoices(forms.getForms(of: caught.number)),
+            ability: makeAbility(of: caught))
+    }
+
+    private func makeAbility(of caught: Catch) -> CatchAbility? {
+        guard PokemonAbilities.hasAbilities(caught.game) else { return nil }
+        let available = abilities.findAbilities(of: caught.number, formId: caught.formId, in: caught.game)
+        let choices = (available?.regular ?? []).map { AbilityChoice(id: $0, name: abilities.findName(of: $0), isHidden: false) }
+            + (available?.hidden.map { [AbilityChoice(id: $0, name: abilities.findName(of: $0), isHidden: true)] } ?? [])
+        return CatchAbility(name: caught.ability.map(abilities.findName), choices: choices)
     }
 }

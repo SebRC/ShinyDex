@@ -55,6 +55,7 @@ final class BackupHandlerTests: XCTestCase {
         caught.nickname = "Leafy"
         caught.gender = .female
         caught.nature = .timid
+        caught.ability = "keen-eye"
         caught.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         caught.formId = "east"
         caught.encounterTotalAtFind = 900
@@ -130,6 +131,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(caught.nickname, "Leafy")
         XCTAssertEqual(caught.gender, .female)
         XCTAssertEqual(caught.nature, .timid)
+        XCTAssertEqual(caught.ability, "keen-eye")
         XCTAssertEqual(caught.ivs, seeded.caught.ivs)
         XCTAssertEqual(caught.formId, "east")
         XCTAssertEqual(caught.encounterTotalAtFind, 900)

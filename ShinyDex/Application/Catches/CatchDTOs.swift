@@ -19,6 +19,18 @@ struct CatchSummary: Equatable {
     let ivs: IndividualValues
     let formId: String?
     let formName: String?
+    var ability: String? = nil
+}
+
+struct AbilityChoice: Equatable {
+    let id: String
+    let name: String
+    let isHidden: Bool
+}
+
+struct CatchAbility: Equatable {
+    let name: String?
+    let choices: [AbilityChoice]
 }
 
 struct NamedPokemon: Equatable {
@@ -35,6 +47,7 @@ struct CatchDetails: Equatable {
     let position: Int?
     let speciesCatchCount: Int
     let formChoices: FormChoices?
+    var ability: CatchAbility? = nil
 }
 
 struct CatchSummaryMapper {
@@ -66,6 +79,7 @@ struct CatchSummaryMapper {
             nature: caught.nature,
             ivs: caught.ivs,
             formId: caught.formId,
-            formName: forms.findForm(caught.formId, of: caught.number)?.name)
+            formName: forms.findForm(caught.formId, of: caught.number)?.name,
+            ability: caught.ability)
     }
 }
