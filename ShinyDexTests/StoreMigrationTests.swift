@@ -64,8 +64,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 13")
     }
 
-    func test_reopeningVersion14_keepsAllData() throws {
+    func test_upgradeFromVersion14_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 14")
+    }
+
+    func test_reopeningVersion15_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 15")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {
@@ -123,7 +127,7 @@ final class StoreMigrationTests: XCTestCase {
             "game": Games.Scarlet.rawValue, "huntMethod": HuntMethod.Masuda.rawValue, "isShinyCharmActive": true,
             "isFailed": true, "evs": "0,0,0,252,4,252", "evolvedFrom": 280,
             "nickname": "Kirlia fan", "gender": Gender.female.rawValue, "nature": Nature.modest.rawValue, "ivs": "31,0,31,31,31,",
-            "form": "east", "encounterTotalAtFind": 4000, "ability": "synchronize",
+            "form": "east", "encounterTotalAtFind": 4000, "ability": "synchronize", "moves": "94,248",
         ])
         insert("JourneyEntity", into: context, values: [
             "id": journeyId, "name": "Hoenn favourites", "createdDate": journeyCreatedDate, "priority": 1,
@@ -243,6 +247,7 @@ final class StoreMigrationTests: XCTestCase {
         }
         XCTAssertEqual(caught.formId, oldAttributes["form"] != nil ? "east" : nil, file: file, line: line)
         XCTAssertEqual(caught.ability, oldAttributes["ability"] != nil ? "synchronize" : nil, file: file, line: line)
+        XCTAssertEqual(caught.moves, oldAttributes["moves"] != nil ? [94, 248] : [], file: file, line: line)
         XCTAssertEqual(caught.encounterTotalAtFind, oldAttributes["encounterTotalAtFind"] != nil ? 4000 : nil, file: file, line: line)
     }
 

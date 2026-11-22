@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2070000000000000000000D /* CatchMovesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2070000000000000000000C /* CatchMovesTests.swift */; };
+		B2070000000000000000000B /* learnsets.json in Resources */ = {isa = PBXBuildFile; fileRef = B2070000000000000000000A /* learnsets.json */; };
+		B20700000000000000000009 /* CatchMovesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20700000000000000000008 /* CatchMovesTVC.swift */; };
+		B20700000000000000000007 /* GetLearnableMoves.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20700000000000000000006 /* GetLearnableMoves.swift */; };
+		B20700000000000000000005 /* PokemonLearnsetsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20700000000000000000004 /* PokemonLearnsetsLoader.swift */; };
+		B20700000000000000000003 /* PokemonLearnsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20700000000000000000002 /* PokemonLearnsets.swift */; };
 		B20600000000000000000009 /* CatchAbilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20600000000000000000008 /* CatchAbilitiesTests.swift */; };
 		B20600000000000000000007 /* abilities.json in Resources */ = {isa = PBXBuildFile; fileRef = B20600000000000000000006 /* abilities.json */; };
 		B20600000000000000000005 /* PokemonAbilitiesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20600000000000000000004 /* PokemonAbilitiesLoader.swift */; };
@@ -362,6 +368,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2070000000000000000000C /* CatchMovesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchMovesTests.swift; sourceTree = "<group>"; };
+		B2070000000000000000000A /* learnsets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = learnsets.json; sourceTree = "<group>"; };
+		B20700000000000000000008 /* CatchMovesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchMovesTVC.swift; sourceTree = "<group>"; };
+		B20700000000000000000006 /* GetLearnableMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLearnableMoves.swift; sourceTree = "<group>"; };
+		B20700000000000000000004 /* PokemonLearnsetsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsetsLoader.swift; sourceTree = "<group>"; };
+		B20700000000000000000002 /* PokemonLearnsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsets.swift; sourceTree = "<group>"; };
+		B20700000000000000000001 /* ShinyDex 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 15.xcdatamodel"; sourceTree = "<group>"; };
 		B20600000000000000000008 /* CatchAbilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchAbilitiesTests.swift; sourceTree = "<group>"; };
 		B20600000000000000000006 /* abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = abilities.json; sourceTree = "<group>"; };
 		B20600000000000000000004 /* PokemonAbilitiesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonAbilitiesLoader.swift; sourceTree = "<group>"; };
@@ -933,6 +946,7 @@
 				969BEF8926B1B55200FDF445 /* Move.swift */,
 				96E2FE3F26B2FE6A005E1D46 /* MoveRepository.swift */,
 				96BC2CDA26B4309A00353665 /* MoveTypes.swift */,
+				B20700000000000000000002 /* PokemonLearnsets.swift */,
 			);
 			name = Moves;
 			path = Moves;
@@ -1058,6 +1072,7 @@
 				B12600000000000000000007 /* BingoTemplatesLoader.swift */,
 				F0A1B2000000000000000005 /* PokemonFormsLoader.swift */,
 				B20600000000000000000004 /* PokemonAbilitiesLoader.swift */,
+				B20700000000000000000004 /* PokemonLearnsetsLoader.swift */,
 				213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */,
 				C6F1C056BAF4755A1AD1E2EC /* BundleResourceLoader.swift */,
 				E62D0E871083310DE6F7C4B3 /* UserDefaultsStore.swift */,
@@ -1116,6 +1131,7 @@
 				B10C0A0000000000000000EA /* EffortValuesTests.swift */,
 				B10C0A000000000000005808 /* CatchTraitsTests.swift */,
 				B20600000000000000000008 /* CatchAbilitiesTests.swift */,
+				B2070000000000000000000C /* CatchMovesTests.swift */,
 				B10C0A000000000000005807 /* IndividualValuesTests.swift */,
 				B10C0A0000000000000000C2 /* CatchStatsTests.swift */,
 				D22000000000000000000F03 /* CatchPeriodTests.swift */,
@@ -1279,6 +1295,7 @@
 				157CFED362D73A96ED902CC1 /* EvolveCatch.swift */,
 				9B46E48E3772951697151C17 /* GetBallNames.swift */,
 				A33F2DE9730A3CA606AF54DA /* GetCatchDetails.swift */,
+				B20700000000000000000006 /* GetLearnableMoves.swift */,
 				D247425C0E7E1D4A61861661 /* GetCatchStatistics.swift */,
 				28C960D3F8889C92FD2FBC95 /* GetCatches.swift */,
 				1E8106095A92C68F1A3BBF01 /* LogCatch.swift */,
@@ -1301,6 +1318,7 @@
 				B12600000000000000000009 /* BingoTemplatePickerTVC.swift */,
 				B1B60A000000000000000015 /* BingoBoardsTVC.swift */,
 				70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */,
+				B20700000000000000000008 /* CatchMovesTVC.swift */,
 				B10C0A000000000000005805 /* OptionPickerTVC.swift */,
 				CE7F71281B079D457FDB64CE /* CatchesTVC.swift */,
 				BBCCCF3B9CA4B91D4BE0506A /* CollectionTVC.swift */,
@@ -1362,6 +1380,7 @@
 				B1260000000000000000000B /* bingoTemplates.json */,
 				F0A1B2000000000000000009 /* forms.json */,
 				B20600000000000000000006 /* abilities.json */,
+				B2070000000000000000000A /* learnsets.json */,
 				9625741926B308350056B09C /* initialActiveMoves.json */,
 				51818C5A26C0483500B95FF6 /* moves.json */,
 				B10C0A0000000000000000E8 /* evolutions.json */,
@@ -1636,6 +1655,7 @@
 				B1260000000000000000000C /* bingoTemplates.json in Resources */,
 				F0A1B200000000000000000A /* forms.json in Resources */,
 				B20600000000000000000007 /* abilities.json in Resources */,
+				B2070000000000000000000B /* learnsets.json in Resources */,
 				96FC07EF23EF529B00459450 /* pokeballs.txt in Resources */,
 				96FC07F023EF529B00459450 /* allGens.txt in Resources */,
 				51818C5B26C0483500B95FF6 /* moves.json in Resources */,
@@ -1721,6 +1741,7 @@
 				B10C0A0000000000000000E9 /* EffortValuesTests.swift in Sources */,
 				B10C0A000000000000005008 /* CatchTraitsTests.swift in Sources */,
 				B20600000000000000000009 /* CatchAbilitiesTests.swift in Sources */,
+				B2070000000000000000000D /* CatchMovesTests.swift in Sources */,
 				B10C0A000000000000005007 /* IndividualValuesTests.swift in Sources */,
 				B10C0A0000000000000000C1 /* CatchStatsTests.swift in Sources */,
 				D22000000000000000000B03 /* CatchPeriodTests.swift in Sources */,
@@ -1827,6 +1848,7 @@
 				F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */,
 				F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */,
 				B20600000000000000000005 /* PokemonAbilitiesLoader.swift in Sources */,
+				B20700000000000000000005 /* PokemonLearnsetsLoader.swift in Sources */,
 				F0A1B2000000000000000004 /* GetPokemonForms.swift in Sources */,
 				F0A1B2000000000000000002 /* PokemonForms.swift in Sources */,
 				B20600000000000000000003 /* PokemonAbilities.swift in Sources */,
@@ -1894,6 +1916,7 @@
 				FE60CEA635BB8F79333C2987 /* CatchRepository.swift in Sources */,
 				B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */,
 				CF124A47CDAB6B64BD56CC7C /* CatchDetailTVC.swift in Sources */,
+				B20700000000000000000009 /* CatchMovesTVC.swift in Sources */,
 				B10C0A000000000000005005 /* OptionPickerTVC.swift in Sources */,
 				5614D70EB8938E96B8BB390E /* CollectionTVC.swift in Sources */,
 				6AFB829FF20AE1F5E356EDFB /* EmptyStateView.swift in Sources */,
@@ -1959,6 +1982,7 @@
 				96FC082A23EF598E00459450 /* HuntsTVC.swift in Sources */,
 				9689C7312409633E0007AD5D /* ProbabilityService.swift in Sources */,
 				96BC2CDB26B4309A00353665 /* MoveTypes.swift in Sources */,
+				B20700000000000000000003 /* PokemonLearnsets.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
 				B10C0A0000000000000000E3 /* Evolutions.swift in Sources */,
 				9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */,
@@ -1983,6 +2007,7 @@
 				B94C4B7485197FAC57A562E9 /* EvolveCatch.swift in Sources */,
 				A3647A21AEE190E787CBD6B6 /* GetBallNames.swift in Sources */,
 				8F8CC1D37CA2E10C3E653A24 /* GetCatchDetails.swift in Sources */,
+				B20700000000000000000007 /* GetLearnableMoves.swift in Sources */,
 				FC69EEA49E99A955C31B754B /* GetCatchStatistics.swift in Sources */,
 				C22AED1A43B762761FECE8C7 /* GetCatches.swift in Sources */,
 				287F283BAD79556704EFE666 /* LogCatch.swift in Sources */,
@@ -2298,8 +2323,9 @@
 				B18700000000000000000007 /* ShinyDex 12.xcdatamodel */,
 				B20500000000000000000001 /* ShinyDex 13.xcdatamodel */,
 				B20600000000000000000001 /* ShinyDex 14.xcdatamodel */,
+				B20700000000000000000001 /* ShinyDex 15.xcdatamodel */,
 			);
-			currentVersion = B20600000000000000000001 /* ShinyDex 14.xcdatamodel */;
+			currentVersion = B20700000000000000000001 /* ShinyDex 15.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

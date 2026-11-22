@@ -2,6 +2,7 @@ import Foundation
 
 class Catch {
     static let maximumNicknameLength = 12
+    static let maximumMoveCount = 4
 
     var id: UUID
     var number: Int
@@ -23,9 +24,12 @@ class Catch {
     var formId: String?
     var encounterTotalAtFind: Int?
     var ability: String?
+    var moves: [Int] {
+        didSet { moves = Catch.normalizeMoves(moves) }
+    }
 
     init(id: UUID, number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool, evs: EffortValues, evolvedFrom: Int?,
-         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil, ability: String? = nil) {
+         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil, ability: String? = nil, moves: [Int] = []) {
         self.id = id
         self.number = number
         self.caughtBall = caughtBall
@@ -44,6 +48,7 @@ class Catch {
         self.formId = formId
         self.encounterTotalAtFind = encounterTotalAtFind
         self.ability = ability
+        self.moves = Catch.normalizeMoves(moves)
     }
 
     init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool = false) {
@@ -59,10 +64,19 @@ class Catch {
         self.evs = EffortValues()
         self.evolvedFrom = nil
         self.ivs = IndividualValues()
+        self.moves = []
     }
 
     func matchesForm(_ targetFormId: String?) -> Bool {
         return targetFormId == nil || formId == targetFormId
+    }
+
+    static func normalizeMoves(_ moves: [Int]) -> [Int] {
+        var unique = [Int]()
+        for move in moves where move > 0 && !unique.contains(move) {
+            unique.append(move)
+        }
+        return Array(unique.prefix(maximumMoveCount))
     }
 
     static func normalizeNickname(_ nickname: String?) -> String? {

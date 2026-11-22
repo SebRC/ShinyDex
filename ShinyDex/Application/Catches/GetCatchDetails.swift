@@ -10,10 +10,12 @@ final class GetCatchDetailsHandler {
     private let pokemonRepository: PokemonRepository
     private let evolutions: Evolutions
     private let abilities: PokemonAbilities
+    private let makeLearnsets: () -> PokemonLearnsets
 
     init(catchRepository: CatchRepository, pokemonRepository: PokemonRepository, evolutions: Evolutions, forms: PokemonForms = PokemonForms(),
-         abilities: PokemonAbilities = PokemonAbilities()) {
+         abilities: PokemonAbilities = PokemonAbilities(), makeLearnsets: @escaping () -> PokemonLearnsets = { PokemonLearnsets() }) {
         self.forms = forms
+        self.makeLearnsets = makeLearnsets
         self.abilities = abilities
         self.catchRepository = catchRepository
         self.pokemonRepository = pokemonRepository
@@ -38,7 +40,16 @@ final class GetCatchDetailsHandler {
             position: position,
             speciesCatchCount: speciesCatches.count,
             formChoices: FormChoices(forms.getForms(of: caught.number)),
-            ability: makeAbility(of: caught))
+            ability: makeAbility(of: caught),
+            moves: makeMoves(of: caught))
+    }
+
+    private func makeMoves(of caught: Catch) -> [MoveChoice] {
+        guard !caught.moves.isEmpty else { return [] }
+        let learnsets = makeLearnsets()
+        return caught.moves.map { id in
+            learnsets.findMove(id).map(MoveChoice.init) ?? MoveChoice(id: id, name: "Move #\(id)", type: "", pp: 0)
+        }
     }
 
     private func makeAbility(of caught: Catch) -> CatchAbility? {

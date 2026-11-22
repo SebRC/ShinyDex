@@ -7,6 +7,7 @@ final class AppContainer {
     let backupFolder: BackupFolder
     let gameAvailability: GameAvailability
     lazy var pokemonLocations = PokemonLocationsLoader.load(from: resourceLoader)
+    lazy var learnsets = PokemonLearnsetsLoader.load(from: resourceLoader)
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -87,10 +88,11 @@ final class AppContainer {
     // MARK: Catches
 
     var getCatches: GetCatchesHandler { GetCatchesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms) }
-    var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, abilities: abilities) }
+    var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, abilities: abilities, makeLearnsets: { [unowned self] in self.learnsets }) }
     var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
     var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms) }
+    var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets) }
     var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities) }
     var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
