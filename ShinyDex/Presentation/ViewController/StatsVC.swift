@@ -326,16 +326,28 @@ class StatsVC: UIViewController {
     }
 
     fileprivate func addNatures(_ stats: CatchStatistics) {
-        guard let mostCommonCount = stats.natureUsage.first?.count else { return }
-        let chart = NatureChartView(usage: stats.natureUsage) { [weak self] nature in
-            self?.showCollection(filter: .nature(nature))
+        guard stats.caughtCount > 0 else { return }
+        let content = UIStackView()
+        content.axis = .vertical
+        content.spacing = 10
+        var footnote = [String]()
+        if let mostCommonCount = stats.natureUsage.first?.count {
+            content.addArrangedSubview(NatureChartView(usage: stats.natureUsage) { [weak self] nature in
+                self?.showCollection(filter: .nature(nature))
+            })
+            let mostCommonNames = stats.natureUsage.filter { $0.count == mostCommonCount }.map { $0.key.name }
+            footnote.append("Most common: \(ListFormatter.localizedString(byJoining: mostCommonNames)), with \(StatsVC.formatShinies(mostCommonCount)). Tap a nature to see those catches.")
         }
-        let mostCommonNames = stats.natureUsage.filter { $0.count == mostCommonCount }.map { $0.key.name }
-        var footnote = "Most common: \(ListFormatter.localizedString(byJoining: mostCommonNames)), with \(StatsVC.formatShinies(mostCommonCount)). Tap a nature to see those catches."
         if stats.unknownNatureCount > 0 {
-            footnote += " \(stats.unknownNatureCount) \(stats.unknownNatureCount == 1 ? "catch has" : "catches have") no nature logged and \(stats.unknownNatureCount == 1 ? "is" : "are") left out."
+            content.addArrangedSubview(StatTile(caption: "No nature logged", value: stats.unknownNatureCount.grouped,
+                                                detail: stats.unknownNatureCount == 1 ? "Tap to log it" : "Tap to see them and log their natures") { [weak self] in
+                self?.showCollection(filter: .missingNature)
+            })
         }
-        addSection("Natures", chart, footnote: footnote)
+        else {
+            footnote.append("Every catch has a nature logged.")
+        }
+        addSection("Natures", content, footnote: footnote.isEmpty ? nil : footnote.joined(separator: " "))
     }
 
 }
