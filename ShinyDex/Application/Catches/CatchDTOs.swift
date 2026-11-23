@@ -20,6 +20,7 @@ struct CatchSummary: Equatable {
     let formId: String?
     let formName: String?
     var ability: String? = nil
+    var level: Int? = nil
 }
 
 struct AbilityChoice: Equatable {
@@ -123,6 +124,7 @@ struct CatchSummaryMapper {
             ivs: caught.ivs,
             formId: caught.formId,
             formName: forms.findForm(caught.formId, of: caught.number)?.name,
-            ability: caught.ability)
+            ability: caught.ability,
+            level: caught.level)
     }
 }

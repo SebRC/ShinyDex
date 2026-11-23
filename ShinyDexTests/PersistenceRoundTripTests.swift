@@ -29,6 +29,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         original.nature = .timid
         original.ability = "static"
         original.moves = [85, 98]
+        original.level = 72
         original.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         original.encounterTotalAtFind = 98_765
         let repository = CoreDataCatchRepository(managedContext: store.context)
@@ -56,6 +57,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(caught.nature, .timid)
         XCTAssertEqual(caught.ability, "static")
         XCTAssertEqual(caught.moves, [85, 98])
+        XCTAssertEqual(caught.level, 72)
         XCTAssertEqual(caught.ivs, original.ivs)
         XCTAssertEqual(caught.encounterTotalAtFind, 98_765)
     }
@@ -85,6 +87,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertNil(caught.nature)
         XCTAssertNil(caught.ability)
         XCTAssertEqual(caught.moves, [])
+        XCTAssertNil(caught.level)
         XCTAssertTrue(caught.ivs.isEmpty)
     }
 

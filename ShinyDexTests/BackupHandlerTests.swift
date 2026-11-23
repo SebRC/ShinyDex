@@ -57,6 +57,7 @@ final class BackupHandlerTests: XCTestCase {
         caught.nature = .timid
         caught.ability = "keen-eye"
         caught.moves = [57, 85]
+        caught.level = 64
         caught.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         caught.formId = "east"
         caught.encounterTotalAtFind = 900
@@ -134,6 +135,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(caught.nature, .timid)
         XCTAssertEqual(caught.ability, "keen-eye")
         XCTAssertEqual(caught.moves, [57, 85])
+        XCTAssertEqual(caught.level, 64)
         XCTAssertEqual(caught.ivs, seeded.caught.ivs)
         XCTAssertEqual(caught.formId, "east")
         XCTAssertEqual(caught.encounterTotalAtFind, 900)

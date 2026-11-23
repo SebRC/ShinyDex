@@ -39,8 +39,19 @@ enum Games: String, CaseIterable {
     case Scarlet = "Scarlet"
     case Violet = "Violet"
 
+    static let hyperTrainingGames: Set<Games> = [.Sun, .Moon, .UltraSun, .UltraMoon, .Sword, .Shield, .BrilliantDiamond, .ShiningPearl, .Scarlet, .Violet]
+    static let mintGames: Set<Games> = [.Sword, .Shield, .BrilliantDiamond, .ShiningPearl, .LegendsArceus, .Scarlet, .Violet]
+
     var displayName: String {
         return rawValue.prefix(1).uppercased() + rawValue.dropFirst()
+    }
+
+    var supportsHyperTraining: Bool {
+        return Games.hyperTrainingGames.contains(self)
+    }
+
+    var supportsMints: Bool {
+        return Games.mintGames.contains(self)
     }
 }
 

@@ -13,9 +13,9 @@ extension IndividualValues {
         return middleColor.blended(with: highColor, fraction: (fraction - 0.5) * 2)
     }
 
-    func makeColoredSummary(unknownColor: UIColor) -> NSAttributedString {
+    func makeColoredSummary(unknownColor: UIColor, separator separatorText: String = " / ") -> NSAttributedString {
         guard !isEmpty else { return NSAttributedString(string: summary, attributes: [.foregroundColor: unknownColor]) }
-        let separator = NSAttributedString(string: " / ", attributes: [.foregroundColor: unknownColor])
+        let separator = NSAttributedString(string: separatorText, attributes: [.foregroundColor: unknownColor])
         let result = NSMutableAttributedString()
         for (index, value) in values.enumerated() {
             if (index > 0) {

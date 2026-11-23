@@ -8,6 +8,8 @@ final class AppContainer {
     let gameAvailability: GameAvailability
     lazy var pokemonLocations = PokemonLocationsLoader.load(from: resourceLoader)
     lazy var learnsets = PokemonLearnsetsLoader.load(from: resourceLoader)
+    lazy var baseStats = PokemonBaseStatsLoader.load(from: resourceLoader)
+    lazy var moveCategories = MoveCategoriesLoader.load(from: resourceLoader)
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -94,11 +96,16 @@ final class AppContainer {
     var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms, genders: genders) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
     var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms, genders: genders, abilities: abilities) }
+    var getCatchStats: GetCatchStatsHandler { GetCatchStatsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, baseStats: baseStats) }
     var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets) }
     var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
     var removeLatestCatch: RemoveLatestCatchHandler { RemoveLatestCatchHandler(catchRepository: catchRepository, deleteCatch: deleteCatch) }
+
+    // MARK: Battlers
+
+    var rankBattlers: RankBattlersHandler { RankBattlersHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats, moveCategories: moveCategories, abilities: abilities) }
 
     // MARK: Progress
 

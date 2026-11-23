@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000310 /* GetCatchStatsTests.swift */; };
+		B21200000000000000000302 /* GetCatchStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000301 /* GetCatchStats.swift */; };
+		B21200000000000000000024 /* RankBattlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000023 /* RankBattlersTests.swift */; };
+		B21200000000000000000022 /* BattlerAssessmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000021 /* BattlerAssessmentTests.swift */; };
+		B21200000000000000000020 /* baseStats.json in Resources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001F /* baseStats.json */; };
+		B2120000000000000000001E /* BattlersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001D /* BattlersTVC.swift */; };
+		B2120000000000000000001C /* BattlerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001B /* BattlerCell.swift */; };
+		B2120000000000000000001A /* BattlerSummary+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000019 /* BattlerSummary+Display.swift */; };
+		B21200000000000000000018 /* RankBattlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000017 /* RankBattlers.swift */; };
+		B21200000000000000000016 /* BattlerDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000015 /* BattlerDTOs.swift */; };
+		B21200000000000000000013 /* MoveCategoriesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000012 /* MoveCategoriesLoader.swift */; };
+		B21200000000000000000011 /* PokemonBaseStatsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000010 /* PokemonBaseStatsLoader.swift */; };
+		B2120000000000000000000F /* MoveCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000E /* MoveCategory.swift */; };
+		B2120000000000000000000D /* BattlerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000C /* BattlerAssessment.swift */; };
+		B2120000000000000000000B /* AttackingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000A /* AttackingStyle.swift */; };
+		B21200000000000000000009 /* HiddenPower.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000008 /* HiddenPower.swift */; };
+		B21200000000000000000007 /* StatCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000006 /* StatCalculator.swift */; };
+		B21200000000000000000005 /* BattleLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000004 /* BattleLevel.swift */; };
+		B21200000000000000000003 /* BaseStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000002 /* BaseStats.swift */; };
 		B21000000000000000000006 /* GenderRatioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21000000000000000000005 /* GenderRatioView.swift */; };
 		3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA654D4858207C263458AB0B /* UsageRowView.swift */; };
 		B21000000000000000000004 /* Gender+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21000000000000000000003 /* Gender+Colors.swift */; };
@@ -238,8 +257,7 @@
 		B10C0A000000000000005002 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005802 /* Gender.swift */; };
 		B10C0A000000000000005001 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005801 /* Stat.swift */; };
 		B10C0A0000000000000000E3 /* Evolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E4 /* Evolutions.swift */; };
-		B10C0A0000000000000000E5 /* EVTrainingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E6 /* EVTrainingVC.swift */; };
-		B10C0A000000000000005006 /* IVEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005806 /* IVEditorVC.swift */; };
+		B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005806 /* CatchStatsVC.swift */; };
 		B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005901 /* NaturePickerVC.swift */; };
 		B10C0A0000000000000000E7 /* evolutions.json in Resources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E8 /* evolutions.json */; };
 		B10C0A0000000000000000E9 /* EffortValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000EA /* EffortValuesTests.swift */; };
@@ -376,6 +394,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B21200000000000000000310 /* GetCatchStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchStatsTests.swift; sourceTree = "<group>"; };
+		B21200000000000000000301 /* GetCatchStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchStats.swift; sourceTree = "<group>"; };
+		B21200000000000000000023 /* RankBattlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankBattlersTests.swift; sourceTree = "<group>"; };
+		B21200000000000000000021 /* BattlerAssessmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerAssessmentTests.swift; sourceTree = "<group>"; };
+		B2120000000000000000001F /* baseStats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseStats.json; sourceTree = "<group>"; };
+		B2120000000000000000001D /* BattlersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlersTVC.swift; sourceTree = "<group>"; };
+		B2120000000000000000001B /* BattlerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerCell.swift; sourceTree = "<group>"; };
+		B21200000000000000000019 /* BattlerSummary+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BattlerSummary+Display.swift"; sourceTree = "<group>"; };
+		B21200000000000000000017 /* RankBattlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankBattlers.swift; sourceTree = "<group>"; };
+		B21200000000000000000015 /* BattlerDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerDTOs.swift; sourceTree = "<group>"; };
+		B21200000000000000000012 /* MoveCategoriesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCategoriesLoader.swift; sourceTree = "<group>"; };
+		B21200000000000000000010 /* PokemonBaseStatsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonBaseStatsLoader.swift; sourceTree = "<group>"; };
+		B2120000000000000000000E /* MoveCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCategory.swift; sourceTree = "<group>"; };
+		B2120000000000000000000C /* BattlerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerAssessment.swift; sourceTree = "<group>"; };
+		B2120000000000000000000A /* AttackingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackingStyle.swift; sourceTree = "<group>"; };
+		B21200000000000000000008 /* HiddenPower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenPower.swift; sourceTree = "<group>"; };
+		B21200000000000000000006 /* StatCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCalculator.swift; sourceTree = "<group>"; };
+		B21200000000000000000004 /* BattleLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleLevel.swift; sourceTree = "<group>"; };
+		B21200000000000000000002 /* BaseStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStats.swift; sourceTree = "<group>"; };
 		B21000000000000000000005 /* GenderRatioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderRatioView.swift; sourceTree = "<group>"; };
 		CA654D4858207C263458AB0B /* UsageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageRowView.swift; sourceTree = "<group>"; };
 		B21000000000000000000003 /* Gender+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gender+Colors.swift"; sourceTree = "<group>"; };
@@ -391,6 +428,7 @@
 		B20700000000000000000006 /* GetLearnableMoves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLearnableMoves.swift; sourceTree = "<group>"; };
 		B20700000000000000000004 /* PokemonLearnsetsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsetsLoader.swift; sourceTree = "<group>"; };
 		B20700000000000000000002 /* PokemonLearnsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsets.swift; sourceTree = "<group>"; };
+		B21200000000000000000400 /* ShinyDex 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 16.xcdatamodel"; sourceTree = "<group>"; };
 		B20700000000000000000001 /* ShinyDex 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 15.xcdatamodel"; sourceTree = "<group>"; };
 		B20600000000000000000008 /* CatchAbilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchAbilitiesTests.swift; sourceTree = "<group>"; };
 		B20600000000000000000006 /* abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = abilities.json; sourceTree = "<group>"; };
@@ -625,8 +663,7 @@
 		B10C0A000000000000005802 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005801 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E4 /* Evolutions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evolutions.swift; sourceTree = "<group>"; };
-		B10C0A0000000000000000E6 /* EVTrainingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVTrainingVC.swift; sourceTree = "<group>"; };
-		B10C0A000000000000005806 /* IVEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IVEditorVC.swift; sourceTree = "<group>"; };
+		B10C0A000000000000005806 /* CatchStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005901 /* NaturePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturePickerVC.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E8 /* evolutions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = evolutions.json; sourceTree = "<group>"; };
 		B10C0A0000000000000000EA /* EffortValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffortValuesTests.swift; sourceTree = "<group>"; };
@@ -773,6 +810,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B21200000000000000000014 /* Battlers */ = {
+			isa = PBXGroup;
+			children = (
+				B21200000000000000000017 /* RankBattlers.swift */,
+				B21200000000000000000015 /* BattlerDTOs.swift */,
+			);
+			name = Battlers;
+			path = Battlers;
+			sourceTree = "<group>";
+		};
+		B21200000000000000000001 /* Battlers */ = {
+			isa = PBXGroup;
+			children = (
+				B2120000000000000000000C /* BattlerAssessment.swift */,
+				B2120000000000000000000A /* AttackingStyle.swift */,
+				B21200000000000000000008 /* HiddenPower.swift */,
+				B21200000000000000000006 /* StatCalculator.swift */,
+				B21200000000000000000004 /* BattleLevel.swift */,
+				B21200000000000000000002 /* BaseStats.swift */,
+			);
+			name = Battlers;
+			path = Battlers;
+			sourceTree = "<group>";
+		};
 		B2020000000000000000AAA2 /* Locations */ = {
 			isa = PBXGroup;
 			children = (
@@ -855,6 +916,7 @@
 		1D5C7AB0C05A4B87A6A4D5EB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000000019 /* BattlerSummary+Display.swift */,
 				27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */,
 				9622379B24B715DD006BBC43 /* CornerRadius.swift */,
 				28E20634C95C09F57E2DF77A /* ShinyNavigationController.swift */,
@@ -959,6 +1021,7 @@
 		4F60E2E8AF9E20E12E2233F3 /* Moves */ = {
 			isa = PBXGroup;
 			children = (
+				B2120000000000000000000E /* MoveCategory.swift */,
 				B18600000000000000000001 /* PPPreset.swift */,
 				96E2FE4326B2FE9F005E1D46 /* ActiveMove.swift */,
 				96E2FE4726B30029005E1D46 /* ActiveMoves.swift */,
@@ -988,6 +1051,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000000014 /* Battlers */,
 				B2020000000000000000AAA2 /* Locations */,
 				B17700000000000000000002 /* Progress */,
 				0DD551700000000000000003 /* Odds */,
@@ -1085,6 +1149,8 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000000012 /* MoveCategoriesLoader.swift */,
+				B21200000000000000000010 /* PokemonBaseStatsLoader.swift */,
 				B20200000000000000000003 /* PokemonLocationsLoader.swift */,
 				B17600000000000000000003 /* GameAvailabilityLoader.swift */,
 				B1950000000000000000000B /* BookmarkedBackupFolder.swift */,
@@ -1125,6 +1191,9 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000000310 /* GetCatchStatsTests.swift */,
+				B21200000000000000000023 /* RankBattlersTests.swift */,
+				B21200000000000000000021 /* BattlerAssessmentTests.swift */,
 				B2020000000000000000000B /* PokemonLocationsTests.swift */,
 				B20200000000000000000024 /* LocationsOverviewTests.swift */,
 				B17600000000000000000009 /* GameAvailabilityTests.swift */,
@@ -1273,6 +1342,7 @@
 		A53F35EC02E06255171CFBAA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B2120000000000000000001B /* BattlerCell.swift */,
 				649C86ADE1B0C9417F5BF7C9 /* CatchCell.swift */,
 				96FC081123EF58A500459450 /* CurrentHuntCell.swift */,
 				96435D4A24571E8500C45A00 /* HuntPickerCell.swift */,
@@ -1311,6 +1381,7 @@
 		C28708F586654470EEAB0AC2 /* Catches */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000000301 /* GetCatchStats.swift */,
 				B20100000000000000000001 /* GetOnThisDay.swift */,
 				2E95EBB23771B54EDBE87E9E /* CatchDTOs.swift */,
 				29D7FCD9A18484BFA27089B2 /* CaughtBallSync.swift */,
@@ -1332,6 +1403,7 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B2120000000000000000001D /* BattlersTVC.swift */,
 				B20200000000000000000022 /* LocationsOverviewTVC.swift */,
 				B20200000000000000000007 /* LocationsTVC.swift */,
 				B20200000000000000000026 /* TechniquesInfoTVC.swift */,
@@ -1397,6 +1469,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B2120000000000000000001F /* baseStats.json */,
 				B20200000000000000000009 /* pokemonLocations.json */,
 				B17600000000000000000007 /* gameAvailability.json */,
 				B1860000000000000000000D /* ppPresets.json */,
@@ -1416,6 +1489,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000000001 /* Battlers */,
 				B2020000000000000000AAA1 /* Location */,
 				B17700000000000000000001 /* Progress */,
 				BAC0B0000000000000000017 /* Backup */,
@@ -1440,8 +1514,7 @@
 				B18900000000000000000007 /* YearInReviewVC.swift */,
 				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
-				B10C0A0000000000000000E6 /* EVTrainingVC.swift */,
-				B10C0A000000000000005806 /* IVEditorVC.swift */,
+				B10C0A000000000000005806 /* CatchStatsVC.swift */,
 				B10C0A000000000000005901 /* NaturePickerVC.swift */,
 				96FC082F23EF59AA00459450 /* LoadingVC.swift */,
 				9660629D24B4BF3200B2B654 /* LocationVC.swift */,
@@ -1673,6 +1746,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000000020 /* baseStats.json in Resources */,
 				B2020000000000000000000A /* pokemonLocations.json in Resources */,
 				B17600000000000000000008 /* gameAvailability.json in Resources */,
 				B1860000000000000000000E /* ppPresets.json in Resources */,
@@ -1739,6 +1813,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */,
+				B21200000000000000000024 /* RankBattlersTests.swift in Sources */,
+				B21200000000000000000022 /* BattlerAssessmentTests.swift in Sources */,
 				B2020000000000000000000C /* PokemonLocationsTests.swift in Sources */,
 				B20200000000000000000025 /* LocationsOverviewTests.swift in Sources */,
 				B1760000000000000000000A /* GameAvailabilityTests.swift in Sources */,
@@ -1805,6 +1882,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000000302 /* GetCatchStats.swift in Sources */,
+				B2120000000000000000001E /* BattlersTVC.swift in Sources */,
+				B2120000000000000000001C /* BattlerCell.swift in Sources */,
+				B2120000000000000000001A /* BattlerSummary+Display.swift in Sources */,
+				B21200000000000000000018 /* RankBattlers.swift in Sources */,
+				B21200000000000000000016 /* BattlerDTOs.swift in Sources */,
+				B21200000000000000000013 /* MoveCategoriesLoader.swift in Sources */,
+				B21200000000000000000011 /* PokemonBaseStatsLoader.swift in Sources */,
+				B2120000000000000000000F /* MoveCategory.swift in Sources */,
+				B2120000000000000000000D /* BattlerAssessment.swift in Sources */,
+				B2120000000000000000000B /* AttackingStyle.swift in Sources */,
+				B21200000000000000000009 /* HiddenPower.swift in Sources */,
+				B21200000000000000000007 /* StatCalculator.swift in Sources */,
+				B21200000000000000000005 /* BattleLevel.swift in Sources */,
+				B21200000000000000000003 /* BaseStats.swift in Sources */,
 				B20200000000000000000008 /* LocationsTVC.swift in Sources */,
 				B20200000000000000000027 /* TechniquesInfoTVC.swift in Sources */,
 				B20200000000000000000023 /* LocationsOverviewTVC.swift in Sources */,
@@ -1971,8 +2063,7 @@
 				96FC082423EF595800459450 /* HuntRepository.swift in Sources */,
 				969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
-				B10C0A0000000000000000E5 /* EVTrainingVC.swift in Sources */,
-				B10C0A000000000000005006 /* IVEditorVC.swift in Sources */,
+				B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */,
 				B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */,
 				B10C0A0000000000000000B1 /* StatsVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
@@ -2356,8 +2447,9 @@
 				B20500000000000000000001 /* ShinyDex 13.xcdatamodel */,
 				B20600000000000000000001 /* ShinyDex 14.xcdatamodel */,
 				B20700000000000000000001 /* ShinyDex 15.xcdatamodel */,
+				B21200000000000000000400 /* ShinyDex 16.xcdatamodel */,
 			);
-			currentVersion = B20700000000000000000001 /* ShinyDex 15.xcdatamodel */;
+			currentVersion = B21200000000000000000400 /* ShinyDex 16.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
