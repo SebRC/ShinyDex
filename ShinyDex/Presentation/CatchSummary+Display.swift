@@ -9,7 +9,7 @@ extension CatchSummary {
     }()
 
     var ballName: String {
-        return "\(caughtBall.capitalizingFirstLetter()) Ball"
+        return BallGrid.getFullName(of: caughtBall)
     }
 
     var speciesTitle: String {

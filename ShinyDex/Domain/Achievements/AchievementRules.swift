@@ -47,7 +47,7 @@ enum AchievementRules {
     }
 
     fileprivate static func makeFormFanatic(_ caught: [Catch], forms: PokemonForms) -> Achievement {
-        let catchesByNumber = Dictionary(grouping: CatchRules.sortedOldestFirst(caught), by: { $0.number })
+        let catchesByNumber = Dictionary(grouping: CatchRules.sortedByKnownDateFirst(caught), by: { $0.number })
         var completedCatchIds = [UUID]()
         var completedCount = 0
         for number in forms.numbersWithForms {
@@ -63,7 +63,7 @@ enum AchievementRules {
     }
 
     fileprivate static func makeFamilyReunion(_ caught: [Catch], evolutions: Evolutions) -> Achievement {
-        let firstByNumber = Dictionary(CatchRules.sortedOldestFirst(caught).map { ($0.number, $0) }, uniquingKeysWith: { first, _ in first })
+        let firstByNumber = Dictionary(CatchRules.sortedByKnownDateFirst(caught).map { ($0.number, $0) }, uniquingKeysWith: { first, _ in first })
         let roots = Set(firstByNumber.keys.map(evolutions.getRoot)).sorted()
         let completeLines = roots.map(evolutions.getLine).filter { line in line.count > 1 && line.allSatisfy { firstByNumber[$0] != nil } }
         let catchIds = completeLines.flatMap { line in line.compactMap { firstByNumber[$0]?.id } }
@@ -71,7 +71,7 @@ enum AchievementRules {
     }
 
     fileprivate static func makeGenderBalance(_ caught: [Catch]) -> Achievement {
-        let sorted = CatchRules.sortedOldestFirst(caught)
+        let sorted = CatchRules.sortedByKnownDateFirst(caught)
         let pairs = Dictionary(grouping: sorted, by: { $0.number }).sorted { $0.key < $1.key }.compactMap { _, catches -> [UUID]? in
             guard let male = catches.first(where: { $0.gender == .male }), let female = catches.first(where: { $0.gender == .female }) else { return nil }
             return [male.id, female.id]
@@ -104,7 +104,7 @@ enum AchievementRules {
     }
 
     fileprivate static func makeUnfinishedBusiness(_ catches: [Catch]) -> Achievement {
-        let sorted = CatchRules.sortedOldestFirst(catches)
+        let sorted = CatchRules.sortedByKnownDateFirst(catches)
         let pairs = Dictionary(grouping: sorted, by: { $0.number }).sorted { $0.key < $1.key }.compactMap { _, speciesCatches -> [UUID]? in
             for failed in speciesCatches where failed.isFailed {
                 let later = speciesCatches.first { success in
@@ -125,7 +125,7 @@ enum AchievementRules {
 
     fileprivate static func evaluateConsistency(_ context: Context) -> [Achievement] {
         let calendar = context.facts.calendar
-        let datedCatches = CatchRules.sortedOldestFirst(context.facts.catches.filter { $0.caughtDate != nil })
+        let datedCatches = CatchRules.sortedByKnownDateFirst(context.facts.catches.filter { $0.caughtDate != nil })
         let foundByYear = Dictionary(grouping: datedCatches, by: { calendar.component(.year, from: $0.caughtDate!) })
         let goals = context.facts.yearlyGoals.filter { $0.target > 0 }.sorted { $0.year < $1.year }
         func findCatchesReaching(multiple: Int) -> [UUID] {
@@ -135,7 +135,7 @@ enum AchievementRules {
                 return found.count >= needed ? found[needed - 1].id : nil
             }
         }
-        let caughtDated = CatchRules.sortedOldestFirst(context.caught.filter { $0.caughtDate != nil })
+        let caughtDated = CatchRules.sortedByKnownDateFirst(context.caught.filter { $0.caughtDate != nil })
         let byDate = Dictionary(grouping: caughtDated, by: { calendar.dateComponents([.month, .day], from: $0.caughtDate!) })
         let anniversaries = byDate.values.filter { Set($0.map { calendar.component(.year, from: $0.caughtDate!) }).count > 1 }
         let goalCatches = findCatchesReaching(multiple: 1)
@@ -146,7 +146,7 @@ enum AchievementRules {
             Achievement(kind: .overachiever, category: .consistency, targets: [1], value: doubledGoalCatches.count, catchIds: doubledGoalCatches),
             makeDrySpellSurvivor(context.facts.catches),
             Achievement(kind: .anniversary, category: .consistency, targets: [1], value: anniversaries.count,
-                        catchIds: CatchRules.sortedOldestFirst(anniversaries.flatMap { $0 }).map { $0.id }),
+                        catchIds: CatchRules.sortedByKnownDateFirst(anniversaries.flatMap { $0 }).map { $0.id }),
             makeSetByDistinct(.everyMonth, .consistency, target: 12, caughtDated) { calendar.component(.month, from: $0.caughtDate!) }
         ]
     }
@@ -163,7 +163,7 @@ enum AchievementRules {
     fileprivate static func evaluateGames(_ context: Context) -> [Achievement] {
         let caught = context.caught
         let allGenerations = Set(GamesList.games.values.map { $0.generation })
-        let sorted = CatchRules.sortedOldestFirst(caught)
+        let sorted = CatchRules.sortedByKnownDateFirst(caught)
         let pairCatches = versionPairs.compactMap { pair -> [UUID]? in
             guard let first = sorted.first(where: { $0.game == pair.0 }), let second = sorted.first(where: { $0.game == pair.1 }) else { return nil }
             return [first.id, second.id]
@@ -249,14 +249,14 @@ enum AchievementRules {
     fileprivate static func makeMatching(_ kind: AchievementKind, _ category: AchievementCategory, _ catches: [Catch], value: Int? = nil, targets: [Int] = [1],
                                          isHidden: Bool = false, countsProgress: Bool = false) -> Achievement {
         return Achievement(kind: kind, category: category, targets: targets, value: value ?? catches.count, isHidden: isHidden, countsProgress: countsProgress,
-                           catchIds: CatchRules.sortedOldestFirst(catches).map { $0.id })
+                           catchIds: CatchRules.sortedByKnownDateFirst(catches).map { $0.id })
     }
 
     fileprivate static func makeTieredByDistinct<Key: Hashable>(_ kind: AchievementKind, _ category: AchievementCategory, targets: [Int], _ catches: [Catch],
                                                                 countsProgress: Bool = true, key: (Catch) -> Key?) -> Achievement {
         var seen = Set<Key>()
         var tierCatchIds = [UUID]()
-        for caught in CatchRules.sortedOldestFirst(catches) {
+        for caught in CatchRules.sortedByKnownDateFirst(catches) {
             guard let value = key(caught), seen.insert(value).inserted else { continue }
             if (targets.contains(seen.count)) {
                 tierCatchIds.append(caught.id)
@@ -269,7 +269,7 @@ enum AchievementRules {
                                                              key: (Catch) -> Key?) -> Achievement {
         var seen = Set<Key>()
         var memberIds = [UUID]()
-        for caught in CatchRules.sortedOldestFirst(catches) {
+        for caught in CatchRules.sortedByKnownDateFirst(catches) {
             guard let value = key(caught), seen.insert(value).inserted else { continue }
             memberIds.append(caught.id)
         }

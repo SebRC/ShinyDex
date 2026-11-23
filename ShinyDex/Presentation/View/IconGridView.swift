@@ -138,7 +138,7 @@ struct BallGrid {
     var items: [IconGridItem] {
         return ballNames.map { name in
             let title = BallGrid.getDisplayName(of: name)
-            return IconGridItem(title: title, image: UIImage(named: name), accessibilityLabel: "\(title) Ball")
+            return IconGridItem(title: title, image: UIImage(named: name), accessibilityLabel: BallGrid.getFullName(of: name))
         }
     }
 
@@ -146,8 +146,14 @@ struct BallGrid {
         return ball.flatMap { ballNames.firstIndex(of: $0) }
     }
 
+    static let pokeBall = "poke"
+
     static func getDisplayName(of ball: String) -> String {
-        return ball.capitalizingFirstLetter()
+        return ball == pokeBall ? "Poké" : ball.capitalizingFirstLetter()
+    }
+
+    static func getFullName(of ball: String) -> String {
+        return "\(getDisplayName(of: ball)) Ball"
     }
 }
 

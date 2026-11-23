@@ -10,6 +10,7 @@ final class AppContainer {
     lazy var learnsets = PokemonLearnsetsLoader.load(from: resourceLoader)
     lazy var baseStats = PokemonBaseStatsLoader.load(from: resourceLoader)
     lazy var moveCategories = MoveCategoriesLoader.load(from: resourceLoader)
+    lazy var catchData = PokemonCatchDataLoader.load(from: resourceLoader)
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -119,6 +120,10 @@ final class AppContainer {
         GetAchievementDetailsHandler(getAchievements: getAchievements, catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, genders: genders)
     }
     var claimNewAchievements: ClaimNewAchievementsHandler { ClaimNewAchievementsHandler(getAchievements: getAchievements, keyValueStore: keyValueStore) }
+
+    // MARK: Catch rates
+
+    var getCatchRates: GetCatchRatesHandler { GetCatchRatesHandler(pokemonRepository: pokemonRepository, catchData: catchData, baseStats: baseStats) }
 
     // MARK: Progress
 

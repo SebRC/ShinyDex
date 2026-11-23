@@ -1,6 +1,6 @@
 # PokéAPI data
 
-Regenerates the bundled game availability, location, ability, learnset, gender and base stat data from PokéAPI's CSV files.
+Regenerates the bundled game availability, location, ability, learnset, gender, base stat and catch data from PokéAPI's CSV files.
 
 ```bash
 scripts/pokeapi/download_csvs.sh /tmp/pokeapi
@@ -10,6 +10,7 @@ python3 scripts/pokeapi/generate_abilities.py /tmp/pokeapi ShinyDex/Resources/fo
 python3 scripts/pokeapi/generate_learnsets.py /tmp/pokeapi ShinyDex/Resources/forms.json ShinyDex/Resources/learnsets.json
 python3 scripts/pokeapi/generate_genders.py /tmp/pokeapi ShinyDex/Resources/genders.json
 python3 scripts/pokeapi/generate_base_stats.py /tmp/pokeapi ShinyDex/Resources/forms.json ShinyDex/Resources/baseStats.json
+python3 scripts/pokeapi/generate_catch_data.py /tmp/pokeapi ShinyDex/Resources/forms.json ShinyDex/Resources/catchData.json
 ```
 
 Games without encounter data in PokéAPI use their regional Pokédex and are marked approximate. Update the game tables in both scripts when new games are added to `Games`.
@@ -21,3 +22,5 @@ Learnsets are listed per game, combining a game's DLC with the base game, and gr
 Genders list the species that are always genderless, male or female; every other species can be either male or female.
 
 Base stats are listed per species in HP, Attack, Defense, Sp. Atk, Sp. Def, Speed order. Forms are only listed when their base stats differ from the species'.
+
+Catch data lists each species' catch rate, types and weight in hectograms, and whether it's in an evolution line that uses a Moon Stone. Forms are only listed when their types or weight differ from the species'.

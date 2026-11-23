@@ -36,8 +36,7 @@ final class UpdateJourneyHandler {
             guard journey.entries.indices.contains(source), journey.entries.indices.contains(destination) else { return }
             journey.entries.insert(journey.entries.remove(at: source), at: destination)
         case .link(let entryId, let catchId):
-            guard let index = journey.entries.firstIndex(where: { $0.id == entryId.rawValue }) else { return }
-            journey.entries[index].catchId = catchId?.rawValue
+            guard journey.link(catchId?.rawValue, toEntry: entryId.rawValue) else { return }
         case .addPhase(let entryId, let catchId):
             guard journey.addPhase(catchId.rawValue, toEntry: entryId.rawValue) else { return }
         case .removePhase(let entryId, let catchId):

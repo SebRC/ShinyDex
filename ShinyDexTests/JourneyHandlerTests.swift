@@ -73,13 +73,34 @@ final class JourneyHandlerTests: XCTestCase {
         XCTAssertNil(getDetails(id))
     }
 
-    func test_phaseCandidates_areOtherSpecies_includingOnesThatGotAway() {
+    func test_phaseCandidates_includeTheEntrysOwnLine_andOtherSpeciesThatGotAway_butNotItsTarget() {
         let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Grass", pokemonNumbers: [0]))
-        _ = logCatch(1)
+        let target = logCatch(0)
+        let unwantedBulbasaur = logCatch(0)
+        let ivysaur = logCatch(1)
         let fledCharmander = logCatch(3, isFailed: true)
         let entry = getDetails(id)!.entries[0]
+        UpdateJourneyHandler(journeyRepository: journeys).handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entry.id, catchId: target)))
 
-        XCTAssertEqual(getLinkable(id, entry.id, as: .phase).map { $0.id }, [fledCharmander], "The entry's own evolution line isn't a phase")
+        XCTAssertEqual(Set(getLinkable(id, entry.id, as: .phase).map { $0.id }), [unwantedBulbasaur, ivysaur, fledCharmander])
+    }
+
+    func test_anotherEntrysCatch_isOfferedAsAPhase() {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Team", pokemonNumbers: [0, 3]))
+        let entries = getDetails(id)!.entries
+        let charmander = logCatch(3)
+        let update = UpdateJourneyHandler(journeyRepository: journeys)
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[1].id, catchId: charmander)))
+
+        XCTAssertEqual(getLinkable(id, entries[0].id, as: .phase).map { $0.id }, [charmander])
+
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .addPhase(entry: entries[0].id, catchId: charmander)))
+        let details = getDetails(id)!
+
+        XCTAssertEqual(details.entries[0].phases.map { $0.id }, [charmander])
+        XCTAssertEqual(details.entries[1].linkedCatch?.id, charmander)
+        XCTAssertEqual(details.timeline.count, 1)
+        XCTAssertEqual(details.timeline.first?.alsoPhaseWhileHunting, "Bulbasaur")
     }
 
     func test_loggingAPhase_showsItOnTheEntryAndTimeline_withoutTickingTheEntryOff() {

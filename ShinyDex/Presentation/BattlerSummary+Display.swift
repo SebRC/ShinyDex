@@ -90,22 +90,51 @@ extension BattlerSummary {
     }
 
     func makeBadgeText(font: UIFont) -> NSAttributedString {
-        let text = NSMutableAttributedString()
         var shownBadges = badges.map { (title: $0.title, symbolName: $0.symbolName, color: $0.color) }
         if (duplicateCount > 0) {
             shownBadges.append((title: duplicateCount == 1 ? "1 more caught" : "\(duplicateCount) more caught", symbolName: "square.stack.fill", color: Color.textTertiary))
         }
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineSpacing = Spacing.small
+        let text = NSMutableAttributedString()
         for (index, badge) in shownBadges.enumerated() {
             if (index > 0) {
-                text.append(NSAttributedString(string: "   ", attributes: [.font: font]))
+                text.append(NSAttributedString(string: " ", attributes: [.font: font]))
             }
-            let symbolConfiguration = UIImage.SymbolConfiguration(font: font)
-            if let symbol = UIImage(systemName: badge.symbolName, withConfiguration: symbolConfiguration)?.withTintColor(badge.color, renderingMode: .alwaysOriginal) {
-                text.append(NSAttributedString(attachment: NSTextAttachment(image: symbol)))
-                text.append(NSAttributedString(string: "\u{00A0}", attributes: [.font: font]))
-            }
-            text.append(NSAttributedString(string: badge.title.replacingOccurrences(of: " ", with: "\u{00A0}"), attributes: [.foregroundColor: badge.color, .font: font]))
+            let chip = BadgeChip.makeImage(title: badge.title, symbolName: badge.symbolName, color: badge.color, font: font)
+            let attachment = NSTextAttachment(image: chip)
+            attachment.bounds = CGRect(x: 0, y: (font.capHeight - chip.size.height) / 2, width: chip.size.width, height: chip.size.height)
+            text.append(NSAttributedString(attachment: attachment))
         }
+        text.addAttribute(.paragraphStyle, value: paragraph, range: NSRange(location: 0, length: text.length))
         return text
+    }
+}
+
+enum BadgeChip {
+    fileprivate static let horizontalPadding: CGFloat = 8
+    fileprivate static let verticalPadding: CGFloat = 4
+    fileprivate static let iconSpacing: CGFloat = 4
+    fileprivate static let backgroundAlpha: CGFloat = 0.16
+
+    static func makeImage(title: String, symbolName: String, color: UIColor, font: UIFont) -> UIImage {
+        let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
+        let titleSize = (title as NSString).size(withAttributes: attributes)
+        let icon = UIImage(systemName: symbolName, withConfiguration: UIImage.SymbolConfiguration(font: font))?.withTintColor(color, renderingMode: .alwaysOriginal)
+        let iconSize = icon?.size ?? .zero
+        let contentHeight = max(titleSize.height, iconSize.height)
+        let size = CGSize(width: ceil(horizontalPadding * 2 + iconSize.width + (icon == nil ? 0 : iconSpacing) + titleSize.width),
+                          height: ceil(contentHeight + verticalPadding * 2))
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            let background = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: CornerRadius.capsule(height: size.height))
+            color.withAlphaComponent(backgroundAlpha).setFill()
+            background.fill()
+            var x = horizontalPadding
+            if let icon = icon {
+                icon.draw(at: CGPoint(x: x, y: (size.height - iconSize.height) / 2))
+                x += iconSize.width + iconSpacing
+            }
+            (title as NSString).draw(at: CGPoint(x: x, y: (size.height - titleSize.height) / 2), withAttributes: attributes)
+        }
     }
 }

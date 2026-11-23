@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21200000000000000002201 /* JourneyTally.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000002200 /* JourneyTally.swift */; };
+		B21200000000000000001E01 /* MenuSectionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001E00 /* MenuSectionCells.swift */; };
+		B21200000000000000001A01 /* CatchRateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001A00 /* CatchRateTests.swift */; };
+		B21200000000000000001905 /* CatchRateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001904 /* CatchRateVC.swift */; };
+		B21200000000000000001903 /* CatchRateControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001902 /* CatchRateControls.swift */; };
+		B21200000000000000001901 /* CatchRate+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001900 /* CatchRate+Display.swift */; };
+		B2120000000000000000180F /* catchData.json in Resources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000180E /* catchData.json */; };
+		B2120000000000000000180D /* GetCatchRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000180C /* GetCatchRates.swift */; };
+		B2120000000000000000180A /* PokemonCatchDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001809 /* PokemonCatchDataLoader.swift */; };
+		B21200000000000000001808 /* CatchRateCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001807 /* CatchRateCalculator.swift */; };
+		B21200000000000000001806 /* BallRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001805 /* BallRules.swift */; };
+		B21200000000000000001804 /* CatchSituation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001803 /* CatchSituation.swift */; };
+		B21200000000000000001802 /* PokemonCatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001801 /* PokemonCatchData.swift */; };
 		B21200000000000000001409 /* AchievementDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001408 /* AchievementDetailTVC.swift */; };
 		B21200000000000000001407 /* AchievementAnnouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001406 /* AchievementAnnouncer.swift */; };
 		B21200000000000000001404 /* ClaimNewAchievements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001403 /* ClaimNewAchievements.swift */; };
@@ -406,6 +419,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B21200000000000000002200 /* JourneyTally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTally.swift; sourceTree = "<group>"; };
+		B21200000000000000001E00 /* MenuSectionCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSectionCells.swift; sourceTree = "<group>"; };
+		B21200000000000000001A00 /* CatchRateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRateTests.swift; sourceTree = "<group>"; };
+		B21200000000000000001904 /* CatchRateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRateVC.swift; sourceTree = "<group>"; };
+		B21200000000000000001902 /* CatchRateControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRateControls.swift; sourceTree = "<group>"; };
+		B21200000000000000001900 /* CatchRate+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CatchRate+Display.swift"; sourceTree = "<group>"; };
+		B2120000000000000000180E /* catchData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = catchData.json; sourceTree = "<group>"; };
+		B2120000000000000000180C /* GetCatchRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchRates.swift; sourceTree = "<group>"; };
+		B21200000000000000001809 /* PokemonCatchDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCatchDataLoader.swift; sourceTree = "<group>"; };
+		B21200000000000000001807 /* CatchRateCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRateCalculator.swift; sourceTree = "<group>"; };
+		B21200000000000000001805 /* BallRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallRules.swift; sourceTree = "<group>"; };
+		B21200000000000000001803 /* CatchSituation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchSituation.swift; sourceTree = "<group>"; };
+		B21200000000000000001801 /* PokemonCatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCatchData.swift; sourceTree = "<group>"; };
 		B21200000000000000001408 /* AchievementDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailTVC.swift; sourceTree = "<group>"; };
 		B21200000000000000001406 /* AchievementAnnouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementAnnouncer.swift; sourceTree = "<group>"; };
 		B21200000000000000001403 /* ClaimNewAchievements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimNewAchievements.swift; sourceTree = "<group>"; };
@@ -834,6 +860,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2120000000000000000180B /* CatchRate */ = {
+			isa = PBXGroup;
+			children = (
+				B2120000000000000000180C /* GetCatchRates.swift */,
+			);
+			name = CatchRate;
+			path = CatchRate;
+			sourceTree = "<group>";
+		};
+		B21200000000000000001800 /* CatchRate */ = {
+			isa = PBXGroup;
+			children = (
+				B21200000000000000001807 /* CatchRateCalculator.swift */,
+				B21200000000000000001805 /* BallRules.swift */,
+				B21200000000000000001803 /* CatchSituation.swift */,
+				B21200000000000000001801 /* PokemonCatchData.swift */,
+			);
+			name = CatchRate;
+			path = CatchRate;
+			sourceTree = "<group>";
+		};
 		B21200000000000000001007 /* Achievements */ = {
 			isa = PBXGroup;
 			children = (
@@ -962,6 +1009,7 @@
 		1D5C7AB0C05A4B87A6A4D5EB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001900 /* CatchRate+Display.swift */,
 				B21200000000000000001100 /* Achievement+Display.swift */,
 				B21200000000000000000019 /* BattlerSummary+Display.swift */,
 				27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */,
@@ -1020,6 +1068,7 @@
 		311D7C10C3CBFBEDA7728CFB /* Journey */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000002200 /* JourneyTally.swift */,
 				B10C0A000000000000000F02 /* Journey.swift */,
 				B10C0A000000000000000F04 /* JourneyRepository.swift */,
 			);
@@ -1098,6 +1147,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B2120000000000000000180B /* CatchRate */,
 				B21200000000000000001007 /* Achievements */,
 				B21200000000000000000014 /* Battlers */,
 				B2020000000000000000AAA2 /* Locations */,
@@ -1197,6 +1247,7 @@
 		7C3F6113E0DA851F0724AAB4 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001809 /* PokemonCatchDataLoader.swift */,
 				B21200000000000000000012 /* MoveCategoriesLoader.swift */,
 				B21200000000000000000010 /* PokemonBaseStatsLoader.swift */,
 				B20200000000000000000003 /* PokemonLocationsLoader.swift */,
@@ -1239,6 +1290,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001A00 /* CatchRateTests.swift */,
 				B21200000000000000001200 /* AchievementTests.swift */,
 				B21200000000000000000310 /* GetCatchStatsTests.swift */,
 				B21200000000000000000023 /* RankBattlersTests.swift */,
@@ -1367,6 +1419,7 @@
 		A30C2A803F938502AE9F3FC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001902 /* CatchRateControls.swift */,
 				B19900000000000000000003 /* SectionHeader.swift */,
 				B19900000000000000000001 /* StatTile.swift */,
 				BAC0B0000000000000000011 /* BackupSettingsView.swift */,
@@ -1391,6 +1444,7 @@
 		A53F35EC02E06255171CFBAA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001E00 /* MenuSectionCells.swift */,
 				B21200000000000000001102 /* AchievementCell.swift */,
 				B2120000000000000000001B /* BattlerCell.swift */,
 				649C86ADE1B0C9417F5BF7C9 /* CatchCell.swift */,
@@ -1522,6 +1576,7 @@
 		EC7CACFDFA79C9D95A492A5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B2120000000000000000180E /* catchData.json */,
 				B2120000000000000000001F /* baseStats.json */,
 				B20200000000000000000009 /* pokemonLocations.json */,
 				B17600000000000000000007 /* gameAvailability.json */,
@@ -1542,6 +1597,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001800 /* CatchRate */,
 				B21200000000000000001000 /* Achievements */,
 				B21200000000000000000001 /* Battlers */,
 				B2020000000000000000AAA1 /* Location */,
@@ -1565,6 +1621,7 @@
 		F7A8A1B1849F45879A824E2A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001904 /* CatchRateVC.swift */,
 				B18900000000000000000007 /* YearInReviewVC.swift */,
 				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
@@ -1800,6 +1857,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2120000000000000000180F /* catchData.json in Resources */,
 				B21200000000000000000020 /* baseStats.json in Resources */,
 				B2020000000000000000000A /* pokemonLocations.json in Resources */,
 				B17600000000000000000008 /* gameAvailability.json in Resources */,
@@ -1867,6 +1925,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000001A01 /* CatchRateTests.swift in Sources */,
 				B21200000000000000001201 /* AchievementTests.swift in Sources */,
 				B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */,
 				B21200000000000000000024 /* RankBattlersTests.swift in Sources */,
@@ -1937,6 +1996,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000002201 /* JourneyTally.swift in Sources */,
+				B21200000000000000001E01 /* MenuSectionCells.swift in Sources */,
+				B21200000000000000001905 /* CatchRateVC.swift in Sources */,
+				B21200000000000000001903 /* CatchRateControls.swift in Sources */,
+				B21200000000000000001901 /* CatchRate+Display.swift in Sources */,
+				B2120000000000000000180D /* GetCatchRates.swift in Sources */,
+				B2120000000000000000180A /* PokemonCatchDataLoader.swift in Sources */,
+				B21200000000000000001808 /* CatchRateCalculator.swift in Sources */,
+				B21200000000000000001806 /* BallRules.swift in Sources */,
+				B21200000000000000001804 /* CatchSituation.swift in Sources */,
+				B21200000000000000001802 /* PokemonCatchData.swift in Sources */,
 				B21200000000000000001409 /* AchievementDetailTVC.swift in Sources */,
 				B21200000000000000001407 /* AchievementAnnouncer.swift in Sources */,
 				B21200000000000000001404 /* ClaimNewAchievements.swift in Sources */,

@@ -3,7 +3,23 @@ import Foundation
 struct GetAchievementsQuery {}
 
 struct AchievementsOverview: Equatable {
+    static let nextUpCount = 3
+
     let achievements: [Achievement]
+
+    var nextUp: [Achievement] {
+        let inProgress = achievements.filter { !$0.isHidden && !$0.isComplete && $0.countsProgress && $0.value > 0 }
+        let ranked = inProgress.enumerated().sorted { lhs, rhs in
+            let left = AchievementsOverview.findProgress(of: lhs.element)
+            let right = AchievementsOverview.findProgress(of: rhs.element)
+            return left != right ? left > right : lhs.offset < rhs.offset
+        }
+        return Array(ranked.prefix(AchievementsOverview.nextUpCount).map { $0.element })
+    }
+
+    fileprivate static func findProgress(of achievement: Achievement) -> Double {
+        return Double(achievement.value) / Double(max(achievement.currentTarget, 1))
+    }
 
     var unlockedCount: Int {
         return achievements.filter { $0.isUnlocked }.count

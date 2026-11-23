@@ -1,5 +1,12 @@
 import Foundation
 
+struct JourneyTimelineItem {
+    let entry: JourneyEntry
+    let caught: Catch
+    let isPhase: Bool
+    var alsoPhaseFor: JourneyEntry? = nil
+}
+
 struct JourneyEntry: Equatable {
     let id: UUID
     var number: Int
@@ -49,13 +56,17 @@ class Journey {
     }
 
     func getPhases(for entry: JourneyEntry, in catchesById: [UUID: Catch]) -> [Catch] {
-        return entry.phaseCatchIds.compactMap { catchesById[$0] }
+        return CatchRules.sortedByKnownDateFirst(entry.phaseCatchIds.compactMap { catchesById[$0] })
     }
 
-    func makeTimeline(in catchesById: [UUID: Catch]) -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] {
-        let steps = entries.flatMap { entry -> [(entry: JourneyEntry, caught: Catch, isPhase: Bool)] in
-            let phaseSteps = getPhases(for: entry, in: catchesById).map { (entry: entry, caught: $0, isPhase: true) }
-            let targetStep = findLinkedCatch(for: entry, in: catchesById).map { [(entry: entry, caught: $0, isPhase: false)] } ?? []
+    func makeTimeline(in catchesById: [UUID: Catch]) -> [JourneyTimelineItem] {
+        let steps = entries.flatMap { entry -> [JourneyTimelineItem] in
+            let phaseSteps = getPhases(for: entry, in: catchesById)
+                .filter { !isTarget($0.id) }
+                .map { JourneyTimelineItem(entry: entry, caught: $0, isPhase: true) }
+            let targetStep = findLinkedCatch(for: entry, in: catchesById).map { caught in
+                [JourneyTimelineItem(entry: entry, caught: caught, isPhase: false, alsoPhaseFor: entries.first { $0.phaseCatchIds.contains(caught.id) })]
+            } ?? []
             return phaseSteps + targetStep
         }
         let sorted = steps.enumerated().sorted { first, second in
@@ -69,14 +80,45 @@ class Journey {
         return sorted.map { $0.element }
     }
 
-    func isLinked(_ caught: Catch) -> Bool {
-        return entries.contains { $0.catchId == caught.id || $0.phaseCatchIds.contains(caught.id) }
+    func findCatches(in catchesById: [UUID: Catch]) -> [Catch] {
+        var seen = Set<UUID>()
+        return entries.flatMap { entry in getPhases(for: entry, in: catchesById) + (findLinkedCatch(for: entry, in: catchesById).map { [$0] } ?? []) }
+            .filter { seen.insert($0.id).inserted }
+    }
+
+    func makeTally(in catchesById: [UUID: Catch]) -> JourneyTally {
+        return JourneyTally(catches: findCatches(in: catchesById))
+    }
+
+    func isTarget(_ catchId: UUID) -> Bool {
+        return entries.contains { $0.catchId == catchId }
+    }
+
+    func isPhase(_ catchId: UUID) -> Bool {
+        return entries.contains { $0.phaseCatchIds.contains(catchId) }
+    }
+
+    func canLink(_ catchId: UUID, to entryId: UUID) -> Bool {
+        guard let entry = entries.first(where: { $0.id == entryId }) else { return false }
+        let isOtherEntrysTarget = entries.contains { $0.id != entryId && $0.catchId == catchId }
+        return !isOtherEntrysTarget && !entry.phaseCatchIds.contains(catchId)
+    }
+
+    func canAddPhase(_ catchId: UUID, to entryId: UUID) -> Bool {
+        guard let entry = entries.first(where: { $0.id == entryId }) else { return false }
+        return entry.catchId != catchId && !isPhase(catchId)
+    }
+
+    @discardableResult
+    func link(_ catchId: UUID?, toEntry entryId: UUID) -> Bool {
+        guard let index = entries.firstIndex(where: { $0.id == entryId }), catchId.map({ canLink($0, to: entryId) }) ?? true else { return false }
+        entries[index].catchId = catchId
+        return true
     }
 
     @discardableResult
     func addPhase(_ catchId: UUID, toEntry entryId: UUID) -> Bool {
-        guard let index = entries.firstIndex(where: { $0.id == entryId }),
-              !entries.contains(where: { $0.catchId == catchId || $0.phaseCatchIds.contains(catchId) }) else { return false }
+        guard canAddPhase(catchId, to: entryId), let index = entries.firstIndex(where: { $0.id == entryId }) else { return false }
         entries[index].phaseCatchIds.append(catchId)
         return true
     }

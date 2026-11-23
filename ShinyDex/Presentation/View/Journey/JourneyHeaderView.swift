@@ -16,6 +16,9 @@ final class JourneyHeaderView: UIView {
     fileprivate let detailLabel = UILabel(style: .footnote, color: Color.textTertiary)
     fileprivate let progressBar = UIProgressView(progressViewStyle: .default)
     fileprivate let modeControl = UISegmentedControl()
+    fileprivate let encountersTile = StatTile(caption: "ENCOUNTERS")
+    fileprivate let shiniesTile = StatTile(caption: "SHINIES")
+    fileprivate let expectedTile = StatTile(caption: "EXPECTED")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +46,11 @@ final class JourneyHeaderView: UIView {
         modeControl.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.subheadline, weight: .medium)], for: .normal)
         modeControl.addTarget(self, action: #selector(modeChanged), for: .valueChanged)
 
-        let stack = UIStackView(arrangedSubviews: [card, modeControl])
+        let tiles = UIStackView(arrangedSubviews: [encountersTile, shiniesTile, expectedTile])
+        tiles.distribution = .fillEqually
+        tiles.spacing = Spacing.small
+        let stack = UIStackView(arrangedSubviews: [card, tiles, modeControl])
+        stack.setCustomSpacing(Spacing.small, after: card)
         stack.axis = .vertical
         stack.spacing = 16
         preservesSuperviewLayoutMargins = true
@@ -78,6 +85,21 @@ final class JourneyHeaderView: UIView {
         }
         progressBar.progress = total == 0 ? 0 : Float(caught) / Float(total)
         countLabel.superview?.superview?.accessibilityLabel = "\(caught) of \(total) caught, \(detailLabel.text ?? "")"
+    }
+
+    func configure(tally: JourneyTally) {
+        encountersTile.setValue(tally.encounters.grouped)
+        shiniesTile.setValue(tally.shinyCount.grouped)
+        guard let expected = tally.expectedShinies else {
+            expectedTile.setValue("–")
+            expectedTile.setDetail(tally.shinyCount == 0 ? nil : "Odds unknown")
+            return
+        }
+        expectedTile.setValue(String(format: "%.1f", expected))
+        let difference = Double(tally.shinyCount) - expected
+        let comparison = abs(difference) < 0.05 ? "Right on the odds" : String(format: "%@%.1f vs expected", difference > 0 ? "+" : "−", abs(difference))
+        let unknown = tally.catchesWithUnknownOdds > 0 ? " · \(tally.catchesWithUnknownOdds) left out" : ""
+        expectedTile.setDetail(tally.shinyCount == 0 ? nil : comparison + unknown, isEmphasized: difference > 0)
     }
 
     func selectMode(_ index: Int) {

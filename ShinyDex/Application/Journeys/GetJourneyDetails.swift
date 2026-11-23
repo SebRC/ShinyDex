@@ -37,8 +37,11 @@ final class GetJourneyDetailsHandler {
                 formName: forms.findForm(entry.formId, of: entry.number)?.name)
         }
         let timeline = journey.makeTimeline(in: links.catchesById).compactMap { step in
-            mapper.makeSummary(of: step.caught).map { JourneyTimelineStep(caught: $0, isPhase: step.isPhase, entryPokemonName: allPokemon[safe: step.entry.number]?.name) }
+            mapper.makeSummary(of: step.caught).map {
+                JourneyTimelineStep(caught: $0, isPhase: step.isPhase, entryPokemonName: allPokemon[safe: step.entry.number]?.name,
+                                    alsoPhaseWhileHunting: step.alsoPhaseFor.flatMap { allPokemon[safe: $0.number]?.name })
+            }
         }
-        return JourneyDetails(id: query.journeyId, name: journey.name, entries: entries, timeline: timeline)
+        return JourneyDetails(id: query.journeyId, name: journey.name, entries: entries, timeline: timeline, tally: journey.makeTally(in: links.catchesById))
     }
 }
