@@ -17,14 +17,17 @@ enum MilestoneCelebration {
     }
 
     static func animate(_ milestone: ReachedMilestone, on target: UIView, in host: UIView, labelAnchor: UIView? = nil) {
-        let isMajor = milestone.isOddsMilestone
+        celebrate(target, in: host, isMajor: milestone.isOddsMilestone)
+        if let labelAnchor = labelAnchor {
+            showLabel(MilestoneText.makeShortLabel(for: milestone), onBottomEdgeOf: labelAnchor, in: host)
+        }
+    }
+
+    static func celebrate(_ target: UIView, in host: UIView, isMajor: Bool) {
         glow(target, isMajor: isMajor)
         if !UIAccessibility.isReduceMotionEnabled {
             pop(target, isMajor: isMajor)
             burstSparkles(from: target, in: host, count: isMajor ? majorSparkleCount : minorSparkleCount)
-        }
-        if let labelAnchor = labelAnchor {
-            showLabel(MilestoneText.makeShortLabel(for: milestone), onBottomEdgeOf: labelAnchor, in: host)
         }
     }
 

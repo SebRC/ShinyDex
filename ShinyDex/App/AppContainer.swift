@@ -107,6 +107,19 @@ final class AppContainer {
 
     var rankBattlers: RankBattlersHandler { RankBattlersHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats, moveCategories: moveCategories, abilities: abilities) }
 
+    // MARK: Achievements
+
+    var getAchievements: GetAchievementsHandler {
+        GetAchievementsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, huntRepository: huntRepository, yearlyGoalRepository: yearlyGoalRepository,
+                               dailyEncountersRepository: dailyEncountersRepository, getJourneys: getJourneys, getBingoBoards: getBingoBoards, getBallNames: getBallNames,
+                               getAutomaticBackupStatus: getAutomaticBackupStatus, forms: forms, evolutions: evolutions, moveCategories: moveCategories)
+    }
+
+    var getAchievementDetails: GetAchievementDetailsHandler {
+        GetAchievementDetailsHandler(getAchievements: getAchievements, catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, genders: genders)
+    }
+    var claimNewAchievements: ClaimNewAchievementsHandler { ClaimNewAchievementsHandler(getAchievements: getAchievements, keyValueStore: keyValueStore) }
+
     // MARK: Progress
 
     var getYearInReview: GetYearInReviewHandler { GetYearInReviewHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }

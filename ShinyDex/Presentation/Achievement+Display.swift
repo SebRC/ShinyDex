@@ -1,0 +1,200 @@
+import UIKit
+
+extension AchievementCategory {
+    var title: String {
+        switch self {
+        case .collecting: return "Collecting"
+        case .hunting: return "Hunting"
+        case .consistency: return "Consistency"
+        case .games: return "Games"
+        case .battle: return "Battle"
+        case .features: return "Around the app"
+        case .odds: return "Exactly the odds"
+        case .secret: return "Secret"
+        }
+    }
+}
+
+extension Achievement {
+    fileprivate static let regionNames = TextResolver()
+
+    var title: String {
+        switch kind {
+        case .firstSparkle: return "First Sparkle"
+        case .shinyHoarder: return "Shiny Hoarder"
+        case .regionalMaster(let region): return "\(Achievement.regionNames.getGenTitle(gen: region)) Master"
+        case .livingDex: return "Living Shiny Dex"
+        case .formFanatic: return "Form Fanatic"
+        case .familyReunion: return "Family Reunion"
+        case .genderBalance: return "Gender Balance"
+        case .ballCollector: return "Ball Collector"
+        case .apricornAesthetic: return "Apricorn Aesthetic"
+        case .masterClass: return "Master Class"
+        case .dedicated: return "Dedicated"
+        case .marathon: return "Marathon"
+        case .lightningStrike: return "Lightning Strike"
+        case .firstTry: return "First Try"
+        case .beatTheOdds: return "Beat the Odds"
+        case .againstAllOdds: return "Against All Odds"
+        case .methodActor: return "Method Actor"
+        case .charmed: return "Charmed, I'm Sure"
+        case .multitasker: return "Multitasker"
+        case .itGotAway: return "It Got Away"
+        case .unfinishedBusiness: return "Unfinished Business"
+        case .dailyGrind: return "Daily Grind"
+        case .goalGetter: return "Goal Getter"
+        case .overachiever: return "Overachiever"
+        case .drySpellSurvivor: return "Dry Spell Survivor"
+        case .anniversary: return "Anniversary"
+        case .everyMonth: return "Every Month"
+        case .generational: return "Generational"
+        case .timeTraveller: return "Time Traveller"
+        case .retro: return "Retro"
+        case .sameGameTwice: return "Same Game Twice"
+        case .battleReady: return "Battle Ready"
+        case .fullTeam: return "Full Team"
+        case .perfection: return "Perfection"
+        case .fullyTrained: return "Fully Trained"
+        case .trickRoomSpecialist: return "Trick Room Specialist"
+        case .natureLover: return "Nature Lover"
+        case .hiddenPowerCollector: return "Hidden Power Collector"
+        case .journeyman: return "Journeyman"
+        case .bingo: return "Bingo!"
+        case .blackout: return "Blackout"
+        case .nicknamer: return "Nicknamer"
+        case .archivist: return "Archivist"
+        case .byTheBook: return "By the Book"
+        case .modernClassic: return "Modern Classic"
+        case .halfwayThere: return "Halfway There"
+        case .doubleTrouble: return "Double Trouble"
+        case .tripleThreat: return "Triple Threat"
+        case .palindrome: return "Palindrome"
+        case .midnightSparkle: return "Midnight Sparkle"
+        case .roundNumber: return "Round Number"
+        }
+    }
+
+    var goal: String {
+        return describeGoal(for: currentTarget)
+    }
+
+    func describeGoal(for target: Int) -> String {
+        switch kind {
+        case .firstSparkle: return "Log your first shiny."
+        case .shinyHoarder: return "Catch \(target.grouped) shinies."
+        case .regionalMaster(let region): return "Catch every Pokémon from \(Achievement.regionNames.getGenTitle(gen: region))."
+        case .livingDex: return "Catch every species."
+        case .formFanatic: return "Catch every form of a species."
+        case .familyReunion: return "Catch every member of an evolution line."
+        case .genderBalance: return "Catch a male and a female of the same species."
+        case .ballCollector: return isLastTarget(target) ? "Catch a shiny in every ball." : "Catch shinies in \(target) different balls."
+        case .apricornAesthetic: return "Catch a shiny in every Apricorn ball."
+        case .masterClass: return "Catch a shiny in a Master Ball."
+        case .dedicated: return "Reach \(target.grouped) encounters in total."
+        case .marathon: return "Find a shiny after \(target.grouped) or more encounters."
+        case .lightningStrike: return target == 1 ? "Find a shiny in under 100 encounters." : "Find a shiny in under 10 encounters."
+        case .firstTry: return "Find a shiny on the very first encounter."
+        case .beatTheOdds: return target == 1 ? "Be luckier than 90% of hunts at the same odds." : "Be luckier than 99% of hunts at the same odds."
+        case .againstAllOdds: return "Catch a shiny at full 1/8192 odds."
+        case .methodActor: return "Catch a shiny with every hunt method."
+        case .charmed: return "Catch \(target) shinies with the Shiny Charm."
+        case .multitasker: return "Hunt \(target) Pokémon at once."
+        case .itGotAway: return "Log a shiny that got away."
+        case .unfinishedBusiness: return "Catch a species after one got away."
+        case .dailyGrind: return "Hunt \(target) days in a row."
+        case .goalGetter: return "Reach your yearly shiny goal."
+        case .overachiever: return "Find double your yearly shiny goal."
+        case .drySpellSurvivor: return "End a dry streak of \(target.grouped) or more encounters."
+        case .anniversary: return "Find shinies on the same date in different years."
+        case .everyMonth: return "Find a shiny in every month of the year."
+        case .generational: return "Catch a shiny from every generation."
+        case .timeTraveller: return isLastTarget(target) ? "Catch shinies in every game." : "Catch shinies in \(target) different games."
+        case .retro: return "Catch a shiny in a Gen 1 or 2 game."
+        case .sameGameTwice: return "Catch shinies in both versions of a pair."
+        case .battleReady: return "Get a shiny Battle ready."
+        case .fullTeam: return "Have \(target) Battle ready shinies."
+        case .perfection: return "Catch a shiny with six perfect IVs."
+        case .fullyTrained: return "Fully EV train a shiny."
+        case .trickRoomSpecialist: return "Earn the Trick Room badge."
+        case .natureLover: return "Catch a shiny of every nature."
+        case .hiddenPowerCollector: return "Cover all \(target) Hidden Power types."
+        case .journeyman: return "Complete a Journey."
+        case .bingo: return "Get a line on a bingo board."
+        case .blackout: return "Fill an entire bingo board."
+        case .nicknamer: return "Nickname \(target) shinies."
+        case .archivist: return "Turn on automatic backups."
+        case .byTheBook: return "Find a shiny at exactly 8,192 encounters at 1/8192 odds."
+        case .modernClassic: return "Find a shiny at exactly 4,096 encounters at 1/4096 odds."
+        case .halfwayThere: return "Find a shiny at exactly half the odds, without a method or the Shiny Charm."
+        case .doubleTrouble: return "Find a shiny at exactly double the odds, without a method or the Shiny Charm."
+        case .tripleThreat: return "Find a shiny at exactly triple the odds, without a method or the Shiny Charm."
+        case .palindrome: return "Find a shiny at an encounter count that reads the same backwards."
+        case .midnightSparkle: return "Catch a shiny on New Year's Day."
+        case .roundNumber: return "Find a shiny at exactly 1,000, 5,000 or 10,000 encounters."
+        }
+    }
+
+    var symbolName: String {
+        switch kind {
+        case .firstSparkle: return "sparkle"
+        case .shinyHoarder: return "sparkles"
+        case .regionalMaster: return "map.fill"
+        case .livingDex: return "books.vertical.fill"
+        case .formFanatic: return "square.stack.3d.up.fill"
+        case .familyReunion: return "arrow.triangle.branch"
+        case .genderBalance: return "person.2.fill"
+        case .ballCollector: return "circle.grid.3x3.fill"
+        case .apricornAesthetic: return "leaf.fill"
+        case .masterClass: return "crown.fill"
+        case .dedicated: return "number"
+        case .marathon: return "figure.run"
+        case .lightningStrike: return "bolt.fill"
+        case .firstTry: return "1.circle.fill"
+        case .beatTheOdds: return "dice.fill"
+        case .againstAllOdds: return "flame.fill"
+        case .methodActor: return "theatermasks.fill"
+        case .charmed: return "star.fill"
+        case .multitasker: return "square.grid.2x2.fill"
+        case .itGotAway: return "wind"
+        case .unfinishedBusiness: return "arrow.uturn.backward"
+        case .dailyGrind: return "calendar"
+        case .goalGetter: return "target"
+        case .overachiever: return "chart.line.uptrend.xyaxis"
+        case .drySpellSurvivor: return "sun.max.fill"
+        case .anniversary: return "gift.fill"
+        case .everyMonth: return "calendar.circle.fill"
+        case .generational: return "gamecontroller.fill"
+        case .timeTraveller: return "clock.arrow.circlepath"
+        case .retro: return "tv.fill"
+        case .sameGameTwice: return "rectangle.on.rectangle"
+        case .battleReady: return "checkmark.seal.fill"
+        case .fullTeam: return "person.3.fill"
+        case .perfection: return "rosette"
+        case .fullyTrained: return "dumbbell.fill"
+        case .trickRoomSpecialist: return "tortoise.fill"
+        case .natureLover: return "leaf.circle.fill"
+        case .hiddenPowerCollector: return "eye.fill"
+        case .journeyman: return "flag.checkered"
+        case .bingo: return "square.grid.3x3"
+        case .blackout: return "square.grid.3x3.fill"
+        case .nicknamer: return "tag.fill"
+        case .archivist: return "externaldrive.fill"
+        case .byTheBook: return "book.fill"
+        case .modernClassic: return "book.closed.fill"
+        case .halfwayThere: return "divide.circle.fill"
+        case .doubleTrouble: return "2.circle.fill"
+        case .tripleThreat: return "3.circle.fill"
+        case .palindrome: return "arrow.left.arrow.right"
+        case .midnightSparkle: return "moon.stars.fill"
+        case .roundNumber: return "circle.dashed"
+        }
+    }
+
+    var isSecret: Bool {
+        return isHidden && !isUnlocked
+    }
+
+    fileprivate func isLastTarget(_ target: Int) -> Bool {
+        return target == targets.last && targets.count > 1
+    }
+}

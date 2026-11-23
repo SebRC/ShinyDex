@@ -324,6 +324,7 @@ class CatchStatsVC: UIViewController {
     fileprivate func save(_ change: UpdateCatchCommand.Change) {
         try? container.updateCatch.handle(UpdateCatchCommand(catchId: catchId, change: change))
         refresh()
+        AchievementAnnouncer.announceNewUnlocks(using: container)
     }
 
     @objc fileprivate func modeChanged() {

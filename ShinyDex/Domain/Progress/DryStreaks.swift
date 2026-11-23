@@ -13,6 +13,11 @@ struct DryStreaks: Equatable {
         trackedSince = ledger.trackedSince
     }
 
+    static func findEndedStreaks(in catches: [Catch]) -> [Int] {
+        let boundaries = [0] + findLedgerTotalsAtFind(in: catches)
+        return zip(boundaries, boundaries.dropFirst()).map { max($1 - $0, 0) }
+    }
+
     static func findLatestLedgerTotalAtFind(in catches: [Catch]) -> Int? {
         return findLedgerTotalsAtFind(in: catches).last
     }

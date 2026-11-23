@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21200000000000000001409 /* AchievementDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001408 /* AchievementDetailTVC.swift */; };
+		B21200000000000000001407 /* AchievementAnnouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001406 /* AchievementAnnouncer.swift */; };
+		B21200000000000000001404 /* ClaimNewAchievements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001403 /* ClaimNewAchievements.swift */; };
+		B21200000000000000001402 /* GetAchievementDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001401 /* GetAchievementDetails.swift */; };
+		B21200000000000000001201 /* AchievementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001200 /* AchievementTests.swift */; };
+		B21200000000000000001105 /* AchievementsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001104 /* AchievementsTVC.swift */; };
+		B21200000000000000001103 /* AchievementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001102 /* AchievementCell.swift */; };
+		B21200000000000000001101 /* Achievement+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001100 /* Achievement+Display.swift */; };
+		B21200000000000000001009 /* GetAchievements.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001008 /* GetAchievements.swift */; };
+		B21200000000000000001006 /* AchievementRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001005 /* AchievementRules.swift */; };
+		B21200000000000000001004 /* AchievementFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001003 /* AchievementFacts.swift */; };
+		B21200000000000000001002 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001001 /* Achievement.swift */; };
 		B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000310 /* GetCatchStatsTests.swift */; };
 		B21200000000000000000302 /* GetCatchStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000301 /* GetCatchStats.swift */; };
 		B21200000000000000000024 /* RankBattlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000023 /* RankBattlersTests.swift */; };
@@ -394,6 +406,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B21200000000000000001408 /* AchievementDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailTVC.swift; sourceTree = "<group>"; };
+		B21200000000000000001406 /* AchievementAnnouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementAnnouncer.swift; sourceTree = "<group>"; };
+		B21200000000000000001403 /* ClaimNewAchievements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimNewAchievements.swift; sourceTree = "<group>"; };
+		B21200000000000000001401 /* GetAchievementDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAchievementDetails.swift; sourceTree = "<group>"; };
+		B21200000000000000001200 /* AchievementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementTests.swift; sourceTree = "<group>"; };
+		B21200000000000000001104 /* AchievementsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsTVC.swift; sourceTree = "<group>"; };
+		B21200000000000000001102 /* AchievementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCell.swift; sourceTree = "<group>"; };
+		B21200000000000000001100 /* Achievement+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Achievement+Display.swift"; sourceTree = "<group>"; };
+		B21200000000000000001008 /* GetAchievements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAchievements.swift; sourceTree = "<group>"; };
+		B21200000000000000001005 /* AchievementRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementRules.swift; sourceTree = "<group>"; };
+		B21200000000000000001003 /* AchievementFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementFacts.swift; sourceTree = "<group>"; };
+		B21200000000000000001001 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		B21200000000000000000310 /* GetCatchStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchStatsTests.swift; sourceTree = "<group>"; };
 		B21200000000000000000301 /* GetCatchStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchStats.swift; sourceTree = "<group>"; };
 		B21200000000000000000023 /* RankBattlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankBattlersTests.swift; sourceTree = "<group>"; };
@@ -810,6 +834,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B21200000000000000001007 /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				B21200000000000000001403 /* ClaimNewAchievements.swift */,
+				B21200000000000000001401 /* GetAchievementDetails.swift */,
+				B21200000000000000001008 /* GetAchievements.swift */,
+			);
+			name = Achievements;
+			path = Achievements;
+			sourceTree = "<group>";
+		};
+		B21200000000000000001000 /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				B21200000000000000001005 /* AchievementRules.swift */,
+				B21200000000000000001003 /* AchievementFacts.swift */,
+				B21200000000000000001001 /* Achievement.swift */,
+			);
+			name = Achievements;
+			path = Achievements;
+			sourceTree = "<group>";
+		};
 		B21200000000000000000014 /* Battlers */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +962,7 @@
 		1D5C7AB0C05A4B87A6A4D5EB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001100 /* Achievement+Display.swift */,
 				B21200000000000000000019 /* BattlerSummary+Display.swift */,
 				27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */,
 				9622379B24B715DD006BBC43 /* CornerRadius.swift */,
@@ -1051,6 +1098,7 @@
 		631E177776843970596D5BF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001007 /* Achievements */,
 				B21200000000000000000014 /* Battlers */,
 				B2020000000000000000AAA2 /* Locations */,
 				B17700000000000000000002 /* Progress */,
@@ -1191,6 +1239,7 @@
 		961B5C4D2652837E00918D91 /* ShinyDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001200 /* AchievementTests.swift */,
 				B21200000000000000000310 /* GetCatchStatsTests.swift */,
 				B21200000000000000000023 /* RankBattlersTests.swift */,
 				B21200000000000000000021 /* BattlerAssessmentTests.swift */,
@@ -1342,6 +1391,7 @@
 		A53F35EC02E06255171CFBAA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001102 /* AchievementCell.swift */,
 				B2120000000000000000001B /* BattlerCell.swift */,
 				649C86ADE1B0C9417F5BF7C9 /* CatchCell.swift */,
 				96FC081123EF58A500459450 /* CurrentHuntCell.swift */,
@@ -1403,6 +1453,8 @@
 		CC511102753E15BD6740B954 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001408 /* AchievementDetailTVC.swift */,
+				B21200000000000000001104 /* AchievementsTVC.swift */,
 				B2120000000000000000001D /* BattlersTVC.swift */,
 				B20200000000000000000022 /* LocationsOverviewTVC.swift */,
 				B20200000000000000000007 /* LocationsTVC.swift */,
@@ -1448,6 +1500,7 @@
 		E8811AC4641D3747098C7826 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001406 /* AchievementAnnouncer.swift */,
 				B19900000000000000000005 /* ButtonStyles.swift */,
 				B19600000000000000000009 /* MilestoneCelebration.swift */,
 				B19600000000000000000005 /* MilestoneText.swift */,
@@ -1489,6 +1542,7 @@
 		F70DB0D9C3FE608FEF6A6DCB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000001000 /* Achievements */,
 				B21200000000000000000001 /* Battlers */,
 				B2020000000000000000AAA1 /* Location */,
 				B17700000000000000000001 /* Progress */,
@@ -1813,6 +1867,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000001201 /* AchievementTests.swift in Sources */,
 				B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */,
 				B21200000000000000000024 /* RankBattlersTests.swift in Sources */,
 				B21200000000000000000022 /* BattlerAssessmentTests.swift in Sources */,
@@ -1882,6 +1937,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000001409 /* AchievementDetailTVC.swift in Sources */,
+				B21200000000000000001407 /* AchievementAnnouncer.swift in Sources */,
+				B21200000000000000001404 /* ClaimNewAchievements.swift in Sources */,
+				B21200000000000000001402 /* GetAchievementDetails.swift in Sources */,
+				B21200000000000000001105 /* AchievementsTVC.swift in Sources */,
+				B21200000000000000001103 /* AchievementCell.swift in Sources */,
+				B21200000000000000001101 /* Achievement+Display.swift in Sources */,
+				B21200000000000000001009 /* GetAchievements.swift in Sources */,
+				B21200000000000000001006 /* AchievementRules.swift in Sources */,
+				B21200000000000000001004 /* AchievementFacts.swift in Sources */,
+				B21200000000000000001002 /* Achievement.swift in Sources */,
 				B21200000000000000000302 /* GetCatchStats.swift in Sources */,
 				B2120000000000000000001E /* BattlersTVC.swift in Sources */,
 				B2120000000000000000001C /* BattlerCell.swift in Sources */,

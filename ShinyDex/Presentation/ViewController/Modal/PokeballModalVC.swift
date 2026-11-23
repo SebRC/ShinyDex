@@ -215,8 +215,9 @@ class PokeballModalVC: UIViewController {
     }
 
     fileprivate func finish(_ result: PokeballPickerResult) {
-        dismissSheet { [onFinish] in
+        dismissSheet { [onFinish, container] in
             onFinish(result)
+            AchievementAnnouncer.announceNewUnlocks(using: container)
         }
     }
 

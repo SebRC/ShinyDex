@@ -1,22 +1,23 @@
 import UIKit
 
 class ToastView: UIView {
-	fileprivate let iconImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+	let iconImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
 	fileprivate let messageLabel = UILabel()
 
-	init(text: String) {
+	init(text: String, symbolName: String = "checkmark.circle.fill", tintColor: UIColor = Color.success, textColor: UIColor = Color.Success100) {
 		super.init(frame: .zero)
 		backgroundColor = Color.surface
 		layer.cornerRadius = CornerRadius.standard
 		addShadow()
 
-		iconImageView.tintColor = Color.success
+		iconImageView.image = UIImage(systemName: symbolName)
+		iconImageView.tintColor = tintColor
 		iconImageView.contentMode = .scaleAspectFit
 		iconImageView.setContentHuggingPriority(.required, for: .horizontal)
 		iconImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .headline)
 
 		messageLabel.text = text
-		messageLabel.textColor = Color.Success100
+		messageLabel.textColor = textColor
 		messageLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 		messageLabel.adjustsFontForContentSizeCategory = true
 		messageLabel.numberOfLines = 0
