@@ -102,7 +102,12 @@ final class TimelineCell: UITableViewCell {
         ballView.isHidden = caught.isFailed
         let outcome = caught.isFailed ? "Got away" : caught.ballName
         let details = "\(caught.encounters.grouped) encounters\n\(outcome) · \(caught.game.displayName)"
-        detailLabel.text = step.isPhase ? "Phase while hunting \(step.entryPokemonName ?? "Unknown")\n\(details)" : details
+        if (step.isPhase) {
+            detailLabel.text = "Phase while hunting \(step.entryPokemonName ?? "Unknown")\n\(details)"
+        }
+        else {
+            detailLabel.text = step.alsoPhaseWhileHunting.map { "Also a phase while hunting \($0)\n\(details)" } ?? details
+        }
         let stepTitle = catchNumber.map { "Catch \($0)" } ?? "Phase"
         accessibilityLabel = "\(stepTitle), \(caught.speciesTitle),\(dateLabel.text ?? ""), \(gapLabel.text ?? ""), \(detailLabel.text ?? "")"
         accessibilityTraits = .button

@@ -32,7 +32,7 @@ enum CollectionFilter {
 
     var title: String {
         switch self {
-        case .ball(let ball): return "\(ball.capitalizingFirstLetter()) Ball"
+        case .ball(let ball): return BallGrid.getFullName(of: ball)
         case .game(let game): return game.displayName
         case .method(let method): return method.rawValue
         case .nature(let nature): return nature.name

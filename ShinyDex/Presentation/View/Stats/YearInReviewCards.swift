@@ -90,7 +90,7 @@ struct YearInReviewCards {
         return YearInReviewCardView.Content(eyebrow: title,
                                             image: caught.spriteImage,
                                             headline: caught.speciesTitle,
-                                            title: caught.isFailed ? "Got away" : "\(BallGrid.getDisplayName(of: caught.caughtBall)) Ball",
+                                            title: caught.isFailed ? "Got away" : BallGrid.getFullName(of: caught.caughtBall),
                                             message: details.joined(separator: " "))
     }
 
@@ -153,12 +153,12 @@ struct YearInReviewCards {
         guard let topBall = review.topBalls.first else { return nil }
         let rows = review.topBalls.enumerated().map { index, ball in
             YearInReviewCardView.Row(image: UIImage(named: ball.key),
-                                     title: "\(index + 1). \(BallGrid.getDisplayName(of: ball.key)) Ball",
+                                     title: "\(index + 1). \(BallGrid.getFullName(of: ball.key))",
                                      value: ball.count == 1 ? "1 catch" : "\(ball.count.grouped) catches")
         }
         return YearInReviewCardView.Content(eyebrow: review.topBalls.count == 1 ? "Top Poké Ball" : "Top \(review.topBalls.count) Poké Balls",
                                             podiumImages: review.topBalls.compactMap { UIImage(named: $0.key) },
-                                            headline: "\(BallGrid.getDisplayName(of: topBall.key)) Ball",
+                                            headline: BallGrid.getFullName(of: topBall.key),
                                             title: "your most used ball",
                                             message: nil,
                                             rows: rows)

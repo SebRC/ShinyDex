@@ -218,6 +218,20 @@ final class AchievementTests: XCTestCase {
         XCTAssertFalse(AchievementRules.isPalindrome(1_234))
     }
 
+    func test_nextUp_listsTheClosestAchievementsInProgress() {
+        let overview = AchievementsOverview(achievements: [
+            Achievement(kind: .shinyHoarder, category: .collecting, targets: [10], value: 9, countsProgress: true),
+            Achievement(kind: .charmed, category: .hunting, targets: [25], value: 5, countsProgress: true),
+            Achievement(kind: .nicknamer, category: .features, targets: [10], value: 0, countsProgress: true),
+            Achievement(kind: .natureLover, category: .battle, targets: [25], value: 25, countsProgress: true),
+            Achievement(kind: .everyMonth, category: .consistency, targets: [12], value: 6, countsProgress: true),
+            Achievement(kind: .methodActor, category: .hunting, targets: [9], value: 8, countsProgress: true),
+            Achievement(kind: .firstTry, category: .hunting, targets: [1], value: 0)
+        ])
+
+        XCTAssertEqual(overview.nextUp.map { $0.kind }, [.shinyHoarder, .methodActor, .everyMonth])
+    }
+
     // MARK: Unlocking catches
 
     func test_tieredAchievements_listTheCatchThatReachedEachTier() {
@@ -227,6 +241,17 @@ final class AchievementTests: XCTestCase {
 
         XCTAssertEqual(hoarder.catchIds, [catches[9].id])
         XCTAssertEqual(evaluate(catches)[.firstSparkle]?.catchIds, [catches[0].id])
+    }
+
+    func test_catchesWithKnownDates_comeBeforeUndatedOnes() {
+        let undated = makeCatch(0)
+        let later = makeCatch(1, date: makeDate(2025, 6, 1))
+        let earliest = makeCatch(2, date: makeDate(2024, 2, 1))
+
+        let achievements = evaluate([undated, later, earliest])
+
+        XCTAssertEqual(achievements[.firstSparkle]?.catchIds, [earliest.id])
+        XCTAssertEqual(CatchRules.sortedByKnownDateFirst([undated, later, earliest]).map { $0.id }, [earliest.id, later.id, undated.id])
     }
 
     func test_setAchievements_listTheFirstCatchOfEachMember() {

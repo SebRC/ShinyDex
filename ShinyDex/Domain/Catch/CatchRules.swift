@@ -18,6 +18,11 @@ enum CatchRules {
         }.map { $0.element }
     }
 
+    static func sortedByKnownDateFirst(_ catches: [Catch]) -> [Catch] {
+        let sorted = sortedOldestFirst(catches)
+        return sorted.filter { $0.caughtDate != nil } + sorted.filter { $0.caughtDate == nil }
+    }
+
     static func sortedForCollection(_ catches: [Catch]) -> [Catch] {
         return sortedOldestFirst(catches).enumerated().sorted { lhs, rhs in
             if (lhs.element.number == rhs.element.number) {

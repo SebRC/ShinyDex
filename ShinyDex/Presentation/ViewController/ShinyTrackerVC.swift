@@ -167,7 +167,13 @@ class ShinyTrackerVC: UIViewController {
         addToHuntButton.isEnabled = isAddToHuntButtonEnabled()
         let catchesButton = UIBarButtonItem(image: UIImage(systemName: "sparkles.rectangle.stack"), style: .plain, target: self, action: #selector(catchesButtonPressed))
         catchesButton.accessibilityLabel = "Catches"
-        navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton]
+        let catchRateButton = UIBarButtonItem(image: UIImage(systemName: "circle.circle"), style: .plain, target: self, action: #selector(catchRatePressed))
+        catchRateButton.accessibilityLabel = "Catch rate"
+        navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton, catchRateButton]
+    }
+
+    @objc fileprivate func catchRatePressed() {
+        navigationController?.pushViewController(CatchRateVC(container: container, number: pokemon.number, game: pokemon.settings.game), animated: true)
     }
 
     fileprivate func setAccessibilityLabels() {

@@ -101,6 +101,7 @@ class JourneyDetailTVC: UITableViewController {
         refreshJourney()
         title = journey.name
         header.configure(caught: journey.caughtCount, total: journey.entries.count, phases: journey.phaseCount, firstCatch: timeline.first { !$0.isPhase }?.caught.caughtDate)
+        header.configure(tally: journey.tally)
         tableView.reloadData()
         updateEmptyState()
     }

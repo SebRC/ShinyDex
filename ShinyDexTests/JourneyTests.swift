@@ -87,13 +87,67 @@ class JourneyTests: XCTestCase {
         journey.entries[0].catchId = bulbasaurCatch.id
 
         XCTAssertTrue(journey.addPhase(squirtleCatch.id, toEntry: journey.entries[0].id))
-        XCTAssertFalse(journey.addPhase(squirtleCatch.id, toEntry: journey.entries[1].id))
-        XCTAssertFalse(journey.addPhase(bulbasaurCatch.id, toEntry: journey.entries[1].id))
-        XCTAssertTrue(journey.isLinked(squirtleCatch))
+        XCTAssertFalse(journey.addPhase(squirtleCatch.id, toEntry: journey.entries[1].id), "A catch is a phase for one hunt")
+        XCTAssertFalse(journey.addPhase(bulbasaurCatch.id, toEntry: journey.entries[0].id), "An entry's own catch isn't its phase")
+        XCTAssertTrue(journey.isPhase(squirtleCatch.id))
 
         journey.removePhase(squirtleCatch.id, fromEntry: journey.entries[0].id)
 
-        XCTAssertFalse(journey.isLinked(squirtleCatch))
+        XCTAssertFalse(journey.isPhase(squirtleCatch.id))
+    }
+
+    func test_tally_addsUpEncountersShiniesAndExpectedShinies_countingEachCatchOnce() {
+        let journey = Journey(name: "Team", priority: 0, numbers: [bulbasaur, charmander])
+        let bulbasaurCatch = Catch(number: bulbasaur, caughtBall: "poke", game: .Platinum, huntMethod: .Encounters, encounters: 4096, isShinyCharmActive: false, caughtDate: makeDay(3))
+        let charmanderCatch = Catch(number: charmander, caughtBall: "poke", game: .Scarlet, huntMethod: .Encounters, encounters: 2048, isShinyCharmActive: false, caughtDate: makeDay(2))
+        let chainPhase = Catch(number: squirtle, caughtBall: "poke", game: .X, huntMethod: .ChainFishing, encounters: 40, isShinyCharmActive: false, caughtDate: makeDay(1))
+        journey.entries[0].catchId = bulbasaurCatch.id
+        journey.entries[1].catchId = charmanderCatch.id
+        journey.addPhase(charmanderCatch.id, toEntry: journey.entries[0].id)
+        journey.addPhase(chainPhase.id, toEntry: journey.entries[0].id)
+
+        let tally = journey.makeTally(in: indexById([bulbasaurCatch, charmanderCatch, chainPhase]))
+
+        XCTAssertEqual(tally.shinyCount, 3)
+        XCTAssertEqual(tally.encounters, 4096 + 2048 + 40)
+        XCTAssertEqual(tally.expectedShinies ?? 0, 4096.0 / 8192 + 2048.0 / 4096, accuracy: 0.0001)
+        XCTAssertEqual(tally.catchesWithUnknownOdds, 1)
+    }
+
+    func test_tally_hasNoExpectedShinies_withoutCatches() {
+        XCTAssertNil(JourneyTally(catches: []).expectedShinies)
+        XCTAssertEqual(JourneyTally(catches: []).shinyCount, 0)
+    }
+
+    func test_phases_areListedByDate_notTheOrderTheyWereLogged() {
+        let journey = Journey(name: "Garchomp", priority: 0, numbers: [bulbasaur])
+        let undated = makeCatch(number: squirtle, date: nil)
+        let late = makeCatch(number: bulbasaur, date: makeDay(9))
+        let early = makeCatch(number: charmander, date: makeDay(2))
+        for phase in [undated, late, early] {
+            journey.addPhase(phase.id, toEntry: journey.entries[0].id)
+        }
+
+        let phases = journey.getPhases(for: journey.entries[0], in: indexById([undated, late, early]))
+
+        XCTAssertEqual(phases.map { $0.id }, [early.id, late.id, undated.id])
+    }
+
+    func test_anotherEntrysCatch_canBeAPhase_andShowsOnceInTheTimeline() {
+        let journey = Journey(name: "Team", priority: 0, numbers: [bulbasaur, charmander])
+        let charmanderCatch = makeCatch(number: charmander, date: makeDay(1))
+        let bulbasaurCatch = makeCatch(number: bulbasaur, date: makeDay(2))
+        XCTAssertTrue(journey.link(charmanderCatch.id, toEntry: journey.entries[1].id))
+        journey.entries[0].catchId = bulbasaurCatch.id
+
+        XCTAssertTrue(journey.addPhase(charmanderCatch.id, toEntry: journey.entries[0].id))
+        XCTAssertFalse(journey.link(charmanderCatch.id, toEntry: journey.entries[0].id), "A phase can't also complete its own entry")
+        XCTAssertFalse(journey.link(bulbasaurCatch.id, toEntry: journey.entries[1].id), "A catch completes one entry")
+
+        let timeline = journey.makeTimeline(in: indexById([charmanderCatch, bulbasaurCatch]))
+        XCTAssertEqual(timeline.map { $0.caught.id }, [charmanderCatch.id, bulbasaurCatch.id])
+        XCTAssertEqual(timeline.map { $0.isPhase }, [false, false])
+        XCTAssertEqual(timeline.first?.alsoPhaseFor?.number, bulbasaur)
     }
 
     func test_timeline_interleavesPhasesByDate_withPhasesBeforeTheirTargetOnTheSameDay() {

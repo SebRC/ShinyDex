@@ -2,7 +2,7 @@ import UIKit
 
 final class AchievementsTVC: UITableViewController {
     fileprivate let container: AppContainer
-    fileprivate var sections = [(category: AchievementCategory, achievements: [Achievement])]()
+    fileprivate var sections = [(title: String, achievements: [Achievement])]()
     fileprivate let unlockedTile = StatTile(caption: "UNLOCKED")
     fileprivate let tiersTile = StatTile(caption: "TIERS EARNED")
 
@@ -39,9 +39,12 @@ final class AchievementsTVC: UITableViewController {
     fileprivate func reloadAchievements() {
         let overview = container.getAchievements.handle(GetAchievementsQuery())
         let grouped = Dictionary(grouping: overview.achievements, by: { $0.category })
-        sections = AchievementCategory.allCases.compactMap { category in
-            grouped[category].map { (category, $0) }
+        let categories = AchievementCategory.allCases.compactMap { category -> (title: String, achievements: [Achievement])? in
+            guard let achievements = grouped[category] else { return nil }
+            return ("\(category.title) · \(achievements.filter { $0.isUnlocked }.count)/\(achievements.count)", achievements)
         }
+        let nextUp = overview.nextUp
+        sections = (nextUp.isEmpty ? [] : [("Next up", nextUp)]) + categories
         unlockedTile.setValue("\(overview.unlockedCount) / \(overview.achievements.count)")
         tiersTile.setValue("\(overview.unlockedTierCount) / \(overview.tierCount)")
         tableView.reloadData()
@@ -69,9 +72,7 @@ final class AchievementsTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let achievements = sections[section].achievements
-        let unlocked = achievements.filter { $0.isUnlocked }.count
-        return SectionHeaderView.make(for: tableView, title: "\(sections[section].category.title) · \(unlocked)/\(achievements.count)")
+        return SectionHeaderView.make(for: tableView, title: sections[section].title)
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

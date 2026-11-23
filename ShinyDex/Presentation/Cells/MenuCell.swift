@@ -57,13 +57,15 @@ class MenuCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(title: String, subtitle: String, image: UIImage?, progress: Float?) {
+	func configure(title: String, subtitle: String, image: UIImage?, progress: Float?, usesWideImage: Bool = false) {
 		generationLabel.text = title
 		subtitleLabel.text = subtitle
+		subtitleLabel.numberOfLines = usesWideImage ? 2 : 1
 		generationImage.image = image
 		let isRegion = progress != nil
-		imageWidth.constant = isRegion ? MenuCell.regionImageSize.width : 56
-		imageHeight.constant = isRegion ? MenuCell.regionImageSize.height : 56
+		let isWide = isRegion || usesWideImage
+		imageWidth.constant = isWide ? MenuCell.regionImageSize.width : 56
+		imageHeight.constant = isWide ? MenuCell.regionImageSize.height : 56
 		progressBar.isHidden = !isRegion
 		progressBar.progress = progress ?? 0
 		accessibilityLabel = "\(title), \(subtitle)"

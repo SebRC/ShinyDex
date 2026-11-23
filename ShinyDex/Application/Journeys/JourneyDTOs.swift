@@ -32,6 +32,7 @@ struct JourneyTimelineStep: Equatable {
     let caught: CatchSummary
     let isPhase: Bool
     let entryPokemonName: String?
+    var alsoPhaseWhileHunting: String? = nil
 }
 
 struct JourneyDetails: Equatable {
@@ -39,6 +40,7 @@ struct JourneyDetails: Equatable {
     let name: String
     let entries: [JourneyEntryDetails]
     let timeline: [JourneyTimelineStep]
+    var tally = JourneyTally(catches: [])
 
     var caughtCount: Int {
         return entries.filter { $0.linkedCatch != nil }.count
@@ -65,15 +67,15 @@ struct JourneyCatchLinks {
     }
 
     func findLinkableCatches(for entry: JourneyEntry, in journey: Journey, as role: JourneyCatchRole = .target) -> [Catch] {
-        let line = Set(evolutions.getLine(of: entry.number)).union([entry.number])
         switch role {
         case .target:
+            let line = Set(evolutions.getLine(of: entry.number)).union([entry.number])
             return catches
-                .filter { !$0.isFailed && line.contains($0.number) && $0.matchesForm(entry.formId) && (!journey.isLinked($0) || $0.id == entry.catchId) }
+                .filter { !$0.isFailed && line.contains($0.number) && $0.matchesForm(entry.formId) && journey.canLink($0.id, to: entry.id) }
                 .sorted { ($0.number == entry.number ? 0 : 1, $0.caughtDate ?? .distantPast) < ($1.number == entry.number ? 0 : 1, $1.caughtDate ?? .distantPast) }
         case .phase:
             return catches
-                .filter { !line.contains($0.number) && !journey.isLinked($0) }
+                .filter { journey.canAddPhase($0.id, to: entry.id) }
                 .sorted { ($0.caughtDate ?? .distantPast) > ($1.caughtDate ?? .distantPast) }
         }
     }
