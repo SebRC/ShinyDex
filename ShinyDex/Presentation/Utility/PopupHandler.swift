@@ -3,14 +3,32 @@ import UIKit
 
 class PopupHandler {
     fileprivate static let visibleDuration: TimeInterval = 2.5
+    fileprivate static let queuedToastDelay = visibleDuration + 0.4
     fileprivate static weak var currentToast: ToastView?
 
     func showPopup(text: String) {
+        show(ToastView(text: text), announcing: text)
+    }
+
+    func showAchievementPopup(text: String, isMajor: Bool) {
+        let toast = ToastView(text: text, symbolName: "medal.fill", tintColor: Color.accent, textColor: Color.textPrimary)
+        let celebrate: (ToastView, UIWindow) -> Void = { toast, window in
+            MilestoneCelebration.celebrate(toast.iconImageView, in: window, isMajor: isMajor)
+        }
+        guard PopupHandler.currentToast?.superview == nil else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + PopupHandler.queuedToastDelay) {
+                PopupHandler().show(toast, announcing: text, onArrival: celebrate)
+            }
+            return
+        }
+        show(toast, announcing: text, onArrival: celebrate)
+    }
+
+    fileprivate func show(_ toast: ToastView, announcing text: String, onArrival: ((ToastView, UIWindow) -> Void)? = nil) {
         guard let window = findKeyWindow() else { return }
 
         PopupHandler.currentToast?.removeFromSuperview()
 
-        let toast = ToastView(text: text)
         toast.translatesAutoresizingMaskIntoConstraints = false
         window.addSubview(toast)
         NSLayoutConstraint.activate([
@@ -31,6 +49,8 @@ class PopupHandler {
         UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 0, options: [.allowUserInteraction]) {
             toast.alpha = 1
             toast.transform = .identity
+        } completion: { _ in
+            onArrival?(toast, window)
         }
         UIAccessibility.post(notification: .announcement, argument: text)
 

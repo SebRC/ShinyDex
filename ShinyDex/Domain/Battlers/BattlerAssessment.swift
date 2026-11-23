@@ -158,3 +158,11 @@ struct BattlerAssessment {
         }
     }
 }
+
+extension BattlerAssessment {
+    init(caught: Catch, moveCategories: MoveCategories) {
+        let style = AttackingStyle.determine(from: caught.moves.compactMap(moveCategories.findCategory), nature: caught.nature)
+        self.init(ivs: caught.ivs, evs: caught.evs, nature: caught.nature, style: style, moveCount: caught.moves.count, hasAbility: caught.ability != nil,
+                  canHyperTrain: caught.game.supportsHyperTraining, canChangeNature: caught.game.supportsMints)
+    }
+}

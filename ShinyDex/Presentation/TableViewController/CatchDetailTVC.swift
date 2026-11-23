@@ -124,6 +124,7 @@ class CatchDetailTVC: UITableViewController {
     fileprivate func save(_ change: UpdateCatchCommand.Change) {
         try? container.updateCatch.handle(UpdateCatchCommand(catchId: catchId, change: change))
         reloadRows()
+        AchievementAnnouncer.announceNewUnlocks(using: container)
     }
 
     // MARK: Odds and luck
@@ -487,6 +488,7 @@ class CatchDetailTVC: UITableViewController {
         let previousName = caught.pokemonName
         reloadRows()
         PopupHandler().showPopup(text: "\(previousName) evolved into \(target.name)!")
+        AchievementAnnouncer.announceNewUnlocks(using: container)
     }
 
 

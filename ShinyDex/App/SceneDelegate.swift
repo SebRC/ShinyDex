@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	func sceneDidBecomeActive(_ scene: UIScene) {
-		(UIApplication.shared.delegate as? AppDelegate)?.container.runAutomaticBackup.handle(RunAutomaticBackupCommand())
+		guard let container = (UIApplication.shared.delegate as? AppDelegate)?.container else { return }
+		container.runAutomaticBackup.handle(RunAutomaticBackupCommand())
+		AchievementAnnouncer.announceNewUnlocks(using: container)
 	}
 
 	func sceneDidEnterBackground(_ scene: UIScene) {

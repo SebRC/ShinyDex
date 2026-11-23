@@ -17,6 +17,10 @@ struct PokemonForms {
         self.formsByNumber = formsByNumber
     }
 
+    var numbersWithForms: [Int] {
+        return formsByNumber.keys.sorted()
+    }
+
     func getForms(of number: Int) -> SpeciesForms? {
         return formsByNumber[number]
     }

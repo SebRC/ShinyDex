@@ -15,16 +15,18 @@ class MenuTVC: UITableViewController {
         case bingo
         case oddsSimulator
         case battlers
+        case achievements
     }
 
     fileprivate let sections: [(title: String, rows: [Int])] = [
-        ("Tracking", [10, 11, 14, 13, 17, 16, 15, 12]),
+        ("Tracking", [10, 11, 14, 13, 17, 18, 16, 15, 12]),
         ("Pokédex", Array(0...9))
     ]
 
     let textResolver = TextResolver()
     fileprivate let container: AppContainer
     fileprivate var summary: MenuSummary?
+    fileprivate var achievements: AchievementsOverview?
     fileprivate var onThisDay = [OnThisDayCatch]()
 
     fileprivate var showsOnThisDay: Bool {
@@ -60,6 +62,8 @@ class MenuTVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         summary = container.getMenuSummary.handle(GetMenuSummaryQuery())
+        AchievementAnnouncer.announceNewUnlocks(using: container)
+        achievements = container.getAchievements.handle(GetAchievementsQuery())
         onThisDay = container.getOnThisDay.handle(GetOnThisDayQuery())
         tableView.reloadData()
     }
@@ -83,6 +87,7 @@ class MenuTVC: UITableViewController {
         case 15: return .bingo
         case 16: return .oddsSimulator
         case 17: return .battlers
+        case 18: return .achievements
         default: return .pokedex(generation: index)
         }
     }
@@ -148,6 +153,9 @@ class MenuTVC: UITableViewController {
             return "Chances for any game and method"
         case 17:
             return "Your best shinies for battle"
+        case 18:
+            guard let achievements = achievements else { return "" }
+            return "\(achievements.unlockedCount) of \(achievements.achievements.count) unlocked"
         case 13:
             guard let average = summary.averageEncounters else { return "Averages, balls, records and more" }
             return "\(average.grouped) encounters per shiny on average"
@@ -202,6 +210,8 @@ class MenuTVC: UITableViewController {
             viewController = OddsSimulatorVC(container: container)
         case .battlers:
             viewController = BattlersTVC(container: container)
+        case .achievements:
+            viewController = AchievementsTVC(container: container)
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -230,6 +240,8 @@ class MenuTVC: UITableViewController {
             return UIImage.makeSymbol("percent", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         case 17:
             return UIImage.makeSymbol("trophy.fill", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
+        case 18:
+            return UIImage.makeSymbol("medal.fill", pointSize: 20, weight: .medium)?.padded(to: MenuTVC.iconSize)
         default:
             return PixelArt.makeCenteredImage(named: "gen1")
         }

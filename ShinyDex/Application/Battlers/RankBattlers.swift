@@ -42,8 +42,8 @@ final class RankBattlersHandler {
     }
 
     private func makeSummary(of caught: Catch, name: String, level: BattleLevel) -> BattlerSummary {
-        let style = AttackingStyle.determine(from: caught.moves.compactMap(moveCategories.findCategory), nature: caught.nature)
-        let assessment = BattlerAssessment(ivs: caught.ivs, evs: caught.evs, nature: caught.nature, style: style, moveCount: caught.moves.count, hasAbility: caught.ability != nil, canHyperTrain: caught.game.supportsHyperTraining, canChangeNature: caught.game.supportsMints)
+        let assessment = BattlerAssessment(caught: caught, moveCategories: moveCategories)
+        let style = assessment.style
         let values = baseStats.findStats(of: caught.number, formId: caught.formId).map {
             StatCalculator.calculateStats(of: caught.number, base: $0, ivs: caught.ivs, evs: caught.evs, nature: caught.nature, level: level)
         } ?? Array(repeating: nil, count: Stat.allCases.count)
