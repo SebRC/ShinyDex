@@ -5,24 +5,20 @@ class CatchDetailTVC: UITableViewController {
         case hero
         case stats
         case about
+        case battle
         case details
-        case training
+        case evolution
         case delete
     }
 
-    fileprivate enum AboutRow: CaseIterable {
+    fileprivate enum TraitRow {
         case form
         case nickname
         case gender
         case nature
         case ability
         case moves
-        case ivs
-    }
-
-    fileprivate enum TrainingRow {
-        case evs
-        case evolve
+        case stats
     }
 
     fileprivate enum Field {
@@ -48,8 +44,9 @@ class CatchDetailTVC: UITableViewController {
         return details.summary
     }
     fileprivate lazy var ballGrid = BallGrid(container: container)
-    fileprivate var aboutRows = [AboutRow]()
-    fileprivate var trainingRows = [TrainingRow]()
+    fileprivate var aboutRows = [TraitRow]()
+    fileprivate var battleRows = [TraitRow]()
+    fileprivate var canEvolve = false
     fileprivate let cellIdentifier = "catchDetailCell"
     fileprivate var rows = [Row]()
     fileprivate var positionText: String?
@@ -111,11 +108,9 @@ class CatchDetailTVC: UITableViewController {
         if (caught.isFailed) {
             rows.removeAll { $0.field == .ball }
         }
-        aboutRows = caught.isFailed ? [] : AboutRow.allCases.filter { ($0 != .form || details.formChoices != nil) && ($0 != .ability || details.ability != nil) }
-        trainingRows = caught.isFailed ? [] : [.evs]
-        if (!caught.isFailed && !details.evolutionTargets.isEmpty) {
-            trainingRows.append(.evolve)
-        }
+        aboutRows = caught.isFailed ? [] : ([TraitRow.form, .nickname, .gender].filter { $0 != .form || details.formChoices != nil })
+        battleRows = caught.isFailed ? [] : ([TraitRow.nature, .ability, .moves, .stats].filter { $0 != .ability || details.ability != nil })
+        canEvolve = !caught.isFailed && !details.evolutionTargets.isEmpty
         title = caught.isFailed ? "\(caught.pokemonName) (got away)" : caught.pokemonName
         if let position = details.position {
             positionText = "Catch \(position + 1) of \(details.speciesCatchCount)"
@@ -151,7 +146,8 @@ class CatchDetailTVC: UITableViewController {
         switch Section(rawValue: section)! {
         case .details: return rows.count
         case .about: return aboutRows.count
-        case .training: return trainingRows.count
+        case .battle: return battleRows.count
+        case .evolution: return canEvolve ? 1 : 0
         default: return 1
         }
     }
@@ -165,7 +161,8 @@ class CatchDetailTVC: UITableViewController {
         switch Section(rawValue: section)! {
         case .details: return "Details"
         case .about: return aboutRows.isEmpty ? nil : "About"
-        case .training: return trainingRows.isEmpty ? nil : "Training"
+        case .battle: return battleRows.isEmpty ? nil : "Battle"
+        case .evolution: return canEvolve ? "Evolution" : nil
         default: return nil
         }
     }
@@ -174,7 +171,8 @@ class CatchDetailTVC: UITableViewController {
         switch Section(rawValue: section)! {
         case .details: return UITableView.automaticDimension
         case .about: return aboutRows.isEmpty ? 4 : UITableView.automaticDimension
-        case .training: return trainingRows.isEmpty ? 4 : UITableView.automaticDimension
+        case .battle: return battleRows.isEmpty ? 4 : UITableView.automaticDimension
+        case .evolution: return canEvolve ? UITableView.automaticDimension : 4
         case .delete: return 24
         default: return 4
         }
@@ -202,9 +200,11 @@ class CatchDetailTVC: UITableViewController {
             cell.configure(encounters: caught.encounters.grouped, odds: details.odds.map { "1/\($0.grouped)" } ?? "Varies", luck: luckText)
             return cell
         case .about:
-            return makeAboutCell(for: aboutRows[indexPath.row])
-        case .training:
-            return makeTrainingCell(for: trainingRows[indexPath.row])
+            return makeTraitCell(for: aboutRows[indexPath.row])
+        case .battle:
+            return makeTraitCell(for: battleRows[indexPath.row])
+        case .evolution:
+            return makeEvolveCell()
         case .details:
             return makeDetailCell(for: rows[indexPath.row])
         case .delete:
@@ -234,7 +234,7 @@ class CatchDetailTVC: UITableViewController {
         }
     }
 
-    fileprivate func makeAboutCell(for row: AboutRow) -> UITableViewCell {
+    fileprivate func makeTraitCell(for row: TraitRow) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
         cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
@@ -284,11 +284,9 @@ class CatchDetailTVC: UITableViewController {
             cell.textLabel?.text = "Moves"
             cell.detailTextLabel?.text = details.moves.first.map { first in details.moves.count > 1 ? "\(first.name) +\(details.moves.count - 1)" : first.name } ?? "None"
             symbol = "list.bullet"
-        case .ivs:
-            cell.textLabel?.text = "IVs"
-            let ivsText = NSMutableAttributedString(string: caught.ivs.isEmpty ? "" : "\(caught.ivs.perfectCount) perfect · ", attributes: [.foregroundColor: Color.textTertiary])
-            ivsText.append(caught.ivs.makeColoredSummary(unknownColor: Color.textTertiary))
-            cell.detailTextLabel?.attributedText = ivsText
+        case .stats:
+            cell.textLabel?.text = "Stats"
+            cell.detailTextLabel?.attributedText = makeStatsSummary(textColor: Color.textTertiary)
             symbol = "chart.bar.fill"
         }
         cell.imageView?.image = UIImage.makeSymbol(symbol, pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
@@ -296,7 +294,33 @@ class CatchDetailTVC: UITableViewController {
         return cell
     }
 
-    fileprivate func makeTrainingCell(for row: TrainingRow) -> UITableViewCell {
+    fileprivate func makeStatsSummary(textColor: UIColor) -> NSAttributedString {
+        let showsIVValues = !caught.ivs.isEmpty && caught.ivs.perfectCount == 0
+        var parts = [NSAttributedString]()
+        if let level = caught.level {
+            parts.append(NSAttributedString(string: "Lv. \(level)", attributes: [.foregroundColor: textColor]))
+        }
+        if (showsIVValues) {
+            parts.append(caught.ivs.makeColoredSummary(unknownColor: textColor, separator: "/"))
+        }
+        else if (!caught.ivs.isEmpty) {
+            parts.append(NSAttributedString(string: "\(caught.ivs.perfectCount)IV", attributes: [.foregroundColor: textColor]))
+        }
+        if (!caught.evs.isEmpty && !showsIVValues) {
+            parts.append(NSAttributedString(string: "\(caught.evs.total) EVs", attributes: [.foregroundColor: textColor]))
+        }
+        guard !parts.isEmpty else { return NSAttributedString(string: "Not logged", attributes: [.foregroundColor: textColor]) }
+        let summary = NSMutableAttributedString()
+        for (index, part) in parts.enumerated() {
+            if (index > 0) {
+                summary.append(NSAttributedString(string: " · ", attributes: [.foregroundColor: textColor]))
+            }
+            summary.append(part)
+        }
+        return summary
+    }
+
+    fileprivate func makeEvolveCell() -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         cell.backgroundColor = Color.surface
         let selectedBackground = UIView()
@@ -307,19 +331,11 @@ class CatchDetailTVC: UITableViewController {
         cell.detailTextLabel?.textColor = Color.textTertiary
         cell.detailTextLabel?.font = UIFont.make(.footnote)
         cell.accessoryType = .disclosureIndicator
-        let iconSize = CGSize(width: 30, height: 30)
-        switch row {
-        case .evs:
-            cell.textLabel?.text = "EV training"
-            cell.detailTextLabel?.text = caught.evs.isEmpty ? "Not trained yet" : "\(caught.evs.summary) · \(caught.evs.total)/\(EffortValues.maximumTotal)"
-            cell.imageView?.image = UIImage.makeSymbol("bolt.fill", pointSize: 18, weight: .medium)?.padded(to: iconSize)
-        case .evolve:
-            cell.textLabel?.text = "Evolve"
-            let names = details.evolutionTargets.map { $0.name }
-            let origin = details.evolvedFromName.map { "Caught as \($0) · " } ?? ""
-            cell.detailTextLabel?.text = origin + names.joined(separator: ", ")
-            cell.imageView?.image = UIImage.makeSymbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: iconSize)
-        }
+        cell.textLabel?.text = "Evolve"
+        let names = details.evolutionTargets.map { $0.name }
+        let origin = details.evolvedFromName.map { "Caught as \($0) · " } ?? ""
+        cell.detailTextLabel?.text = origin + names.joined(separator: ", ")
+        cell.imageView?.image = UIImage.makeSymbol("arrow.2.circlepath", pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
         cell.imageView?.tintColor = Color.accent
         return cell
     }
@@ -344,7 +360,7 @@ class CatchDetailTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         let section = Section(rawValue: indexPath.section)
-        return section == .details || section == .about || section == .training || section == .delete
+        return section == .details || section == .about || section == .battle || section == .evolution || section == .delete
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -353,8 +369,8 @@ class CatchDetailTVC: UITableViewController {
             confirmDelete()
             return
         }
-        if (Section(rawValue: indexPath.section) == .about) {
-            switch aboutRows[indexPath.row] {
+        if let section = Section(rawValue: indexPath.section), section == .about || section == .battle {
+            switch (section == .about ? aboutRows : battleRows)[indexPath.row] {
             case .form:
                 showFormPicker()
             case .nickname:
@@ -371,18 +387,13 @@ class CatchDetailTVC: UITableViewController {
                 }
             case .moves:
                 navigationController?.pushViewController(CatchMovesTVC(container: container, catchId: caught.id), animated: true)
-            case .ivs:
-                navigationController?.pushViewController(IVEditorVC(container: container, caught: caught), animated: true)
+            case .stats:
+                navigationController?.pushViewController(CatchStatsVC(container: container, caught: caught), animated: true)
             }
             return
         }
-        if (Section(rawValue: indexPath.section) == .training) {
-            switch trainingRows[indexPath.row] {
-            case .evs:
-                navigationController?.pushViewController(EVTrainingVC(container: container, caught: caught), animated: true)
-            case .evolve:
-                showEvolvePicker()
-            }
+        if (Section(rawValue: indexPath.section) == .evolution) {
+            showEvolvePicker()
             return
         }
         guard Section(rawValue: indexPath.section) == .details else { return }
@@ -402,7 +413,7 @@ class CatchDetailTVC: UITableViewController {
         }
     }
 
-    // MARK: About
+    // MARK: Traits
 
     fileprivate func showNicknameEditor() {
         let maximumLength = Catch.maximumNicknameLength

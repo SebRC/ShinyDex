@@ -1,0 +1,44 @@
+import Foundation
+
+enum BattlerRanking: Int, CaseIterable {
+    case relevantIVs
+    case perfectIVs
+    case ivTotal
+    case readiness
+}
+
+struct BattlerStat: Equatable {
+    let stat: Stat
+    let iv: Int?
+    let ev: Int
+    let value: Int?
+    let isLessRelevant: Bool
+}
+
+struct BattlerSummary: Equatable {
+    let id: CatchID
+    let number: Int
+    let pokemonName: String
+    let nickname: String?
+    let formId: String?
+    let formName: String?
+    let caughtBall: String
+    let game: Games
+    let nature: Nature?
+    let ability: String?
+    let style: AttackingStyle
+    let stats: [BattlerStat]
+    let relevantIVPercent: Int
+    let perfectCount: Int
+    let ivTotal: Int
+    let readiness: Int
+    let hiddenPowerType: String?
+    let badges: [BattlerBadge]
+    var duplicateCount = 0
+}
+
+struct BattlerRankings: Equatable {
+    let battlers: [BattlerSummary]
+    let catchesWithoutIVs: Int
+    let olderGenerationCatches: Int
+}

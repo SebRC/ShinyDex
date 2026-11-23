@@ -16,4 +16,16 @@ class GamesTests: XCTestCase {
 			XCTAssertEqual(game.displayName.first.map { String($0) }, game.displayName.first.map { String($0).uppercased() }, game.rawValue)
 		}
 	}
+
+	func test_hyperTraining_isSupportedFromSunAndMoon_exceptInLetsGoAndLegendsArceus() {
+		let supported = Games.allCases.filter { $0.supportsHyperTraining }
+
+		XCTAssertEqual(supported, [.Sun, .Moon, .UltraSun, .UltraMoon, .Sword, .Shield, .BrilliantDiamond, .ShiningPearl, .Scarlet, .Violet])
+	}
+
+	func test_mints_areAvailableFromSwordAndShield_exceptInLetsGo() {
+		let supported = Games.allCases.filter { $0.supportsMints }
+
+		XCTAssertEqual(supported, [.Sword, .Shield, .LegendsArceus, .BrilliantDiamond, .ShiningPearl, .Scarlet, .Violet])
+	}
 }

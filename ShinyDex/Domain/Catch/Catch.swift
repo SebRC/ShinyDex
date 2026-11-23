@@ -3,6 +3,7 @@ import Foundation
 class Catch {
     static let maximumNicknameLength = 12
     static let maximumMoveCount = 4
+    static let levelRange = 1...100
 
     var id: UUID
     var number: Int
@@ -27,9 +28,12 @@ class Catch {
     var moves: [Int] {
         didSet { moves = Catch.normalizeMoves(moves) }
     }
+    var level: Int? {
+        didSet { level = Catch.normalizeLevel(level) }
+    }
 
     init(id: UUID, number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool, evs: EffortValues, evolvedFrom: Int?,
-         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil, ability: String? = nil, moves: [Int] = []) {
+         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil, ability: String? = nil, moves: [Int] = [], level: Int? = nil) {
         self.id = id
         self.number = number
         self.caughtBall = caughtBall
@@ -49,6 +53,7 @@ class Catch {
         self.encounterTotalAtFind = encounterTotalAtFind
         self.ability = ability
         self.moves = Catch.normalizeMoves(moves)
+        self.level = Catch.normalizeLevel(level)
     }
 
     init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool = false) {
@@ -77,6 +82,10 @@ class Catch {
             unique.append(move)
         }
         return Array(unique.prefix(maximumMoveCount))
+    }
+
+    static func normalizeLevel(_ level: Int?) -> Int? {
+        return level.map { min(max($0, levelRange.lowerBound), levelRange.upperBound) }
     }
 
     static func normalizeNickname(_ nickname: String?) -> String? {

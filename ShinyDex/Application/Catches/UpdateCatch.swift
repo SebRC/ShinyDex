@@ -20,6 +20,7 @@ struct UpdateCatchCommand {
         case form(String?)
         case ability(String?)
         case moves([Int])
+        case level(Int?)
     }
 
     let catchId: CatchID
@@ -63,6 +64,7 @@ final class UpdateCatchHandler {
             caught.ability = abilities.carryOver(caught.ability, from: previousForm, to: PokemonAbilities.Key(number: caught.number, formId: caught.formId), in: caught.game)
         case .ability(let ability): caught.ability = abilities.resolve(ability, of: caught.number, formId: caught.formId, in: caught.game)
         case .moves(let moves): caught.moves = moves
+        case .level(let level): caught.level = level
         }
         catchRepository.update(caught)
         guard catchRepository.save() else { throw CatchUpdateError.saveFailed }

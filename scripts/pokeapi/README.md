@@ -1,6 +1,6 @@
 # PokéAPI data
 
-Regenerates the bundled game availability, location, ability, learnset and gender data from PokéAPI's CSV files.
+Regenerates the bundled game availability, location, ability, learnset, gender and base stat data from PokéAPI's CSV files.
 
 ```bash
 scripts/pokeapi/download_csvs.sh /tmp/pokeapi
@@ -9,6 +9,7 @@ python3 scripts/pokeapi/generate_pokemon_locations.py /tmp/pokeapi ShinyDex/Reso
 python3 scripts/pokeapi/generate_abilities.py /tmp/pokeapi ShinyDex/Resources/forms.json ShinyDex/Resources/abilities.json
 python3 scripts/pokeapi/generate_learnsets.py /tmp/pokeapi ShinyDex/Resources/forms.json ShinyDex/Resources/learnsets.json
 python3 scripts/pokeapi/generate_genders.py /tmp/pokeapi ShinyDex/Resources/genders.json
+python3 scripts/pokeapi/generate_base_stats.py /tmp/pokeapi ShinyDex/Resources/forms.json ShinyDex/Resources/baseStats.json
 ```
 
 Games without encounter data in PokéAPI use their regional Pokédex and are marked approximate. Update the game tables in both scripts when new games are added to `Games`.
@@ -18,3 +19,5 @@ Abilities are listed per generation from Gen 3, using `pokemon_abilities_past` f
 Learnsets are listed per game, combining a game's DLC with the base game, and grouped into level-up, TM/TR, egg and tutor moves. Identical learnsets are stored once and shared. Update `GAMES` in the script when new games are added to `Games`.
 
 Genders list the species that are always genderless, male or female; every other species can be either male or female.
+
+Base stats are listed per species in HP, Attack, Defense, Sp. Atk, Sp. Def, Speed order. Forms are only listed when their base stats differ from the species'.
