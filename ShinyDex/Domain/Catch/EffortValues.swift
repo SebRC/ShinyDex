@@ -4,6 +4,7 @@ struct EffortValues: Equatable {
 	static let maximumPerStat = 255
 	static let maximumUsefulPerStat = 252
 	static let maximumTotal = 510
+	static let perStatPoint = 4
 
 	fileprivate(set) var values: [Int]
 
@@ -40,7 +41,20 @@ struct EffortValues: Equatable {
 		return values[stat.rawValue]
 	}
 
-	static func countWasted(of value: Int) -> Int {
+	var wasted: Int {
+		let overCap = values.map(EffortValues.countOverCap).reduce(0, +)
+		guard overCap > 0 else { return 0 }
+		let earnedStatPoints = values.map { min($0, EffortValues.maximumUsefulPerStat) / EffortValues.perStatPoint }.reduce(0, +)
+		let couldEarnMoreNow = earnedStatPoints < total / EffortValues.perStatPoint
+		let blocksFullTraining = (EffortValues.maximumTotal - overCap) / EffortValues.perStatPoint < EffortValues.maximumTotal / EffortValues.perStatPoint
+		return couldEarnMoreNow || blocksFullTraining ? overCap : 0
+	}
+
+	func countWasted(in stat: Stat) -> Int {
+		return wasted > 0 ? EffortValues.countOverCap(of: self[stat]) : 0
+	}
+
+	fileprivate static func countOverCap(of value: Int) -> Int {
 		return max(value - maximumUsefulPerStat, 0)
 	}
 

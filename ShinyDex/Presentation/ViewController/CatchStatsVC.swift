@@ -450,7 +450,7 @@ class CatchStatsVC: UIViewController {
         summaryDetailLabel.text = evs.remaining == 0 ? "Fully trained" : "\(evs.remaining) left to assign"
         totalBar.progress = Float(evs.total) / Float(EffortValues.maximumTotal)
         for row in evRows {
-            row.update(value: evs[row.stat], canIncrease: evs[row.stat] < EffortValues.maximumPerStat && evs.remaining > 0)
+            row.update(value: evs[row.stat], wasted: evs.countWasted(in: row.stat), canIncrease: evs[row.stat] < EffortValues.maximumPerStat && evs.remaining > 0)
         }
         resetButton.isEnabled = !evs.isEmpty
     }
@@ -555,8 +555,7 @@ fileprivate final class EVStatRow: StatEditorRow {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func update(value: Int, canIncrease: Bool) {
-        let wasted = EffortValues.countWasted(of: value)
+    func update(value: Int, wasted: Int, canIncrease: Bool) {
         valueButton.setTitle(wasted > 0 ? "\(value) · \(wasted) wasted" : "\(value) / \(EffortValues.maximumUsefulPerStat)", for: .normal)
         valueButton.setTitleColor(Color.textPrimary, for: .normal)
         valueButton.accessibilityLabel = "\(stat.name), \(value) EVs" + (wasted > 0 ? ", \(wasted) wasted" : "")
