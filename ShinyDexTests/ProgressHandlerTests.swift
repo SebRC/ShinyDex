@@ -192,6 +192,30 @@ final class ProgressHandlerTests: XCTestCase {
         XCTAssertEqual(shinies.map { $0.isFailed }, [false, true])
     }
 
+    func test_encounterMonthAndYear_addUpEveryDayInThem_byPokemon_withTheirShinies() {
+        days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 1), count: 10, countsByPokemon: [bulbasaur: 6]))
+        days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 31), count: 5, countsByPokemon: [squirtle: 5]))
+        days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 8, day: 1), count: 9, countsByPokemon: [squirtle: 9]))
+        days.save(DailyEncounters(day: EncounterDay(year: 2025, month: 12, day: 31), count: 100, countsByPokemon: [bulbasaur: 100]))
+        log(squirtle)
+        now = DateComponents(calendar: calendar, timeZone: calendar.timeZone, year: 2026, month: 8, day: 1, hour: 0).date!
+        log(bulbasaur)
+        let handler = GetEncounterDayHandler(dailyEncountersRepository: days, pokemonRepository: pokemon, catchRepository: catches, calendar: calendar)
+
+        let july = handler.handle(GetEncounterDayQuery(date: makeDate(day: 15, hour: 12), period: .month))
+        XCTAssertEqual(july.date, makeDate(day: 1, hour: 0))
+        XCTAssertEqual(july.total, 15)
+        XCTAssertEqual(july.pokemon.map { $0.number }, [bulbasaur, squirtle])
+        XCTAssertEqual(july.pokemon.map { $0.sharePercent }, [40, 33])
+        XCTAssertEqual(july.unsplitCount, 4)
+        XCTAssertEqual(july.shinies.map { $0.number }, [squirtle], "A shiny at midnight on 1 August belongs to August")
+
+        let year = handler.handle(GetEncounterDayQuery(date: makeDate(day: 15, hour: 12), period: .year))
+        XCTAssertEqual(year.total, 24)
+        XCTAssertEqual(year.pokemon.map { $0.count }, [14, 6])
+        XCTAssertEqual(year.shinies.map { $0.number }, [squirtle, bulbasaur])
+    }
+
     func test_takingOneOffToday_neverGoesBelowZero() {
         changeEncounters(.increment, of: bulbasaur, times: 3)
         now = makeDate(day: 3, hour: 9)
