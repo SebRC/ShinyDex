@@ -107,6 +107,7 @@ final class AppContainer {
     // MARK: Battlers
 
     var rankBattlers: RankBattlersHandler { RankBattlersHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats, moveCategories: moveCategories, abilities: abilities) }
+    var rankByStat: RankByStatHandler { RankByStatHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats) }
 
     // MARK: Achievements
 

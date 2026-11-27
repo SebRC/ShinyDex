@@ -18,9 +18,9 @@ final class RankBattlersTests: XCTestCase {
     }
 
     @discardableResult
-    private func addCatch(of number: Int, game: Games = .Scarlet, ivs: IndividualValues, nature: Nature? = nil, formId: String? = nil, moves: [Int] = [], isFailed: Bool = false) -> Catch {
+    private func addCatch(of number: Int, game: Games = .Scarlet, ivs: IndividualValues, nature: Nature? = nil, formId: String? = nil, moves: [Int] = [], isFailed: Bool = false, evs: EffortValues = EffortValues()) -> Catch {
         let caught = Catch(id: UUID(), number: number, caughtBall: "poke", game: game, huntMethod: .Encounters, encounters: 0, isShinyCharmActive: false, caughtDate: nil,
-                           isFailed: isFailed, evs: EffortValues(), evolvedFrom: nil, nature: nature, ivs: ivs, formId: formId, moves: moves)
+                           isFailed: isFailed, evs: evs, evolvedFrom: nil, nature: nature, ivs: ivs, formId: formId, moves: moves)
         catches.insert(caught)
         return caught
     }
@@ -154,5 +154,49 @@ final class RankBattlersTests: XCTestCase {
         XCTAssertEqual(loaded.findCategory(of: 89), .physical)
         XCTAssertEqual(loaded.findCategory(of: 85), .special)
         XCTAssertEqual(loaded.findCategory(of: 14), .status)
+    }
+
+    // MARK: Rank by stat
+
+    private func rank(by stat: Stat, bestOfEachSpecies: Bool = false) -> StatRanking {
+        return RankByStatHandler(catchRepository: catches, pokemonRepository: pokemon, baseStats: baseStats)
+            .handle(RankByStatQuery(stat: stat, level: .fifty, showsBestOfEachSpecies: bestOfEachSpecies))
+    }
+
+    func test_rankByStat_sortsByTheCalculatedStat_andShowsWhatEVTrainingWouldReach() {
+        let trainedBulbasaur = addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]), evs: makeEVs([0, 0, 0, 0, 0, 252]))
+        let charmander = addCatch(of: charmander, ivs: makeIVs([31, 31, 31, 31, 31, 31]))
+        let untrainedBulbasaur = addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]))
+
+        let leaders = rank(by: .speed).leaders
+
+        XCTAssertEqual(leaders.map { $0.id.rawValue }, [trainedBulbasaur.id, charmander.id, untrainedBulbasaur.id])
+        XCTAssertEqual(leaders.map { $0.value }, [97, 85, 65])
+        XCTAssertEqual(leaders.map { $0.trainedValue }, [nil, 117, 97])
+        XCTAssertEqual(leaders.map { $0.trainedRank }, [nil, 1, 1])
+    }
+
+    func test_rankByStat_onlyTrainsWithTheEVsLeft_andCountsCatchesMissingThatIV() {
+        let spentElsewhere = addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]), evs: makeEVs([252, 252, 6, 0, 0, 0]))
+        let partlyTrained = addCatch(of: charmander, ivs: makeIVs([31, 31, 31, 31, 31, 31]), evs: makeEVs([252, 246, 0, 0, 0, 4]))
+        addCatch(of: squirtle, ivs: makeIVs([31, 31, 31, 31, 31, nil]))
+
+        let ranking = rank(by: .speed)
+
+        XCTAssertEqual(ranking.leaders.map { $0.id.rawValue }, [partlyTrained.id, spentElsewhere.id])
+        XCTAssertEqual(ranking.leaders.map { $0.ev }, [4, 0])
+        XCTAssertEqual(ranking.leaders.map { $0.trainedValue }, [87, nil])
+        XCTAssertEqual(ranking.catchesWithoutIV, 1)
+    }
+
+    func test_rankByStat_canKeepOnlyTheBestOfEachSpecies() {
+        let best = addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]))
+        addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 10]))
+        let charmander = addCatch(of: charmander, ivs: makeIVs([31, 31, 31, 31, 31, 0]))
+
+        let leaders = rank(by: .speed, bestOfEachSpecies: true).leaders
+
+        XCTAssertEqual(leaders.map { $0.id.rawValue }, [charmander.id, best.id])
+        XCTAssertTrue(leaders.allSatisfy { $0.trainedRank == nil })
     }
 }

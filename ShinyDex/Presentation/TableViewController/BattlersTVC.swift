@@ -87,7 +87,9 @@ final class BattlersTVC: UITableViewController {
         }
         let optionsButton = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), menu: UIMenu(children: [bestOfEachSpecies, countsUnusedStat]))
         optionsButton.accessibilityLabel = "Options"
-        navigationItem.rightBarButtonItem = optionsButton
+        let statRankingButton = UIBarButtonItem(image: UIImage(systemName: "chart.bar.xaxis"), style: .plain, target: self, action: #selector(statRankingPressed))
+        statRankingButton.accessibilityLabel = "Rank by stat"
+        navigationItem.rightBarButtonItems = [optionsButton, statRankingButton]
     }
 
     // MARK: Data
@@ -124,6 +126,10 @@ final class BattlersTVC: UITableViewController {
         let title = count == 1 ? "1 catch has no IVs logged" : "\(count) catches have no IVs logged"
         missingIVsButton.configuration?.attributedTitle = AttributedString(title, attributes: AttributeContainer([.font: UIFont.make(.footnote, weight: .semibold)]))
         missingIVsButton.accessibilityLabel = title
+    }
+
+    @objc fileprivate func statRankingPressed() {
+        navigationController?.pushViewController(StatRankingTVC(container: container, level: level), animated: true)
     }
 
     @objc fileprivate func missingIVsPressed() {
