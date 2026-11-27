@@ -45,3 +45,23 @@ struct BattlerRankings: Equatable {
     let catchesWithoutIVs: Int
     let olderGenerationCatches: Int
 }
+
+struct StatLeader: Equatable {
+    let id: CatchID
+    let number: Int
+    let pokemonName: String
+    let nickname: String?
+    let formId: String?
+    let formName: String?
+    let nature: Nature?
+    let iv: Int
+    let ev: Int
+    let value: Int
+    let trainedValue: Int?
+    let trainedRank: Int?
+}
+
+struct StatRanking: Equatable {
+    let leaders: [StatLeader]
+    let catchesWithoutIV: Int
+}
