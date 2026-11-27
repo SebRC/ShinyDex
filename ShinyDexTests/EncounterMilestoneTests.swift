@@ -84,4 +84,21 @@ final class EncounterMilestoneTests: XCTestCase {
         XCTAssertTrue(atOdds.isOddsMilestone)
         XCTAssertFalse(thousands.isOddsMilestone)
     }
+
+    // MARK: Abbreviated counts
+
+    func test_abbreviated_shortensMillionsAndBillions_toThreeSignificantDigits() {
+        let english = Locale(identifier: "en_US")
+
+        XCTAssertEqual(1_450_000.abbreviated(in: english), "1.45M")
+        XCTAssertEqual(12_345_678.abbreviated(in: english), "12.3M")
+        XCTAssertEqual(2_000_000.abbreviated(in: english), "2M")
+        XCTAssertEqual(1_230_000_000.abbreviated(in: english), "1.23B")
+        XCTAssertEqual(1_450_000.abbreviated(in: Locale(identifier: "da_DK")), "1,45M")
+    }
+
+    func test_abbreviated_keepsSmallerCountsInFull() {
+        XCTAssertEqual(999_999.abbreviated(), 999_999.grouped)
+        XCTAssertEqual(4_096.abbreviated(), 4_096.grouped)
+    }
 }

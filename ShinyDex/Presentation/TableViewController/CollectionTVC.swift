@@ -323,7 +323,7 @@ fileprivate class CollectionHeader: UICollectionReusableView {
         shiniesTile.setCaption(shiniesCaption.capitalized)
         shiniesTile.setValue(shinies.grouped, isEmphasized: true)
         speciesTile.setValue(species.grouped)
-        encountersTile.setValue(encounters.grouped)
+        encountersTile.setValue(encounters.abbreviated(), spokenValue: encounters.grouped)
         sortControl.selectedSegmentIndex = sortIndex
     }
 
