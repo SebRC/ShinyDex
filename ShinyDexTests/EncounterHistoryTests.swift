@@ -3,6 +3,7 @@ import XCTest
 
 final class EncounterHistoryTests: XCTestCase {
     private var days: InMemoryDailyEncountersRepository!
+    private var catches: InMemoryCatchRepository!
     private var calendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(identifier: "UTC")!
@@ -11,6 +12,7 @@ final class EncounterHistoryTests: XCTestCase {
 
     override func setUp() {
         days = InMemoryDailyEncountersRepository()
+        catches = InMemoryCatchRepository()
     }
 
     private func makeDate(year: Int = 2026, month: Int = 7, day: Int = 1, hour: Int = 0) -> Date {
@@ -21,13 +23,21 @@ final class EncounterHistoryTests: XCTestCase {
         days.save(DailyEncounters(day: EncounterDay(year: year, month: month, day: day), count: count))
     }
 
+    private func logCatch(on date: Date, isFailed: Bool = false) {
+        catches.insert(Catch(number: 1, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 100, isShinyCharmActive: false, caughtDate: date, isFailed: isFailed))
+    }
+
     private func getHistory(_ period: EncounterPeriod = .day, now: Date) -> EncounterHistory {
-        let handler = GetEncounterHistoryHandler(dailyEncountersRepository: days, calendar: calendar, makeCurrentDate: { now })
+        let handler = GetEncounterHistoryHandler(dailyEncountersRepository: days, catchRepository: catches, calendar: calendar, makeCurrentDate: { now })
         return handler.handle(GetEncounterHistoryQuery(period: period))
     }
 
     private func entry(_ start: Date, _ count: Int) -> EncounterHistory.Entry {
         return EncounterHistory.Entry(start: start, count: count)
+    }
+
+    private func calendarDay(_ start: Date, _ count: Int, caught: Int = 0, gotAway: Int = 0) -> EncounterHistory.CalendarDay {
+        return EncounterHistory.CalendarDay(start: start, count: count, caughtCount: caught, gotAwayCount: gotAway)
     }
 
     // MARK: Days
@@ -121,18 +131,34 @@ final class EncounterHistoryTests: XCTestCase {
         var mondayCalendar = calendar
         mondayCalendar.firstWeekday = 2
         record(42, day: 8)
-        let handler = GetEncounterHistoryHandler(dailyEncountersRepository: days, calendar: mondayCalendar, makeCurrentDate: { self.makeDate(day: 8, hour: 12) })
+        let handler = GetEncounterHistoryHandler(dailyEncountersRepository: days, catchRepository: catches, calendar: mondayCalendar, makeCurrentDate: { self.makeDate(day: 8, hour: 12) })
 
         let weeks = handler.handle(GetEncounterHistoryQuery()).calendarWeeks
 
         XCTAssertEqual(weeks.count, GetEncounterHistoryHandler.calendarWeekCount)
         XCTAssertTrue(weeks.allSatisfy { $0.count == 7 })
         let thisWeek = weeks.last!
-        XCTAssertEqual(thisWeek[0], entry(makeDate(day: 6), 0))
-        XCTAssertEqual(thisWeek[2], entry(makeDate(day: 8), 42))
+        XCTAssertEqual(thisWeek[0], calendarDay(makeDate(day: 6), 0))
+        XCTAssertEqual(thisWeek[2], calendarDay(makeDate(day: 8), 42))
         XCTAssertNil(thisWeek[3])
         XCTAssertNil(thisWeek[6])
-        XCTAssertEqual(weeks.first?.first, entry(makeDate(month: 1, day: 12), 0))
+        XCTAssertEqual(weeks.first?.first, calendarDay(makeDate(month: 1, day: 12), 0))
+    }
+
+    func test_calendar_countsTheShiniesCaughtAndThoseThatGotAway_eachDay() {
+        record(42, day: 8)
+        logCatch(on: makeDate(day: 8, hour: 9))
+        logCatch(on: makeDate(day: 8, hour: 21))
+        logCatch(on: makeDate(day: 8, hour: 22), isFailed: true)
+        logCatch(on: makeDate(day: 7, hour: 10))
+        logCatch(on: makeDate(day: 6, hour: 10), isFailed: true)
+
+        let days = getHistory(now: makeDate(day: 8, hour: 23)).calendarWeeks.joined().compactMap { $0 }
+
+        XCTAssertEqual(days.first { $0.start == makeDate(day: 8) }, calendarDay(makeDate(day: 8), 42, caught: 2, gotAway: 1))
+        XCTAssertEqual(days.first { $0.start == makeDate(day: 7) }, calendarDay(makeDate(day: 7), 0, caught: 1))
+        XCTAssertEqual(days.first { $0.start == makeDate(day: 6) }, calendarDay(makeDate(day: 6), 0, gotAway: 1))
+        XCTAssertEqual(days.first { $0.start == makeDate(day: 5) }, calendarDay(makeDate(day: 5), 0))
     }
 
     // MARK: Months

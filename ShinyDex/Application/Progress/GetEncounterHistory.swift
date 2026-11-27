@@ -14,6 +14,13 @@ struct EncounterHistory: Equatable {
         let count: Int
     }
 
+    struct CalendarDay: Equatable {
+        let start: Date
+        let count: Int
+        var caughtCount = 0
+        var gotAwayCount = 0
+    }
+
     struct DayStreaks: Equatable {
         let current: Int
         let longest: Int
@@ -26,7 +33,7 @@ struct EncounterHistory: Equatable {
     let averagePerActivePeriod: Int?
     let trackedSince: Date?
     let dayStreaks: DayStreaks
-    let calendarWeeks: [[Entry?]]
+    let calendarWeeks: [[CalendarDay?]]
 }
 
 final class GetEncounterHistoryHandler {
@@ -35,11 +42,13 @@ final class GetEncounterHistoryHandler {
     static let calendarWeekCount = 26
 
     private let dailyEncountersRepository: DailyEncountersRepository
+    private let catchRepository: CatchRepository
     private let calendar: Calendar
     private let makeCurrentDate: () -> Date
 
-    init(dailyEncountersRepository: DailyEncountersRepository, calendar: Calendar = .current, makeCurrentDate: @escaping () -> Date = Date.init) {
+    init(dailyEncountersRepository: DailyEncountersRepository, catchRepository: CatchRepository, calendar: Calendar = .current, makeCurrentDate: @escaping () -> Date = Date.init) {
         self.dailyEncountersRepository = dailyEncountersRepository
+        self.catchRepository = catchRepository
         self.calendar = calendar
         self.makeCurrentDate = makeCurrentDate
     }
@@ -58,6 +67,9 @@ final class GetEncounterHistoryHandler {
         let trackedSince = trackedDays.map { $0.start }.min()
         let streaks = HuntingDayStreaks(days: storedDays, today: EncounterDay(containing: makeCurrentDate(), calendar: calendar), calendar: calendar)
         let countsByDay = Dictionary(trackedDays.map { ($0.start, $0.count) }, uniquingKeysWith: +)
+        let datedCatches = catchRepository.getAll().compactMap { caught in caught.caughtDate.map { (day: calendar.startOfDay(for: $0), isFailed: caught.isFailed) } }
+        let caughtCountsByDay = Dictionary(datedCatches.filter { !$0.isFailed }.map { ($0.day, 1) }, uniquingKeysWith: +)
+        let gotAwayCountsByDay = Dictionary(datedCatches.filter { $0.isFailed }.map { ($0.day, 1) }, uniquingKeysWith: +)
         return EncounterHistory(period: query.period,
                                 recent: makeRecent(of: query.period, countsByPeriodStart: countsByPeriodStart, trackedSince: trackedSince),
                                 recorded: recorded,
@@ -65,10 +77,10 @@ final class GetEncounterHistoryHandler {
                                 averagePerActivePeriod: GetEncounterHistoryHandler.calculateAverage(of: recorded),
                                 trackedSince: trackedSince,
                                 dayStreaks: EncounterHistory.DayStreaks(current: streaks.current, longest: streaks.longest),
-                                calendarWeeks: makeCalendarWeeks(countsByDay: countsByDay))
+                                calendarWeeks: makeCalendarWeeks(countsByDay: countsByDay, caughtCountsByDay: caughtCountsByDay, gotAwayCountsByDay: gotAwayCountsByDay))
     }
 
-    private func makeCalendarWeeks(countsByDay: [Date: Int]) -> [[EncounterHistory.Entry?]] {
+    private func makeCalendarWeeks(countsByDay: [Date: Int], caughtCountsByDay: [Date: Int], gotAwayCountsByDay: [Date: Int]) -> [[EncounterHistory.CalendarDay?]] {
         let today = calendar.startOfDay(for: makeCurrentDate())
         let currentWeekStart = findStart(of: .weekOfYear, containing: today)
         let weekCount = GetEncounterHistoryHandler.calendarWeekCount
@@ -76,7 +88,8 @@ final class GetEncounterHistoryHandler {
         return (0..<weekCount).map { week in
             (0..<7).map { weekday in
                 guard let date = calendar.date(byAdding: .day, value: week * 7 + weekday, to: firstWeekStart), date <= today else { return nil }
-                return EncounterHistory.Entry(start: date, count: countsByDay[date] ?? 0)
+                return EncounterHistory.CalendarDay(start: date, count: countsByDay[date] ?? 0,
+                                                    caughtCount: caughtCountsByDay[date] ?? 0, gotAwayCount: gotAwayCountsByDay[date] ?? 0)
             }
         }
     }

@@ -164,7 +164,7 @@ final class ProgressHandlerTests: XCTestCase {
         days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 7, day: 1), count: 40))
         changeEncounters(.increment, of: bulbasaur, times: 1)
         changeEncounters(.increment, of: squirtle, times: 3)
-        let handler = GetEncounterDayHandler(dailyEncountersRepository: days, pokemonRepository: pokemon, calendar: calendar)
+        let handler = GetEncounterDayHandler(dailyEncountersRepository: days, pokemonRepository: pokemon, catchRepository: catches, calendar: calendar)
 
         let today = handler.handle(GetEncounterDayQuery(date: now))
         XCTAssertEqual(today.total, 4)
@@ -176,6 +176,20 @@ final class ProgressHandlerTests: XCTestCase {
         XCTAssertEqual(yesterday.total, 40)
         XCTAssertTrue(yesterday.pokemon.isEmpty)
         XCTAssertEqual(yesterday.unsplitCount, 40)
+    }
+
+    func test_encounterDay_listsThatDaysShinies_inTheOrderTheyWereFound() {
+        log(squirtle)
+        now = makeDate(day: 2, hour: 15)
+        log(bulbasaur, outcome: .gotAway)
+        now = makeDate(day: 3, hour: 9)
+        log(charmander)
+        let handler = GetEncounterDayHandler(dailyEncountersRepository: days, pokemonRepository: pokemon, catchRepository: catches, calendar: calendar)
+
+        let shinies = handler.handle(GetEncounterDayQuery(date: makeDate(day: 2, hour: 20))).shinies
+
+        XCTAssertEqual(shinies.map { $0.number }, [squirtle, bulbasaur])
+        XCTAssertEqual(shinies.map { $0.isFailed }, [false, true])
     }
 
     func test_takingOneOffToday_neverGoesBelowZero() {

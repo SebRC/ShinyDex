@@ -128,8 +128,8 @@ final class AppContainer {
     // MARK: Progress
 
     var getYearInReview: GetYearInReviewHandler { GetYearInReviewHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
-    var getEncounterHistory: GetEncounterHistoryHandler { GetEncounterHistoryHandler(dailyEncountersRepository: dailyEncountersRepository) }
-    var getEncounterDay: GetEncounterDayHandler { GetEncounterDayHandler(dailyEncountersRepository: dailyEncountersRepository, pokemonRepository: pokemonRepository) }
+    var getEncounterHistory: GetEncounterHistoryHandler { GetEncounterHistoryHandler(dailyEncountersRepository: dailyEncountersRepository, catchRepository: catchRepository) }
+    var getEncounterDay: GetEncounterDayHandler { GetEncounterDayHandler(dailyEncountersRepository: dailyEncountersRepository, pokemonRepository: pokemonRepository, catchRepository: catchRepository, forms: forms) }
     var setYearlyGoal: SetYearlyGoalHandler { SetYearlyGoalHandler(yearlyGoalRepository: yearlyGoalRepository) }
 
     // MARK: Journeys

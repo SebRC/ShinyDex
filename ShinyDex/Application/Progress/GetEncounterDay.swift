@@ -17,16 +17,22 @@ struct EncounterDayBreakdown: Equatable {
     let pokemon: [PokemonShare]
     let unsplitCount: Int
     let splitSince: Date?
+    var shinies: [CatchSummary] = []
 }
 
 final class GetEncounterDayHandler {
     private let dailyEncountersRepository: DailyEncountersRepository
     private let pokemonRepository: PokemonRepository
+    private let catchRepository: CatchRepository
+    private let forms: PokemonForms
     private let calendar: Calendar
 
-    init(dailyEncountersRepository: DailyEncountersRepository, pokemonRepository: PokemonRepository, calendar: Calendar = .current) {
+    init(dailyEncountersRepository: DailyEncountersRepository, pokemonRepository: PokemonRepository, catchRepository: CatchRepository,
+         forms: PokemonForms = PokemonForms(), calendar: Calendar = .current) {
         self.dailyEncountersRepository = dailyEncountersRepository
         self.pokemonRepository = pokemonRepository
+        self.catchRepository = catchRepository
+        self.forms = forms
         self.calendar = calendar
     }
 
@@ -42,7 +48,17 @@ final class GetEncounterDayHandler {
             .sorted { $0.count != $1.count ? $0.count > $1.count : $0.number < $1.number }
         let firstSplitDay = dailyEncountersRepository.getAll().filter { !$0.countsByPokemon.isEmpty }.map { $0.day }.min()
         return EncounterDayBreakdown(date: calendar.startOfDay(for: query.date), total: encounters.count, pokemon: pokemon,
-                                     unsplitCount: encounters.unsplitCount, splitSince: firstSplitDay?.makeDate(in: calendar))
+                                     unsplitCount: encounters.unsplitCount, splitSince: firstSplitDay?.makeDate(in: calendar),
+                                     shinies: findShinies(on: query.date))
+    }
+
+    private func findShinies(on date: Date) -> [CatchSummary] {
+        let mapper = CatchSummaryMapper(allPokemon: pokemonRepository.getAll(), forms: forms)
+        return catchRepository.getAll()
+            .compactMap { caught in caught.caughtDate.map { (caught: caught, date: $0) } }
+            .filter { calendar.isDate($0.date, inSameDayAs: date) }
+            .sorted { $0.date < $1.date }
+            .compactMap { mapper.makeSummary(of: $0.caught) }
     }
 
     private static func calculateSharePercent(of count: Int, in total: Int) -> Int {

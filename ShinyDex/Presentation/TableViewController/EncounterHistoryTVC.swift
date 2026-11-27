@@ -175,10 +175,12 @@ class EncounterHistoryTVC: UITableViewController {
         return cell
     }
 
-    fileprivate func makeCalendarCell(weeks: [[EncounterHistory.Entry?]]) -> UITableViewCell {
+    fileprivate func makeCalendarCell(weeks: [[EncounterHistory.CalendarDay?]]) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.backgroundColor = Color.surface
-        let calendarView = HuntingCalendarView(weeks: weeks)
+        let calendarView = HuntingCalendarView(weeks: weeks) { [weak self] date in
+            self?.showDay(date)
+        }
         cell.contentView.addAutoLayoutSubviews(calendarView)
         calendarView.pinEdges(to: cell.contentView)
         return cell
@@ -215,7 +217,11 @@ class EncounterHistoryTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard period == .day, sections[indexPath.section] == .periods, let entry = history?.recorded[indexPath.row] else { return }
-        navigationController?.pushViewController(EncounterDayTVC(container: container, date: entry.start), animated: true)
+        showDay(entry.start)
+    }
+
+    fileprivate func showDay(_ date: Date) {
+        navigationController?.pushViewController(EncounterDayTVC(container: container, date: date), animated: true)
     }
 
     fileprivate func formatPeriod(_ start: Date, relativeToNow: Bool = false) -> String {
