@@ -387,7 +387,7 @@ class CatchDetailTVC: UITableViewController {
                     showAbilityPicker()
                 }
             case .moves:
-                navigationController?.pushViewController(CatchMovesTVC(container: container, catchId: caught.id), animated: true)
+                showMovesPicker()
             case .stats:
                 navigationController?.pushViewController(CatchStatsVC(container: container, caught: caught), animated: true)
             }
@@ -451,6 +451,14 @@ class CatchDetailTVC: UITableViewController {
             self?.save(.form(formId))
         }
         navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func showMovesPicker() {
+        guard let learnableMoves = container.getLearnableMoves.handle(GetLearnableMovesQuery(catchId: catchId)) else { return }
+        let picker = CatchMovesTVC(learnableMoves: learnableMoves) { [weak self] moveIds in
+            self?.save(.moves(moveIds))
+        }
+        present(picker.wrapInSheet(), animated: true)
     }
 
     fileprivate func showNaturePicker() {

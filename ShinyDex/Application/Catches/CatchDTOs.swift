@@ -34,6 +34,12 @@ struct MoveChoice: Equatable {
     let name: String
     let type: String
     let pp: Int
+    var learnedIn: Games? = nil
+    var learnedAs: String? = nil
+
+    var isNative: Bool {
+        return learnedIn == nil && learnedAs == nil
+    }
 }
 
 struct LearnableMoves: Equatable {
@@ -53,6 +59,7 @@ struct LearnableMoves: Equatable {
     let game: Games
     let knownMoves: [MoveChoice]
     let sections: [Section]
+    var generation: Int? = nil
 }
 
 struct CatchGender: Equatable {

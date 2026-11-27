@@ -36,7 +36,7 @@ final class CatchMovesTests: XCTestCase {
     }
 
     private func getLearnableMoves(_ id: CatchID) -> LearnableMoves? {
-        return GetLearnableMovesHandler(catchRepository: catches, pokemonRepository: pokemon, learnsets: learnsets).handle(GetLearnableMovesQuery(catchId: id))
+        return GetLearnableMovesHandler(catchRepository: catches, pokemonRepository: pokemon, learnsets: learnsets, evolutions: Evolutions(evolvesFrom: [-1])).handle(GetLearnableMovesQuery(catchId: id))
     }
 
     func test_moves_areUnique_andAtMostFour() {
@@ -50,6 +50,26 @@ final class CatchMovesTests: XCTestCase {
         XCTAssertEqual(moves.sections.map { $0.method }, [.levelUp, .egg, .tutor])
         XCTAssertEqual(moves.sections.first?.moves.map { $0.name }, ["Quick Attack", "Thunderbolt"], "Sorted by name")
         XCTAssertEqual(getLearnableMoves(try logCatch(in: .Red))?.sections.map { $0.method }, [.levelUp, .machine])
+    }
+
+    func test_learnableMoves_includeOtherGamesInTheGeneration_andEarlierEvolutions_markedWithWhereTheyComeFrom() throws {
+        let yanma = 0, yanmega = 1
+        let lineRepository = InMemoryPokemonRepository(names: ["Yanma", "Yanmega"])
+        let hypnosis = LearnableMove(id: 95, name: "Hypnosis", type: "Psychic", pp: 20)
+        let learnsets = PokemonLearnsets(movesById: [98: quickAttack, 57: surf, 95: hypnosis],
+                                         learnsets: [[[98], [], [], []], [[98], [], [], [57]], [[98, 95], [], [], []]],
+                                         learnsetIndexesByKey: [PokemonLearnsets.Key(number: yanmega, formId: nil): [.Platinum: 0, .SoulSilver: 1],
+                                                                PokemonLearnsets.Key(number: yanma, formId: nil): [.Platinum: 2]])
+        let caught = Catch(number: yanmega, caughtBall: "poke", game: .Platinum, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil)
+        catches.insert(caught)
+
+        let moves = try XCTUnwrap(GetLearnableMovesHandler(catchRepository: catches, pokemonRepository: lineRepository, learnsets: learnsets, evolutions: Evolutions(evolvesFrom: [-1, 0]))
+            .handle(GetLearnableMovesQuery(catchId: CatchID(rawValue: caught.id))))
+
+        XCTAssertEqual(moves.sections.map { $0.method }, [.levelUp, .tutor])
+        XCTAssertEqual(moves.sections[0].moves, [MoveChoice(quickAttack), MoveChoice(hypnosis, learnedAs: "Yanma")], "Native moves first, and only once")
+        XCTAssertEqual(moves.sections[1].moves, [MoveChoice(surf, learnedIn: .SoulSilver)])
+        XCTAssertEqual(moves.generation, 4)
     }
 
     func test_forms_useTheirOwnLearnset() throws {
