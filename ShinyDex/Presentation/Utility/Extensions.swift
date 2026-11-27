@@ -49,7 +49,19 @@ extension Int {
 		return formatter
 	}()
 
+	fileprivate static let abbreviations: [(divisor: Double, suffix: String)] = [(1_000_000_000, "B"), (1_000_000, "M")]
+
 	var grouped: String {
 		return Int.groupingFormatter.string(from: NSNumber(value: self)) ?? String(self)
+	}
+
+	func abbreviated(in locale: Locale = .current) -> String {
+		guard let abbreviation = Int.abbreviations.first(where: { Double(abs(self)) >= $0.divisor }) else { return grouped }
+		let formatter = NumberFormatter()
+		formatter.locale = locale
+		formatter.usesSignificantDigits = true
+		formatter.maximumSignificantDigits = 3
+		let shortened = Double(self) / abbreviation.divisor
+		return (formatter.string(from: NSNumber(value: shortened)) ?? String(shortened)) + abbreviation.suffix
 	}
 }

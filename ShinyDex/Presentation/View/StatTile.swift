@@ -4,6 +4,7 @@ final class StatTile: UIControl {
     fileprivate let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
     fileprivate let valueLabel = UILabel(style: .title1, weight: .bold)
     fileprivate let detailLabel = UILabel(style: .caption1, color: Color.textTertiary, lines: 2)
+    fileprivate var spokenValue: String?
     fileprivate let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
 
     var onTap: (() -> Void)? {
@@ -68,15 +69,17 @@ final class StatTile: UIControl {
         accessibilityLabel = caption
     }
 
-    func setValue(_ value: String, isEmphasized: Bool = false) {
+    func setValue(_ value: String, spokenValue: String? = nil, isEmphasized: Bool = false) {
         valueLabel.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
         valueLabel.textColor = isEmphasized ? Color.accent : Color.textPrimary
         valueLabel.numberOfLines = 1
         valueLabel.text = value
+        self.spokenValue = spokenValue
         updateAccessibilityValue()
     }
 
     func setMessage(_ message: String) {
+        spokenValue = nil
         valueLabel.font = UIFont.make(.subheadline)
         valueLabel.textColor = Color.textSecondary
         valueLabel.numberOfLines = 2
@@ -101,7 +104,7 @@ final class StatTile: UIControl {
     }
 
     fileprivate func updateAccessibilityValue() {
-        accessibilityValue = [valueLabel.text, detailLabel.isHidden ? nil : detailLabel.text].compactMap { $0 }.joined(separator: ", ")
+        accessibilityValue = [spokenValue ?? valueLabel.text, detailLabel.isHidden ? nil : detailLabel.text].compactMap { $0 }.joined(separator: ", ")
     }
 
     @objc fileprivate func tapped() {
