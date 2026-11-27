@@ -70,6 +70,7 @@ final class RankBattlersHandler {
             perfectCount: assessment.perfectCount,
             ivTotal: assessment.ivTotal,
             readiness: assessment.readiness,
+            readinessParts: assessment.readinessParts,
             hiddenPower: HiddenPower(ivs: caught.ivs, game: caught.game),
             badges: assessment.badges,
             combinedStats: combinedStats)

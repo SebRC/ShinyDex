@@ -93,6 +93,44 @@ final class BattlerAssessmentTests: XCTestCase {
         XCTAssertEqual(untrained.readiness, 15 + 35 + 0 + 5 + 0)
     }
 
+    func test_readinessParts_addUpToTheReadiness_andHaveNothingToImprove_whenFullyBuilt() {
+        let assessment = assess(ivs: perfect, evs: attackSweeperEVs)
+
+        XCTAssertEqual(assessment.readinessParts.map { $0.factor }, ReadinessFactor.allCases)
+        XCTAssertEqual(assessment.readinessParts.map { $0.maximum }.reduce(0, +), 100)
+        XCTAssertEqual(assessment.readinessParts.map { $0.earned }, [25, 35, 25, 10, 5])
+        XCTAssertTrue(assessment.readinessParts.allSatisfy { $0.improvements.isEmpty })
+    }
+
+    func test_readinessParts_sayWhatIsMissing() {
+        let ivs = makeIVs([31, 20, nil, 0, 31, 31])
+        let assessment = assess(ivs: ivs, evs: makeEVs([0, 255, 0, 0, 0, 0]), nature: .hardy, moveCount: 1, hasAbility: false)
+        let improvementsByFactor = Dictionary(uniqueKeysWithValues: assessment.readinessParts.map { ($0.factor, $0.improvements) })
+
+        XCTAssertEqual(assessment.readiness, assessment.readinessParts.map { $0.earned }.reduce(0, +))
+        XCTAssertEqual(improvementsByFactor[.nature], [.changeNature(lowering: .specialAttack, usesMint: true)])
+        XCTAssertEqual(improvementsByFactor[.ivs], [.logIVs([.defense]), .raiseIVs([.attack], usesHyperTraining: true)])
+        XCTAssertEqual(improvementsByFactor[.evs], [.trainEVs(remaining: 258), .moveWastedEVs(3)])
+        XCTAssertEqual(improvementsByFactor[.moves], [.teachMoves(3)])
+        XCTAssertEqual(improvementsByFactor[.ability], [.logAbility])
+    }
+
+    func test_readinessParts_natureAdvice_dependsOnTheStyleAndTheGame() {
+        let unknownNature = assess(ivs: perfect, nature: nil)
+        let mixed = assess(ivs: perfect, nature: .hardy, style: .mixed)
+        let noMints = assess(ivs: perfect, nature: .modest, canChangeNature: false)
+
+        XCTAssertEqual(unknownNature.readinessParts.first?.improvements, [.logNature])
+        XCTAssertEqual(mixed.readinessParts.first?.improvements, [.commitToOneAttackingStat])
+        XCTAssertEqual(noMints.readinessParts.first?.improvements, [.changeNature(lowering: .specialAttack, usesMint: false)])
+    }
+
+    func test_readinessParts_skipTheLessRelevantStat_andTrickRoomSpeed_whenSuggestingIVs() {
+        let slow = assess(ivs: makeIVs([31, 31, 31, 0, 31, 0]), nature: .brave)
+
+        XCTAssertEqual(slow.readinessParts[1].improvements, [])
+    }
+
     // MARK: Badges
 
     func test_trickRoomBadge_needsASpeedLoweringNature_andAVeryLowSpeedIV() {

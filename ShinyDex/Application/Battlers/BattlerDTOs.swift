@@ -33,6 +33,7 @@ struct BattlerSummary: Equatable {
     let perfectCount: Int
     let ivTotal: Int
     let readiness: Int
+    let readinessParts: [ReadinessPart]
     let hiddenPower: HiddenPower?
     let badges: [BattlerBadge]
     var combinedStats: CombinedStats? = nil
