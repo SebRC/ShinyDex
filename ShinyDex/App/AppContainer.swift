@@ -136,6 +136,8 @@ final class AppContainer {
 
     var getJourneys: GetJourneysHandler { GetJourneysHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
     var getJourneyDetails: GetJourneyDetailsHandler { GetJourneyDetailsHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
+    var getJourneyPlayback: GetJourneyPlaybackHandler { GetJourneyPlaybackHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, keyValueStore: keyValueStore, forms: forms) }
+    var choosePlaybackPlayer: ChoosePlaybackPlayerHandler { ChoosePlaybackPlayerHandler(keyValueStore: keyValueStore) }
     var getLinkableCatches: GetLinkableCatchesHandler { GetLinkableCatchesHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
     var createJourney: CreateJourneyHandler { CreateJourneyHandler(journeyRepository: journeyRepository) }
     var updateJourney: UpdateJourneyHandler { UpdateJourneyHandler(journeyRepository: journeyRepository) }

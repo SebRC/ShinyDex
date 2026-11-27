@@ -80,3 +80,14 @@ struct JourneyCatchLinks {
         }
     }
 }
+
+struct JourneyPlayback: Equatable {
+    let journeyName: String
+    let companions: [CatchSummary]
+    let games: [Games]
+    let isPlayerFemale: Bool
+}
+
+enum JourneyPlaybackKeys {
+    static let isPlayerFemale = "journeyPlaybackIsPlayerFemale"
+}

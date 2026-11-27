@@ -24,6 +24,8 @@ struct JourneyEntry: Equatable {
 }
 
 class Journey {
+    static let playbackGenerations = 3...4
+
     let id: UUID
     var name: String
     let createdDate: Date
@@ -84,6 +86,19 @@ class Journey {
         var seen = Set<UUID>()
         return entries.flatMap { entry in getPhases(for: entry, in: catchesById) + (findLinkedCatch(for: entry, in: catchesById).map { [$0] } ?? []) }
             .filter { seen.insert($0.id).inserted }
+    }
+
+    func findPlaybackCompanions(in catchesById: [UUID: Catch]) -> [Catch] {
+        var seen = Set<UUID>()
+        return makeTimeline(in: catchesById)
+            .map { $0.caught }
+            .filter { !$0.isFailed && Journey.playbackGenerations.contains(GamesList.games[$0.game]?.generation ?? 0) && seen.insert($0.id).inserted }
+    }
+
+    static func rankPlaybackGames(of companions: [Catch]) -> [Games] {
+        let counts = Dictionary(companions.map { ($0.game, 1) }, uniquingKeysWith: +)
+        let firstAppearances = Dictionary(companions.enumerated().map { ($0.element.game, $0.offset) }, uniquingKeysWith: min)
+        return counts.keys.sorted { (-counts[$0]!, firstAppearances[$0]!) < (-counts[$1]!, firstAppearances[$1]!) }
     }
 
     func makeTally(in catchesById: [UUID: Catch]) -> JourneyTally {

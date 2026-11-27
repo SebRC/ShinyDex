@@ -344,6 +344,9 @@ class JourneyDetailTVC: UITableViewController {
 
     @objc fileprivate func morePressed() {
         let sheet = UIAlertController(title: journey.name, message: nil, preferredStyle: .actionSheet)
+        if let playbackVC = JourneyPlaybackVC(container: container, journeyId: journeyId) {
+            sheet.addAction(UIAlertAction(title: "Play journey", style: .default) { [weak self] _ in self?.present(playbackVC.wrapInSheet(), animated: true) })
+        }
         sheet.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self] _ in self?.rename() })
         if (journey.entries.count > 1) {
             sheet.addAction(UIAlertAction(title: isEditing ? "Done reordering" : "Reorder Pokémon", style: .default) { [weak self] _ in self?.toggleReordering() })

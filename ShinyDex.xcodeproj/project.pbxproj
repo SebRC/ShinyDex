@@ -115,6 +115,7 @@
 		B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000001 /* HuntingDayStreaks.swift */; };
 		B1890000000000000000000A /* YearInReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000009 /* YearInReviewTests.swift */; };
 		B18900000000000000000008 /* YearInReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000007 /* YearInReviewVC.swift */; };
+		B2690000000000000000000A /* JourneyPlaybackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000009 /* JourneyPlaybackVC.swift */; };
 		B18900000000000000000006 /* YearInReviewCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000005 /* YearInReviewCards.swift */; };
 		B18900000000000000000004 /* YearInReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000003 /* YearInReviewCardView.swift */; };
 		B18900000000000000000002 /* GetYearInReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000001 /* GetYearInReview.swift */; };
@@ -133,6 +134,7 @@
 		99A4CE46F802F46D05C4019B /* LuckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454668927CA4DEF8DD8A8F5A /* LuckRow.swift */; };
 		8BD1A9ED86CEDAEF08A5936A /* JourneyEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */; };
 		15AF1205340032F8CEC88D2B /* JourneyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379D332AACECAE817D2C1D2 /* JourneyHeaderView.swift */; };
+		B26900000000000000000008 /* JourneyPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000007 /* JourneyPlaybackView.swift */; };
 		85DCEF784C08C4F4553019D4 /* PhaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C54DC045682F012780CE0 /* PhaseCell.swift */; };
 		1FFCDD849247F70D725F3423 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B01F4F455B934233CCF700 /* TimelineCell.swift */; };
 		1D7EFCF34FEFE2B8EFD457C9 /* CatchHeroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91F8F567DA65E32E9D9FD97 /* CatchHeroCell.swift */; };
@@ -322,6 +324,8 @@
 		B10C0A000000000000005005 /* OptionPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005805 /* OptionPickerTVC.swift */; };
 		D2DF3F434E546EECC3B4A017 /* AddPokemonToHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C670E9309CAC503189BA5B /* AddPokemonToHunt.swift */; };
 		D2FC3417B991DCD8A25A8814 /* GetJourneyDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */; };
+		B26900000000000000000004 /* ChoosePlaybackPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000003 /* ChoosePlaybackPlayer.swift */; };
+		B26900000000000000000002 /* GetJourneyPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000001 /* GetJourneyPlayback.swift */; };
 		D44BDF7E9EE178FACC36181D /* CreateHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5721DCF8C2D96A9E57E5FF25 /* CreateHunt.swift */; };
 		D736CB043C10425FBFB956F7 /* GetMoveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F38366A50CF3D75831C7500 /* GetMoveOptions.swift */; };
 		DD359C93076656E99FD6D131 /* GetJourneys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A15E292B13864E83EB0B74 /* GetJourneys.swift */; };
@@ -368,6 +372,7 @@
 		F0A1B2000000000000000004 /* GetPokemonForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000003 /* GetPokemonForms.swift */; };
 		F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000005 /* PokemonFormsLoader.swift */; };
 		F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000007 /* PokemonSprites.swift */; };
+		B26900000000000000000006 /* OverworldSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000005 /* OverworldSprites.swift */; };
 		F0A1B200000000000000000A /* forms.json in Resources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000009 /* forms.json */; };
 		F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B200000000000000000B /* PokemonFormsTests.swift */; };
 		F0A1B2000000000000000102 /* FormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000101 /* FormPicker.swift */; };
@@ -532,6 +537,7 @@
 		B19000000000000000000001 /* HuntingDayStreaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaks.swift; sourceTree = "<group>"; };
 		B18900000000000000000009 /* YearInReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewTests.swift; sourceTree = "<group>"; };
 		B18900000000000000000007 /* YearInReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewVC.swift; sourceTree = "<group>"; };
+		B26900000000000000000009 /* JourneyPlaybackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPlaybackVC.swift; sourceTree = "<group>"; };
 		B18900000000000000000005 /* YearInReviewCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCards.swift; sourceTree = "<group>"; };
 		B18900000000000000000003 /* YearInReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCardView.swift; sourceTree = "<group>"; };
 		B18900000000000000000001 /* GetYearInReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYearInReview.swift; sourceTree = "<group>"; };
@@ -550,11 +556,14 @@
 		454668927CA4DEF8DD8A8F5A /* LuckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckRow.swift; sourceTree = "<group>"; };
 		261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyEntryCell.swift; sourceTree = "<group>"; };
 		F379D332AACECAE817D2C1D2 /* JourneyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHeaderView.swift; sourceTree = "<group>"; };
+		B26900000000000000000007 /* JourneyPlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPlaybackView.swift; sourceTree = "<group>"; };
 		846C54DC045682F012780CE0 /* PhaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseCell.swift; sourceTree = "<group>"; };
 		16B01F4F455B934233CCF700 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		D91F8F567DA65E32E9D9FD97 /* CatchHeroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchHeroCell.swift; sourceTree = "<group>"; };
 		D9CAFDF673597290762643C1 /* CatchStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsCell.swift; sourceTree = "<group>"; };
 		021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetJourneyDetails.swift; sourceTree = "<group>"; };
+		B26900000000000000000003 /* ChoosePlaybackPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePlaybackPlayer.swift; sourceTree = "<group>"; };
+		B26900000000000000000001 /* GetJourneyPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetJourneyPlayback.swift; sourceTree = "<group>"; };
 		0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HuntHandlerTests.swift; sourceTree = "<group>"; };
 		0D05946C93D560F974F136F6 /* ResourceLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
 		0D9D659ED96EF99300460929 /* SetIncrement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SetIncrement.swift; sourceTree = "<group>"; };
@@ -800,6 +809,7 @@
 		F0A1B2000000000000000003 /* GetPokemonForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPokemonForms.swift; sourceTree = "<group>"; };
 		F0A1B2000000000000000005 /* PokemonFormsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFormsLoader.swift; sourceTree = "<group>"; };
 		F0A1B2000000000000000007 /* PokemonSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSprites.swift; sourceTree = "<group>"; };
+		B26900000000000000000005 /* OverworldSprites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverworldSprites.swift; sourceTree = "<group>"; };
 		F0A1B2000000000000000009 /* forms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = forms.json; sourceTree = "<group>"; };
 		F0A1B200000000000000000B /* PokemonFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFormsTests.swift; sourceTree = "<group>"; };
 		F0A1B2000000000000000101 /* FormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPicker.swift; sourceTree = "<group>"; };
@@ -976,6 +986,7 @@
 			children = (
 				261E158B33F5C909EFA452BB /* JourneyEntryCell.swift */,
 				F379D332AACECAE817D2C1D2 /* JourneyHeaderView.swift */,
+				B26900000000000000000007 /* JourneyPlaybackView.swift */,
 				846C54DC045682F012780CE0 /* PhaseCell.swift */,
 				16B01F4F455B934233CCF700 /* TimelineCell.swift */,
 			);
@@ -1545,6 +1556,8 @@
 				309845209DE3D6D608E2E0BF /* CreateJourney.swift */,
 				8FFD756C635C42E39026A4B9 /* DeleteJourney.swift */,
 				021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */,
+				B26900000000000000000003 /* ChoosePlaybackPlayer.swift */,
+				B26900000000000000000001 /* GetJourneyPlayback.swift */,
 				F0A15E292B13864E83EB0B74 /* GetJourneys.swift */,
 				3D5E93E51B29B9AD0E2F119A /* GetLinkableCatches.swift */,
 				7F51D841B5CB5F12B0D0E8F1 /* JourneyDTOs.swift */,
@@ -1565,6 +1578,7 @@
 				C4A1A0000000000000000003 /* HuntCounterText.swift */,
 				F0A1B2000000000000000101 /* FormPicker.swift */,
 				F0A1B2000000000000000007 /* PokemonSprites.swift */,
+				B26900000000000000000005 /* OverworldSprites.swift */,
 				D19809F1653E932226FF52BB /* Alerts.swift */,
 				96FC07E423EF511500459450 /* Extensions.swift */,
 				FE0AFCED1806CF6CC43D659A /* Haptics.swift */,
@@ -1626,6 +1640,7 @@
 			children = (
 				B21200000000000000001904 /* CatchRateVC.swift */,
 				B18900000000000000000007 /* YearInReviewVC.swift */,
+				B26900000000000000000009 /* JourneyPlaybackVC.swift */,
 				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A000000000000005806 /* CatchStatsVC.swift */,
@@ -2067,6 +2082,7 @@
 				B19000000000000000000004 /* HuntingCalendarView.swift in Sources */,
 				B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */,
 				B18900000000000000000008 /* YearInReviewVC.swift in Sources */,
+				B2690000000000000000000A /* JourneyPlaybackVC.swift in Sources */,
 				B18900000000000000000006 /* YearInReviewCards.swift in Sources */,
 				B18900000000000000000004 /* YearInReviewCardView.swift in Sources */,
 				B18900000000000000000002 /* GetYearInReview.swift in Sources */,
@@ -2105,6 +2121,7 @@
 				0DD551700000000000000002 /* ShinyChanceCalculator.swift in Sources */,
 				F0A1B2000000000000000102 /* FormPicker.swift in Sources */,
 				F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */,
+				B26900000000000000000006 /* OverworldSprites.swift in Sources */,
 				F0A1B2000000000000000006 /* PokemonFormsLoader.swift in Sources */,
 				B20600000000000000000005 /* PokemonAbilitiesLoader.swift in Sources */,
 				B20800000000000000000004 /* PokemonGendersLoader.swift in Sources */,
@@ -2150,6 +2167,7 @@
 				99A4CE46F802F46D05C4019B /* LuckRow.swift in Sources */,
 				8BD1A9ED86CEDAEF08A5936A /* JourneyEntryCell.swift in Sources */,
 				15AF1205340032F8CEC88D2B /* JourneyHeaderView.swift in Sources */,
+				B26900000000000000000008 /* JourneyPlaybackView.swift in Sources */,
 				85DCEF784C08C4F4553019D4 /* PhaseCell.swift in Sources */,
 				1FFCDD849247F70D725F3423 /* TimelineCell.swift in Sources */,
 				1D7EFCF34FEFE2B8EFD457C9 /* CatchHeroCell.swift in Sources */,
@@ -2287,6 +2305,8 @@
 				178F87ACB02F66688812D8B7 /* CreateJourney.swift in Sources */,
 				9BD49C1FACE17BE1EE92FD24 /* DeleteJourney.swift in Sources */,
 				D2FC3417B991DCD8A25A8814 /* GetJourneyDetails.swift in Sources */,
+				B26900000000000000000004 /* ChoosePlaybackPlayer.swift in Sources */,
+				B26900000000000000000002 /* GetJourneyPlayback.swift in Sources */,
 				DD359C93076656E99FD6D131 /* GetJourneys.swift in Sources */,
 				A9598E5492CD7059380B0B7F /* GetLinkableCatches.swift in Sources */,
 				2E5D53590EF7526DE53C6B0E /* JourneyDTOs.swift in Sources */,

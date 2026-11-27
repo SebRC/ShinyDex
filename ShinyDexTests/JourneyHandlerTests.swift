@@ -20,6 +20,19 @@ final class JourneyHandlerTests: XCTestCase {
         return CatchID(rawValue: caught.id)
     }
 
+    private func logCatch(_ number: Int, in game: Games, on day: Int, isFailed: Bool = false) -> CatchID {
+        let caught = Catch(number: number, caughtBall: isFailed ? CatchRules.noBall : "poke", game: game, huntMethod: .Encounters, encounters: 100,
+                           isShinyCharmActive: false, caughtDate: Date(timeIntervalSince1970: Double(day) * 86_400), isFailed: isFailed)
+        catches.insert(caught)
+        catches.save()
+        return CatchID(rawValue: caught.id)
+    }
+
+    private func getPlayback(_ id: JourneyID, store: KeyValueStore = InMemoryKeyValueStore()) -> JourneyPlayback? {
+        return GetJourneyPlaybackHandler(journeyRepository: journeys, catchRepository: catches, pokemonRepository: pokemon, keyValueStore: store)
+            .handle(GetJourneyPlaybackQuery(journeyId: id))
+    }
+
     private func getDetails(_ id: JourneyID) -> JourneyDetails? {
         return GetJourneyDetailsHandler(journeyRepository: journeys, catchRepository: catches, pokemonRepository: pokemon, evolutions: evolutions)
             .handle(GetJourneyDetailsQuery(journeyId: id))
@@ -123,5 +136,50 @@ final class JourneyHandlerTests: XCTestCase {
 
         XCTAssertTrue(getDetails(id)!.entries[0].phases.isEmpty)
         XCTAssertTrue(getDetails(id)!.timeline.isEmpty)
+    }
+
+    func test_playback_bringsAlongTheGen3And4Shinies_inTheOrderTheyWereFound() {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Kanto", pokemonNumbers: [0, 3, 2]))
+        let entries = getDetails(id)!.entries
+        let charmander = logCatch(3, in: .Heartgold, on: 2)
+        let bulbasaurPhase = logCatch(0, in: .Platinum, on: 1)
+        let venusaurFromRed = logCatch(2, in: .Red, on: 3)
+        let gotAway = logCatch(0, in: .SoulSilver, on: 4, isFailed: true)
+        let update = UpdateJourneyHandler(journeyRepository: journeys)
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[1].id, catchId: charmander)))
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[2].id, catchId: venusaurFromRed)))
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .addPhase(entry: entries[1].id, catchId: bulbasaurPhase)))
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .addPhase(entry: entries[0].id, catchId: gotAway)))
+
+        let playback = getPlayback(id)
+
+        XCTAssertEqual(playback?.companions.map { $0.id }, [bulbasaurPhase, charmander], "Gen 1 catches and ones that got away stay home")
+        XCTAssertEqual(playback?.games, [.Platinum, .Heartgold], "Ties go to the game found in first")
+        XCTAssertEqual(playback?.journeyName, "Kanto")
+    }
+
+    func test_playback_isUnavailable_withoutAGen3Or4Shiny() {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Modern", pokemonNumbers: [0]))
+        let scarletCatch = logCatch(0, in: .Scarlet, on: 1)
+        UpdateJourneyHandler(journeyRepository: journeys).handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: getDetails(id)!.entries[0].id, catchId: scarletCatch)))
+
+        XCTAssertNil(getPlayback(id))
+    }
+
+    func test_playback_leadsWithTheGameMostShiniesCameFrom_andRemembersThePlayer() {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Hoenn", pokemonNumbers: [0, 1, 3]))
+        let entries = getDetails(id)!.entries
+        let update = UpdateJourneyHandler(journeyRepository: journeys)
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[0].id, catchId: logCatch(0, in: .Ruby, on: 1))))
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[1].id, catchId: logCatch(1, in: .Emerald, on: 2))))
+        update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entries[2].id, catchId: logCatch(3, in: .Emerald, on: 3))))
+        let store = InMemoryKeyValueStore()
+
+        XCTAssertEqual(getPlayback(id, store: store)?.games, [.Emerald, .Ruby])
+        XCTAssertEqual(getPlayback(id, store: store)?.isPlayerFemale, false)
+
+        ChoosePlaybackPlayerHandler(keyValueStore: store).handle(ChoosePlaybackPlayerCommand(isFemale: true))
+
+        XCTAssertEqual(getPlayback(id, store: store)?.isPlayerFemale, true)
     }
 }
