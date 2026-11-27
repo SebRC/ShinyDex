@@ -35,6 +35,7 @@ class MovePickerCell: UITableViewCell {
 	fileprivate let typeIconView = TypeIconView(size: 36)
 	fileprivate let nameLabel = UILabel(style: .body, weight: .semibold)
 	fileprivate let detailLabel = UILabel(style: .subheadline, color: Color.textTertiary)
+	fileprivate let originLabel = UILabel(style: .footnote, weight: .semibold, color: Color.accent)
 	fileprivate let inUseLabel = UILabel(style: .subheadline, color: Color.textQuaternary)
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,7 +48,8 @@ class MovePickerCell: UITableViewCell {
 		inUseLabel.setContentHuggingPriority(.required, for: .horizontal)
 		inUseLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-		let labels = UIStackView(arrangedSubviews: [nameLabel, detailLabel])
+		originLabel.numberOfLines = 0
+		let labels = UIStackView(arrangedSubviews: [nameLabel, detailLabel, originLabel])
 		labels.axis = .vertical
 		labels.spacing = 2
 		let row = UIStackView(arrangedSubviews: [typeIconView, labels, inUseLabel])
@@ -66,11 +68,13 @@ class MovePickerCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(name: String, maxPP: Int, type: String, isInUse: Bool) {
+	func configure(name: String, maxPP: Int, type: String, isInUse: Bool, origin: String? = nil) {
 		nameLabel.text = name
 		detailLabel.text = "\(type) · \(maxPP) PP"
+		originLabel.text = origin
+		originLabel.isHidden = origin == nil
 		typeIconView.setType(type)
 		inUseLabel.isHidden = !isInUse
-		accessibilityLabel = "\(name), \(type), \(maxPP) PP" + (isInUse ? ", in use" : "")
+		accessibilityLabel = ["\(name), \(type), \(maxPP) PP", origin, isInUse ? "in use" : nil].compactMap { $0 }.joined(separator: ", ")
 	}
 }

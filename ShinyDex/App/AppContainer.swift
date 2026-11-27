@@ -98,7 +98,7 @@ final class AppContainer {
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
     var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms, genders: genders, abilities: abilities) }
     var getCatchStats: GetCatchStatsHandler { GetCatchStatsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, baseStats: baseStats) }
-    var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets) }
+    var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets, evolutions: evolutions) }
     var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }

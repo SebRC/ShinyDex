@@ -52,7 +52,7 @@ final class GetCatchDetailsHandler {
         guard !caught.moves.isEmpty else { return [] }
         let learnsets = makeLearnsets()
         return caught.moves.map { id in
-            learnsets.findMove(id).map(MoveChoice.init) ?? MoveChoice(id: id, name: "Move #\(id)", type: "", pp: 0)
+            learnsets.findMove(id).map { MoveChoice($0) } ?? MoveChoice(id: id, name: "Move #\(id)", type: "", pp: 0)
         }
     }
 
