@@ -22,6 +22,8 @@ final class JourneyPlaybackView: UIView {
         static let playerStepsPerSecond: Double = 10
         static let companionStepsPerSecond: Double = 6
         static let companionStepStagger: CFTimeInterval = 0.13
+        static let companionIdleStepsPerSecond: Double = 2.5
+        static let sparkle: CFTimeInterval = 0.6
     }
 
     fileprivate enum Metrics {
@@ -52,6 +54,7 @@ final class JourneyPlaybackView: UIView {
     fileprivate let player: OverworldSpriteView
     fileprivate let companions: [Companion]
     fileprivate let companionViews: [OverworldSpriteView]
+    fileprivate let sparkleViews: [PlaybackSparkleView]
     fileprivate let ground = PlaybackGroundView()
     fileprivate let titleLabel = UILabel(style: .title2, weight: .bold, color: Color.textPrimary)
     fileprivate let subtitleLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.accent)
@@ -87,6 +90,7 @@ final class JourneyPlaybackView: UIView {
         self.player = OverworldSpriteView(sheet: player)
         self.companions = companions
         companionViews = companions.map { OverworldSpriteView(sheet: $0.sheet) }
+        sparkleViews = companions.map { _ in PlaybackSparkleView() }
         super.init(frame: .zero)
         backgroundColor = Color.background
         clipsToBounds = true
@@ -100,6 +104,7 @@ final class JourneyPlaybackView: UIView {
         addSubview(ground)
         companionViews.forEach(addSubview)
         addSubview(self.player)
+        sparkleViews.forEach(addSubview)
         addAutoLayoutSubviews(titleLabel, subtitleLabel, footerLabel)
         addSubview(captionLabel)
         NSLayoutConstraint.activate([
@@ -152,14 +157,19 @@ final class JourneyPlaybackView: UIView {
     }
 
     func skipToEnd() {
-        elapsed = duration
+        elapsed = max(elapsed, duration)
+        startTime = nil
         update()
     }
 
     func renderImage() -> UIImage {
-        return UIGraphicsImageRenderer(bounds: bounds).image { _ in
+        companionViews.forEach { $0.showFrame($0.sheet.forwardFrame) }
+        sparkleViews.forEach { $0.isHidden = true }
+        let image = UIGraphicsImageRenderer(bounds: bounds).image { _ in
             drawHierarchy(in: bounds, afterScreenUpdates: true)
         }
+        update()
+        return image
     }
 
     @objc fileprivate func tick(_ link: CADisplayLink) {
@@ -214,9 +224,12 @@ final class JourneyPlaybackView: UIView {
             let eased = CGFloat(1 - pow(1 - progress, 3))
             let slot = formation.companionFeet[index]
             let entryX = -view.sheet.frameSizeInPixels.width * formation.pixelScale
-            let step = view.sheet.stepFrames[Int((time + Double(index) * Timing.companionStepStagger) * Timing.companionStepsPerSecond) % view.sheet.stepFrames.count]
-            view.showFrame(isRunning ? step : view.sheet.forwardFrame)
+            let stagger = Double(index) * Timing.companionStepStagger
+            let step = view.sheet.stepFrames[Int((time + stagger) * Timing.companionStepsPerSecond) % view.sheet.stepFrames.count]
+            view.showFrame(isRunning ? step : findStandingFrame(of: view, turnedAt: findTurnTime(ofSpriteAt: index + 1), stagger: stagger))
             place(view, feet: CGPoint(x: entryX + (slot.x - entryX) * eased, y: slot.y), hop: findHopOffset(ofSpriteAt: index + 1, at: time))
+            let sparkleProgress = findSparkleProgress(at: time, triggers: [joinStart + Timing.joinTravel, findTurnTime(ofSpriteAt: index + 1)])
+            placeSparkle(sparkleViews[index], over: view, progress: sparkleProgress)
         }
 
         let joiningIndex = (0..<companions.count).last { findJoinStart(of: $0) <= time }
@@ -227,9 +240,31 @@ final class JourneyPlaybackView: UIView {
 
         if elapsed >= duration && !hasFinished {
             hasFinished = true
-            stopDisplayLink()
+            if (companionViews.allSatisfy { $0.sheet.idleFrames.isEmpty }) {
+                stopDisplayLink()
+            }
             onFinished?()
         }
+    }
+
+    fileprivate func findStandingFrame(of view: OverworldSpriteView, turnedAt turnTime: CFTimeInterval, stagger: CFTimeInterval) -> Int {
+        let idleTime = elapsed - turnTime - Timing.hop
+        guard displayLink != nil, idleTime > 0, !view.sheet.idleFrames.isEmpty else { return view.sheet.forwardFrame }
+        return view.sheet.idleFrames[Int((idleTime + stagger) * Timing.companionIdleStepsPerSecond) % view.sheet.idleFrames.count]
+    }
+
+    fileprivate func findSparkleProgress(at time: CFTimeInterval, triggers: [CFTimeInterval]) -> CGFloat? {
+        return triggers.lazy.map { CGFloat((time - $0) / Timing.sparkle) }.first { $0 >= 0 && $0 < 1 }
+    }
+
+    fileprivate func placeSparkle(_ sparkle: PlaybackSparkleView, over sprite: OverworldSpriteView, progress: CGFloat?) {
+        sparkle.isHidden = progress == nil || sprite.isHidden
+        guard let progress = progress, !sparkle.isHidden else { return }
+        let size = PlaybackSparkleView.sizeInPixels * formation.pixelScale
+        sparkle.frame = CGRect(x: sprite.frame.midX - size / 2, y: sprite.frame.midY - size / 2, width: size, height: size)
+        sparkle.layer.zPosition = sprite.layer.zPosition + 1
+        sparkle.pixelScale = formation.pixelScale
+        sparkle.progress = progress
     }
 
     fileprivate func findPlayerPoseFrame(at time: CFTimeInterval) -> Int {
@@ -288,6 +323,53 @@ final class JourneyPlaybackView: UIView {
 
     fileprivate static func findHalfWidth(of sheet: OverworldSheet) -> CGFloat {
         return isLarge(sheet) ? Metrics.largeCompanionHalfWidth : Metrics.companionHalfWidth
+    }
+}
+
+final class PlaybackSparkleView: UIView {
+    static let sizeInPixels: CGFloat = 44
+    fileprivate static let starAngles: [CGFloat] = [20, 95, 160, 215, 290, 340]
+    fileprivate static let innerRadius: CGFloat = 6
+    fileprivate static let outerRadius: CGFloat = 19
+    fileprivate static let longestArm: CGFloat = 3
+    fileprivate static let fadeStart: CGFloat = 0.7
+
+    var pixelScale: CGFloat = 1
+    var progress: CGFloat = 0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        isOpaque = false
+        backgroundColor = .clear
+        isUserInteractionEnabled = false
+        isHidden = true
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func draw(_ rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        let pixel = max(pixelScale.rounded(), 1)
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        let radius = (PlaybackSparkleView.innerRadius + (PlaybackSparkleView.outerRadius - PlaybackSparkleView.innerRadius) * progress) * pixelScale
+        let arm = (sin(.pi * progress) * PlaybackSparkleView.longestArm).rounded()
+        let alpha = progress < PlaybackSparkleView.fadeStart ? 1 : (1 - progress) / (1 - PlaybackSparkleView.fadeStart)
+        for (index, degrees) in PlaybackSparkleView.starAngles.enumerated() {
+            let angle = degrees * .pi / 180
+            let color = index.isMultiple(of: 2) ? Color.textPrimary : Color.accent
+            color.withAlphaComponent(alpha).setFill()
+            let snapped = CGPoint(x: ((center.x + cos(angle) * radius) / pixel).rounded() * pixel, y: ((center.y + sin(angle) * radius) / pixel).rounded() * pixel)
+            context.fill(CGRect(x: snapped.x, y: snapped.y, width: pixel, height: pixel))
+            guard arm > 0 else { continue }
+            context.fill(CGRect(x: snapped.x - arm * pixel, y: snapped.y, width: arm * pixel * 2 + pixel, height: pixel))
+            context.fill(CGRect(x: snapped.x, y: snapped.y - arm * pixel, width: pixel, height: arm * pixel * 2 + pixel))
+        }
     }
 }
 
