@@ -2,6 +2,14 @@ import Foundation
 
 enum EncounterPeriod: CaseIterable {
     case day, month, year
+
+    var calendarComponent: Calendar.Component {
+        switch self {
+        case .day: return .day
+        case .month: return .month
+        case .year: return .year
+        }
+    }
 }
 
 struct GetEncounterHistoryQuery {
@@ -58,7 +66,7 @@ final class GetEncounterHistoryHandler {
         let trackedDays = storedDays.compactMap { encounters in
             makeStartOfDay(encounters.day).map { EncounterHistory.Entry(start: $0, count: encounters.count) }
         }
-        let component = GetEncounterHistoryHandler.makeCalendarComponent(for: query.period)
+        let component = query.period.calendarComponent
         let countsByPeriodStart = Dictionary(trackedDays.map { (findStart(of: component, containing: $0.start), $0.count) }, uniquingKeysWith: +)
         let recorded = countsByPeriodStart
             .filter { $0.value > 0 }
@@ -95,7 +103,7 @@ final class GetEncounterHistoryHandler {
     }
 
     private func makeRecent(of period: EncounterPeriod, countsByPeriodStart: [Date: Int], trackedSince: Date?) -> [EncounterHistory.Entry] {
-        let component = GetEncounterHistoryHandler.makeCalendarComponent(for: period)
+        let component = period.calendarComponent
         let currentStart = findStart(of: component, containing: makeCurrentDate())
         let periodCount: Int
         switch period {
@@ -121,14 +129,6 @@ final class GetEncounterHistoryHandler {
 
     private func makeStartOfDay(_ day: EncounterDay) -> Date? {
         return day.makeDate(in: calendar).map(calendar.startOfDay)
-    }
-
-    private static func makeCalendarComponent(for period: EncounterPeriod) -> Calendar.Component {
-        switch period {
-        case .day: return .day
-        case .month: return .month
-        case .year: return .year
-        }
     }
 
     private static func calculateAverage(of entries: [EncounterHistory.Entry]) -> Int? {

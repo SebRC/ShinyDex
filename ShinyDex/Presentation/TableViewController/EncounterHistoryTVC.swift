@@ -148,13 +148,11 @@ class EncounterHistoryTVC: UITableViewController {
         case .periods:
             let entry = history.recorded[indexPath.row]
             let cell = makeValueCell(title: formatPeriod(entry.start, relativeToNow: true), value: entry.count.grouped)
-            if period == .day {
-                cell.accessoryType = .disclosureIndicator
-                cell.selectionStyle = .default
-                let selectedBackground = UIView()
-                selectedBackground.backgroundColor = Color.surfaceRaised
-                cell.selectedBackgroundView = selectedBackground
-            }
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .default
+            let selectedBackground = UIView()
+            selectedBackground.backgroundColor = Color.surfaceRaised
+            cell.selectedBackgroundView = selectedBackground
             return cell
         }
     }
@@ -179,7 +177,7 @@ class EncounterHistoryTVC: UITableViewController {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.backgroundColor = Color.surface
         let calendarView = HuntingCalendarView(weeks: weeks) { [weak self] date in
-            self?.showDay(date)
+            self?.showBreakdown(of: date, period: .day)
         }
         cell.contentView.addAutoLayoutSubviews(calendarView)
         calendarView.pinEdges(to: cell.contentView)
@@ -216,12 +214,12 @@ class EncounterHistoryTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard period == .day, sections[indexPath.section] == .periods, let entry = history?.recorded[indexPath.row] else { return }
-        showDay(entry.start)
+        guard sections[indexPath.section] == .periods, let entry = history?.recorded[indexPath.row] else { return }
+        showBreakdown(of: entry.start, period: period)
     }
 
-    fileprivate func showDay(_ date: Date) {
-        navigationController?.pushViewController(EncounterDayTVC(container: container, date: date), animated: true)
+    fileprivate func showBreakdown(of date: Date, period: EncounterPeriod) {
+        navigationController?.pushViewController(EncounterDayTVC(container: container, date: date, period: period), animated: true)
     }
 
     fileprivate func formatPeriod(_ start: Date, relativeToNow: Bool = false) -> String {

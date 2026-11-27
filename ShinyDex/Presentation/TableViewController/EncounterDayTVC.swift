@@ -12,13 +12,15 @@ class EncounterDayTVC: UITableViewController {
 
     fileprivate let container: AppContainer
     fileprivate let date: Date
+    fileprivate let period: EncounterPeriod
     fileprivate var breakdown: EncounterDayBreakdown?
     fileprivate var rows = [Row]()
     fileprivate var sections = [Section.total]
 
-    init(container: AppContainer, date: Date) {
+    init(container: AppContainer, date: Date, period: EncounterPeriod = .day) {
         self.container = container
         self.date = date
+        self.period = period
         super.init(style: .insetGrouped)
     }
 
@@ -28,7 +30,7 @@ class EncounterDayTVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = EncounterDayTVC.format(date, template: "EEE d MMM yyyy")
+        title = EncounterDayTVC.formatTitle(of: date, period: period)
         navigationItem.largeTitleDisplayMode = .never
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
@@ -43,14 +45,16 @@ class EncounterDayTVC: UITableViewController {
     }
 
     fileprivate func reload() {
-        let breakdown = container.getEncounterDay.handle(GetEncounterDayQuery(date: date))
+        let breakdown = container.getEncounterDay.handle(GetEncounterDayQuery(date: date, period: period))
         self.breakdown = breakdown
         rows = breakdown.pokemon.map { .pokemon($0) }
         if !breakdown.pokemon.isEmpty && breakdown.unsplitCount > 0 {
             let sharePercent = Int((Double(breakdown.unsplitCount) / Double(breakdown.total) * 100).rounded())
             rows.append(.unsplit(count: breakdown.unsplitCount, sharePercent: sharePercent))
         }
-        sections = [.total] + (breakdown.shinies.isEmpty ? [] : [.shinies]) + (rows.isEmpty ? [] : [.pokemon])
+        let shinySections: [Section] = breakdown.shinies.isEmpty ? [] : [.shinies]
+        let pokemonSections: [Section] = rows.isEmpty ? [] : [.pokemon]
+        sections = [.total] + (period == .day ? shinySections + pokemonSections : pokemonSections + shinySections)
         tableView.reloadData()
     }
 
@@ -119,7 +123,7 @@ class EncounterDayTVC: UITableViewController {
 
     fileprivate func makeShinyCell(for caught: CatchSummary, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
-        let details = [caught.isFailed ? "Got away" : caught.ballName, caught.encounters > 0 ? "\(caught.encounters.grouped) encounters" : nil].compactMap { $0 }
+        let details = [caught.isFailed ? "Got away" : caught.ballName, caught.encounters > 0 ? EncounterDayTVC.formatEncounters(caught.encounters) : nil].compactMap { $0 }
         let title = caught.nickname ?? caught.speciesTitle
         cell.configure(pokemonName: caught.pokemonName, formId: caught.formId, title: title,
                        subtitle: details.joined(separator: " · "), ball: caught.caughtBall, isFailed: caught.isFailed)
@@ -150,6 +154,18 @@ class EncounterDayTVC: UITableViewController {
             navigationController?.pushViewController(tracker, animated: true)
         case .total:
             break
+        }
+    }
+
+    fileprivate static func formatEncounters(_ count: Int) -> String {
+        return count == 1 ? "1 encounter" : "\(count.grouped) encounters"
+    }
+
+    fileprivate static func formatTitle(of date: Date, period: EncounterPeriod) -> String {
+        switch period {
+        case .day: return format(date, template: "EEE d MMM yyyy")
+        case .month: return format(date, template: "MMMM yyyy")
+        case .year: return format(date, template: "yyyy")
         }
     }
 
