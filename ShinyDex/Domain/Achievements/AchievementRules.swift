@@ -13,7 +13,6 @@ enum AchievementRules {
         (.Black, .White), (.Black2, .White2), (.X, .Y), (.OmegaRuby, .AlphaSapphire), (.Sun, .Moon), (.UltraSun, .UltraMoon),
         (.LetsGoPikachu, .LetsGoEevee), (.Sword, .Shield), (.BrilliantDiamond, .ShiningPearl), (.Scarlet, .Violet)
     ]
-    static let lastGenerationWithDeterminantValues = 2
 
     static func evaluate(_ facts: AchievementFacts) -> [Achievement] {
         let context = Context(facts: facts)
@@ -171,7 +170,7 @@ enum AchievementRules {
         return [
             makeSetByDistinct(.generational, .games, target: allGenerations.count, caught) { GamesList.games[$0.game]?.generation },
             makeTieredByDistinct(.timeTraveller, .games, targets: [10, 25, Games.allCases.count], caught) { $0.game },
-            makeMatching(.retro, .games, caught.filter { (GamesList.games[$0.game]?.generation ?? 0) <= lastGenerationWithDeterminantValues }),
+            makeMatching(.retro, .games, caught.filter { !IndividualValues.isUsed(in: $0.game) }),
             Achievement(kind: .sameGameTwice, category: .games, targets: [1], value: pairCatches.count, catchIds: pairCatches.flatMap { $0 })
         ]
     }
@@ -180,7 +179,7 @@ enum AchievementRules {
 
     fileprivate static func evaluateBattle(_ context: Context) -> [Achievement] {
         let moveCategories = context.facts.moveCategories
-        let battlers = context.caught.filter { (GamesList.games[$0.game]?.generation ?? 0) > lastGenerationWithDeterminantValues && !$0.ivs.isEmpty }
+        let battlers = context.caught.filter { IndividualValues.isUsed(in: $0.game) && !$0.ivs.isEmpty }
         let readyCatches = battlers.filter { BattlerAssessment(caught: $0, moveCategories: moveCategories).badges.contains(.battleReady) }
         return [
             makeMatching(.battleReady, .battle, readyCatches),
@@ -189,7 +188,7 @@ enum AchievementRules {
             makeMatching(.fullyTrained, .battle, context.caught.filter { BattlerAssessment(caught: $0, moveCategories: moveCategories).isFullyTrained }),
             makeMatching(.trickRoomSpecialist, .battle, battlers.filter { BattlerAssessment(caught: $0, moveCategories: moveCategories).isTrickRoomBattler }),
             makeSetByDistinct(.natureLover, .battle, target: Nature.allCases.count, context.caught) { $0.nature },
-            makeSetByDistinct(.hiddenPowerCollector, .battle, target: HiddenPower.types.count, battlers) { HiddenPower.findType(for: $0.ivs) }
+            makeSetByDistinct(.hiddenPowerCollector, .battle, target: HiddenPower.types.count, battlers) { HiddenPower(ivs: $0.ivs, game: $0.game)?.type }
         ]
     }
 

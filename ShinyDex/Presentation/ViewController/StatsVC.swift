@@ -76,6 +76,7 @@ class StatsVC: UIViewController {
             UsageRow(title: usage.key.rawValue, image: PixelArt.makeCenteredImage(named: usage.key.rawValue), count: usage.count, filter: .method(usage.key))
         }, total: stats.caughtCount)
         addNatures(stats)
+        addIVs(stats)
         addGenders(stats)
     }
 
@@ -390,6 +391,19 @@ class StatsVC: UIViewController {
             footnote.append("Every catch has a nature logged.")
         }
         addSection("Natures", content, footnote: footnote.isEmpty ? nil : footnote.joined(separator: " "))
+    }
+
+    fileprivate func addIVs(_ stats: CatchStatistics) {
+        guard stats.caughtCount > 0 else { return }
+        guard stats.missingIVsCount > 0 else {
+            addSection("IVs", UIView(), footnote: "Every catch from Gen 3 on has IVs logged.")
+            return
+        }
+        let tile = StatTile(caption: "No IVs logged", value: stats.missingIVsCount.grouped,
+                            detail: stats.missingIVsCount == 1 ? "Tap to log them" : "Tap to see them and log their IVs") { [weak self] in
+            self?.showCollection(filter: .missingIVs)
+        }
+        addSection("IVs", tile, footnote: "Gen 1–2 catches are left out, since those games use DVs.")
     }
 
 }

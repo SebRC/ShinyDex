@@ -118,10 +118,25 @@ final class RankBattlersTests: XCTestCase {
         XCTAssertEqual(readyById[legendsArceus.id], false)
     }
 
-        func test_hiddenPowerType_isIncluded() {
-        addCatch(of: bulbasaur, ivs: makeIVs([31, 30, 31, 30, 31, 30]))
+        func test_combinedStatsRanking_favoursStrongerSpecies_overBetterIVs() {
+        let perfectBulbasaur = addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]))
+        let averageMega = addCatch(of: charmander, ivs: makeIVs([15, 15, 15, 15, 15, 15]), formId: "mega")
 
-        XCTAssertEqual(rank().battlers[0].hiddenPowerType, "Fire")
+        let battlers = rank(by: .combinedStats).battlers
+
+        XCTAssertEqual(battlers.map { $0.id.rawValue }, [averageMega.id, perfectBulbasaur.id])
+        XCTAssertNotNil(battlers.first?.combinedStats)
+        XCTAssertEqual(rank(by: .relevantIVs).battlers.first?.id.rawValue, perfectBulbasaur.id)
+    }
+
+    func test_hiddenPower_isIncluded_onlyForGamesThatHaveIt() {
+        addCatch(of: bulbasaur, game: .Platinum, ivs: makeIVs([31, 30, 31, 30, 31, 30]))
+        addCatch(of: charmander, game: .Scarlet, ivs: makeIVs([31, 30, 31, 30, 31, 30]))
+
+        let byNumber = Dictionary(uniqueKeysWithValues: rank().battlers.map { ($0.number, $0) })
+
+        XCTAssertEqual(byNumber[bulbasaur]?.hiddenPower?.type, "Fire")
+        XCTAssertNil(byNumber[charmander]?.hiddenPower)
     }
 
     func test_bundledBaseStats_coverEverySpeciesAndFormsThatDiffer() {

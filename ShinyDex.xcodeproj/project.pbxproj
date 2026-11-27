@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21200000000000000002401 /* CombinedStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000002400 /* CombinedStats.swift */; };
 		B21200000000000000002201 /* JourneyTally.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000002200 /* JourneyTally.swift */; };
 		B21200000000000000001E01 /* MenuSectionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001E00 /* MenuSectionCells.swift */; };
 		B21200000000000000001A01 /* CatchRateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001A00 /* CatchRateTests.swift */; };
@@ -419,6 +420,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B21200000000000000002400 /* CombinedStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedStats.swift; sourceTree = "<group>"; };
 		B21200000000000000002200 /* JourneyTally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTally.swift; sourceTree = "<group>"; };
 		B21200000000000000001E00 /* MenuSectionCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSectionCells.swift; sourceTree = "<group>"; };
 		B21200000000000000001A00 /* CatchRateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchRateTests.swift; sourceTree = "<group>"; };
@@ -916,6 +918,7 @@
 		B21200000000000000000001 /* Battlers */ = {
 			isa = PBXGroup;
 			children = (
+				B21200000000000000002400 /* CombinedStats.swift */,
 				B2120000000000000000000C /* BattlerAssessment.swift */,
 				B2120000000000000000000A /* AttackingStyle.swift */,
 				B21200000000000000000008 /* HiddenPower.swift */,
@@ -1996,6 +1999,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B21200000000000000002401 /* CombinedStats.swift in Sources */,
 				B21200000000000000002201 /* JourneyTally.swift in Sources */,
 				B21200000000000000001E01 /* MenuSectionCells.swift in Sources */,
 				B21200000000000000001905 /* CatchRateVC.swift in Sources */,

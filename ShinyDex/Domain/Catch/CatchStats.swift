@@ -53,6 +53,7 @@ struct CatchStats {
     let methodUsage: [Usage<HuntMethod>]
     let natureUsage: [Usage<Nature>]
     let unknownNatureCount: Int
+    let missingIVsCount: Int
     let genderUsage: [Usage<Gender>]
     let unknownGenderCount: Int
     let shortestHunts: [Catch]
@@ -99,12 +100,17 @@ struct CatchStats {
         let natures = caught.compactMap { $0.nature }
         natureUsage = CatchStats.countUsage(of: natures, name: { $0.name })
         unknownNatureCount = caught.count - natures.count
+        missingIVsCount = caught.filter(CatchStats.isMissingIVs).count
         let knownGenders = caught.compactMap { genders.resolve($0.gender, for: $0.number) }
         genderUsage = CatchStats.countUsage(of: knownGenders, name: { $0.name })
         unknownGenderCount = caught.count - knownGenders.count
 
         shortestHunts = Array(withEncounters.sorted { $0.encounters < $1.encounters }.prefix(CatchStats.rankedHuntCount))
         longestHunts = Array(withEncounters.sorted { $0.encounters > $1.encounters }.prefix(CatchStats.rankedHuntCount))
+    }
+
+    static func isMissingIVs(_ caught: Catch) -> Bool {
+        return !caught.isFailed && caught.ivs.isEmpty && IndividualValues.isUsed(in: caught.game)
     }
 
     fileprivate static func calculateAverage(of catches: [Catch]) -> Int? {

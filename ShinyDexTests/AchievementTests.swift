@@ -171,7 +171,7 @@ final class AchievementTests: XCTestCase {
         XCTAssertEqual(achievements[.fullyTrained]?.isUnlocked, true)
         XCTAssertEqual(achievements[.trickRoomSpecialist]?.isUnlocked, true)
         XCTAssertEqual(achievements[.natureLover]?.value, 2)
-        XCTAssertEqual(achievements[.hiddenPowerCollector]?.value, 2)
+        XCTAssertEqual(achievements[.hiddenPowerCollector]?.value, 0, "Scarlet doesn't have Hidden Power")
     }
 
     // MARK: Exactly the odds

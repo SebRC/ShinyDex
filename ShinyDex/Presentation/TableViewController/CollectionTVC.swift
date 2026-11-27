@@ -8,13 +8,14 @@ enum CollectionFilter {
     case missingNature
     case gender(Gender)
     case missingGender
+    case missingIVs
     case gotAway
     case period(CatchPeriod)
 
     var showsFailed: Bool {
         switch self {
         case .gotAway, .period: return true
-        case .ball, .game, .method, .nature, .missingNature, .gender, .missingGender: return false
+        case .ball, .game, .method, .nature, .missingNature, .gender, .missingGender, .missingIVs: return false
         }
     }
 
@@ -25,7 +26,7 @@ enum CollectionFilter {
 
     var isMissingDetail: Bool {
         switch self {
-        case .missingNature, .missingGender: return true
+        case .missingNature, .missingGender, .missingIVs: return true
         default: return false
         }
     }
@@ -39,6 +40,7 @@ enum CollectionFilter {
         case .missingNature: return "No nature logged"
         case .gender(let gender): return gender.name
         case .missingGender: return "No gender logged"
+        case .missingIVs: return "No IVs logged"
         case .gotAway: return "Got away"
         case .period(let period): return CollectionFilter.getTitle(of: period)
         }
@@ -67,6 +69,7 @@ enum CollectionFilter {
         case .gotAway: return "None got away"
         case .missingNature: return "All natures logged"
         case .missingGender: return "All genders logged"
+        case .missingIVs: return "All IVs logged"
         default: return "Nothing here"
         }
     }
@@ -76,6 +79,7 @@ enum CollectionFilter {
         case .gotAway: return "Shinies you log as got away will show up here."
         case .missingNature: return "Every catch has a nature logged."
         case .missingGender: return "Every catch has a gender logged."
+        case .missingIVs: return "Every catch from Gen 3 on has IVs logged."
         default: return "No catches in \(title) any more."
         }
     }
@@ -89,6 +93,7 @@ enum CollectionFilter {
         case .missingNature: return caught.nature == nil && !caught.isFailed
         case .gender(let gender): return caught.gender == gender
         case .missingGender: return caught.gender == nil && !caught.isFailed
+        case .missingIVs: return caught.ivs.isEmpty && !caught.isFailed && IndividualValues.isUsed(in: caught.game)
         case .gotAway: return caught.isFailed
         case .period(let period): return caught.caughtDate.map { period.contains($0, calendar: .current) } ?? false
         }

@@ -16,6 +16,19 @@ class CatchStatsTests: XCTestCase {
         return Catch(number: number, caughtBall: ball, game: game, huntMethod: method, encounters: encounters, isShinyCharmActive: isShinyCharmActive, caughtDate: year.map { makeDate($0) }, isFailed: isFailed)
     }
 
+    func test_missingIVsCount_leavesOutCatchesWithIVs_gotAwayOnes_andGenOneAndTwo() {
+        let withIVs = Catch(number: 0, caughtBall: "poke", game: .Scarlet, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil)
+        withIVs.ivs = IndividualValues().setting(31, for: .hp)
+        let catches = [
+            withIVs,
+            Catch(number: 1, caughtBall: "poke", game: .Scarlet, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil),
+            Catch(number: 2, caughtBall: "poke", game: .Gold, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil),
+            Catch(number: 3, caughtBall: "none", game: .Scarlet, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: nil, isFailed: true)
+        ]
+
+        XCTAssertEqual(CatchStats(catches: catches, calendar: calendar).missingIVsCount, 1)
+    }
+
     func test_failedShinies_countAsFound_butNotCaught() {
         let stats = CatchStats(catches: [
             makeCatch(number: 0, encounters: 100, year: 2023),

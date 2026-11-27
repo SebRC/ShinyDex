@@ -169,6 +169,20 @@ final class BattlerAssessmentTests: XCTestCase {
         XCTAssertNil(HiddenPower.findType(for: makeIVs([31, 31, 31, 31, 31, nil])))
     }
 
+    func test_hiddenPowerPower_variesUpToGenerationFive_isSixtyAfter_andIsGoneFromGenerationEight() {
+        let caesar = makeIVs([28, 24, 11, 27, 17, 16])
+
+        XCTAssertEqual(HiddenPower(ivs: caesar, game: .Platinum), HiddenPower(ivs: caesar, game: .Black))
+        XCTAssertEqual(HiddenPower(ivs: caesar, game: .Platinum)?.type, "Psychic")
+        XCTAssertEqual(HiddenPower(ivs: caesar, game: .Platinum)?.power, 42)
+        XCTAssertEqual(HiddenPower(ivs: caesar, game: .Sun)?.power, 60)
+        XCTAssertEqual(HiddenPower(ivs: perfect, game: .Emerald)?.power, 70)
+        XCTAssertEqual(HiddenPower(ivs: makeIVs([0, 0, 0, 0, 0, 0]), game: .Emerald)?.power, 30)
+        XCTAssertNil(HiddenPower(ivs: caesar, game: .Sword))
+        XCTAssertNil(HiddenPower(ivs: caesar, game: .Crystal))
+        XCTAssertNil(HiddenPower(ivs: makeIVs([28, 24, 11, 27, 17, nil]), game: .Platinum))
+    }
+
     // MARK: Stats
 
     func test_statCalculator_matchesKnownCompetitiveSpreads() {
@@ -188,6 +202,27 @@ final class BattlerAssessmentTests: XCTestCase {
 
         XCTAssertEqual(atFifty, [184, 182, 115, 90, 105, nil])
         XCTAssertEqual(atHundred, [358, 359, 226, 176, 206, nil])
+    }
+
+    func test_combinedStats_countTheUnusedAttackingStatAQuarter_unlessAskedToCountItFully() {
+        let base = BaseStats([108, 130, 95, 80, 85, 102])
+
+        let weighted = CombinedStats(of: 444, base: base, ivs: perfect, evs: attackSweeperEVs, nature: .jolly, level: .fifty, style: .physical, countsUnusedStatFully: false)
+        let full = CombinedStats(of: 444, base: base, ivs: perfect, evs: attackSweeperEVs, nature: .jolly, level: .fifty, style: .physical, countsUnusedStatFully: true)
+
+        XCTAssertEqual(weighted.total, 778)
+        XCTAssertEqual(full.total, 184 + 182 + 115 + 90 + 105 + 169)
+        XCTAssertFalse(weighted.isEstimated)
+    }
+
+    func test_combinedStats_assumeAnAverageIV_whereOneIsMissing() {
+        let base = BaseStats([108, 130, 95, 80, 85, 102])
+        let missingSpeed = makeIVs([31, 31, 31, 31, 31, nil])
+
+        let combined = CombinedStats(of: 444, base: base, ivs: missingSpeed, evs: attackSweeperEVs, nature: .jolly, level: .fifty, style: .mixed, countsUnusedStatFully: false)
+
+        XCTAssertEqual(combined.total, 184 + 182 + 115 + 90 + 105 + 160)
+        XCTAssertTrue(combined.isEstimated)
     }
 
     func test_shedinja_alwaysHasOneHP() {
