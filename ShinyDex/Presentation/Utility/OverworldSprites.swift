@@ -4,6 +4,7 @@ struct OverworldSheet {
     let image: CGImage
     let stepFrames: [Int]
     let forwardFrame: Int
+    var idleFrames = [Int]()
     var ballRaisingFrames = [Int]()
 
     var frameCount: Int {
@@ -29,7 +30,7 @@ enum OverworldSprites {
             "follower-\(dexNumber)"
         ].compactMap { $0 }
         guard let image = candidates.lazy.compactMap({ UIImage(named: $0)?.cgImage }).first else { return nil }
-        return OverworldSheet(image: image, stepFrames: [0, 1], forwardFrame: 2)
+        return OverworldSheet(image: image, stepFrames: [0, 1], forwardFrame: 2, idleFrames: [2, 3])
     }
 
     static func makePlayerSheet(game: Games, isFemale: Bool) -> OverworldSheet? {
