@@ -78,6 +78,13 @@ struct CatchStatistics: Equatable {
     var unknownGenderCount = 0
     let shortestHunts: [CatchSummary]
     let longestHunts: [CatchSummary]
+    var closestToOdds: [OddsHunt] = []
+}
+
+struct OddsHunt: Equatable {
+    let hunt: CatchSummary
+    let odds: Int
+    let encountersPastOdds: Int
 }
 
 final class GetCatchStatisticsHandler {
@@ -140,7 +147,10 @@ final class GetCatchStatisticsHandler {
             genderUsage: stats.genderUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             unknownGenderCount: stats.unknownGenderCount,
             shortestHunts: stats.shortestHunts.compactMap(mapper.makeSummary),
-            longestHunts: stats.longestHunts.compactMap(mapper.makeSummary))
+            longestHunts: stats.longestHunts.compactMap(mapper.makeSummary),
+            closestToOdds: stats.closestToOdds.compactMap { oddsHunt in
+                mapper.makeSummary(of: oddsHunt.caught).map { OddsHunt(hunt: $0, odds: oddsHunt.odds, encountersPastOdds: oddsHunt.encountersPastOdds) }
+            })
     }
 
     private func makeGoal(for year: Int, catches: [Catch], now: Date) -> CatchStatistics.Goal? {

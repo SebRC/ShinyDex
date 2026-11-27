@@ -196,6 +196,27 @@ class CatchStatsTests: XCTestCase {
         XCTAssertEqual(stats.longestHunts.map { $0.encounters }, (6...15).reversed().map { $0 * 100 })
     }
 
+    func test_closestToOdds_ranksByHowFarEncountersLandedFromOdds_eitherSide() {
+        let slightlyOver = makeCatch(number: 1, game: .Scarlet, encounters: 4200, year: 2023)
+        let exact = makeCatch(number: 2, game: .Scarlet, encounters: 4096, year: 2023)
+        let farUnder = makeCatch(number: 3, game: .Scarlet, encounters: 100, year: 2023)
+        let slightlyUnderCharm = makeCatch(number: 4, game: .Scarlet, isShinyCharmActive: true, encounters: 1300, year: 2023)
+        let stats = CatchStats(catches: [farUnder, slightlyUnderCharm, slightlyOver, exact], calendar: calendar)
+
+        XCTAssertEqual(stats.closestToOdds.map { $0.caught.number }, [2, 1, 4, 3])
+        XCTAssertEqual(stats.closestToOdds.map { $0.odds }, [4096, 4096, 1365, 4096])
+        XCTAssertEqual(stats.closestToOdds.map { $0.encountersPastOdds }, [0, 104, -65, -3996])
+    }
+
+    func test_closestToOdds_leavesOutHuntsWithoutEncountersOrKnownOdds_andKeepsTheTopTen() {
+        let noEncounters = makeCatch(game: .Scarlet, encounters: 0, year: 2023)
+        let unknownOdds = makeCatch(game: .Scarlet, method: .Pokeradar, encounters: 4096, year: 2023)
+        let ranked = (1...12).map { makeCatch(number: $0, game: .Scarlet, encounters: 4096 + $0, year: 2023) }
+        let stats = CatchStats(catches: [noEncounters, unknownOdds] + ranked, calendar: calendar)
+
+        XCTAssertEqual(stats.closestToOdds.map { $0.caught.number }, Array(1...10))
+    }
+
     fileprivate func makeCatch(on date: Date?, isFailed: Bool = false) -> Catch {
         return Catch(number: 0, caughtBall: "poke", game: .Red, huntMethod: .Encounters, encounters: 1, isShinyCharmActive: false, caughtDate: date, isFailed: isFailed)
     }
