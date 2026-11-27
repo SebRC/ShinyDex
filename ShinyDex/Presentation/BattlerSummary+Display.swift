@@ -40,6 +40,7 @@ extension BattlerRanking {
         case .perfectIVs: return "Perfect"
         case .ivTotal: return "Total"
         case .readiness: return "Ready"
+        case .combinedStats: return "Stats"
         }
     }
 
@@ -49,6 +50,7 @@ extension BattlerRanking {
         case .perfectIVs: return "PERFECT IVS"
         case .ivTotal: return "IV TOTAL"
         case .readiness: return "READINESS"
+        case .combinedStats: return "STATS"
         }
     }
 }
@@ -68,6 +70,9 @@ extension BattlerSummary {
         case .perfectIVs: return "\(perfectCount)/\(Stat.allCases.count)"
         case .ivTotal: return "\(ivTotal)"
         case .readiness: return "\(readiness)"
+        case .combinedStats:
+            guard let combinedStats = combinedStats else { return "–" }
+            return combinedStats.isEstimated ? "≈\(combinedStats.total)" : "\(combinedStats.total)"
         }
     }
 
@@ -81,10 +86,11 @@ extension BattlerSummary {
             }
             details.append(NSAttributedString(string: part, attributes: [.foregroundColor: textColor, .font: font]))
         }
-        if let hiddenPowerType = hiddenPowerType {
+        if let hiddenPower = hiddenPower {
             details.append(separator)
             details.append(NSAttributedString(string: "Hidden Power ", attributes: [.foregroundColor: textColor, .font: font]))
-            details.append(NSAttributedString(string: hiddenPowerType, attributes: [.foregroundColor: MoveTypes.colors[hiddenPowerType] ?? textColor, .font: font]))
+            details.append(NSAttributedString(string: hiddenPower.type, attributes: [.foregroundColor: MoveTypes.colors[hiddenPower.type] ?? textColor, .font: font]))
+            details.append(NSAttributedString(string: " \(hiddenPower.power)", attributes: [.foregroundColor: textColor, .font: font]))
         }
         return details
     }

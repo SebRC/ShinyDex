@@ -19,6 +19,7 @@ struct CatchStatSheet: Equatable {
     let ivs: IndividualValues
     let evs: EffortValues
     let lines: [CatchStatLine]
+    var hiddenPower: HiddenPower? = nil
 }
 
 final class GetCatchStatsHandler {
@@ -45,6 +46,7 @@ final class GetCatchStatsHandler {
         let lines = Stat.allCases.map { stat in
             CatchStatLine(stat: stat, base: base?[stat], iv: caught.ivs[stat], ev: caught.evs[stat], value: values[stat.rawValue])
         }
-        return CatchStatSheet(pokemonName: pokemon.name, level: level, nature: caught.nature, ivs: caught.ivs, evs: caught.evs, lines: lines)
+        return CatchStatSheet(pokemonName: pokemon.name, level: level, nature: caught.nature, ivs: caught.ivs, evs: caught.evs, lines: lines,
+                              hiddenPower: HiddenPower(ivs: caught.ivs, game: caught.game))
     }
 }

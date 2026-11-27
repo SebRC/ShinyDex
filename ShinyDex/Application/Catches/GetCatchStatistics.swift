@@ -73,6 +73,7 @@ struct CatchStatistics: Equatable {
     let methodUsage: [Usage<HuntMethod>]
     let natureUsage: [Usage<Nature>]
     let unknownNatureCount: Int
+    let missingIVsCount: Int
     var genderUsage: [Usage<Gender>] = []
     var unknownGenderCount = 0
     let shortestHunts: [CatchSummary]
@@ -135,6 +136,7 @@ final class GetCatchStatisticsHandler {
             methodUsage: stats.methodUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             natureUsage: stats.natureUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             unknownNatureCount: stats.unknownNatureCount,
+            missingIVsCount: stats.missingIVsCount,
             genderUsage: stats.genderUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             unknownGenderCount: stats.unknownGenderCount,
             shortestHunts: stats.shortestHunts.compactMap(mapper.makeSummary),

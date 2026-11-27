@@ -4,11 +4,10 @@ struct RankBattlersQuery {
     let ranking: BattlerRanking
     let level: BattleLevel
     let showsBestOfEachSpecies: Bool
+    var countsUnusedStatFully = false
 }
 
 final class RankBattlersHandler {
-    static let lastGenerationWithDeterminantValues = 2
-
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
     private let forms: PokemonForms
@@ -33,7 +32,7 @@ final class RankBattlersHandler {
         let withIVs = modern.filter { !$0.ivs.isEmpty }
 
         let ranked = withIVs
-            .map { makeSummary(of: $0, name: namesByNumber[$0.number]!, level: query.level) }
+            .map { makeSummary(of: $0, name: namesByNumber[$0.number]!, level: query.level, countsUnusedStatFully: query.countsUnusedStatFully) }
             .sorted { RankBattlersHandler.ranks($0, above: $1, by: query.ranking) }
         return BattlerRankings(
             battlers: query.showsBestOfEachSpecies ? RankBattlersHandler.keepBestOfEachSpecies(ranked) : ranked,
@@ -41,12 +40,16 @@ final class RankBattlersHandler {
             olderGenerationCatches: olderGeneration.count)
     }
 
-    private func makeSummary(of caught: Catch, name: String, level: BattleLevel) -> BattlerSummary {
+    private func makeSummary(of caught: Catch, name: String, level: BattleLevel, countsUnusedStatFully: Bool) -> BattlerSummary {
         let assessment = BattlerAssessment(caught: caught, moveCategories: moveCategories)
         let style = assessment.style
-        let values = baseStats.findStats(of: caught.number, formId: caught.formId).map {
+        let base = baseStats.findStats(of: caught.number, formId: caught.formId)
+        let values = base.map {
             StatCalculator.calculateStats(of: caught.number, base: $0, ivs: caught.ivs, evs: caught.evs, nature: caught.nature, level: level)
         } ?? Array(repeating: nil, count: Stat.allCases.count)
+        let combinedStats = base.map {
+            CombinedStats(of: caught.number, base: $0, ivs: caught.ivs, evs: caught.evs, nature: caught.nature, level: level, style: style, countsUnusedStatFully: countsUnusedStatFully)
+        }
         let stats = Stat.allCases.map { stat in
             BattlerStat(stat: stat, iv: caught.ivs[stat], ev: caught.evs[stat], value: values[stat.rawValue], isLessRelevant: stat == style.lessRelevantStat)
         }
@@ -67,12 +70,13 @@ final class RankBattlersHandler {
             perfectCount: assessment.perfectCount,
             ivTotal: assessment.ivTotal,
             readiness: assessment.readiness,
-            hiddenPowerType: HiddenPower.findType(for: caught.ivs),
-            badges: assessment.badges)
+            hiddenPower: HiddenPower(ivs: caught.ivs, game: caught.game),
+            badges: assessment.badges,
+            combinedStats: combinedStats)
     }
 
     private static func usesDeterminantValues(_ caught: Catch) -> Bool {
-        return (GamesList.games[caught.game]?.generation ?? 0) <= lastGenerationWithDeterminantValues
+        return !IndividualValues.isUsed(in: caught.game)
     }
 
     private static func ranks(_ lhs: BattlerSummary, above rhs: BattlerSummary, by ranking: BattlerRanking) -> Bool {
@@ -82,6 +86,7 @@ final class RankBattlersHandler {
         case .perfectIVs: order = [{ $0.perfectCount }, { $0.ivTotal }, { $0.readiness }]
         case .ivTotal: order = [{ $0.ivTotal }, { $0.perfectCount }, { $0.readiness }]
         case .readiness: order = [{ $0.readiness }, { $0.relevantIVPercent }, { $0.perfectCount }]
+        case .combinedStats: order = [{ $0.combinedStats?.total ?? 0 }, { $0.relevantIVPercent }, { $0.perfectCount }]
         }
         for score in order where score(lhs) != score(rhs) {
             return score(lhs) > score(rhs)

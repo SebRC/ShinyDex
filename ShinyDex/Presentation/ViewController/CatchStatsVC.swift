@@ -35,6 +35,7 @@ class CatchStatsVC: UIViewController {
     fileprivate let lowerLevelButton = UIButton.makeRoundButton(.secondary, symbolName: "minus", diameter: CatchStatsVC.roundButtonSize, symbolSize: 15)
     fileprivate let raiseLevelButton = UIButton.makeRoundButton(.secondary, symbolName: "plus", diameter: CatchStatsVC.roundButtonSize, symbolSize: 15)
     fileprivate let natureButton = UIButton(type: .system)
+    fileprivate let hiddenPowerLabel = UILabel(style: .subheadline, weight: .semibold)
     fileprivate let statColumns = UIStackView()
     fileprivate let modeControl = UISegmentedControl(items: Mode.allCases.map { $0.title })
     fileprivate let summaryCaptionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
@@ -136,7 +137,8 @@ class CatchStatsVC: UIViewController {
         statColumns.isLayoutMarginsRelativeArrangement = true
         statColumns.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Spacing.small, leading: Spacing.extraSmall, bottom: Spacing.small, trailing: Spacing.extraSmall)
 
-        let content = UIStackView(arrangedSubviews: [levelRow, natureButton, statColumns])
+        let content = UIStackView(arrangedSubviews: [levelRow, natureButton, hiddenPowerLabel, statColumns])
+        content.setCustomSpacing(Spacing.extraSmall, after: natureButton)
         content.axis = .vertical
         content.spacing = Spacing.medium
         card.addAutoLayoutSubviews(content)
@@ -355,6 +357,7 @@ class CatchStatsVC: UIViewController {
         level = stats.level
         refreshLevel()
         refreshNature(stats.nature)
+        refreshHiddenPower(stats.hiddenPower)
         refreshStatColumns(with: stats)
         stepSection.isHidden = mode != .evs
         ivList.isHidden = mode != .ivs
@@ -375,6 +378,17 @@ class CatchStatsVC: UIViewController {
         raiseLevelButton.isEnabled = level < StatCalculator.levelRange.upperBound
         lowerLevelButton.alpha = lowerLevelButton.isEnabled ? 1 : CatchStatsVC.disabledAlpha
         raiseLevelButton.alpha = raiseLevelButton.isEnabled ? 1 : CatchStatsVC.disabledAlpha
+    }
+
+    fileprivate func refreshHiddenPower(_ hiddenPower: HiddenPower?) {
+        hiddenPowerLabel.isHidden = hiddenPower == nil
+        guard let hiddenPower = hiddenPower else { return }
+        let font = UIFont.make(.subheadline, weight: .semibold)
+        let text = NSMutableAttributedString(string: "Hidden Power  ", attributes: [.font: font, .foregroundColor: Color.textTertiary])
+        text.append(NSAttributedString(string: hiddenPower.type, attributes: [.font: font, .foregroundColor: MoveTypes.colors[hiddenPower.type] ?? Color.textPrimary]))
+        text.append(NSAttributedString(string: " · \(hiddenPower.power) power", attributes: [.font: font, .foregroundColor: Color.textPrimary]))
+        hiddenPowerLabel.attributedText = text
+        hiddenPowerLabel.accessibilityLabel = "Hidden Power, \(hiddenPower.type), \(hiddenPower.power) power"
     }
 
     fileprivate func refreshNature(_ nature: Nature?) {

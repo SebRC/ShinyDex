@@ -2,6 +2,11 @@ import Foundation
 
 struct IndividualValues: Equatable {
 	static let range = 0...31
+	static let firstGeneration = 3
+
+	static func isUsed(in game: Games) -> Bool {
+		return (GamesList.games[game]?.generation ?? 0) >= firstGeneration
+	}
 
 	fileprivate(set) var values: [Int?]
 

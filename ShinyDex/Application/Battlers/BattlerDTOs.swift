@@ -5,6 +5,7 @@ enum BattlerRanking: Int, CaseIterable {
     case perfectIVs
     case ivTotal
     case readiness
+    case combinedStats
 }
 
 struct BattlerStat: Equatable {
@@ -32,8 +33,9 @@ struct BattlerSummary: Equatable {
     let perfectCount: Int
     let ivTotal: Int
     let readiness: Int
-    let hiddenPowerType: String?
+    let hiddenPower: HiddenPower?
     let badges: [BattlerBadge]
+    var combinedStats: CombinedStats? = nil
     var duplicateCount = 0
 }
 

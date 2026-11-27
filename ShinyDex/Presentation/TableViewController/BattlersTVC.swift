@@ -5,10 +5,12 @@ final class BattlersTVC: UITableViewController {
     fileprivate let rankingControl = UISegmentedControl(items: BattlerRanking.allCases.map { $0.title })
     fileprivate let levelControl = UISegmentedControl(items: BattleLevel.allCases.map { "Lv. \($0.rawValue)" })
     fileprivate let missingDataLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
+    fileprivate let missingIVsButton = UIButton(type: .system)
     fileprivate var rankings = BattlerRankings(battlers: [], catchesWithoutIVs: 0, olderGenerationCatches: 0)
     fileprivate var ranking = BattlerRanking.relevantIVs
     fileprivate var level = BattleLevel.fifty
     fileprivate var showsBestOfEachSpecies = false
+    fileprivate var countsUnusedStatFully = false
 
     init(container: AppContainer) {
         self.container = container
@@ -49,6 +51,16 @@ final class BattlersTVC: UITableViewController {
             control.setTitleTextAttributes([.foregroundColor: Color.textSecondary, .font: UIFont.make(.footnote, weight: .semibold)], for: .normal)
             control.setTitleTextAttributes([.foregroundColor: Color.onAccent, .font: UIFont.make(.footnote, weight: .bold)], for: .selected)
         }
+        var missingIVsConfiguration = UIButton.Configuration.plain()
+        missingIVsConfiguration.image = UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold)
+        missingIVsConfiguration.imagePlacement = .trailing
+        missingIVsConfiguration.imagePadding = Spacing.extraSmall
+        missingIVsConfiguration.contentInsets = .zero
+        missingIVsConfiguration.baseForegroundColor = Color.accent
+        missingIVsButton.configuration = missingIVsConfiguration
+        missingIVsButton.contentHorizontalAlignment = .leading
+        missingIVsButton.accessibilityHint = "Shows the catches so you can log their IVs."
+        missingIVsButton.addTarget(self, action: #selector(missingIVsPressed), for: .touchUpInside)
         rankingControl.selectedSegmentIndex = ranking.rawValue
         rankingControl.accessibilityLabel = "Ranking"
         rankingControl.addTarget(self, action: #selector(rankingChanged), for: .valueChanged)
@@ -65,7 +77,15 @@ final class BattlersTVC: UITableViewController {
             self.updateOptionsButton()
             self.reloadRankings()
         }
-        let optionsButton = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), menu: UIMenu(children: [bestOfEachSpecies]))
+        let countsUnusedStat = UIAction(title: "Count Unused Attack Fully", subtitle: "For the Stats ranking", image: UIImage(systemName: "equal.circle"),
+                                        state: countsUnusedStatFully ? .on : .off) { [weak self] _ in
+            guard let self = self else { return }
+            self.countsUnusedStatFully.toggle()
+            Haptics.tap()
+            self.updateOptionsButton()
+            self.reloadRankings()
+        }
+        let optionsButton = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle"), menu: UIMenu(children: [bestOfEachSpecies, countsUnusedStat]))
         optionsButton.accessibilityLabel = "Options"
         navigationItem.rightBarButtonItem = optionsButton
     }
@@ -73,8 +93,10 @@ final class BattlersTVC: UITableViewController {
     // MARK: Data
 
     fileprivate func reloadRankings() {
-        rankings = container.rankBattlers.handle(RankBattlersQuery(ranking: ranking, level: level, showsBestOfEachSpecies: showsBestOfEachSpecies))
+        rankings = container.rankBattlers.handle(RankBattlersQuery(ranking: ranking, level: level, showsBestOfEachSpecies: showsBestOfEachSpecies,
+                                                                       countsUnusedStatFully: countsUnusedStatFully))
         missingDataLabel.text = makeMissingDataText()
+        refreshMissingIVsButton()
         tableView.reloadData()
         updateEmptyState()
         layOutHeader()
@@ -82,20 +104,36 @@ final class BattlersTVC: UITableViewController {
 
     fileprivate func makeMissingDataText() -> String? {
         var notes = [String]()
-        if (rankings.catchesWithoutIVs > 0) {
-            notes.append(rankings.catchesWithoutIVs == 1 ? "1 catch has no IVs logged." : "\(rankings.catchesWithoutIVs) catches have no IVs logged.")
-        }
         if (rankings.olderGenerationCatches > 0) {
             notes.append("Gen 1–2 catches aren't ranked, since they use DVs.")
         }
-        notes.append("The attacking stat a Pokémon doesn't use counts for less.")
+        guard ranking == .combinedStats else {
+            notes.append("The attacking stat a Pokémon doesn't use counts for less.")
+            return notes.joined(separator: " ")
+        }
+        notes.append(countsUnusedStatFully ? "Every stat counts fully." : "The attacking stat a Pokémon doesn't use counts a quarter.")
+        if (rankings.battlers.contains { $0.combinedStats?.isEstimated == true }) {
+            notes.append("≈ assumes an average IV where one isn't logged.")
+        }
         return notes.joined(separator: " ")
+    }
+
+    fileprivate func refreshMissingIVsButton() {
+        let count = rankings.catchesWithoutIVs
+        missingIVsButton.isHidden = count == 0
+        let title = count == 1 ? "1 catch has no IVs logged" : "\(count) catches have no IVs logged"
+        missingIVsButton.configuration?.attributedTitle = AttributedString(title, attributes: AttributeContainer([.font: UIFont.make(.footnote, weight: .semibold)]))
+        missingIVsButton.accessibilityLabel = title
+    }
+
+    @objc fileprivate func missingIVsPressed() {
+        navigationController?.pushViewController(CollectionTVC(container: container, filter: .missingIVs), animated: true)
     }
 
     fileprivate func layOutHeader() {
         let width = tableView.bounds.width
         guard width > 0 else { return }
-        let header = (tableView.tableHeaderView as? BattlersHeaderView) ?? BattlersHeaderView(rankingControl: rankingControl, levelControl: levelControl, noteLabel: missingDataLabel)
+        let header = (tableView.tableHeaderView as? BattlersHeaderView) ?? BattlersHeaderView(rankingControl: rankingControl, levelControl: levelControl, missingIVsButton: missingIVsButton, noteLabel: missingDataLabel)
         let height = header.systemLayoutSizeFitting(CGSize(width: width, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel).height
         guard tableView.tableHeaderView !== header || header.frame.size != CGSize(width: width, height: height) else { return }
         header.frame = CGRect(x: 0, y: 0, width: width, height: height)
@@ -142,14 +180,17 @@ final class BattlersTVC: UITableViewController {
 }
 
 final class BattlersHeaderView: UIView {
-    init(rankingControl: UISegmentedControl, levelControl: UISegmentedControl, noteLabel: UILabel) {
+    init(rankingControl: UISegmentedControl, levelControl: UISegmentedControl, missingIVsButton: UIButton, noteLabel: UILabel) {
         super.init(frame: .zero)
         let levelCaption = UILabel(style: .footnote, weight: .semibold, color: Color.textSecondary)
         levelCaption.text = "Stats at"
         let levelRow = UIStackView(arrangedSubviews: [levelCaption, levelControl])
         levelRow.spacing = Spacing.small
         levelRow.alignment = .center
-        let layout = UIStackView(arrangedSubviews: [rankingControl, levelRow, noteLabel])
+        let notes = UIStackView(arrangedSubviews: [missingIVsButton, noteLabel])
+        notes.axis = .vertical
+        notes.spacing = Spacing.extraSmall
+        let layout = UIStackView(arrangedSubviews: [rankingControl, levelRow, notes])
         layout.axis = .vertical
         layout.spacing = Spacing.medium
         layout.alignment = .fill
