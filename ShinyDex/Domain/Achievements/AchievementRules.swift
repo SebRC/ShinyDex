@@ -8,6 +8,7 @@ enum AchievementRules {
     static let marathonEncounters = 10_000
     static let drySpellEncounters = 20_000
     static let exactOdds = [CatchOdds.fullOdds, CatchOdds.fullOdds / 2]
+    static let goodGenesTargets = Array(1..<Stat.allCases.count)
     static let versionPairs: [(Games, Games)] = [
         (.Red, .Blue), (.Gold, .Silver), (.Ruby, .Sapphire), (.FireRed, .LeafGreen), (.Diamond, .Pearl), (.Heartgold, .SoulSilver),
         (.Black, .White), (.Black2, .White2), (.X, .Y), (.OmegaRuby, .AlphaSapphire), (.Sun, .Moon), (.UltraSun, .UltraMoon),
@@ -184,12 +185,20 @@ enum AchievementRules {
         return [
             makeMatching(.battleReady, .battle, readyCatches),
             makeMatching(.fullTeam, .battle, readyCatches, targets: [6], countsProgress: true),
+            makeGoodGenes(battlers),
             makeMatching(.perfection, .battle, battlers.filter { $0.ivs.perfectCount == Stat.allCases.count }),
             makeMatching(.fullyTrained, .battle, context.caught.filter { BattlerAssessment(caught: $0, moveCategories: moveCategories).isFullyTrained }),
             makeMatching(.trickRoomSpecialist, .battle, battlers.filter { BattlerAssessment(caught: $0, moveCategories: moveCategories).isTrickRoomBattler }),
             makeSetByDistinct(.natureLover, .battle, target: Nature.allCases.count, context.caught) { $0.nature },
             makeSetByDistinct(.hiddenPowerCollector, .battle, target: HiddenPower.types.count, battlers) { HiddenPower(ivs: $0.ivs, game: $0.game)?.type }
         ]
+    }
+
+    fileprivate static func makeGoodGenes(_ battlers: [Catch]) -> Achievement {
+        let withPerfectIVs = CatchRules.sortedByKnownDateFirst(battlers.filter { $0.ivs.perfectCount > 0 })
+        let ranked = withPerfectIVs.enumerated().sorted { ($0.element.ivs.perfectCount, -$0.offset) > ($1.element.ivs.perfectCount, -$1.offset) }.map { $0.element }
+        return Achievement(kind: .goodGenes, category: .battle, targets: goodGenesTargets, value: ranked.first?.ivs.perfectCount ?? 0, countsProgress: true,
+                           catchIds: ranked.map { $0.id })
     }
 
     // MARK: Features

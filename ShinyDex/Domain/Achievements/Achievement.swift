@@ -49,6 +49,7 @@ enum AchievementKind: Hashable {
 
     case battleReady
     case fullTeam
+    case goodGenes
     case perfection
     case fullyTrained
     case trickRoomSpecialist

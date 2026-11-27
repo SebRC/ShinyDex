@@ -174,6 +174,31 @@ final class AchievementTests: XCTestCase {
         XCTAssertEqual(achievements[.hiddenPowerCollector]?.value, 0, "Scarlet doesn't have Hidden Power")
     }
 
+    func test_goodGenes_tiersByTheMostPerfectIVsOnOneShiny_andListsTheBestFirst() {
+        let two = makeCatch(0)
+        two.ivs = makeIVs([31, 31, 20, 20, 20, 20])
+        let four = makeCatch(1)
+        four.ivs = makeIVs([31, 31, 31, 31, nil, 0])
+        let none = makeCatch(2)
+        none.ivs = makeIVs([30, 30, 30, 30, 30, 30])
+        let retro = makeCatch(3, game: .Gold)
+        retro.ivs = makeIVs([31, 31, 31, 31, 31, 31])
+
+        let goodGenes = evaluate([two, four, none, retro])[.goodGenes]
+
+        XCTAssertEqual(goodGenes?.targets, [1, 2, 3, 4, 5])
+        XCTAssertEqual(goodGenes?.value, 4)
+        XCTAssertEqual(goodGenes?.unlockedTierCount, 4)
+        XCTAssertEqual(goodGenes?.catchIds, [four.id, two.id])
+    }
+
+    func test_goodGenes_isLockedWithoutAPerfectIV() {
+        let caught = makeCatch(0)
+        caught.ivs = makeIVs([30, 30, 30, 30, 30, 30])
+
+        XCTAssertEqual(evaluate([caught])[.goodGenes]?.isUnlocked, false)
+    }
+
     // MARK: Exactly the odds
 
     func test_exactOdds_countPlainHuntsAtFullOddsOnly() {
