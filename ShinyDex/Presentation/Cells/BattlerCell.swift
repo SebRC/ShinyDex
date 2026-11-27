@@ -12,6 +12,8 @@ final class BattlerCell: UITableViewCell {
     fileprivate let scoreCaptionLabel = UILabel(style: .caption2, weight: .semibold, color: Color.textTertiary)
     fileprivate let statColumns = UIStackView()
     fileprivate let badgesLabel = UILabel(style: .caption1, lines: 0)
+    fileprivate let scoreTap = UITapGestureRecognizer()
+    var onReadinessPressed: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,6 +41,8 @@ final class BattlerCell: UITableViewCell {
         let score = UIStackView(arrangedSubviews: [scoreLabel, scoreCaptionLabel])
         score.axis = .vertical
         score.alignment = .trailing
+        scoreTap.addTarget(self, action: #selector(scorePressed))
+        score.addGestureRecognizer(scoreTap)
         let identity = UIStackView(arrangedSubviews: [rankLabel, sprite, names, score])
         identity.alignment = .center
         identity.spacing = Spacing.small
@@ -77,6 +81,20 @@ final class BattlerCell: UITableViewCell {
         badgesLabel.attributedText = battler.makeBadgeText(font: UIFont.make(.caption1, weight: .semibold))
         badgesLabel.isHidden = badgesLabel.attributedText?.length == 0
         accessibilityLabel = makeAccessibilityLabel(for: battler, rank: rank, ranking: ranking, level: level)
+        scoreTap.isEnabled = ranking == .readiness
+        accessibilityCustomActions = [UIAccessibilityCustomAction(name: "Readiness breakdown") { [weak self] _ in
+            self?.onReadinessPressed?()
+            return true
+        }]
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onReadinessPressed = nil
+    }
+
+    @objc fileprivate func scorePressed() {
+        onReadinessPressed?()
     }
 
     fileprivate func rebuildStatColumns(for battler: BattlerSummary) {

@@ -99,11 +99,11 @@ struct BattlerAssessment {
     }
 
     var readiness: Int {
-        let ivScore = relevantIVPercent * BattlerAssessment.ivPoints / 100
-        let evScore = min(usefulEffortValues, BattlerAssessment.fullyTrainedEffortValues) * BattlerAssessment.evPoints / BattlerAssessment.fullyTrainedEffortValues
-        let moveScore = min(moveCount, Catch.maximumMoveCount) * BattlerAssessment.movePoints / Catch.maximumMoveCount
-        let abilityScore = hasAbility ? BattlerAssessment.abilityPoints : 0
-        return calculateNatureScore() + ivScore + evScore + moveScore + abilityScore
+        return readinessParts.map { $0.earned }.reduce(0, +)
+    }
+
+    var readinessParts: [ReadinessPart] {
+        return ReadinessFactor.allCases.map(makeReadinessPart)
     }
 
     var hyperTrainingStats: [Stat] {
@@ -150,12 +150,69 @@ struct BattlerAssessment {
         return !canHyperTrain || (hasAllIVs && relevantIVPercent >= BattlerAssessment.minimumReadyRelevantIVPercent)
     }
 
+    fileprivate func makeReadinessPart(for factor: ReadinessFactor) -> ReadinessPart {
+        switch factor {
+        case .nature:
+            return ReadinessPart(factor: factor, earned: calculateNatureScore(), maximum: BattlerAssessment.naturePoints, improvements: findNatureImprovements())
+        case .ivs:
+            return ReadinessPart(factor: factor, earned: relevantIVPercent * BattlerAssessment.ivPoints / 100, maximum: BattlerAssessment.ivPoints, improvements: findIVImprovements())
+        case .evs:
+            let earned = min(usefulEffortValues, BattlerAssessment.fullyTrainedEffortValues) * BattlerAssessment.evPoints / BattlerAssessment.fullyTrainedEffortValues
+            return ReadinessPart(factor: factor, earned: earned, maximum: BattlerAssessment.evPoints, improvements: findEVImprovements())
+        case .moves:
+            let knownMoves = min(moveCount, Catch.maximumMoveCount)
+            let missingMoves = Catch.maximumMoveCount - knownMoves
+            return ReadinessPart(factor: factor, earned: knownMoves * BattlerAssessment.movePoints / Catch.maximumMoveCount, maximum: BattlerAssessment.movePoints,
+                                 improvements: missingMoves > 0 ? [.teachMoves(missingMoves)] : [])
+        case .ability:
+            return ReadinessPart(factor: factor, earned: hasAbility ? BattlerAssessment.abilityPoints : 0, maximum: BattlerAssessment.abilityPoints,
+                                 improvements: hasAbility ? [] : [.logAbility])
+        }
+    }
+
     fileprivate func calculateNatureScore() -> Int {
         switch natureFit {
         case .ideal: return BattlerAssessment.naturePoints
         case .fine: return BattlerAssessment.naturePoints * 3 / 5
         case .against, .unknown: return 0
         }
+    }
+
+    fileprivate func findNatureImprovements() -> [ReadinessImprovement] {
+        switch natureFit {
+        case .ideal: return []
+        case .unknown: return [.logNature]
+        case .fine, .against:
+            guard let lessRelevantStat = style.lessRelevantStat else { return [.commitToOneAttackingStat] }
+            return [.changeNature(lowering: lessRelevantStat, usesMint: canChangeNature)]
+        }
+    }
+
+    fileprivate func findIVImprovements() -> [ReadinessImprovement] {
+        let missingStats = Stat.allCases.filter { ivs[$0] == nil }
+        let imperfectStats = Stat.allCases.filter { stat in
+            let isIgnored = stat == style.lessRelevantStat || (stat == .speed && isTrickRoomBattler)
+            return !isIgnored && ivs[stat].map { $0 < IndividualValues.range.upperBound } == true
+        }
+        var improvements = [ReadinessImprovement]()
+        if (!missingStats.isEmpty) {
+            improvements.append(.logIVs(missingStats))
+        }
+        if (!imperfectStats.isEmpty) {
+            improvements.append(.raiseIVs(imperfectStats, usesHyperTraining: canHyperTrain))
+        }
+        return improvements
+    }
+
+    fileprivate func findEVImprovements() -> [ReadinessImprovement] {
+        var improvements = [ReadinessImprovement]()
+        if (!isFullyTrained) {
+            improvements.append(.trainEVs(remaining: EffortValues.maximumTotal - usefulEffortValues))
+        }
+        if (wastedEffortValues > 0) {
+            improvements.append(.moveWastedEVs(wastedEffortValues))
+        }
+        return improvements
     }
 }
 

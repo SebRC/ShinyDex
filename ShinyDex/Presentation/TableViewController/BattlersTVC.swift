@@ -168,14 +168,34 @@ final class BattlersTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BattlerCell.reuseIdentifier, for: indexPath) as! BattlerCell
-        cell.configure(battler: rankings.battlers[indexPath.row], rank: indexPath.row + 1, ranking: ranking, level: level)
+        let battler = rankings.battlers[indexPath.row]
+        cell.configure(battler: battler, rank: indexPath.row + 1, ranking: ranking, level: level)
+        cell.onReadinessPressed = { [weak self] in self?.showReadiness(of: battler) }
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let battler = rankings.battlers[indexPath.row]
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+            UIMenu(children: [
+                UIAction(title: "Readiness Breakdown", image: UIImage(systemName: "chart.bar.doc.horizontal")) { _ in self?.showReadiness(of: battler) },
+                UIAction(title: "View Details", image: UIImage(systemName: "info.circle")) { _ in self?.showDetails(of: battler) }
+            ])
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let detail = CatchDetailTVC(container: container, catchId: rankings.battlers[indexPath.row].id) else { return }
+        showDetails(of: rankings.battlers[indexPath.row])
+    }
+
+    fileprivate func showDetails(of battler: BattlerSummary) {
+        guard let detail = CatchDetailTVC(container: container, catchId: battler.id) else { return }
         navigationController?.pushViewController(detail, animated: true)
+    }
+
+    fileprivate func showReadiness(of battler: BattlerSummary) {
+        navigationController?.pushViewController(BattleReadinessVC(container: container, battler: battler, level: level), animated: true)
     }
 }
 
