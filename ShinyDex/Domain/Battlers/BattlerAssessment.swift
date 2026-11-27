@@ -86,7 +86,7 @@ struct BattlerAssessment {
     }
 
     var wastedEffortValues: Int {
-        return evs.values.map(EffortValues.countWasted).reduce(0, +)
+        return evs.wasted
     }
 
     var isFullyTrained: Bool {

@@ -6,8 +6,23 @@ class EffortValuesTests: XCTestCase {
 		let evs = EffortValues().adding(250, to: .attack).adding(10, to: .attack)
 
 		XCTAssertEqual(evs[.attack], 255)
-		XCTAssertEqual(EffortValues.countWasted(of: evs[.attack]), 3)
-		XCTAssertEqual(EffortValues.countWasted(of: 252), 0)
+		XCTAssertEqual(evs.wasted, 3)
+		XCTAssertEqual(evs.countWasted(in: .attack), 3)
+		XCTAssertEqual(evs.countWasted(in: .speed), 0)
+	}
+
+	func test_evsPastTheCap_arentWasted_whenNoOtherStatCouldEarnAPointFromThem() {
+		let evs = makeEVs([4, 252, 0, 0, 0, 254])
+
+		XCTAssertEqual(evs.wasted, 0)
+		XCTAssertEqual(evs.countWasted(in: .speed), 0)
+	}
+
+	func test_evsPastTheCap_areWasted_whenMovingThemWouldEarnAStatPoint() {
+		XCTAssertEqual(makeEVs([0, 255, 0, 0, 0, 255]).wasted, 6)
+		XCTAssertEqual(makeEVs([6, 250, 0, 0, 0, 254]).wasted, 2)
+		XCTAssertEqual(makeEVs([0, 252, 0, 0, 0, 254]).wasted, 0)
+		XCTAssertEqual(makeEVs([0, 255, 0, 0, 0, 200]).wasted, 3)
 	}
 
 	func test_adding_stopsAt510Total() {
