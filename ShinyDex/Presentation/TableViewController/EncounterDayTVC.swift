@@ -1,8 +1,8 @@
 import UIKit
 
 class EncounterDayTVC: UITableViewController {
-    fileprivate enum Section: Int, CaseIterable {
-        case total, pokemon
+    fileprivate enum Section {
+        case total, shinies, pokemon
     }
 
     fileprivate enum Row {
@@ -14,6 +14,7 @@ class EncounterDayTVC: UITableViewController {
     fileprivate let date: Date
     fileprivate var breakdown: EncounterDayBreakdown?
     fileprivate var rows = [Row]()
+    fileprivate var sections = [Section.total]
 
     init(container: AppContainer, date: Date) {
         self.container = container
@@ -33,6 +34,7 @@ class EncounterDayTVC: UITableViewController {
         tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 72
+        tableView.register(CatchCell.self, forCellReuseIdentifier: CatchCell.reuseIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +50,7 @@ class EncounterDayTVC: UITableViewController {
             let sharePercent = Int((Double(breakdown.unsplitCount) / Double(breakdown.total) * 100).rounded())
             rows.append(.unsplit(count: breakdown.unsplitCount, sharePercent: sharePercent))
         }
+        sections = [.total] + (breakdown.shinies.isEmpty ? [] : [.shinies]) + (rows.isEmpty ? [] : [.pokemon])
         tableView.reloadData()
     }
 
@@ -66,24 +69,39 @@ class EncounterDayTVC: UITableViewController {
     // MARK: Table
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return rows.isEmpty ? 1 : Section.allCases.count
+        return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Section(rawValue: section) == .total ? 1 : rows.count
+        switch sections[section] {
+        case .total: return 1
+        case .shinies: return breakdown?.shinies.count ?? 0
+        case .pokemon: return rows.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return SectionHeaderView.make(for: tableView, title: Section(rawValue: section) == .pokemon ? "By Pokémon" : nil)
+        switch sections[section] {
+        case .total: return SectionHeaderView.make(for: tableView, title: nil)
+        case .shinies: return SectionHeaderView.make(for: tableView, title: "Shinies")
+        case .pokemon: return SectionHeaderView.make(for: tableView, title: "By Pokémon")
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return sections[indexPath.section] == .shinies ? CatchCell.height : UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard let breakdown = breakdown, section == numberOfSections(in: tableView) - 1 else { return nil }
+        guard let breakdown = breakdown, sections[section] == (rows.isEmpty ? .total : .pokemon) else { return nil }
         return makeFooter(for: breakdown)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if Section(rawValue: indexPath.section) == .total {
+        switch sections[indexPath.section] {
+        case .shinies:
+            return makeShinyCell(for: breakdown!.shinies[indexPath.row], at: indexPath)
+        case .total:
             let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
             cell.backgroundColor = Color.surface
             cell.selectionStyle = .none
@@ -94,9 +112,24 @@ class EncounterDayTVC: UITableViewController {
             cell.detailTextLabel?.font = UIFont.make(.body, weight: .semibold, monospacedDigits: true)
             cell.detailTextLabel?.textColor = Color.accent
             return cell
+        case .pokemon:
+            return makePokemonShareCell(for: rows[indexPath.row])
         }
+    }
+
+    fileprivate func makeShinyCell(for caught: CatchSummary, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CatchCell.reuseIdentifier, for: indexPath) as! CatchCell
+        let details = [caught.isFailed ? "Got away" : caught.ballName, caught.encounters > 0 ? "\(caught.encounters.grouped) encounters" : nil].compactMap { $0 }
+        let title = caught.nickname ?? caught.speciesTitle
+        cell.configure(pokemonName: caught.pokemonName, formId: caught.formId, title: title,
+                       subtitle: details.joined(separator: " · "), ball: caught.caughtBall, isFailed: caught.isFailed)
+        cell.accessibilityLabel = ([title] + details).joined(separator: ", ")
+        return cell
+    }
+
+    fileprivate func makePokemonShareCell(for row: Row) -> UITableViewCell {
         let cell = PokemonShareCell()
-        switch rows[indexPath.row] {
+        switch row {
         case .pokemon(let share):
             cell.configure(image: PokemonSprites.makeImage(pokemonName: share.name), title: share.name, count: share.count, sharePercent: share.sharePercent, isTappable: true)
         case .unsplit(let count, let sharePercent):
@@ -108,9 +141,16 @@ class EncounterDayTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard Section(rawValue: indexPath.section) == .pokemon, case .pokemon(let share) = rows[indexPath.row],
-              let tracker = ShinyTrackerVC(container: container, number: share.number) else { return }
-        navigationController?.pushViewController(tracker, animated: true)
+        switch sections[indexPath.section] {
+        case .shinies:
+            guard let caught = breakdown?.shinies[indexPath.row], let detail = CatchDetailTVC(container: container, catchId: caught.id) else { return }
+            navigationController?.pushViewController(detail, animated: true)
+        case .pokemon:
+            guard case .pokemon(let share) = rows[indexPath.row], let tracker = ShinyTrackerVC(container: container, number: share.number) else { return }
+            navigationController?.pushViewController(tracker, animated: true)
+        case .total:
+            break
+        }
     }
 
     fileprivate static func format(_ date: Date, template: String) -> String {
