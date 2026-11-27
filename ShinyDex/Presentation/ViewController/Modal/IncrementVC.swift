@@ -1,21 +1,8 @@
 import UIKit
 
 class IncrementVC: UIViewController, UITextFieldDelegate {
-    fileprivate struct Preset {
-        let value: Int
-        let label: String
-        let description: String
-    }
-
     fileprivate static let maximumIncrement = 100
-    fileprivate static let presets = [
-        Preset(value: 1, label: "Single", description: "Single encounters, like soft resetting for one Pokémon, Pokéradar chaining or chain fishing."),
-        Preset(value: 2, label: "Double", description: "Double hunting, like soft resetting for static encounters on two systems."),
-        Preset(value: 3, label: "Radar ×3", description: "Pokéradar chaining when space is limited and three patches of grass shake most often."),
-        Preset(value: 4, label: "Radar ×4", description: "Pokéradar chaining with plenty of space, where four patches of grass shake most often."),
-        Preset(value: 5, label: "Radar ×5", description: "Generation 6 (X & Y) Pokéradar chaining, where five patches can shake at once, or receiving 5 gift Pokémon per reset."),
-        Preset(value: 6, label: "Horde", description: "Horde encounters, where six Pokémon appear at once.")
-    ]
+    fileprivate static let presets = Array(1...6)
 
     fileprivate let container: AppContainer
     fileprivate let number: Int
@@ -29,7 +16,6 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
     fileprivate let customField = UITextField()
     fileprivate let customMinus = UIButton(type: .system)
     fileprivate let customPlus = UIButton(type: .system)
-    fileprivate let descriptionLabel = UILabel(style: .subheadline, color: Color.textSecondary, lines: 0)
     fileprivate let previewLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.accent, lines: 0)
 
     fileprivate var selectedPresetIndex: Int?
@@ -55,7 +41,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(confirmPressed))
         navigationItem.rightBarButtonItem = saveButton
 
-        if let index = IncrementVC.presets.firstIndex(where: { $0.value == currentIncrement }) {
+        if let index = IncrementVC.presets.firstIndex(of: currentIncrement) {
             selectedPresetIndex = index
         }
         else {
@@ -77,7 +63,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         stack.spacing = 10
 
         for (index, preset) in IncrementVC.presets.enumerated() {
-            let tile = IncrementTile(valueText: "\(preset.value)", label: preset.label, isWide: false)
+            let tile = IncrementTile(valueText: "\(preset)", label: preset == 1 ? "encounter" : "encounters", isWide: false)
             tile.tag = index
             tile.addTarget(self, action: #selector(presetPressed(_:)), for: .touchUpInside)
             presetTiles.append(tile)
@@ -93,22 +79,8 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         setUpCustomCard()
         stack.addArrangedSubview(customCard)
 
-        let descriptionCard = UIView()
-        descriptionCard.backgroundColor = Color.surface
-        descriptionCard.layer.cornerRadius = CornerRadius.standard
-        let infoIcon = UIImageView(image: UIImage.makeSymbol("info.circle", pointSize: 15, weight: .semibold))
-        infoIcon.tintColor = Color.textTertiary
-        infoIcon.setContentHuggingPriority(.required, for: .horizontal)
-        let descriptionRow = UIStackView(arrangedSubviews: [infoIcon, descriptionLabel])
-        descriptionRow.spacing = 10
-        descriptionRow.alignment = .top
-        descriptionCard.addAutoLayoutSubviews(descriptionRow)
-        descriptionRow.pinEdges(to: descriptionCard, insets: UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14))
-        stack.setCustomSpacing(18, after: customCard)
-        stack.addArrangedSubview(descriptionCard)
-
         previewLabel.textAlignment = .center
-        stack.setCustomSpacing(16, after: descriptionCard)
+        stack.setCustomSpacing(18, after: customCard)
         stack.addArrangedSubview(previewLabel)
 
         view.addAutoLayoutSubviews(scrollView)
@@ -201,7 +173,7 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
 
     fileprivate func getIncrement() -> Int? {
         if let index = selectedPresetIndex {
-            return IncrementVC.presets[index].value
+            return IncrementVC.presets[index]
         }
         return validCustomValue
     }
@@ -220,8 +192,6 @@ class IncrementVC: UIViewController, UITextFieldDelegate {
         customMinus.isEnabled = (validCustomValue ?? customValue) > 1
         customPlus.isEnabled = (validCustomValue ?? customValue) < IncrementVC.maximumIncrement
 
-        descriptionLabel.text = selectedPresetIndex.map { IncrementVC.presets[$0].description }
-            ?? "Set your own number of encounters per tap, from 1 to \(IncrementVC.maximumIncrement)."
         if let increment = getIncrement() {
             previewLabel.text = increment == 1 ? "Each tap on + adds 1 encounter" : "Each tap on + adds \(increment) encounters"
             previewLabel.textColor = Color.accent
