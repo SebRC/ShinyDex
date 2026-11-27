@@ -125,6 +125,7 @@
 		B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000A /* EncounterHistoryChartView.swift */; };
 		B18700000000000000000009 /* GetEncounterHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000008 /* GetEncounterHistory.swift */; };
 		2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */; };
+		B27400000000000000000002 /* ClosestToOddsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27400000000000000000001 /* ClosestToOddsView.swift */; };
 		AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F002 /* HuntRankingView.swift */; };
 		AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F001 /* HuntRankRow.swift */; };
 		A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A48736C9F55354A7736D7 /* NatureChartView.swift */; };
@@ -549,6 +550,7 @@
 		B1870000000000000000000A /* EncounterHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryChartView.swift; sourceTree = "<group>"; };
 		B18700000000000000000008 /* GetEncounterHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEncounterHistory.swift; sourceTree = "<group>"; };
 		AB52DE5E000000000000F001 /* HuntRankRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankRow.swift; sourceTree = "<group>"; };
+		B27400000000000000000001 /* ClosestToOddsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosestToOddsView.swift; sourceTree = "<group>"; };
 		AB52DE5E000000000000F002 /* HuntRankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntRankingView.swift; sourceTree = "<group>"; };
 		0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyDateRow.swift; sourceTree = "<group>"; };
 		1D5A48736C9F55354A7736D7 /* NatureChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatureChartView.swift; sourceTree = "<group>"; };
@@ -972,6 +974,7 @@
 				B17700000000000000000015 /* GoalProgressCard.swift */,
 				0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */,
 				AB52DE5E000000000000F002 /* HuntRankingView.swift */,
+				B27400000000000000000001 /* ClosestToOddsView.swift */,
 				AB52DE5E000000000000F001 /* HuntRankRow.swift */,
 				1D5A48736C9F55354A7736D7 /* NatureChartView.swift */,
 				B21000000000000000000001 /* UsageGridView.swift */,
@@ -2162,6 +2165,7 @@
 				B1B60A000000000000000003 /* BingoBoard.swift in Sources */,
 				2073FB3C37A70B0EA724DD09 /* LuckyDateRow.swift in Sources */,
 				AB52DE5E000000000000B002 /* HuntRankingView.swift in Sources */,
+				B27400000000000000000002 /* ClosestToOddsView.swift in Sources */,
 				AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */,
 				A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */,
 				B21000000000000000000002 /* UsageGridView.swift in Sources */,

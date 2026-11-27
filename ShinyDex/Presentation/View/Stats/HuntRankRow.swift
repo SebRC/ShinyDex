@@ -3,7 +3,7 @@ import UIKit
 final class HuntRankRow: UIControl {
     var onTap: (() -> Void)?
 
-    init(rank: Int, hunt: CatchSummary) {
+    init(rank: Int, hunt: CatchSummary, detail: String? = nil, valueDetail: String? = nil, valueDetailColor: UIColor = Color.textTertiary) {
         super.init(frame: .zero)
         let rankLabel = UILabel(style: .footnote, weight: .bold, color: rank == 1 ? Color.accent : Color.textQuaternary)
         rankLabel.font = UIFont.make(.footnote, weight: .bold, monospacedDigits: true)
@@ -16,7 +16,7 @@ final class HuntRankRow: UIControl {
         let nameLabel = UILabel(style: .subheadline, weight: .medium)
         nameLabel.text = hunt.nickname ?? hunt.speciesTitle
         let detailLabel = UILabel(style: .caption1, color: Color.textTertiary)
-        detailLabel.text = [hunt.isFailed ? "Got away" : hunt.game.displayName, hunt.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
+        detailLabel.text = detail ?? [hunt.isFailed ? "Got away" : hunt.game.displayName, hunt.formattedCaughtDate].compactMap { $0 }.joined(separator: " · ")
         let labels = UIStackView(arrangedSubviews: [nameLabel, detailLabel])
         labels.axis = .vertical
         labels.spacing = 1
@@ -25,10 +25,20 @@ final class HuntRankRow: UIControl {
         encountersLabel.text = hunt.encounters.grouped
         encountersLabel.setContentHuggingPriority(.required, for: .horizontal)
         encountersLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        let valueDetailLabel = UILabel(style: .caption1, weight: .semibold, color: valueDetailColor)
+        valueDetailLabel.font = UIFont.make(.caption1, weight: .semibold, monospacedDigits: true)
+        valueDetailLabel.text = valueDetail
+        valueDetailLabel.isHidden = valueDetail == nil
+        let values = UIStackView(arrangedSubviews: [encountersLabel, valueDetailLabel])
+        values.axis = .vertical
+        values.alignment = .trailing
+        values.spacing = 1
+        values.setContentHuggingPriority(.required, for: .horizontal)
+        values.setContentCompressionResistancePriority(.required, for: .horizontal)
         let chevron = UIImageView(image: UIImage.makeSymbol("chevron.right", pointSize: 12, weight: .semibold))
         chevron.tintColor = Color.textQuaternary
         chevron.setContentHuggingPriority(.required, for: .horizontal)
-        let layout = UIStackView(arrangedSubviews: [rankLabel, sprite, labels, encountersLabel, chevron])
+        let layout = UIStackView(arrangedSubviews: [rankLabel, sprite, labels, values, chevron])
         layout.alignment = .center
         layout.spacing = 10
         layout.isUserInteractionEnabled = false
@@ -42,7 +52,7 @@ final class HuntRankRow: UIControl {
         addTarget(self, action: #selector(tapped), for: .touchUpInside)
         isAccessibilityElement = true
         accessibilityTraits = .button
-        accessibilityLabel = "Number \(rank): \(nameLabel.text ?? ""), \(hunt.encounters.grouped) encounters, \(detailLabel.text ?? "")"
+        accessibilityLabel = ["Number \(rank): \(nameLabel.text ?? "")", "\(hunt.encounters.grouped) encounters", valueDetail, detailLabel.text].compactMap { $0 }.joined(separator: ", ")
         accessibilityHint = "Shows this catch."
     }
 

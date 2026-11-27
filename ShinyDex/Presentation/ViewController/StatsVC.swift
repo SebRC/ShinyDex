@@ -4,6 +4,7 @@ class StatsVC: UIViewController {
     fileprivate let scrollView = UIScrollView()
     fileprivate let stack = UIStackView()
     fileprivate let huntRanking = HuntRankingView()
+    fileprivate let closestToOdds = ClosestToOddsView()
     fileprivate let container: AppContainer
 
     init(container: AppContainer) {
@@ -22,6 +23,9 @@ class StatsVC: UIViewController {
         stack.axis = .vertical
         stack.spacing = 6
         huntRanking.onSelect = { [weak self] hunt in
+            self?.showCatch(hunt)
+        }
+        closestToOdds.onSelect = { [weak self] hunt in
             self?.showCatch(hunt)
         }
         view.addAutoLayoutSubviews(scrollView)
@@ -65,6 +69,7 @@ class StatsVC: UIViewController {
         addLuckiestDates(stats)
         addRecords(stats)
         addHuntRankings(stats)
+        addClosestToOdds(stats)
         let ballCounts = Dictionary(uniqueKeysWithValues: stats.ballUsage.map { ($0.key, $0.count) })
         addUsageGrid(title: "Balls", noun: "balls", items: BallGrid(container: container).ballNames.map { ball in
             UsageGridItem(title: BallGrid.getDisplayName(of: ball), image: UIImage(named: ball), count: ballCounts[ball] ?? 0, filter: .ball(ball))
@@ -305,6 +310,12 @@ class StatsVC: UIViewController {
         guard stats.longestHunts.count > 1 else { return }
         huntRanking.update(longestHunts: stats.longestHunts, shortestHunts: stats.shortestHunts)
         addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged.")
+    }
+
+    fileprivate func addClosestToOdds(_ stats: CatchStatistics) {
+        guard !stats.closestToOdds.isEmpty else { return }
+        closestToOdds.update(oddsHunts: stats.closestToOdds)
+        addSection("Closest to odds", closestToOdds, footnote: "Shinies found nearest their odds, over or under. Chain methods are left out, since their odds depend on the chain.")
     }
 
     fileprivate func addUsageGrid(title: String, noun: String, items: [UsageGridItem], total: Int) {

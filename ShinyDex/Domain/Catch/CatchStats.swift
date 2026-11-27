@@ -12,6 +12,19 @@ struct CatchStats {
         let foundCount: Int
     }
 
+    struct OddsHunt {
+        let caught: Catch
+        let odds: Int
+
+        var encountersPastOdds: Int {
+            return caught.encounters - odds
+        }
+
+        var distanceFromOdds: Double {
+            return abs(Double(encountersPastOdds)) / Double(odds)
+        }
+    }
+
     struct YearLuck: Equatable {
         let year: Int
         let luck: Luck
@@ -58,6 +71,7 @@ struct CatchStats {
     let unknownGenderCount: Int
     let shortestHunts: [Catch]
     let longestHunts: [Catch]
+    let closestToOdds: [OddsHunt]
 
     static let rankedHuntCount = 10
 
@@ -107,6 +121,10 @@ struct CatchStats {
 
         shortestHunts = Array(withEncounters.sorted { $0.encounters < $1.encounters }.prefix(CatchStats.rankedHuntCount))
         longestHunts = Array(withEncounters.sorted { $0.encounters > $1.encounters }.prefix(CatchStats.rankedHuntCount))
+        closestToOdds = Array(withEncounters
+            .compactMap { caught in CatchOdds.getOdds(for: caught).map { OddsHunt(caught: caught, odds: $0) } }
+            .sorted { $0.distanceFromOdds < $1.distanceFromOdds }
+            .prefix(CatchStats.rankedHuntCount))
     }
 
     static func isMissingIVs(_ caught: Catch) -> Bool {
