@@ -5,6 +5,7 @@ class Pokemon: NSObject {
 	var number: Int
 	var encounters: Int
 	var chain = 0
+	var phases = [HuntPhase]()
 	var caughtDescription: String
 	var caughtBall: String
 	var isBeingHunted: Bool

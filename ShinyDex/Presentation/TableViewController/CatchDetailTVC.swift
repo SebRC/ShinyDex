@@ -27,6 +27,7 @@ class CatchDetailTVC: UITableViewController {
         case method
         case encounters
         case caughtDate
+        case phases
     }
 
     fileprivate struct Row {
@@ -105,6 +106,8 @@ class CatchDetailTVC: UITableViewController {
             Row(field: .encounters, title: "Encounters", value: caught.encounters.grouped, image: UIImage.makeSymbol("number", pointSize: 18, weight: .medium), isSymbol: true),
             Row(field: .caughtDate, title: caught.isFailed ? "Found" : "Caught", value: caught.formattedCaughtDate ?? "Unknown", image: UIImage.makeSymbol("calendar", pointSize: 18, weight: .medium), isSymbol: true)
         ]
+        rows.append(Row(field: .phases, title: "Phases", value: details.phaseCount == 0 ? "None" : "\(details.phaseCount)",
+                        image: UIImage.makeSymbol("arrow.triangle.branch", pointSize: 18, weight: .medium), isSymbol: true))
         if (caught.isFailed) {
             rows.removeAll { $0.field == .ball }
         }
@@ -412,6 +415,10 @@ class CatchDetailTVC: UITableViewController {
             present(CatchDatePickerVC.makeNavigationController(initialDate: caught.caughtDate) { [weak self] date in
                 self?.save(.caughtDate(date))
             }, animated: true)
+        case .phases:
+            let phases = PhasesTVC(container: container, source: .caught(catchId))
+            phases.onChange = { [weak self] in self?.reloadRows() }
+            navigationController?.pushViewController(phases, animated: true)
         }
     }
 

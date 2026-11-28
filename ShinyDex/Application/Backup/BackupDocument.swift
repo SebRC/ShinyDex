@@ -19,6 +19,7 @@ struct BackupDocument: Codable {
         let huntMethod: HuntMethod
         let increment: Int
         let game: Games
+        var phases: [PhaseRecord]? = nil
     }
 
     struct CatchRecord: Codable {
@@ -42,6 +43,12 @@ struct BackupDocument: Codable {
         var ability: String? = nil
         var moves: [Int]? = nil
         var level: Int? = nil
+        var phaseCatchIds: [UUID]? = nil
+    }
+
+    struct PhaseRecord: Codable {
+        let catchId: UUID
+        let encounters: Int
     }
 
     struct HuntRecord: Codable {
@@ -173,14 +180,16 @@ extension BackupDocument {
         self.createdDate = createdDate
         self.pokemon = pokemon.map {
             PokemonRecord(number: $0.number, encounters: $0.encounters, chain: $0.chain, isBeingHunted: $0.isBeingHunted, generation: $0.generation, isShinyCharmActive: $0.isShinyCharmActive,
-                          shinyOdds: $0.shinyOdds, huntMethod: $0.huntMethod, increment: $0.increment, game: $0.game)
+                          shinyOdds: $0.shinyOdds, huntMethod: $0.huntMethod, increment: $0.increment, game: $0.game,
+                          phases: $0.phases.isEmpty ? nil : $0.phases.map { PhaseRecord(catchId: $0.catchId, encounters: $0.encounters) })
         }
         self.catches = catches.map {
             CatchRecord(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                         isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed,
                         evs: $0.evs.isEmpty ? nil : $0.evs.encoded, evolvedFrom: $0.evolvedFrom, nickname: $0.nickname,
                         gender: $0.gender, nature: $0.nature, ivs: $0.ivs.isEmpty ? nil : $0.ivs.encoded, formId: $0.formId,
-                        encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability, moves: $0.moves.isEmpty ? nil : $0.moves, level: $0.level)
+                        encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability, moves: $0.moves.isEmpty ? nil : $0.moves, level: $0.level,
+                        phaseCatchIds: $0.phaseCatchIds.isEmpty ? nil : $0.phaseCatchIds)
         }
         self.hunts = hunts.map {
             HuntRecord(id: $0.id, name: $0.name, pokemonNumbers: $0.indexes, priority: $0.priority, isCollapsed: $0.isCollapsed)
@@ -210,7 +219,7 @@ extension BackupDocument {
             Catch(id: $0.id, number: $0.number, caughtBall: $0.caughtBall, game: $0.game, huntMethod: $0.huntMethod, encounters: $0.encounters,
                   isShinyCharmActive: $0.isShinyCharmActive, caughtDate: $0.caughtDate, isFailed: $0.isFailed, evs: EffortValues(encoded: $0.evs),
                   evolvedFrom: $0.evolvedFrom, nickname: $0.nickname, gender: $0.gender, nature: $0.nature, ivs: IndividualValues(encoded: $0.ivs), formId: $0.formId,
-                  encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability, moves: $0.moves ?? [], level: $0.level)
+                  encounterTotalAtFind: $0.encounterTotalAtFind, ability: $0.ability, moves: $0.moves ?? [], level: $0.level, phaseCatchIds: $0.phaseCatchIds ?? [])
         }
     }
 

@@ -102,6 +102,11 @@ final class AppContainer {
     var updateCatch: UpdateCatchHandler { UpdateCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var evolveCatch: EvolveCatchHandler { EvolveCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, abilities: abilities, genders: genders) }
     var deleteCatch: DeleteCatchHandler { DeleteCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
+    var logPhase: LogPhaseHandler { LogPhaseHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms, genders: genders, abilities: abilities) }
+    var unlinkPhase: UnlinkPhaseHandler { UnlinkPhaseHandler(pokemonRepository: pokemonRepository) }
+    var getPhases: GetPhasesHandler { GetPhasesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, genders: genders) }
+    var changeCatchPhases: ChangeCatchPhasesHandler { ChangeCatchPhasesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
+    var getPhaseCandidates: GetPhaseCandidatesHandler { GetPhaseCandidatesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, genders: genders) }
     var removeLatestCatch: RemoveLatestCatchHandler { RemoveLatestCatchHandler(catchRepository: catchRepository, deleteCatch: deleteCatch) }
 
     // MARK: Battlers

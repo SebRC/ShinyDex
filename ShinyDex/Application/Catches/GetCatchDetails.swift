@@ -45,7 +45,8 @@ final class GetCatchDetailsHandler {
             formChoices: FormChoices(forms.getForms(of: caught.number)),
             ability: makeAbility(of: caught),
             moves: makeMoves(of: caught),
-            gender: CatchGender(value: genders.resolve(caught.gender, for: caught.number), choices: genders.findPossibleGenders(of: caught.number)))
+            gender: CatchGender(value: genders.resolve(caught.gender, for: caught.number), choices: genders.findPossibleGenders(of: caught.number)),
+            phaseCount: caught.phaseCatchIds.filter { catchRepository.get(id: $0) != nil }.count)
     }
 
     private func makeMoves(of caught: Catch) -> [MoveChoice] {

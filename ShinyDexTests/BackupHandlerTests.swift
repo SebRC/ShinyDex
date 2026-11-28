@@ -61,6 +61,7 @@ final class BackupHandlerTests: XCTestCase {
         caught.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         caught.formId = "east"
         caught.encounterTotalAtFind = 900
+        caught.phaseCatchIds = [UUID(uuidString: "6B2D4A10-0000-4000-8000-000000000003")!]
         return caught
     }
 
@@ -95,6 +96,7 @@ final class BackupHandlerTests: XCTestCase {
         venusaur.isShinyCharmActive = true
         venusaur.shinyOdds = 512
         venusaur.increment = 5
+        venusaur.phases = [HuntPhase(catchId: caught.id, encounters: 1234)]
         pokemon.save(venusaur)
         return (caught, hunt, journey, board)
     }
@@ -139,6 +141,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(caught.ivs, seeded.caught.ivs)
         XCTAssertEqual(caught.formId, "east")
         XCTAssertEqual(caught.encounterTotalAtFind, 900)
+        XCTAssertEqual(caught.phaseCatchIds, seeded.caught.phaseCatchIds)
         XCTAssertTrue(try XCTUnwrap(backup.catches.first { $0.id != seeded.caught.id }).isFailed)
 
         let hunt = try XCTUnwrap(backup.hunts.first)
@@ -226,6 +229,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertTrue(venusaur.isShinyCharmActive)
         XCTAssertEqual(venusaur.shinyOdds, 512)
         XCTAssertEqual(venusaur.increment, 5)
+        XCTAssertEqual(venusaur.phases.map { $0.encounters }, [1234])
         XCTAssertEqual(venusaur.caughtBall, CatchRules.noBall)
     }
 

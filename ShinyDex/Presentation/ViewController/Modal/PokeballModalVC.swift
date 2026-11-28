@@ -10,6 +10,7 @@ enum PokeballPickerResult {
 class PokeballModalVC: UIViewController {
     fileprivate let container: AppContainer
     fileprivate let number: Int
+    fileprivate let phaseOfNumber: Int?
     fileprivate let pokemonName: String
     fileprivate let onFinish: (PokeballPickerResult) -> Void
     fileprivate lazy var ballGrid = BallGrid(container: container)
@@ -28,9 +29,10 @@ class PokeballModalVC: UIViewController {
     fileprivate let spriteView = UIImageView()
     fileprivate let formButton = UIButton(type: .system)
 
-    init(container: AppContainer, number: Int, pokemonName: String, onFinish: @escaping (PokeballPickerResult) -> Void) {
+    init(container: AppContainer, number: Int, pokemonName: String, phaseOf phaseOfNumber: Int? = nil, onFinish: @escaping (PokeballPickerResult) -> Void) {
         self.container = container
         self.number = number
+        self.phaseOfNumber = phaseOfNumber
         self.pokemonName = pokemonName
         self.onFinish = onFinish
         super.init(nibName: nil, bundle: nil)
@@ -47,7 +49,7 @@ class PokeballModalVC: UIViewController {
         caughtBall = details?.caughtBall
         formChoices = container.getPokemonForms.handle(GetPokemonFormsQuery(number: number))
         view.backgroundColor = Color.background
-        title = "Log a catch"
+        title = phaseOfNumber == nil ? "Log a catch" : "Log a phase"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
         setUpSummaryView()
         setUpGridView()
@@ -149,12 +151,12 @@ class PokeballModalVC: UIViewController {
         gridView.caption = "WHICH BALL?"
         gridView.items = ballGrid.items
         gridView.currentIndex = hasCatches ? ballGrid.findIndex(of: caughtBall) : nil
-        if (hasCatches) {
+        if (hasCatches && phaseOfNumber == nil) {
             gridView.actions = [IconGridAction(title: "Remove latest catch", symbol: "arrow.uturn.left", isDestructive: true)]
         }
         gridView.onSelect = { [weak self] index in
             guard let self = self else { return }
-            self.container.logCatch.handle(LogCatchCommand(number: self.number, outcome: .caught(ball: self.ballGrid.ballNames[index]), date: self.caughtDate, formId: self.selectedFormId))
+            self.log(.caught(ball: self.ballGrid.ballNames[index]))
             Haptics.playSuccess()
             self.finish(.loggedCatch)
         }
@@ -209,9 +211,18 @@ class PokeballModalVC: UIViewController {
     }
 
     @objc fileprivate func logFailedPressed() {
-        container.logCatch.handle(LogCatchCommand(number: number, outcome: .gotAway, date: caughtDate, formId: selectedFormId))
+        log(.gotAway)
         Haptics.tap()
         finish(.loggedFailed)
+    }
+
+    fileprivate func log(_ outcome: LogCatchCommand.Outcome) {
+        if let huntedNumber = phaseOfNumber {
+            container.logPhase.handle(LogPhaseCommand(huntedNumber: huntedNumber, foundNumber: number, outcome: outcome, date: caughtDate, formId: selectedFormId))
+        }
+        else {
+            container.logCatch.handle(LogCatchCommand(number: number, outcome: outcome, date: caughtDate, formId: selectedFormId))
+        }
     }
 
     fileprivate func finish(_ result: PokeballPickerResult) {

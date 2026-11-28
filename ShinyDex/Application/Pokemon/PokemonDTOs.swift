@@ -50,6 +50,8 @@ struct PokemonDetails: Equatable {
     let caughtBall: String
     let catchCount: Int
     let isBeingHunted: Bool
+    var phaseCount = 0
+    var encountersThisPhase = 0
 }
 
 extension HuntSettings {
@@ -88,6 +90,8 @@ struct PokemonDetailsMapper {
             probability: calculator.calculateChance(encounters: pokemon.encounters, chain: pokemon.chain, configuration: configuration),
             caughtBall: pokemon.caughtBall,
             catchCount: catchCount,
-            isBeingHunted: pokemon.isBeingHunted)
+            isBeingHunted: pokemon.isBeingHunted,
+            phaseCount: pokemon.phases.count,
+            encountersThisPhase: max(pokemon.encounters - (pokemon.phases.last?.encounters ?? 0), 0))
     }
 }

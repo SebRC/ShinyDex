@@ -169,7 +169,19 @@ class ShinyTrackerVC: UIViewController {
         catchesButton.accessibilityLabel = "Catches"
         let catchRateButton = UIBarButtonItem(image: UIImage(systemName: "circle.circle"), style: .plain, target: self, action: #selector(catchRatePressed))
         catchRateButton.accessibilityLabel = "Catch rate"
-        navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton, catchRateButton]
+        let phasesButton = UIBarButtonItem(image: UIImage(systemName: "arrow.triangle.branch"), style: .plain, target: self, action: #selector(phasesPressed))
+        phasesButton.accessibilityLabel = "Phases"
+        navigationItem.rightBarButtonItems = [addToHuntButton, catchesButton, phasesButton, catchRateButton]
+    }
+
+    @objc fileprivate func phasesPressed() {
+        let phases = PhasesTVC(container: container, source: .hunt(number: pokemon.number))
+        phases.onChange = { [weak self] in
+            self?.reloadPokemon()
+            self?.resolveEncounterDetails()
+            self?.setCaughtStatus()
+        }
+        navigationController?.pushViewController(phases, animated: true)
     }
 
     @objc fileprivate func catchRatePressed() {
@@ -273,9 +285,11 @@ class ShinyTrackerVC: UIViewController {
     fileprivate func setCounterText(_ counter: HuntCounterText) {
         encountersCaptionLabel.text = counter.primary.label.uppercased()
         encountersValueLabel.text = counter.primary.value.grouped
-        encountersDetailLabel.text = counter.secondary.map { "\($0.label): \($0.value.grouped)" }
-        encountersDetailLabel.isHidden = counter.secondary == nil
-        heroView.accessibilityLabel = ([counter.primary] + [counter.secondary].compactMap { $0 }).map { "\($0.label) \($0.value)" }.joined(separator: ", ")
+        let phaseText = pokemon.phaseCount == 0 ? nil : "Phase \(pokemon.phaseCount + 1) · \(pokemon.encountersThisPhase.grouped) this phase"
+        let details = [counter.secondary.map { "\($0.label): \($0.value.grouped)" }, phaseText].compactMap { $0 }
+        encountersDetailLabel.text = details.joined(separator: " · ")
+        encountersDetailLabel.isHidden = details.isEmpty
+        heroView.accessibilityLabel = (([counter.primary] + [counter.secondary].compactMap { $0 }).map { "\($0.label) \($0.value)" } + [phaseText].compactMap { $0 }).joined(separator: ", ")
     }
 
     fileprivate func setOddsLabelText() {

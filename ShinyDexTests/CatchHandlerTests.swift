@@ -156,4 +156,162 @@ final class CatchHandlerTests: XCTestCase {
         XCTAssertEqual(statistics.weekdays.reduce(0) { $0 + $1.foundCount }, 1)
         XCTAssertEqual(statistics.luckiestDates, [])
     }
+
+    // MARK: Phases
+
+    private func huntVenusaur(encounters: Int) {
+        let hunted = pokemon.get(number: venusaur)!
+        hunted.encounters = encounters
+        hunted.game = .Platinum
+        hunted.huntMethod = .Masuda
+        hunted.isShinyCharmActive = true
+        pokemon.save(hunted)
+    }
+
+    private func setVenusaurEncounters(_ encounters: Int) {
+        let hunted = pokemon.get(number: venusaur)!
+        hunted.encounters = encounters
+        pokemon.save(hunted)
+    }
+
+    private func logPhase(found number: Int, outcome: LogCatchCommand.Outcome = .caught(ball: "dive")) {
+        LogPhaseHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository())
+            .handle(LogPhaseCommand(huntedNumber: venusaur, foundNumber: number, outcome: outcome, date: makeDay(3)))
+    }
+
+    private func getPhases(_ source: GetPhasesQuery.Source) -> PhaseList? {
+        return GetPhasesHandler(catchRepository: catches, pokemonRepository: pokemon).handle(GetPhasesQuery(source: source))
+    }
+
+    func test_logPhase_logsTheOtherShinyWithTheHuntsSettings_andTheEncountersSinceTheLastPhase() {
+        huntVenusaur(encounters: 300)
+        logPhase(found: bulbasaur)
+        setVenusaurEncounters(750)
+        logPhase(found: ivysaur, outcome: .gotAway)
+
+        let bulbasaurPhase = catches.getAll(number: bulbasaur).first!
+        let ivysaurPhase = catches.getAll(number: ivysaur).first!
+        XCTAssertEqual(bulbasaurPhase.encounters, 300)
+        XCTAssertEqual(bulbasaurPhase.game, .Platinum)
+        XCTAssertEqual(bulbasaurPhase.huntMethod, .Masuda)
+        XCTAssertTrue(bulbasaurPhase.isShinyCharmActive)
+        XCTAssertEqual(bulbasaurPhase.caughtBall, "dive")
+        XCTAssertEqual(ivysaurPhase.encounters, 450)
+        XCTAssertTrue(ivysaurPhase.isFailed)
+        XCTAssertEqual(pokemon.get(number: venusaur)?.phases, [HuntPhase(catchId: bulbasaurPhase.id, encounters: 300), HuntPhase(catchId: ivysaurPhase.id, encounters: 750)])
+        XCTAssertEqual(pokemon.get(number: bulbasaur)?.caughtBall, "dive")
+    }
+
+    func test_huntPhases_listEachPhase_andTheEncountersSinceTheLast() throws {
+        huntVenusaur(encounters: 300)
+        logPhase(found: bulbasaur)
+        setVenusaurEncounters(1000)
+
+        let list = try XCTUnwrap(getPhases(.hunt(number: venusaur)))
+
+        XCTAssertEqual(list.phases.map { $0.caught.number }, [bulbasaur])
+        XCTAssertEqual(list.phases.map { $0.foundAt }, [300])
+        XCTAssertEqual(list.phases.map { $0.encounters }, [300])
+        XCTAssertEqual(list.encountersAfterPhases, 700)
+        XCTAssertTrue(list.isHunt)
+        XCTAssertEqual(GetPokemonDetailsHandler(pokemonRepository: pokemon, catchRepository: catches, odds: OddsService(), probability: ProbabilityService())
+            .handle(GetPokemonDetailsQuery(number: venusaur))?.encountersThisPhase, 700)
+    }
+
+    func test_loggingTheTarget_movesItsPhasesOntoTheCatch() throws {
+        huntVenusaur(encounters: 300)
+        logPhase(found: bulbasaur)
+        setVenusaurEncounters(1000)
+        log(venusaur, ball: "ultra", on: makeDay(4))
+
+        let target = try XCTUnwrap(catches.getAll(number: venusaur).first)
+        let phase = try XCTUnwrap(catches.getAll(number: bulbasaur).first)
+        XCTAssertEqual(target.phaseCatchIds, [phase.id])
+        XCTAssertEqual(target.encounters, 1000)
+        XCTAssertEqual(pokemon.get(number: venusaur)?.phases, [])
+        let list = try XCTUnwrap(getPhases(.caught(CatchID(rawValue: target.id))))
+        XCTAssertEqual(list.phases.map { $0.encounters }, [300])
+        XCTAssertEqual(list.encountersAfterPhases, 700)
+        XCTAssertFalse(list.isHunt)
+        XCTAssertEqual(GetCatchDetailsHandler(catchRepository: catches, pokemonRepository: pokemon, evolutions: Evolutions(evolvesFrom: [-1, 0, 1]))
+            .handle(GetCatchDetailsQuery(catchId: CatchID(rawValue: target.id)))?.phaseCount, 1)
+    }
+
+    func test_unlinkingAPhase_keepsTheShiny_andResettingTheCounterClearsPhases() {
+        huntVenusaur(encounters: 300)
+        logPhase(found: bulbasaur)
+        logPhase(found: ivysaur)
+        let bulbasaurPhase = catches.getAll(number: bulbasaur).first!
+
+        UnlinkPhaseHandler(pokemonRepository: pokemon).handle(UnlinkPhaseCommand(huntedNumber: venusaur, catchId: CatchID(rawValue: bulbasaurPhase.id)))
+
+        XCTAssertEqual(pokemon.get(number: venusaur)?.phases.count, 1)
+        XCTAssertEqual(catches.getAll(number: bulbasaur).count, 1)
+
+        ChangeEncountersHandler(pokemonRepository: pokemon, catchRepository: catches, ledgerRepository: InMemoryEncounterLedgerRepository(),
+                                dailyEncountersRepository: InMemoryDailyEncountersRepository(), odds: OddsService())
+            .handle(ChangeEncountersCommand(number: venusaur, change: .set(0)))
+
+        XCTAssertEqual(pokemon.get(number: venusaur)?.phases, [])
+        XCTAssertEqual(catches.getAll().count, 2)
+    }
+
+    func test_pastPhases_canBeLinkedToAFinishedCatch_onceEach() throws {
+        log(bulbasaur, ball: "poke", on: makeDay(1))
+        log(ivysaur, ball: "great", on: makeDay(2))
+        log(venusaur, ball: "ultra", on: makeDay(3))
+        let target = CatchID(rawValue: catches.getAll(number: venusaur).first!.id)
+        let bulbasaurId = CatchID(rawValue: catches.getAll(number: bulbasaur).first!.id)
+        let ivysaurId = CatchID(rawValue: catches.getAll(number: ivysaur).first!.id)
+        let change = ChangeCatchPhasesHandler(catchRepository: catches, pokemonRepository: pokemon)
+        let candidates = { GetPhaseCandidatesHandler(catchRepository: self.catches, pokemonRepository: self.pokemon).handle(GetPhaseCandidatesQuery(catchId: target)).map { $0.id } }
+
+        XCTAssertEqual(candidates(), [ivysaurId, bulbasaurId], "Newest first, leaving out the target itself")
+
+        change.handle(ChangeCatchPhasesCommand(catchId: target, change: .link(bulbasaurId)))
+        change.handle(ChangeCatchPhasesCommand(catchId: target, change: .link(bulbasaurId)))
+        change.handle(ChangeCatchPhasesCommand(catchId: target, change: .link(target)))
+
+        XCTAssertEqual(catches.get(id: target.rawValue)?.phaseCatchIds, [bulbasaurId.rawValue])
+        XCTAssertEqual(candidates(), [ivysaurId])
+        XCTAssertEqual(getPhases(.caught(target))?.phases.map { $0.caught.id }, [bulbasaurId])
+
+        change.handle(ChangeCatchPhasesCommand(catchId: target, change: .unlink(bulbasaurId)))
+
+        XCTAssertEqual(catches.get(id: target.rawValue)?.phaseCatchIds, [])
+        XCTAssertEqual(catches.getAll().count, 3)
+    }
+
+    func test_linkedPhases_areNumberedByCatchDate_notByWhenTheyWereLinked() throws {
+        log(bulbasaur, ball: "poke", on: makeDay(5))
+        log(ivysaur, ball: "great", on: makeDay(2))
+        log(venusaur, ball: "ultra", on: makeDay(9))
+        let target = CatchID(rawValue: catches.getAll(number: venusaur).first!.id)
+        let change = ChangeCatchPhasesHandler(catchRepository: catches, pokemonRepository: pokemon)
+        change.handle(ChangeCatchPhasesCommand(catchId: target, change: .link(CatchID(rawValue: catches.getAll(number: bulbasaur).first!.id))))
+        change.handle(ChangeCatchPhasesCommand(catchId: target, change: .link(CatchID(rawValue: catches.getAll(number: ivysaur).first!.id))))
+
+        let list = try XCTUnwrap(getPhases(.caught(target)))
+
+        XCTAssertEqual(list.phases.map { $0.caught.number }, [ivysaur, bulbasaur])
+    }
+
+    func test_phaseCandidates_leaveOutShiniesAlreadyLinkedToARunningHunt() {
+        huntVenusaur(encounters: 300)
+        logPhase(found: bulbasaur)
+        log(ivysaur, ball: "great", on: makeDay(2))
+        let ivysaurCatch = CatchID(rawValue: catches.getAll(number: ivysaur).first!.id)
+
+        let candidates = GetPhaseCandidatesHandler(catchRepository: catches, pokemonRepository: pokemon).handle(GetPhaseCandidatesQuery(catchId: ivysaurCatch))
+
+        XCTAssertEqual(candidates.map { $0.number }, [])
+    }
+
+    func test_huntPhases_encodeAndDecode() {
+        let phases = [HuntPhase(catchId: UUID(), encounters: 12), HuntPhase(catchId: UUID(), encounters: 4096)]
+
+        XCTAssertEqual(HuntPhase.decode(HuntPhase.encode(phases)), phases)
+        XCTAssertNil(HuntPhase.encode([]))
+        XCTAssertEqual(HuntPhase.decode("not-a-phase,also:bad"), [])
+    }
 }

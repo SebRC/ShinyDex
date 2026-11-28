@@ -85,7 +85,8 @@ final class CoreDataCatchRepository: CatchRepository {
             encounterTotalAtFind: catchEntity.value(forKey: "encounterTotalAtFind") as? Int,
             ability: catchEntity.value(forKey: "ability") as? String,
             moves: (catchEntity.value(forKey: "moves") as? String ?? "").split(separator: ",").compactMap { Int($0) },
-            level: catchEntity.value(forKey: "level") as? Int)
+            level: catchEntity.value(forKey: "level") as? Int,
+            phaseCatchIds: HuntPhase.decodeIds(catchEntity.value(forKey: "phaseCatchIds") as? String))
     }
 
     private func write(_ caught: Catch, to catchEntity: NSManagedObject) {
@@ -109,6 +110,7 @@ final class CoreDataCatchRepository: CatchRepository {
         catchEntity.setValue(caught.ability, forKey: "ability")
         catchEntity.setValue(caught.moves.isEmpty ? nil : caught.moves.map(String.init).joined(separator: ","), forKey: "moves")
         catchEntity.setValue(caught.level, forKey: "level")
+        catchEntity.setValue(HuntPhase.encodeIds(caught.phaseCatchIds), forKey: "phaseCatchIds")
     }
 
     private func fetch(predicate: NSPredicate?) -> [NSManagedObject] {
