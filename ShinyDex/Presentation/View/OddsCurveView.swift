@@ -128,7 +128,7 @@ final class OddsCurveView: UIView {
 
         let milestones = UIBezierPath()
         for milestone in summary.milestones where milestone.encounters <= summary.points.last?.encounters ?? 0 {
-            let center = locate(milestone)
+            let center = locate(OddsCurvePoint(encounters: milestone.encounters, chance: milestone.chance))
             let side = OddsCurveView.milestoneMarkerSide
             milestones.append(UIBezierPath(ovalIn: CGRect(x: center.x - side / 2, y: center.y - side / 2, width: side, height: side)))
         }

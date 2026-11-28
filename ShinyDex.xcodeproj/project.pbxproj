@@ -348,6 +348,7 @@
 		B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F71281B079D457FDB64CE /* CatchesTVC.swift */; };
 		B8CA5C263655F2459F01726D /* GetPokemonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D78A66AC4BFE921A63A0593 /* GetPokemonDetails.swift */; };
 		B27800000000000000000202 /* GetOddsCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000201 /* GetOddsCurve.swift */; };
+		B27900000000000000000202 /* GetHuntForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27900000000000000000201 /* GetHuntForecast.swift */; };
 		B94C4B7485197FAC57A562E9 /* EvolveCatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157CFED362D73A96ED902CC1 /* EvolveCatch.swift */; };
 		BAC15ACF9C2D01FDBB07029A /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A68D2BCC65B0D2B86AC4C2 /* AppContainer.swift */; };
 		BB245C6A38575EE31A4099D4 /* IncrementAllInHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FAA628E9E055879B5E3AA /* IncrementAllInHunt.swift */; };
@@ -451,6 +452,7 @@
 		B1860000000000000000000C /* PPPresetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000B /* PPPresetTests.swift */; };
 		B1860000000000000000000E /* ppPresets.json in Resources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000D /* ppPresets.json */; };
 		B18700000000000000000002 /* EncounterDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000001 /* EncounterDay.swift */; };
+		B27900000000000000000102 /* HuntPace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27900000000000000000101 /* HuntPace.swift */; };
 		B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000003 /* DailyEncountersRepository.swift */; };
 		B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */; };
 /* End PBXBuildFile section */
@@ -786,6 +788,7 @@
 		9B46E48E3772951697151C17 /* GetBallNames.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetBallNames.swift; sourceTree = "<group>"; };
 		9D78A66AC4BFE921A63A0593 /* GetPokemonDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetPokemonDetails.swift; sourceTree = "<group>"; };
 		B27800000000000000000201 /* GetOddsCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOddsCurve.swift; sourceTree = "<group>"; };
+		B27900000000000000000201 /* GetHuntForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHuntForecast.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6071829304153 /* IconGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGridView.swift; sourceTree = "<group>"; };
 		A33F2DE9730A3CA606AF54DA /* GetCatchDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetCatchDetails.swift; sourceTree = "<group>"; };
 		A4F519D744D07E15E42A48BC /* CatchDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchDatePickerVC.swift; sourceTree = "<group>"; };
@@ -932,6 +935,7 @@
 		B1860000000000000000000B /* PPPresetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPresetTests.swift; sourceTree = "<group>"; };
 		B1860000000000000000000D /* ppPresets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ppPresets.json; sourceTree = "<group>"; };
 		B18700000000000000000001 /* EncounterDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterDay.swift; sourceTree = "<group>"; };
+		B27900000000000000000101 /* HuntPace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPace.swift; sourceTree = "<group>"; };
 		B18700000000000000000003 /* DailyEncountersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEncountersRepository.swift; sourceTree = "<group>"; };
 		B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDailyEncountersRepository.swift; sourceTree = "<group>"; };
 		B18700000000000000000007 /* ShinyDex 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 12.xcdatamodel"; sourceTree = "<group>"; };
@@ -1376,6 +1380,7 @@
 				32FF33EC46495387BCA5DB6F /* GetPokedex.swift */,
 				9D78A66AC4BFE921A63A0593 /* GetPokemonDetails.swift */,
 				B27800000000000000000201 /* GetOddsCurve.swift */,
+				B27900000000000000000201 /* GetHuntForecast.swift */,
 				A69E983F49E0EE5739EB6551 /* PokemonDTOs.swift */,
 				641939FA4BDB8337127A449B /* PreviewHuntSettings.swift */,
 				D93E069A7D39569F582F7E0B /* SaveHuntSettings.swift */,
@@ -1925,6 +1930,7 @@
 				B19000000000000000000001 /* HuntingDayStreaks.swift */,
 				B18700000000000000000003 /* DailyEncountersRepository.swift */,
 				B18700000000000000000001 /* EncounterDay.swift */,
+				B27900000000000000000101 /* HuntPace.swift */,
 				B1770000000000000000000D /* YearlyGoalProgress.swift */,
 				B1770000000000000000000B /* YearlyGoalRepository.swift */,
 				B17700000000000000000009 /* YearlyGoal.swift */,
@@ -2283,6 +2289,7 @@
 				B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */,
 				B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */,
 				B18700000000000000000002 /* EncounterDay.swift in Sources */,
+				B27900000000000000000102 /* HuntPace.swift in Sources */,
 				B1860000000000000000000A /* PPPresetPickerTVC.swift in Sources */,
 				B18600000000000000000008 /* PPPresetsLoader.swift in Sources */,
 				B18600000000000000000006 /* ApplyPPPreset.swift in Sources */,
@@ -2524,6 +2531,7 @@
 				FA0FEB2EFCC708447BE8E5E3 /* GetPokedex.swift in Sources */,
 				B8CA5C263655F2459F01726D /* GetPokemonDetails.swift in Sources */,
 				B27800000000000000000202 /* GetOddsCurve.swift in Sources */,
+				B27900000000000000000202 /* GetHuntForecast.swift in Sources */,
 				AEDC7800315A8A7F85486725 /* PokemonDTOs.swift in Sources */,
 				454101BBD2EEB33A57C0AB96 /* PreviewHuntSettings.swift in Sources */,
 				895A30E6CC0508B71E69C0E6 /* SaveHuntSettings.swift in Sources */,

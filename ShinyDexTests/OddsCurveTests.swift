@@ -43,3 +43,53 @@ final class OddsCurveTests: XCTestCase {
         XCTAssertLessThan(chained.milestones[0].encounters, base.milestones[0].encounters)
     }
 }
+
+final class HuntPaceTests: XCTestCase {
+    fileprivate let calendar = Calendar(identifier: .gregorian)
+    fileprivate let today = EncounterDay(year: 2026, month: 11, day: 28)
+
+    func test_pace_averagesTheDaysThisPokemonWasHunted_inTheLastTwoWeeks() {
+        let days = [
+            DailyEncounters(day: today, count: 600, countsByPokemon: [1: 400, 2: 200]),
+            DailyEncounters(day: today.adding(days: -3, calendar: calendar), count: 900, countsByPokemon: [1: 900]),
+            DailyEncounters(day: today.adding(days: -5, calendar: calendar), count: 300, countsByPokemon: [2: 300]),
+            DailyEncounters(day: today.adding(days: -14, calendar: calendar), count: 5000, countsByPokemon: [1: 5000])
+        ]
+
+        let pace = HuntPace(number: 1, dailyEncounters: days, today: today, calendar: calendar)
+
+        XCTAssertEqual(pace?.encountersPerDay, 650)
+        XCTAssertEqual(pace?.activeDays, 2)
+    }
+
+    func test_pace_isNil_withoutRecentEncountersForThatPokemon() {
+        let days = [DailyEncounters(day: today, count: 500, countsByPokemon: [2: 500])]
+
+        XCTAssertNil(HuntPace(number: 1, dailyEncounters: days, today: today, calendar: calendar))
+    }
+
+    func test_estimateDays_roundsUp_andIsNilOnceReached() {
+        let pace = HuntPace(number: 1, dailyEncounters: [DailyEncounters(day: today, count: 500, countsByPokemon: [1: 500])], today: today, calendar: calendar)
+
+        XCTAssertEqual(pace?.estimateDays(toCover: 1001), 3)
+        XCTAssertEqual(pace?.estimateDays(toCover: 500), 1)
+        XCTAssertNil(pace?.estimateDays(toCover: 0))
+    }
+
+    func test_forecast_countsDaysToFullOdds_butNotForChainHunts() {
+        let pokemon = InMemoryPokemonRepository(names: ["Bulbasaur", "Ivysaur"])
+        for (number, method, game) in [(0, HuntMethod.Encounters, Games.Scarlet), (1, HuntMethod.Pokeradar, Games.Platinum)] {
+            let hunted = pokemon.get(number: number)!
+            hunted.huntConfiguration = HuntConfiguration(game: game, generation: GamesList.games[game]!.generation, huntMethod: method, isShinyCharmActive: false)
+            hunted.encounters = 1096
+            pokemon.save(hunted)
+        }
+        let days = InMemoryDailyEncountersRepository()
+        days.save(DailyEncounters(day: today, count: 1000, countsByPokemon: [0: 500, 1: 500]))
+        let handler = GetHuntForecastHandler(pokemonRepository: pokemon, dailyEncountersRepository: days, odds: OddsService(), calendar: calendar,
+                                             makeCurrentDate: { self.today.makeDate(in: self.calendar)! })
+
+        XCTAssertEqual(handler.handle(GetHuntForecastQuery(number: 0)), HuntForecast(encountersPerDay: 500, activeDays: 1, daysToOdds: 6))
+        XCTAssertNil(handler.handle(GetHuntForecastQuery(number: 1))?.daysToOdds)
+    }
+}
