@@ -40,3 +40,25 @@ final class HuntLuckTextTests: XCTestCase {
         XCTAssertNil(HuntLuckText(pokemon: makeDetails(encounters: 9000, shinyOdds: 512, usesChain: true)).oddsDetail)
     }
 }
+
+final class CatchLuckTextTests: XCTestCase {
+    func test_describe_saysLuckierThan_whenFoundBeforeHalfOfHunts() {
+        XCTAssertEqual(CatchLuckText.describe(chanceOfFindingSooner: 18), "Luckier than 82% of hunts at these odds")
+    }
+
+    func test_describe_saysTookLonger_whenFoundAfterHalfOfHunts() {
+        XCTAssertEqual(CatchLuckText.describe(chanceOfFindingSooner: 76.4), "Took longer than 76% of hunts at these odds")
+    }
+
+    func test_formatRank_givesTheShareOfHuntsThatTookLonger_orFinishedSooner() {
+        XCTAssertEqual(CatchLuckText.formatRank(chanceOfFindingSooner: 3.2), "Top 3%")
+        XCTAssertEqual(CatchLuckText.formatRank(chanceOfFindingSooner: 99.8), "Bottom 0.2%")
+    }
+
+    func test_formatPercent_keepsOneDecimalNearTheEnds_withoutRoundingToZeroOrAHundred() {
+        XCTAssertEqual(CatchLuckText.formatPercent(99.97), "99.9%")
+        XCTAssertEqual(CatchLuckText.formatPercent(99.6), "99.6%")
+        XCTAssertEqual(CatchLuckText.formatPercent(0.04), "0.1%")
+        XCTAssertEqual(CatchLuckText.formatPercent(42.5), "43%")
+    }
+}

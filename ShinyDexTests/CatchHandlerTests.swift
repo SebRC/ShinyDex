@@ -150,7 +150,8 @@ final class CatchHandlerTests: XCTestCase {
         let statistics = GetCatchStatisticsHandler(catchRepository: catches, pokemonRepository: pokemon, ledgerRepository: InMemoryEncounterLedgerRepository(), yearlyGoalRepository: InMemoryYearlyGoalRepository(), dailyEncountersRepository: InMemoryDailyEncountersRepository()).handle(GetCatchStatisticsQuery())
 
         XCTAssertEqual(statistics.foundCount, 1)
-        XCTAssertEqual(statistics.shortestHunts.first?.pokemonName, "Bulbasaur")
+        XCTAssertEqual(statistics.shortestHunts.first?.hunt.pokemonName, "Bulbasaur")
+        XCTAssertEqual(statistics.shortestHunts.first?.chanceOfFindingSooner ?? 0, Double.getProbability(encounters: 42, odds: 8192), accuracy: 0.0001)
         XCTAssertEqual(statistics.ballUsage.map { $0.key }, ["poke"])
         XCTAssertEqual(statistics.months.reduce(0) { $0 + $1.foundCount }, 1)
         XCTAssertEqual(statistics.weekdays.reduce(0) { $0 + $1.foundCount }, 1)

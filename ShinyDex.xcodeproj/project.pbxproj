@@ -116,6 +116,7 @@
 		B19500000000000000000002 /* BackupFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19500000000000000000001 /* BackupFolder.swift */; };
 		B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000003 /* HuntLuckTextTests.swift */; };
 		B19100000000000000000002 /* HuntLuckText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000001 /* HuntLuckText.swift */; };
+		B28100000000000000000102 /* CatchLuckText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28100000000000000000101 /* CatchLuckText.swift */; };
 		B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000005 /* HuntingDayStreaksTests.swift */; };
 		B19000000000000000000004 /* HuntingCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000003 /* HuntingCalendarView.swift */; };
 		B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000001 /* HuntingDayStreaks.swift */; };
@@ -554,6 +555,7 @@
 		B19500000000000000000001 /* BackupFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupFolder.swift; sourceTree = "<group>"; };
 		B19100000000000000000003 /* HuntLuckTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckTextTests.swift; sourceTree = "<group>"; };
 		B19100000000000000000001 /* HuntLuckText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckText.swift; sourceTree = "<group>"; };
+		B28100000000000000000101 /* CatchLuckText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchLuckText.swift; sourceTree = "<group>"; };
 		B19000000000000000000005 /* HuntingDayStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaksTests.swift; sourceTree = "<group>"; };
 		B19000000000000000000003 /* HuntingCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingCalendarView.swift; sourceTree = "<group>"; };
 		B19000000000000000000001 /* HuntingDayStreaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaks.swift; sourceTree = "<group>"; };
@@ -1620,6 +1622,7 @@
 				B19600000000000000000009 /* MilestoneCelebration.swift */,
 				B19600000000000000000005 /* MilestoneText.swift */,
 				B19100000000000000000001 /* HuntLuckText.swift */,
+				B28100000000000000000101 /* CatchLuckText.swift */,
 				C4A1A0000000000000000003 /* HuntCounterText.swift */,
 				F0A1B2000000000000000101 /* FormPicker.swift */,
 				F0A1B2000000000000000007 /* PokemonSprites.swift */,
@@ -2131,6 +2134,7 @@
 				B19500000000000000000004 /* RunAutomaticBackup.swift in Sources */,
 				B19500000000000000000002 /* BackupFolder.swift in Sources */,
 				B19100000000000000000002 /* HuntLuckText.swift in Sources */,
+				B28100000000000000000102 /* CatchLuckText.swift in Sources */,
 				B19000000000000000000004 /* HuntingCalendarView.swift in Sources */,
 				B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */,
 				B18900000000000000000008 /* YearInReviewVC.swift in Sources */,

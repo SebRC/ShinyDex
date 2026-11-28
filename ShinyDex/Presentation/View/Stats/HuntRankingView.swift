@@ -19,15 +19,15 @@ final class HuntRankingView: UIView {
     fileprivate let rankingControl = UISegmentedControl(items: Ranking.allCases.map { $0.title })
     fileprivate let rows = UIStackView()
     fileprivate let lengthButton = UIButton(type: .system)
-    fileprivate var longestHunts = [CatchSummary]()
-    fileprivate var shortestHunts = [CatchSummary]()
+    fileprivate var longestHunts = [RankedHunt]()
+    fileprivate var shortestHunts = [RankedHunt]()
     fileprivate var showsAllRanked = false
 
     fileprivate var selectedRanking: Ranking {
         return Ranking(rawValue: rankingControl.selectedSegmentIndex) ?? .longest
     }
 
-    fileprivate var selectedHunts: [CatchSummary] {
+    fileprivate var selectedHunts: [RankedHunt] {
         return selectedRanking == .longest ? longestHunts : shortestHunts
     }
 
@@ -64,7 +64,7 @@ final class HuntRankingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func update(longestHunts: [CatchSummary], shortestHunts: [CatchSummary]) {
+    func update(longestHunts: [RankedHunt], shortestHunts: [RankedHunt]) {
         self.longestHunts = longestHunts
         self.shortestHunts = shortestHunts
         rebuildRows()
@@ -76,10 +76,12 @@ final class HuntRankingView: UIView {
         }
         let hunts = selectedHunts
         let visibleHunts = showsAllRanked ? hunts : Array(hunts.prefix(HuntRankingView.collapsedCount))
-        for (index, hunt) in visibleHunts.enumerated() {
-            let row = HuntRankRow(rank: index + 1, hunt: hunt)
+        for (index, rankedHunt) in visibleHunts.enumerated() {
+            let chance = rankedHunt.chanceOfFindingSooner
+            let row = HuntRankRow(rank: index + 1, hunt: rankedHunt.hunt, valueDetail: chance.map(CatchLuckText.formatRank),
+                                  valueDetailColor: (chance ?? 100) <= 50 ? Color.success : Color.textTertiary)
             row.onTap = { [weak self] in
-                self?.onSelect?(hunt)
+                self?.onSelect?(rankedHunt.hunt)
             }
             rows.addArrangedSubview(row)
         }

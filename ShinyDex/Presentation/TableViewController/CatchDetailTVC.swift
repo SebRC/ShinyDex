@@ -133,11 +133,7 @@ class CatchDetailTVC: UITableViewController {
     // MARK: Odds and luck
 
     fileprivate var luckText: String? {
-        guard let chance = details.chanceOfFindingSooner else { return nil }
-        if (chance <= 50) {
-            return "Luckier than \(Int((100 - chance).rounded()))% of hunts at these odds"
-        }
-        return "Took longer than \(Int(chance.rounded()))% of hunts at these odds"
+        return details.chanceOfFindingSooner.map(CatchLuckText.describe)
     }
 
     // MARK: Table

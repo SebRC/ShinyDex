@@ -78,8 +78,8 @@ final class JourneyPlaybackVC: UIViewController {
     fileprivate func makeRecap() -> String? {
         guard let luckiest = playback.luckiestFind, let caught = playback.companions.first(where: { $0.id == luckiest.catchId }) else { return nil }
         let encounters = caught.encounters == 1 ? "1 encounter" : "\(caught.encounters.grouped) encounters"
-        let luckierThan = Int((100 - luckiest.chanceOfFindingSooner).rounded(.down))
-        return "Luckiest find: \(caught.nickname ?? caught.speciesTitle) after \(encounters), luckier than \(luckierThan)% of hunts"
+        let luckierThan = CatchLuckText.formatPercent(100 - luckiest.chanceOfFindingSooner)
+        return "Luckiest find: \(caught.nickname ?? caught.speciesTitle) after \(encounters), luckier than \(luckierThan) of hunts"
     }
 
     fileprivate func startScene() {
