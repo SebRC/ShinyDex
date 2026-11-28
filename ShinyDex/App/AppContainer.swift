@@ -116,6 +116,7 @@ final class AppContainer {
 
     // MARK: Battlers
 
+    var getTrainingPlan: GetTrainingPlanHandler { GetTrainingPlanHandler(catchRepository: catchRepository, baseStats: baseStats, moveCategories: moveCategories) }
     var rankBattlers: RankBattlersHandler { RankBattlersHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats, moveCategories: moveCategories, abilities: abilities) }
     var teamMemberLookup: TeamMemberLookup { TeamMemberLookup(rankBattlers: rankBattlers, catchRepository: catchRepository, catchData: catchData, moveTyping: moveTyping, moveCategories: moveCategories) }
     var getTeams: GetTeamsHandler { GetTeamsHandler(teamRepository: teamRepository, lookup: teamMemberLookup) }

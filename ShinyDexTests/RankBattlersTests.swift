@@ -30,6 +30,16 @@ final class RankBattlersTests: XCTestCase {
             .handle(RankBattlersQuery(ranking: ranking, level: level, showsBestOfEachSpecies: bestOfEachSpecies))
     }
 
+    func test_findsASingleBattler_onlyWhenItCanBeRanked() {
+        let ranked = addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]))
+        let withoutIVs = addCatch(of: charmander, ivs: IndividualValues())
+        let handler = RankBattlersHandler(catchRepository: catches, pokemonRepository: pokemon, baseStats: baseStats, moveCategories: moveCategories)
+
+        XCTAssertEqual(handler.handle(GetBattlerQuery(catchId: CatchID(rawValue: ranked.id)))?.id.rawValue, ranked.id)
+        XCTAssertEqual(handler.handle(GetBattlerQuery(catchId: CatchID(rawValue: ranked.id)))?.readiness, rank().battlers.first?.readiness)
+        XCTAssertNil(handler.handle(GetBattlerQuery(catchId: CatchID(rawValue: withoutIVs.id))))
+    }
+
     func test_onlyCatchesWithIVsFromGenerationThreeOnAreRanked() {
         addCatch(of: bulbasaur, ivs: makeIVs([31, 31, 31, 31, 31, 31]))
         addCatch(of: charmander, ivs: IndividualValues())

@@ -19,6 +19,8 @@ class CatchDetailTVC: UITableViewController {
         case ability
         case moves
         case stats
+        case readiness
+        case training
     }
 
     fileprivate enum Field {
@@ -48,6 +50,8 @@ class CatchDetailTVC: UITableViewController {
     fileprivate var aboutRows = [TraitRow]()
     fileprivate var battleRows = [TraitRow]()
     fileprivate var canEvolve = false
+    fileprivate var battler: BattlerSummary?
+    fileprivate var trainingPlan: TrainingPlanDetails?
     fileprivate let cellIdentifier = "catchDetailCell"
     fileprivate var rows = [Row]()
     fileprivate var positionText: String?
@@ -112,7 +116,16 @@ class CatchDetailTVC: UITableViewController {
             rows.removeAll { $0.field == .ball }
         }
         aboutRows = caught.isFailed ? [] : ([TraitRow.form, .nickname, .gender].filter { $0 != .form || details.formChoices != nil })
-        battleRows = caught.isFailed ? [] : ([TraitRow.nature, .ability, .moves, .stats].filter { $0 != .ability || details.ability != nil })
+        battler = container.rankBattlers.handle(GetBattlerQuery(catchId: catchId))
+        trainingPlan = caught.isFailed || !IndividualValues.isUsed(in: caught.game) ? nil : container.getTrainingPlan.handle(GetTrainingPlanQuery(catchId: catchId))
+        battleRows = caught.isFailed ? [] : ([TraitRow.nature, .ability, .moves, .stats, .readiness, .training].filter { row in
+            switch row {
+            case .ability: return details.ability != nil
+            case .readiness: return battler != nil
+            case .training: return trainingPlan != nil
+            default: return true
+            }
+        })
         canEvolve = !caught.isFailed && !details.evolutionTargets.isEmpty
         title = caught.isFailed ? "\(caught.pokemonName) (got away)" : caught.pokemonName
         if let position = details.position {
@@ -289,10 +302,25 @@ class CatchDetailTVC: UITableViewController {
             cell.textLabel?.text = "Stats"
             cell.detailTextLabel?.attributedText = makeStatsSummary(textColor: Color.textTertiary)
             symbol = "chart.bar.fill"
+        case .readiness:
+            cell.textLabel?.text = "Readiness"
+            cell.detailTextLabel?.text = battler.map { "\($0.readiness)/100" }
+            symbol = "chart.bar.doc.horizontal.fill"
+        case .training:
+            cell.textLabel?.text = "Training Plan"
+            cell.detailTextLabel?.text = trainingPlan.map(CatchDetailTVC.formatTrainingStatus)
+            symbol = "list.bullet.clipboard.fill"
         }
         cell.imageView?.image = UIImage.makeSymbol(symbol, pointSize: 18, weight: .medium)?.padded(to: CGSize(width: 30, height: 30))
         cell.imageView?.tintColor = Color.accent
         return cell
+    }
+
+    fileprivate static func formatTrainingStatus(_ plan: TrainingPlanDetails) -> String {
+        if plan.isComplete {
+            return "Done"
+        }
+        return plan.remaining > 0 ? "\(plan.remaining) EVs left" : "\(plan.excess) EVs to move"
     }
 
     fileprivate func makeStatsSummary(textColor: UIColor) -> NSAttributedString {
@@ -390,6 +418,12 @@ class CatchDetailTVC: UITableViewController {
                 showMovesPicker()
             case .stats:
                 navigationController?.pushViewController(CatchStatsVC(container: container, caught: caught), animated: true)
+            case .readiness:
+                if let battler = battler {
+                    navigationController?.pushViewController(BattleReadinessVC(container: container, battler: battler, level: .fifty), animated: true)
+                }
+            case .training:
+                navigationController?.pushViewController(TrainingPlannerVC(container: container, catchId: catchId, level: .fifty), animated: true)
             }
             return
         }

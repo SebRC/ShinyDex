@@ -60,7 +60,8 @@ final class BattleReadinessVC: UIViewController {
         stack.setCustomSpacing(Spacing.large, after: stack.arrangedSubviews.last!)
         stack.addArrangedSubview(SectionHeaderLabel(text: "Breakdown"))
         for part in battler.readinessParts {
-            stack.addArrangedSubview(ReadinessPartCard(part: part, battler: battler))
+            let onPlanTraining: (() -> Void)? = part.factor == .evs ? { [weak self] in self?.showTrainingPlan() } : nil
+            stack.addArrangedSubview(ReadinessPartCard(part: part, battler: battler, onPlanTraining: onPlanTraining))
         }
         let footnote = UILabel(style: .caption1, color: Color.textQuaternary, lines: 0)
         footnote.text = makeFootnote()
@@ -131,6 +132,10 @@ final class BattleReadinessVC: UIViewController {
         return notes.joined(separator: " ")
     }
 
+    fileprivate func showTrainingPlan() {
+        navigationController?.pushViewController(TrainingPlannerVC(container: container, catchId: battler.id, level: level), animated: true)
+    }
+
     @objc fileprivate func detailsPressed() {
         guard let detail = CatchDetailTVC(container: container, catchId: battler.id) else { return }
         navigationController?.pushViewController(detail, animated: true)
@@ -138,7 +143,10 @@ final class BattleReadinessVC: UIViewController {
 }
 
 fileprivate final class ReadinessPartCard: UIView {
-    init(part: ReadinessPart, battler: BattlerSummary) {
+    fileprivate var onPlanTraining: (() -> Void)?
+
+    init(part: ReadinessPart, battler: BattlerSummary, onPlanTraining: (() -> Void)? = nil) {
+        self.onPlanTraining = onPlanTraining
         super.init(frame: .zero)
         backgroundColor = Color.surface
         layer.cornerRadius = CornerRadius.standard
@@ -175,17 +183,27 @@ fileprivate final class ReadinessPartCard: UIView {
         content.axis = .vertical
         content.spacing = Spacing.small
         content.setCustomSpacing(Spacing.medium, after: bar)
+        if onPlanTraining != nil {
+            let planButton = UIButton.make(.tinted, title: "Plan EV training", symbolName: "list.bullet.clipboard", typeStyle: .subheadline, symbolSize: 14)
+            planButton.addTarget(self, action: #selector(planTrainingPressed), for: .touchUpInside)
+            content.addArrangedSubview(planButton)
+            content.setCustomSpacing(Spacing.medium, after: content.arrangedSubviews[content.arrangedSubviews.count - 2])
+        }
         addAutoLayoutSubviews(content)
         content.pinEdges(to: self, insets: UIEdgeInsets(top: Spacing.medium, left: Spacing.medium, bottom: Spacing.medium, right: Spacing.medium))
         bar.heightAnchor.constraint(equalToConstant: 6).isActive = true
 
-        isAccessibilityElement = true
+        isAccessibilityElement = onPlanTraining == nil
         accessibilityLabel = ([part.factor.title, part.factor.makeDetail(for: battler), "\(part.earned) of \(part.maximum) points"].compactMap { $0 }
             + (part.improvements.isEmpty ? ["Full marks"] : part.improvements.map { $0.message })).joined(separator: ", ")
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc fileprivate func planTrainingPressed() {
+        onPlanTraining?()
     }
 
     fileprivate static func makeLine(text: String, symbolName: String, color: UIColor) -> UIView {

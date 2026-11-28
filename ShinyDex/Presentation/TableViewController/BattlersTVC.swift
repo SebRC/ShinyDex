@@ -1,12 +1,14 @@
 import UIKit
 
-final class BattlersTVC: UITableViewController {
+final class BattlersTVC: UITableViewController, UISearchResultsUpdating {
     fileprivate let container: AppContainer
     fileprivate let rankingControl = UISegmentedControl(items: BattlerRanking.allCases.map { $0.title })
     fileprivate let levelControl = UISegmentedControl(items: BattleLevel.allCases.map { "Lv. \($0.rawValue)" })
     fileprivate let missingDataLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
     fileprivate let missingIVsButton = UIButton(type: .system)
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
     fileprivate var rankings = BattlerRankings(battlers: [], catchesWithoutIVs: 0, olderGenerationCatches: 0)
+    fileprivate var visibleBattlers = [(rank: Int, battler: BattlerSummary)]()
     fileprivate var ranking = BattlerRanking.relevantIVs
     fileprivate var level = BattleLevel.fifty
     fileprivate var showsBestOfEachSpecies = false
@@ -31,7 +33,38 @@ final class BattlersTVC: UITableViewController {
         tableView.estimatedRowHeight = 180
         tableView.register(BattlerCell.self, forCellReuseIdentifier: BattlerCell.reuseIdentifier)
         setUpControls()
+        setUpSearch()
         updateOptionsButton()
+    }
+
+    fileprivate func setUpSearch() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search by name, nickname or nature"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+    }
+
+    func updateSearchResults(for searchController: UISearchController) {
+        filterBattlers()
+        tableView.reloadData()
+        updateEmptyState()
+    }
+
+    fileprivate func filterBattlers() {
+        let ranked = rankings.battlers.enumerated().map { (rank: $0.offset + 1, battler: $0.element) }
+        let query = (searchController.searchBar.text ?? "").trimmingCharacters(in: .whitespaces)
+        guard !query.isEmpty else {
+            visibleBattlers = ranked
+            return
+        }
+        visibleBattlers = ranked.filter { entry in
+            let battler = entry.battler
+            return [battler.pokemonName, battler.nickname, battler.formName, battler.nature?.name]
+                .compactMap { $0 }
+                .contains { $0.range(of: query, options: [.caseInsensitive, .diacriticInsensitive]) != nil }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +134,7 @@ final class BattlersTVC: UITableViewController {
                                                                        countsUnusedStatFully: countsUnusedStatFully))
         missingDataLabel.text = makeMissingDataText()
         refreshMissingIVsButton()
+        filterBattlers()
         tableView.reloadData()
         updateEmptyState()
         layOutHeader()
@@ -154,7 +188,9 @@ final class BattlersTVC: UITableViewController {
 
     fileprivate func updateEmptyState() {
         guard rankings.battlers.isEmpty else {
-            tableView.backgroundView = nil
+            tableView.backgroundView = visibleBattlers.isEmpty
+                ? EmptyStateView(symbolName: "magnifyingglass", title: "No matches", message: "No battler matches \"\(searchController.searchBar.text ?? "")\".")
+                : nil
             return
         }
         tableView.backgroundView = EmptyStateView(symbolName: "trophy", title: "No battlers yet", message: "Log IVs on a catch's details to see how it ranks for battle.")
@@ -175,22 +211,24 @@ final class BattlersTVC: UITableViewController {
     // MARK: Table view
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rankings.battlers.count
+        return visibleBattlers.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BattlerCell.reuseIdentifier, for: indexPath) as! BattlerCell
-        let battler = rankings.battlers[indexPath.row]
-        cell.configure(battler: battler, rank: indexPath.row + 1, ranking: ranking, level: level)
+        let entry = visibleBattlers[indexPath.row]
+        let battler = entry.battler
+        cell.configure(battler: battler, rank: entry.rank, ranking: ranking, level: level)
         cell.onReadinessPressed = { [weak self] in self?.showReadiness(of: battler) }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let battler = rankings.battlers[indexPath.row]
+        let battler = visibleBattlers[indexPath.row].battler
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             UIMenu(children: [
                 UIAction(title: "Readiness Breakdown", image: UIImage(systemName: "chart.bar.doc.horizontal")) { _ in self?.showReadiness(of: battler) },
+                UIAction(title: "Training Plan", image: UIImage(systemName: "list.bullet.clipboard")) { _ in self?.showTrainingPlan(of: battler) },
                 UIAction(title: "View Details", image: UIImage(systemName: "info.circle")) { _ in self?.showDetails(of: battler) }
             ])
         }
@@ -198,7 +236,7 @@ final class BattlersTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showDetails(of: rankings.battlers[indexPath.row])
+        showDetails(of: visibleBattlers[indexPath.row].battler)
     }
 
     fileprivate func showDetails(of battler: BattlerSummary) {
@@ -208,6 +246,10 @@ final class BattlersTVC: UITableViewController {
 
     fileprivate func showReadiness(of battler: BattlerSummary) {
         navigationController?.pushViewController(BattleReadinessVC(container: container, battler: battler, level: level), animated: true)
+    }
+
+    fileprivate func showTrainingPlan(of battler: BattlerSummary) {
+        navigationController?.pushViewController(TrainingPlannerVC(container: container, catchId: battler.id, level: level), animated: true)
     }
 }
 
