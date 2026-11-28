@@ -11,6 +11,7 @@ struct JourneySummary: Equatable {
     let name: String
     let caughtCount: Int
     let members: [JourneyMember]
+    var game: Games? = nil
 
     var isComplete: Bool {
         return !members.isEmpty && caughtCount == members.count
@@ -26,6 +27,8 @@ struct JourneyEntryDetails: Equatable {
     let phases: [CatchSummary]
     let formId: String?
     let formName: String?
+    var suggestion: HuntSuggestionSummary? = nil
+    var missingFromGame: Games? = nil
 }
 
 struct JourneyTimelineStep: Equatable {
@@ -41,6 +44,7 @@ struct JourneyDetails: Equatable {
     let entries: [JourneyEntryDetails]
     let timeline: [JourneyTimelineStep]
     var tally = JourneyTally(catches: [])
+    var game: Games? = nil
 
     var caughtCount: Int {
         return entries.filter { $0.linkedCatch != nil }.count

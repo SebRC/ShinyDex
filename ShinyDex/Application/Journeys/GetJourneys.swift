@@ -22,7 +22,7 @@ final class GetJourneysHandler {
                 let members = journey.entries.compactMap { entry in
                     allPokemon[safe: entry.number].map { JourneyMember(number: entry.number, name: $0.name, isCaught: journey.findLinkedCatch(for: entry, in: catchesById) != nil) }
                 }
-                return JourneySummary(id: JourneyID(rawValue: journey.id), name: journey.name, caughtCount: journey.countCaught(in: catchesById), members: members)
+                return JourneySummary(id: JourneyID(rawValue: journey.id), name: journey.name, caughtCount: journey.countCaught(in: catchesById), members: members, game: journey.game)
             }
     }
 }

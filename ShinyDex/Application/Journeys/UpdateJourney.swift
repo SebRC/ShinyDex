@@ -10,6 +10,7 @@ struct UpdateJourneyCommand {
         case addPhase(entry: JourneyEntryID, catchId: CatchID)
         case removePhase(entry: JourneyEntryID, catchId: CatchID)
         case setForm(entry: JourneyEntryID, formId: String?)
+        case setGame(Games?)
     }
 
     let journeyId: JourneyID
@@ -43,6 +44,8 @@ final class UpdateJourneyHandler {
             journey.removePhase(catchId.rawValue, fromEntry: entryId.rawValue)
         case .setForm(let entryId, let formId):
             journey.setForm(formId, ofEntry: entryId.rawValue)
+        case .setGame(let game):
+            journey.game = game
         }
         journeyRepository.save(journey)
     }

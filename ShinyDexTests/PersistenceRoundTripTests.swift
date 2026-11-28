@@ -219,6 +219,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         let catchId = UUID()
         journey.entries[1].catchId = catchId
         journey.entries[2].phaseCatchIds = [UUID(), UUID()]
+        journey.game = .Platinum
         XCTAssertTrue(CoreDataJourneyRepository(managedContext: store.context).save(journey))
 
         try store.reopen()
@@ -232,6 +233,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(stored.createdDate, journey.createdDate)
         XCTAssertEqual(stored.entries, journey.entries)
         XCTAssertEqual(stored.entries[1].catchId, catchId)
+        XCTAssertEqual(stored.game, .Platinum)
     }
 
     func test_journey_entries_areStoredWithTheirCurrentJsonKeys() throws {

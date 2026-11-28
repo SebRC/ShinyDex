@@ -72,7 +72,7 @@ class PokemonCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool, shinyLockedGame: Games? = nil) {
+    func setStatus(catchCount: Int, caughtBall: String, isBeingHunted: Bool, shinyLockedGame: Games? = nil, journeyName: String? = nil) {
         if (catchCount > 0) {
             statusIcon.image = UIImage(named: caughtBall)
             statusIcon.tintColor = nil
@@ -92,6 +92,13 @@ class PokemonCell: UITableViewCell {
             statusIcon.tintColor = Color.textTertiary
             statusLabel.textColor = Color.textTertiary
             statusLabel.text = "In a hunt"
+            statusRow.isHidden = false
+        }
+        else if let journeyName = journeyName {
+            statusIcon.image = UIImage.makeSymbol("map.fill", pointSize: 11, weight: .bold)
+            statusIcon.tintColor = Color.textTertiary
+            statusLabel.textColor = Color.textTertiary
+            statusLabel.text = journeyName
             statusRow.isHidden = false
         }
         else {

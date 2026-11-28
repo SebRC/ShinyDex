@@ -1,8 +1,14 @@
 import UIKit
 
 class JourneysTVC: UITableViewController {
+    fileprivate enum Section: Int, CaseIterable {
+        case nextHunt
+        case journeys
+    }
+
     fileprivate let container: AppContainer
     fileprivate var journeys = [JourneySummary]()
+    fileprivate var nextHunt: NextHunt?
 
     init(container: AppContainer) {
         self.container = container
@@ -19,12 +25,13 @@ class JourneysTVC: UITableViewController {
         navigationItem.largeTitleDisplayMode = .always
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
         addButton.accessibilityLabel = "New journey"
-        navigationItem.rightBarButtonItem = addButton
+        navigationItem.rightBarButtonItems = [addButton, makeSuggestionModeButton()]
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 110
         tableView.register(JourneyCell.self, forCellReuseIdentifier: JourneyCell.reuseIdentifier)
+        tableView.register(NextHuntCell.self, forCellReuseIdentifier: NextHuntCell.reuseIdentifier)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,8 +39,18 @@ class JourneysTVC: UITableViewController {
         reloadJourneys()
     }
 
+    fileprivate func makeSuggestionModeButton() -> UIBarButtonItem {
+        return HuntSuggestionModeMenu.makeButton(selected: container.getHuntSuggestionMode.handle(GetHuntSuggestionModeQuery())) { [weak self] mode in
+            guard let self = self else { return }
+            self.container.chooseHuntSuggestionMode.handle(ChooseHuntSuggestionModeCommand(mode: mode))
+            self.reloadJourneys()
+        }
+    }
+
     fileprivate func reloadJourneys() {
         journeys = container.getJourneys.handle(GetJourneysQuery())
+        nextHunt = container.getNextHunt.handle(GetNextHuntQuery())
+        navigationItem.rightBarButtonItems?[1] = makeSuggestionModeButton()
         tableView.reloadData()
         tableView.backgroundView = journeys.isEmpty
             ? EmptyStateView(symbolName: "map.fill",
@@ -42,23 +59,53 @@ class JourneysTVC: UITableViewController {
             : nil
     }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.allCases.count
+    }
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return journeys.count
+        switch Section(rawValue: section) {
+        case .nextHunt: return nextHunt == nil ? 0 : 1
+        case .journeys: return journeys.count
+        case nil: return 0
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch Section(rawValue: section) {
+        case .nextHunt: return SectionHeaderView.make(for: tableView, title: nextHunt == nil ? nil : "Hunt next")
+        case .journeys: return SectionHeaderView.make(for: tableView, title: nextHunt == nil || journeys.isEmpty ? nil : "Journeys")
+        case nil: return nil
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableView(tableView, viewForHeaderInSection: section) == nil ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if Section(rawValue: indexPath.section) == .nextHunt, let nextHunt = nextHunt {
+            let cell = tableView.dequeueReusableCell(withIdentifier: NextHuntCell.reuseIdentifier, for: indexPath) as! NextHuntCell
+            cell.configure(nextHunt)
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: JourneyCell.reuseIdentifier, for: indexPath) as! JourneyCell
         let journey = journeys[indexPath.row]
-        cell.configure(name: journey.name, caught: journey.caughtCount, members: journey.members)
+        cell.configure(name: journey.name, caught: journey.caughtCount, members: journey.members, game: journey.game)
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if Section(rawValue: indexPath.section) == .nextHunt, let nextHunt = nextHunt {
+            openJourney(nextHunt.journeyId)
+            return
+        }
         openJourney(journeys[indexPath.row].id)
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard Section(rawValue: indexPath.section) == .journeys else { return nil }
         let journey = journeys[indexPath.row]
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, done in
             self?.confirmDelete(journey)
@@ -73,6 +120,7 @@ class JourneysTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard Section(rawValue: indexPath.section) == .journeys else { return nil }
         let journey = journeys[indexPath.row]
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             UIMenu(title: journey.name, children: [
@@ -157,10 +205,11 @@ fileprivate class JourneyCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(name: String, caught: Int, members: [JourneyMember]) {
+    func configure(name: String, caught: Int, members: [JourneyMember], game: Games?) {
         nameLabel.text = name
         let total = members.count
-        progressLabel.text = total == 0 ? "No Pokémon yet" : (caught == total ? "Complete · all \(total) caught" : "\(caught) of \(total) caught")
+        let progress = total == 0 ? "No Pokémon yet" : (caught == total ? "Complete · all \(total) caught" : "\(caught) of \(total) caught")
+        progressLabel.text = ([game?.displayName].compactMap { $0 } + [progress]).joined(separator: " · ")
         progressLabel.textColor = total > 0 && caught == total ? Color.accent : Color.textTertiary
         progressBar.progress = total == 0 ? 0 : Float(caught) / Float(total)
 
@@ -184,6 +233,57 @@ fileprivate class JourneyCell: UITableViewCell {
         sprites.addArrangedSubview(UIView())
         sprites.isHidden = members.isEmpty
         accessibilityLabel = "\(name), \(progressLabel.text ?? "")"
+        accessibilityTraits = .button
+    }
+}
+
+fileprivate final class NextHuntCell: UITableViewCell {
+    static let reuseIdentifier = "nextHuntCell"
+
+    fileprivate let sprite = UIImageView()
+    fileprivate let captionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
+    fileprivate let nameLabel = UILabel(style: .title3, weight: .semibold)
+    fileprivate let suggestionLabel = UILabel(style: .footnote, color: Color.textSecondary, lines: 0)
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = Color.surface
+        let selectedBackground = UIView()
+        selectedBackground.backgroundColor = Color.surfaceRaised
+        selectedBackgroundView = selectedBackground
+        accessoryType = .disclosureIndicator
+        sprite.contentMode = .scaleAspectFit
+        sprite.layer.magnificationFilter = .nearest
+        sprite.isAccessibilityElement = false
+
+        let labels = UIStackView(arrangedSubviews: [captionLabel, nameLabel, suggestionLabel])
+        labels.axis = .vertical
+        labels.spacing = 2
+        let row = UIStackView(arrangedSubviews: [sprite, labels])
+        row.alignment = .center
+        row.spacing = Spacing.medium
+        contentView.addAutoLayoutSubviews(row)
+        NSLayoutConstraint.activate([
+            row.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Spacing.small),
+            row.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            row.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Spacing.small),
+            row.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Spacing.small),
+            sprite.widthAnchor.constraint(equalToConstant: 64),
+            sprite.heightAnchor.constraint(equalToConstant: 64)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(_ nextHunt: NextHunt) {
+        sprite.image = PokemonSprites.makeImage(pokemonName: nextHunt.pokemonName, formId: nextHunt.formId)
+        captionLabel.text = nextHunt.journeyName.uppercased()
+        nameLabel.text = nextHunt.pokemonName
+        suggestionLabel.text = HuntSuggestionText.describeWithArea(nextHunt.suggestion)
+        isAccessibilityElement = true
+        accessibilityLabel = "Hunt next for \(nextHunt.journeyName): \(nextHunt.pokemonName), \(suggestionLabel.text ?? "")"
         accessibilityTraits = .button
     }
 }

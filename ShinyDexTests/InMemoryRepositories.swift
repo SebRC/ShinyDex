@@ -142,7 +142,7 @@ final class InMemoryJourneyRepository: JourneyRepository {
     }
 
     static func copy(_ journey: Journey) -> Journey {
-        return Journey(id: journey.id, name: journey.name, createdDate: journey.createdDate, priority: journey.priority, entries: journey.entries)
+        return Journey(id: journey.id, name: journey.name, createdDate: journey.createdDate, priority: journey.priority, entries: journey.entries, game: journey.game)
     }
 }
 

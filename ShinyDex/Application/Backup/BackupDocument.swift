@@ -73,6 +73,7 @@ struct BackupDocument: Codable {
         let createdDate: Date
         let priority: Int
         let entries: [JourneyEntryRecord]
+        var game: String? = nil
     }
 
     struct BingoCellRecord: Codable {
@@ -204,7 +205,8 @@ extension BackupDocument {
         }
         self.journeys = journeys.map { journey in
             JourneyRecord(id: journey.id, name: journey.name, createdDate: journey.createdDate, priority: journey.priority,
-                          entries: journey.entries.map { JourneyEntryRecord(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds, formId: $0.formId) })
+                          entries: journey.entries.map { JourneyEntryRecord(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds, formId: $0.formId) },
+                          game: journey.game?.rawValue)
         }
         self.bingoBoards = bingoBoards.map { board in
             BingoBoardRecord(id: board.id, name: board.name, createdDate: board.createdDate, priority: board.priority, size: board.size,
@@ -239,7 +241,8 @@ extension BackupDocument {
     func makeJourneys() -> [Journey] {
         return journeys.map { journey in
             Journey(id: journey.id, name: journey.name, createdDate: journey.createdDate, priority: journey.priority,
-                    entries: journey.entries.map { JourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds, formId: $0.formId) })
+                    entries: journey.entries.map { JourneyEntry(id: $0.id, number: $0.number, catchId: $0.catchId, phaseCatchIds: $0.phaseCatchIds, formId: $0.formId) },
+                    game: journey.game.flatMap(Games.init))
         }
     }
 

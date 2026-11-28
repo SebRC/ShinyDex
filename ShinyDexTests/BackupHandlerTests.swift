@@ -78,6 +78,7 @@ final class BackupHandlerTests: XCTestCase {
         journey.entries[0].catchId = caught.id
         journey.entries[1].phaseCatchIds = [UUID()]
         journey.entries[1].formId = "alola"
+        journey.game = .Platinum
         journeys.save(journey)
         let board = BingoBoard(name: "Starters", priority: 0, size: .three, numbers: [0, 3])
         board.link(caught.id, at: 0)
@@ -159,6 +160,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(journey.name, "Kanto")
         XCTAssertEqual(journey.createdDate.timeIntervalSince1970, seeded.journey.createdDate.timeIntervalSince1970, accuracy: 0.001)
         XCTAssertEqual(journey.entries, seeded.journey.entries)
+        XCTAssertEqual(journey.game, .Platinum)
 
         let board = try XCTUnwrap(backup.bingoBoards.first)
         XCTAssertEqual(board.id, seeded.board.id)

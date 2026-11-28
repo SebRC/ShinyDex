@@ -80,8 +80,12 @@ final class StoreMigrationTests: XCTestCase {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 17")
     }
 
-    func test_reopeningVersion18_keepsAllData() throws {
+    func test_upgradeFromVersion18_keepsAllData() throws {
         try assertUpgradeKeepsData(fromVersion: "ShinyDex 18")
+    }
+
+    func test_reopeningVersion19_keepsAllData() throws {
+        try assertUpgradeKeepsData(fromVersion: "ShinyDex 19")
     }
 
     private func assertUpgradeKeepsData(fromVersion version: String, file: StaticString = #filePath, line: UInt = #line) throws {

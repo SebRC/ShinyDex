@@ -35,6 +35,7 @@ final class CoreDataJourneyRepository: JourneyRepository {
         journeyEntity.setValue(journey.createdDate, forKey: "createdDate")
         journeyEntity.setValue(journey.priority, forKey: "priority")
         journeyEntity.setValue(StoredJourneyEntry.encode(journey.entries), forKey: "entries")
+        journeyEntity.setValue(journey.game?.rawValue, forKey: "game")
         return save()
     }
 
@@ -67,7 +68,8 @@ final class CoreDataJourneyRepository: JourneyRepository {
             name: journeyEntity.value(forKey: "name") as? String ?? "Journey",
             createdDate: journeyEntity.value(forKey: "createdDate") as? Date ?? Date(),
             priority: journeyEntity.value(forKey: "priority") as? Int ?? 0,
-            entries: StoredJourneyEntry.decode(journeyEntity.value(forKey: "entries") as? String) ?? [])
+            entries: StoredJourneyEntry.decode(journeyEntity.value(forKey: "entries") as? String) ?? [],
+            game: (journeyEntity.value(forKey: "game") as? String).flatMap(Games.init))
     }
 
     @discardableResult

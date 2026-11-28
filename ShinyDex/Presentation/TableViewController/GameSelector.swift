@@ -1,10 +1,10 @@
 import UIKit
 
 enum GameSelector {
-	static func make(choices: [GameChoice] = Games.allCases.map { GameChoice(game: $0, availability: .catchable, isApproximate: false) }, selectedGame: Games,
+	static func make(choices: [GameChoice] = Games.allCases.map { GameChoice(game: $0, availability: .catchable, isApproximate: false) }, selectedGame: Games?,
 					 pokemonName: String? = nil, caption: String = "Hunting in", onSelect: @escaping (Games) -> Void) -> GridPickerVC {
 		let items = choices.map(makeItem)
-		let currentIndex = choices.firstIndex { $0.game == selectedGame }
+		let currentIndex = selectedGame.flatMap { selected in choices.firstIndex { $0.game == selected } }
 		let legend = pokemonName.map {
 			AvailabilityLegendView(pokemonName: $0, showsShinyLock: choices.contains { $0.availability == .shinyLocked }, showsApproximation: choices.contains { $0.isApproximate })
 		}
