@@ -156,9 +156,9 @@ class PokeballModalVC: UIViewController {
         }
         gridView.onSelect = { [weak self] index in
             guard let self = self else { return }
-            self.log(.caught(ball: self.ballGrid.ballNames[index]))
+            let catchId = self.log(.caught(ball: self.ballGrid.ballNames[index]))
             Haptics.playSuccess()
-            self.finish(.loggedCatch)
+            self.finish(.loggedCatch, reporting: catchId)
         }
         gridView.onAction = { [weak self] _ in
             guard let self = self else { return }
@@ -216,18 +216,25 @@ class PokeballModalVC: UIViewController {
         finish(.loggedFailed)
     }
 
-    fileprivate func log(_ outcome: LogCatchCommand.Outcome) {
+    @discardableResult
+    fileprivate func log(_ outcome: LogCatchCommand.Outcome) -> CatchID? {
         if let huntedNumber = phaseOfNumber {
             container.logPhase.handle(LogPhaseCommand(huntedNumber: huntedNumber, foundNumber: number, outcome: outcome, date: caughtDate, formId: selectedFormId))
+            return nil
         }
-        else {
-            container.logCatch.handle(LogCatchCommand(number: number, outcome: outcome, date: caughtDate, formId: selectedFormId))
-        }
+        return container.logCatch.handle(LogCatchCommand(number: number, outcome: outcome, date: caughtDate, formId: selectedFormId))
     }
 
-    fileprivate func finish(_ result: PokeballPickerResult) {
+    fileprivate func finish(_ result: PokeballPickerResult, reporting catchId: CatchID? = nil) {
+        let presenter = navigationController?.presentingViewController ?? presentingViewController
         dismissSheet { [onFinish, container] in
             onFinish(result)
+            if let catchId = catchId, let presenter = presenter, let report = CatchReportVC(container: container, catchId: catchId) {
+                presenter.present(report.wrapInSheet(), animated: true) {
+                    AchievementAnnouncer.announceNewUnlocks(using: container)
+                }
+                return
+            }
             AchievementAnnouncer.announceNewUnlocks(using: container)
         }
     }

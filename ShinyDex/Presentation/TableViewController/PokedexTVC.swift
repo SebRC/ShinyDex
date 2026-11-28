@@ -97,10 +97,6 @@ class PokedexTVC: UITableViewController {
         }
     }
 
-    fileprivate func countCatches(of number: Int) -> Int {
-        return slicedPokemon.first { $0.number == number }?.catchCount ?? 0
-    }
-
     fileprivate func updateProgressHeader() {
         guard pokedex.totalCount > 0 else {
             tableView.tableHeaderView = nil
@@ -136,14 +132,12 @@ class PokedexTVC: UITableViewController {
 
     fileprivate func showCatchPopup(pokemon: PokedexEntry, result: PokeballPickerResult) {
         switch result {
-        case .loggedCatch:
-            popupHandler.showPopup(text: "Logged a shiny \(pokemon.name). Caught: \(countCatches(of: pokemon.number)).")
+        case .loggedCatch, .nothingToRemove:
+            break
         case .loggedFailed:
             popupHandler.showPopup(text: "Logged a shiny \(pokemon.name) that got away.")
         case .removedLatestCatch:
             popupHandler.showPopup(text: "Removed the latest \(pokemon.name) catch.")
-        case .nothingToRemove:
-            break
         }
     }
     

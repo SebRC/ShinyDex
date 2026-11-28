@@ -32,8 +32,9 @@ final class LogCatchHandler {
         self.makeCurrentDate = makeCurrentDate
     }
 
-    func handle(_ command: LogCatchCommand) {
-        guard let pokemon = pokemonRepository.get(number: command.number) else { return }
+    @discardableResult
+    func handle(_ command: LogCatchCommand) -> CatchID? {
+        guard let pokemon = pokemonRepository.get(number: command.number) else { return nil }
         let formId = forms.carryOver(command.formId, to: command.number)
         let ledger = ledgerRepository.get() ?? EncounterLedger(startingOn: makeCurrentDate())
         let found: Catch
@@ -48,7 +49,7 @@ final class LogCatchHandler {
         found.gender = genders.findFixedGender(of: command.number)
         found.ability = abilities.findFixedAbility(of: command.number, formId: formId, in: found.game)
         catchRepository.insert(found)
-        guard catchRepository.save() else { return }
+        guard catchRepository.save() else { return nil }
         ledgerRepository.save(ledger)
         if (!pokemon.phases.isEmpty) {
             pokemon.phases = []
@@ -57,5 +58,6 @@ final class LogCatchHandler {
         if !found.isFailed {
             CaughtBallSync(catchRepository: catchRepository, pokemonRepository: pokemonRepository).sync(number: command.number)
         }
+        return CatchID(rawValue: found.id)
     }
 }

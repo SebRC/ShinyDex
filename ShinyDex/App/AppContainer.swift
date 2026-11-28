@@ -101,6 +101,7 @@ final class AppContainer {
     var getCatchDetails: GetCatchDetailsHandler { GetCatchDetailsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, abilities: abilities, makeLearnsets: { [unowned self] in self.learnsets }, genders: genders) }
     var getCatchStatistics: GetCatchStatisticsHandler { GetCatchStatisticsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms, genders: genders) }
     var getBallNames: GetBallNamesHandler { GetBallNamesHandler(resourceLoader: resourceLoader) }
+    var getCatchReport: GetCatchReportHandler { GetCatchReportHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, dailyEncountersRepository: dailyEncountersRepository, forms: forms) }
     var logCatch: LogCatchHandler { LogCatchHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, ledgerRepository: encounterLedgerRepository, forms: forms, genders: genders, abilities: abilities) }
     var getCatchStats: GetCatchStatsHandler { GetCatchStatsHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, baseStats: baseStats) }
     var getLearnableMoves: GetLearnableMovesHandler { GetLearnableMovesHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, learnsets: learnsets, evolutions: evolutions) }
