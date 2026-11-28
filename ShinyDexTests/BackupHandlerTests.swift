@@ -21,6 +21,7 @@ final class BackupHandlerTests: XCTestCase {
     private var ledgers: InMemoryEncounterLedgerRepository!
     private var goals: InMemoryYearlyGoalRepository!
     private var days: InMemoryDailyEncountersRepository!
+    private var teams: InMemoryTeamRepository!
     private var backups: RecordingBackupRepository!
     private let exportDate = DateComponents(calendar: Calendar(identifier: .gregorian), timeZone: TimeZone(identifier: "UTC"), year: 2026, month: 11, day: 20, hour: 9, minute: 15, second: 30).date!
 
@@ -33,6 +34,7 @@ final class BackupHandlerTests: XCTestCase {
         moves = InMemoryMoveRepository()
         ledgers = InMemoryEncounterLedgerRepository()
         goals = InMemoryYearlyGoalRepository()
+        teams = InMemoryTeamRepository()
         days = InMemoryDailyEncountersRepository()
         backups = RecordingBackupRepository()
     }
@@ -40,7 +42,7 @@ final class BackupHandlerTests: XCTestCase {
     private func export() throws -> BackupFile {
         return try ExportBackupHandler(pokemonRepository: pokemon, catchRepository: catches, huntRepository: hunts, journeyRepository: journeys,
                                        bingoBoardRepository: bingoBoards, moveRepository: moves, ledgerRepository: ledgers,
-                                       yearlyGoalRepository: goals, dailyEncountersRepository: days, makeCurrentDate: { self.exportDate })
+                                       yearlyGoalRepository: goals, dailyEncountersRepository: days, teamRepository: teams, makeCurrentDate: { self.exportDate })
             .handle(ExportBackupQuery())
     }
 
@@ -85,6 +87,7 @@ final class BackupHandlerTests: XCTestCase {
         ledgers.save(EncounterLedger(total: 1500, trackedSince: exportDate))
         goals.save(YearlyGoal(year: 2025, target: 12))
         goals.save(YearlyGoal(year: 2026, target: 30))
+        teams.save(Team(name: "Doubles", memberIds: [caught.id], createdDate: exportDate))
         days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 19), count: 120))
         days.save(DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 45, countsByPokemon: [2: 30, 150: 15]))
         let venusaur = pokemon.get(number: 2)!
@@ -171,6 +174,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertEqual(ledger.total, 1500)
         XCTAssertEqual(ledger.trackedSince, exportDate)
         XCTAssertEqual(backup.yearlyGoals, [YearlyGoal(year: 2025, target: 12), YearlyGoal(year: 2026, target: 30)])
+        XCTAssertEqual(backup.teams, teams.getAll())
         XCTAssertEqual(backup.dailyEncounters, [DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 19), count: 120),
                                                 DailyEncounters(day: EncounterDay(year: 2026, month: 11, day: 20), count: 45, countsByPokemon: [2: 30, 150: 15])])
     }
@@ -181,6 +185,7 @@ final class BackupHandlerTests: XCTestCase {
         json["encounterLedger"] = nil
         json["yearlyGoals"] = nil
         json["dailyEncounters"] = nil
+        json["teams"] = nil
         json["catches"] = (json["catches"] as? [[String: Any]])?.map { record in
             var record = record
             record["encounterTotalAtFind"] = nil
@@ -193,6 +198,7 @@ final class BackupHandlerTests: XCTestCase {
         XCTAssertNil(backup.encounterLedger, "A missing ledger keeps the current one")
         XCTAssertNil(backup.yearlyGoals, "Missing goals keep the current ones")
         XCTAssertNil(backup.dailyEncounters, "Missing daily encounters keep the current ones")
+        XCTAssertNil(backup.teams, "Missing teams keep the current ones")
         XCTAssertTrue(backup.catches.allSatisfy { $0.encounterTotalAtFind == nil })
     }
 

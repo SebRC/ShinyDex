@@ -89,7 +89,9 @@ final class BattlersTVC: UITableViewController {
         optionsButton.accessibilityLabel = "Options"
         let statRankingButton = UIBarButtonItem(image: UIImage(systemName: "chart.bar.xaxis"), style: .plain, target: self, action: #selector(statRankingPressed))
         statRankingButton.accessibilityLabel = "Rank by stat"
-        navigationItem.rightBarButtonItems = [optionsButton, statRankingButton]
+        let teamsButton = UIBarButtonItem(image: UIImage(systemName: "person.3"), style: .plain, target: self, action: #selector(teamsPressed))
+        teamsButton.accessibilityLabel = "Teams"
+        navigationItem.rightBarButtonItems = [optionsButton, statRankingButton, teamsButton]
     }
 
     // MARK: Data
@@ -130,6 +132,10 @@ final class BattlersTVC: UITableViewController {
 
     @objc fileprivate func statRankingPressed() {
         navigationController?.pushViewController(StatRankingTVC(container: container, level: level), animated: true)
+    }
+
+    @objc fileprivate func teamsPressed() {
+        navigationController?.pushViewController(TeamsTVC(container: container), animated: true)
     }
 
     @objc fileprivate func missingIVsPressed() {

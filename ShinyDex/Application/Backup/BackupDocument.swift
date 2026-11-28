@@ -118,6 +118,13 @@ struct BackupDocument: Codable {
         var pokemon: [String: Int]? = nil
     }
 
+    struct TeamRecord: Codable {
+        let id: UUID
+        let name: String
+        let memberIds: [UUID]
+        let createdDate: Date
+    }
+
     private struct FormatHeader: Decodable {
         let formatVersion: Int
     }
@@ -133,6 +140,7 @@ struct BackupDocument: Codable {
     let encounterLedger: EncounterLedgerRecord?
     let yearlyGoals: [YearlyGoalRecord]?
     let dailyEncounters: [DailyEncountersRecord]?
+    var teams: [TeamRecord]? = nil
 
     func encode() throws -> Data {
         let encoder = JSONEncoder()
@@ -175,7 +183,7 @@ extension BingoBoardSize: Codable {}
 
 extension BackupDocument {
     init(pokemon: [Pokemon], catches: [Catch], hunts: [Hunt], journeys: [Journey], bingoBoards: [BingoBoard], activeMoves: ActiveMoves?,
-         encounterLedger: EncounterLedger?, yearlyGoals: [YearlyGoal], dailyEncounters: [DailyEncounters], createdDate: Date) {
+         encounterLedger: EncounterLedger?, yearlyGoals: [YearlyGoal], dailyEncounters: [DailyEncounters], teams: [Team] = [], createdDate: Date) {
         formatVersion = BackupDocument.currentFormatVersion
         self.createdDate = createdDate
         self.pokemon = pokemon.map {
@@ -208,6 +216,7 @@ extension BackupDocument {
         }
         self.encounterLedger = encounterLedger.map { EncounterLedgerRecord(total: $0.total, trackedSince: $0.trackedSince) }
         self.yearlyGoals = yearlyGoals.map { YearlyGoalRecord(year: $0.year, target: $0.target) }
+        self.teams = teams.map { TeamRecord(id: $0.id, name: $0.name, memberIds: $0.memberIds, createdDate: $0.createdDate) }
         self.dailyEncounters = dailyEncounters.map { encounters in
             DailyEncountersRecord(day: encounters.day.isoDate, count: encounters.count,
                                   pokemon: encounters.countsByPokemon.isEmpty ? nil : Dictionary(uniqueKeysWithValues: encounters.countsByPokemon.map { (String($0.key), $0.value) }))
@@ -261,6 +270,10 @@ extension BackupDocument {
                 }
             }
         }
+    }
+
+    func makeTeams() -> [Team]? {
+        return teams.map { records in records.map { Team(id: $0.id, name: $0.name, memberIds: $0.memberIds, createdDate: $0.createdDate) } }
     }
 
     func makeYearlyGoals() -> [YearlyGoal]? {

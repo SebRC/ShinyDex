@@ -301,3 +301,24 @@ final class StubResourceLoader: ResourceLoader {
         return dataResources["\(name).\(fileExtension)"]
     }
 }
+
+final class InMemoryTeamRepository: TeamRepository {
+    private(set) var stored = [Team]()
+
+    func getAll() -> [Team] {
+        return stored
+    }
+
+    func save(_ team: Team) {
+        if let index = stored.firstIndex(where: { $0.id == team.id }) {
+            stored[index] = team
+        }
+        else {
+            stored.append(team)
+        }
+    }
+
+    func delete(id: UUID) {
+        stored.removeAll { $0.id == id }
+    }
+}

@@ -42,6 +42,9 @@ final class CoreDataBackupRepository: BackupRepository {
         if let yearlyGoals = backup.yearlyGoals {
             stageYearlyGoals(yearlyGoals, in: context)
         }
+        if let teams = backup.teams {
+            stageTeams(teams, in: context)
+        }
         if let dailyEncounters = backup.dailyEncounters {
             CoreDataDailyEncountersRepository(managedContext: context).replaceAll(with: dailyEncounters)
         }
@@ -88,6 +91,13 @@ final class CoreDataBackupRepository: BackupRepository {
         let restoredYears = Set(goals.map { $0.year })
         repository.getAll().filter { !restoredYears.contains($0.year) }.forEach { repository.delete(year: $0.year) }
         goals.forEach(repository.save)
+    }
+
+    private func stageTeams(_ teams: [Team], in context: NSManagedObjectContext) {
+        let repository = CoreDataTeamRepository(managedContext: context)
+        let restoredIds = Set(teams.map { $0.id })
+        repository.getAll().filter { !restoredIds.contains($0.id) }.forEach { repository.delete(id: $0.id) }
+        teams.forEach(repository.save)
     }
 
     private func stageBingoBoards(_ boards: [BingoBoard], in context: NSManagedObjectContext) throws {

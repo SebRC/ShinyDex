@@ -11,6 +11,7 @@ final class AppContainer {
     lazy var baseStats = PokemonBaseStatsLoader.load(from: resourceLoader)
     lazy var moveCategories = MoveCategoriesLoader.load(from: resourceLoader)
     lazy var catchData = PokemonCatchDataLoader.load(from: resourceLoader)
+    lazy var moveTyping = MoveTypingLoader.load(from: resourceLoader)
     let locationLinkProvider: LocationLinkProvider
     let evolutions: Evolutions
     let forms: PokemonForms
@@ -27,6 +28,7 @@ final class AppContainer {
     let moveRepository: MoveRepository
     let encounterLedgerRepository: EncounterLedgerRepository
     let yearlyGoalRepository: YearlyGoalRepository
+    let teamRepository: TeamRepository
     let dailyEncountersRepository: DailyEncountersRepository
     let backupRepository: BackupRepository
 
@@ -53,6 +55,7 @@ final class AppContainer {
         moveRepository = CoreDataMoveRepository(managedContext: context)
         encounterLedgerRepository = CoreDataEncounterLedgerRepository(managedContext: context)
         yearlyGoalRepository = CoreDataYearlyGoalRepository(managedContext: context)
+        teamRepository = CoreDataTeamRepository(managedContext: context)
         dailyEncountersRepository = CoreDataDailyEncountersRepository(managedContext: context)
         backupRepository = CoreDataBackupRepository(managedContext: context)
     }
@@ -112,6 +115,13 @@ final class AppContainer {
     // MARK: Battlers
 
     var rankBattlers: RankBattlersHandler { RankBattlersHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats, moveCategories: moveCategories, abilities: abilities) }
+    var teamMemberLookup: TeamMemberLookup { TeamMemberLookup(rankBattlers: rankBattlers, catchRepository: catchRepository, catchData: catchData, moveTyping: moveTyping, moveCategories: moveCategories) }
+    var getTeams: GetTeamsHandler { GetTeamsHandler(teamRepository: teamRepository, lookup: teamMemberLookup) }
+    var getTeam: GetTeamHandler { GetTeamHandler(teamRepository: teamRepository, lookup: teamMemberLookup) }
+    var getTeamCandidates: GetTeamCandidatesHandler { GetTeamCandidatesHandler(teamRepository: teamRepository, lookup: teamMemberLookup) }
+    var createTeam: CreateTeamHandler { CreateTeamHandler(teamRepository: teamRepository) }
+    var updateTeam: UpdateTeamHandler { UpdateTeamHandler(teamRepository: teamRepository) }
+    var deleteTeam: DeleteTeamHandler { DeleteTeamHandler(teamRepository: teamRepository) }
     var rankByStat: RankByStatHandler { RankByStatHandler(catchRepository: catchRepository, pokemonRepository: pokemonRepository, forms: forms, baseStats: baseStats) }
 
     // MARK: Achievements
@@ -170,7 +180,7 @@ final class AppContainer {
 
     // MARK: Backup
 
-    var exportBackup: ExportBackupHandler { ExportBackupHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, huntRepository: huntRepository, journeyRepository: journeyRepository, bingoBoardRepository: bingoBoardRepository, moveRepository: moveRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository) }
+    var exportBackup: ExportBackupHandler { ExportBackupHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, huntRepository: huntRepository, journeyRepository: journeyRepository, bingoBoardRepository: bingoBoardRepository, moveRepository: moveRepository, ledgerRepository: encounterLedgerRepository, yearlyGoalRepository: yearlyGoalRepository, dailyEncountersRepository: dailyEncountersRepository, teamRepository: teamRepository) }
     var getBackupSummary: GetBackupSummaryHandler { GetBackupSummaryHandler() }
     var runAutomaticBackup: RunAutomaticBackupHandler { RunAutomaticBackupHandler(exportBackup: exportBackup, backupFolder: backupFolder, keyValueStore: keyValueStore) }
     var getAutomaticBackupStatus: GetAutomaticBackupStatusHandler { GetAutomaticBackupStatusHandler(backupFolder: backupFolder, keyValueStore: keyValueStore) }

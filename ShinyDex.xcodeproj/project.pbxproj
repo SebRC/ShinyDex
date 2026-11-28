@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B28400000000000000002002 /* TypeCoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002001 /* TypeCoverageView.swift */; };
+		B28400000000000000001202 /* GetTeamCandidates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000001201 /* GetTeamCandidates.swift */; };
+		B28400000000000000001102 /* GetTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000001101 /* GetTeam.swift */; };
+		B28400000000000000001002 /* GetTeams.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000001001 /* GetTeams.swift */; };
+		B28400000000000000000902 /* DeleteTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000901 /* DeleteTeam.swift */; };
+		B28400000000000000000802 /* UpdateTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000801 /* UpdateTeam.swift */; };
+		B28400000000000000000702 /* CreateTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000701 /* CreateTeam.swift */; };
+		B28400000000000000000602 /* TeamDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000601 /* TeamDTOs.swift */; };
+		B28400000000000000000502 /* PokemonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000501 /* PokemonType.swift */; };
+		B28400000000000000000402 /* TeamAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000401 /* TeamAnalysis.swift */; };
+		B28400000000000000000302 /* TeamRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000301 /* TeamRepository.swift */; };
+		B28400000000000000000202 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000000201 /* Team.swift */; };
 		B21200000000000000002401 /* CombinedStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000002400 /* CombinedStats.swift */; };
 		B21200000000000000002201 /* JourneyTally.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000002200 /* JourneyTally.swift */; };
 		B21200000000000000001E01 /* MenuSectionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000001E00 /* MenuSectionCells.swift */; };
@@ -40,16 +52,22 @@
 		B21200000000000000000020 /* baseStats.json in Resources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001F /* baseStats.json */; };
 		B27600000000000000000008 /* StatRankingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000007 /* StatRankingTVC.swift */; };
 		B2800000000000000000000A /* PhasesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28000000000000000000009 /* PhasesTVC.swift */; };
+		B28400000000000000002702 /* TeamMemberPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002701 /* TeamMemberPickerTVC.swift */; };
+		B28400000000000000002602 /* TeamTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002601 /* TeamTVC.swift */; };
+		B28400000000000000002502 /* TeamsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002501 /* TeamsTVC.swift */; };
 		B2120000000000000000001E /* BattlersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001D /* BattlersTVC.swift */; };
 		B27600000000000000000006 /* StatLeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000005 /* StatLeaderCell.swift */; };
 		B2120000000000000000001C /* BattlerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001B /* BattlerCell.swift */; };
 		B2120000000000000000001A /* BattlerSummary+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000019 /* BattlerSummary+Display.swift */; };
+		B28400000000000000002402 /* PokemonType+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002401 /* PokemonType+Display.swift */; };
 		B27600000000000000000004 /* RankByStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000003 /* RankByStat.swift */; };
 		B21200000000000000000018 /* RankBattlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000017 /* RankBattlers.swift */; };
 		B21200000000000000000016 /* BattlerDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000015 /* BattlerDTOs.swift */; };
 		B21200000000000000000013 /* MoveCategoriesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000012 /* MoveCategoriesLoader.swift */; };
+		B28400000000000000002202 /* MoveTypingLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002201 /* MoveTypingLoader.swift */; };
 		B21200000000000000000011 /* PokemonBaseStatsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000010 /* PokemonBaseStatsLoader.swift */; };
 		B2120000000000000000000F /* MoveCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000E /* MoveCategory.swift */; };
+		B28400000000000000002102 /* MoveTyping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002101 /* MoveTyping.swift */; };
 		B27300000000000000000002 /* ReadinessPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27300000000000000000001 /* ReadinessPart.swift */; };
 		B27600000000000000000002 /* StatLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000001 /* StatLeaderboard.swift */; };
 		B2120000000000000000000D /* BattlerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000C /* BattlerAssessment.swift */; };
@@ -335,6 +353,7 @@
 		C22AED1A43B762761FECE8C7 /* GetCatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C960D3F8889C92FD2FBC95 /* GetCatches.swift */; };
 		CAA975314595A527C863132D /* HuntHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */; };
 		CC77B8FF7BB25D84E0630439 /* InMemoryRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F9C9750116E3D791E90FF /* InMemoryRepositories.swift */; };
+		B28400000000000000002802 /* TeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002801 /* TeamTests.swift */; };
 		CEDF325709ECF5C7B0FF2686 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46113CCC446E4400CBBE77ED /* PrepareData.swift */; };
 		CF124A47CDAB6B64BD56CC7C /* CatchDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */; };
 		B10C0A000000000000005005 /* OptionPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005805 /* OptionPickerTVC.swift */; };
@@ -415,6 +434,7 @@
 		B17700000000000000000010 /* SetYearlyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000F /* SetYearlyGoal.swift */; };
 		B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */; };
 		B17700000000000000000014 /* CoreDataYearlyGoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */; };
+		B28400000000000000002302 /* CoreDataTeamRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002301 /* CoreDataTeamRepository.swift */; };
 		B17700000000000000000016 /* GoalProgressCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000015 /* GoalProgressCard.swift */; };
 		B17700000000000000000018 /* DryStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000017 /* DryStreaksTests.swift */; };
 		B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000019 /* ProgressHandlerTests.swift */; };
@@ -441,6 +461,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B28400000000000000002001 /* TypeCoverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCoverageView.swift; sourceTree = "<group>"; };
+		B28400000000000000001201 /* GetTeamCandidates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTeamCandidates.swift; sourceTree = "<group>"; };
+		B28400000000000000001101 /* GetTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTeam.swift; sourceTree = "<group>"; };
+		B28400000000000000001001 /* GetTeams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTeams.swift; sourceTree = "<group>"; };
+		B28400000000000000000901 /* DeleteTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTeam.swift; sourceTree = "<group>"; };
+		B28400000000000000000801 /* UpdateTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTeam.swift; sourceTree = "<group>"; };
+		B28400000000000000000701 /* CreateTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeam.swift; sourceTree = "<group>"; };
+		B28400000000000000000601 /* TeamDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDTOs.swift; sourceTree = "<group>"; };
+		B28400000000000000000501 /* PokemonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonType.swift; sourceTree = "<group>"; };
+		B28400000000000000000401 /* TeamAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamAnalysis.swift; sourceTree = "<group>"; };
+		B28400000000000000000301 /* TeamRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRepository.swift; sourceTree = "<group>"; };
+		B28400000000000000000201 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		B21200000000000000002400 /* CombinedStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedStats.swift; sourceTree = "<group>"; };
 		B21200000000000000002200 /* JourneyTally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyTally.swift; sourceTree = "<group>"; };
 		B21200000000000000001E00 /* MenuSectionCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSectionCells.swift; sourceTree = "<group>"; };
@@ -474,16 +506,22 @@
 		B2120000000000000000001F /* baseStats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseStats.json; sourceTree = "<group>"; };
 		B27600000000000000000007 /* StatRankingTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatRankingTVC.swift; sourceTree = "<group>"; };
 		B28000000000000000000009 /* PhasesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesTVC.swift; sourceTree = "<group>"; };
+		B28400000000000000002701 /* TeamMemberPickerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMemberPickerTVC.swift; sourceTree = "<group>"; };
+		B28400000000000000002601 /* TeamTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTVC.swift; sourceTree = "<group>"; };
+		B28400000000000000002501 /* TeamsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsTVC.swift; sourceTree = "<group>"; };
 		B2120000000000000000001D /* BattlersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlersTVC.swift; sourceTree = "<group>"; };
 		B27600000000000000000005 /* StatLeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatLeaderCell.swift; sourceTree = "<group>"; };
 		B2120000000000000000001B /* BattlerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerCell.swift; sourceTree = "<group>"; };
 		B21200000000000000000019 /* BattlerSummary+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BattlerSummary+Display.swift"; sourceTree = "<group>"; };
+		B28400000000000000002401 /* PokemonType+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonType+Display.swift"; sourceTree = "<group>"; };
 		B27600000000000000000003 /* RankByStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankByStat.swift; sourceTree = "<group>"; };
 		B21200000000000000000017 /* RankBattlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankBattlers.swift; sourceTree = "<group>"; };
 		B21200000000000000000015 /* BattlerDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerDTOs.swift; sourceTree = "<group>"; };
 		B21200000000000000000012 /* MoveCategoriesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCategoriesLoader.swift; sourceTree = "<group>"; };
+		B28400000000000000002201 /* MoveTypingLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTypingLoader.swift; sourceTree = "<group>"; };
 		B21200000000000000000010 /* PokemonBaseStatsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonBaseStatsLoader.swift; sourceTree = "<group>"; };
 		B2120000000000000000000E /* MoveCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCategory.swift; sourceTree = "<group>"; };
+		B28400000000000000002101 /* MoveTyping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTyping.swift; sourceTree = "<group>"; };
 		B27300000000000000000001 /* ReadinessPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadinessPart.swift; sourceTree = "<group>"; };
 		B27600000000000000000001 /* StatLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatLeaderboard.swift; sourceTree = "<group>"; };
 		B2120000000000000000000C /* BattlerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerAssessment.swift; sourceTree = "<group>"; };
@@ -509,6 +547,7 @@
 		B20700000000000000000002 /* PokemonLearnsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsets.swift; sourceTree = "<group>"; };
 		B21200000000000000000400 /* ShinyDex 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 16.xcdatamodel"; sourceTree = "<group>"; };
 		B28000000000000000000017 /* ShinyDex 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 17.xcdatamodel"; sourceTree = "<group>"; };
+		B28400000000000000000018 /* ShinyDex 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 18.xcdatamodel"; sourceTree = "<group>"; };
 		B20700000000000000000001 /* ShinyDex 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 15.xcdatamodel"; sourceTree = "<group>"; };
 		B20600000000000000000008 /* CatchAbilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchAbilitiesTests.swift; sourceTree = "<group>"; };
 		B20600000000000000000006 /* abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = abilities.json; sourceTree = "<group>"; };
@@ -799,6 +838,7 @@
 		D93E069A7D39569F582F7E0B /* SaveHuntSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SaveHuntSettings.swift; sourceTree = "<group>"; };
 		DA82B1852561C52CE50F03F4 /* Pods-ShinyDex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.release.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.release.xcconfig"; sourceTree = "<group>"; };
 		DF7F9C9750116E3D791E90FF /* InMemoryRepositories.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InMemoryRepositories.swift; sourceTree = "<group>"; };
+		B28400000000000000002801 /* TeamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTests.swift; sourceTree = "<group>"; };
 		E0068511BD9BCD2B45F5D0F4 /* CatchOdds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatchOdds.swift; sourceTree = "<group>"; };
 		E62D0E871083310DE6F7C4B3 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		E74AFFB6D94D4431D6196AA1 /* UpdateCatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateCatch.swift; sourceTree = "<group>"; };
@@ -869,6 +909,7 @@
 		B1770000000000000000000F /* SetYearlyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetYearlyGoal.swift; sourceTree = "<group>"; };
 		B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEncounterLedgerRepository.swift; sourceTree = "<group>"; };
 		B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataYearlyGoalRepository.swift; sourceTree = "<group>"; };
+		B28400000000000000002301 /* CoreDataTeamRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTeamRepository.swift; sourceTree = "<group>"; };
 		B17700000000000000000015 /* GoalProgressCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressCard.swift; sourceTree = "<group>"; };
 		B17700000000000000000017 /* DryStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DryStreaksTests.swift; sourceTree = "<group>"; };
 		B17700000000000000000019 /* ProgressHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHandlerTests.swift; sourceTree = "<group>"; };
@@ -905,6 +946,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B28400000000000000000104 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				B28400000000000000002001 /* TypeCoverageView.swift */,
+			);
+			name = Teams;
+			path = Teams;
+			sourceTree = "<group>";
+		};
+		B28400000000000000000103 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				B28400000000000000001201 /* GetTeamCandidates.swift */,
+				B28400000000000000001101 /* GetTeam.swift */,
+				B28400000000000000001001 /* GetTeams.swift */,
+				B28400000000000000000901 /* DeleteTeam.swift */,
+				B28400000000000000000801 /* UpdateTeam.swift */,
+				B28400000000000000000701 /* CreateTeam.swift */,
+				B28400000000000000000601 /* TeamDTOs.swift */,
+			);
+			name = Teams;
+			path = Teams;
+			sourceTree = "<group>";
+		};
+		B28400000000000000000102 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				B28400000000000000000501 /* PokemonType.swift */,
+			);
+			name = Types;
+			path = Types;
+			sourceTree = "<group>";
+		};
+		B28400000000000000000101 /* Teams */ = {
+			isa = PBXGroup;
+			children = (
+				B28400000000000000000401 /* TeamAnalysis.swift */,
+				B28400000000000000000301 /* TeamRepository.swift */,
+				B28400000000000000000201 /* Team.swift */,
+			);
+			name = Teams;
+			path = Teams;
+			sourceTree = "<group>";
+		};
 		B2120000000000000000180B /* CatchRate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1063,6 +1148,7 @@
 				B21200000000000000001900 /* CatchRate+Display.swift */,
 				B21200000000000000001100 /* Achievement+Display.swift */,
 				B21200000000000000000019 /* BattlerSummary+Display.swift */,
+				B28400000000000000002401 /* PokemonType+Display.swift */,
 				27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */,
 				9622379B24B715DD006BBC43 /* CornerRadius.swift */,
 				28E20634C95C09F57E2DF77A /* ShinyNavigationController.swift */,
@@ -1169,6 +1255,7 @@
 			isa = PBXGroup;
 			children = (
 				B2120000000000000000000E /* MoveCategory.swift */,
+				B28400000000000000002101 /* MoveTyping.swift */,
 				B18600000000000000000001 /* PPPreset.swift */,
 				96E2FE4326B2FE9F005E1D46 /* ActiveMove.swift */,
 				96E2FE4726B30029005E1D46 /* ActiveMoves.swift */,
@@ -1201,6 +1288,7 @@
 				B2120000000000000000180B /* CatchRate */,
 				B21200000000000000001007 /* Achievements */,
 				B21200000000000000000014 /* Battlers */,
+				B28400000000000000000103 /* Teams */,
 				B2020000000000000000AAA2 /* Locations */,
 				B17700000000000000000002 /* Progress */,
 				0DD551700000000000000003 /* Odds */,
@@ -1301,6 +1389,7 @@
 			children = (
 				B21200000000000000001809 /* PokemonCatchDataLoader.swift */,
 				B21200000000000000000012 /* MoveCategoriesLoader.swift */,
+				B28400000000000000002201 /* MoveTypingLoader.swift */,
 				B21200000000000000000010 /* PokemonBaseStatsLoader.swift */,
 				B20200000000000000000003 /* PokemonLocationsLoader.swift */,
 				B17600000000000000000003 /* GameAvailabilityLoader.swift */,
@@ -1402,6 +1491,7 @@
 				39C41C12702AB1D1E69F21C9 /* BundleResourceLoaderTests.swift */,
 				43CBE142BBC892A0AFDB3C88 /* PokemonFixture.swift */,
 				DF7F9C9750116E3D791E90FF /* InMemoryRepositories.swift */,
+				B28400000000000000002801 /* TeamTests.swift */,
 				2EE526EB510D8295C3E91B98 /* PokemonHandlerTests.swift */,
 				0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */,
 				5E4791FBB126AD2D6201BFBB /* CatchHandlerTests.swift */,
@@ -1477,6 +1567,7 @@
 				BAC0B0000000000000000011 /* BackupSettingsView.swift */,
 				B1B60A000000000000000019 /* Bingo */,
 				CCF9CB8C702F7D88075BC906 /* Stats */,
+				B28400000000000000000104 /* Teams */,
 				18261A520B9AF898BB73D38B /* Journey */,
 				5913B7E3D4F0C6B4BEA842CD /* CatchDetail */,
 				96A72990245F12C500AF3F5F /* ButtonStrip.swift */,
@@ -1520,6 +1611,7 @@
 			children = (
 				B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */,
 				B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */,
+				B28400000000000000002301 /* CoreDataTeamRepository.swift */,
 				B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */,
 				BAC0B000000000000000000F /* CoreDataBackupRepository.swift */,
 				B1B60A000000000000000013 /* CoreDataBingoBoardRepository.swift */,
@@ -1570,6 +1662,9 @@
 				B21200000000000000001104 /* AchievementsTVC.swift */,
 				B2120000000000000000001D /* BattlersTVC.swift */,
 				B28000000000000000000009 /* PhasesTVC.swift */,
+				B28400000000000000002701 /* TeamMemberPickerTVC.swift */,
+				B28400000000000000002601 /* TeamTVC.swift */,
+				B28400000000000000002501 /* TeamsTVC.swift */,
 				B27600000000000000000007 /* StatRankingTVC.swift */,
 				B20200000000000000000022 /* LocationsOverviewTVC.swift */,
 				B20200000000000000000007 /* LocationsTVC.swift */,
@@ -1665,6 +1760,8 @@
 				B21200000000000000001800 /* CatchRate */,
 				B21200000000000000001000 /* Achievements */,
 				B21200000000000000000001 /* Battlers */,
+				B28400000000000000000102 /* Types */,
+				B28400000000000000000101 /* Teams */,
 				B2020000000000000000AAA1 /* Location */,
 				B17700000000000000000001 /* Progress */,
 				BAC0B0000000000000000017 /* Backup */,
@@ -2051,6 +2148,7 @@
 				8A204215EA92E16AC8C0AED8 /* BundleResourceLoaderTests.swift in Sources */,
 				78498EAC7E99506E50B6E20F /* PokemonFixture.swift in Sources */,
 				CC77B8FF7BB25D84E0630439 /* InMemoryRepositories.swift in Sources */,
+				B28400000000000000002802 /* TeamTests.swift in Sources */,
 				A938B4EFF40CFE805F668099 /* PokemonHandlerTests.swift in Sources */,
 				CAA975314595A527C863132D /* HuntHandlerTests.swift in Sources */,
 				9822C69A72301A237CECF56C /* CatchHandlerTests.swift in Sources */,
@@ -2089,16 +2187,22 @@
 				B21200000000000000000302 /* GetCatchStats.swift in Sources */,
 				B2120000000000000000001E /* BattlersTVC.swift in Sources */,
 				B2800000000000000000000A /* PhasesTVC.swift in Sources */,
+				B28400000000000000002702 /* TeamMemberPickerTVC.swift in Sources */,
+				B28400000000000000002602 /* TeamTVC.swift in Sources */,
+				B28400000000000000002502 /* TeamsTVC.swift in Sources */,
 				B27600000000000000000008 /* StatRankingTVC.swift in Sources */,
 				B2120000000000000000001C /* BattlerCell.swift in Sources */,
 				B27600000000000000000006 /* StatLeaderCell.swift in Sources */,
 				B2120000000000000000001A /* BattlerSummary+Display.swift in Sources */,
+				B28400000000000000002402 /* PokemonType+Display.swift in Sources */,
 				B21200000000000000000018 /* RankBattlers.swift in Sources */,
 				B27600000000000000000004 /* RankByStat.swift in Sources */,
 				B21200000000000000000016 /* BattlerDTOs.swift in Sources */,
 				B21200000000000000000013 /* MoveCategoriesLoader.swift in Sources */,
+				B28400000000000000002202 /* MoveTypingLoader.swift in Sources */,
 				B21200000000000000000011 /* PokemonBaseStatsLoader.swift in Sources */,
 				B2120000000000000000000F /* MoveCategory.swift in Sources */,
+				B28400000000000000002102 /* MoveTyping.swift in Sources */,
 				B2120000000000000000000D /* BattlerAssessment.swift in Sources */,
 				B27600000000000000000002 /* StatLeaderboard.swift in Sources */,
 				B27300000000000000000002 /* ReadinessPart.swift in Sources */,
@@ -2106,6 +2210,18 @@
 				B21200000000000000000009 /* HiddenPower.swift in Sources */,
 				B21200000000000000000007 /* StatCalculator.swift in Sources */,
 				B21200000000000000000005 /* BattleLevel.swift in Sources */,
+				B28400000000000000002002 /* TypeCoverageView.swift in Sources */,
+				B28400000000000000001202 /* GetTeamCandidates.swift in Sources */,
+				B28400000000000000001102 /* GetTeam.swift in Sources */,
+				B28400000000000000001002 /* GetTeams.swift in Sources */,
+				B28400000000000000000902 /* DeleteTeam.swift in Sources */,
+				B28400000000000000000802 /* UpdateTeam.swift in Sources */,
+				B28400000000000000000702 /* CreateTeam.swift in Sources */,
+				B28400000000000000000602 /* TeamDTOs.swift in Sources */,
+				B28400000000000000000502 /* PokemonType.swift in Sources */,
+				B28400000000000000000402 /* TeamAnalysis.swift in Sources */,
+				B28400000000000000000302 /* TeamRepository.swift in Sources */,
+				B28400000000000000000202 /* Team.swift in Sources */,
 				B21200000000000000000003 /* BaseStats.swift in Sources */,
 				B20200000000000000000008 /* LocationsTVC.swift in Sources */,
 				B20200000000000000000027 /* TechniquesInfoTVC.swift in Sources */,
@@ -2157,6 +2273,7 @@
 				B18600000000000000000002 /* PPPreset.swift in Sources */,
 				B17700000000000000000016 /* GoalProgressCard.swift in Sources */,
 				B17700000000000000000014 /* CoreDataYearlyGoalRepository.swift in Sources */,
+				B28400000000000000002302 /* CoreDataTeamRepository.swift in Sources */,
 				B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */,
 				B17700000000000000000010 /* SetYearlyGoal.swift in Sources */,
 				B1770000000000000000000E /* YearlyGoalProgress.swift in Sources */,
@@ -2674,8 +2791,9 @@
 				B20700000000000000000001 /* ShinyDex 15.xcdatamodel */,
 				B21200000000000000000400 /* ShinyDex 16.xcdatamodel */,
 				B28000000000000000000017 /* ShinyDex 17.xcdatamodel */,
+				B28400000000000000000018 /* ShinyDex 18.xcdatamodel */,
 			);
-			currentVersion = B28000000000000000000017 /* ShinyDex 17.xcdatamodel */;
+			currentVersion = B28400000000000000000018 /* ShinyDex 18.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
