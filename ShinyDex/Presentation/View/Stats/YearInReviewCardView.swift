@@ -4,6 +4,7 @@ final class YearInReviewCardView: UIView {
     struct Content {
         var eyebrow: String
         var image: UIImage?
+        var follower: OverworldSheet? = nil
         var podiumImages: [UIImage] = []
         var isPixelArt = true
         var headline: String
@@ -21,6 +22,8 @@ final class YearInReviewCardView: UIView {
     fileprivate static let imageSize: CGFloat = 150
     fileprivate static let podiumWinnerSize: CGFloat = 110
     fileprivate static let podiumRunnerUpSize: CGFloat = 76
+    fileprivate static let followerPixelScale: CGFloat = 2
+    fileprivate static let followerOverlap: CGFloat = 16
 
     init(content: Content, footer: String) {
         super.init(frame: .zero)
@@ -32,6 +35,7 @@ final class YearInReviewCardView: UIView {
         eyebrowLabel.text = content.eyebrow.uppercased()
         eyebrowLabel.textAlignment = .center
 
+        var followerAnchor: UIView?
         let stack = UIStackView(arrangedSubviews: [eyebrowLabel])
         stack.axis = .vertical
         stack.alignment = .center
@@ -52,6 +56,7 @@ final class YearInReviewCardView: UIView {
                 imageView.heightAnchor.constraint(equalToConstant: YearInReviewCardView.imageSize)
             ])
             stack.addArrangedSubview(imageView)
+            followerAnchor = imageView
         }
 
         let headlineLabel = UILabel(style: .hero, weight: .heavy, color: Color.textPrimary)
@@ -98,10 +103,24 @@ final class YearInReviewCardView: UIView {
             footerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             footerLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
         ])
+        if let sheet = content.follower, let imageView = followerAnchor {
+            let follower = FollowerView(sheet: sheet, pixelScale: YearInReviewCardView.followerPixelScale)
+            addAutoLayoutSubviews(follower)
+            NSLayoutConstraint.activate([
+                follower.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -YearInReviewCardView.followerOverlap),
+                follower.bottomAnchor.constraint(equalTo: imageView.topAnchor, constant: YearInReviewCardView.findFeetHeight(of: content.image))
+            ])
+        }
 
         isAccessibilityElement = true
         accessibilityLabel = ([content.eyebrow, content.headline, content.title, content.message].compactMap { $0 }
             + content.rows.map { "\($0.title): \($0.value)" }).joined(separator: ". ")
+    }
+
+    fileprivate static func findFeetHeight(of image: UIImage?) -> CGFloat {
+        guard let image = image, image.size.width > 0, image.size.height > 0 else { return imageSize }
+        let fittedHeight = image.size.height * min(imageSize / image.size.width, imageSize / image.size.height)
+        return ((imageSize - fittedHeight) / 2 + fittedHeight * (image.findVisibleBottomFraction() ?? 1)).rounded()
     }
 
     required init?(coder: NSCoder) {

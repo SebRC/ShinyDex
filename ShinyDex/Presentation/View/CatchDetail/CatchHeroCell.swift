@@ -5,6 +5,10 @@ final class CatchHeroCell: UITableViewCell {
 
     fileprivate static let spriteSide: CGFloat = 170
     fileprivate static let glowSide: CGFloat = 280
+    fileprivate static let carouselDuration: CFTimeInterval = 0.6
+    fileprivate static let carouselRadius: CGFloat = 80
+    fileprivate static let carouselBackScale: CGFloat = 0.45
+    fileprivate static let fadeDuration: TimeInterval = 0.25
     fileprivate let glowView = GlowView(intensity: 0.35)
     fileprivate let spriteView = PokemonSpriteView()
     fileprivate let badgeLabel = UILabel(style: .footnote, weight: .bold, color: Color.background)
@@ -14,6 +18,11 @@ final class CatchHeroCell: UITableViewCell {
     fileprivate let speciesLabel = UILabel(style: .body, weight: .semibold, color: Color.textSecondary)
     fileprivate let dateLabel = UILabel(style: .subheadline, color: Color.textTertiary)
     fileprivate let positionLabel = UILabel(style: .footnote, weight: .semibold, color: Color.accent)
+    fileprivate var followerView: FollowerView?
+    fileprivate var carouselProgress: CGFloat = 0
+    fileprivate var carouselTarget: CGFloat = 0
+    fileprivate var carouselLink: CADisplayLink?
+    fileprivate var lastCarouselTick: CFTimeInterval?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,6 +68,9 @@ final class CatchHeroCell: UITableViewCell {
             text.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
         isAccessibilityElement = true
+        let spriteTap = UITapGestureRecognizer(target: self, action: #selector(spritePressed))
+        spriteTap.delegate = self
+        contentView.addGestureRecognizer(spriteTap)
     }
 
     required init?(coder: NSCoder) {
@@ -69,7 +81,8 @@ final class CatchHeroCell: UITableViewCell {
         spriteView.playAnimationOnce()
     }
 
-    func configure(pokemonName: String, spriteAssetName: String, nickname: String?, gender: Gender?, dateText: String, positionText: String?, isFailed: Bool) {
+    func configure(pokemonName: String, spriteAssetName: String, nickname: String?, gender: Gender?, dateText: String, positionText: String?, isFailed: Bool, follower: OverworldSheet?) {
+        prepareFollower(isFailed ? nil : follower)
         badge.backgroundColor = isFailed ? Color.inactive : Color.accent
         badgeLabel.text = isFailed ? "GOT AWAY" : "SHINY"
         badgeLabel.textColor = isFailed ? Color.textPrimary : Color.background
@@ -89,5 +102,105 @@ final class CatchHeroCell: UITableViewCell {
         positionLabel.text = positionText
         positionLabel.isHidden = positionText == nil
         accessibilityLabel = [nickname, isFailed ? "Shiny \(pokemonName) that got away" : "Shiny \(pokemonName)", dateText, positionText].compactMap { $0 }.joined(separator: ", ")
+        accessibilityCustomActions = followerView == nil ? nil : [UIAccessibilityCustomAction(name: "Swap sprite and follower") { [weak self] _ in
+            self?.toggleFollower()
+            return true
+        }]
+    }
+
+    fileprivate func prepareFollower(_ sheet: OverworldSheet?) {
+        stopCarousel()
+        followerView?.removeFromSuperview()
+        followerView = nil
+        carouselProgress = 0
+        carouselTarget = 0
+        spriteView.transform = .identity
+        spriteView.alpha = 1
+        spriteView.layer.zPosition = 0
+        spriteView.allowsTapToPlay = true
+        guard let sheet = sheet else { return }
+        let pixelScale = max((CatchHeroCell.spriteSide / sheet.frameSizeInPixels.width).rounded(.down), 1)
+        let follower = FollowerView(sheet: sheet, pixelScale: pixelScale)
+        contentView.addAutoLayoutSubviews(follower)
+        NSLayoutConstraint.activate([
+            follower.centerXAnchor.constraint(equalTo: spriteView.centerXAnchor),
+            follower.centerYAnchor.constraint(equalTo: spriteView.centerYAnchor)
+        ])
+        followerView = follower
+        spriteView.allowsTapToPlay = false
+        applyCarousel()
+    }
+
+    // MARK: Carousel
+
+    fileprivate func toggleFollower() {
+        guard followerView != nil else { return }
+        carouselTarget = carouselTarget == 0 ? 1 : 0
+        guard !UIAccessibility.isReduceMotionEnabled else {
+            stopCarousel()
+            carouselProgress = carouselTarget
+            UIView.animate(withDuration: CatchHeroCell.fadeDuration) { self.applyCarousel() }
+            return
+        }
+        guard carouselLink == nil else { return }
+        lastCarouselTick = nil
+        let link = CADisplayLink(target: self, selector: #selector(carouselTicked))
+        link.add(to: .main, forMode: .common)
+        carouselLink = link
+    }
+
+    @objc fileprivate func carouselTicked(_ link: CADisplayLink) {
+        let elapsed = lastCarouselTick.map { link.timestamp - $0 } ?? 0
+        lastCarouselTick = link.timestamp
+        let step = CGFloat(elapsed / CatchHeroCell.carouselDuration)
+        carouselProgress = carouselTarget > carouselProgress ? min(carouselProgress + step, carouselTarget) : max(carouselProgress - step, carouselTarget)
+        applyCarousel()
+        if (carouselProgress == carouselTarget) {
+            stopCarousel()
+        }
+    }
+
+    fileprivate func stopCarousel() {
+        carouselLink?.invalidate()
+        carouselLink = nil
+    }
+
+    fileprivate func applyCarousel() {
+        guard let follower = followerView else { return }
+        let eased = carouselProgress * carouselProgress * (3 - 2 * carouselProgress)
+        let angle = CGFloat.pi * eased
+        placeOnCarousel(spriteView, at: angle)
+        placeOnCarousel(follower, at: angle + .pi)
+    }
+
+    fileprivate func placeOnCarousel(_ view: UIView, at angle: CGFloat) {
+        let depth = (1 + cos(angle)) / 2
+        view.alpha = depth
+        view.layer.zPosition = depth
+        guard !UIAccessibility.isReduceMotionEnabled else {
+            view.transform = .identity
+            return
+        }
+        let scale = CatchHeroCell.carouselBackScale + (1 - CatchHeroCell.carouselBackScale) * depth
+        view.transform = CGAffineTransform(translationX: sin(angle) * CatchHeroCell.carouselRadius, y: 0).scaledBy(x: scale, y: scale)
+    }
+
+    @objc fileprivate func spritePressed() {
+        Haptics.tap()
+        toggleFollower()
+    }
+
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if (window == nil) {
+            stopCarousel()
+        }
+    }
+}
+
+extension CatchHeroCell {
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard followerView != nil else { return false }
+        return spriteView.frame.union(followerView?.frame ?? .zero).contains(gestureRecognizer.location(in: contentView))
     }
 }

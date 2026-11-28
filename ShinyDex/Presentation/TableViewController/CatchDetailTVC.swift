@@ -194,7 +194,8 @@ class CatchDetailTVC: UITableViewController {
                            gender: details.gender.value,
                            dateText: caught.formattedCaughtDate.map { "\(verb) \($0)" } ?? "Logged before catch history",
                            positionText: positionText,
-                           isFailed: caught.isFailed)
+                           isFailed: caught.isFailed,
+                           follower: OverworldSprites.makeCompanionSheet(number: caught.number, formId: caught.formId, gender: details.gender.value))
             return cell
         case .stats:
             let cell = tableView.dequeueReusableCell(withIdentifier: CatchStatsCell.reuseIdentifier, for: indexPath) as! CatchStatsCell

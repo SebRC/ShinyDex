@@ -7,6 +7,10 @@ class PokemonSpriteView: UIView {
 		didSet { setNeedsLayout() }
 	}
 
+	var allowsTapToPlay = true {
+		didSet { updateTapToPlay() }
+	}
+
 	fileprivate let imageView = FLAnimatedImageView()
 	fileprivate let tapRecognizer = UITapGestureRecognizer()
 	fileprivate var tapToPlaySprite: FLAnimatedImage?
@@ -53,7 +57,7 @@ class PokemonSpriteView: UIView {
 		else {
 			imageView.image = UIImage(named: name.lowercased())
 		}
-		tapRecognizer.isEnabled = tapToPlaySprite != nil
+		updateTapToPlay()
 		setNeedsLayout()
 	}
 
@@ -65,6 +69,10 @@ class PokemonSpriteView: UIView {
 		let scale = min(pointsPerPixel, fittingScale)
 		let size = CGSize(width: pixelSize.width * scale, height: pixelSize.height * scale)
 		imageView.frame = CGRect(x: (bounds.width - size.width) / 2, y: (bounds.height - size.height) / 2, width: size.width, height: size.height)
+	}
+
+	fileprivate func updateTapToPlay() {
+		tapRecognizer.isEnabled = allowsTapToPlay && tapToPlaySprite != nil
 	}
 
 	fileprivate func showTapToPlayStill() {
