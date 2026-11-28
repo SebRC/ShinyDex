@@ -20,8 +20,8 @@ final class JourneyHandlerTests: XCTestCase {
         return CatchID(rawValue: caught.id)
     }
 
-    private func logCatch(_ number: Int, in game: Games, on day: Int, isFailed: Bool = false) -> CatchID {
-        let caught = Catch(number: number, caughtBall: isFailed ? CatchRules.noBall : "poke", game: game, huntMethod: .Encounters, encounters: 100,
+    private func logCatch(_ number: Int, in game: Games, on day: Int, isFailed: Bool = false, encounters: Int = 100) -> CatchID {
+        let caught = Catch(number: number, caughtBall: isFailed ? CatchRules.noBall : "poke", game: game, huntMethod: .Encounters, encounters: encounters,
                            isShinyCharmActive: false, caughtDate: Date(timeIntervalSince1970: Double(day) * 86_400), isFailed: isFailed)
         catches.insert(caught)
         catches.save()
@@ -181,5 +181,23 @@ final class JourneyHandlerTests: XCTestCase {
         ChoosePlaybackPlayerHandler(keyValueStore: store).handle(ChoosePlaybackPlayerCommand(isFemale: true))
 
         XCTAssertEqual(getPlayback(id, store: store)?.isPlayerFemale, true)
+    }
+
+    func test_playback_totalsTheEncounters_andPicksTheLuckiestFind() throws {
+        let id = CreateJourneyHandler(journeyRepository: journeys).handle(CreateJourneyCommand(name: "Johto", pokemonNumbers: [0, 1, 3]))
+        let entries = getDetails(id)!.entries
+        let update = UpdateJourneyHandler(journeyRepository: journeys)
+        let slow = logCatch(0, in: .Heartgold, on: 1, encounters: 9000)
+        let lucky = logCatch(1, in: .Heartgold, on: 2, encounters: 40)
+        let middling = logCatch(3, in: .Heartgold, on: 3, encounters: 3000)
+        for (entry, caught) in zip(entries, [slow, lucky, middling]) {
+            update.handle(UpdateJourneyCommand(journeyId: id, change: .link(entry: entry.id, catchId: caught)))
+        }
+
+        let playback = try XCTUnwrap(getPlayback(id))
+
+        XCTAssertEqual(playback.totalEncounters, 12_040)
+        XCTAssertEqual(playback.luckiestFind?.catchId, lucky)
+        XCTAssertEqual(playback.luckiestFind?.chanceOfFindingSooner ?? 0, Double.getProbability(encounters: 40, odds: 8192), accuracy: 0.0001)
     }
 }

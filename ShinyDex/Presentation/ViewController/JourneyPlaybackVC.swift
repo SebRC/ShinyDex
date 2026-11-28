@@ -56,10 +56,12 @@ final class JourneyPlaybackVC: UIViewController {
         guard let playerSheet = OverworldSprites.makePlayerSheet(game: game, isFemale: playback.isPlayerFemale) else { return }
         let companions = playback.companions.compactMap { caught -> JourneyPlaybackView.Companion? in
             guard let sheet = OverworldSprites.makeCompanionSheet(number: caught.number, formId: caught.formId, gender: caught.gender) else { return nil }
-            return JourneyPlaybackView.Companion(sheet: sheet, caption: [caught.speciesTitle, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "))
+            return JourneyPlaybackView.Companion(sheet: sheet, caption: [caught.speciesTitle, caught.formattedCaughtDate].compactMap { $0 }.joined(separator: " · "),
+                                                 encounters: caught.encounters)
         }
         let shinyCount = companions.count == 1 ? "1 shiny" : "\(companions.count) shinies"
-        let scene = JourneyPlaybackView(title: playback.journeyName, subtitle: "\(shinyCount) · \(game.displayName)", player: playerSheet, companions: companions)
+        let scene = JourneyPlaybackView(title: playback.journeyName, subtitle: "\(shinyCount) · \(game.displayName)", player: playerSheet, companions: companions,
+                                        recap: makeRecap())
         scene.onFinished = { [weak self] in
             self?.shareButton.isEnabled = true
         }
@@ -71,6 +73,13 @@ final class JourneyPlaybackVC: UIViewController {
             scene.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         self.scene = scene
+    }
+
+    fileprivate func makeRecap() -> String? {
+        guard let luckiest = playback.luckiestFind, let caught = playback.companions.first(where: { $0.id == luckiest.catchId }) else { return nil }
+        let encounters = caught.encounters == 1 ? "1 encounter" : "\(caught.encounters.grouped) encounters"
+        let luckierThan = Int((100 - luckiest.chanceOfFindingSooner).rounded(.down))
+        return "Luckiest find: \(caught.nickname ?? caught.speciesTitle) after \(encounters), luckier than \(luckierThan)% of hunts"
     }
 
     fileprivate func startScene() {

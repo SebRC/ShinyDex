@@ -4,6 +4,7 @@ final class JourneyPlaybackView: UIView {
     struct Companion {
         let sheet: OverworldSheet
         let caption: String
+        var encounters = 0
     }
 
     fileprivate enum Timing {
@@ -24,6 +25,7 @@ final class JourneyPlaybackView: UIView {
         static let companionStepStagger: CFTimeInterval = 0.13
         static let companionIdleStepsPerSecond: Double = 2.5
         static let sparkle: CFTimeInterval = 0.6
+        static let counterPop: CFTimeInterval = 0.4
     }
 
     fileprivate enum Metrics {
@@ -40,6 +42,7 @@ final class JourneyPlaybackView: UIView {
         static let hopHeight: CGFloat = 6
         static let pathAboveBackLane: CGFloat = 10
         static let pathBelowFrontLane: CGFloat = 6
+        static let counterPopScale: CGFloat = 0.3
     }
 
     fileprivate struct Formation {
@@ -60,6 +63,9 @@ final class JourneyPlaybackView: UIView {
     fileprivate let subtitleLabel = UILabel(style: .subheadline, weight: .semibold, color: Color.accent)
     fileprivate let captionLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textSecondary)
     fileprivate let footerLabel = UILabel(style: .caption2, weight: .semibold, color: Color.textQuaternary)
+    fileprivate let recapLabel = UILabel(style: .footnote, weight: .semibold, color: Color.textSecondary, lines: 2)
+    fileprivate let counterCaptionLabel = UILabel(style: .caption1, weight: .semibold, color: Color.textTertiary)
+    fileprivate let counterLabel = UILabel(style: .title1, weight: .bold, color: Color.textPrimary)
     fileprivate var formation = Formation()
     fileprivate var displayLink: CADisplayLink?
     fileprivate var startTime: CFTimeInterval?
@@ -86,7 +92,7 @@ final class JourneyPlaybackView: UIView {
         return endCardStart + Timing.fade
     }
 
-    init(title: String, subtitle: String, player: OverworldSheet, companions: [Companion]) {
+    init(title: String, subtitle: String, player: OverworldSheet, companions: [Companion], recap: String? = nil) {
         self.player = OverworldSpriteView(sheet: player)
         self.companions = companions
         companionViews = companions.map { OverworldSpriteView(sheet: $0.sheet) }
@@ -101,12 +107,18 @@ final class JourneyPlaybackView: UIView {
         subtitleLabel.textAlignment = .center
         captionLabel.textAlignment = .center
         footerLabel.text = "ShinyDex"
+        recapLabel.text = recap
+        recapLabel.textAlignment = .center
+        counterCaptionLabel.text = "ENCOUNTERS"
+        counterCaptionLabel.textAlignment = .center
+        counterLabel.font = UIFont.make(.title1, weight: .bold, monospacedDigits: true)
+        counterLabel.textAlignment = .center
         addSubview(ground)
         companionViews.forEach(addSubview)
         addSubview(self.player)
         sparkleViews.forEach(addSubview)
         addAutoLayoutSubviews(titleLabel, subtitleLabel, footerLabel)
-        addSubview(captionLabel)
+        [captionLabel, recapLabel, counterCaptionLabel, counterLabel].forEach(addSubview)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Spacing.extraLarge),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.screenMargin),
@@ -119,7 +131,7 @@ final class JourneyPlaybackView: UIView {
         ])
         isAccessibilityElement = true
         accessibilityLabel = "Journey playback"
-        accessibilityValue = ([title, subtitle] + companions.map { $0.caption }).joined(separator: ", ")
+        accessibilityValue = ([title, subtitle, "\(companions.reduce(0) { $0 + $1.encounters }.grouped) encounters"] + companions.map { $0.caption } + [recap].compactMap { $0 }).joined(separator: ", ")
         update()
     }
 
@@ -137,7 +149,14 @@ final class JourneyPlaybackView: UIView {
         ground.pathTop = backLaneY - Metrics.pathAboveBackLane * scale
         ground.pathBottom = formation.playerFeet.y + Metrics.pathBelowFrontLane * scale
         let captionHeight = captionLabel.font.lineHeight.rounded(.up)
-        captionLabel.frame = CGRect(x: Spacing.screenMargin, y: ground.pathBottom + Spacing.large, width: bounds.width - Spacing.screenMargin * 2, height: captionHeight)
+        let textWidth = bounds.width - Spacing.screenMargin * 2
+        captionLabel.frame = CGRect(x: Spacing.screenMargin, y: ground.pathBottom + Spacing.large, width: textWidth, height: captionHeight)
+        let recapHeight = (recapLabel.font.lineHeight * 2).rounded(.up)
+        recapLabel.frame = CGRect(x: Spacing.screenMargin, y: captionLabel.frame.minY, width: textWidth, height: recapHeight)
+        let counterCaptionHeight = counterCaptionLabel.font.lineHeight.rounded(.up)
+        counterCaptionLabel.frame = CGRect(x: Spacing.screenMargin, y: recapLabel.frame.maxY + Spacing.medium, width: textWidth, height: counterCaptionHeight)
+        counterLabel.transform = .identity
+        counterLabel.frame = CGRect(x: Spacing.screenMargin, y: counterCaptionLabel.frame.maxY, width: textWidth, height: counterLabel.font.lineHeight.rounded(.up))
         update()
     }
 
@@ -164,6 +183,7 @@ final class JourneyPlaybackView: UIView {
 
     func renderImage() -> UIImage {
         companionViews.forEach { $0.showFrame($0.sheet.forwardFrame) }
+        counterLabel.transform = .identity
         sparkleViews.forEach { $0.isHidden = true }
         let image = UIGraphicsImageRenderer(bounds: bounds).image { _ in
             drawHierarchy(in: bounds, afterScreenUpdates: true)
@@ -232,11 +252,13 @@ final class JourneyPlaybackView: UIView {
             placeSparkle(sparkleViews[index], over: view, progress: sparkleProgress)
         }
 
+        updateCounter(at: time)
         let joiningIndex = (0..<companions.count).last { findJoinStart(of: $0) <= time }
         captionLabel.text = joiningIndex.map { companions[$0].caption }
         captionLabel.alpha = time < stopStart ? 1 : max(0, 1 - CGFloat((time - stopStart) / Timing.fade))
         titleLabel.alpha = min(CGFloat(time / Timing.intro), 1)
         subtitleLabel.alpha = min(max(CGFloat((time - endCardStart) / Timing.fade), 0), 1)
+        recapLabel.alpha = subtitleLabel.alpha
 
         if elapsed >= duration && !hasFinished {
             hasFinished = true
@@ -245,6 +267,26 @@ final class JourneyPlaybackView: UIView {
             }
             onFinished?()
         }
+    }
+
+    fileprivate func findArrival(of index: Int) -> CFTimeInterval {
+        return findJoinStart(of: index) + Timing.joinTravel
+    }
+
+    fileprivate func updateCounter(at time: CFTimeInterval) {
+        var counted = 0.0
+        for (index, companion) in companions.enumerated() {
+            let windowStart = index == 0 ? 0 : findArrival(of: index - 1)
+            let progress = min(max((time - windowStart) / (findArrival(of: index) - windowStart), 0), 1)
+            counted += Double(companion.encounters) * progress
+        }
+        counterLabel.text = Int(counted.rounded()).grouped
+        let latestArrival = (0..<companions.count).map(findArrival).last { $0 <= time }
+        let popProgress = latestArrival.map { (time - $0) / Timing.counterPop } ?? 1
+        let isPopping = popProgress < 1 && !UIAccessibility.isReduceMotionEnabled
+        let scale = isPopping ? 1 + Metrics.counterPopScale * CGFloat(sin(Double.pi * popProgress)) : 1
+        counterLabel.transform = CGAffineTransform(scaleX: scale, y: scale)
+        counterLabel.textColor = isPopping ? Color.accent : Color.textPrimary
     }
 
     fileprivate func findStandingFrame(of view: OverworldSpriteView, turnedAt turnTime: CFTimeInterval, stagger: CFTimeInterval) -> Int {

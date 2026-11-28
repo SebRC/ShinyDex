@@ -82,10 +82,20 @@ struct JourneyCatchLinks {
 }
 
 struct JourneyPlayback: Equatable {
+    struct LuckiestFind: Equatable {
+        let catchId: CatchID
+        let chanceOfFindingSooner: Double
+    }
+
     let journeyName: String
     let companions: [CatchSummary]
     let games: [Games]
     let isPlayerFemale: Bool
+    var luckiestFind: LuckiestFind? = nil
+
+    var totalEncounters: Int {
+        return companions.reduce(0) { $0 + $1.encounters }
+    }
 }
 
 enum JourneyPlaybackKeys {

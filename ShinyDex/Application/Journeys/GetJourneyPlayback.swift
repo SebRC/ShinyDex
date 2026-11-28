@@ -28,6 +28,13 @@ final class GetJourneyPlaybackHandler {
         return JourneyPlayback(journeyName: journey.name,
                                companions: companions.compactMap(mapper.makeSummary),
                                games: Journey.rankPlaybackGames(of: companions),
-                               isPlayerFemale: keyValueStore.getBool(forKey: JourneyPlaybackKeys.isPlayerFemale))
+                               isPlayerFemale: keyValueStore.getBool(forKey: JourneyPlaybackKeys.isPlayerFemale),
+                               luckiestFind: GetJourneyPlaybackHandler.findLuckiest(of: companions))
+    }
+
+    private static func findLuckiest(of companions: [Catch]) -> JourneyPlayback.LuckiestFind? {
+        let chances = companions.compactMap { caught in CatchOdds.calculateChanceOfFindingSooner(caught).map { (caught, $0) } }
+        guard let luckiest = chances.min(by: { $0.1 < $1.1 }) else { return nil }
+        return JourneyPlayback.LuckiestFind(catchId: CatchID(rawValue: luckiest.0.id), chanceOfFindingSooner: luckiest.1)
     }
 }
