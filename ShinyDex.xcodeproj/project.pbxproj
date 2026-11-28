@@ -140,11 +140,14 @@
 		B19000000000000000000004 /* HuntingCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000003 /* HuntingCalendarView.swift */; };
 		B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000001 /* HuntingDayStreaks.swift */; };
 		B1890000000000000000000A /* YearInReviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000009 /* YearInReviewTests.swift */; };
+		B28300000000000000000E02 /* YearComparisonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28300000000000000000E01 /* YearComparisonTests.swift */; };
 		B18900000000000000000008 /* YearInReviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000007 /* YearInReviewVC.swift */; };
+		B28300000000000000000D02 /* YearComparisonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28300000000000000000D01 /* YearComparisonVC.swift */; };
 		B2690000000000000000000A /* JourneyPlaybackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000009 /* JourneyPlaybackVC.swift */; };
 		B18900000000000000000006 /* YearInReviewCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000005 /* YearInReviewCards.swift */; };
 		B18900000000000000000004 /* YearInReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000003 /* YearInReviewCardView.swift */; };
 		B18900000000000000000002 /* GetYearInReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18900000000000000000001 /* GetYearInReview.swift */; };
+		B28300000000000000000B02 /* GetYearComparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28300000000000000000B01 /* GetYearComparison.swift */; };
 		B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000E /* EncounterHistoryTests.swift */; };
 		B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000C /* EncounterHistoryTVC.swift */; };
 		B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1870000000000000000000A /* EncounterHistoryChartView.swift */; };
@@ -155,6 +158,7 @@
 		AB52DE5E000000000000B001 /* HuntRankRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB52DE5E000000000000F001 /* HuntRankRow.swift */; };
 		A33654CFDC9E45B778BCFD88 /* NatureChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A48736C9F55354A7736D7 /* NatureChartView.swift */; };
 		B243322F7989347710F03348 /* PeriodChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */; };
+		B28300000000000000000C02 /* YearComparisonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28300000000000000000C01 /* YearComparisonChartView.swift */; };
 		9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEDA61CC8AB213395372361 /* RecordCard.swift */; };
 		87477D2F5EA46112BA98BD66 /* TappableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */; };
 		91B7BE5138DB0F8FD50C7C6E /* YearChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CB9957CECCA901BA95C2F /* YearChartView.swift */; };
@@ -437,6 +441,7 @@
 		B1770000000000000000000A /* YearlyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000009 /* YearlyGoal.swift */; };
 		B1770000000000000000000C /* YearlyGoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000B /* YearlyGoalRepository.swift */; };
 		B1770000000000000000000E /* YearlyGoalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000D /* YearlyGoalProgress.swift */; };
+		B28300000000000000000A02 /* YearComparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28300000000000000000A01 /* YearComparison.swift */; };
 		B17700000000000000000010 /* SetYearlyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1770000000000000000000F /* SetYearlyGoal.swift */; };
 		B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */; };
 		B17700000000000000000014 /* CoreDataYearlyGoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */; };
@@ -607,11 +612,14 @@
 		B19000000000000000000003 /* HuntingCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingCalendarView.swift; sourceTree = "<group>"; };
 		B19000000000000000000001 /* HuntingDayStreaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaks.swift; sourceTree = "<group>"; };
 		B18900000000000000000009 /* YearInReviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewTests.swift; sourceTree = "<group>"; };
+		B28300000000000000000E01 /* YearComparisonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearComparisonTests.swift; sourceTree = "<group>"; };
 		B18900000000000000000007 /* YearInReviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewVC.swift; sourceTree = "<group>"; };
+		B28300000000000000000D01 /* YearComparisonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearComparisonVC.swift; sourceTree = "<group>"; };
 		B26900000000000000000009 /* JourneyPlaybackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyPlaybackVC.swift; sourceTree = "<group>"; };
 		B18900000000000000000005 /* YearInReviewCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCards.swift; sourceTree = "<group>"; };
 		B18900000000000000000003 /* YearInReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearInReviewCardView.swift; sourceTree = "<group>"; };
 		B18900000000000000000001 /* GetYearInReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYearInReview.swift; sourceTree = "<group>"; };
+		B28300000000000000000B01 /* GetYearComparison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYearComparison.swift; sourceTree = "<group>"; };
 		B1870000000000000000000E /* EncounterHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTests.swift; sourceTree = "<group>"; };
 		B1870000000000000000000C /* EncounterHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryTVC.swift; sourceTree = "<group>"; };
 		B1870000000000000000000A /* EncounterHistoryChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterHistoryChartView.swift; sourceTree = "<group>"; };
@@ -622,6 +630,7 @@
 		0DC1FBA88328600AA7DF2C9D /* LuckyDateRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyDateRow.swift; sourceTree = "<group>"; };
 		1D5A48736C9F55354A7736D7 /* NatureChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NatureChartView.swift; sourceTree = "<group>"; };
 		9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodChartView.swift; sourceTree = "<group>"; };
+		B28300000000000000000C01 /* YearComparisonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearComparisonChartView.swift; sourceTree = "<group>"; };
 		2EEDA61CC8AB213395372361 /* RecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCard.swift; sourceTree = "<group>"; };
 		6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableColumn.swift; sourceTree = "<group>"; };
 		A65CB9957CECCA901BA95C2F /* YearChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearChartView.swift; sourceTree = "<group>"; };
@@ -919,6 +928,7 @@
 		B17700000000000000000009 /* YearlyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyGoal.swift; sourceTree = "<group>"; };
 		B1770000000000000000000B /* YearlyGoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyGoalRepository.swift; sourceTree = "<group>"; };
 		B1770000000000000000000D /* YearlyGoalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlyGoalProgress.swift; sourceTree = "<group>"; };
+		B28300000000000000000A01 /* YearComparison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearComparison.swift; sourceTree = "<group>"; };
 		B1770000000000000000000F /* SetYearlyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetYearlyGoal.swift; sourceTree = "<group>"; };
 		B17700000000000000000011 /* CoreDataEncounterLedgerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEncounterLedgerRepository.swift; sourceTree = "<group>"; };
 		B17700000000000000000013 /* CoreDataYearlyGoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataYearlyGoalRepository.swift; sourceTree = "<group>"; };
@@ -1109,6 +1119,7 @@
 				B21000000000000000000005 /* GenderRatioView.swift */,
 				CA654D4858207C263458AB0B /* UsageRowView.swift */,
 				9611FA9E492F68F31BDE0416 /* PeriodChartView.swift */,
+				B28300000000000000000C01 /* YearComparisonChartView.swift */,
 				2EEDA61CC8AB213395372361 /* RecordCard.swift */,
 				6E00B1DC465C8AFBBCC0B756 /* TappableColumn.swift */,
 				A65CB9957CECCA901BA95C2F /* YearChartView.swift */,
@@ -1461,6 +1472,7 @@
 				B19100000000000000000003 /* HuntLuckTextTests.swift */,
 				B19000000000000000000005 /* HuntingDayStreaksTests.swift */,
 				B18900000000000000000009 /* YearInReviewTests.swift */,
+				B28300000000000000000E01 /* YearComparisonTests.swift */,
 				B1870000000000000000000E /* EncounterHistoryTests.swift */,
 				B1860000000000000000000B /* PPPresetTests.swift */,
 				B17700000000000000000019 /* ProgressHandlerTests.swift */,
@@ -1803,6 +1815,7 @@
 			children = (
 				B21200000000000000001904 /* CatchRateVC.swift */,
 				B18900000000000000000007 /* YearInReviewVC.swift */,
+				B28300000000000000000D01 /* YearComparisonVC.swift */,
 				B26900000000000000000009 /* JourneyPlaybackVC.swift */,
 				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
@@ -1932,6 +1945,7 @@
 				B18700000000000000000001 /* EncounterDay.swift */,
 				B27900000000000000000101 /* HuntPace.swift */,
 				B1770000000000000000000D /* YearlyGoalProgress.swift */,
+				B28300000000000000000A01 /* YearComparison.swift */,
 				B1770000000000000000000B /* YearlyGoalRepository.swift */,
 				B17700000000000000000009 /* YearlyGoal.swift */,
 				B17700000000000000000007 /* DryStreaks.swift */,
@@ -1945,6 +1959,7 @@
 			isa = PBXGroup;
 			children = (
 				B18900000000000000000001 /* GetYearInReview.swift */,
+				B28300000000000000000B01 /* GetYearComparison.swift */,
 				B18700000000000000000008 /* GetEncounterHistory.swift */,
 				B20500000000000000000002 /* GetEncounterDay.swift */,
 				B1770000000000000000000F /* SetYearlyGoal.swift */,
@@ -2124,6 +2139,7 @@
 				B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */,
 				B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */,
 				B1890000000000000000000A /* YearInReviewTests.swift in Sources */,
+				B28300000000000000000E02 /* YearComparisonTests.swift in Sources */,
 				B1870000000000000000000F /* EncounterHistoryTests.swift in Sources */,
 				B1860000000000000000000C /* PPPresetTests.swift in Sources */,
 				B1770000000000000000001A /* ProgressHandlerTests.swift in Sources */,
@@ -2277,10 +2293,12 @@
 				B19000000000000000000004 /* HuntingCalendarView.swift in Sources */,
 				B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */,
 				B18900000000000000000008 /* YearInReviewVC.swift in Sources */,
+				B28300000000000000000D02 /* YearComparisonVC.swift in Sources */,
 				B2690000000000000000000A /* JourneyPlaybackVC.swift in Sources */,
 				B18900000000000000000006 /* YearInReviewCards.swift in Sources */,
 				B18900000000000000000004 /* YearInReviewCardView.swift in Sources */,
 				B18900000000000000000002 /* GetYearInReview.swift in Sources */,
+				B28300000000000000000B02 /* GetYearComparison.swift in Sources */,
 				B1870000000000000000000D /* EncounterHistoryTVC.swift in Sources */,
 				B20500000000000000000005 /* EncounterDayTVC.swift in Sources */,
 				B1870000000000000000000B /* EncounterHistoryChartView.swift in Sources */,
@@ -2301,6 +2319,7 @@
 				B17700000000000000000012 /* CoreDataEncounterLedgerRepository.swift in Sources */,
 				B17700000000000000000010 /* SetYearlyGoal.swift in Sources */,
 				B1770000000000000000000E /* YearlyGoalProgress.swift in Sources */,
+				B28300000000000000000A02 /* YearComparison.swift in Sources */,
 				B1770000000000000000000C /* YearlyGoalRepository.swift in Sources */,
 				B1770000000000000000000A /* YearlyGoal.swift in Sources */,
 				B17700000000000000000008 /* DryStreaks.swift in Sources */,
@@ -2360,6 +2379,7 @@
 				B21000000000000000000006 /* GenderRatioView.swift in Sources */,
 				3B764DF4F3CA9F57536B37CA /* UsageRowView.swift in Sources */,
 				B243322F7989347710F03348 /* PeriodChartView.swift in Sources */,
+				B28300000000000000000C02 /* YearComparisonChartView.swift in Sources */,
 				9395D8770DEBA846FD287299 /* RecordCard.swift in Sources */,
 				87477D2F5EA46112BA98BD66 /* TappableColumn.swift in Sources */,
 				91B7BE5138DB0F8FD50C7C6E /* YearChartView.swift in Sources */,

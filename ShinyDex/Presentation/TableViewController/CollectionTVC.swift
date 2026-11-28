@@ -53,6 +53,8 @@ enum CollectionFilter {
             return String(year)
         case .month(let month):
             return calendar.monthSymbols[month - 1]
+        case let .monthOfYear(month, year):
+            return "\(calendar.monthSymbols[month - 1]) \(year)"
         case .weekday(let weekday):
             return calendar.weekdaySymbols[weekday - 1]
         case let .date(month, day):

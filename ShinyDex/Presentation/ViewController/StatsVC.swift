@@ -59,6 +59,7 @@ class StatsVC: UIViewController {
             return
         }
         addYearInReview(stats)
+        addYearComparison()
         addOverview(stats)
         addGoal(stats)
         addEncountersToday(stats)
@@ -169,6 +170,21 @@ class StatsVC: UIViewController {
         let tile = StatTile(caption: "Year in review", value: "Your \(year)", detail: "Your year of hunting, card by card", isValueEmphasized: true) { [weak self] in
             guard let self = self else { return }
             self.navigationController?.pushViewController(YearInReviewVC(container: self.container), animated: true)
+        }
+        stack.addArrangedSubview(tile)
+    }
+
+    fileprivate func addYearComparison() {
+        let comparison = container.getYearComparison.handle(GetYearComparisonQuery())
+        guard comparison.availableYears.contains(comparison.previousYear) else { return }
+        let difference = comparison.shinies.difference
+        let value = difference == 0 ? "Level" : "\(abs(difference).grouped) \(difference > 0 ? "ahead" : "behind")"
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("MMMd")
+        let detail = "Shinies against \(comparison.previousYear) by \(formatter.string(from: comparison.comparedUntil)), month by month"
+        let tile = StatTile(caption: "\(comparison.year) vs \(comparison.previousYear)", value: value, detail: detail) { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.pushViewController(YearComparisonVC(container: self.container), animated: true)
         }
         stack.addArrangedSubview(tile)
     }
