@@ -195,6 +195,7 @@
 		B2800000000000000000000C /* ChangeCatchPhases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2800000000000000000000B /* ChangeCatchPhases.swift */; };
 		B2800000000000000000000E /* GetPhaseCandidates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2800000000000000000000D /* GetPhaseCandidates.swift */; };
 		287F283BAD79556704EFE666 /* LogCatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8106095A92C68F1A3BBF01 /* LogCatch.swift */; };
+		B28700000000000000000B02 /* GetCatchReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28700000000000000000B01 /* GetCatchReport.swift */; };
 		2E5D53590EF7526DE53C6B0E /* JourneyDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F51D841B5CB5F12B0D0E8F1 /* JourneyDTOs.swift */; };
 		2EC631EA27265380D0FF9B08 /* CatchOdds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0068511BD9BCD2B45F5D0F4 /* CatchOdds.swift */; };
 		319C22CC05AA3A928CE6E0DF /* CatchDatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F519D744D07E15E42A48BC /* CatchDatePickerVC.swift */; };
@@ -305,6 +306,7 @@
 		96FC083C23EF59C000459450 /* PokeballModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC083823EF59C000459450 /* PokeballModalVC.swift */; };
 		976627DD6264F773CE23D3E8 /* MoveDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9772D44DFCFD54C5311B8229 /* MoveDTOs.swift */; };
 		9822C69A72301A237CECF56C /* CatchHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4791FBB126AD2D6201BFBB /* CatchHandlerTests.swift */; };
+		B28700000000000000000D02 /* CatchReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28700000000000000000D01 /* CatchReportTests.swift */; };
 		993B357F56E2584D447C1F0E /* MoveTypes+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF1598857635BFEA82CBE0 /* MoveTypes+Colors.swift */; };
 		B10C0A000000000000005102 /* IndividualValues+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005902 /* IndividualValues+Colors.swift */; };
 		9A6029B3082505F2D8AA08CC /* SerebiiLocationLinkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */; };
@@ -334,6 +336,7 @@
 		B28500000000000000000C02 /* TrainingPlannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28500000000000000000C01 /* TrainingPlannerVC.swift */; };
 		B27800000000000000000402 /* OddsCurveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000401 /* OddsCurveVC.swift */; };
 		B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005806 /* CatchStatsVC.swift */; };
+		B28700000000000000000C02 /* CatchReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28700000000000000000C01 /* CatchReportVC.swift */; };
 		B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005901 /* NaturePickerVC.swift */; };
 		B10C0A0000000000000000E7 /* evolutions.json in Resources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E8 /* evolutions.json */; };
 		B10C0A0000000000000000E9 /* EffortValuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000EA /* EffortValuesTests.swift */; };
@@ -470,6 +473,7 @@
 		B1860000000000000000000E /* ppPresets.json in Resources */ = {isa = PBXBuildFile; fileRef = B1860000000000000000000D /* ppPresets.json */; };
 		B18700000000000000000002 /* EncounterDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000001 /* EncounterDay.swift */; };
 		B27900000000000000000102 /* HuntPace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27900000000000000000101 /* HuntPace.swift */; };
+		B28700000000000000000A02 /* HuntLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28700000000000000000A01 /* HuntLength.swift */; };
 		B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000003 /* DailyEncountersRepository.swift */; };
 		B18700000000000000000006 /* CoreDataDailyEncountersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */; };
 /* End PBXBuildFile section */
@@ -677,6 +681,7 @@
 		B2800000000000000000000B /* ChangeCatchPhases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCatchPhases.swift; sourceTree = "<group>"; };
 		B2800000000000000000000D /* GetPhaseCandidates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhaseCandidates.swift; sourceTree = "<group>"; };
 		1E8106095A92C68F1A3BBF01 /* LogCatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogCatch.swift; sourceTree = "<group>"; };
+		B28700000000000000000B01 /* GetCatchReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchReport.swift; sourceTree = "<group>"; };
 		213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SerebiiLocationLinkProvider.swift; sourceTree = "<group>"; };
 		27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CatchSummary+Display.swift"; sourceTree = "<group>"; };
 		28C960D3F8889C92FD2FBC95 /* GetCatches.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetCatches.swift; sourceTree = "<group>"; };
@@ -709,6 +714,7 @@
 		B10C0A000000000000005902 /* IndividualValues+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IndividualValues+Colors.swift"; sourceTree = "<group>"; };
 		5721DCF8C2D96A9E57E5FF25 /* CreateHunt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CreateHunt.swift; sourceTree = "<group>"; };
 		5E4791FBB126AD2D6201BFBB /* CatchHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatchHandlerTests.swift; sourceTree = "<group>"; };
+		B28700000000000000000D01 /* CatchReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchReportTests.swift; sourceTree = "<group>"; };
 		5FD625845E4AACABFF6A1B98 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		62C6ADE756573C8E15C1872B /* GetActiveMoves.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetActiveMoves.swift; sourceTree = "<group>"; };
 		6303E0EC0AF0FAA2C6E7A69E /* Identifiers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Identifiers.swift; sourceTree = "<group>"; };
@@ -839,6 +845,7 @@
 		B28500000000000000000C01 /* TrainingPlannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingPlannerVC.swift; sourceTree = "<group>"; };
 		B27800000000000000000401 /* OddsCurveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsCurveVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005806 /* CatchStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsVC.swift; sourceTree = "<group>"; };
+		B28700000000000000000C01 /* CatchReportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchReportVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005901 /* NaturePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturePickerVC.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E8 /* evolutions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = evolutions.json; sourceTree = "<group>"; };
 		B10C0A0000000000000000EA /* EffortValuesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffortValuesTests.swift; sourceTree = "<group>"; };
@@ -971,6 +978,7 @@
 		B1860000000000000000000D /* ppPresets.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ppPresets.json; sourceTree = "<group>"; };
 		B18700000000000000000001 /* EncounterDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncounterDay.swift; sourceTree = "<group>"; };
 		B27900000000000000000101 /* HuntPace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPace.swift; sourceTree = "<group>"; };
+		B28700000000000000000A01 /* HuntLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLength.swift; sourceTree = "<group>"; };
 		B18700000000000000000003 /* DailyEncountersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEncountersRepository.swift; sourceTree = "<group>"; };
 		B18700000000000000000005 /* CoreDataDailyEncountersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDailyEncountersRepository.swift; sourceTree = "<group>"; };
 		B18700000000000000000007 /* ShinyDex 12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 12.xcdatamodel"; sourceTree = "<group>"; };
@@ -1554,6 +1562,7 @@
 				2EE526EB510D8295C3E91B98 /* PokemonHandlerTests.swift */,
 				0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */,
 				5E4791FBB126AD2D6201BFBB /* CatchHandlerTests.swift */,
+				B28700000000000000000D01 /* CatchReportTests.swift */,
 				2B8D5AFF0A586B78AD354459 /* JourneyHandlerTests.swift */,
 				B28600000000000000000E01 /* HuntSuggestionTests.swift */,
 				98832F980935BA32B8B572A7 /* StartupAndMoveHandlerTests.swift */,
@@ -1704,6 +1713,7 @@
 				D247425C0E7E1D4A61861661 /* GetCatchStatistics.swift */,
 				28C960D3F8889C92FD2FBC95 /* GetCatches.swift */,
 				1E8106095A92C68F1A3BBF01 /* LogCatch.swift */,
+				B28700000000000000000B01 /* GetCatchReport.swift */,
 				B2800000000000000000000D /* GetPhaseCandidates.swift */,
 				B2800000000000000000000B /* ChangeCatchPhases.swift */,
 				B28000000000000000000007 /* GetPhases.swift */,
@@ -1856,6 +1866,7 @@
 				0DD551700000000000000006 /* OddsSimulatorVC.swift */,
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A000000000000005806 /* CatchStatsVC.swift */,
+				B28700000000000000000C01 /* CatchReportVC.swift */,
 				B27300000000000000000003 /* BattleReadinessVC.swift */,
 				B28500000000000000000C01 /* TrainingPlannerVC.swift */,
 				B27800000000000000000401 /* OddsCurveVC.swift */,
@@ -1981,6 +1992,7 @@
 				B18700000000000000000003 /* DailyEncountersRepository.swift */,
 				B18700000000000000000001 /* EncounterDay.swift */,
 				B27900000000000000000101 /* HuntPace.swift */,
+				B28700000000000000000A01 /* HuntLength.swift */,
 				B1770000000000000000000D /* YearlyGoalProgress.swift */,
 				B28300000000000000000A01 /* YearComparison.swift */,
 				B1770000000000000000000B /* YearlyGoalRepository.swift */,
@@ -2228,6 +2240,7 @@
 				A938B4EFF40CFE805F668099 /* PokemonHandlerTests.swift in Sources */,
 				CAA975314595A527C863132D /* HuntHandlerTests.swift in Sources */,
 				9822C69A72301A237CECF56C /* CatchHandlerTests.swift in Sources */,
+				B28700000000000000000D02 /* CatchReportTests.swift in Sources */,
 				08766721C175F33F87C9175E /* JourneyHandlerTests.swift in Sources */,
 				B28600000000000000000E02 /* HuntSuggestionTests.swift in Sources */,
 				A36BEDF39D1633F8364DD742 /* StartupAndMoveHandlerTests.swift in Sources */,
@@ -2351,6 +2364,7 @@
 				B18700000000000000000004 /* DailyEncountersRepository.swift in Sources */,
 				B18700000000000000000002 /* EncounterDay.swift in Sources */,
 				B27900000000000000000102 /* HuntPace.swift in Sources */,
+				B28700000000000000000A02 /* HuntLength.swift in Sources */,
 				B1860000000000000000000A /* PPPresetPickerTVC.swift in Sources */,
 				B18600000000000000000008 /* PPPresetsLoader.swift in Sources */,
 				B18600000000000000000006 /* ApplyPPPreset.swift in Sources */,
@@ -2485,6 +2499,7 @@
 				969BEFA426B2E63B00FDF445 /* MoveCell.swift in Sources */,
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */,
+				B28700000000000000000C02 /* CatchReportVC.swift in Sources */,
 				B27300000000000000000004 /* BattleReadinessVC.swift in Sources */,
 				B28500000000000000000C02 /* TrainingPlannerVC.swift in Sources */,
 				B27800000000000000000402 /* OddsCurveVC.swift in Sources */,
@@ -2559,6 +2574,7 @@
 				FC69EEA49E99A955C31B754B /* GetCatchStatistics.swift in Sources */,
 				C22AED1A43B762761FECE8C7 /* GetCatches.swift in Sources */,
 				287F283BAD79556704EFE666 /* LogCatch.swift in Sources */,
+				B28700000000000000000B02 /* GetCatchReport.swift in Sources */,
 				B2800000000000000000000E /* GetPhaseCandidates.swift in Sources */,
 				B2800000000000000000000C /* ChangeCatchPhases.swift in Sources */,
 				B28000000000000000000008 /* GetPhases.swift in Sources */,
