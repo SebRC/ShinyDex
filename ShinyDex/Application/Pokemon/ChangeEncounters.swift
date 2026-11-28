@@ -43,6 +43,9 @@ final class ChangeEncountersHandler {
             pokemon.encounters -= 1
         case .set(let encounters):
             pokemon.encounters = max(encounters, 0)
+            if (pokemon.encounters == 0) {
+                pokemon.phases = []
+            }
         }
         pokemon.shinyOdds = odds.getShinyOdds(pokemon: pokemon)
         pokemonRepository.save(pokemon)

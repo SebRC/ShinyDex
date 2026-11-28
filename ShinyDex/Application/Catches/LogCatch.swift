@@ -44,11 +44,16 @@ final class LogCatchHandler {
             found = Catch(pokemon: pokemon, caughtBall: CatchRules.noBall, caughtDate: command.date, isFailed: true, formId: formId)
         }
         found.encounterTotalAtFind = ledger.total
+        found.phaseCatchIds = pokemon.phases.map { $0.catchId }
         found.gender = genders.findFixedGender(of: command.number)
         found.ability = abilities.findFixedAbility(of: command.number, formId: formId, in: found.game)
         catchRepository.insert(found)
         guard catchRepository.save() else { return }
         ledgerRepository.save(ledger)
+        if (!pokemon.phases.isEmpty) {
+            pokemon.phases = []
+            pokemonRepository.save(pokemon)
+        }
         if !found.isFailed {
             CaughtBallSync(catchRepository: catchRepository, pokemonRepository: pokemonRepository).sync(number: command.number)
         }

@@ -97,6 +97,7 @@ struct CatchDetails: Equatable {
     var ability: CatchAbility? = nil
     var moves: [MoveChoice] = []
     var gender = CatchGender(value: nil, choices: [.male, .female])
+    var phaseCount = 0
 }
 
 struct CatchSummaryMapper {

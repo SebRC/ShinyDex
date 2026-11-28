@@ -39,6 +39,7 @@
 		B21200000000000000000022 /* BattlerAssessmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000021 /* BattlerAssessmentTests.swift */; };
 		B21200000000000000000020 /* baseStats.json in Resources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001F /* baseStats.json */; };
 		B27600000000000000000008 /* StatRankingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000007 /* StatRankingTVC.swift */; };
+		B2800000000000000000000A /* PhasesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28000000000000000000009 /* PhasesTVC.swift */; };
 		B2120000000000000000001E /* BattlersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001D /* BattlersTVC.swift */; };
 		B27600000000000000000006 /* StatLeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000005 /* StatLeaderCell.swift */; };
 		B2120000000000000000001C /* BattlerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001B /* BattlerCell.swift */; };
@@ -158,6 +159,11 @@
 		1EB6E8B69DAC592F7639E4E5 /* DeleteCatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8AA5035B24F6F53B7896E3 /* DeleteCatch.swift */; };
 		1FA1B18140BC81F7BD758A68 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44411BA8C99C635E22EC8E6B /* FoundationExtensions.swift */; };
 		203326836B2BBDDA2EF064EA /* HuntHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95B5EBB43AD40AB34598AFA /* HuntHeaderView.swift */; };
+		B28000000000000000000004 /* LogPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28000000000000000000003 /* LogPhase.swift */; };
+		B28000000000000000000006 /* UnlinkPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28000000000000000000005 /* UnlinkPhase.swift */; };
+		B28000000000000000000008 /* GetPhases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28000000000000000000007 /* GetPhases.swift */; };
+		B2800000000000000000000C /* ChangeCatchPhases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2800000000000000000000B /* ChangeCatchPhases.swift */; };
+		B2800000000000000000000E /* GetPhaseCandidates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2800000000000000000000D /* GetPhaseCandidates.swift */; };
 		287F283BAD79556704EFE666 /* LogCatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8106095A92C68F1A3BBF01 /* LogCatch.swift */; };
 		2E5D53590EF7526DE53C6B0E /* JourneyDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F51D841B5CB5F12B0D0E8F1 /* JourneyDTOs.swift */; };
 		2EC631EA27265380D0FF9B08 /* CatchOdds.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0068511BD9BCD2B45F5D0F4 /* CatchOdds.swift */; };
@@ -199,6 +205,7 @@
 		9625742426B4028F0056B09C /* MovePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9625742326B4028F0056B09C /* MovePickerCell.swift */; };
 		962AB1AA26617E8C0044E3BE /* OddsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */; };
 		963A5A4E24DD9D5400765AE0 /* IncrementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */; };
+		B28000000000000000000002 /* HuntPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28000000000000000000001 /* HuntPhase.swift */; };
 		96435D432454807B00C45A00 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D422454807B00C45A00 /* Pokemon.swift */; };
 		96435D452455C31A00C45A00 /* PokemonPickerModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D442455C31A00C45A00 /* PokemonPickerModalVC.swift */; };
 		96435D4724561E1C00C45A00 /* PokemonPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96435D4624561E1C00C45A00 /* PokemonPickerCell.swift */; };
@@ -465,6 +472,7 @@
 		B21200000000000000000021 /* BattlerAssessmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerAssessmentTests.swift; sourceTree = "<group>"; };
 		B2120000000000000000001F /* baseStats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseStats.json; sourceTree = "<group>"; };
 		B27600000000000000000007 /* StatRankingTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatRankingTVC.swift; sourceTree = "<group>"; };
+		B28000000000000000000009 /* PhasesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesTVC.swift; sourceTree = "<group>"; };
 		B2120000000000000000001D /* BattlersTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlersTVC.swift; sourceTree = "<group>"; };
 		B27600000000000000000005 /* StatLeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatLeaderCell.swift; sourceTree = "<group>"; };
 		B2120000000000000000001B /* BattlerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerCell.swift; sourceTree = "<group>"; };
@@ -499,6 +507,7 @@
 		B20700000000000000000004 /* PokemonLearnsetsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsetsLoader.swift; sourceTree = "<group>"; };
 		B20700000000000000000002 /* PokemonLearnsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonLearnsets.swift; sourceTree = "<group>"; };
 		B21200000000000000000400 /* ShinyDex 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 16.xcdatamodel"; sourceTree = "<group>"; };
+		B28000000000000000000017 /* ShinyDex 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 17.xcdatamodel"; sourceTree = "<group>"; };
 		B20700000000000000000001 /* ShinyDex 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 15.xcdatamodel"; sourceTree = "<group>"; };
 		B20600000000000000000008 /* CatchAbilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchAbilitiesTests.swift; sourceTree = "<group>"; };
 		B20600000000000000000006 /* abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = abilities.json; sourceTree = "<group>"; };
@@ -585,6 +594,11 @@
 		0F4B2DE6778C3B7B7BB628CB /* ReorderHunts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReorderHunts.swift; sourceTree = "<group>"; };
 		14D071513DB370706418AF14 /* GetMenuSummary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetMenuSummary.swift; sourceTree = "<group>"; };
 		157CFED362D73A96ED902CC1 /* EvolveCatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EvolveCatch.swift; sourceTree = "<group>"; };
+		B28000000000000000000003 /* LogPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPhase.swift; sourceTree = "<group>"; };
+		B28000000000000000000005 /* UnlinkPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlinkPhase.swift; sourceTree = "<group>"; };
+		B28000000000000000000007 /* GetPhases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhases.swift; sourceTree = "<group>"; };
+		B2800000000000000000000B /* ChangeCatchPhases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCatchPhases.swift; sourceTree = "<group>"; };
+		B2800000000000000000000D /* GetPhaseCandidates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhaseCandidates.swift; sourceTree = "<group>"; };
 		1E8106095A92C68F1A3BBF01 /* LogCatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LogCatch.swift; sourceTree = "<group>"; };
 		213098DD4B821DBF3311EAB2 /* SerebiiLocationLinkProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SerebiiLocationLinkProvider.swift; sourceTree = "<group>"; };
 		27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CatchSummary+Display.swift"; sourceTree = "<group>"; };
@@ -653,6 +667,7 @@
 		9625742326B4028F0056B09C /* MovePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePickerCell.swift; sourceTree = "<group>"; };
 		962AB1A926617E8C0044E3BE /* OddsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsServiceTests.swift; sourceTree = "<group>"; };
 		963A5A4D24DD9D5400765AE0 /* IncrementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementVC.swift; sourceTree = "<group>"; };
+		B28000000000000000000001 /* HuntPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntPhase.swift; sourceTree = "<group>"; };
 		96435D422454807B00C45A00 /* Pokemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		96435D442455C31A00C45A00 /* PokemonPickerModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonPickerModalVC.swift; sourceTree = "<group>"; };
 		96435D4624561E1C00C45A00 /* PokemonPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonPickerCell.swift; sourceTree = "<group>"; };
@@ -1231,6 +1246,7 @@
 				9648AE8C24AE110500E819CC /* HuntMethod.swift */,
 				7A2BBD5DF3D0C6D030F633F1 /* PokedexRegions.swift */,
 				96435D422454807B00C45A00 /* Pokemon.swift */,
+				B28000000000000000000001 /* HuntPhase.swift */,
 				96FC07DA23EF455A00459450 /* PokemonRepository.swift */,
 			);
 			name = Pokemon;
@@ -1533,6 +1549,11 @@
 				D247425C0E7E1D4A61861661 /* GetCatchStatistics.swift */,
 				28C960D3F8889C92FD2FBC95 /* GetCatches.swift */,
 				1E8106095A92C68F1A3BBF01 /* LogCatch.swift */,
+				B2800000000000000000000D /* GetPhaseCandidates.swift */,
+				B2800000000000000000000B /* ChangeCatchPhases.swift */,
+				B28000000000000000000007 /* GetPhases.swift */,
+				B28000000000000000000005 /* UnlinkPhase.swift */,
+				B28000000000000000000003 /* LogPhase.swift */,
 				4B1591D4BEB645DCA01BA638 /* RemoveLatestCatch.swift */,
 				E74AFFB6D94D4431D6196AA1 /* UpdateCatch.swift */,
 			);
@@ -1546,6 +1567,7 @@
 				B21200000000000000001408 /* AchievementDetailTVC.swift */,
 				B21200000000000000001104 /* AchievementsTVC.swift */,
 				B2120000000000000000001D /* BattlersTVC.swift */,
+				B28000000000000000000009 /* PhasesTVC.swift */,
 				B27600000000000000000007 /* StatRankingTVC.swift */,
 				B20200000000000000000022 /* LocationsOverviewTVC.swift */,
 				B20200000000000000000007 /* LocationsTVC.swift */,
@@ -2063,6 +2085,7 @@
 				B21200000000000000001002 /* Achievement.swift in Sources */,
 				B21200000000000000000302 /* GetCatchStats.swift in Sources */,
 				B2120000000000000000001E /* BattlersTVC.swift in Sources */,
+				B2800000000000000000000A /* PhasesTVC.swift in Sources */,
 				B27600000000000000000008 /* StatRankingTVC.swift in Sources */,
 				B2120000000000000000001C /* BattlerCell.swift in Sources */,
 				B27600000000000000000006 /* StatLeaderCell.swift in Sources */,
@@ -2296,6 +2319,7 @@
 				96BC2CDB26B4309A00353665 /* MoveTypes.swift in Sources */,
 				B20700000000000000000003 /* PokemonLearnsets.swift in Sources */,
 				96435D432454807B00C45A00 /* Pokemon.swift in Sources */,
+				B28000000000000000000002 /* HuntPhase.swift in Sources */,
 				B10C0A0000000000000000E3 /* Evolutions.swift in Sources */,
 				9622379C24B715DD006BBC43 /* CornerRadius.swift in Sources */,
 				1C14B3A60384EDA8ADD17A08 /* ShinyNavigationController.swift in Sources */,
@@ -2323,6 +2347,11 @@
 				FC69EEA49E99A955C31B754B /* GetCatchStatistics.swift in Sources */,
 				C22AED1A43B762761FECE8C7 /* GetCatches.swift in Sources */,
 				287F283BAD79556704EFE666 /* LogCatch.swift in Sources */,
+				B2800000000000000000000E /* GetPhaseCandidates.swift in Sources */,
+				B2800000000000000000000C /* ChangeCatchPhases.swift in Sources */,
+				B28000000000000000000008 /* GetPhases.swift in Sources */,
+				B28000000000000000000006 /* UnlinkPhase.swift in Sources */,
+				B28000000000000000000004 /* LogPhase.swift in Sources */,
 				AC02C362C2FE7CA997D89DC4 /* RemoveLatestCatch.swift in Sources */,
 				0336C0532DA23F33348B8D65 /* UpdateCatch.swift in Sources */,
 				D2DF3F434E546EECC3B4A017 /* AddPokemonToHunt.swift in Sources */,
@@ -2640,8 +2669,9 @@
 				B20600000000000000000001 /* ShinyDex 14.xcdatamodel */,
 				B20700000000000000000001 /* ShinyDex 15.xcdatamodel */,
 				B21200000000000000000400 /* ShinyDex 16.xcdatamodel */,
+				B28000000000000000000017 /* ShinyDex 17.xcdatamodel */,
 			);
-			currentVersion = B21200000000000000000400 /* ShinyDex 16.xcdatamodel */;
+			currentVersion = B28000000000000000000017 /* ShinyDex 17.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

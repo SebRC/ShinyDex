@@ -31,9 +31,10 @@ class Catch {
     var level: Int? {
         didSet { level = Catch.normalizeLevel(level) }
     }
+    var phaseCatchIds = [UUID]()
 
     init(id: UUID, number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool, evs: EffortValues, evolvedFrom: Int?,
-         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil, ability: String? = nil, moves: [Int] = [], level: Int? = nil) {
+         nickname: String? = nil, gender: Gender? = nil, nature: Nature? = nil, ivs: IndividualValues = IndividualValues(), formId: String? = nil, encounterTotalAtFind: Int? = nil, ability: String? = nil, moves: [Int] = [], level: Int? = nil, phaseCatchIds: [UUID] = []) {
         self.id = id
         self.number = number
         self.caughtBall = caughtBall
@@ -54,6 +55,7 @@ class Catch {
         self.ability = ability
         self.moves = Catch.normalizeMoves(moves)
         self.level = Catch.normalizeLevel(level)
+        self.phaseCatchIds = phaseCatchIds
     }
 
     init(number: Int, caughtBall: String, game: Games, huntMethod: HuntMethod, encounters: Int, isShinyCharmActive: Bool, caughtDate: Date?, isFailed: Bool = false) {

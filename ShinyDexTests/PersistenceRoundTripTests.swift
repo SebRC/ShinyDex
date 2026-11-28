@@ -30,6 +30,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         original.ability = "static"
         original.moves = [85, 98]
         original.level = 72
+        original.phaseCatchIds = [UUID(uuidString: "6B2D4A10-0000-4000-8000-000000000001")!]
         original.ivs = IndividualValues(encoded: "31,,31,0,31,31")
         original.encounterTotalAtFind = 98_765
         let repository = CoreDataCatchRepository(managedContext: store.context)
@@ -58,6 +59,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(caught.ability, "static")
         XCTAssertEqual(caught.moves, [85, 98])
         XCTAssertEqual(caught.level, 72)
+        XCTAssertEqual(caught.phaseCatchIds, original.phaseCatchIds)
         XCTAssertEqual(caught.ivs, original.ivs)
         XCTAssertEqual(caught.encounterTotalAtFind, 98_765)
     }
@@ -88,6 +90,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertNil(caught.ability)
         XCTAssertEqual(caught.moves, [])
         XCTAssertNil(caught.level)
+        XCTAssertEqual(caught.phaseCatchIds, [])
         XCTAssertTrue(caught.ivs.isEmpty)
     }
 
@@ -375,6 +378,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(pokemon.huntMethod, .Encounters)
         XCTAssertEqual(pokemon.increment, 1)
         XCTAssertEqual(pokemon.game, .Red)
+        XCTAssertEqual(pokemon.phases, [])
     }
 
     func test_pokemon_changes_surviveReload() throws {
@@ -391,6 +395,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         pokemon.huntMethod = .Masuda
         pokemon.increment = 3
         pokemon.game = .Scarlet
+        pokemon.phases = [HuntPhase(catchId: UUID(uuidString: "6B2D4A10-0000-4000-8000-000000000002")!, encounters: 812)]
         CoreDataPokemonRepository(managedContext: store.context).save(pokemon)
 
         try store.reopen()
@@ -406,6 +411,7 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(reloaded.huntMethod, .Masuda)
         XCTAssertEqual(reloaded.increment, 3)
         XCTAssertEqual(reloaded.game, .Scarlet)
+        XCTAssertEqual(reloaded.phases, pokemon.phases)
     }
 
     func test_pokemon_areReturnedSortedByNumber() throws {

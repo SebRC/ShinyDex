@@ -94,6 +94,7 @@ final class CoreDataPokemonRepository: PokemonRepository {
             increment: pokemonEntity.value(forKey: "increment") as! Int,
             game: Games(rawValue: pokemonEntity.value(forKey: "game") as? String ?? Games.Red.rawValue) ?? Games.Red)
         pokemon.chain = pokemonEntity.value(forKey: "chain") as? Int ?? 0
+        pokemon.phases = HuntPhase.decode(pokemonEntity.value(forKey: "phases") as? String)
         return pokemon
     }
 
@@ -101,6 +102,7 @@ final class CoreDataPokemonRepository: PokemonRepository {
         pokemonEntity.setValue(pokemon.name, forKey: "name")
         pokemonEntity.setValue(pokemon.encounters, forKey: "encounters")
         pokemonEntity.setValue(pokemon.chain, forKey: "chain")
+        pokemonEntity.setValue(HuntPhase.encode(pokemon.phases), forKey: "phases")
         pokemonEntity.setValue(pokemon.caughtDescription, forKey: "caughtDescription")
         pokemonEntity.setValue(pokemon.caughtBall, forKey: "caughtBall")
         pokemonEntity.setValue(pokemon.isBeingHunted, forKey: "isBeingHunted")

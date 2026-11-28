@@ -23,6 +23,9 @@ struct PokemonPickerConfiguration {
     static let catchRate = PokemonPickerConfiguration(title: "Choose Pokémon", selectionTitle: "Choosing", confirmTitle: "Choose", discardTitle: "Discard Pick",
                                                       nameLabel: nil, defaultName: "", namesAfterFirstPick: false, excludesHuntedPokemon: false, selectionLimit: 1)
 
+    static let logPhase = PokemonPickerConfiguration(title: "Which shiny?", selectionTitle: "Found", confirmTitle: "Next", discardTitle: "Discard Pick",
+                                                     nameLabel: nil, defaultName: "", namesAfterFirstPick: false, excludesHuntedPokemon: false, selectionLimit: 1)
+
     static func newBingoBoard(size: BingoBoardSize) -> PokemonPickerConfiguration {
         return PokemonPickerConfiguration(title: "New \(size.title) bingo", selectionTitle: "On this board", confirmTitle: "Create", discardTitle: "Discard Board",
                                           nameLabel: "Board name", defaultName: "Shiny Bingo", namesAfterFirstPick: false, excludesHuntedPokemon: false,

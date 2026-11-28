@@ -35,6 +35,7 @@ final class InMemoryPokemonRepository: PokemonRepository {
                        isShinyCharmActive: pokemon.isShinyCharmActive, shinyOdds: pokemon.shinyOdds, huntMethod: pokemon.huntMethod,
                        increment: pokemon.increment, game: pokemon.game)
         copy.chain = pokemon.chain
+        copy.phases = pokemon.phases
         return copy
     }
 }
@@ -87,7 +88,7 @@ final class InMemoryCatchRepository: CatchRepository {
                      encounters: caught.encounters, isShinyCharmActive: caught.isShinyCharmActive, caughtDate: caught.caughtDate,
                      isFailed: caught.isFailed, evs: caught.evs, evolvedFrom: caught.evolvedFrom,
                      nickname: caught.nickname, gender: caught.gender, nature: caught.nature, ivs: caught.ivs, formId: caught.formId,
-                     encounterTotalAtFind: caught.encounterTotalAtFind, ability: caught.ability, moves: caught.moves, level: caught.level)
+                     encounterTotalAtFind: caught.encounterTotalAtFind, ability: caught.ability, moves: caught.moves, level: caught.level, phaseCatchIds: caught.phaseCatchIds)
     }
 }
 
