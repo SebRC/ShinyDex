@@ -9,6 +9,7 @@ final class OddsCurveVC: UIViewController {
     fileprivate let curveView = OddsCurveView()
     fileprivate let milestoneRows = UIStackView()
     fileprivate let footnoteLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
+    fileprivate let paceLabel = UILabel(style: .footnote, color: Color.textTertiary, lines: 0)
 
     init(container: AppContainer, number: Int) {
         self.container = container
@@ -54,6 +55,7 @@ final class OddsCurveVC: UIViewController {
         stack.setCustomSpacing(Spacing.large, after: hint)
         stack.addArrangedSubview(SectionHeaderLabel(text: "Milestones"))
         stack.addArrangedSubview(makeCard(containing: milestoneRows, insets: UIEdgeInsets(top: Spacing.extraSmall, left: 0, bottom: Spacing.extraSmall, right: 0)))
+        stack.addArrangedSubview(paceLabel)
         stack.addArrangedSubview(footnoteLabel)
     }
 
@@ -73,6 +75,7 @@ final class OddsCurveVC: UIViewController {
         for milestone in summary.milestones {
             milestoneRows.addArrangedSubview(OddsCurveVC.makeMilestoneRow(milestone, encounters: summary.current.encounters))
         }
+        paceLabel.text = OddsCurveVC.makePaceText(summary.pace)
         footnoteLabel.text = summary.usesChain
             ? "Assumes your chain keeps going unbroken from here, with the odds improving as it grows."
             : "Each encounter is an independent roll, so the curve shows the share of hunts that would have found the shiny by then."
@@ -87,7 +90,15 @@ final class OddsCurveVC: UIViewController {
         return card
     }
 
-    fileprivate static func makeMilestoneRow(_ milestone: OddsCurvePoint, encounters: Int) -> UIView {
+    fileprivate static func makePaceText(_ pace: HuntForecast?) -> String {
+        guard let pace = pace else {
+            return "Days to each milestone appear once you've hunted this Pokémon in the last \(HuntPace.windowDays) days."
+        }
+        let days = pace.activeDays == 1 ? "the 1 day" : "the \(pace.activeDays) days"
+        return "Days are estimated from your pace of about \(pace.encountersPerDay.grouped) encounters a day, over \(days) you hunted it in the last \(HuntPace.windowDays)."
+    }
+
+    fileprivate static func makeMilestoneRow(_ milestone: OddsCurveMilestone, encounters: Int) -> UIView {
         let chanceLabel = UILabel(style: .body, weight: .bold, color: Color.textPrimary)
         chanceLabel.font = UIFont.make(.body, weight: .bold, monospacedDigits: true)
         chanceLabel.text = "\(Int(milestone.chance))%"
@@ -100,19 +111,28 @@ final class OddsCurveVC: UIViewController {
         let remainingLabel = UILabel(style: .subheadline, weight: .semibold, color: isReached ? Color.success : Color.textTertiary)
         remainingLabel.font = UIFont.make(.subheadline, weight: .semibold, monospacedDigits: true)
         remainingLabel.text = isReached ? "Reached" : "\((milestone.encounters - encounters).grouped) to go"
-        remainingLabel.setContentHuggingPriority(.required, for: .horizontal)
+        remainingLabel.textAlignment = .right
+        let daysLabel = UILabel(style: .caption1, color: Color.textTertiary)
+        daysLabel.font = UIFont.make(.caption1, monospacedDigits: true)
+        daysLabel.textAlignment = .right
+        daysLabel.text = milestone.daysToReach.map { $0 == 1 ? "~1 day" : "~\($0.grouped) days" }
+        daysLabel.isHidden = isReached || daysLabel.text == nil
+        let remaining = UIStackView(arrangedSubviews: [remainingLabel, daysLabel])
+        remaining.axis = .vertical
+        remaining.alignment = .trailing
+        remaining.setContentHuggingPriority(.required, for: .horizontal)
         let icon = UIImageView(image: UIImage.makeSymbol(isReached ? "checkmark.circle.fill" : "circle", pointSize: 15, weight: .semibold))
         icon.tintColor = isReached ? Color.success : Color.textQuaternary
         icon.contentMode = .center
         icon.setContentHuggingPriority(.required, for: .horizontal)
         icon.setContentCompressionResistancePriority(.required, for: .horizontal)
-        let row = UIStackView(arrangedSubviews: [icon, chanceLabel, encountersLabel, remainingLabel])
+        let row = UIStackView(arrangedSubviews: [icon, chanceLabel, encountersLabel, remaining])
         row.spacing = Spacing.medium
         row.alignment = .center
         row.isLayoutMarginsRelativeArrangement = true
         row.layoutMargins = UIEdgeInsets(top: Spacing.medium, left: Spacing.large, bottom: Spacing.medium, right: Spacing.large)
         row.isAccessibilityElement = true
-        row.accessibilityLabel = "\(Int(milestone.chance)) percent chance by \(milestone.encounters.grouped) encounters, \(remainingLabel.text ?? "")"
+        row.accessibilityLabel = (["\(Int(milestone.chance)) percent chance by \(milestone.encounters.grouped) encounters", remainingLabel.text] + (daysLabel.isHidden ? [] : [daysLabel.text.map { "about \($0.dropFirst())" }])).compactMap { $0 }.joined(separator: ", ")
         return row
     }
 }

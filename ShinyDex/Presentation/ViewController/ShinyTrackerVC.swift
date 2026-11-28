@@ -275,7 +275,7 @@ class ShinyTrackerVC: UIViewController {
         probabilityTile.setValue(String(format: "%.2f%%", pokemon.probability))
         let luck = HuntLuckText(pokemon: pokemon)
         probabilityTile.setDetail(luck.chanceDetail, isEmphasized: true)
-        oddsTile.setDetail(luck.oddsDetail, isEmphasized: true)
+        oddsTile.setDetail(luck.oddsDetail ?? makeForecastText(), isEmphasized: luck.oddsDetail != nil)
         showShinyLockWarningIfNeeded()
         setCounterText(HuntCounterText(pokemon: pokemon))
         setOddsLabelText()
@@ -287,6 +287,11 @@ class ShinyTrackerVC: UIViewController {
         chainPlusButton.setStyledTitle(chainLabel, typeStyle: .body)
         chainPlusButton.accessibilityLabel = "Grow the \(chainLabel.lowercased()) by one"
         updateIncrementAccessibility()
+    }
+
+    fileprivate func makeForecastText() -> String? {
+        guard let days = container.getHuntForecast.handle(GetHuntForecastQuery(number: pokemon.number))?.daysToOdds else { return nil }
+        return days == 1 ? "Odds in ~1 day" : "Odds in ~\(days.grouped) days"
     }
 
     fileprivate func setCounterText(_ counter: HuntCounterText) {
