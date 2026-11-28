@@ -118,6 +118,7 @@
 		B19900000000000000000006 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000005 /* ButtonStyles.swift */; };
 		B19900000000000000000004 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000003 /* SectionHeader.swift */; };
 		B19900000000000000000002 /* StatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000001 /* StatTile.swift */; };
+		B27800000000000000000302 /* OddsCurveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000301 /* OddsCurveView.swift */; };
 		B19800000000000000000004 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19800000000000000000003 /* Spacing.swift */; };
 		B19800000000000000000002 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19800000000000000000001 /* Typography.swift */; };
 		B1960000000000000000000A /* MilestoneCelebration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19600000000000000000009 /* MilestoneCelebration.swift */; };
@@ -319,6 +320,7 @@
 		B10C0A000000000000005001 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005801 /* Stat.swift */; };
 		B10C0A0000000000000000E3 /* Evolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E4 /* Evolutions.swift */; };
 		B27300000000000000000004 /* BattleReadinessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27300000000000000000003 /* BattleReadinessVC.swift */; };
+		B27800000000000000000402 /* OddsCurveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000401 /* OddsCurveVC.swift */; };
 		B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005806 /* CatchStatsVC.swift */; };
 		B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005901 /* NaturePickerVC.swift */; };
 		B10C0A0000000000000000E7 /* evolutions.json in Resources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E8 /* evolutions.json */; };
@@ -345,6 +347,7 @@
 		B2D8EC9476D9C3F4A4A241A1 /* GamesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3538AD3592B4469FBE09F1C6 /* GamesTests.swift */; };
 		B36C535B40B6886C39A4F4D3 /* CatchesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F71281B079D457FDB64CE /* CatchesTVC.swift */; };
 		B8CA5C263655F2459F01726D /* GetPokemonDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D78A66AC4BFE921A63A0593 /* GetPokemonDetails.swift */; };
+		B27800000000000000000202 /* GetOddsCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000201 /* GetOddsCurve.swift */; };
 		B94C4B7485197FAC57A562E9 /* EvolveCatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157CFED362D73A96ED902CC1 /* EvolveCatch.swift */; };
 		BAC15ACF9C2D01FDBB07029A /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A68D2BCC65B0D2B86AC4C2 /* AppContainer.swift */; };
 		BB245C6A38575EE31A4099D4 /* IncrementAllInHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FAA628E9E055879B5E3AA /* IncrementAllInHunt.swift */; };
@@ -354,6 +357,7 @@
 		CAA975314595A527C863132D /* HuntHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */; };
 		CC77B8FF7BB25D84E0630439 /* InMemoryRepositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7F9C9750116E3D791E90FF /* InMemoryRepositories.swift */; };
 		B28400000000000000002802 /* TeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002801 /* TeamTests.swift */; };
+		B27800000000000000000502 /* OddsCurveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000501 /* OddsCurveTests.swift */; };
 		CEDF325709ECF5C7B0FF2686 /* PrepareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46113CCC446E4400CBBE77ED /* PrepareData.swift */; };
 		CF124A47CDAB6B64BD56CC7C /* CatchDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6A1F2DCC918AF60596AA6 /* CatchDetailTVC.swift */; };
 		B10C0A000000000000005005 /* OptionPickerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005805 /* OptionPickerTVC.swift */; };
@@ -412,6 +416,7 @@
 		F0A1B200000000000000000C /* PokemonFormsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B200000000000000000B /* PokemonFormsTests.swift */; };
 		F0A1B2000000000000000102 /* FormPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B2000000000000000101 /* FormPicker.swift */; };
 		0DD551700000000000000002 /* ShinyChanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000001 /* ShinyChanceCalculator.swift */; };
+		B27800000000000000000102 /* OddsCurve.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000101 /* OddsCurve.swift */; };
 		0DD551700000000000000005 /* SimulateOdds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000004 /* SimulateOdds.swift */; };
 		0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000006 /* OddsSimulatorVC.swift */; };
 		0DD551700000000000000009 /* OddsSimulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD551700000000000000008 /* OddsSimulatorTests.swift */; };
@@ -578,6 +583,7 @@
 		B19900000000000000000005 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		B19900000000000000000003 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		B19900000000000000000001 /* StatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTile.swift; sourceTree = "<group>"; };
+		B27800000000000000000301 /* OddsCurveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsCurveView.swift; sourceTree = "<group>"; };
 		B19800000000000000000003 /* Spacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		B19800000000000000000001 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		B19600000000000000000009 /* MilestoneCelebration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneCelebration.swift; sourceTree = "<group>"; };
@@ -779,6 +785,7 @@
 		98832F980935BA32B8B572A7 /* StartupAndMoveHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StartupAndMoveHandlerTests.swift; sourceTree = "<group>"; };
 		9B46E48E3772951697151C17 /* GetBallNames.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetBallNames.swift; sourceTree = "<group>"; };
 		9D78A66AC4BFE921A63A0593 /* GetPokemonDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetPokemonDetails.swift; sourceTree = "<group>"; };
+		B27800000000000000000201 /* GetOddsCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOddsCurve.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6071829304153 /* IconGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGridView.swift; sourceTree = "<group>"; };
 		A33F2DE9730A3CA606AF54DA /* GetCatchDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetCatchDetails.swift; sourceTree = "<group>"; };
 		A4F519D744D07E15E42A48BC /* CatchDatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchDatePickerVC.swift; sourceTree = "<group>"; };
@@ -796,6 +803,7 @@
 		B10C0A000000000000005801 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E4 /* Evolutions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evolutions.swift; sourceTree = "<group>"; };
 		B27300000000000000000003 /* BattleReadinessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleReadinessVC.swift; sourceTree = "<group>"; };
+		B27800000000000000000401 /* OddsCurveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsCurveVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005806 /* CatchStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005901 /* NaturePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturePickerVC.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E8 /* evolutions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = evolutions.json; sourceTree = "<group>"; };
@@ -839,6 +847,7 @@
 		DA82B1852561C52CE50F03F4 /* Pods-ShinyDex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShinyDex.release.xcconfig"; path = "Target Support Files/Pods-ShinyDex/Pods-ShinyDex.release.xcconfig"; sourceTree = "<group>"; };
 		DF7F9C9750116E3D791E90FF /* InMemoryRepositories.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InMemoryRepositories.swift; sourceTree = "<group>"; };
 		B28400000000000000002801 /* TeamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTests.swift; sourceTree = "<group>"; };
+		B27800000000000000000501 /* OddsCurveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsCurveTests.swift; sourceTree = "<group>"; };
 		E0068511BD9BCD2B45F5D0F4 /* CatchOdds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatchOdds.swift; sourceTree = "<group>"; };
 		E62D0E871083310DE6F7C4B3 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		E74AFFB6D94D4431D6196AA1 /* UpdateCatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateCatch.swift; sourceTree = "<group>"; };
@@ -887,6 +896,7 @@
 		F0A1B200000000000000000B /* PokemonFormsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonFormsTests.swift; sourceTree = "<group>"; };
 		F0A1B2000000000000000101 /* FormPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPicker.swift; sourceTree = "<group>"; };
 		0DD551700000000000000001 /* ShinyChanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShinyChanceCalculator.swift; sourceTree = "<group>"; };
+		B27800000000000000000101 /* OddsCurve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsCurve.swift; sourceTree = "<group>"; };
 		0DD551700000000000000004 /* SimulateOdds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulateOdds.swift; sourceTree = "<group>"; };
 		0DD551700000000000000006 /* OddsSimulatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsSimulatorVC.swift; sourceTree = "<group>"; };
 		0DD551700000000000000008 /* OddsSimulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsSimulatorTests.swift; sourceTree = "<group>"; };
@@ -1365,6 +1375,7 @@
 				683E4E0867F1440ECDEABCDE /* GetAllPokemon.swift */,
 				32FF33EC46495387BCA5DB6F /* GetPokedex.swift */,
 				9D78A66AC4BFE921A63A0593 /* GetPokemonDetails.swift */,
+				B27800000000000000000201 /* GetOddsCurve.swift */,
 				A69E983F49E0EE5739EB6551 /* PokemonDTOs.swift */,
 				641939FA4BDB8337127A449B /* PreviewHuntSettings.swift */,
 				D93E069A7D39569F582F7E0B /* SaveHuntSettings.swift */,
@@ -1492,6 +1503,7 @@
 				43CBE142BBC892A0AFDB3C88 /* PokemonFixture.swift */,
 				DF7F9C9750116E3D791E90FF /* InMemoryRepositories.swift */,
 				B28400000000000000002801 /* TeamTests.swift */,
+				B27800000000000000000501 /* OddsCurveTests.swift */,
 				2EE526EB510D8295C3E91B98 /* PokemonHandlerTests.swift */,
 				0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */,
 				5E4791FBB126AD2D6201BFBB /* CatchHandlerTests.swift */,
@@ -1564,6 +1576,7 @@
 				B21200000000000000001902 /* CatchRateControls.swift */,
 				B19900000000000000000003 /* SectionHeader.swift */,
 				B19900000000000000000001 /* StatTile.swift */,
+				B27800000000000000000301 /* OddsCurveView.swift */,
 				BAC0B0000000000000000011 /* BackupSettingsView.swift */,
 				B1B60A000000000000000019 /* Bingo */,
 				CCF9CB8C702F7D88075BC906 /* Stats */,
@@ -1790,6 +1803,7 @@
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A000000000000005806 /* CatchStatsVC.swift */,
 				B27300000000000000000003 /* BattleReadinessVC.swift */,
+				B27800000000000000000401 /* OddsCurveVC.swift */,
 				B10C0A000000000000005901 /* NaturePickerVC.swift */,
 				96FC082F23EF59AA00459450 /* LoadingVC.swift */,
 				9660629D24B4BF3200B2B654 /* LocationVC.swift */,
@@ -1806,6 +1820,7 @@
 			isa = PBXGroup;
 			children = (
 				0DD551700000000000000001 /* ShinyChanceCalculator.swift */,
+				B27800000000000000000101 /* OddsCurve.swift */,
 				9684073024AF6A2A005FE3D3 /* ChainFishingOddsService.swift */,
 				960A5B1424B3A91A00121B2A /* DexNavOddsService.swift */,
 				961652D224AF41D100829DE4 /* FriendSafariOddsService.swift */,
@@ -2149,6 +2164,7 @@
 				78498EAC7E99506E50B6E20F /* PokemonFixture.swift in Sources */,
 				CC77B8FF7BB25D84E0630439 /* InMemoryRepositories.swift in Sources */,
 				B28400000000000000002802 /* TeamTests.swift in Sources */,
+				B27800000000000000000502 /* OddsCurveTests.swift in Sources */,
 				A938B4EFF40CFE805F668099 /* PokemonHandlerTests.swift in Sources */,
 				CAA975314595A527C863132D /* HuntHandlerTests.swift in Sources */,
 				9822C69A72301A237CECF56C /* CatchHandlerTests.swift in Sources */,
@@ -2237,6 +2253,7 @@
 				B19900000000000000000006 /* ButtonStyles.swift in Sources */,
 				B19900000000000000000004 /* SectionHeader.swift in Sources */,
 				B19900000000000000000002 /* StatTile.swift in Sources */,
+				B27800000000000000000302 /* OddsCurveView.swift in Sources */,
 				B19800000000000000000004 /* Spacing.swift in Sources */,
 				B19800000000000000000002 /* Typography.swift in Sources */,
 				B1960000000000000000000A /* MilestoneCelebration.swift in Sources */,
@@ -2292,6 +2309,7 @@
 				0DD551700000000000000007 /* OddsSimulatorVC.swift in Sources */,
 				0DD551700000000000000005 /* SimulateOdds.swift in Sources */,
 				0DD551700000000000000002 /* ShinyChanceCalculator.swift in Sources */,
+				B27800000000000000000102 /* OddsCurve.swift in Sources */,
 				F0A1B2000000000000000102 /* FormPicker.swift in Sources */,
 				F0A1B2000000000000000008 /* PokemonSprites.swift in Sources */,
 				B26900000000000000000006 /* OverworldSprites.swift in Sources */,
@@ -2397,6 +2415,7 @@
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */,
 				B27300000000000000000004 /* BattleReadinessVC.swift in Sources */,
+				B27800000000000000000402 /* OddsCurveVC.swift in Sources */,
 				B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */,
 				B10C0A0000000000000000B1 /* StatsVC.swift in Sources */,
 				964A0B1023EF5E0400BC87B2 /* PokeballCell.swift in Sources */,
@@ -2504,6 +2523,7 @@
 				EB45740CE883690975FF3ED3 /* GetAllPokemon.swift in Sources */,
 				FA0FEB2EFCC708447BE8E5E3 /* GetPokedex.swift in Sources */,
 				B8CA5C263655F2459F01726D /* GetPokemonDetails.swift in Sources */,
+				B27800000000000000000202 /* GetOddsCurve.swift in Sources */,
 				AEDC7800315A8A7F85486725 /* PokemonDTOs.swift in Sources */,
 				454101BBD2EEB33A57C0AB96 /* PreviewHuntSettings.swift in Sources */,
 				895A30E6CC0508B71E69C0E6 /* SaveHuntSettings.swift in Sources */,
