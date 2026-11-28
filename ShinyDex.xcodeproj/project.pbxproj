@@ -116,6 +116,7 @@
 		B17600000000000000000006 /* GetGameChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000005 /* GetGameChoices.swift */; };
 		B17600000000000000000004 /* GameAvailabilityLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000003 /* GameAvailabilityLoader.swift */; };
 		B17600000000000000000002 /* GameAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17600000000000000000001 /* GameAvailability.swift */; };
+		B28600000000000000001102 /* TradeGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000001101 /* TradeGroups.swift */; };
 		B20100000000000000000004 /* OnThisDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000003 /* OnThisDayTests.swift */; };
 		B20100000000000000000002 /* GetOnThisDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20100000000000000000001 /* GetOnThisDay.swift */; };
 		B19900000000000000000006 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19900000000000000000005 /* ButtonStyles.swift */; };
@@ -139,6 +140,7 @@
 		B19100000000000000000004 /* HuntLuckTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000003 /* HuntLuckTextTests.swift */; };
 		B19100000000000000000002 /* HuntLuckText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19100000000000000000001 /* HuntLuckText.swift */; };
 		B28100000000000000000102 /* CatchLuckText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28100000000000000000101 /* CatchLuckText.swift */; };
+		B28600000000000000000D02 /* HuntSuggestionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000000D01 /* HuntSuggestionText.swift */; };
 		B19000000000000000000006 /* HuntingDayStreaksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000005 /* HuntingDayStreaksTests.swift */; };
 		B19000000000000000000004 /* HuntingCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000003 /* HuntingCalendarView.swift */; };
 		B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19000000000000000000001 /* HuntingDayStreaks.swift */; };
@@ -178,6 +180,7 @@
 		070E2DD8A599C87AAD905B7E /* GlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6E85001DD5542189F24541 /* GlowView.swift */; };
 		087540912FB9D37845657E1B /* ReorderHunts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4B2DE6778C3B7B7BB628CB /* ReorderHunts.swift */; };
 		08766721C175F33F87C9175E /* JourneyHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8D5AFF0A586B78AD354459 /* JourneyHandlerTests.swift */; };
+		B28600000000000000000E02 /* HuntSuggestionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000000E01 /* HuntSuggestionTests.swift */; };
 		0E670FC77EA72A690C69C0B5 /* HuntConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76269D7B8EC297A0FA269D9A /* HuntConfiguration.swift */; };
 		0F882A2D7976A02EC10CA1E5 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6303E0EC0AF0FAA2C6E7A69E /* Identifiers.swift */; };
 		163A6D8D08A6EF8B284421F8 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0AFCED1806CF6CC43D659A /* Haptics.swift */; };
@@ -274,6 +277,7 @@
 		B28800000000000000000002 /* FollowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28800000000000000000001 /* FollowerView.swift */; };
 		AA51DE5E0000000000000001 /* PokemonSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA51DE5E0000000000000002 /* PokemonSpriteView.swift */; };
 		96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ACB88B2450BFCC00BC1523 /* Hunt.swift */; };
+		B28600000000000000000A02 /* HuntSuggester.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000000A01 /* HuntSuggester.swift */; };
 		96BC2CDB26B4309A00353665 /* MoveTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BC2CDA26B4309A00353665 /* MoveTypes.swift */; };
 		96C3CB6A26618B620090186E /* PopupHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C3CB6926618B620090186E /* PopupHandlerTests.swift */; };
 		96DD7CC70687A2646DF8039D /* SerebiiLocationLinkProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F658D35FB947680E44A72ADB /* SerebiiLocationLinkProviderTests.swift */; };
@@ -373,10 +377,14 @@
 		D2DF3F434E546EECC3B4A017 /* AddPokemonToHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C670E9309CAC503189BA5B /* AddPokemonToHunt.swift */; };
 		D2FC3417B991DCD8A25A8814 /* GetJourneyDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */; };
 		B26900000000000000000004 /* ChoosePlaybackPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000003 /* ChoosePlaybackPlayer.swift */; };
+		B28600000000000000000F02 /* ChooseHuntSuggestionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000000F01 /* ChooseHuntSuggestionMode.swift */; };
 		B26900000000000000000002 /* GetJourneyPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26900000000000000000001 /* GetJourneyPlayback.swift */; };
 		D44BDF7E9EE178FACC36181D /* CreateHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5721DCF8C2D96A9E57E5FF25 /* CreateHunt.swift */; };
 		D736CB043C10425FBFB956F7 /* GetMoveOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F38366A50CF3D75831C7500 /* GetMoveOptions.swift */; };
 		DD359C93076656E99FD6D131 /* GetJourneys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A15E292B13864E83EB0B74 /* GetJourneys.swift */; };
+		B28600000000000000001002 /* GetHuntSuggestionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000001001 /* GetHuntSuggestionMode.swift */; };
+		B28600000000000000000C02 /* GetNextHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000000C01 /* GetNextHunt.swift */; };
+		B28600000000000000000B02 /* FindHuntSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28600000000000000000B01 /* FindHuntSuggestions.swift */; };
 		DF7F62A9A9FF14DEBDFE8740 /* CatchSummary+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A55EB8AB0D77550B1DB08D /* CatchSummary+Display.swift */; };
 		E4930B2B926332CDDBC8FD6E /* EvolutionsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9386CA1DC612CD31D04236B /* EvolutionsLoader.swift */; };
 		E8431168EFED363AC1FD549E /* ClearHunts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F45120AF3E3DB5D52EBC2F3 /* ClearHunts.swift */; };
@@ -567,6 +575,7 @@
 		B21200000000000000000400 /* ShinyDex 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 16.xcdatamodel"; sourceTree = "<group>"; };
 		B28000000000000000000017 /* ShinyDex 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 17.xcdatamodel"; sourceTree = "<group>"; };
 		B28400000000000000000018 /* ShinyDex 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 18.xcdatamodel"; sourceTree = "<group>"; };
+		B28600000000000000000019 /* ShinyDex 19.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 19.xcdatamodel"; sourceTree = "<group>"; };
 		B20700000000000000000001 /* ShinyDex 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShinyDex 15.xcdatamodel"; sourceTree = "<group>"; };
 		B20600000000000000000008 /* CatchAbilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchAbilitiesTests.swift; sourceTree = "<group>"; };
 		B20600000000000000000006 /* abilities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = abilities.json; sourceTree = "<group>"; };
@@ -592,6 +601,7 @@
 		B17600000000000000000005 /* GetGameChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGameChoices.swift; sourceTree = "<group>"; };
 		B17600000000000000000003 /* GameAvailabilityLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAvailabilityLoader.swift; sourceTree = "<group>"; };
 		B17600000000000000000001 /* GameAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAvailability.swift; sourceTree = "<group>"; };
+		B28600000000000000001101 /* TradeGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeGroups.swift; sourceTree = "<group>"; };
 		B20100000000000000000003 /* OnThisDayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayTests.swift; sourceTree = "<group>"; };
 		B20100000000000000000001 /* GetOnThisDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOnThisDay.swift; sourceTree = "<group>"; };
 		B19900000000000000000005 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
@@ -615,6 +625,7 @@
 		B19100000000000000000003 /* HuntLuckTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckTextTests.swift; sourceTree = "<group>"; };
 		B19100000000000000000001 /* HuntLuckText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntLuckText.swift; sourceTree = "<group>"; };
 		B28100000000000000000101 /* CatchLuckText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchLuckText.swift; sourceTree = "<group>"; };
+		B28600000000000000000D01 /* HuntSuggestionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSuggestionText.swift; sourceTree = "<group>"; };
 		B19000000000000000000005 /* HuntingDayStreaksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaksTests.swift; sourceTree = "<group>"; };
 		B19000000000000000000003 /* HuntingCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingCalendarView.swift; sourceTree = "<group>"; };
 		B19000000000000000000001 /* HuntingDayStreaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntingDayStreaks.swift; sourceTree = "<group>"; };
@@ -651,6 +662,7 @@
 		D9CAFDF673597290762643C1 /* CatchStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsCell.swift; sourceTree = "<group>"; };
 		021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetJourneyDetails.swift; sourceTree = "<group>"; };
 		B26900000000000000000003 /* ChoosePlaybackPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePlaybackPlayer.swift; sourceTree = "<group>"; };
+		B28600000000000000000F01 /* ChooseHuntSuggestionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseHuntSuggestionMode.swift; sourceTree = "<group>"; };
 		B26900000000000000000001 /* GetJourneyPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetJourneyPlayback.swift; sourceTree = "<group>"; };
 		0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HuntHandlerTests.swift; sourceTree = "<group>"; };
 		0D05946C93D560F974F136F6 /* ResourceLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
@@ -671,6 +683,7 @@
 		28E20634C95C09F57E2DF77A /* ShinyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShinyNavigationController.swift; sourceTree = "<group>"; };
 		29D7FCD9A18484BFA27089B2 /* CaughtBallSync.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CaughtBallSync.swift; sourceTree = "<group>"; };
 		2B8D5AFF0A586B78AD354459 /* JourneyHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JourneyHandlerTests.swift; sourceTree = "<group>"; };
+		B28600000000000000000E01 /* HuntSuggestionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSuggestionTests.swift; sourceTree = "<group>"; };
 		2E95EBB23771B54EDBE87E9E /* CatchDTOs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CatchDTOs.swift; sourceTree = "<group>"; };
 		2ECA78D888F93E2362974CA5 /* RemovePokemonFromHunt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RemovePokemonFromHunt.swift; sourceTree = "<group>"; };
 		2EE526EB510D8295C3E91B98 /* PokemonHandlerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PokemonHandlerTests.swift; sourceTree = "<group>"; };
@@ -769,6 +782,7 @@
 		B28800000000000000000001 /* FollowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerView.swift; sourceTree = "<group>"; };
 		AA51DE5E0000000000000002 /* PokemonSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSpriteView.swift; sourceTree = "<group>"; };
 		96ACB88B2450BFCC00BC1523 /* Hunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunt.swift; sourceTree = "<group>"; };
+		B28600000000000000000A01 /* HuntSuggester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntSuggester.swift; sourceTree = "<group>"; };
 		96BC2CDA26B4309A00353665 /* MoveTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTypes.swift; sourceTree = "<group>"; };
 		96C3CB6926618B620090186E /* PopupHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupHandlerTests.swift; sourceTree = "<group>"; };
 		96E2FE3F26B2FE6A005E1D46 /* MoveRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveRepository.swift; sourceTree = "<group>"; };
@@ -873,6 +887,9 @@
 		E74AFFB6D94D4431D6196AA1 /* UpdateCatch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UpdateCatch.swift; sourceTree = "<group>"; };
 		E9386CA1DC612CD31D04236B /* EvolutionsLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EvolutionsLoader.swift; sourceTree = "<group>"; };
 		F0A15E292B13864E83EB0B74 /* GetJourneys.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GetJourneys.swift; sourceTree = "<group>"; };
+		B28600000000000000001001 /* GetHuntSuggestionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHuntSuggestionMode.swift; sourceTree = "<group>"; };
+		B28600000000000000000C01 /* GetNextHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNextHunt.swift; sourceTree = "<group>"; };
+		B28600000000000000000B01 /* FindHuntSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindHuntSuggestions.swift; sourceTree = "<group>"; };
 		F658D35FB947680E44A72ADB /* SerebiiLocationLinkProviderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SerebiiLocationLinkProviderTests.swift; sourceTree = "<group>"; };
 		F95B5EBB43AD40AB34598AFA /* HuntHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntHeaderView.swift; sourceTree = "<group>"; };
 		FE0AFCED1806CF6CC43D659A /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -1279,6 +1296,7 @@
 			isa = PBXGroup;
 			children = (
 				B17600000000000000000001 /* GameAvailability.swift */,
+				B28600000000000000001101 /* TradeGroups.swift */,
 				51FC43E72887371F004EA69C /* Game.swift */,
 				51FC43E528873621004EA69C /* Games.swift */,
 			);
@@ -1450,6 +1468,7 @@
 			isa = PBXGroup;
 			children = (
 				96ACB88B2450BFCC00BC1523 /* Hunt.swift */,
+				B28600000000000000000A01 /* HuntSuggester.swift */,
 				96FC082123EF595700459450 /* HuntRepository.swift */,
 			);
 			name = Hunt;
@@ -1536,6 +1555,7 @@
 				0C9C370A546E449E3F5222BE /* HuntHandlerTests.swift */,
 				5E4791FBB126AD2D6201BFBB /* CatchHandlerTests.swift */,
 				2B8D5AFF0A586B78AD354459 /* JourneyHandlerTests.swift */,
+				B28600000000000000000E01 /* HuntSuggestionTests.swift */,
 				98832F980935BA32B8B572A7 /* StartupAndMoveHandlerTests.swift */,
 			);
 			path = ShinyDexTests;
@@ -1740,8 +1760,12 @@
 				8FFD756C635C42E39026A4B9 /* DeleteJourney.swift */,
 				021ACBC44BBD8E25EC0FF10D /* GetJourneyDetails.swift */,
 				B26900000000000000000003 /* ChoosePlaybackPlayer.swift */,
+				B28600000000000000000F01 /* ChooseHuntSuggestionMode.swift */,
 				B26900000000000000000001 /* GetJourneyPlayback.swift */,
 				F0A15E292B13864E83EB0B74 /* GetJourneys.swift */,
+				B28600000000000000001001 /* GetHuntSuggestionMode.swift */,
+				B28600000000000000000C01 /* GetNextHunt.swift */,
+				B28600000000000000000B01 /* FindHuntSuggestions.swift */,
 				3D5E93E51B29B9AD0E2F119A /* GetLinkableCatches.swift */,
 				7F51D841B5CB5F12B0D0E8F1 /* JourneyDTOs.swift */,
 				CCE9B03F6882C7267B8C10EC /* UpdateJourney.swift */,
@@ -1759,6 +1783,7 @@
 				B19600000000000000000005 /* MilestoneText.swift */,
 				B19100000000000000000001 /* HuntLuckText.swift */,
 				B28100000000000000000101 /* CatchLuckText.swift */,
+				B28600000000000000000D01 /* HuntSuggestionText.swift */,
 				C4A1A0000000000000000003 /* HuntCounterText.swift */,
 				F0A1B2000000000000000101 /* FormPicker.swift */,
 				F0A1B2000000000000000007 /* PokemonSprites.swift */,
@@ -2204,6 +2229,7 @@
 				CAA975314595A527C863132D /* HuntHandlerTests.swift in Sources */,
 				9822C69A72301A237CECF56C /* CatchHandlerTests.swift in Sources */,
 				08766721C175F33F87C9175E /* JourneyHandlerTests.swift in Sources */,
+				B28600000000000000000E02 /* HuntSuggestionTests.swift in Sources */,
 				A36BEDF39D1633F8364DD742 /* StartupAndMoveHandlerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2286,6 +2312,7 @@
 				B17600000000000000000006 /* GetGameChoices.swift in Sources */,
 				B17600000000000000000004 /* GameAvailabilityLoader.swift in Sources */,
 				B17600000000000000000002 /* GameAvailability.swift in Sources */,
+				B28600000000000000001102 /* TradeGroups.swift in Sources */,
 				B20100000000000000000002 /* GetOnThisDay.swift in Sources */,
 				B19900000000000000000006 /* ButtonStyles.swift in Sources */,
 				B19900000000000000000004 /* SectionHeader.swift in Sources */,
@@ -2305,6 +2332,7 @@
 				B19500000000000000000002 /* BackupFolder.swift in Sources */,
 				B19100000000000000000002 /* HuntLuckText.swift in Sources */,
 				B28100000000000000000102 /* CatchLuckText.swift in Sources */,
+				B28600000000000000000D02 /* HuntSuggestionText.swift in Sources */,
 				B19000000000000000000004 /* HuntingCalendarView.swift in Sources */,
 				B19000000000000000000002 /* HuntingDayStreaks.swift in Sources */,
 				B18900000000000000000008 /* YearInReviewVC.swift in Sources */,
@@ -2444,6 +2472,7 @@
 				9648AE8B24ADCAE300E819CC /* Gen2BreedingOddsService.swift in Sources */,
 				969BEF9226B2DEBC00FDF445 /* PPCounterTVC.swift in Sources */,
 				96ACB88C2450BFCC00BC1523 /* Hunt.swift in Sources */,
+				B28600000000000000000A02 /* HuntSuggester.swift in Sources */,
 				96FC07DB23EF455A00459450 /* PokemonRepository.swift in Sources */,
 				96FC082B23EF598E00459450 /* PokedexTVC.swift in Sources */,
 				9625742426B4028F0056B09C /* MovePickerCell.swift in Sources */,
@@ -2550,8 +2579,12 @@
 				9BD49C1FACE17BE1EE92FD24 /* DeleteJourney.swift in Sources */,
 				D2FC3417B991DCD8A25A8814 /* GetJourneyDetails.swift in Sources */,
 				B26900000000000000000004 /* ChoosePlaybackPlayer.swift in Sources */,
+				B28600000000000000000F02 /* ChooseHuntSuggestionMode.swift in Sources */,
 				B26900000000000000000002 /* GetJourneyPlayback.swift in Sources */,
 				DD359C93076656E99FD6D131 /* GetJourneys.swift in Sources */,
+				B28600000000000000001002 /* GetHuntSuggestionMode.swift in Sources */,
+				B28600000000000000000C02 /* GetNextHunt.swift in Sources */,
+				B28600000000000000000B02 /* FindHuntSuggestions.swift in Sources */,
 				A9598E5492CD7059380B0B7F /* GetLinkableCatches.swift in Sources */,
 				2E5D53590EF7526DE53C6B0E /* JourneyDTOs.swift in Sources */,
 				01A3F60057C8E3CBA6856AA8 /* UpdateJourney.swift in Sources */,
@@ -2856,8 +2889,9 @@
 				B21200000000000000000400 /* ShinyDex 16.xcdatamodel */,
 				B28000000000000000000017 /* ShinyDex 17.xcdatamodel */,
 				B28400000000000000000018 /* ShinyDex 18.xcdatamodel */,
+				B28600000000000000000019 /* ShinyDex 19.xcdatamodel */,
 			);
-			currentVersion = B28400000000000000000018 /* ShinyDex 18.xcdatamodel */;
+			currentVersion = B28600000000000000000019 /* ShinyDex 19.xcdatamodel */;
 			path = ShinyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

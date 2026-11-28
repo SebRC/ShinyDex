@@ -31,6 +31,7 @@ class Journey {
     let createdDate: Date
     var priority: Int
     var entries: [JourneyEntry]
+    var game: Games?
 
     init(name: String, priority: Int, numbers: [Int]) {
         id = UUID()
@@ -40,8 +41,9 @@ class Journey {
         entries = numbers.map { JourneyEntry(number: $0) }
     }
 
-    init(id: UUID, name: String, createdDate: Date, priority: Int, entries: [JourneyEntry]) {
+    init(id: UUID, name: String, createdDate: Date, priority: Int, entries: [JourneyEntry], game: Games? = nil) {
         self.id = id
+        self.game = game
         self.name = name
         self.createdDate = createdDate
         self.priority = priority

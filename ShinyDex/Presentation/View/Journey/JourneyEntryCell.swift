@@ -6,6 +6,7 @@ final class JourneyEntryCell: UITableViewCell {
     fileprivate let sprite = UIImageView()
     fileprivate let nameLabel = UILabel(style: .body, weight: .semibold)
     fileprivate let statusLabel = UILabel(style: .footnote, color: Color.textTertiary)
+    fileprivate let suggestionLabel = UILabel(style: .footnote, color: Color.textSecondary, lines: 0)
     fileprivate let phasesButton = UIButton(type: .system)
     fileprivate let ballView = UIImageView()
     fileprivate let statusIcon = UIImageView()
@@ -35,7 +36,7 @@ final class JourneyEntryCell: UITableViewCell {
         phasesButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
         phasesButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 4)
         phasesButton.addTarget(self, action: #selector(phasesPressed), for: .touchUpInside)
-        let labels = UIStackView(arrangedSubviews: [nameLabel, statusRow, phasesButton])
+        let labels = UIStackView(arrangedSubviews: [nameLabel, statusRow, suggestionLabel, phasesButton])
         labels.alignment = .leading
         labels.axis = .vertical
         labels.spacing = 2
@@ -91,11 +92,16 @@ final class JourneyEntryCell: UITableViewCell {
             statusIcon.image = UIImage.makeSymbol(linkableCount == 0 ? "circle" : "link", pointSize: 18, weight: .semibold)
             statusIcon.tintColor = Color.textQuaternary
         }
+        suggestionLabel.text = entry.suggestion.map { "Suggested: \(HuntSuggestionText.describeWithArea($0))" }
+            ?? entry.missingFromGame.map { "Can't be obtained for \($0.displayName)" }
+        suggestionLabel.textColor = entry.suggestion == nil ? Color.textQuaternary : Color.textSecondary
+        suggestionLabel.isHidden = linked != nil || suggestionLabel.text == nil
         phaseCount = entry.phases.count
         phasesButton.setTitle(phaseCount == 1 ? "1 phase" : "\(phaseCount) phases", for: .normal)
         phasesButton.isHidden = phaseCount == 0
         setPhasesExpanded(phasesExpanded)
-        accessibilityLabel = ["\(name), \(linked == nil ? "" : "caught, ")\(statusLabel.text ?? "")", phaseCount == 0 ? nil : phasesButton.currentTitle].compactMap { $0 }.joined(separator: ", ")
+        accessibilityLabel = ["\(name), \(linked == nil ? "" : "caught, ")\(statusLabel.text ?? "")", suggestionLabel.isHidden ? nil : suggestionLabel.text,
+                              phaseCount == 0 ? nil : phasesButton.currentTitle].compactMap { $0 }.joined(separator: ", ")
         accessibilityTraits = .button
     }
 

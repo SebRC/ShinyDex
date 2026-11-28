@@ -54,7 +54,7 @@ class JourneyDetailTVC: UITableViewController {
         addButton.accessibilityLabel = "Add Pokémon"
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(morePressed))
         moreButton.accessibilityLabel = "More"
-        navigationItem.rightBarButtonItems = [moreButton, addButton]
+        navigationItem.rightBarButtonItems = [moreButton, addButton, makeSuggestionModeButton()]
 
         tableView.backgroundColor = Color.background
         tableView.separatorColor = Color.separator
@@ -95,6 +95,15 @@ class JourneyDetailTVC: UITableViewController {
 
     fileprivate func getLinkableCatches(for entry: JourneyEntryDetails) -> [CatchSummary] {
         return container.getLinkableCatches.handle(GetLinkableCatchesQuery(journeyId: journeyId, entryId: entry.id))
+    }
+
+    fileprivate func makeSuggestionModeButton() -> UIBarButtonItem {
+        return HuntSuggestionModeMenu.makeButton(selected: container.getHuntSuggestionMode.handle(GetHuntSuggestionModeQuery())) { [weak self] mode in
+            guard let self = self else { return }
+            self.container.chooseHuntSuggestionMode.handle(ChooseHuntSuggestionModeCommand(mode: mode))
+            self.navigationItem.rightBarButtonItems?[2] = self.makeSuggestionModeButton()
+            self.reload()
+        }
     }
 
     fileprivate func reload() {
@@ -332,7 +341,9 @@ class JourneyDetailTVC: UITableViewController {
     // MARK: Journey actions
 
     @objc fileprivate func addPressed() {
-        let picker = PokemonPickerModalVC(container: container, configuration: .addToJourney) { [weak self] _, picked in
+        var configuration = PokemonPickerConfiguration.addToJourney
+        configuration.obtainableFor = journey.game
+        let picker = PokemonPickerModalVC(container: container, configuration: configuration) { [weak self] _, picked in
             guard let self = self else { return }
             self.container.updateJourney.handle(UpdateJourneyCommand(journeyId: self.journeyId, change: .addPokemon(picked.map { $0.number })))
             self.mode = .pokemon
@@ -343,11 +354,15 @@ class JourneyDetailTVC: UITableViewController {
     }
 
     @objc fileprivate func morePressed() {
-        let sheet = UIAlertController(title: journey.name, message: nil, preferredStyle: .actionSheet)
+        let sheet = UIAlertController(title: journey.name, message: journey.game.map { "Played in \($0.displayName)" }, preferredStyle: .actionSheet)
         if let playbackVC = JourneyPlaybackVC(container: container, journeyId: journeyId) {
             sheet.addAction(UIAlertAction(title: "Play journey", style: .default) { [weak self] _ in self?.present(playbackVC.wrapInSheet(), animated: true) })
         }
         sheet.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self] _ in self?.rename() })
+        sheet.addAction(UIAlertAction(title: journey.game.map { "Change game (\($0.displayName))" } ?? "Set game", style: .default) { [weak self] _ in self?.showGamePicker() })
+        if journey.game != nil {
+            sheet.addAction(UIAlertAction(title: "Any game", style: .default) { [weak self] _ in self?.setGame(nil) })
+        }
         if (journey.entries.count > 1) {
             sheet.addAction(UIAlertAction(title: isEditing ? "Done reordering" : "Reorder Pokémon", style: .default) { [weak self] _ in self?.toggleReordering() })
         }
@@ -356,6 +371,18 @@ class JourneyDetailTVC: UITableViewController {
         sheet.view.tintColor = Color.accent
         sheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItems?.first
         present(sheet, animated: true)
+    }
+
+    fileprivate func showGamePicker() {
+        let picker = GameSelector.make(selectedGame: journey.game, caption: "Playing in") { [weak self] game in
+            self?.setGame(game)
+        }
+        navigationController?.pushViewController(picker, animated: true)
+    }
+
+    fileprivate func setGame(_ game: Games?) {
+        container.updateJourney.handle(UpdateJourneyCommand(journeyId: journeyId, change: .setGame(game)))
+        reload()
     }
 
     fileprivate func rename() {

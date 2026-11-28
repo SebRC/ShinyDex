@@ -10,6 +10,7 @@ struct PokemonPickerConfiguration {
     let namesAfterFirstPick: Bool
     let excludesHuntedPokemon: Bool
     var selectionLimit: Int? = nil
+    var obtainableFor: Games? = nil
 
     static let hunt = PokemonPickerConfiguration(title: "Create hunt", selectionTitle: "In this hunt", confirmTitle: "Create", discardTitle: "Discard Hunt",
                                                  nameLabel: "Hunt name", defaultName: "New Hunt", namesAfterFirstPick: true, excludesHuntedPokemon: true)
@@ -65,7 +66,7 @@ class PokemonPickerModalVC: UITableViewController, UITextFieldDelegate, UISearch
     override func viewDidLoad() {
         super.viewDidLoad()
         title = configuration.title
-        allPokemon = container.getAllPokemon.handle(GetAllPokemonQuery())
+        allPokemon = container.getAllPokemon.handle(GetAllPokemonQuery(obtainableFor: configuration.obtainableFor))
         navigationController?.presentationController?.delegate = self
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))

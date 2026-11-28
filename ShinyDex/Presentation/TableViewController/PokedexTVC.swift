@@ -246,7 +246,8 @@ class PokedexTVC: UITableViewController {
         let catchCount = pokemon.catchCount
         pokemonCell.pokemonName.text = pokemon.name
         pokemonCell.pokemonNumber.text = String(format: "#%03d", pokemon.number + 1)
-        pokemonCell.setStatus(catchCount: catchCount, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, shinyLockedGame: pokemon.shinyLockedGame)
+        pokemonCell.setStatus(catchCount: catchCount, caughtBall: pokemon.caughtBall, isBeingHunted: pokemon.isBeingHunted, shinyLockedGame: pokemon.shinyLockedGame,
+                              journeyName: pokemon.journeyName)
 
         pokemonCell.caughtButton.accessibilityLabel = "Log a catch of \(pokemon.name)"
         pokemonCell.caughtButton.accessibilityValue = catchCount == 0 ? "Not caught" : (catchCount == 1 ? "Caught once" : "Caught \(catchCount) times")

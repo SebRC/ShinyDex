@@ -69,7 +69,7 @@ final class AppContainer {
     var getOddsCurve: GetOddsCurveHandler { GetOddsCurveHandler(pokemonRepository: pokemonRepository, odds: odds, probability: probability, getHuntForecast: getHuntForecast) }
     var getPokemonDetails: GetPokemonDetailsHandler { GetPokemonDetailsHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, odds: odds, probability: probability) }
     var getAllPokemon: GetAllPokemonHandler { GetAllPokemonHandler(pokemonRepository: pokemonRepository) }
-    var getPokedex: GetPokedexHandler { GetPokedexHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, availability: gameAvailability) }
+    var getPokedex: GetPokedexHandler { GetPokedexHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, availability: gameAvailability, journeyRepository: journeyRepository) }
     var getPokemonLocations: GetPokemonLocationsHandler { GetPokemonLocationsHandler(pokemonRepository: pokemonRepository, locations: pokemonLocations, availability: gameAvailability, evolutions: evolutions) }
     var getLocationsOverview: GetLocationsOverviewHandler { GetLocationsOverviewHandler(pokemonRepository: pokemonRepository, getPokemonLocations: getPokemonLocations, getGameChoices: getGameChoices) }
     var getGameChoices: GetGameChoicesHandler { GetGameChoicesHandler(availability: gameAvailability) }
@@ -155,7 +155,14 @@ final class AppContainer {
     // MARK: Journeys
 
     var getJourneys: GetJourneysHandler { GetJourneysHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository) }
-    var getJourneyDetails: GetJourneyDetailsHandler { GetJourneyDetailsHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
+    var getJourneyDetails: GetJourneyDetailsHandler { GetJourneyDetailsHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms, suggestionFinder: huntSuggestionFinder) }
+    var getNextHunt: GetNextHuntHandler { GetNextHuntHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, finder: huntSuggestionFinder) }
+    var huntSuggestionFinder: HuntSuggestionFinder {
+        HuntSuggestionFinder(suggester: HuntSuggester(locations: pokemonLocations, availability: gameAvailability, evolutions: evolutions, catchData: catchData, odds: odds),
+                             catchRepository: catchRepository, pokemonRepository: pokemonRepository, getMode: getHuntSuggestionMode)
+    }
+    var getHuntSuggestionMode: GetHuntSuggestionModeHandler { GetHuntSuggestionModeHandler(keyValueStore: keyValueStore) }
+    var chooseHuntSuggestionMode: ChooseHuntSuggestionModeHandler { ChooseHuntSuggestionModeHandler(keyValueStore: keyValueStore) }
     var getJourneyPlayback: GetJourneyPlaybackHandler { GetJourneyPlaybackHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, keyValueStore: keyValueStore, forms: forms) }
     var choosePlaybackPlayer: ChoosePlaybackPlayerHandler { ChoosePlaybackPlayerHandler(keyValueStore: keyValueStore) }
     var getLinkableCatches: GetLinkableCatchesHandler { GetLinkableCatchesHandler(journeyRepository: journeyRepository, catchRepository: catchRepository, pokemonRepository: pokemonRepository, evolutions: evolutions, forms: forms) }
