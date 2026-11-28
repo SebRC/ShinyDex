@@ -493,6 +493,22 @@ final class PersistenceRoundTripTests: XCTestCase {
         XCTAssertEqual(CoreDataYearlyGoalRepository(managedContext: store.context).getAll(), [YearlyGoal(year: 2026, target: 35)])
     }
 
+    func test_team_survivesSaveAndReload_keepingMemberOrder_andIsDeleted() throws {
+        let members = [UUID(), UUID(), UUID()]
+        let created = Date(timeIntervalSince1970: 1_700_000_000)
+        var team = Team(name: "Doubles", memberIds: members, createdDate: created)
+        CoreDataTeamRepository(managedContext: store.context).save(team)
+        team.name = "VGC"
+        CoreDataTeamRepository(managedContext: store.context).save(team)
+
+        try store.reopen()
+        XCTAssertEqual(CoreDataTeamRepository(managedContext: store.context).getAll(), [Team(id: team.id, name: "VGC", memberIds: members, createdDate: created)])
+
+        CoreDataTeamRepository(managedContext: store.context).delete(id: team.id)
+        try store.reopen()
+        XCTAssertEqual(CoreDataTeamRepository(managedContext: store.context).getAll(), [])
+    }
+
     func test_dailyEncounters_surviveSaveAndReload_withOneRowPerDay() throws {
         let repository = CoreDataDailyEncountersRepository(managedContext: store.context)
         let first = EncounterDay(year: 2026, month: 11, day: 20), second = EncounterDay(year: 2026, month: 11, day: 21)

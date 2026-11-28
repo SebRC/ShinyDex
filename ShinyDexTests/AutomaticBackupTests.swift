@@ -22,7 +22,7 @@ final class AutomaticBackupTests: XCTestCase {
                                          huntRepository: InMemoryHuntRepository(), journeyRepository: InMemoryJourneyRepository(),
                                          bingoBoardRepository: InMemoryBingoBoardRepository(), moveRepository: InMemoryMoveRepository(),
                                          ledgerRepository: InMemoryEncounterLedgerRepository(), yearlyGoalRepository: InMemoryYearlyGoalRepository(),
-                                         dailyEncountersRepository: InMemoryDailyEncountersRepository(), makeCurrentDate: { self.now })
+                                         dailyEncountersRepository: InMemoryDailyEncountersRepository(), teamRepository: InMemoryTeamRepository(), makeCurrentDate: { self.now })
         return RunAutomaticBackupHandler(exportBackup: export, backupFolder: folder, keyValueStore: keyValueStore, makeCurrentDate: { self.now })
             .handle(RunAutomaticBackupCommand(isForced: isForced))
     }
