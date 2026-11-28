@@ -24,6 +24,11 @@ struct YearInReviewCards {
         ].compactMap { $0 }
     }
 
+    fileprivate static func makeFollower(of caught: CatchSummary) -> OverworldSheet? {
+        guard !caught.isFailed else { return nil }
+        return OverworldSprites.makeCompanionSheet(number: caught.number, formId: caught.formId, gender: caught.gender)
+    }
+
     fileprivate func makeIntro() -> YearInReviewCardView.Content {
         var details = ["\(review.caughtSpeciesCount.grouped) species caught"]
         if review.failedCount > 0 {
@@ -89,6 +94,7 @@ struct YearInReviewCards {
         details.append("in \(caught.game.displayName)")
         return YearInReviewCardView.Content(eyebrow: title,
                                             image: caught.spriteImage,
+                                            follower: YearInReviewCards.makeFollower(of: caught),
                                             headline: caught.speciesTitle,
                                             title: caught.isFailed ? "Got away" : BallGrid.getFullName(of: caught.caughtBall),
                                             message: details.joined(separator: " "))
@@ -97,6 +103,7 @@ struct YearInReviewCards {
     fileprivate func makeLuckiestHunt(_ hunt: YearInReview.Hunt) -> YearInReviewCardView.Content {
         return YearInReviewCardView.Content(eyebrow: "Luckiest hunt",
                                             image: hunt.caught.spriteImage,
+                                            follower: YearInReviewCards.makeFollower(of: hunt.caught),
                                             headline: hunt.caught.encounters.grouped,
                                             title: "encounters for \(hunt.caught.speciesTitle)",
                                             message: "Only \(YearInReviewCards.formatPercent(hunt.percentChanceOfFindingSooner)) of hunts at those odds end this quickly.")
@@ -105,6 +112,7 @@ struct YearInReviewCards {
     fileprivate func makeUnluckiestHunt(_ hunt: YearInReview.Hunt) -> YearInReviewCardView.Content {
         return YearInReviewCardView.Content(eyebrow: "Toughest hunt",
                                             image: hunt.caught.spriteImage,
+                                            follower: YearInReviewCards.makeFollower(of: hunt.caught),
                                             headline: hunt.caught.encounters.grouped,
                                             title: "encounters for \(hunt.caught.speciesTitle)",
                                             message: "\(YearInReviewCards.formatPercent(hunt.percentChanceOfFindingSooner)) of hunts at those odds end sooner. You kept going anyway.")

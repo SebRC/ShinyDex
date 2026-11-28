@@ -79,6 +79,11 @@ extension UIImage {
         }
     }
 
+    func findVisibleBottomFraction() -> CGFloat? {
+        guard size.height > 0, let visibleRect = findVisiblePixelRect() else { return nil }
+        return visibleRect.maxY / size.height
+    }
+
     func findVisiblePixelRect() -> CGRect? {
         guard let cgImage = cgImage else { return nil }
         let width = cgImage.width
