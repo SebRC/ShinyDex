@@ -7,6 +7,11 @@ struct RankBattlersQuery {
     var countsUnusedStatFully = false
 }
 
+struct GetBattlerQuery {
+    let catchId: CatchID
+    var level = BattleLevel.fifty
+}
+
 final class RankBattlersHandler {
     private let catchRepository: CatchRepository
     private let pokemonRepository: PokemonRepository
@@ -38,6 +43,12 @@ final class RankBattlersHandler {
             battlers: query.showsBestOfEachSpecies ? RankBattlersHandler.keepBestOfEachSpecies(ranked) : ranked,
             catchesWithoutIVs: modern.count - withIVs.count,
             olderGenerationCatches: olderGeneration.count)
+    }
+
+    func handle(_ query: GetBattlerQuery) -> BattlerSummary? {
+        guard let caught = catchRepository.get(id: query.catchId.rawValue), !caught.isFailed, !caught.ivs.isEmpty, !RankBattlersHandler.usesDeterminantValues(caught),
+              let name = pokemonRepository.getAll().first(where: { $0.number == caught.number })?.name else { return nil }
+        return makeSummary(of: caught, name: name, level: query.level, countsUnusedStatFully: false)
     }
 
     private func makeSummary(of caught: Catch, name: String, level: BattleLevel, countsUnusedStatFully: Bool) -> BattlerSummary {

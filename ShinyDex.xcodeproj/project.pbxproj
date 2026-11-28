@@ -48,6 +48,7 @@
 		B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000310 /* GetCatchStatsTests.swift */; };
 		B21200000000000000000302 /* GetCatchStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000301 /* GetCatchStats.swift */; };
 		B21200000000000000000024 /* RankBattlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000023 /* RankBattlersTests.swift */; };
+		B28500000000000000000D02 /* TrainingPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28500000000000000000D01 /* TrainingPlanTests.swift */; };
 		B21200000000000000000022 /* BattlerAssessmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000021 /* BattlerAssessmentTests.swift */; };
 		B21200000000000000000020 /* baseStats.json in Resources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000001F /* baseStats.json */; };
 		B27600000000000000000008 /* StatRankingTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000007 /* StatRankingTVC.swift */; };
@@ -62,6 +63,7 @@
 		B28400000000000000002402 /* PokemonType+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002401 /* PokemonType+Display.swift */; };
 		B27600000000000000000004 /* RankByStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000003 /* RankByStat.swift */; };
 		B21200000000000000000018 /* RankBattlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000017 /* RankBattlers.swift */; };
+		B28500000000000000000B02 /* GetTrainingPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28500000000000000000B01 /* GetTrainingPlan.swift */; };
 		B21200000000000000000016 /* BattlerDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000015 /* BattlerDTOs.swift */; };
 		B21200000000000000000013 /* MoveCategoriesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000012 /* MoveCategoriesLoader.swift */; };
 		B28400000000000000002202 /* MoveTypingLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28400000000000000002201 /* MoveTypingLoader.swift */; };
@@ -71,6 +73,7 @@
 		B27300000000000000000002 /* ReadinessPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27300000000000000000001 /* ReadinessPart.swift */; };
 		B27600000000000000000002 /* StatLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27600000000000000000001 /* StatLeaderboard.swift */; };
 		B2120000000000000000000D /* BattlerAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000C /* BattlerAssessment.swift */; };
+		B28500000000000000000A02 /* TrainingPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28500000000000000000A01 /* TrainingPlan.swift */; };
 		B2120000000000000000000B /* AttackingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2120000000000000000000A /* AttackingStyle.swift */; };
 		B21200000000000000000009 /* HiddenPower.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000008 /* HiddenPower.swift */; };
 		B21200000000000000000007 /* StatCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21200000000000000000006 /* StatCalculator.swift */; };
@@ -324,6 +327,7 @@
 		B10C0A000000000000005001 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005801 /* Stat.swift */; };
 		B10C0A0000000000000000E3 /* Evolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A0000000000000000E4 /* Evolutions.swift */; };
 		B27300000000000000000004 /* BattleReadinessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27300000000000000000003 /* BattleReadinessVC.swift */; };
+		B28500000000000000000C02 /* TrainingPlannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28500000000000000000C01 /* TrainingPlannerVC.swift */; };
 		B27800000000000000000402 /* OddsCurveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27800000000000000000401 /* OddsCurveVC.swift */; };
 		B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005806 /* CatchStatsVC.swift */; };
 		B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10C0A000000000000005901 /* NaturePickerVC.swift */; };
@@ -514,6 +518,7 @@
 		B21200000000000000000310 /* GetCatchStatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchStatsTests.swift; sourceTree = "<group>"; };
 		B21200000000000000000301 /* GetCatchStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCatchStats.swift; sourceTree = "<group>"; };
 		B21200000000000000000023 /* RankBattlersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankBattlersTests.swift; sourceTree = "<group>"; };
+		B28500000000000000000D01 /* TrainingPlanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingPlanTests.swift; sourceTree = "<group>"; };
 		B21200000000000000000021 /* BattlerAssessmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerAssessmentTests.swift; sourceTree = "<group>"; };
 		B2120000000000000000001F /* baseStats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = baseStats.json; sourceTree = "<group>"; };
 		B27600000000000000000007 /* StatRankingTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatRankingTVC.swift; sourceTree = "<group>"; };
@@ -528,6 +533,7 @@
 		B28400000000000000002401 /* PokemonType+Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PokemonType+Display.swift"; sourceTree = "<group>"; };
 		B27600000000000000000003 /* RankByStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankByStat.swift; sourceTree = "<group>"; };
 		B21200000000000000000017 /* RankBattlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankBattlers.swift; sourceTree = "<group>"; };
+		B28500000000000000000B01 /* GetTrainingPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTrainingPlan.swift; sourceTree = "<group>"; };
 		B21200000000000000000015 /* BattlerDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerDTOs.swift; sourceTree = "<group>"; };
 		B21200000000000000000012 /* MoveCategoriesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCategoriesLoader.swift; sourceTree = "<group>"; };
 		B28400000000000000002201 /* MoveTypingLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTypingLoader.swift; sourceTree = "<group>"; };
@@ -537,6 +543,7 @@
 		B27300000000000000000001 /* ReadinessPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadinessPart.swift; sourceTree = "<group>"; };
 		B27600000000000000000001 /* StatLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatLeaderboard.swift; sourceTree = "<group>"; };
 		B2120000000000000000000C /* BattlerAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlerAssessment.swift; sourceTree = "<group>"; };
+		B28500000000000000000A01 /* TrainingPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingPlan.swift; sourceTree = "<group>"; };
 		B2120000000000000000000A /* AttackingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackingStyle.swift; sourceTree = "<group>"; };
 		B21200000000000000000008 /* HiddenPower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenPower.swift; sourceTree = "<group>"; };
 		B21200000000000000000006 /* StatCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCalculator.swift; sourceTree = "<group>"; };
@@ -815,6 +822,7 @@
 		B10C0A000000000000005801 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		B10C0A0000000000000000E4 /* Evolutions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evolutions.swift; sourceTree = "<group>"; };
 		B27300000000000000000003 /* BattleReadinessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleReadinessVC.swift; sourceTree = "<group>"; };
+		B28500000000000000000C01 /* TrainingPlannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingPlannerVC.swift; sourceTree = "<group>"; };
 		B27800000000000000000401 /* OddsCurveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddsCurveVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005806 /* CatchStatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchStatsVC.swift; sourceTree = "<group>"; };
 		B10C0A000000000000005901 /* NaturePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturePickerVC.swift; sourceTree = "<group>"; };
@@ -1061,6 +1069,7 @@
 			isa = PBXGroup;
 			children = (
 				B21200000000000000000017 /* RankBattlers.swift */,
+				B28500000000000000000B01 /* GetTrainingPlan.swift */,
 				B27600000000000000000003 /* RankByStat.swift */,
 				B21200000000000000000015 /* BattlerDTOs.swift */,
 			);
@@ -1073,6 +1082,7 @@
 			children = (
 				B21200000000000000002400 /* CombinedStats.swift */,
 				B2120000000000000000000C /* BattlerAssessment.swift */,
+				B28500000000000000000A01 /* TrainingPlan.swift */,
 				B27600000000000000000001 /* StatLeaderboard.swift */,
 				B27300000000000000000001 /* ReadinessPart.swift */,
 				B2120000000000000000000A /* AttackingStyle.swift */,
@@ -1462,6 +1472,7 @@
 				B21200000000000000001200 /* AchievementTests.swift */,
 				B21200000000000000000310 /* GetCatchStatsTests.swift */,
 				B21200000000000000000023 /* RankBattlersTests.swift */,
+				B28500000000000000000D01 /* TrainingPlanTests.swift */,
 				B21200000000000000000021 /* BattlerAssessmentTests.swift */,
 				B2020000000000000000000B /* PokemonLocationsTests.swift */,
 				B20200000000000000000024 /* LocationsOverviewTests.swift */,
@@ -1821,6 +1832,7 @@
 				B1B60A000000000000000017 /* BingoBoardVC.swift */,
 				B10C0A000000000000005806 /* CatchStatsVC.swift */,
 				B27300000000000000000003 /* BattleReadinessVC.swift */,
+				B28500000000000000000C01 /* TrainingPlannerVC.swift */,
 				B27800000000000000000401 /* OddsCurveVC.swift */,
 				B10C0A000000000000005901 /* NaturePickerVC.swift */,
 				96FC082F23EF59AA00459450 /* LoadingVC.swift */,
@@ -2129,6 +2141,7 @@
 				B21200000000000000001201 /* AchievementTests.swift in Sources */,
 				B21200000000000000000311 /* GetCatchStatsTests.swift in Sources */,
 				B21200000000000000000024 /* RankBattlersTests.swift in Sources */,
+				B28500000000000000000D02 /* TrainingPlanTests.swift in Sources */,
 				B21200000000000000000022 /* BattlerAssessmentTests.swift in Sources */,
 				B2020000000000000000000C /* PokemonLocationsTests.swift in Sources */,
 				B20200000000000000000025 /* LocationsOverviewTests.swift in Sources */,
@@ -2234,6 +2247,7 @@
 				B2120000000000000000001A /* BattlerSummary+Display.swift in Sources */,
 				B28400000000000000002402 /* PokemonType+Display.swift in Sources */,
 				B21200000000000000000018 /* RankBattlers.swift in Sources */,
+				B28500000000000000000B02 /* GetTrainingPlan.swift in Sources */,
 				B27600000000000000000004 /* RankByStat.swift in Sources */,
 				B21200000000000000000016 /* BattlerDTOs.swift in Sources */,
 				B21200000000000000000013 /* MoveCategoriesLoader.swift in Sources */,
@@ -2242,6 +2256,7 @@
 				B2120000000000000000000F /* MoveCategory.swift in Sources */,
 				B28400000000000000002102 /* MoveTyping.swift in Sources */,
 				B2120000000000000000000D /* BattlerAssessment.swift in Sources */,
+				B28500000000000000000A02 /* TrainingPlan.swift in Sources */,
 				B27600000000000000000002 /* StatLeaderboard.swift in Sources */,
 				B27300000000000000000002 /* ReadinessPart.swift in Sources */,
 				B2120000000000000000000B /* AttackingStyle.swift in Sources */,
@@ -2442,6 +2457,7 @@
 				9660629E24B4BF3200B2B654 /* LocationVC.swift in Sources */,
 				B10C0A000000000000005006 /* CatchStatsVC.swift in Sources */,
 				B27300000000000000000004 /* BattleReadinessVC.swift in Sources */,
+				B28500000000000000000C02 /* TrainingPlannerVC.swift in Sources */,
 				B27800000000000000000402 /* OddsCurveVC.swift in Sources */,
 				B10C0A000000000000005101 /* NaturePickerVC.swift in Sources */,
 				B10C0A0000000000000000B1 /* StatsVC.swift in Sources */,
