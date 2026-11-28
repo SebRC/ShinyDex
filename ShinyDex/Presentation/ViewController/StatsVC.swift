@@ -288,7 +288,7 @@ class StatsVC: UIViewController {
     }
 
     fileprivate func addRecords(_ stats: CatchStatistics) {
-        guard let fastest = stats.shortestHunts.first, let longest = stats.longestHunts.first else { return }
+        guard let fastest = stats.shortestHunts.first?.hunt, let longest = stats.longestHunts.first?.hunt else { return }
         let records = UIStackView(arrangedSubviews: [
             makeRecordCard(title: "Fastest shiny", caught: fastest, symbol: "hare.fill"),
             makeRecordCard(title: "Longest hunt", caught: longest, symbol: "tortoise.fill")
@@ -309,7 +309,7 @@ class StatsVC: UIViewController {
     fileprivate func addHuntRankings(_ stats: CatchStatistics) {
         guard stats.longestHunts.count > 1 else { return }
         huntRanking.update(longestHunts: stats.longestHunts, shortestHunts: stats.shortestHunts)
-        addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged.")
+        addSection("Hunt rankings", huntRanking, footnote: "Ranked by encounters, leaving out catches without encounters logged. Top 3% means a shiny came sooner than 97% of hunts at its odds. Chain methods have no percentage, since their odds depend on the chain.")
     }
 
     fileprivate func addClosestToOdds(_ stats: CatchStatistics) {

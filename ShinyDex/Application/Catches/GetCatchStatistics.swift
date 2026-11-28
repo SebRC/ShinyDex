@@ -76,9 +76,14 @@ struct CatchStatistics: Equatable {
     let missingIVsCount: Int
     var genderUsage: [Usage<Gender>] = []
     var unknownGenderCount = 0
-    let shortestHunts: [CatchSummary]
-    let longestHunts: [CatchSummary]
+    let shortestHunts: [RankedHunt]
+    let longestHunts: [RankedHunt]
     var closestToOdds: [OddsHunt] = []
+}
+
+struct RankedHunt: Equatable {
+    let hunt: CatchSummary
+    let chanceOfFindingSooner: Double?
 }
 
 struct OddsHunt: Equatable {
@@ -146,8 +151,8 @@ final class GetCatchStatisticsHandler {
             missingIVsCount: stats.missingIVsCount,
             genderUsage: stats.genderUsage.map { CatchStatistics.Usage(key: $0.key, count: $0.count) },
             unknownGenderCount: stats.unknownGenderCount,
-            shortestHunts: stats.shortestHunts.compactMap(mapper.makeSummary),
-            longestHunts: stats.longestHunts.compactMap(mapper.makeSummary),
+            shortestHunts: stats.shortestHunts.compactMap { makeRankedHunt($0, mapper: mapper) },
+            longestHunts: stats.longestHunts.compactMap { makeRankedHunt($0, mapper: mapper) },
             closestToOdds: stats.closestToOdds.compactMap { oddsHunt in
                 mapper.makeSummary(of: oddsHunt.caught).map { OddsHunt(hunt: $0, odds: oddsHunt.odds, encountersPastOdds: oddsHunt.encountersPastOdds) }
             })
@@ -162,6 +167,10 @@ final class GetCatchStatisticsHandler {
 
     private static func makeStreaks(_ streaks: DryStreaks) -> CatchStatistics.Streaks {
         return CatchStatistics.Streaks(current: streaks.current, longest: streaks.longest, trackedSince: streaks.trackedSince)
+    }
+
+    private func makeRankedHunt(_ caught: Catch, mapper: CatchSummaryMapper) -> RankedHunt? {
+        return mapper.makeSummary(of: caught).map { RankedHunt(hunt: $0, chanceOfFindingSooner: CatchOdds.calculateChanceOfFindingSooner(caught)) }
     }
 
     private static func mapLuck(_ luck: CatchStats.Luck) -> CatchStatistics.Luck {
