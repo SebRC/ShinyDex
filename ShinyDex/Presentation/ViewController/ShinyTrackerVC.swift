@@ -79,6 +79,9 @@ class ShinyTrackerVC: UIViewController {
 
         setUpHeroView()
 
+        probabilityTile.onTap = { [weak self] in
+            self?.showOddsCurve()
+        }
         let stats = UIStackView(arrangedSubviews: [oddsTile, probabilityTile])
         stats.distribution = .fillEqually
         stats.spacing = 12
@@ -182,6 +185,10 @@ class ShinyTrackerVC: UIViewController {
             self?.setCaughtStatus()
         }
         navigationController?.pushViewController(phases, animated: true)
+    }
+
+    fileprivate func showOddsCurve() {
+        navigationController?.pushViewController(OddsCurveVC(container: container, number: pokemon.number), animated: true)
     }
 
     @objc fileprivate func catchRatePressed() {

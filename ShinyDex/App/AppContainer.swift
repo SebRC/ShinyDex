@@ -65,6 +65,7 @@ final class AppContainer {
 
     // MARK: Pokémon
 
+    var getOddsCurve: GetOddsCurveHandler { GetOddsCurveHandler(pokemonRepository: pokemonRepository, odds: odds, probability: probability) }
     var getPokemonDetails: GetPokemonDetailsHandler { GetPokemonDetailsHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, odds: odds, probability: probability) }
     var getAllPokemon: GetAllPokemonHandler { GetAllPokemonHandler(pokemonRepository: pokemonRepository) }
     var getPokedex: GetPokedexHandler { GetPokedexHandler(pokemonRepository: pokemonRepository, catchRepository: catchRepository, availability: gameAvailability) }
